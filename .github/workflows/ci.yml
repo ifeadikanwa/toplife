@@ -2,8 +2,8 @@ name: Continuous Integration
 on: 
   pull_request:
     branches:
-    - master
-    - dev
+      - master
+      - dev
   push:
     branches:
       - master
@@ -19,14 +19,17 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with: 
-          java-version: "12.x"
+          distribution: 'zulu'
+          java-version: "16"
       - uses: subosito/flutter-action@v2
         with: 
-        channel: 'stable'
+          channel: "stable"
       - run: flutter --version
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
+      - run: dart pub global activate coverde
+      - run: coverde check 50
 
   # build_ios:
   #   name: Build Flutter iOS app
