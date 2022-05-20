@@ -2,8 +2,8 @@ name: Continuous Integration
 on: 
   pull_request:
     branches:
-    - master
-    - dev
+      - master
+      - dev
   push:
     branches:
       - master
@@ -28,6 +28,10 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
+      - uses: VeryGoodOpenSource/very_good_coverage@v1
+        with:
+          path: './coverage/lcov.info'
+          min_coverage: 80
 
   # build_ios:
   #   name: Build Flutter iOS app
