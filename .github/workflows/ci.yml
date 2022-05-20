@@ -2,8 +2,8 @@ name: Continuous Integration
 on: 
   pull_request:
     branches:
-    - master
-    - dev
+      - master
+      - dev
   push:
     branches:
       - master
@@ -28,6 +28,8 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
+      - run: dart pub global activate coverde
+      - run: coverde check 50
 
   # build_ios:
   #   name: Build Flutter iOS app
