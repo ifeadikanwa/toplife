@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/feature_game_manager/presentation/game_manager_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,7 +12,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Text("Home"),
+      home: const SafeArea(
+        child: GameScreen(),
+      ),
     );
   }
 }
