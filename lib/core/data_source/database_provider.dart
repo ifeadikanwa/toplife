@@ -22,11 +22,21 @@ class DatabaseProvider {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: _createDB,
+      onConfigure: _onConfigure,
+    );
   }
 
   Future<void> _createDB(Database db, int version) async {
     await db.execute(GameDaoImpl.createTableQuery);
+  }
+
+  Future<void> _onConfigure(Database db) async {
+    // Add support for foriegn keys
+    await db.execute("PRAGMA foreign_keys = ON");
   }
 
   Future closeDB() async {
