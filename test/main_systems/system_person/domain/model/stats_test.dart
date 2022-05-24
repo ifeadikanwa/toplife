@@ -1,0 +1,99 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
+
+void main() {
+  late Stats sut;
+
+  setUp(() {
+    sut = const Stats(
+      id: 1,
+      personID: 2,
+      energy: 46,
+      hunger: 76,
+      looks: 89,
+      intellect: 87,
+      athleticism: 54,
+    );
+  });
+
+  group(
+    "Stats",
+    () {
+      test("toMap returns map equivalent of object", () {
+        final Map<String, Object?> correctMap = {
+          "_id": 1,
+          "personID": 2,
+          "energy": 46,
+          "hunger": 76,
+          "looks": 89,
+          "intellect": 87,
+          "athleticism": 54,
+        };
+
+        expect(sut.toMap(), correctMap);
+      });
+
+      test("fromMap returns game object equivalent of map ", () {
+        final Map<String, Object?> map = {
+          "_id": 1,
+          "personID": 2,
+          "energy": 46,
+          "hunger": 76,
+          "looks": 89,
+          "intellect": 87,
+          "athleticism": 54,
+        };
+
+        final result = Stats.fromMap(statsMap: map);
+
+        expect(result, sut);
+      });
+
+      test("getValidRandomStatsValue returns a value between 10 and 70", () {
+        final value = Stats.getValidRandomStatsValue();
+        assert(value <= 70 && value >= 10);
+      });
+
+      test(
+          "crossCheckStat returns maxStatValue if stat is greater than the max",
+          () {
+        expect(sut.crossCheckStat(150), Stats.maxStatsValue);
+      });
+
+      test("crossCheckStat returns null if stat is null", () {
+        expect(sut.crossCheckStat(null), null);
+      });
+
+      test(
+          "crossCheckStat returns original stat if it is less or equal to the maxStatValue",
+          () {
+        expect(sut.crossCheckStat(46), 46);
+      });
+
+      test("copyWith creates new object with correct values", () {
+        const correctStats = Stats(
+          id: 1,
+          personID: 2,
+          energy: 70,
+          hunger: 76,
+          looks: 89,
+          intellect: 90,
+          athleticism: 54,
+        );
+
+        final result = sut.copyWith(energy: 70, intellect: 90);
+        expect(result, correctStats);
+      });
+
+      group("Constants", () {
+        test("id column should be defined as _id", () {
+          expect(Stats.idColumn, "_id");
+        });
+
+        test("maxStatsValue should be defined as 100", () {
+          expect(Stats.maxStatsValue, 100);
+        });
+      });
+    },
+  );
+}
