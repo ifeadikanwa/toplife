@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:toplife/feature_game_manager/data/dao/game_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/relationship_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
 
 class DatabaseProvider {
   static final DatabaseProvider instance = DatabaseProvider._init();
@@ -32,6 +36,10 @@ class DatabaseProvider {
 
   Future<void> _createDB(Database db, int version) async {
     await db.execute(GameDaoImpl.createTableQuery);
+    await db.execute(PersonDaoImpl.createTableQuery);
+    await db.execute(StatsDaoImpl.createTableQuery);
+    await db.execute(BabyTraitsDaoImpl.createTableQuery);
+    await db.execute(RelationshipTraitsDaoImpl.createTableQuery);
   }
 
   Future<void> _onConfigure(Database db) async {

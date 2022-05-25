@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/feature_game_manager/domain/model/game.dart';
 import 'package:toplife/feature_game_manager/presentation/game_states.dart';
+import 'package:toplife/main_systems/system_person/constants/gender.dart';
+import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
+import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
 class GameScreen extends ConsumerWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -14,10 +18,21 @@ class GameScreen extends ConsumerWidget {
       children: [
         ElevatedButton(
             onPressed: () {
-              ref.read(gameManagerViewModel.notifier).createGame(const Game(
-                    currentPlayerID: 6,
-                    isActive: true,
-                    lastPlayedTime: 110,
+              ref.read(gameManagerViewModel.notifier).createGame(Person(
+                    firstName: "Ify",
+                    lastName: "Eze",
+                    age: 21,
+                    gender: Gender.Female.name,
+                    subjectPronoun: Gender.Female.subjectPronoun,
+                    objectPronoun: Gender.Female.objectPronoun,
+                    sexuality: Sexuallity.Straight.name,
+                    state: "state",
+                    country: "country",
+                    zodiacSign: ZodiacSign.Libra.name,
+                    importantStatus: null,
+                    sickly: false,
+                    rebellious: true,
+                    dead: false,
                   ));
             },
             child: const Text("Create")),

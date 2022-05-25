@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/feature_game_manager/domain/model/game.dart';
 import 'package:toplife/feature_game_manager/domain/usecases/game_usecases.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
 class GameManagerViewModel extends StateNotifier<AsyncValue<Game?>> {
   final GameUsecases _gameUsecases;
@@ -16,8 +17,8 @@ class GameManagerViewModel extends StateNotifier<AsyncValue<Game?>> {
         () => _gameUsecases.getNewestActiveGameUsecase.execute());
   }
 
-  Future<void> createGame(Game game) async {
-    await _gameUsecases.createGameUsecase.execute(game);
+  Future<void> createGame(Person person) async {
+    await _gameUsecases.createGameUsecase.execute(person);
     _fetchNewestGame();
   }
 
