@@ -5,3 +5,5 @@ const integerType = "INTEGER NOT NULL";
 const nullableIntegerType = "INTEGER NULL";
 const textType = "TEXT NOT NULL";
 const nullableTextType = "TEXT NULL";
+
+const unique = "UNIQUE";
