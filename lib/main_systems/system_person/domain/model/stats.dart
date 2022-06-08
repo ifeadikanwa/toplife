@@ -38,9 +38,26 @@ class Stats extends Equatable {
   //Helper constants
   static const maxStatsValue = 100;
 
+  static const hungerDepletionRatePerHour = 10;
+  static const energyDepletionRatePerHour = 5;
+
+  static const nonPlayerHungerDepletionRatePerHour = 8;
+
+  static const babyEnergyDepletionRatePerHour = 10;
+
+  static const hungerEmergencyDepletionRatePerHour = 1;
+  static const energyEmergencyDepletionRatePerHour = 2;
+  static const babyHungerEmergencyDepletionRatePerHour = 5;
+  static const babyEnergyEmergencyDepletionRatePerHour = 1;
+
+  static const hungerEmergencyModeStat = 20;
+  static const energyEmergencyModeStat = 20;
+  static const babyHungerEmergencyModeStat = 15;
+  static const babyEnergyEmergencyModeStat = 10;
+
   static int getValidRandomStatsValue({int minValue = 10}) {
     const randomStatsMax = 70;
-    return Random().nextInt(randomStatsMax) + 1 + minValue;
+    return minValue + Random().nextInt(randomStatsMax - minValue);
   }
 
   static int getValidEnergyorHungerStatsValue() {
@@ -94,6 +111,8 @@ class Stats extends Equatable {
       return stat;
     } else if (stat > maxStatsValue) {
       return maxStatsValue;
+    } else if (stat < 0) {
+      return 0;
     } else {
       return stat;
     }

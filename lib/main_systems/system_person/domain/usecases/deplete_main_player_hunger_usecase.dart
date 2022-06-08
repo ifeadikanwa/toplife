@@ -1,25 +1,51 @@
-// import 'package:toplife/main_systems/system_person/domain/repository/person_repository.dart';
-// import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
+import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
+import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
-// class DepleteMainPlayerHungerUsecase {
-//   final PersonRepository _personRepository;
-//   final StatsRepository _statsRepository;
+class DepleteMainPlayerHungerUsecase {
+  final StatsRepository _statsRepository;
 
-//   const DepleteMainPlayerHungerUsecase({
-//     required PersonRepository personRepository,
-//     required StatsRepository statsRepository,
-//   })  : _personRepository = personRepository,
-//         _statsRepository = statsRepository;
+  const DepleteMainPlayerHungerUsecase({
+    required StatsRepository statsRepository,
+  }) : _statsRepository = statsRepository;
 
-//   Future<void> execute(int personID, int hours) async {
-//     // final person = await _personRepository.getPerson(personID);
+  Future<void> execute({required int personID, required int hours}) async {
+    final personStats = await _statsRepository.getStats(personID);
+    if (personStats != null) {
+      final currentHungerStat = personStats.hunger;
 
-//     // if (person != null) {
-//     //   final personStats = await _statsRepository.getStats(personID);
+      int depletedHunger = 0;
+      int updatedHungerStat = 0;
 
-//     //   personStats?.copyWith(hunger: food);
+      if (currentHungerStat <= Stats.hungerEmergencyModeStat) {
+        //Handle depletion with emergency mode
+        depletedHunger = getEmergencyDepletionValue(hours);
+        updatedHungerStat = currentHungerStat - depletedHunger;
+      } else {
+        //Handle the depletion regular mode
+        depletedHunger = getRegularDepletionValue(hours);
 
-//     //   _statsRepository.updateStats(personStats!);
-//     // }
-//   }
-// }
+        //If the regular depletion is going to cause the hunger stat to be less than or equal to the emergency mode stat,
+        //then just update to enter emergency mode.
+        //or else do a regular depletion update
+        if ((currentHungerStat - depletedHunger) <=
+            Stats.hungerEmergencyModeStat) {
+          updatedHungerStat = Stats.hungerEmergencyModeStat;
+        } else {
+          updatedHungerStat = currentHungerStat - depletedHunger;
+        }
+      }
+
+      final updatedPersonStats =  personStats.copyWith(hunger: updatedHungerStat);
+
+      _statsRepository.updateStats(updatedPersonStats);
+    }
+  }
+
+  int getEmergencyDepletionValue(int hours) {
+    return hours * Stats.hungerEmergencyDepletionRatePerHour;
+  }
+
+  int getRegularDepletionValue(int hours) {
+    return hours * Stats.hungerDepletionRatePerHour;
+  }
+}

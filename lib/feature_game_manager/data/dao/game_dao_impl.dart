@@ -79,7 +79,7 @@ class GameDaoImpl implements GameDao {
   }
 
   @override
-  Future<Game?> getNewestActiveGame() async {
+  Future<Game?> getLastPlayedActiveGame() async {
     final db = await _databaseProvider.database;
     final gameMaps = await db.query(
       gameTable,

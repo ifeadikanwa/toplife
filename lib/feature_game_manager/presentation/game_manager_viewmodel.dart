@@ -14,7 +14,7 @@ class GameManagerViewModel extends StateNotifier<AsyncValue<Game?>> {
 
   Future<void> _fetchNewestGame() async {
     state = await AsyncValue.guard(
-        () => _gameUsecases.getNewestActiveGameUsecase.execute());
+        () => _gameUsecases.getLastPlayedActiveGameUsecase.execute());
   }
 
   Future<void> createGame(Person person) async {
