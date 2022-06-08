@@ -1,25 +1,23 @@
-import 'package:toplife/main_systems/system_person/domain/repository/person_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
 class SleepUsecase {
-  final PersonRepository _personRepository;
   final StatsRepository _statsRepository;
 
   const SleepUsecase({
-    required PersonRepository personRepository,
     required StatsRepository statsRepository,
-  })  : _personRepository = personRepository,
-        _statsRepository = statsRepository;
+  })  : _statsRepository = statsRepository;
 
-  Future<void> execute(int personID, int hours) async {
-    final person = await _personRepository.getPerson(personID);
+Future<void> execute({required int personID, required int hours}) async {
+    final personStats = await _statsRepository.getStats(personID);
 
-    if (person != null) {
-      final personStats = await _statsRepository.getStats(personID);
+    if (personStats != null) {
+      final gainedEnergy = hours * 10;
 
-      personStats?.copyWith(energy: hours * 10);
+      final updatedEnergyStat = personStats.energy + gainedEnergy;
 
-      _statsRepository.updateStats(personStats!);
+      final updatedPersonStats =  personStats.copyWith(energy: updatedEnergyStat);
+
+      _statsRepository.updateStats(updatedPersonStats);
     }
   }
 }

@@ -6,5 +6,5 @@ abstract class GameRepository {
   Future<void> updateGame(Game game);
   Future<void> deleteGame(int gameID);
   Future<List<Game>> getAllActiveGames();
-  Future<Game?> getNewestActiveGame();
+  Future<Game?> getLastPlayedActiveGame();
 }

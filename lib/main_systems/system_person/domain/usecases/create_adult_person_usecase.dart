@@ -18,7 +18,7 @@ class CreateAdultPersonUsecase {
         _statsRepository = statsRepository,
         _relationshipTraitsRepository = relationshipTraitsRepository;
 
-  Future<Person> execute(Person person) async {
+  Future<Person> execute({required Person person}) async {
     final createdPerson = await _personRepository.createPerson(person);
 
     if (createdPerson.id != null) {

@@ -33,7 +33,7 @@ class GameRepositoryImpl implements GameRepository {
   }
 
   @override
-  Future<Game?> getNewestActiveGame() {
-    return _gameDao.getNewestActiveGame();
+  Future<Game?> getLastPlayedActiveGame() {
+    return _gameDao.getLastPlayedActiveGame();
   }
 }

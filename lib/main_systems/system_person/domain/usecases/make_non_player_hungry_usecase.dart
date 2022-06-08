@@ -1,18 +1,19 @@
+import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
-class EatUsecase {
+class MakeNonPlayerHungryUsecase {
   final StatsRepository _statsRepository;
 
-  const EatUsecase({
+  const MakeNonPlayerHungryUsecase({
     required StatsRepository statsRepository,
   }) : _statsRepository = statsRepository;
 
-  Future<void> execute({required int personID, required int food}) async {
+  Future<void> execute({required int personID}) async {
     final personStats = await _statsRepository.getStats(personID);
     if (personStats != null) {
-      final updatedHungerStat = personStats.hunger + food;
 
-      final updatedPersonStats =  personStats.copyWith(hunger: updatedHungerStat);
+      final updatedPersonStats =
+          personStats.copyWith(hunger: Stats.hungerEmergencyModeStat);
 
       _statsRepository.updateStats(updatedPersonStats);
     }

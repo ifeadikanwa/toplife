@@ -1,25 +1,27 @@
 import 'package:toplife/feature_game_manager/domain/repository/game_repository.dart';
+import 'package:toplife/feature_game_manager/domain/usecases/change_current_player_usecase.dart';
 import 'package:toplife/feature_game_manager/domain/usecases/create_game_usecase.dart';
 import 'package:toplife/feature_game_manager/domain/usecases/delete_game_usecase.dart';
 import 'package:toplife/feature_game_manager/domain/usecases/get_all_active_games_usecase.dart';
 import 'package:toplife/feature_game_manager/domain/usecases/get_game_usecase.dart';
-import 'package:toplife/feature_game_manager/domain/usecases/get_newest_active_game_usecas.dart';
+import 'package:toplife/feature_game_manager/domain/usecases/get_last_played_active_game_usecase.dart';
 import 'package:toplife/feature_game_manager/domain/usecases/update_game_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/create_adult_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 
 class GameUsecases {
   final GameRepository _gameRepository;
-  final CreateAdultPersonUsecase _createAdultPersonUsecase;
+  final PersonUsecases _personUsecases;
 
   const GameUsecases(
     GameRepository gameRepository,
-    CreateAdultPersonUsecase createAdultPersonUsecase,
+    PersonUsecases personUsecases,
   )   : _gameRepository = gameRepository,
-        _createAdultPersonUsecase = createAdultPersonUsecase;
+        _personUsecases = personUsecases;
 
   CreateGameUsecase get createGameUsecase => CreateGameUsecase(
-      gameRepository: _gameRepository,
-      createAdultPersonUsecase: _createAdultPersonUsecase);
+        gameRepository: _gameRepository,
+        personUsecases: _personUsecases,
+      );
 
   UpdateGameUsecase get updateGameUsecase =>
       UpdateGameUsecase(gameRepository: _gameRepository);
@@ -33,6 +35,9 @@ class GameUsecases {
   GetGameUsecase get getGameUsecase =>
       GetGameUsecase(gameRepository: _gameRepository);
 
-  GetNewestActiveGameUsecase get getNewestActiveGameUsecase =>
-      GetNewestActiveGameUsecase(gameRepository: _gameRepository);
+  GetLastPlayedActiveGameUsecase get getLastPlayedActiveGameUsecase =>
+      GetLastPlayedActiveGameUsecase(gameRepository: _gameRepository);
+
+  ChangeCurrentPlayerUsecase get changeCurrentPlayerUsecase =>
+      ChangeCurrentPlayerUsecase(gameRepository: _gameRepository);
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/feature_game_manager/domain/model/game.dart';
 import 'package:toplife/feature_game_manager/presentation/game_states.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
@@ -15,6 +14,7 @@ class GameScreen extends ConsumerWidget {
     final currentGame = ref.watch(currentGameProvider);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
             onPressed: () {
@@ -35,22 +35,40 @@ class GameScreen extends ConsumerWidget {
                     dead: false,
                   ));
             },
-            child: const Text("Create")),
+            child: const Text("Create Game")),
         ElevatedButton(
             onPressed: () {
-              ref.read(gameManagerViewModel.notifier).updateGame(const Game(
-                    id: 1,
-                    currentPlayerID: 3,
-                    isActive: true,
-                    lastPlayedTime: 10,
-                  ));
+              ref.read(personUsecasesProvider).createChildPersonUsecase.execute(
+                    person: Person(
+                      firstName: "Bello",
+                      lastName: "Eze",
+                      age: 23,
+                      gender: Gender.Male.name,
+                      subjectPronoun: Gender.Male.subjectPronoun,
+                      objectPronoun: Gender.Male.objectPronoun,
+                      sexuality: Sexuallity.Straight.name,
+                      state: "state",
+                      country: "country",
+                      zodiacSign: ZodiacSign.Capricorn.name,
+                      importantStatus: null,
+                      sickly: false,
+                      rebellious: true,
+                      dead: false,
+                    ),
+                  );
             },
-            child: const Text("Update")),
+            child: const Text("create person")),
         ElevatedButton(
             onPressed: () async {
-              await ref.read(gameManagerViewModel.notifier).getGame(1);
+              // await ref.read(gameManagerViewModel.notifier).getGame(1);
+
+              // ref.read(personUsecasesProvider).makeNonPlayerHungryUsecase.execute(personID: 10);
+              ref
+                  .read(gameUsecasesProvider)
+                  .changeCurrentPlayerUsecase
+                  .execute(gameID: 10, newCurrentPlayerID: 11);
             },
-            child: const Text("get")),
+            child: const Text("do")),
         ElevatedButton(
             onPressed: () async {
               await ref.read(gameManagerViewModel.notifier).getAllActiveGames();
@@ -58,7 +76,9 @@ class GameScreen extends ConsumerWidget {
             child: const Text("getAllActive")),
         ElevatedButton(
             onPressed: () {
-              ref.read(gameManagerViewModel.notifier).deleteGame(2);
+              // ref.read(gameManagerViewModel.notifier).deleteGame(9);
+
+              // ref.read(personUsecasesProvider).deletePersonUsecase.execute(3);
             },
             child: const Text("Delete")),
         Text(
