@@ -27,6 +27,8 @@ class CreateGameUsecase {
       currentPlayerID: currentPlayer.id!,
       isActive: true,
       lastPlayedTime: DateTime.now().millisecondsSinceEpoch,
+      currentDay: 1,
+      currentTimeInMinutes: 480, //8 AM
     );
 
     final createdGame = await _gameRepository.createGame(game);
@@ -34,7 +36,8 @@ class CreateGameUsecase {
     //Now that we have a new game.
     //update the player with the gameID so they are attached to the current game.
     final updatedCurrentPlayer = currentPlayer.copyWith(gameID: createdGame.id);
-    await _personUsecases.updatePersonUsecase.execute(person: updatedCurrentPlayer);
+    await _personUsecases.updatePersonUsecase
+        .execute(person: updatedCurrentPlayer);
 
     return createdGame;
   }
