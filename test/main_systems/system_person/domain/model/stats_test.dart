@@ -49,26 +49,6 @@ void main() {
         expect(result, sut);
       });
 
-      test("getValidRandomStatsValue returns a value between 10 and 70", () {
-        final value = Stats.getValidRandomStatsValue();
-        assert(value <= 70 && value >= 10);
-      });
-
-      test(
-          "crossCheckStat returns maxStatValue if stat is greater than the max",
-          () {
-        expect(sut.crossCheckStat(150), Stats.maxStatsValue);
-      });
-
-      test("crossCheckStat returns null if stat is null", () {
-        expect(sut.crossCheckStat(null), null);
-      });
-
-      test(
-          "crossCheckStat returns original stat if it is less or equal to the maxStatValue",
-          () {
-        expect(sut.crossCheckStat(46), 46);
-      });
 
       test("copyWith creates new object with correct values", () {
         const correctStats = Stats(
@@ -90,9 +70,7 @@ void main() {
           expect(Stats.idColumn, "_id");
         });
 
-        test("maxStatsValue should be defined as 100", () {
-          expect(Stats.maxStatsValue, 100);
-        });
+        
       });
     },
   );

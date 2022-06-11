@@ -1,0 +1,4 @@
+enum ParentRelationshipType {
+  main,
+  step,
+}
