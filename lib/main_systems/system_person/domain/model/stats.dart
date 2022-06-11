@@ -1,6 +1,6 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
 
 class Stats extends Equatable {
   final int? id;
@@ -36,7 +36,6 @@ class Stats extends Equatable {
   bool? get stringify => true;
 
   //Helper constants
-  static const maxStatsValue = 100;
 
   static const hungerDepletionRatePerHour = 10;
   static const energyDepletionRatePerHour = 5;
@@ -54,11 +53,6 @@ class Stats extends Equatable {
   static const energyEmergencyModeStat = 20;
   static const babyHungerEmergencyModeStat = 15;
   static const babyEnergyEmergencyModeStat = 10;
-
-  static int getValidRandomStatsValue({int minValue = 10}) {
-    const randomStatsMax = 70;
-    return minValue + Random().nextInt(randomStatsMax - minValue);
-  }
 
   static int getValidEnergyorHungerStatsValue() {
     return getValidRandomStatsValue(minValue: 50);
@@ -104,18 +98,6 @@ class Stats extends Equatable {
       intellectColumn: intellect,
       athleticismColumn: athleticism,
     };
-  }
-
-  int? crossCheckStat(int? stat) {
-    if (stat == null) {
-      return stat;
-    } else if (stat > maxStatsValue) {
-      return maxStatsValue;
-    } else if (stat < 0) {
-      return 0;
-    } else {
-      return stat;
-    }
   }
 
   Stats copyWith({

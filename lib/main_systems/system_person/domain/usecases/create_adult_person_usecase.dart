@@ -1,3 +1,4 @@
+import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/model/relationship_traits.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
@@ -26,9 +27,9 @@ class CreateAdultPersonUsecase {
         personID: createdPerson.id!,
         energy: Stats.getValidEnergyorHungerStatsValue(),
         hunger: Stats.getValidEnergyorHungerStatsValue(),
-        looks: Stats.getValidRandomStatsValue(),
-        intellect: Stats.getValidRandomStatsValue(),
-        athleticism: Stats.getValidRandomStatsValue(),
+        looks: getValidRandomStatsValue(),
+        intellect: getValidRandomStatsValue(),
+        athleticism: getValidRandomStatsValue(),
       );
 
       await _statsRepository.createStats(createdPersonStats);

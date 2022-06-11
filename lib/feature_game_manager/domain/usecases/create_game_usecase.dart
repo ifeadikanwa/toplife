@@ -36,6 +36,7 @@ class CreateGameUsecase {
     //Now that we have a new game.
     //update the player with the gameID so they are attached to the current game.
     final updatedCurrentPlayer = currentPlayer.copyWith(gameID: createdGame.id);
+    
     await _personUsecases.updatePersonUsecase
         .execute(person: updatedCurrentPlayer);
 
