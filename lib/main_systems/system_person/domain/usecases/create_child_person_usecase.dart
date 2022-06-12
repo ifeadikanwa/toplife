@@ -1,3 +1,4 @@
+
 import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
 import 'package:toplife/main_systems/system_person/domain/model/baby_traits.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';

@@ -49,7 +49,6 @@ void main() {
         expect(result, sut);
       });
 
-
       test("copyWith creates new object with correct values", () {
         const correctStats = Stats(
           id: 1,
@@ -70,7 +69,7 @@ void main() {
           expect(Stats.idColumn, "_id");
         });
 
-        
+
       });
     },
   );

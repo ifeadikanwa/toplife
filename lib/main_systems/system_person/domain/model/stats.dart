@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';

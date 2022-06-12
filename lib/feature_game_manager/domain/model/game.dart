@@ -5,16 +5,27 @@ class Game extends Equatable {
   final int currentPlayerID;
   final bool isActive;
   final int lastPlayedTime;
+  final int currentDay;
+  final int currentTimeInMinutes;
 
   const Game({
     this.id,
     required this.currentPlayerID,
     required this.isActive,
     required this.lastPlayedTime,
+    required this.currentDay,
+    required this.currentTimeInMinutes,
   });
 
   @override
-  List<Object?> get props => [id, currentPlayerID, isActive, lastPlayedTime];
+  List<Object?> get props => [
+        id,
+        currentPlayerID,
+        isActive,
+        lastPlayedTime,
+        currentDay,
+        currentTimeInMinutes,
+      ];
 
   @override
   bool get stringify => true;
@@ -24,12 +35,16 @@ class Game extends Equatable {
   static const currentPlayerIDColumn = "currentPlayerID";
   static const isActiveColumn = "isActive";
   static const lastPlayedTimeColumn = "lastPlayedTime";
+  static const currentDayColumn = "currentDay";
+  static const currentTimeInMinutesColumn = "currentTimeInMinutes";
 
   static const allColumns = [
     idColumn,
     currentPlayerIDColumn,
     isActiveColumn,
     lastPlayedTimeColumn,
+    currentDayColumn,
+    currentTimeInMinutesColumn,
   ];
 
   Map<String, Object?> toMap() {
@@ -38,6 +53,8 @@ class Game extends Equatable {
       currentPlayerIDColumn: currentPlayerID,
       isActiveColumn: isActive ? 1 : 0,
       lastPlayedTimeColumn: lastPlayedTime,
+      currentDayColumn: currentDay,
+      currentTimeInMinutesColumn: currentTimeInMinutes,
     };
   }
 
@@ -47,6 +64,8 @@ class Game extends Equatable {
       currentPlayerID: gameMap[currentPlayerIDColumn] as int,
       isActive: gameMap[isActiveColumn] == 1,
       lastPlayedTime: gameMap[lastPlayedTimeColumn] as int,
+      currentDay: gameMap[currentDayColumn] as int,
+      currentTimeInMinutes: gameMap[currentTimeInMinutesColumn] as int,
     );
   }
 
@@ -55,12 +74,16 @@ class Game extends Equatable {
     int? currentPlayerID,
     final bool? isActive,
     final int? lastPlayedTime,
+    final int? currentDay,
+    final int? currentTimeInMinutes,
   }) {
     return Game(
       id: id ?? this.id,
       currentPlayerID: currentPlayerID ?? this.currentPlayerID,
       isActive: isActive ?? this.isActive,
       lastPlayedTime: lastPlayedTime ?? this.lastPlayedTime,
+      currentDay: currentDay ?? this.currentDay,
+      currentTimeInMinutes: currentTimeInMinutes ?? this.currentTimeInMinutes,
     );
   }
 }
