@@ -47,7 +47,7 @@ class Parent extends Equatable {
     isActiveColumn
   ];
 
-  static Parent fromMap({required Map<String, Object> parentMap}) {
+  static Parent fromMap({required Map<String, Object?> parentMap}) {
     return Parent(
       mainPersonID: parentMap[mainPersonIDColumn] as int,
       parentID: parentMap[parentIDColumn] as int,

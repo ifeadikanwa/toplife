@@ -46,7 +46,7 @@ class Child extends Equatable {
     relationshipColumn,
   ];
 
-  static Child fromMap({required Map<String, Object> childMap}) {
+  static Child fromMap({required Map<String, Object?> childMap}) {
     return Child(
       mainPersonID: childMap[mainPersonIDColumn] as int,
       childID: childMap[childIDColumn] as int,

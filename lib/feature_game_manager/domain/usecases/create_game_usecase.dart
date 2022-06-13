@@ -18,7 +18,6 @@ class CreateGameUsecase {
     //TODO: create mother, father and siblings
 
     //Create a new person for the new game.
-    // final currentPlayer = await _createAdultPersonUsecase.execute(person);
     final currentPlayer =
         await _personUsecases.createAdultPersonUsecase.execute(person: person);
 

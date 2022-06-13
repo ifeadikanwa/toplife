@@ -5,6 +5,7 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
 
 class GameScreen extends ConsumerWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -40,7 +41,7 @@ class GameScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(personUsecasesProvider).createChildPersonUsecase.execute(
                     person: Person(
-                      firstName: "Bello",
+                      firstName: "Chinwe",
                       lastName: "Eze",
                       age: 23,
                       gender: Gender.Male.name,
@@ -63,10 +64,19 @@ class GameScreen extends ConsumerWidget {
               // await ref.read(gameManagerViewModel.notifier).getGame(1);
 
               // ref.read(personUsecasesProvider).makeNonPlayerHungryUsecase.execute(personID: 10);
-              ref
-                  .read(gameUsecasesProvider)
-                  .changeCurrentPlayerUsecase
-                  .execute(gameID: 10, newCurrentPlayerID: 11);
+              // ref
+              //     .read(gameUsecasesProvider)
+              //     .changeCurrentPlayerUsecase
+              //     .execute(gameID: 10, newCurrentPlayerID: 11);
+
+              // final myParent = Parent(mainPersonID: 1, parentID: 2, parentRelationshipType: ParentRelationshipType.step.name, relationship: 80, isActive: false,);
+              //
+              // ParentDaoImpl().createParent(myParent);
+
+              // final parentInfo = await ParentDaoImpl().getAllActiveParents(1);
+              // print(parentInfo);
+
+
             },
             child: const Text("do")),
         ElevatedButton(
@@ -75,10 +85,12 @@ class GameScreen extends ConsumerWidget {
             },
             child: const Text("getAllActive")),
         ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               // ref.read(gameManagerViewModel.notifier).deleteGame(9);
 
-              // ref.read(personUsecasesProvider).deletePersonUsecase.execute(3);
+              // ref.read(personUsecasesProvider).deletePersonUsecase.execute( personID: 12);
+
+              await ParentDaoImpl().deleteParent(1,2);
             },
             child: const Text("Delete")),
         Text(
