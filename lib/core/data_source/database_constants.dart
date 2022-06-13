@@ -8,5 +8,5 @@ const nullableTextType = "TEXT NULL";
 
 const unique = "UNIQUE";
 
-const int databaseTrue = 1;
-const int databaseFalse = 0;
+const int databaseTrueValue = 1;
+const int databaseFalseValue = 0;

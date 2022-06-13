@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 
 class Parent extends Equatable {
@@ -53,7 +54,7 @@ class Parent extends Equatable {
       parentID: parentMap[parentIDColumn] as int,
       parentRelationshipType: parentMap[parentRelationshipTypeColumn] as String,
       relationship: parentMap[relationshipColumn] as int,
-      isActive: parentMap[isActiveColumn] == 1,
+      isActive: parentMap[isActiveColumn] == databaseTrueValue,
     );
   }
 
@@ -63,7 +64,7 @@ class Parent extends Equatable {
       parentIDColumn: parentID,
       parentRelationshipTypeColumn: parentRelationshipType,
       relationshipColumn: relationship,
-      isActiveColumn: isActive ? 1 : 0,
+      isActiveColumn: isActive ? databaseTrueValue : databaseFalseValue,
     };
   }
 

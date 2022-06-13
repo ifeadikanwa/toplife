@@ -64,7 +64,7 @@ class ParentDaoImpl implements ParentDao {
       columns: Parent.allColumns,
       where:
           "${Parent.mainPersonIDColumn} = ? and ${Parent.isActiveColumn} = ?",
-      whereArgs: [mainPersonID, databaseTrue],
+      whereArgs: [mainPersonID, databaseTrueValue],
     );
 
     return parentsMap

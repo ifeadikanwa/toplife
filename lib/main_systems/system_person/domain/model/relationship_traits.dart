@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/chance.dart';
 
 class RelationshipTraits extends Equatable {
@@ -103,10 +104,11 @@ class RelationshipTraits extends Equatable {
       id: relationshipTraitsMap[idColumn] as int?,
       personID: relationshipTraitsMap[personIDColumn] as int,
       helpfulness: relationshipTraitsMap[helpfulnessColumn] as int,
-      economical: relationshipTraitsMap[economicalColumn] == 1,
-      materialistic: relationshipTraitsMap[materialisticColumn] == 1,
-      jealous: relationshipTraitsMap[jealousColumn] == 1,
-      cheater: relationshipTraitsMap[cheaterColumn] == 1,
+      economical: relationshipTraitsMap[economicalColumn] == databaseTrueValue,
+      materialistic:
+          relationshipTraitsMap[materialisticColumn] == databaseTrueValue,
+      jealous: relationshipTraitsMap[jealousColumn] == databaseTrueValue,
+      cheater: relationshipTraitsMap[cheaterColumn] == databaseTrueValue,
     );
   }
 
@@ -115,10 +117,11 @@ class RelationshipTraits extends Equatable {
       idColumn: id,
       personIDColumn: personID,
       helpfulnessColumn: helpfulness,
-      economicalColumn: economical ? 1 : 0,
-      materialisticColumn: materialistic ? 1 : 0,
-      jealousColumn: jealous ? 1 : 0,
-      cheaterColumn: cheater ? 1 : 0,
+      economicalColumn: economical ? databaseTrueValue : databaseFalseValue,
+      materialisticColumn:
+          materialistic ? databaseTrueValue : databaseFalseValue,
+      jealousColumn: jealous ? databaseTrueValue : databaseFalseValue,
+      cheaterColumn: cheater ? databaseTrueValue : databaseFalseValue,
     };
   }
 

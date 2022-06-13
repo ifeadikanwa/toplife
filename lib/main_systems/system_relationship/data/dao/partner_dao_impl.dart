@@ -92,7 +92,7 @@ class PartnerDaoImpl implements PartnerDao {
           "${Partner.mainPersonIDColumn} = ? and ${Partner.isActiveColumn} = ?",
       whereArgs: [
         mainPersonID,
-        databaseTrue,
+        databaseTrueValue,
       ],
     );
 
@@ -113,8 +113,8 @@ class PartnerDaoImpl implements PartnerDao {
           "${Partner.mainPersonIDColumn} = ? and ${Partner.isCoParentColumn} = ? and ${Partner.isActiveColumn} = ?",
       whereArgs: [
         mainPersonID,
-        databaseTrue,
-        databaseFalse,
+        databaseTrueValue,
+        databaseFalseValue,
       ],
     );
 
@@ -133,7 +133,7 @@ class PartnerDaoImpl implements PartnerDao {
           "${Partner.mainPersonIDColumn} = ? and ${Partner.isActiveColumn} = ?",
       whereArgs: [
         mainPersonID,
-        databaseFalse,
+        databaseFalseValue,
       ],
     );
 

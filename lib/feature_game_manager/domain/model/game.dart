@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:toplife/core/data_source/database_constants.dart';
 
 class Game extends Equatable {
   final int? id;
@@ -51,7 +52,7 @@ class Game extends Equatable {
     return {
       idColumn: id,
       currentPlayerIDColumn: currentPlayerID,
-      isActiveColumn: isActive ? 1 : 0,
+      isActiveColumn: isActive ? databaseTrueValue : databaseFalseValue,
       lastPlayedTimeColumn: lastPlayedTime,
       currentDayColumn: currentDay,
       currentTimeInMinutesColumn: currentTimeInMinutes,
@@ -62,7 +63,7 @@ class Game extends Equatable {
     return Game(
       id: gameMap[idColumn] as int?,
       currentPlayerID: gameMap[currentPlayerIDColumn] as int,
-      isActive: gameMap[isActiveColumn] == 1,
+      isActive: gameMap[isActiveColumn] == databaseTrueValue,
       lastPlayedTime: gameMap[lastPlayedTimeColumn] as int,
       currentDay: gameMap[currentDayColumn] as int,
       currentTimeInMinutes: gameMap[currentTimeInMinutesColumn] as int,
