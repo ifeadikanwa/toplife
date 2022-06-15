@@ -7,6 +7,7 @@ import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
@@ -55,6 +56,7 @@ class DatabaseProvider {
     await db.execute(SiblingDaoImpl.createTableQuery);
     await db.execute(PartnerDaoImpl.createTableQuery);
     await db.execute(FriendDaoImpl.createTableQuery);
+    await db.execute(AcquaintanceDaoImpl.createTableQuery);
   }
 
   Future<void> _onConfigure(Database db) async {
