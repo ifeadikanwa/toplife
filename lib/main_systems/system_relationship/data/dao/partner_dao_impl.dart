@@ -11,8 +11,7 @@ class PartnerDaoImpl implements PartnerDao {
 
   static const partnerTable = "partner";
 
-  static const createTableQuery =
-      '''
+  static const createTableQuery = '''
     CREATE TABLE $partnerTable(
       ${Partner.mainPersonIDColumn} $integerType,
       ${Partner.partnerIDColumn} $integerType,
@@ -171,5 +170,24 @@ class PartnerDaoImpl implements PartnerDao {
       ],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  @override
+  Future<List<Partner>> getAllActivePartners(int mainPersonID) async {
+    final db = await _databaseProvider.database;
+    final partnersMap = await db.query(
+      partnerTable,
+      columns: Partner.allColumns,
+      where:
+          "${Partner.mainPersonIDColumn} = ? and ${Partner.isActiveColumn} = ?",
+      whereArgs: [
+        mainPersonID,
+        databaseTrueValue,
+      ],
+    );
+
+    return partnersMap
+        .map((partnerMap) => Partner.fromMap(partnerMap: partnerMap))
+        .toList();
   }
 }

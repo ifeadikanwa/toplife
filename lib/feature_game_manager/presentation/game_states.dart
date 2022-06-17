@@ -10,6 +10,14 @@ import 'package:toplife/main_systems/system_person/data/dao/relationship_dao_imp
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 final personUsecasesProvider = Provider<PersonUsecases>(((ref) {
   return PersonUsecases(
@@ -19,6 +27,20 @@ final personUsecasesProvider = Provider<PersonUsecases>(((ref) {
       relationshipTraitsDao: RelationshipTraitsDaoImpl(),
       babyTraitsDao: BabyTraitsDaoImpl(),
     ),
+  );
+}));
+
+final relationshipUsecasesProvider = Provider<RelationshipUsecases>(((ref) {
+  return RelationshipUsecases(
+    relationshipRepositories: RelationshipRepositories(
+      parentDao: ParentDaoImpl(),
+      childDao: ChildDaoImpl(),
+      siblingDao: SiblingDaoImpl(),
+      partnerDao: PartnerDaoImpl(),
+      friendDao: FriendDaoImpl(),
+      acquaintanceDao: AcquaintanceDaoImpl(),
+    ),
+    personUsecases: ref.watch(personUsecasesProvider),
   );
 }));
 
@@ -36,6 +58,7 @@ final gameUsecasesProvider = Provider<GameUsecases>(
   ((ref) => GameUsecases(
         ref.watch(gameRepositoryImplProvider),
         ref.watch(personUsecasesProvider),
+        ref.watch(relationshipUsecasesProvider),
       )),
 );
 

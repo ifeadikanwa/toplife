@@ -5,6 +5,7 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
 
 class GameScreen extends ConsumerWidget {
@@ -20,17 +21,16 @@ class GameScreen extends ConsumerWidget {
         ElevatedButton(
             onPressed: () {
               ref.read(gameManagerViewModel.notifier).createGame(Person(
-                    firstName: "Ify",
-                    lastName: "Eze",
+                    firstName: "David",
+                    lastName: "Smith",
                     age: 21,
-                    gender: Gender.Female.name,
-                    subjectPronoun: Gender.Female.subjectPronoun,
-                    objectPronoun: Gender.Female.objectPronoun,
-                    sexuality: Sexuallity.Straight.name,
-                    state: "state",
-                    country: "country",
+                    gender: Gender.Male.name,
+                    subjectPronoun: Gender.Male.subjectPronoun,
+                    objectPronoun: Gender.Male.objectPronoun,
+                    sexuality: Sexuality.Straight.name,
+                    state: "Ontario",
+                    country: "Canada",
                     zodiacSign: ZodiacSign.Libra.name,
-                    importantStatus: null,
                     sickly: false,
                     rebellious: true,
                     dead: false,
@@ -47,7 +47,7 @@ class GameScreen extends ConsumerWidget {
                       gender: Gender.Male.name,
                       subjectPronoun: Gender.Male.subjectPronoun,
                       objectPronoun: Gender.Male.objectPronoun,
-                      sexuality: Sexuallity.Straight.name,
+                      sexuality: Sexuality.Straight.name,
                       state: "state",
                       country: "country",
                       zodiacSign: ZodiacSign.Capricorn.name,
@@ -76,7 +76,7 @@ class GameScreen extends ConsumerWidget {
               // final parentInfo = await ParentDaoImpl().getAllActiveParents(1);
               // print(parentInfo);
 
-
+              await ref.read(relationshipUsecasesProvider).getMarriedUsecase.execute(mainPersonID: 2, partnerID: 3, currentDay: 106,);
             },
             child: const Text("do")),
         ElevatedButton(
@@ -90,7 +90,7 @@ class GameScreen extends ConsumerWidget {
 
               // ref.read(personUsecasesProvider).deletePersonUsecase.execute( personID: 12);
 
-              await ParentDaoImpl().deleteParent(1,2);
+              await ParentDaoImpl().deleteParent(1, 2);
             },
             child: const Text("Delete")),
         Text(

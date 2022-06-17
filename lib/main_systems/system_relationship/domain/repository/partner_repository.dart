@@ -3,6 +3,7 @@ import 'package:toplife/main_systems/system_relationship/domain/model/partner.da
 abstract class PartnerRepository{
   Future<Partner> createPartner(Partner partner);
   Future<void> updatePartner(Partner partner);
+    Future<List<Partner>> getAllActivePartners(int mainPersonID);
   Future<List<Partner>> getAllPartners(int mainPersonID);
   Future<List<Partner>> getAllCoparents(int mainPersonID);
   Future<List<Partner>> getAllExes(int mainPersonID);

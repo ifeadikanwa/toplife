@@ -5,7 +5,8 @@ import 'package:toplife/main_systems/system_relationship/domain/repository/partn
 class PartnerRepositoryImpl implements PartnerRepository {
   final PartnerDao _partnerDao;
 
-  const PartnerRepositoryImpl({required PartnerDao partnerDao}) : _partnerDao = partnerDao;
+  const PartnerRepositoryImpl({required PartnerDao partnerDao})
+      : _partnerDao = partnerDao;
 
   @override
   Future<Partner> createPartner(Partner partner) async {
@@ -45,5 +46,10 @@ class PartnerRepositoryImpl implements PartnerRepository {
   @override
   Future<void> updatePartner(Partner partner) async {
     return _partnerDao.updatePartner(partner);
+  }
+
+  @override
+  Future<List<Partner>> getAllActivePartners(int mainPersonID) async {
+    return _partnerDao.getAllActivePartners(mainPersonID);
   }
 }

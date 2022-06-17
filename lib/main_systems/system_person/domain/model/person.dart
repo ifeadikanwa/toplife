@@ -194,7 +194,7 @@ class Person extends Equatable {
       sexuality: sexuality ?? this.sexuality,
       state: state ?? this.state,
       country: country ?? this.country,
-      importantStatus: importantStatus ?? this.firstName,
+      importantStatus: importantStatus ?? this.importantStatus,
       motherID: motherID ?? this.motherID,
       fatherID: fatherID ?? this.fatherID,
       custodianID: custodianID ?? this.custodianID,

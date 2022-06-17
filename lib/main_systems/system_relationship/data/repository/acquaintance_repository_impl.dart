@@ -1,9 +1,6 @@
 import 'package:toplife/main_systems/system_relationship/domain/dao/acquaintance_dao.dart';
-import 'package:toplife/main_systems/system_relationship/domain/dao/friend_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/acquaintance.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/acquaintance_repository.dart';
-import 'package:toplife/main_systems/system_relationship/domain/repository/friend_repository.dart';
 
 class AcquaintanceRepositoryImpl implements AcquaintanceRepository {
   final AcquaintanceDao _acquaintanceDao;

@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/acquaintance.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
 
 void main() {
   late Acquaintance sut;

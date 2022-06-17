@@ -8,6 +8,8 @@ import 'package:toplife/main_systems/system_person/domain/usecases/deplete_main_
 import 'package:toplife/main_systems/system_person/domain/usecases/deplete_main_player_hunger_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/deplete_non_player_hunger_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/eat_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/generate_a_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/generate_list_of_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/make_non_player_hungry_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/sleep_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_person_usecase.dart';
@@ -17,6 +19,13 @@ class PersonUsecases {
 
   const PersonUsecases({required PersonRepositories personRepositories})
       : _personRepositories = personRepositories;
+
+  GenerateAPersonUsecase get generateAPersonUsecase => GenerateAPersonUsecase();
+
+  GenerateListOfPersonUsecase get generateListOfPersonUsecase =>
+      GenerateListOfPersonUsecase(
+        generateAPersonUsecase: generateAPersonUsecase,
+      );
 
   CreateAdultPersonUsecase get createAdultPersonUsecase =>
       CreateAdultPersonUsecase(
@@ -77,7 +86,7 @@ class PersonUsecases {
   UpdatePersonUsecase get updatePersonUsecase => UpdatePersonUsecase(
         personRepository: _personRepositories.personRepositoryImpl,
       );
-      
+
   DeletePersonUsecase get deletePersonUsecase => DeletePersonUsecase(
         personRepository: _personRepositories.personRepositoryImpl,
       );
