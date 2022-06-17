@@ -72,7 +72,6 @@ class CreateNewPlayerFamilyUsecase {
 
     final int numberOfChildren = Random().nextInt(maxNumberOfChildren + 1) + 1;
 
-    print("NUMBER OF CHILDREN: $numberOfChildren");
 
     final List<Person> children =
         _personUsecases.generateListOfPersonUsecase.execute(
@@ -88,7 +87,6 @@ class CreateNewPlayerFamilyUsecase {
       canBeYoungAdult: true,
     );
 
-    print("GENERATED CHILDREN: $children");
 
     List<Person> createdChildrenPerson = [];
 
@@ -99,7 +97,6 @@ class CreateNewPlayerFamilyUsecase {
       createdChildrenPerson.add(createdChild);
     }
 
-    print("GENERATED CHILDREN PERSON: $createdChildrenPerson");
 
     //create a child-parent relationship between all the children(including the player) and the parents
     _createChildParentRelationshipUsecase.execute(

@@ -21,12 +21,9 @@ class CreateGameUsecase {
     const newGameTime = 480; //8 AM
     const newGameDay = 1;
 
-    print("Person recieved: $person");
-
     //Create a new person for the new game.
     final currentPlayer =
         await _personUsecases.createAdultPersonUsecase.execute(person: person);
-    print("Player: $currentPlayer");
 
     //Create a new game and register the new person as the main player.
     final game = Game(
@@ -46,10 +43,7 @@ class CreateGameUsecase {
     await _personUsecases.updatePersonUsecase
         .execute(person: updatedCurrentPlayer);
     
-    print("Updated Player: $updatedCurrentPlayer");
-
-    // ignore: todo
-    //TODO: create mother, father and siblings
+    //create players family
     await _relationshipUsecases.createNewPlayerFamilyUsecase.execute(
       updatedCurrentPlayer,
       newGameDay,

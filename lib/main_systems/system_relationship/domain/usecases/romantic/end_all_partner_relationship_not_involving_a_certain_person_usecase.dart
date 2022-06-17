@@ -26,8 +26,6 @@ class EndAllPartnerRelationshipsNotInvolvingACertainPersonUsecase {
         await _relationshipRepositories.partnerRepositoryImpl
             .getAllActivePartners(mainPersonID);
 
-    print("Main Person Relationships: $mainPersonActiveRelationships");
-
     for (var relationship in mainPersonActiveRelationships) {
       if (relationship.partnerID != partnerID) {
         _endPartnerRelationshipUsecase.execute(
@@ -42,8 +40,6 @@ class EndAllPartnerRelationshipsNotInvolvingACertainPersonUsecase {
     final List<Partner> partnerActiveRelationships =
         await _relationshipRepositories.partnerRepositoryImpl
             .getAllActivePartners(partnerID);
-
-    print("Partner Relationships: $partnerActiveRelationships");
 
     for (var relationship in partnerActiveRelationships) {
       if (relationship.partnerID != mainPersonID) {

@@ -72,8 +72,6 @@ void main() {
         partnerSexuality: Sexuality.Bisexual.name,
       );
 
-         print(result);
-
       final correctValues = [const GenderAndSexualityPair(
           gender: Gender.Female,
           sexuality: Sexuality.Straight,
@@ -94,8 +92,6 @@ void main() {
         partnerGender: Gender.Female.name,
         partnerSexuality: Sexuality.Bisexual.name,
       );
-
-         print(result);
 
       final correctValues = [const GenderAndSexualityPair(
           gender: Gender.Male,
