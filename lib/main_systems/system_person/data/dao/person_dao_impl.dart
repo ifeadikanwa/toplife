@@ -1,7 +1,7 @@
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/feature_game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/feature_game_manager/domain/model/game.dart';
+import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
+import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/person_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 

@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/feature_game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/feature_game_manager/data/repository/game_repository_impl.dart';
-import 'package:toplife/feature_game_manager/domain/model/game.dart';
-import 'package:toplife/feature_game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/feature_game_manager/presentation/game_manager_viewmodel.dart';
+import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
+import 'package:toplife/game_manager/data/repository/game_repository_impl.dart';
+import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
+import 'package:toplife/game_manager/presentation/game_manager_viewmodel.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_dao_impl.dart';

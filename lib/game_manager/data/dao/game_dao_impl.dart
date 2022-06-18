@@ -1,7 +1,7 @@
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/feature_game_manager/domain/dao/game_dao.dart';
-import 'package:toplife/feature_game_manager/domain/model/game.dart';
+import 'package:toplife/game_manager/domain/dao/game_dao.dart';
+import 'package:toplife/game_manager/domain/model/game.dart';
 
 class GameDaoImpl implements GameDao {
   final DatabaseProvider _databaseProvider = DatabaseProvider.instance;

@@ -1,6 +1,6 @@
-import 'package:toplife/feature_game_manager/domain/model/game.dart';
+import 'package:toplife/game_manager/domain/model/game.dart';
 
-abstract class GameDao {
+abstract class GameRepository {
   Future<Game> createGame(Game game);
   Future<Game?> getGame(int gameID);
   Future<void> updateGame(Game game);

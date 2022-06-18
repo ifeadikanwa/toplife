@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/feature_game_manager/domain/model/game.dart';
+import 'package:toplife/game_manager/domain/model/game.dart';
 
 void main() {
   late Game sut;

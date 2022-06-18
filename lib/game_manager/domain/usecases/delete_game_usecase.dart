@@ -1,4 +1,4 @@
-import 'package:toplife/feature_game_manager/domain/repository/game_repository.dart';
+import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 
 class DeleteGameUsecase {
   final GameRepository _gameRepository;

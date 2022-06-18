@@ -1,5 +1,5 @@
-import 'package:toplife/feature_game_manager/domain/model/game.dart';
-import 'package:toplife/feature_game_manager/domain/repository/game_repository.dart';
+import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 
 class GetAllActiveGamesUsecase {
   final GameRepository _gameRepository;
