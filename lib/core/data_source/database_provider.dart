@@ -2,11 +2,17 @@ import 'dart:async';
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:toplife/feature_game_manager/data/dao/game_dao_impl.dart';
+import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_impl.dart';
 
 class DatabaseProvider {
   static final DatabaseProvider instance = DatabaseProvider._init();
@@ -35,11 +41,22 @@ class DatabaseProvider {
   }
 
   Future<void> _createDB(Database db, int version) async {
+    //Game
     await db.execute(GameDaoImpl.createTableQuery);
+
+    //Person
     await db.execute(PersonDaoImpl.createTableQuery);
     await db.execute(StatsDaoImpl.createTableQuery);
     await db.execute(BabyTraitsDaoImpl.createTableQuery);
     await db.execute(RelationshipTraitsDaoImpl.createTableQuery);
+
+    //Relationships
+    await db.execute(ParentDaoImpl.createTableQuery);
+    await db.execute(ChildDaoImpl.createTableQuery);
+    await db.execute(SiblingDaoImpl.createTableQuery);
+    await db.execute(PartnerDaoImpl.createTableQuery);
+    await db.execute(FriendDaoImpl.createTableQuery);
+    await db.execute(AcquaintanceDaoImpl.createTableQuery);
   }
 
   Future<void> _onConfigure(Database db) async {

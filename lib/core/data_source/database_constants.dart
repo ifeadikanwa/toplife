@@ -7,3 +7,6 @@ const textType = "TEXT NOT NULL";
 const nullableTextType = "TEXT NULL";
 
 const unique = "UNIQUE";
+
+const int databaseTrueValue = 1;
+const int databaseFalseValue = 0;

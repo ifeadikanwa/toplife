@@ -39,7 +39,7 @@ class Friend extends Equatable {
     relationshipColumn,
   ];
 
-  static Friend fromMap({required Map<String, Object> friendMap}) {
+  static Friend fromMap({required Map<String, Object?> friendMap}) {
     return Friend(
       mainPersonID: friendMap[mainPersonIDColumn] as int,
       friendID: friendMap[friendIDColumn] as int,

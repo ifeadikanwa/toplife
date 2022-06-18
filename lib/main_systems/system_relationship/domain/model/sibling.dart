@@ -41,7 +41,7 @@ class Sibling extends Equatable {
     relationshipColumn,
   ];
 
-  static Sibling fromMap({required Map<String, Object> siblingMap}) {
+  static Sibling fromMap({required Map<String, Object?> siblingMap}) {
     return Sibling(
       mainPersonID: siblingMap[mainPersonIDColumn] as int,
       siblingID: siblingMap[siblingIDColumn] as int,

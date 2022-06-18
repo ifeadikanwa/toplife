@@ -17,7 +17,7 @@ void main() {
       gender: Gender.Female.name,
       subjectPronoun: Gender.Female.subjectPronoun,
       objectPronoun: Gender.Female.objectPronoun,
-      sexuality: Sexuallity.Straight.name,
+      sexuality: Sexuality.Straight.name,
       state: "state",
       country: "country",
       zodiacSign: ZodiacSign.Libra.name,
@@ -98,7 +98,7 @@ void main() {
           gender: Gender.Female.name,
           subjectPronoun: Gender.Female.subjectPronoun,
           objectPronoun: Gender.Female.objectPronoun,
-          sexuality: Sexuallity.Bisexual.name,
+          sexuality: Sexuality.Bisexual.name,
           state: "state",
           country: "country",
           zodiacSign: ZodiacSign.Libra.name,
@@ -112,7 +112,7 @@ void main() {
         );
 
         final result = sut.copyWith(
-          sexuality: Sexuallity.Bisexual.name,
+          sexuality: Sexuality.Bisexual.name,
           importantStatus: "status changed",
           rebellious: false,
         );
@@ -124,7 +124,6 @@ void main() {
           expect(Person.idColumn, "_id");
         });
       });
-      
     },
   );
 }

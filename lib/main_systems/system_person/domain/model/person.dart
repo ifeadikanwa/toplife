@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:toplife/core/data_source/database_constants.dart';
 
 class Person extends Equatable {
   final int? id;
@@ -130,9 +131,9 @@ class Person extends Equatable {
       motherID: personMap[motherIDColumn] as int?,
       fatherID: personMap[fatherIDColumn] as int?,
       custodianID: personMap[custodianIDColumn] as int?,
-      sickly: personMap[sicklyColumn] == 1,
-      rebellious: personMap[rebelliousColumn] == 1,
-      dead: personMap[deadColumn] == 1, 
+      sickly: personMap[sicklyColumn] == databaseTrueValue,
+      rebellious: personMap[rebelliousColumn] == databaseTrueValue,
+      dead: personMap[deadColumn] == databaseTrueValue,
     );
   }
 
@@ -154,9 +155,9 @@ class Person extends Equatable {
       motherIDColumn: motherID,
       fatherIDColumn: fatherID,
       custodianIDColumn: custodianID,
-      sicklyColumn: sickly ? 1 : 0,
-      rebelliousColumn: rebellious ? 1 : 0,
-      deadColumn: dead ? 1 : 0,
+      sicklyColumn: sickly ? databaseTrueValue : databaseFalseValue,
+      rebelliousColumn: rebellious ? databaseTrueValue : databaseFalseValue,
+      deadColumn: dead ? databaseTrueValue : databaseFalseValue,
     };
   }
 
@@ -193,7 +194,7 @@ class Person extends Equatable {
       sexuality: sexuality ?? this.sexuality,
       state: state ?? this.state,
       country: country ?? this.country,
-      importantStatus: importantStatus ?? this.firstName,
+      importantStatus: importantStatus ?? this.importantStatus,
       motherID: motherID ?? this.motherID,
       fatherID: fatherID ?? this.fatherID,
       custodianID: custodianID ?? this.custodianID,

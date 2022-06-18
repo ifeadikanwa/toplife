@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:toplife/core/data_source/database_constants.dart';
 
 class Partner extends Equatable {
   final int mainPersonID;
@@ -69,10 +70,10 @@ class Partner extends Equatable {
       partnerID: partnerMap[partnerIDColumn] as int,
       partnerRelationshipType:
           partnerMap[partnerRelationshipTypeColumn] as String,
-      isActive: partnerMap[isActiveColumn] == 1,
+      isActive: partnerMap[isActiveColumn] == databaseTrueValue,
       startDay: partnerMap[startDayColumn] as int,
       endDay: partnerMap[endDayColumn] as int?,
-      isCoParent: partnerMap[isCoParentColumn] == 1,
+      isCoParent: partnerMap[isCoParentColumn] == databaseTrueValue,
       metAt: partnerMap[metAtColumn] as String,
       relationship: partnerMap[relationshipColumn] as int,
     );
@@ -83,10 +84,10 @@ class Partner extends Equatable {
       mainPersonIDColumn: mainPersonID,
       partnerIDColumn: partnerID,
       partnerRelationshipTypeColumn: partnerRelationshipType,
-      isActiveColumn: isActive ? 1 : 0,
+      isActiveColumn: isActive ? databaseTrueValue : databaseFalseValue,
       startDayColumn: startDay,
       endDayColumn: endDay,
-      isCoParentColumn: isCoParent ? 1 : 0,
+      isCoParentColumn: isCoParent ? databaseTrueValue : databaseFalseValue,
       metAtColumn: metAt,
       relationshipColumn: relationship,
     };
