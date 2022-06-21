@@ -22,7 +22,7 @@ class GameScreen extends ConsumerWidget {
               ref.read(gameManagerViewModel.notifier).createGame(Person(
                     firstName: "David",
                     lastName: "Smith",
-                    birthday: 21,
+                    dayOfBirth: 21,
                     gender: Gender.Male.name,
                     subjectPronoun: Gender.Male.subjectPronoun,
                     objectPronoun: Gender.Male.objectPronoun,
@@ -42,7 +42,7 @@ class GameScreen extends ConsumerWidget {
                     person: Person(
                       firstName: "Chinwe",
                       lastName: "Eze",
-                      birthday: 23,
+                      dayOfBirth: 23,
                       gender: Gender.Male.name,
                       subjectPronoun: Gender.Male.subjectPronoun,
                       objectPronoun: Gender.Male.objectPronoun,

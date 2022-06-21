@@ -1,4 +1,3 @@
-
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
@@ -64,7 +63,7 @@ class GenerateAPersonUsecase {
 
     final personZodiacSign = getRandomZodiacSign();
 
-    final personBirthday =
+    final personDayOfBirth =
         _ageUsecases.getABirthdayFromAListOfPossibleLifeStagesUsecase.execute(
       currentDay: currentDay,
       earlyStageInAge: earlyStageInAge,
@@ -84,7 +83,7 @@ class GenerateAPersonUsecase {
           ? country.randomFemaleFirstName
           : country.randomMaleFirstName,
       lastName: lastName ?? country.randomLastName,
-      birthday: personBirthday,
+      dayOfBirth: personDayOfBirth,
       gender: personGender.name,
       subjectPronoun: personGender.subjectPronoun,
       objectPronoun: personGender.objectPronoun,
