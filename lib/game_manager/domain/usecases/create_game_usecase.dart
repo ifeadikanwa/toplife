@@ -1,5 +1,6 @@
 import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/game_manager/domain/repository/game_repository.dart';
+import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
@@ -20,10 +21,17 @@ class CreateGameUsecase {
   Future<Game> execute(Person person) async {
     const newGameTime = 480; //8 AM
     const newGameDay = 1;
+    
+    //edit the person passed to be a fresh young adult
+    final youngAdultPerson = person.copyWith(
+        dayOfBirth: Age.getDayOfBirthFromDaysLived(
+      currentDay: newGameDay,
+      daysLived: Age.newYoungAdultDaysLived,
+    ));
 
     //Create a new person for the new game.
     final currentPlayer =
-        await _personUsecases.createAdultPersonUsecase.execute(person: person);
+        await _personUsecases.createAdultPersonUsecase.execute(person: youngAdultPerson);
 
     //Create a new game and register the new person as the main player.
     final game = Game(
@@ -42,7 +50,7 @@ class CreateGameUsecase {
 
     await _personUsecases.updatePersonUsecase
         .execute(person: updatedCurrentPlayer);
-    
+
     //create players family
     await _relationshipUsecases.createNewPlayerFamilyUsecase.execute(
       updatedCurrentPlayer,
