@@ -71,6 +71,73 @@ void main() {
       });
     });
 
+    group("New Stage Days Lived: ", () {
+      test("newToddlerDaysLived is equal to 1 + baby life stage duration", () {
+        expect(
+          Age.newToddlerDaysLived,
+          LifeStage.baby.stageDuration + 1,
+        );
+      });
+
+      test("newChildDaysLived is equal to 1 + baby + toddler life stage duration",
+          () {
+        expect(
+          Age.newChildDaysLived,
+          LifeStage.baby.stageDuration + LifeStage.toddler.stageDuration + 1,
+        );
+      });
+
+      test(
+          "newTeenDaysLived is equal to 1 + baby + toddler + child life stage duration",
+          () {
+        expect(
+          Age.newTeenDaysLived,
+          LifeStage.baby.stageDuration +
+              LifeStage.toddler.stageDuration +
+              LifeStage.child.stageDuration + 1,
+        );
+      });
+
+      test(
+          "newYoungAdultDaysLived is equal to 1 + baby + toddler + child + teen life stage duration",
+          () {
+        expect(
+          Age.newYoungAdultDaysLived,
+          LifeStage.baby.stageDuration +
+              LifeStage.toddler.stageDuration +
+              LifeStage.child.stageDuration +
+              LifeStage.teen.stageDuration + 1,
+        );
+      });
+
+      test(
+          "newAdultDaysLived is equal to 1 + baby + toddler + child + teen + youngAdult life stage duration",
+          () {
+        expect(
+          Age.newAdultDaysLived,
+          LifeStage.baby.stageDuration +
+              LifeStage.toddler.stageDuration +
+              LifeStage.child.stageDuration +
+              LifeStage.teen.stageDuration +
+              LifeStage.youngAdult.stageDuration + 1,
+        );
+      });
+
+      test(
+          "newElderDaysLived is equal to 1 + baby + toddler + child + teen + youngAdult + adult life stage duration",
+          () {
+        expect(
+          Age.newElderDaysLived,
+          LifeStage.baby.stageDuration +
+              LifeStage.toddler.stageDuration +
+              LifeStage.child.stageDuration +
+              LifeStage.teen.stageDuration +
+              LifeStage.youngAdult.stageDuration +
+              LifeStage.adult.stageDuration + 1,
+        );
+      });
+    });
+
     group("getBirthDayFromDaysLived: ", () {
       test(
           "getBirthDayFromDaysLived returns -10 as birthday if you've lived 20 days and the current day is 10",

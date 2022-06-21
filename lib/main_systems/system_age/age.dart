@@ -21,6 +21,14 @@ class Age extends Equatable {
   @override
   bool? get stringify => true;
 
+  //DaysLived For a new lifestage. Used to detect birthdays celebrations.
+  static final newToddlerDaysLived = babyAgeLimit + 1;
+  static final newChildDaysLived = toddlerAgeLimit + 1;
+  static final newTeenDaysLived = childAgeLimit + 1;
+  static final newYoungAdultDaysLived = teenAgeLimit + 1;
+  static final newAdultDaysLived = youngAdultAgeLimit + 1;
+  static final newElderDaysLived = adultAgeLimit + 1;
+
   //Age Limits
   static final babyAgeLimit = LifeStage.baby.stageDuration;
   static final toddlerAgeLimit = babyAgeLimit + LifeStage.toddler.stageDuration;
