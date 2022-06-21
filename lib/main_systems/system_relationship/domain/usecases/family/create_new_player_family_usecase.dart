@@ -39,7 +39,7 @@ class CreateNewPlayerFamilyUsecase {
       gender: Gender.Male,
       sexuallity: Sexuality.Straight,
       canBeAdult: true,
-      canBeElder: true,
+      lateStageInAge: true,
     );
 
     final Person femaleParent = _personUsecases.generateAPersonUsecase.execute(
@@ -51,7 +51,7 @@ class CreateNewPlayerFamilyUsecase {
       gender: Gender.Female,
       sexuallity: Sexuality.Straight,
       canBeAdult: true,
-      canBeElder: true,
+      earlyStageInAge: true,
     );
 
     final Person createdMaleParent = await _personUsecases
@@ -83,11 +83,10 @@ class CreateNewPlayerFamilyUsecase {
       currentCountry: currentPlayer.country,
       currentState: currentPlayer.state,
       lastName: currentPlayer.lastName,
-      canBeBaby: true,
-      canBeToddler: true,
       canBeChild: true,
       canBeTeen: true,
       canBeYoungAdult: true,
+      earlyStageInAge: true,
     );
 
 

@@ -19,6 +19,8 @@ class GenerateListOfPersonUsecase {
     required String currentState,
     Gender? gender,
     Sexuality? sexuallity,
+     bool earlyStageInAge = false,
+    bool lateStageInAge = false,
     bool canBeBaby = false,
     bool canBeToddler = false,
     bool canBeChild = false,

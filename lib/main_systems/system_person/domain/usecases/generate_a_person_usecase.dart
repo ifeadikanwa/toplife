@@ -1,13 +1,9 @@
-import 'dart:math';
 
 import 'package:toplife/core/utils/chance.dart';
-import 'package:toplife/core/utils/get_random_value_from_collections.dart';
-import 'package:toplife/main_systems/system_age/life_stage.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_gender.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_sexuality.dart';
