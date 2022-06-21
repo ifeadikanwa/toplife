@@ -76,7 +76,7 @@ void main() {
           "getBirthDayFromDaysLived returns -10 as birthday if you've lived 20 days and the current day is 10",
           () {
         expect(
-          Age.getBirthDayFromDaysLived(currentDay: 10, daysLived: 20),
+          Age.getDayOfBirthFromDaysLived(currentDay: 10, daysLived: 20),
           -10,
         );
       });
@@ -255,7 +255,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthday: babyBirthday,
+          dayOfBirth: babyBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.baby, pointInStage: 0);
@@ -270,7 +270,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthday: toddlerBirthday,
+          dayOfBirth: toddlerBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.toddler, pointInStage: 3);
@@ -284,7 +284,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthday: childBirthday,
+          dayOfBirth: childBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.child, pointInStage: 3);
@@ -298,7 +298,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthday: teenBirthday,
+          dayOfBirth: teenBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.teen, pointInStage: 6);
@@ -313,7 +313,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthday: youngAdultBirthday,
+          dayOfBirth: youngAdultBirthday,
         );
 
         const correctAge =
@@ -328,7 +328,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthday: adultBirthday,
+          dayOfBirth: adultBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.adult, pointInStage: 10);
@@ -342,7 +342,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthday: elderBirthday,
+          dayOfBirth: elderBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.elder, pointInStage: 15);

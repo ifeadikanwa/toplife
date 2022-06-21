@@ -64,7 +64,7 @@ class GenerateAPersonUsecase {
     final personZodiacSign = getRandomZodiacSign();
 
     final personDayOfBirth =
-        _ageUsecases.getABirthdayFromAListOfPossibleLifeStagesUsecase.execute(
+        _ageUsecases.getADayOfBirthFromAListOfPossibleLifeStagesUsecase.execute(
       currentDay: currentDay,
       earlyStageInAge: earlyStageInAge,
       lateStageInAge: lateStageInAge,

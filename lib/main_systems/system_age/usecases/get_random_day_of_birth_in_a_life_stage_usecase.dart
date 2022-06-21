@@ -1,7 +1,7 @@
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
 
-class GetRandomBirthdayInALifeStageUsecase {
+class GetRandomDayOfBirthInALifeStageUsecase {
   int execute({
     required LifeStage lifeStage,
     required int currentDay,
@@ -17,11 +17,11 @@ class GetRandomBirthdayInALifeStageUsecase {
       lateStageInAge: lateStageInAge,
     );
 
-    int birthday = Age.getBirthDayFromDaysLived(
+    int dayOfBirth = Age.getDayOfBirthFromDaysLived(
       currentDay: currentDay,
       daysLived: daysLived,
     );
 
-    return birthday;
+    return dayOfBirth;
   }
 }

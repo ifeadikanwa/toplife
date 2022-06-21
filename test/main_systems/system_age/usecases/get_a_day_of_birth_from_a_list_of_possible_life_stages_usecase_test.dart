@@ -1,24 +1,23 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
-import 'package:toplife/main_systems/system_age/usecases/get_a_birthday_from_a_list_of_possible_life_stages_usecase.dart';
-import 'package:toplife/main_systems/system_age/usecases/get_random_birthday_in_a_life_stage_usecase.dart';
+import 'package:toplife/main_systems/system_age/usecases/get_a_day_of_birth_from_a_list_of_possible_life_stages_usecase.dart';
+import 'package:toplife/main_systems/system_age/usecases/get_random_day_of_birth_in_a_life_stage_usecase.dart';
 
 void main() {
-  group("GetABirthdayFromAListOfPossibleLifeStagesUsecase: ", () {
-    late GetABirthdayFromAListOfPossibleLifeStagesUsecase sut;
+  group("GetADayOfBirthFromAListOfPossibleLifeStagesUsecase: ", () {
+    late GetADayOfBirthFromAListOfPossibleLifeStagesUsecase sut;
 
     const currentDay = 20;
 
     setUp(() {
-      sut = GetABirthdayFromAListOfPossibleLifeStagesUsecase(
-          getRandomBirthdayInALifeStageUsecase:
-              GetRandomBirthdayInALifeStageUsecase());
+      sut = GetADayOfBirthFromAListOfPossibleLifeStagesUsecase(
+          getRandomDayOfBirthInALifeStageUsecase:
+              GetRandomDayOfBirthInALifeStageUsecase());
     });
 
-    test("get birthday with no lifestage specified returns an adult's birthday",
-        () {
-      int birthdayResult = sut.execute(
+    test("when no lifestage is specified return an adult's birthday", () {
+      int dayOfBirthResult = sut.execute(
         currentDay: currentDay,
         earlyStageInAge: false,
         lateStageInAge: false,
@@ -31,14 +30,13 @@ void main() {
         canBeElder: false,
       );
 
-      Age ageBasedOnBirthdayResult =
-          Age.getAge(currentDay: currentDay, birthday: birthdayResult);
+      Age ageBasedOnDayOfBirthResult =
+          Age.getAge(currentDay: currentDay, dayOfBirth: dayOfBirthResult);
 
-      expect(ageBasedOnBirthdayResult.lifeStage, LifeStage.adult);
+      expect(ageBasedOnDayOfBirthResult.lifeStage, LifeStage.adult);
     });
 
-    test(
-        "get birthday with only teen lifestage specified returns teen birthday",
+    test("when only teen lifestage is specified returns a teen day of birth",
         () {
       int birthdayResult = sut.execute(
         currentDay: currentDay,
@@ -53,14 +51,14 @@ void main() {
         canBeElder: false,
       );
 
-      Age ageBasedOnBirthdayResult =
-          Age.getAge(currentDay: currentDay, birthday: birthdayResult);
+      Age ageBasedOnDayOfBirthResult =
+          Age.getAge(currentDay: currentDay, dayOfBirth: birthdayResult);
 
-      expect(ageBasedOnBirthdayResult.lifeStage, LifeStage.teen);
+      expect(ageBasedOnDayOfBirthResult.lifeStage, LifeStage.teen);
     });
 
     test(
-        "get birthday with multiple lifestages specified returns a birthday for ONE of those life stages",
+        "when multiple lifestages are specified return a day of birth for ONE of those life stages",
         () {
       int birthdayResult = sut.execute(
         currentDay: currentDay,
@@ -75,8 +73,8 @@ void main() {
         canBeElder: false,
       );
 
-      Age ageBasedOnBirthdayResult =
-          Age.getAge(currentDay: currentDay, birthday: birthdayResult);
+      Age ageBasedOnDayOfBirthResult =
+          Age.getAge(currentDay: currentDay, dayOfBirth: birthdayResult);
 
       final possibleLifeStages = [
         LifeStage.baby,
@@ -84,7 +82,7 @@ void main() {
         LifeStage.youngAdult,
       ];
 
-      assert(possibleLifeStages.contains(ageBasedOnBirthdayResult.lifeStage));
+      assert(possibleLifeStages.contains(ageBasedOnDayOfBirthResult.lifeStage));
     });
   });
 }

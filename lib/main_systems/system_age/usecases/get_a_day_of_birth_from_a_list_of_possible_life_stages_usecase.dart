@@ -1,17 +1,17 @@
 import 'dart:math';
 
 import 'package:toplife/main_systems/system_age/life_stage.dart';
-import 'package:toplife/main_systems/system_age/usecases/get_random_birthday_in_a_life_stage_usecase.dart';
+import 'package:toplife/main_systems/system_age/usecases/get_random_day_of_birth_in_a_life_stage_usecase.dart';
 
-class GetABirthdayFromAListOfPossibleLifeStagesUsecase {
-  final GetRandomBirthdayInALifeStageUsecase
-      _getRandomBirthdayInALifeStageUsecase;
+class GetADayOfBirthFromAListOfPossibleLifeStagesUsecase {
+  final GetRandomDayOfBirthInALifeStageUsecase
+      _getRandomDayOfBirthInALifeStageUsecase;
 
-  const GetABirthdayFromAListOfPossibleLifeStagesUsecase(
-      {required GetRandomBirthdayInALifeStageUsecase
-          getRandomBirthdayInALifeStageUsecase})
-      : _getRandomBirthdayInALifeStageUsecase =
-            getRandomBirthdayInALifeStageUsecase;
+  const GetADayOfBirthFromAListOfPossibleLifeStagesUsecase(
+      {required GetRandomDayOfBirthInALifeStageUsecase
+          getRandomDayOfBirthInALifeStageUsecase})
+      : _getRandomDayOfBirthInALifeStageUsecase =
+            getRandomDayOfBirthInALifeStageUsecase;
 
   int execute({
     required int currentDay,
@@ -28,8 +28,8 @@ class GetABirthdayFromAListOfPossibleLifeStagesUsecase {
     //put all the possibities in an list
     //if the list length is 0, add the default age
     //get a random index within the range of the list length.
-    //generate a birthday from the lifestage at the the random index
-    //return that birthday
+    //generate a dayOfBirth from the lifestage at the the random index
+    //return that dayOfBirth
 
     final List<LifeStage> possibleLifeStages = [];
 
@@ -64,12 +64,12 @@ class GetABirthdayFromAListOfPossibleLifeStagesUsecase {
 
     LifeStage chosenLifeStage = possibleLifeStages[randomIndex];
 
-    int birthday = _getRandomBirthdayInALifeStageUsecase.execute(
+    int dayOfBirth = _getRandomDayOfBirthInALifeStageUsecase.execute(
         lifeStage: chosenLifeStage,
         currentDay: currentDay,
         earlyStageInAge: earlyStageInAge,
         lateStageInAge: lateStageInAge);
 
-    return birthday;
+    return dayOfBirth;
   }
 }

@@ -6,7 +6,7 @@ import 'package:toplife/main_systems/system_age/usecases/get_person_age_usecase.
 void main() {
   test("get person age usecase return correct age", () {
     Age result = GetPersonAgeUsecase().execute(
-      birthday: 5,
+      dayOfBirth: 5,
       currentDay: 15,
     );
 
