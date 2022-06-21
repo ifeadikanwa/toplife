@@ -6,7 +6,7 @@ class Person extends Equatable {
   final int? gameID;
   final String firstName;
   final String lastName;
-  final int age;
+  final int birthday;
   final String gender;
   final String subjectPronoun;
   final String objectPronoun;
@@ -27,7 +27,7 @@ class Person extends Equatable {
     this.gameID,
     required this.firstName,
     required this.lastName,
-    required this.age,
+    required this.birthday,
     required this.gender,
     required this.subjectPronoun,
     required this.objectPronoun,
@@ -50,7 +50,7 @@ class Person extends Equatable {
         gameID,
         firstName,
         lastName,
-        age,
+        birthday,
         gender,
         subjectPronoun,
         objectPronoun,
@@ -75,7 +75,7 @@ class Person extends Equatable {
   static const gameIDColumn = "gameID";
   static const firstNameColumn = "firstName";
   static const lastNameColumn = "lastName";
-  static const ageColumn = "age";
+  static const birthdayColumn = "birthday";
   static const genderColumn = "gender";
   static const subjectPronounColumn = "subjectPronoun";
   static const objectPronounColumn = "objectPronoun";
@@ -96,7 +96,7 @@ class Person extends Equatable {
     gameIDColumn,
     firstNameColumn,
     lastNameColumn,
-    ageColumn,
+    birthdayColumn,
     genderColumn,
     subjectPronounColumn,
     objectPronounColumn,
@@ -119,7 +119,7 @@ class Person extends Equatable {
       gameID: personMap[gameIDColumn] as int?,
       firstName: personMap[firstNameColumn] as String,
       lastName: personMap[lastNameColumn] as String,
-      age: personMap[ageColumn] as int,
+      birthday: personMap[birthdayColumn] as int,
       gender: personMap[genderColumn] as String,
       subjectPronoun: personMap[subjectPronounColumn] as String,
       objectPronoun: personMap[objectPronounColumn] as String,
@@ -143,7 +143,7 @@ class Person extends Equatable {
       gameIDColumn: gameID,
       firstNameColumn: firstName,
       lastNameColumn: lastName,
-      ageColumn: age,
+      birthdayColumn: birthday,
       genderColumn: gender,
       subjectPronounColumn: subjectPronoun,
       objectPronounColumn: objectPronoun,
@@ -166,7 +166,7 @@ class Person extends Equatable {
     int? gameID,
     String? firstName,
     String? lastName,
-    int? age,
+    int? birthday,
     String? gender,
     String? subjectPronoun,
     String? objectPronoun,
@@ -187,7 +187,7 @@ class Person extends Equatable {
       gameID: gameID ?? this.gameID,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
-      age: age ?? this.age,
+      birthday: birthday ?? this.birthday,
       gender: gender ?? this.gender,
       subjectPronoun: subjectPronoun ?? this.subjectPronoun,
       objectPronoun: objectPronoun ?? this.objectPronoun,

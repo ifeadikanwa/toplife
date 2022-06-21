@@ -16,7 +16,7 @@ class PersonDaoImpl implements PersonDao {
       ${Person.gameIDColumn} $nullableIntegerType,
       ${Person.firstNameColumn} $textType,
       ${Person.lastNameColumn} $textType,
-      ${Person.ageColumn} $integerType,
+      ${Person.birthdayColumn} $integerType,
       ${Person.genderColumn} $textType,
       ${Person.subjectPronounColumn} $textType,
       ${Person.objectPronounColumn} $textType,

@@ -22,7 +22,7 @@ class GameScreen extends ConsumerWidget {
               ref.read(gameManagerViewModel.notifier).createGame(Person(
                     firstName: "David",
                     lastName: "Smith",
-                    age: 21,
+                    birthday: 21,
                     gender: Gender.Male.name,
                     subjectPronoun: Gender.Male.subjectPronoun,
                     objectPronoun: Gender.Male.objectPronoun,
@@ -42,7 +42,7 @@ class GameScreen extends ConsumerWidget {
                     person: Person(
                       firstName: "Chinwe",
                       lastName: "Eze",
-                      age: 23,
+                      birthday: 23,
                       gender: Gender.Male.name,
                       subjectPronoun: Gender.Male.subjectPronoun,
                       objectPronoun: Gender.Male.objectPronoun,
@@ -75,7 +75,14 @@ class GameScreen extends ConsumerWidget {
               // final parentInfo = await ParentDaoImpl().getAllActiveParents(1);
               // print(parentInfo);
 
-              await ref.read(relationshipUsecasesProvider).getMarriedUsecase.execute(mainPersonID: 2, partnerID: 3, currentDay: 106,);
+              await ref
+                  .read(relationshipUsecasesProvider)
+                  .getMarriedUsecase
+                  .execute(
+                    mainPersonID: 2,
+                    partnerID: 3,
+                    currentDay: 106,
+                  );
             },
             child: const Text("do")),
         ElevatedButton(

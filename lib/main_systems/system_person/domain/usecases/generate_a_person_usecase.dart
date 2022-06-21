@@ -55,9 +55,11 @@ class GenerateAPersonUsecase {
 
     return Person(
       gameID: currentGameID,
-      firstName: (personGender == Gender.Female) ? country.randomFemaleFirstName : country.randomMaleFirstName,
+      firstName: (personGender == Gender.Female)
+          ? country.randomFemaleFirstName
+          : country.randomMaleFirstName,
       lastName: lastName ?? country.randomLastName,
-      age: 0,
+      birthday: 0,
       gender: personGender.name,
       subjectPronoun: personGender.subjectPronoun,
       objectPronoun: personGender.objectPronoun,
@@ -65,12 +67,12 @@ class GenerateAPersonUsecase {
       state: currentState,
       country: currentCountry,
       zodiacSign: personZodiacSign.name,
-      sickly: Chance.getTrueOrFalseBasedOnPercentageChance(trueChancePercentage: 30),
+      sickly: Chance.getTrueOrFalseBasedOnPercentageChance(
+          trueChancePercentage: 30),
       rebellious: Chance.getTrueOrFalse(),
       dead: isDead,
     );
   }
-
 
   Gender _getRandomGender() {
     final isFemale = Chance.getTrueOrFalse();
