@@ -32,6 +32,7 @@ class CreateNewPlayerFamilyUsecase {
     //create two parent
     final Person maleParent = _personUsecases.generateAPersonUsecase.execute(
       currentGameID: currentPlayer.gameID!,
+      currentDay: currentDay,
       currentCountry: currentPlayer.country,
       currentState: currentPlayer.state,
       lastName: currentPlayer.lastName,
@@ -43,6 +44,7 @@ class CreateNewPlayerFamilyUsecase {
 
     final Person femaleParent = _personUsecases.generateAPersonUsecase.execute(
       currentGameID: currentPlayer.gameID!,
+      currentDay: currentDay,
       currentCountry: currentPlayer.country,
       currentState: currentPlayer.state,
       lastName: currentPlayer.lastName,
@@ -77,6 +79,7 @@ class CreateNewPlayerFamilyUsecase {
         _personUsecases.generateListOfPersonUsecase.execute(
       numberOfPerson: numberOfChildren,
       currentGameID: currentPlayer.gameID!,
+      currentDay: currentDay,
       currentCountry: currentPlayer.country,
       currentState: currentPlayer.state,
       lastName: currentPlayer.lastName,

@@ -1,3 +1,4 @@
+import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/create_adult_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/create_child_person_usecase.dart';
@@ -16,11 +17,16 @@ import 'package:toplife/main_systems/system_person/domain/usecases/update_person
 
 class PersonUsecases {
   final PersonRepositories _personRepositories;
+  final AgeUsecases _ageUsecases;
 
-  const PersonUsecases({required PersonRepositories personRepositories})
-      : _personRepositories = personRepositories;
+  const PersonUsecases({
+    required PersonRepositories personRepositories,
+    required AgeUsecases ageUsecases,
+  })  : _personRepositories = personRepositories,
+        _ageUsecases = ageUsecases;
 
-  GenerateAPersonUsecase get generateAPersonUsecase => GenerateAPersonUsecase();
+  GenerateAPersonUsecase get generateAPersonUsecase =>
+      GenerateAPersonUsecase(ageUsecases: _ageUsecases);
 
   GenerateListOfPersonUsecase get generateListOfPersonUsecase =>
       GenerateListOfPersonUsecase(

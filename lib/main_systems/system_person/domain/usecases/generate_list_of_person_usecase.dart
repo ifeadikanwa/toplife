@@ -13,6 +13,7 @@ class GenerateListOfPersonUsecase {
   List<Person> execute({
     required int numberOfPerson,
     required int currentGameID,
+    required int currentDay,
     String? lastName,
     required String currentCountry,
     required String currentState,
@@ -35,6 +36,7 @@ class GenerateListOfPersonUsecase {
       people.add(
         _generateAPersonUsecase.execute(
           currentGameID: currentGameID,
+          currentDay: currentDay,
           lastName: lastName,
           currentCountry: currentCountry,
           currentState: currentState,

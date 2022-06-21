@@ -4,6 +4,7 @@ import 'package:toplife/game_manager/data/repository/game_repository_impl.dart';
 import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/game_manager/presentation/game_manager_viewmodel.dart';
+import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_dao_impl.dart';
@@ -19,6 +20,10 @@ import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_im
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
+final ageUsecasesProvider = Provider<AgeUsecases>(((ref) {
+  return AgeUsecases();
+}));
+
 final personUsecasesProvider = Provider<PersonUsecases>(((ref) {
   return PersonUsecases(
     personRepositories: PersonRepositories(
@@ -27,6 +32,7 @@ final personUsecasesProvider = Provider<PersonUsecases>(((ref) {
       relationshipTraitsDao: RelationshipTraitsDaoImpl(),
       babyTraitsDao: BabyTraitsDaoImpl(),
     ),
+    ageUsecases: ref.watch(ageUsecasesProvider),
   );
 }));
 
