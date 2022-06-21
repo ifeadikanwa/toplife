@@ -79,7 +79,8 @@ void main() {
         );
       });
 
-      test("newChildDaysLived is equal to 1 + baby + toddler life stage duration",
+      test(
+          "newChildDaysLived is equal to 1 + baby + toddler life stage duration",
           () {
         expect(
           Age.newChildDaysLived,
@@ -94,7 +95,8 @@ void main() {
           Age.newTeenDaysLived,
           LifeStage.baby.stageDuration +
               LifeStage.toddler.stageDuration +
-              LifeStage.child.stageDuration + 1,
+              LifeStage.child.stageDuration +
+              1,
         );
       });
 
@@ -106,7 +108,8 @@ void main() {
           LifeStage.baby.stageDuration +
               LifeStage.toddler.stageDuration +
               LifeStage.child.stageDuration +
-              LifeStage.teen.stageDuration + 1,
+              LifeStage.teen.stageDuration +
+              1,
         );
       });
 
@@ -119,7 +122,8 @@ void main() {
               LifeStage.toddler.stageDuration +
               LifeStage.child.stageDuration +
               LifeStage.teen.stageDuration +
-              LifeStage.youngAdult.stageDuration + 1,
+              LifeStage.youngAdult.stageDuration +
+              1,
         );
       });
 
@@ -133,7 +137,8 @@ void main() {
               LifeStage.child.stageDuration +
               LifeStage.teen.stageDuration +
               LifeStage.youngAdult.stageDuration +
-              LifeStage.adult.stageDuration + 1,
+              LifeStage.adult.stageDuration +
+              1,
         );
       });
     });
@@ -417,5 +422,86 @@ void main() {
         expect(result, correctAge);
       });
     });
+
+    group("getDayOfNextBirthday: ", () {
+      const currentDay = 10;
+      test("when person is a baby return day of their toddler birthday", () {
+        final babyDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.babyAgeLimit - 2);
+
+        final result = Age.getDayOfNextBirthday(
+            currentDay: currentDay, dayOfBirth: babyDayOfBirth);
+
+        const correctDayOfNextBirtday = 13;
+
+        expect(result, correctDayOfNextBirtday);
+      });
+
+      test("when person is a toddler return day of their child birthday", () {
+        final toddlerDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.toddlerAgeLimit - 3);
+
+        final result = Age.getDayOfNextBirthday(
+            currentDay: currentDay, dayOfBirth: toddlerDayOfBirth);
+
+        const correctDayOfNextBirtday = 14;
+
+        expect(result, correctDayOfNextBirtday);
+      });
+
+        test("when person is a child return day of their teen birthday", () {
+        final childDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.childAgeLimit - 5);
+
+        final result = Age.getDayOfNextBirthday(
+            currentDay: currentDay, dayOfBirth: childDayOfBirth);
+
+        const correctDayOfNextBirtday = 16;
+
+        expect(result, correctDayOfNextBirtday);
+      });
+      
+      test("when person is a teen return day of their young adult birthday", () {
+        final teenDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.teenAgeLimit - 5);
+
+        final result = Age.getDayOfNextBirthday(
+            currentDay: currentDay, dayOfBirth: teenDayOfBirth);
+
+        const correctDayOfNextBirtday = 16;
+
+        expect(result, correctDayOfNextBirtday);
+      });
+
+       test("when person is a young adult return day of their adult birthday", () {
+        final yaDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.youngAdultAgeLimit - 15);
+
+        final result = Age.getDayOfNextBirthday(
+            currentDay: currentDay, dayOfBirth: yaDayOfBirth);
+
+        const correctDayOfNextBirtday = 26;
+
+        expect(result, correctDayOfNextBirtday);
+      });
+
+      test("when person is a adult return day of their elder birthday", () {
+        final adultDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.adultAgeLimit - 10);
+
+        final result = Age.getDayOfNextBirthday(
+            currentDay: currentDay, dayOfBirth: adultDayOfBirth);
+
+        const correctDayOfNextBirtday = 21;
+
+        expect(result, correctDayOfNextBirtday);
+      });
+
+      test("when person is a elder return null", () {
+        final elderDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.adultAgeLimit + 2);
+
+        final result = Age.getDayOfNextBirthday(
+            currentDay: currentDay, dayOfBirth: elderDayOfBirth);
+
+        const correctDayOfNextBirtday = null;
+
+        expect(result, correctDayOfNextBirtday);
+      });
+    });
+
   });
 }

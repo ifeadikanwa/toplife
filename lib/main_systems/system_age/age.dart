@@ -240,4 +240,49 @@ class Age extends Equatable {
     //get day of birth so that age deduction will be consistent
     return currentDay - daysLived;
   }
+
+  static int? getDayOfNextBirthday({
+    required int currentDay,
+    required int dayOfBirth,
+  }) {
+    //get the day a person will move to the next life stage
+
+    //calculate current days lived
+    //get their age so you know their current lifestage
+    //if their current lifestage is elder return null
+    //or else calculate the days till their next life stage
+    //add the answer to the current day
+    //return that
+
+    int currentDaysLived = currentDay - dayOfBirth;
+
+    Age currentAge = getAge(currentDay: currentDay, dayOfBirth: dayOfBirth);
+
+    late final int daysTillNextBirthday;
+
+    switch (currentAge.lifeStage) {
+      case LifeStage.baby:
+        daysTillNextBirthday = newToddlerDaysLived - currentDaysLived;
+        break;
+      case LifeStage.toddler:
+        daysTillNextBirthday = newChildDaysLived - currentDaysLived;
+        break;
+      case LifeStage.child:
+        daysTillNextBirthday = newTeenDaysLived - currentDaysLived;
+        break;
+      case LifeStage.teen:
+        daysTillNextBirthday = newYoungAdultDaysLived - currentDaysLived;
+        break;
+      case LifeStage.youngAdult:
+        daysTillNextBirthday = newAdultDaysLived - currentDaysLived;
+        break;
+      case LifeStage.adult:
+        daysTillNextBirthday = newElderDaysLived - currentDaysLived;
+        return currentDay + daysTillNextBirthday;
+      case LifeStage.elder:
+        return null;
+    }
+
+    return currentDay + daysTillNextBirthday;
+  }
 }
