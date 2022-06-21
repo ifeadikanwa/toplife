@@ -255,7 +255,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthDay: babyBirthday,
+          birthday: babyBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.baby, pointInStage: 0);
@@ -270,7 +270,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthDay: toddlerBirthday,
+          birthday: toddlerBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.toddler, pointInStage: 3);
@@ -284,7 +284,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthDay: childBirthday,
+          birthday: childBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.child, pointInStage: 3);
@@ -298,7 +298,7 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthDay: teenBirthday,
+          birthday: teenBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.teen, pointInStage: 6);
@@ -313,22 +313,22 @@ void main() {
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthDay: youngAdultBirthday,
+          birthday: youngAdultBirthday,
         );
 
-        const correctAge = Age(lifeStage: LifeStage.youngAdult, pointInStage: 12);
+        const correctAge =
+            Age(lifeStage: LifeStage.youngAdult, pointInStage: 12);
 
         expect(result, correctAge);
       });
 
-      test(
-          "if person is within the adult age range we get correct adult age",
+      test("if person is within the adult age range we get correct adult age",
           () {
         const adultBirthday = -49;
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthDay: adultBirthday,
+          birthday: adultBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.adult, pointInStage: 10);
@@ -336,14 +336,13 @@ void main() {
         expect(result, correctAge);
       });
 
-      test(
-          "if person is within the elder age range we get correct elder age",
+      test("if person is within the elder age range we get correct elder age",
           () {
         const elderBirthday = -84;
 
         final result = Age.getAge(
           currentDay: currentDay,
-          birthDay: elderBirthday,
+          birthday: elderBirthday,
         );
 
         const correctAge = Age(lifeStage: LifeStage.elder, pointInStage: 15);

@@ -31,8 +31,7 @@ class Age extends Equatable {
   static final adultAgeLimit =
       youngAdultAgeLimit + LifeStage.adult.stageDuration;
 
-
-  static Age getAge({required int currentDay, required int birthDay}) {
+  static Age getAge({required int currentDay, required int birthday}) {
     //get the days lived
     //from the days lived find out what stage of life they are in
     //find out how far into the stage they are
@@ -45,7 +44,7 @@ class Age extends Equatable {
     //* stageUpperLimit is 7 and daysLived is 5(the day whose position we are looking for)
     //*  4 - (7 - 5) = 4-2 = 2 -> 2nd point in the stage.
 
-    final int daysLived = currentDay - birthDay;
+    final int daysLived = currentDay - birthday;
 
     //You are a baby
     if (daysLived <= babyAgeLimit) {
