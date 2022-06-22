@@ -15,7 +15,8 @@ class GameDaoImpl implements GameDao {
       ${Game.isActiveColumn} $boolType,
       ${Game.lastPlayedTimeColumn} $integerType,
       ${Game.currentDayColumn} $integerType,
-      ${Game.currentTimeInMinutesColumn} $integerType
+      ${Game.currentTimeInMinutesColumn} $integerType,
+      ${Game.generationColumn} $integerType
     )
   ''';
 

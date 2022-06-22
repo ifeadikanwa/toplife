@@ -8,6 +8,7 @@ class Game extends Equatable {
   final int lastPlayedTime;
   final int currentDay;
   final int currentTimeInMinutes;
+  final int generation;
 
   const Game({
     this.id,
@@ -16,6 +17,7 @@ class Game extends Equatable {
     required this.lastPlayedTime,
     required this.currentDay,
     required this.currentTimeInMinutes,
+    required this.generation,
   });
 
   @override
@@ -26,6 +28,7 @@ class Game extends Equatable {
         lastPlayedTime,
         currentDay,
         currentTimeInMinutes,
+        generation,
       ];
 
   @override
@@ -38,6 +41,7 @@ class Game extends Equatable {
   static const lastPlayedTimeColumn = "lastPlayedTime";
   static const currentDayColumn = "currentDay";
   static const currentTimeInMinutesColumn = "currentTimeInMinutes";
+  static const generationColumn = "generation";
 
   static const allColumns = [
     idColumn,
@@ -46,6 +50,7 @@ class Game extends Equatable {
     lastPlayedTimeColumn,
     currentDayColumn,
     currentTimeInMinutesColumn,
+    generationColumn,
   ];
 
   Map<String, Object?> toMap() {
@@ -56,6 +61,7 @@ class Game extends Equatable {
       lastPlayedTimeColumn: lastPlayedTime,
       currentDayColumn: currentDay,
       currentTimeInMinutesColumn: currentTimeInMinutes,
+      generationColumn: generation,
     };
   }
 
@@ -67,6 +73,7 @@ class Game extends Equatable {
       lastPlayedTime: gameMap[lastPlayedTimeColumn] as int,
       currentDay: gameMap[currentDayColumn] as int,
       currentTimeInMinutes: gameMap[currentTimeInMinutesColumn] as int,
+      generation: gameMap[generationColumn] as int,
     );
   }
 
@@ -77,6 +84,7 @@ class Game extends Equatable {
     final int? lastPlayedTime,
     final int? currentDay,
     final int? currentTimeInMinutes,
+    final int? generation,
   }) {
     return Game(
       id: id ?? this.id,
@@ -85,6 +93,7 @@ class Game extends Equatable {
       lastPlayedTime: lastPlayedTime ?? this.lastPlayedTime,
       currentDay: currentDay ?? this.currentDay,
       currentTimeInMinutes: currentTimeInMinutes ?? this.currentTimeInMinutes,
+      generation: generation ?? this.generation,
     );
   }
 }
