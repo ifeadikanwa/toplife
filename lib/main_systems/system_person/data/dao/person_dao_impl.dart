@@ -25,8 +25,6 @@ class PersonDaoImpl implements PersonDao {
       ${Person.countryColumn} $textType,
       ${Person.zodiacSignColumn} $textType,
       ${Person.importantStatusColumn} $nullableTextType,
-      ${Person.motherIDColumn} $nullableIntegerType,
-      ${Person.fatherIDColumn} $nullableIntegerType,
       ${Person.custodianIDColumn} $nullableIntegerType,
       ${Person.sicklyColumn} $boolType,
       ${Person.rebelliousColumn} $boolType,

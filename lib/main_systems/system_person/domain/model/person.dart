@@ -15,8 +15,6 @@ class Person extends Equatable {
   final String country;
   final String zodiacSign;
   final String? importantStatus;
-  final int? motherID;
-  final int? fatherID;
   final int? custodianID;
   final bool sickly;
   final bool rebellious;
@@ -36,8 +34,6 @@ class Person extends Equatable {
     required this.country,
     required this.zodiacSign,
     this.importantStatus,
-    this.motherID,
-    this.fatherID,
     this.custodianID,
     required this.sickly,
     required this.rebellious,
@@ -59,8 +55,6 @@ class Person extends Equatable {
         country,
         zodiacSign,
         importantStatus,
-        motherID,
-        fatherID,
         custodianID,
         sickly,
         rebellious,
@@ -84,8 +78,6 @@ class Person extends Equatable {
   static const countryColumn = "country";
   static const zodiacSignColumn = "zodiacSign";
   static const importantStatusColumn = "importantStatus";
-  static const motherIDColumn = "motherID";
-  static const fatherIDColumn = "fatherID";
   static const custodianIDColumn = "custodianID";
   static const sicklyColumn = "sickly";
   static const rebelliousColumn = "rebellious";
@@ -105,8 +97,6 @@ class Person extends Equatable {
     countryColumn,
     zodiacSignColumn,
     importantStatusColumn,
-    motherIDColumn,
-    fatherIDColumn,
     custodianIDColumn,
     sicklyColumn,
     rebelliousColumn,
@@ -128,8 +118,6 @@ class Person extends Equatable {
       country: personMap[countryColumn] as String,
       zodiacSign: personMap[zodiacSignColumn] as String,
       importantStatus: personMap[importantStatusColumn] as String?,
-      motherID: personMap[motherIDColumn] as int?,
-      fatherID: personMap[fatherIDColumn] as int?,
       custodianID: personMap[custodianIDColumn] as int?,
       sickly: personMap[sicklyColumn] == databaseTrueValue,
       rebellious: personMap[rebelliousColumn] == databaseTrueValue,
@@ -152,8 +140,6 @@ class Person extends Equatable {
       countryColumn: country,
       zodiacSignColumn: zodiacSign,
       importantStatusColumn: importantStatus,
-      motherIDColumn: motherID,
-      fatherIDColumn: fatherID,
       custodianIDColumn: custodianID,
       sicklyColumn: sickly ? databaseTrueValue : databaseFalseValue,
       rebelliousColumn: rebellious ? databaseTrueValue : databaseFalseValue,
@@ -175,8 +161,6 @@ class Person extends Equatable {
     String? country,
     String? zodiacSign,
     String? importantStatus,
-    int? motherID,
-    int? fatherID,
     int? custodianID,
     bool? sickly,
     bool? rebellious,
@@ -195,8 +179,6 @@ class Person extends Equatable {
       state: state ?? this.state,
       country: country ?? this.country,
       importantStatus: importantStatus ?? this.importantStatus,
-      motherID: motherID ?? this.motherID,
-      fatherID: fatherID ?? this.fatherID,
       custodianID: custodianID ?? this.custodianID,
       zodiacSign: zodiacSign ?? this.zodiacSign,
       sickly: sickly ?? this.sickly,
