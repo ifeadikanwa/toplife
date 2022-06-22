@@ -16,6 +16,9 @@ class Person extends Equatable {
   final String zodiacSign;
   final String? importantStatus;
   final int? custodianID;
+  final bool hasFertilityIssues;
+  final bool onBirthControl;
+  final bool isSterile;
   final bool sickly;
   final bool rebellious;
   final bool dead;
@@ -35,6 +38,9 @@ class Person extends Equatable {
     required this.zodiacSign,
     this.importantStatus,
     this.custodianID,
+    required this.hasFertilityIssues,
+    required this.onBirthControl,
+    required this.isSterile,
     required this.sickly,
     required this.rebellious,
     required this.dead,
@@ -56,6 +62,9 @@ class Person extends Equatable {
         zodiacSign,
         importantStatus,
         custodianID,
+        hasFertilityIssues,
+        onBirthControl,
+        isSterile,
         sickly,
         rebellious,
         dead
@@ -80,6 +89,9 @@ class Person extends Equatable {
   static const importantStatusColumn = "importantStatus";
   static const custodianIDColumn = "custodianID";
   static const sicklyColumn = "sickly";
+  static const hasFertilityIssuesColumn = "hasFertilityIssues";
+  static const onBirthControlColumn = "onBirthControl";
+  static const isSterileColumn = "isSterile";
   static const rebelliousColumn = "rebellious";
   static const deadColumn = "dead";
 
@@ -98,6 +110,9 @@ class Person extends Equatable {
     zodiacSignColumn,
     importantStatusColumn,
     custodianIDColumn,
+    hasFertilityIssuesColumn,
+    onBirthControlColumn,
+    isSterileColumn,
     sicklyColumn,
     rebelliousColumn,
     deadColumn,
@@ -119,6 +134,9 @@ class Person extends Equatable {
       zodiacSign: personMap[zodiacSignColumn] as String,
       importantStatus: personMap[importantStatusColumn] as String?,
       custodianID: personMap[custodianIDColumn] as int?,
+      hasFertilityIssues: personMap[hasFertilityIssuesColumn]== databaseTrueValue,
+      onBirthControl: personMap[onBirthControlColumn] == databaseTrueValue,
+      isSterile: personMap[isSterileColumn] == databaseTrueValue,
       sickly: personMap[sicklyColumn] == databaseTrueValue,
       rebellious: personMap[rebelliousColumn] == databaseTrueValue,
       dead: personMap[deadColumn] == databaseTrueValue,
@@ -141,6 +159,9 @@ class Person extends Equatable {
       zodiacSignColumn: zodiacSign,
       importantStatusColumn: importantStatus,
       custodianIDColumn: custodianID,
+      hasFertilityIssuesColumn: hasFertilityIssues ? databaseTrueValue : databaseFalseValue,
+      onBirthControlColumn: onBirthControl ? databaseTrueValue : databaseFalseValue,
+      isSterileColumn: isSterile ? databaseTrueValue : databaseFalseValue,
       sicklyColumn: sickly ? databaseTrueValue : databaseFalseValue,
       rebelliousColumn: rebellious ? databaseTrueValue : databaseFalseValue,
       deadColumn: dead ? databaseTrueValue : databaseFalseValue,
@@ -162,6 +183,9 @@ class Person extends Equatable {
     String? zodiacSign,
     String? importantStatus,
     int? custodianID,
+    bool? hasFertilityIssues,
+    bool? onBirthControl,
+    bool? isSterile,
     bool? sickly,
     bool? rebellious,
     bool? dead,
@@ -181,6 +205,9 @@ class Person extends Equatable {
       importantStatus: importantStatus ?? this.importantStatus,
       custodianID: custodianID ?? this.custodianID,
       zodiacSign: zodiacSign ?? this.zodiacSign,
+      hasFertilityIssues: hasFertilityIssues ?? this.hasFertilityIssues,
+      onBirthControl: onBirthControl ?? this.onBirthControl,
+      isSterile: isSterile ?? this.isSterile,
       sickly: sickly ?? this.sickly,
       rebellious: rebellious ?? this.rebellious,
       dead: dead ?? this.dead,

@@ -91,6 +91,11 @@ class GenerateAPersonUsecase {
       state: currentState,
       country: currentCountry,
       zodiacSign: personZodiacSign.name,
+      hasFertilityIssues: Chance.getTrueOrFalseBasedOnPercentageChance(
+        trueChancePercentage: 10,
+      ),
+      onBirthControl: false,
+      isSterile: false,
       sickly: Chance.getTrueOrFalseBasedOnPercentageChance(
         trueChancePercentage: 30,
       ),
