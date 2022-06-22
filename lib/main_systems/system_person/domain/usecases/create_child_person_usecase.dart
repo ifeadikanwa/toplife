@@ -1,4 +1,3 @@
-
 import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
 import 'package:toplife/main_systems/system_person/domain/model/baby_traits.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
@@ -51,6 +50,8 @@ class CreateChildPersonUsecase {
       final createdPersonRelationshipTraits = RelationshipTraits(
         personID: createdPerson.id!,
         helpfulness: RelationshipTraits.getValidHelpfulnessValue(),
+        daysToDateBeforeMarriage:
+            RelationshipTraits.getValidDaysToDateBeforeMarriage(),
         economical: RelationshipTraits.getValidEconomicalValue(),
         materialistic: RelationshipTraits.getValidMaterialisticValue(),
         jealous: RelationshipTraits.getValidJealousValue(),

@@ -16,6 +16,7 @@ class RelationshipTraitsDaoImpl implements RelationshipTraitsDao {
       ${RelationshipTraits.idColumn} $idType,
       ${RelationshipTraits.personIDColumn} $integerType $unique,
       ${RelationshipTraits.helpfulnessColumn} $integerType,
+      ${RelationshipTraits.daysToDateBeforeMarriageColumn} $integerType,
       ${RelationshipTraits.economicalColumn} $integerType,
       ${RelationshipTraits.materialisticColumn} $integerType,
       ${RelationshipTraits.jealousColumn} $integerType,

@@ -37,6 +37,8 @@ class CreateAdultPersonUsecase {
       final createdPersonRelationshipTraits = RelationshipTraits(
         personID: createdPerson.id!,
         helpfulness: RelationshipTraits.getValidHelpfulnessValue(),
+        daysToDateBeforeMarriage:
+            RelationshipTraits.getValidDaysToDateBeforeMarriage(),
         economical: RelationshipTraits.getValidEconomicalValue(),
         materialistic: RelationshipTraits.getValidMaterialisticValue(),
         jealous: RelationshipTraits.getValidJealousValue(),

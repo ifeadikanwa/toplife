@@ -8,6 +8,7 @@ class RelationshipTraits extends Equatable {
   final int? id;
   final int personID;
   final int helpfulness;
+  final int daysToDateBeforeMarriage;
   final bool economical;
   final bool materialistic;
   final bool jealous;
@@ -17,6 +18,7 @@ class RelationshipTraits extends Equatable {
     this.id,
     required this.personID,
     required this.helpfulness,
+    required this.daysToDateBeforeMarriage,
     required this.economical,
     required this.materialistic,
     required this.jealous,
@@ -28,6 +30,7 @@ class RelationshipTraits extends Equatable {
         id,
         personID,
         helpfulness,
+        daysToDateBeforeMarriage,
         economical,
         materialistic,
         jealous,
@@ -59,6 +62,11 @@ class RelationshipTraits extends Equatable {
     }
   }
 
+  static int getValidDaysToDateBeforeMarriage() {
+    //return random value between 5 and 20
+    return Random().nextInt(20) + 5;
+  }
+
   static bool getValidEconomicalValue() {
     return Chance.getTrueOrFalseBasedOnPercentageChance(
         trueChancePercentage: 70);
@@ -83,6 +91,7 @@ class RelationshipTraits extends Equatable {
   static const idColumn = "_id";
   static const personIDColumn = "personID";
   static const helpfulnessColumn = "helpfulness";
+  static const daysToDateBeforeMarriageColumn = "daysToDateBeforeMarriage";
   static const economicalColumn = "economical";
   static const materialisticColumn = "materialistic";
   static const jealousColumn = "jealous";
@@ -92,6 +101,7 @@ class RelationshipTraits extends Equatable {
     idColumn,
     personIDColumn,
     helpfulnessColumn,
+    daysToDateBeforeMarriageColumn,
     economicalColumn,
     materialisticColumn,
     jealousColumn,
@@ -104,6 +114,8 @@ class RelationshipTraits extends Equatable {
       id: relationshipTraitsMap[idColumn] as int?,
       personID: relationshipTraitsMap[personIDColumn] as int,
       helpfulness: relationshipTraitsMap[helpfulnessColumn] as int,
+      daysToDateBeforeMarriage:
+          relationshipTraitsMap[daysToDateBeforeMarriageColumn] as int,
       economical: relationshipTraitsMap[economicalColumn] == databaseTrueValue,
       materialistic:
           relationshipTraitsMap[materialisticColumn] == databaseTrueValue,
@@ -117,6 +129,7 @@ class RelationshipTraits extends Equatable {
       idColumn: id,
       personIDColumn: personID,
       helpfulnessColumn: helpfulness,
+      daysToDateBeforeMarriageColumn: daysToDateBeforeMarriage,
       economicalColumn: economical ? databaseTrueValue : databaseFalseValue,
       materialisticColumn:
           materialistic ? databaseTrueValue : databaseFalseValue,
@@ -129,6 +142,7 @@ class RelationshipTraits extends Equatable {
     int? id,
     int? personID,
     int? helpfulness,
+    int? daysToDateBeforeMarriage,
     bool? economical,
     bool? materialistic,
     bool? jealous,
@@ -138,6 +152,8 @@ class RelationshipTraits extends Equatable {
       id: id ?? this.id,
       personID: personID ?? this.personID,
       helpfulness: helpfulness ?? this.helpfulness,
+      daysToDateBeforeMarriage:
+          daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
       economical: economical ?? this.economical,
       materialistic: materialistic ?? this.materialistic,
       jealous: jealous ?? this.jealous,
