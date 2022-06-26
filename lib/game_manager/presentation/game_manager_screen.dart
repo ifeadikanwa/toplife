@@ -81,14 +81,15 @@ class GameScreen extends ConsumerWidget {
               // final parentInfo = await ParentDaoImpl().getAllActiveParents(1);
               // print(parentInfo);
 
-              await ref
-                  .read(relationshipUsecasesProvider)
-                  .getMarriedUsecase
-                  .execute(
-                    mainPersonID: 2,
-                    partnerID: 3,
-                    currentDay: 106,
-                  );
+              // Person? person = await PersonDaoImpl().getPerson(4);
+
+              // if (person != null) {
+              //   Age age = ref.read(ageUsecasesProvider).getPersonAgeUsecase.execute(
+              //         dayOfBirth: person.dayOfBirth,
+              //         currentDay: 1,
+              //       );
+              //   print("Age: ${age.lifeStage.stageName} ${age.pointInStage}/${age.lifeStage.stageDuration}");
+              // }
             },
             child: const Text("do")),
         ElevatedButton(
