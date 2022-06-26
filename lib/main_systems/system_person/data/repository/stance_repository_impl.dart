@@ -1,9 +1,6 @@
 import 'package:toplife/main_systems/system_person/domain/dao/stance_dao.dart';
-import 'package:toplife/main_systems/system_person/domain/dao/stats_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stance.dart';
-import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stance_repository.dart';
-import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
 class StanceRepositoryImpl implements StanceRepository {
   final StanceDao _stanceDao;
