@@ -11,8 +11,7 @@ class StanceDaoImpl implements StanceDao {
 
   static const stanceTable = "stance";
 
-  static const createTableQuery =
-      '''
+  static const createTableQuery = '''
     CREATE TABLE $stanceTable(
       ${Stance.idColumn} $idType,
       ${Stance.personIDColumn} $integerType $unique,
@@ -22,6 +21,8 @@ class StanceDaoImpl implements StanceDao {
       ${Stance.openToAlternativeFertilityMethodsColumn} $boolType,
       ${Stance.openToSigningPrenupColumn} $boolType,
       ${Stance.wantsPartnerToSignPrenupColumn} $boolType,
+      ${Stance.openToCrimesColumn} $boolType,
+      ${Stance.openToStayAtHomeParentingColumn} $boolType,
       FOREIGN KEY (${Stance.personIDColumn})
        REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
        ON UPDATE CASCADE

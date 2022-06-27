@@ -8,6 +8,7 @@ import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -31,6 +32,7 @@ final personUsecasesProvider = Provider<PersonUsecases>(((ref) {
       statsDao: StatsDaoImpl(),
       relationshipTraitsDao: RelationshipTraitsDaoImpl(),
       babyTraitsDao: BabyTraitsDaoImpl(),
+      stanceDao: StanceDaoImpl(),
     ),
     ageUsecases: ref.watch(ageUsecasesProvider),
   );

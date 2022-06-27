@@ -11,6 +11,8 @@ class Stance extends Equatable {
   final bool openToAlternativeFertilityMethods;
   final bool openToSigningPrenup;
   final bool wantsPartnerToSignPrenup;
+  final bool openToCrimes;
+  final bool openToStayAtHomeParenting;
 
   const Stance({
     this.id,
@@ -21,6 +23,8 @@ class Stance extends Equatable {
     required this.openToAlternativeFertilityMethods,
     required this.openToSigningPrenup,
     required this.wantsPartnerToSignPrenup,
+    required this.openToCrimes,
+    required this.openToStayAtHomeParenting,
   });
 
   @override
@@ -33,6 +37,8 @@ class Stance extends Equatable {
         openToAlternativeFertilityMethods,
         openToSigningPrenup,
         wantsPartnerToSignPrenup,
+        openToCrimes,
+        openToStayAtHomeParenting,
       ];
 
   @override
@@ -41,9 +47,9 @@ class Stance extends Equatable {
   //Helper constants
 
   static bool getValidStanceValue() {
-    //65 percent chance the stance is true
+    //70 percent chance the stance is true
     return Chance.getTrueOrFalseBasedOnPercentageChance(
-      trueChancePercentage: 65,
+      trueChancePercentage: 70,
     );
   }
 
@@ -56,6 +62,8 @@ class Stance extends Equatable {
       "openToAlternativeFertilityMethods";
   static const openToSigningPrenupColumn = "openToSigningPrenup";
   static const wantsPartnerToSignPrenupColumn = "wantsPartnerToSignPrenup";
+  static const openToCrimesColumn = "openToCrimes";
+  static const openToStayAtHomeParentingColumn = "openToStayAtHomeParenting";
 
   static const allColumns = [
     idColumn,
@@ -66,6 +74,8 @@ class Stance extends Equatable {
     openToAlternativeFertilityMethodsColumn,
     openToSigningPrenupColumn,
     wantsPartnerToSignPrenupColumn,
+    openToCrimesColumn,
+    openToStayAtHomeParentingColumn,
   ];
 
   static Stance fromMap({required Map<String, Object?> stanceMap}) {
@@ -82,6 +92,9 @@ class Stance extends Equatable {
           stanceMap[openToSigningPrenupColumn] == databaseTrueValue,
       wantsPartnerToSignPrenup:
           stanceMap[wantsPartnerToSignPrenupColumn] == databaseTrueValue,
+      openToCrimes: stanceMap[openToCrimesColumn] == databaseTrueValue,
+      openToStayAtHomeParenting:
+          stanceMap[openToStayAtHomeParentingColumn] == databaseTrueValue,
     );
   }
 
@@ -102,6 +115,9 @@ class Stance extends Equatable {
           openToSigningPrenup ? databaseTrueValue : databaseFalseValue,
       wantsPartnerToSignPrenupColumn:
           wantsPartnerToSignPrenup ? databaseTrueValue : databaseFalseValue,
+      openToCrimesColumn: openToCrimes ? databaseTrueValue : databaseFalseValue,
+      openToStayAtHomeParentingColumn:
+          openToStayAtHomeParenting ? databaseTrueValue : databaseFalseValue,
     };
   }
 
@@ -114,6 +130,8 @@ class Stance extends Equatable {
     bool? openToAlternativeFertilityMethods,
     bool? openToSigningPrenup,
     bool? wantsPartnerToSignPrenup,
+    bool? openToCrimes,
+    bool? openToStayAtHomeParenting,
   }) {
     return Stance(
       id: id ?? this.id,
@@ -126,6 +144,9 @@ class Stance extends Equatable {
       openToSigningPrenup: openToSigningPrenup ?? this.openToSigningPrenup,
       wantsPartnerToSignPrenup:
           wantsPartnerToSignPrenup ?? this.wantsPartnerToSignPrenup,
+      openToCrimes: openToCrimes ?? this.openToCrimes,
+      openToStayAtHomeParenting:
+          openToStayAtHomeParenting ?? this.openToStayAtHomeParenting,
     );
   }
 }

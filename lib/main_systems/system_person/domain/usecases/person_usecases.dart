@@ -39,6 +39,7 @@ class PersonUsecases {
         statsRepository: _personRepositories.statsRepositoryImpl,
         relationshipTraitsRepository:
             _personRepositories.relationshipTraitsRepositoryImpl,
+        stanceRepositoryImpl: _personRepositories.stanceRepositoryImpl,
       );
 
   CreateChildPersonUsecase get createChildPersonUsecase =>
@@ -48,6 +49,7 @@ class PersonUsecases {
         relationshipTraitsRepository:
             _personRepositories.relationshipTraitsRepositoryImpl,
         babyTraitsRepository: _personRepositories.babyTraitsRepositoryImpl,
+        stanceRepositoryImpl: _personRepositories.stanceRepositoryImpl,
       );
 
   DepleteBabyEnergyUsecase get depleteBabyEnergyUsecase =>

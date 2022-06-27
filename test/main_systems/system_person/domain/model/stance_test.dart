@@ -14,6 +14,8 @@ void main() {
       openToAlternativeFertilityMethods: true,
       openToSigningPrenup: true,
       wantsPartnerToSignPrenup: false,
+      openToCrimes: true,
+      openToStayAtHomeParenting: false,
     );
   });
 
@@ -30,6 +32,8 @@ void main() {
           "openToAlternativeFertilityMethods": 1,
           "openToSigningPrenup": 1,
           "wantsPartnerToSignPrenup": 0,
+          "openToCrimes": 1,
+          "openToStayAtHomeParenting": 0,
         };
 
         expect(sut.toMap(), correctMap);
@@ -45,6 +49,8 @@ void main() {
           "openToAlternativeFertilityMethods": 1,
           "openToSigningPrenup": 1,
           "wantsPartnerToSignPrenup": 0,
+          "openToCrimes": 1,
+          "openToStayAtHomeParenting": 0,
         };
 
         final result = Stance.fromMap(stanceMap: map);
@@ -62,6 +68,8 @@ void main() {
           openToAlternativeFertilityMethods: true,
           openToSigningPrenup: true,
           wantsPartnerToSignPrenup: false,
+          openToCrimes: true,
+          openToStayAtHomeParenting: false,
         );
 
         final result =
