@@ -7,7 +7,7 @@ class SchoolProject extends Equatable {
   final int semesterNumber;
   final int mainPersonID;
   final int mainPersonContribution;
-  final int projectPartnerID;
+  final int projectPartnerSchoolRelationshipID;
   final int projectPartnerContribution;
   final bool projectPartnerWillContribute;
 
@@ -17,7 +17,7 @@ class SchoolProject extends Equatable {
     required this.semesterNumber,
     required this.mainPersonID,
     required this.mainPersonContribution,
-    required this.projectPartnerID,
+    required this.projectPartnerSchoolRelationshipID,
     required this.projectPartnerContribution,
     required this.projectPartnerWillContribute,
   });
@@ -29,7 +29,7 @@ class SchoolProject extends Equatable {
         semesterNumber,
         mainPersonID,
         mainPersonContribution,
-        projectPartnerID,
+        projectPartnerSchoolRelationshipID,
         projectPartnerContribution,
         projectPartnerWillContribute,
       ];
@@ -43,7 +43,7 @@ class SchoolProject extends Equatable {
   static const semesterNumberColumn = "semesterNumber";
   static const mainPersonIDColumn = "mainPersonID";
   static const mainPersonContributionColumn = "mainPersonContribution";
-  static const projectPartnerIDColumn = "projectPartnerID";
+  static const projectPartnerSchoolRelationshipIDColumn = "projectPartnerSchoolRelationshipID";
   static const projectPartnerContributionColumn = "projectPartnerContribution";
   static const projectPartnerWillContributeColumn =
       "projectPartnerWillContribute";
@@ -54,7 +54,7 @@ class SchoolProject extends Equatable {
     semesterNumberColumn,
     mainPersonIDColumn,
     mainPersonContributionColumn,
-    projectPartnerIDColumn,
+    projectPartnerSchoolRelationshipIDColumn,
     projectPartnerContributionColumn,
     projectPartnerWillContributeColumn,
   ];
@@ -68,7 +68,8 @@ class SchoolProject extends Equatable {
       mainPersonID: schoolProjectMap[mainPersonIDColumn] as int,
       mainPersonContribution:
           schoolProjectMap[mainPersonContributionColumn] as int,
-      projectPartnerID: schoolProjectMap[projectPartnerIDColumn] as int,
+      projectPartnerSchoolRelationshipID:
+          schoolProjectMap[projectPartnerSchoolRelationshipIDColumn] as int,
       projectPartnerContribution:
           schoolProjectMap[projectPartnerContributionColumn] as int,
       projectPartnerWillContribute:
@@ -84,7 +85,7 @@ class SchoolProject extends Equatable {
       semesterNumberColumn: semesterNumber,
       mainPersonIDColumn: mainPersonID,
       mainPersonContributionColumn: mainPersonContribution,
-      projectPartnerIDColumn: projectPartnerID,
+      projectPartnerSchoolRelationshipIDColumn: projectPartnerSchoolRelationshipID,
       projectPartnerContributionColumn: projectPartnerContribution,
       projectPartnerWillContributeColumn:
           projectPartnerWillContribute ? databaseTrueValue : databaseFalseValue,
@@ -97,7 +98,7 @@ class SchoolProject extends Equatable {
     int? semesterNumber,
     int? mainPersonID,
     int? mainPersonContribution,
-    int? projectPartnerID,
+    int? projectPartnerSchoolRelationshipID,
     int? projectPartnerContribution,
     bool? projectPartnerWillContribute,
   }) {
@@ -108,7 +109,8 @@ class SchoolProject extends Equatable {
       mainPersonID: mainPersonID ?? this.mainPersonID,
       mainPersonContribution:
           mainPersonContribution ?? this.mainPersonContribution,
-      projectPartnerID: projectPartnerID ?? this.projectPartnerID,
+      projectPartnerSchoolRelationshipID:
+          projectPartnerSchoolRelationshipID ?? this.projectPartnerSchoolRelationshipID,
       projectPartnerContribution:
           projectPartnerContribution ?? this.projectPartnerContribution,
       projectPartnerWillContribute:

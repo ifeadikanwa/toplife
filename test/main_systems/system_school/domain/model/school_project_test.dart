@@ -11,14 +11,14 @@ void main() {
       semesterNumber: 2,
       mainPersonID: 6,
       mainPersonContribution: 80,
-      projectPartnerID: 9,
+      projectPartnerSchoolRelationshipID: 9,
       projectPartnerContribution: 75,
       projectPartnerWillContribute: true,
     );
   });
 
   group(
-    "Stats",
+    "School Project",
     () {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
@@ -59,11 +59,12 @@ void main() {
           semesterNumber: 2,
           mainPersonID: 6,
           mainPersonContribution: 100,
-          projectPartnerID: 9,
+          projectPartnerSchoolRelationshipID: 9,
           projectPartnerContribution: 75,
           projectPartnerWillContribute: false,
         );
-        final result = sut.copyWith(mainPersonContribution: 100, projectPartnerWillContribute: false);
+        final result = sut.copyWith(
+            mainPersonContribution: 100, projectPartnerWillContribute: false);
         expect(result, correctSchoolProject);
       });
 
