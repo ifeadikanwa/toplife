@@ -5,7 +5,8 @@ import 'package:path/path.dart';
 import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/relationship_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
@@ -49,6 +50,7 @@ class DatabaseProvider {
     await db.execute(StatsDaoImpl.createTableQuery);
     await db.execute(BabyTraitsDaoImpl.createTableQuery);
     await db.execute(RelationshipTraitsDaoImpl.createTableQuery);
+    await db.execute(StanceDaoImpl.createTableQuery);
 
     //Relationships
     await db.execute(ParentDaoImpl.createTableQuery);

@@ -1,19 +1,29 @@
 import 'package:toplife/core/utils/chance.dart';
-import 'package:toplife/core/utils/get_random_value_from_collections.dart';
+import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_person/util/get_random_gender.dart';
+import 'package:toplife/main_systems/system_person/util/get_random_sexuality.dart';
+import 'package:toplife/main_systems/system_person/util/get_random_zodiac_sign.dart';
 
 class GenerateAPersonUsecase {
+  final AgeUsecases _ageUsecases;
+
+  const GenerateAPersonUsecase({required AgeUsecases ageUsecases})
+      : _ageUsecases = ageUsecases;
+
   Person execute({
     required int currentGameID,
+    required int currentDay,
     String? lastName,
     required String currentCountry,
     required String currentState,
     Gender? gender,
     Sexuality? sexuallity,
+    bool earlyStageInAge = false,
+    bool lateStageInAge = false,
     bool canBeBaby = false,
     bool canBeToddler = false,
     bool canBeChild = false,
@@ -27,7 +37,7 @@ class GenerateAPersonUsecase {
     //done: get a random firstname from the country
     //done: get a random lastname from country if lastName arg is null
 
-    //todo: generate a random age based on the posibilities given
+    //done: generate a random age based on the posibilities given
 
     //done: generate a random gender if it isnt provided
 
@@ -46,18 +56,34 @@ class GenerateAPersonUsecase {
     final country =
         LocationManager.getCountryClass(countryName: currentCountry);
 
-    final personGender = gender ?? _getRandomGender();
+    final personGender = gender ?? getRandomGender();
 
     final personSexuality =
-        sexuallity ?? _getRandomSexuality(gender: personGender);
+        sexuallity ?? getRandomSexuality(gender: personGender);
 
-    final personZodiacSign = _getRandomZodiacSign();
+    final personZodiacSign = getRandomZodiacSign();
+
+    final personDayOfBirth =
+        _ageUsecases.getADayOfBirthFromAListOfPossibleLifeStagesUsecase.execute(
+      currentDay: currentDay,
+      earlyStageInAge: earlyStageInAge,
+      lateStageInAge: lateStageInAge,
+      canBeBaby: canBeBaby,
+      canBeToddler: canBeToddler,
+      canBeChild: canBeChild,
+      canBeTeen: canBeTeen,
+      canBeYoungAdult: canBeYoungAdult,
+      canBeAdult: canBeAdult,
+      canBeElder: canBeElder,
+    );
 
     return Person(
       gameID: currentGameID,
-      firstName: (personGender == Gender.Female) ? country.randomFemaleFirstName : country.randomMaleFirstName,
+      firstName: (personGender == Gender.Female)
+          ? country.randomFemaleFirstName
+          : country.randomMaleFirstName,
       lastName: lastName ?? country.randomLastName,
-      age: 0,
+      dayOfBirth: personDayOfBirth,
       gender: personGender.name,
       subjectPronoun: personGender.subjectPronoun,
       objectPronoun: personGender.objectPronoun,
@@ -65,29 +91,16 @@ class GenerateAPersonUsecase {
       state: currentState,
       country: currentCountry,
       zodiacSign: personZodiacSign.name,
-      sickly: Chance.getTrueOrFalseBasedOnPercentageChance(trueChancePercentage: 30),
+      hasFertilityIssues: Chance.getTrueOrFalseBasedOnPercentageChance(
+        trueChancePercentage: 10,
+      ),
+      onBirthControl: false,
+      isSterile: false,
+      sickly: Chance.getTrueOrFalseBasedOnPercentageChance(
+        trueChancePercentage: 30,
+      ),
       rebellious: Chance.getTrueOrFalse(),
       dead: isDead,
     );
-  }
-
-
-  Gender _getRandomGender() {
-    final isFemale = Chance.getTrueOrFalse();
-    return isFemale ? Gender.Female : Gender.Male;
-  }
-
-  Sexuality _getRandomSexuality({required Gender gender}) {
-    final correctQueerSexuality =
-        (gender == Gender.Female) ? Sexuality.Lesbian : Sexuality.Gay;
-
-    final isStraight =
-        Chance.getTrueOrFalseBasedOnPercentageChance(trueChancePercentage: 70);
-
-    return isStraight ? Sexuality.Straight : correctQueerSexuality;
-  }
-
-  ZodiacSign _getRandomZodiacSign() {
-    return getRandomValueFromList(list: ZodiacSign.values);
   }
 }

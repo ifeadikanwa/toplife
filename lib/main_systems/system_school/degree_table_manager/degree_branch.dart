@@ -1,0 +1,36 @@
+class DegreeBranch {
+  static const politicalScience = "Political Science";
+  static const law = "Law";
+  static const sociology = "Sociology";
+  static const psychology = "Psychology";
+  static const criminalJustice = "Criminal Justice";
+  static const biology = "Biology";
+  static const chemistry = "Chemistry";
+  static const physics = "Physics";
+  static const mathematics = "Mathematics";
+  static const astronomy = "Astronomy";
+  static const computerScience = "Computer Science";
+  static const electricalEngineering = "Electrical Engineering";
+  static const mechanicalEngineering = "Mechanical Engineering";
+  static const chemicalEngineering = "Chemical Engineering";
+  static const art = "Art";
+  static const philosophy = "Philosophy";
+  static const languages = "Languages";
+  static const history = "History";
+  static const english = "English";
+  static const economics = "Economics";
+  static const marketing = "Marketing";
+  static const accounting = "Accounting";
+  static const finance = "Finance";
+  static const advertising = "Advertising";
+  static const surgery = "Surgery";
+  static const pathology = "Pathology";
+  static const pediatrics = "Pediatrics";
+  static const neurology = "Neurology";
+  static const nursing = "Nursing";
+  static const pharmacy = "Pharmacy";
+  static const criminalLaw = "Criminal Law";
+  static const corporateLaw = "Corporate Law";
+  static const realEstateLaw = "Real Estate Law";
+  static const familyLaw = "Family Law";
+}

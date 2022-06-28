@@ -20,7 +20,7 @@ void main() {
     );
 
     test(
-      "bi is a type of child relationship",
+      "birth is a type of child relationship",
       (){
         assert(ChildRelationshipType.birth is ChildRelationshipType);
       }

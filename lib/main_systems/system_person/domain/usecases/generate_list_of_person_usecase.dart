@@ -13,11 +13,14 @@ class GenerateListOfPersonUsecase {
   List<Person> execute({
     required int numberOfPerson,
     required int currentGameID,
+    required int currentDay,
     String? lastName,
     required String currentCountry,
     required String currentState,
     Gender? gender,
     Sexuality? sexuallity,
+     bool earlyStageInAge = false,
+    bool lateStageInAge = false,
     bool canBeBaby = false,
     bool canBeToddler = false,
     bool canBeChild = false,
@@ -35,6 +38,7 @@ class GenerateListOfPersonUsecase {
       people.add(
         _generateAPersonUsecase.execute(
           currentGameID: currentGameID,
+          currentDay: currentDay,
           lastName: lastName,
           currentCountry: currentCountry,
           currentState: currentState,

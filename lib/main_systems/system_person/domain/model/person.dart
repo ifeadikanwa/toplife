@@ -6,7 +6,7 @@ class Person extends Equatable {
   final int? gameID;
   final String firstName;
   final String lastName;
-  final int age;
+  final int dayOfBirth;
   final String gender;
   final String subjectPronoun;
   final String objectPronoun;
@@ -15,9 +15,10 @@ class Person extends Equatable {
   final String country;
   final String zodiacSign;
   final String? importantStatus;
-  final int? motherID;
-  final int? fatherID;
   final int? custodianID;
+  final bool hasFertilityIssues;
+  final bool onBirthControl;
+  final bool isSterile;
   final bool sickly;
   final bool rebellious;
   final bool dead;
@@ -27,7 +28,7 @@ class Person extends Equatable {
     this.gameID,
     required this.firstName,
     required this.lastName,
-    required this.age,
+    required this.dayOfBirth,
     required this.gender,
     required this.subjectPronoun,
     required this.objectPronoun,
@@ -36,9 +37,10 @@ class Person extends Equatable {
     required this.country,
     required this.zodiacSign,
     this.importantStatus,
-    this.motherID,
-    this.fatherID,
     this.custodianID,
+    required this.hasFertilityIssues,
+    required this.onBirthControl,
+    required this.isSterile,
     required this.sickly,
     required this.rebellious,
     required this.dead,
@@ -50,7 +52,7 @@ class Person extends Equatable {
         gameID,
         firstName,
         lastName,
-        age,
+        dayOfBirth,
         gender,
         subjectPronoun,
         objectPronoun,
@@ -59,9 +61,10 @@ class Person extends Equatable {
         country,
         zodiacSign,
         importantStatus,
-        motherID,
-        fatherID,
         custodianID,
+        hasFertilityIssues,
+        onBirthControl,
+        isSterile,
         sickly,
         rebellious,
         dead
@@ -75,7 +78,7 @@ class Person extends Equatable {
   static const gameIDColumn = "gameID";
   static const firstNameColumn = "firstName";
   static const lastNameColumn = "lastName";
-  static const ageColumn = "age";
+  static const dayOfBirthColumn = "dayOfBirth";
   static const genderColumn = "gender";
   static const subjectPronounColumn = "subjectPronoun";
   static const objectPronounColumn = "objectPronoun";
@@ -84,10 +87,11 @@ class Person extends Equatable {
   static const countryColumn = "country";
   static const zodiacSignColumn = "zodiacSign";
   static const importantStatusColumn = "importantStatus";
-  static const motherIDColumn = "motherID";
-  static const fatherIDColumn = "fatherID";
   static const custodianIDColumn = "custodianID";
   static const sicklyColumn = "sickly";
+  static const hasFertilityIssuesColumn = "hasFertilityIssues";
+  static const onBirthControlColumn = "onBirthControl";
+  static const isSterileColumn = "isSterile";
   static const rebelliousColumn = "rebellious";
   static const deadColumn = "dead";
 
@@ -96,7 +100,7 @@ class Person extends Equatable {
     gameIDColumn,
     firstNameColumn,
     lastNameColumn,
-    ageColumn,
+    dayOfBirthColumn,
     genderColumn,
     subjectPronounColumn,
     objectPronounColumn,
@@ -105,9 +109,10 @@ class Person extends Equatable {
     countryColumn,
     zodiacSignColumn,
     importantStatusColumn,
-    motherIDColumn,
-    fatherIDColumn,
     custodianIDColumn,
+    hasFertilityIssuesColumn,
+    onBirthControlColumn,
+    isSterileColumn,
     sicklyColumn,
     rebelliousColumn,
     deadColumn,
@@ -119,7 +124,7 @@ class Person extends Equatable {
       gameID: personMap[gameIDColumn] as int?,
       firstName: personMap[firstNameColumn] as String,
       lastName: personMap[lastNameColumn] as String,
-      age: personMap[ageColumn] as int,
+      dayOfBirth: personMap[dayOfBirthColumn] as int,
       gender: personMap[genderColumn] as String,
       subjectPronoun: personMap[subjectPronounColumn] as String,
       objectPronoun: personMap[objectPronounColumn] as String,
@@ -128,9 +133,10 @@ class Person extends Equatable {
       country: personMap[countryColumn] as String,
       zodiacSign: personMap[zodiacSignColumn] as String,
       importantStatus: personMap[importantStatusColumn] as String?,
-      motherID: personMap[motherIDColumn] as int?,
-      fatherID: personMap[fatherIDColumn] as int?,
       custodianID: personMap[custodianIDColumn] as int?,
+      hasFertilityIssues: personMap[hasFertilityIssuesColumn]== databaseTrueValue,
+      onBirthControl: personMap[onBirthControlColumn] == databaseTrueValue,
+      isSterile: personMap[isSterileColumn] == databaseTrueValue,
       sickly: personMap[sicklyColumn] == databaseTrueValue,
       rebellious: personMap[rebelliousColumn] == databaseTrueValue,
       dead: personMap[deadColumn] == databaseTrueValue,
@@ -143,7 +149,7 @@ class Person extends Equatable {
       gameIDColumn: gameID,
       firstNameColumn: firstName,
       lastNameColumn: lastName,
-      ageColumn: age,
+      dayOfBirthColumn: dayOfBirth,
       genderColumn: gender,
       subjectPronounColumn: subjectPronoun,
       objectPronounColumn: objectPronoun,
@@ -152,9 +158,10 @@ class Person extends Equatable {
       countryColumn: country,
       zodiacSignColumn: zodiacSign,
       importantStatusColumn: importantStatus,
-      motherIDColumn: motherID,
-      fatherIDColumn: fatherID,
       custodianIDColumn: custodianID,
+      hasFertilityIssuesColumn: hasFertilityIssues ? databaseTrueValue : databaseFalseValue,
+      onBirthControlColumn: onBirthControl ? databaseTrueValue : databaseFalseValue,
+      isSterileColumn: isSterile ? databaseTrueValue : databaseFalseValue,
       sicklyColumn: sickly ? databaseTrueValue : databaseFalseValue,
       rebelliousColumn: rebellious ? databaseTrueValue : databaseFalseValue,
       deadColumn: dead ? databaseTrueValue : databaseFalseValue,
@@ -166,7 +173,7 @@ class Person extends Equatable {
     int? gameID,
     String? firstName,
     String? lastName,
-    int? age,
+    int? dayOfBirth,
     String? gender,
     String? subjectPronoun,
     String? objectPronoun,
@@ -175,9 +182,10 @@ class Person extends Equatable {
     String? country,
     String? zodiacSign,
     String? importantStatus,
-    int? motherID,
-    int? fatherID,
     int? custodianID,
+    bool? hasFertilityIssues,
+    bool? onBirthControl,
+    bool? isSterile,
     bool? sickly,
     bool? rebellious,
     bool? dead,
@@ -187,7 +195,7 @@ class Person extends Equatable {
       gameID: gameID ?? this.gameID,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
-      age: age ?? this.age,
+      dayOfBirth: dayOfBirth ?? this.dayOfBirth,
       gender: gender ?? this.gender,
       subjectPronoun: subjectPronoun ?? this.subjectPronoun,
       objectPronoun: objectPronoun ?? this.objectPronoun,
@@ -195,10 +203,11 @@ class Person extends Equatable {
       state: state ?? this.state,
       country: country ?? this.country,
       importantStatus: importantStatus ?? this.importantStatus,
-      motherID: motherID ?? this.motherID,
-      fatherID: fatherID ?? this.fatherID,
       custodianID: custodianID ?? this.custodianID,
       zodiacSign: zodiacSign ?? this.zodiacSign,
+      hasFertilityIssues: hasFertilityIssues ?? this.hasFertilityIssues,
+      onBirthControl: onBirthControl ?? this.onBirthControl,
+      isSterile: isSterile ?? this.isSterile,
       sickly: sickly ?? this.sickly,
       rebellious: rebellious ?? this.rebellious,
       dead: dead ?? this.dead,

@@ -22,7 +22,7 @@ class GameScreen extends ConsumerWidget {
               ref.read(gameManagerViewModel.notifier).createGame(Person(
                     firstName: "David",
                     lastName: "Smith",
-                    age: 21,
+                    dayOfBirth: 21,
                     gender: Gender.Male.name,
                     subjectPronoun: Gender.Male.subjectPronoun,
                     objectPronoun: Gender.Male.objectPronoun,
@@ -30,6 +30,9 @@ class GameScreen extends ConsumerWidget {
                     state: "Ontario",
                     country: "Canada",
                     zodiacSign: ZodiacSign.Libra.name,
+                    hasFertilityIssues: false,
+                    onBirthControl: false,
+                    isSterile: false,
                     sickly: false,
                     rebellious: true,
                     dead: false,
@@ -42,7 +45,7 @@ class GameScreen extends ConsumerWidget {
                     person: Person(
                       firstName: "Chinwe",
                       lastName: "Eze",
-                      age: 23,
+                      dayOfBirth: 23,
                       gender: Gender.Male.name,
                       subjectPronoun: Gender.Male.subjectPronoun,
                       objectPronoun: Gender.Male.objectPronoun,
@@ -51,6 +54,9 @@ class GameScreen extends ConsumerWidget {
                       country: "country",
                       zodiacSign: ZodiacSign.Capricorn.name,
                       importantStatus: null,
+                      hasFertilityIssues: false,
+                      onBirthControl: false,
+                      isSterile: false,
                       sickly: false,
                       rebellious: true,
                       dead: false,
@@ -75,7 +81,15 @@ class GameScreen extends ConsumerWidget {
               // final parentInfo = await ParentDaoImpl().getAllActiveParents(1);
               // print(parentInfo);
 
-              await ref.read(relationshipUsecasesProvider).getMarriedUsecase.execute(mainPersonID: 2, partnerID: 3, currentDay: 106,);
+              // Person? person = await PersonDaoImpl().getPerson(4);
+
+              // if (person != null) {
+              //   Age age = ref.read(ageUsecasesProvider).getPersonAgeUsecase.execute(
+              //         dayOfBirth: person.dayOfBirth,
+              //         currentDay: 1,
+              //       );
+              //   print("Age: ${age.lifeStage.stageName} ${age.pointInStage}/${age.lifeStage.stageDuration}");
+              // }
             },
             child: const Text("do")),
         ElevatedButton(

@@ -12,6 +12,7 @@ void main() {
       lastPlayedTime: 86,
       currentDay: 45,
       currentTimeInMinutes: 720,
+      generation: 1,
     );
   });
 
@@ -24,6 +25,7 @@ void main() {
         "lastPlayedTime": 86,
         "currentDay": 45,
         "currentTimeInMinutes": 720,
+        "generation": 1,
       };
       expect(sut.toMap(), correctMap);
     });
@@ -36,6 +38,7 @@ void main() {
         "lastPlayedTime": 86,
         "currentDay": 45,
         "currentTimeInMinutes": 720,
+        "generation": 1,
       };
 
       final result = Game.fromMap(gameMap: map);
@@ -51,6 +54,7 @@ void main() {
         lastPlayedTime: 86,
         currentDay: 45,
         currentTimeInMinutes: 740,
+        generation: 1,
       );
 
       final result = sut.copyWith(
