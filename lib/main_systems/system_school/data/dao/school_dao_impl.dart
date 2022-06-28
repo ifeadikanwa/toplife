@@ -41,6 +41,7 @@ class SchoolDaoImpl implements SchoolDao {
        REFERENCES ${DegreeDaoImpl.degreeTable} (${Degree.idColumn}) 
        ON UPDATE CASCADE
        ON DELETE CASCADE
+      )
   ''';
 
   @override
@@ -73,6 +74,7 @@ class SchoolDaoImpl implements SchoolDao {
       columns: School.allColumns,
       where: "${School.isActiveColumn} = ?",
       whereArgs: [databaseTrueValue],
+      orderBy: "${School.idColumn} DESC",
     );
 
     if (allActiveSchoolsMap.isNotEmpty) {
