@@ -13,7 +13,7 @@ void main() {
     );
 
     test(
-      "adopted is a type of parent relationship",
+      "main is a type of parent relationship",
       (){
         assert(ParentRelationshipType.main is ParentRelationshipType);
       }
