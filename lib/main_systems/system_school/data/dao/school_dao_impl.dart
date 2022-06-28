@@ -1,8 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
