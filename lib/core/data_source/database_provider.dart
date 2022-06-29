@@ -14,6 +14,10 @@ import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_imp
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/data/dao/school_project_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/data/dao/school_relationship_dao_impl.dart';
 
 class DatabaseProvider {
   static final DatabaseProvider instance = DatabaseProvider._init();
@@ -59,6 +63,12 @@ class DatabaseProvider {
     await db.execute(PartnerDaoImpl.createTableQuery);
     await db.execute(FriendDaoImpl.createTableQuery);
     await db.execute(AcquaintanceDaoImpl.createTableQuery);
+
+    //School
+    await db.execute(SchoolDaoImpl.createTableQuery);
+    await db.execute(SchoolProjectDaoImpl.createTableQuery);
+    await db.execute(SchoolRelationshipDaoImpl.createTableQuery);
+    await db.execute(DegreeDaoImpl.createTableQuery);
   }
 
   Future<void> _onConfigure(Database db) async {

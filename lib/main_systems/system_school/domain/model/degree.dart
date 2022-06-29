@@ -8,7 +8,7 @@ class Degree extends Equatable {
   final bool isSpecialDegree;
 
   const Degree({
-    required this.id,
+    this.id,
     required this.discipline,
     required this.branch,
     required this.isSpecialDegree,

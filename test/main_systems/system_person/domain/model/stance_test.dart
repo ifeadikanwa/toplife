@@ -20,7 +20,7 @@ void main() {
   });
 
   group(
-    "Stats",
+    "Stance:",
     () {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
@@ -39,7 +39,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns stance object equivalent of map ", () {
         final Map<String, Object?> map = {
           "_id": 1,
           "personID": 3,
@@ -79,11 +79,11 @@ void main() {
       });
 
       test("getValidStanceValue returns true or false only", () {
-        assert(Stance.getValidStanceValue() == true ||
-            Stance.getValidStanceValue() == false);
+        final bool result = Stance.getValidStanceValue();
+        assert(result == true || result == false);
       });
 
-      group("Constants", () {
+      group("Constants:", () {
         test("id column should be defined as _id", () {
           expect(Stance.idColumn, "_id");
         });

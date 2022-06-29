@@ -11,14 +11,14 @@ void main() {
       semesterNumber: 2,
       mainPersonID: 6,
       mainPersonContribution: 80,
-      projectPartnerID: 9,
+      projectPartnerSchoolRelationshipID: 9,
       projectPartnerContribution: 75,
       projectPartnerWillContribute: true,
     );
   });
 
   group(
-    "Stats",
+    "School Project:",
     () {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
@@ -27,7 +27,7 @@ void main() {
           "semesterNumber": 2,
           "mainPersonID": 6,
           "mainPersonContribution": 80,
-          "projectPartnerID": 9,
+          "projectPartnerSchoolRelationshipID": 9,
           "projectPartnerContribution": 75,
           "projectPartnerWillContribute": 1,
         };
@@ -35,14 +35,14 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns school project object equivalent of map ", () {
         final Map<String, Object?> map = {
           "_id": 1,
           "schoolID": 3,
           "semesterNumber": 2,
           "mainPersonID": 6,
           "mainPersonContribution": 80,
-          "projectPartnerID": 9,
+          "projectPartnerSchoolRelationshipID": 9,
           "projectPartnerContribution": 75,
           "projectPartnerWillContribute": 1,
         };
@@ -59,15 +59,16 @@ void main() {
           semesterNumber: 2,
           mainPersonID: 6,
           mainPersonContribution: 100,
-          projectPartnerID: 9,
+          projectPartnerSchoolRelationshipID: 9,
           projectPartnerContribution: 75,
           projectPartnerWillContribute: false,
         );
-        final result = sut.copyWith(mainPersonContribution: 100, projectPartnerWillContribute: false);
+        final result = sut.copyWith(
+            mainPersonContribution: 100, projectPartnerWillContribute: false);
         expect(result, correctSchoolProject);
       });
 
-      group("Constants", () {
+      group("Constants:", () {
         test("id column should be defined as _id", () {
           expect(SchoolProject.idColumn, "_id");
         });

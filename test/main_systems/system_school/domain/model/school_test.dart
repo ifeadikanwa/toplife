@@ -28,7 +28,7 @@ void main() {
   });
 
   group(
-    "SchoolRelationship:",
+    "School:",
     () {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
@@ -55,7 +55,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns schoolrelationship object equivalent of map ", () {
+      test("fromMap returns school object equivalent of map ", () {
         final Map<String, Object?> map = {
           "_id": 1,
           "mainPersonID": 3,
@@ -107,7 +107,7 @@ void main() {
         expect(result, correctSchool);
       });
 
-      group("Constants", () {
+      group("Constants:", () {
         test("id column should be defined as _id", () {
           expect(School.idColumn, "_id");
         });

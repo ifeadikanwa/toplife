@@ -22,7 +22,7 @@ class School extends Equatable {
   final String country;
 
   const School({
-    required this.id,
+    this.id,
     required this.mainPersonID,
     required this.grades,
     required this.attendance,

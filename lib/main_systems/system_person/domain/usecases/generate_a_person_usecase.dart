@@ -97,7 +97,7 @@ class GenerateAPersonUsecase {
       onBirthControl: false,
       isSterile: false,
       sickly: Chance.getTrueOrFalseBasedOnPercentageChance(
-        trueChancePercentage: 30,
+        trueChancePercentage: 20,
       ),
       rebellious: Chance.getTrueOrFalse(),
       dead: isDead,

@@ -14,7 +14,7 @@ void main() {
   });
 
   group(
-    "Friend",
+    "Friend:",
     () {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {

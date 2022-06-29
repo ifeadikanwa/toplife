@@ -14,7 +14,7 @@ void main() {
   });
 
   group(
-    "Acquaintance",
+    "Acquaintance:",
     () {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
@@ -27,7 +27,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns acquaintance object equivalent of map ", () {
         final Map<String, Object> map = {
           "mainPersonID": 3,
           "acquaintanceID": 9,

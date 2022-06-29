@@ -14,7 +14,7 @@ class SchoolRelationship extends Equatable {
   final String personalityType;
 
   const SchoolRelationship({
-    required this.id,
+    this.id,
     required this.schoolID,
     required this.mainPersonID,
     required this.otherPersonID,

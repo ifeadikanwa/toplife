@@ -75,7 +75,7 @@ void main() {
         expect(result, correctSchoolRelationship);
       });
 
-      group("Constants", () {
+      group("Constants:", () {
         test("id column should be defined as _id", () {
           expect(SchoolRelationship.idColumn, "_id");
         });
