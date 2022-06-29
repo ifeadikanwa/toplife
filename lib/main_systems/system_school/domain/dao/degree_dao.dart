@@ -6,4 +6,6 @@ abstract class DegreeDao {
   Future<List<Degree>> getAllDegrees();
   Future<Degree?> getDegree(int degreeID);
   Future<void> deleteDegreeTable();
+  Future<void> dropAndRecreateDegreeTable();
+  Future<void> batchInsertDegrees(Set<Degree> degreesSet);
 }

@@ -6,6 +6,10 @@ import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/data/repository/degree_repository_impl.dart';
+import 'package:toplife/main_systems/system_school/domain/usecases/create_and_populate_degree_table_usecase.dart';
+import 'package:toplife/main_systems/system_school/domain/usecases/get_constant_list_of_degrees_usecase.dart';
 
 class GameScreen extends ConsumerWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -90,6 +94,15 @@ class GameScreen extends ConsumerWidget {
               //       );
               //   print("Age: ${age.lifeStage.stageName} ${age.pointInStage}/${age.lifeStage.stageDuration}");
               // }
+
+              // DegreeDaoImpl().createDegree(Degree(discipline: "discipline2", branch: "branch2", isSpecialDegree: false));
+
+              CreateAndPopulateDegreeTableUsecase(
+                      degreeRepository:
+                          DegreeRepositoryImpl(degreeDao: DegreeDaoImpl()),
+                      getConstantListOfDegreesUsecase:
+                          GetConstantListOfDegreesUsecase())
+                  .execute();
             },
             child: const Text("do")),
         ElevatedButton(

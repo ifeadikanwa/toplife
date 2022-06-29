@@ -32,4 +32,14 @@ class DegreeRepositoryImpl implements DegreeRepository {
   Future<void> updateDegree(Degree degree) async {
     return _degreeDao.updateDegree(degree);
   }
+
+  @override
+  Future<void> batchInsertDegrees(Set<Degree> degreesSet) async {
+    return _degreeDao.batchInsertDegrees(degreesSet);
+  }
+
+  @override
+  Future<void> dropAndRecreateDegreeTable() async {
+    return _degreeDao.dropAndRecreateDegreeTable();
+  }
 }

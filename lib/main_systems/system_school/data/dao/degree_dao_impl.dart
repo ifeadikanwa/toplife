@@ -78,4 +78,21 @@ class DegreeDaoImpl implements DegreeDao {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  @override
+  Future<void> dropAndRecreateDegreeTable() async {
+    final db = await _databaseProvider.database;
+    await db.execute("DROP TABLE IF EXISTS $degreeTable");
+    await db.execute(createTableQuery);
+  }
+
+  @override
+  Future<void> batchInsertDegrees(Set<Degree> degreesSet) async {
+    final db = await _databaseProvider.database;
+    final Batch batch = db.batch();
+    for (var degree in degreesSet) {
+      batch.insert(degreeTable, degree.toMap());
+    }
+    batch.commit(noResult: true);
+  }
 }

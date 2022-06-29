@@ -1,56 +1,61 @@
+import 'dart:collection';
+
 import 'package:toplife/main_systems/system_school/degree_table_manager/degree_branch.dart';
 
 enum DegreeDisciplines {
-  socialScience(branches: [
+  socialScience(branches: {
     DegreeBranch.politicalScience,
     DegreeBranch.law,
     DegreeBranch.sociology,
     DegreeBranch.psychology,
     DegreeBranch.criminalJustice,
-  ]),
-  naturalScience(branches: [
+  }),
+  naturalScience(branches: {
     DegreeBranch.biology,
     DegreeBranch.chemistry,
     DegreeBranch.physics,
     DegreeBranch.astronomy,
     DegreeBranch.mathematics,
-  ]),
-  engineering(branches: [
+  }),
+  engineering(branches: {
     DegreeBranch.computerScience,
     DegreeBranch.electricalEngineering,
     DegreeBranch.mechanicalEngineering,
     DegreeBranch.chemicalEngineering,
-  ]),
-  humanities(branches: [
+  }),
+  humanities(branches: {
     DegreeBranch.art,
     DegreeBranch.philosophy,
     DegreeBranch.languages,
     DegreeBranch.history,
     DegreeBranch.english,
-  ]),
-  business(branches: [
+  }),
+  business(branches: {
     DegreeBranch.economics,
     DegreeBranch.marketing,
     DegreeBranch.accounting,
     DegreeBranch.finance,
     DegreeBranch.advertising,
-  ]),
-  medical(branches: [
+  }),
+  medical(branches: {
     DegreeBranch.surgery,
     DegreeBranch.pathology,
     DegreeBranch.pediatrics,
     DegreeBranch.neurology,
-  ]),
-  nursing(branches: [
+  }),
+  nursing(branches: {
     DegreeBranch.nursing,
-  ]),
-  law(branches: [
+  }),
+  pharmacy(branches: {
+    DegreeBranch.pharmacy,
+  }),
+  law(branches: {
     DegreeBranch.criminalLaw,
     DegreeBranch.corporateLaw,
     DegreeBranch.realEstateLaw,
     DegreeBranch.familyLaw,
-  ]),
-  education(branches: [
+  }),
+  education(branches: {
     DegreeBranch.biology,
     DegreeBranch.chemistry,
     DegreeBranch.physics,
@@ -60,9 +65,9 @@ enum DegreeDisciplines {
     DegreeBranch.languages,
     DegreeBranch.history,
     DegreeBranch.english,
-  ]);
+  });
 
   const DegreeDisciplines({required this.branches});
 
-  final List<String> branches;
+  final Set<String> branches;
 }
