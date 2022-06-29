@@ -15,7 +15,7 @@ void main() {
   });
 
   group(
-    "Sibling",
+    "Sibling:",
     () {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
@@ -28,7 +28,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns sibling object equivalent of map ", () {
         final Map<String, Object> map = {
           "mainPersonID": 4,
           "siblingID": 8,
@@ -53,7 +53,7 @@ void main() {
         expect(result, correctSibling);
       });
 
-      group("Constants", () {
+      group("Constants:", () {
         test("male sibling is called brother", () {
           expect(Sibling.maleEquivalent, "Brother");
         });

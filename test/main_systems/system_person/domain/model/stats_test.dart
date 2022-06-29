@@ -17,7 +17,7 @@ void main() {
   });
 
   group(
-    "Stats",
+    "Stats:",
     () {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
@@ -33,7 +33,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns stats object equivalent of map ", () {
         final Map<String, Object?> map = {
           "_id": 1,
           "personID": 2,

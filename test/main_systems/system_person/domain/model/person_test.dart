@@ -33,7 +33,7 @@ void main() {
   });
 
   group(
-    "Person",
+    "Person:",
     () {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
@@ -62,7 +62,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns person object equivalent of map ", () {
         final Map<String, Object?> map = {
           "_id": 1,
           "gameID": 2,
@@ -123,7 +123,7 @@ void main() {
         expect(result, correctPerson);
       });
 
-      group("Constants", () {
+      group("Constants:", () {
         test("id column should be defined as _id", () {
           expect(Person.idColumn, "_id");
         });

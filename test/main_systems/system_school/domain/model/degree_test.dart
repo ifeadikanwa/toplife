@@ -27,7 +27,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns degree object equivalent of map ", () {
         final Map<String, Object?> map = {
           "_id": 1,
           "discipline": "Social Science",
@@ -40,7 +40,7 @@ void main() {
         expect(result, sut);
       });
 
-      group("Constants", () {
+      group("Constants:", () {
         test("id column should be defined as _id", () {
           expect(Degree.idColumn, "_id");
         });

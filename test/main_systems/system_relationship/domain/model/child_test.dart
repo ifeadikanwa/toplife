@@ -30,7 +30,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns child object equivalent of map ", () {
         final Map<String, Object> map = {
           "mainPersonID": 2,
           "childID": 8,

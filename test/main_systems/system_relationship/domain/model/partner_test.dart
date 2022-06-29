@@ -38,7 +38,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns partner object equivalent of map ", () {
         final Map<String, Object?> map = {
           "mainPersonID": 1,
           "partnerID": 5,

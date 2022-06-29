@@ -30,7 +30,7 @@ void main() {
         expect(sut.toMap(), correctMap);
       });
 
-      test("fromMap returns game object equivalent of map ", () {
+      test("fromMap returns parent object equivalent of map ", () {
         final Map<String, Object> map = {
           "mainPersonID": 1,
           "parentID": 6,
@@ -57,7 +57,7 @@ void main() {
         expect(result, correctParent);
       });
 
-      group("Constants", () {
+      group("Constants:", () {
         test("parent male equivalent is called father", () {
           expect(Parent.maleEquivalent, "Father");
         });
