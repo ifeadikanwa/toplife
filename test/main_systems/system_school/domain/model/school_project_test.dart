@@ -27,7 +27,7 @@ void main() {
           "semesterNumber": 2,
           "mainPersonID": 6,
           "mainPersonContribution": 80,
-          "projectPartnerID": 9,
+          "projectPartnerSchoolRelationshipID": 9,
           "projectPartnerContribution": 75,
           "projectPartnerWillContribute": 1,
         };
@@ -42,7 +42,7 @@ void main() {
           "semesterNumber": 2,
           "mainPersonID": 6,
           "mainPersonContribution": 80,
-          "projectPartnerID": 9,
+          "projectPartnerSchoolRelationshipID": 9,
           "projectPartnerContribution": 75,
           "projectPartnerWillContribute": 1,
         };

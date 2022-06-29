@@ -79,8 +79,8 @@ void main() {
       });
 
       test("getValidStanceValue returns true or false only", () {
-        assert(Stance.getValidStanceValue() == true ||
-            Stance.getValidStanceValue() == false);
+        final bool result = Stance.getValidStanceValue();
+        assert(result == true || result == false);
       });
 
       group("Constants:", () {
