@@ -101,7 +101,7 @@ class GameScreen extends ConsumerWidget {
                       degreeRepository:
                           DegreeRepositoryImpl(degreeDao: DegreeDaoImpl()),
                       getConstantListOfDegreesUsecase:
-                          GetConstantListOfDegreesUsecase())
+                          const GetConstantListOfDegreesUsecase())
                   .execute();
             },
             child: const Text("do")),

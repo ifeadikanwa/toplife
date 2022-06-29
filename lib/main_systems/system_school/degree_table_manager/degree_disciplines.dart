@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:toplife/main_systems/system_school/degree_table_manager/degree_branch.dart';
 
 enum DegreeDisciplines {
