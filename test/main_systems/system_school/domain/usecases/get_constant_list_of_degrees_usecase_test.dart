@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_school/degree_table_manager/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_constants/degree_disciplines.dart';
 import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_constant_list_of_degrees_usecase.dart';
 

@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_school/degree_table_manager/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_constants/degree_disciplines.dart';
 import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 
 class GetConstantListOfDegreesUsecase {

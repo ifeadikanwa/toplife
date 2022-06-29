@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_school/degree_table_manager/degree_branch.dart';
+import 'package:toplife/main_systems/system_school/degree_constants/degree_branch.dart';
 
 enum DegreeDisciplines {
   socialScience(branches: {
