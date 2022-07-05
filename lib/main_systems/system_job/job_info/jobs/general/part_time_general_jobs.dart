@@ -15,6 +15,8 @@ class PartTimeGeneralJobs {
   //health insurance
   //none or low
 
+  //qualifiedDisciplines/qualifiedBranch: [] means no degree is required and it is open to all.
+
   static Set<Job> list = {
     //blue collar
 

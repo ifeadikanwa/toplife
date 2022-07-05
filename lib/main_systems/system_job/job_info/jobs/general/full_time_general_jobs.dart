@@ -16,6 +16,8 @@ class FullTimeGeneralJobs {
   //health insurance
   //jobs with high risks have higher health insurance coverage
 
+  //qualifiedDisciplines/qualifiedBranch: [] means no degree is required and it is open to all.
+
   static Set<Job> list = {
     //blue collar
 
