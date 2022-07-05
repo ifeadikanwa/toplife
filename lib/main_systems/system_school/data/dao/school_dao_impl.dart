@@ -39,8 +39,8 @@ class SchoolDaoImpl implements SchoolDao {
        ON DELETE CASCADE,
       FOREIGN KEY (${School.degreeIDColumn})
        REFERENCES ${DegreeDaoImpl.degreeTable} (${Degree.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
+       ON UPDATE NO ACTION
+       ON DELETE NO ACTION
       )
   ''';
 

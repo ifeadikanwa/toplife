@@ -7,7 +7,7 @@ void main() {
   setUp(() {
     sut = const JobRelationship(
       id: 1,
-      jobID: 3,
+      employmentID: 3,
       mainPersonID: 6,
       otherPersonID: 9,
       jobRelationshipType: "coworker",
@@ -22,7 +22,7 @@ void main() {
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
           "_id": 1,
-          "jobID": 3,
+          "employmentID": 3,
           "mainPersonID": 6,
           "otherPersonID": 9,
           "jobRelationshipType": "coworker",
@@ -36,7 +36,7 @@ void main() {
       test("fromMap returns job relationship object equivalent of map ", () {
         final Map<String, Object?> map = {
           "_id": 1,
-          "jobID": 3,
+          "employmentID": 3,
           "mainPersonID": 6,
           "otherPersonID": 9,
           "jobRelationshipType": "coworker",
@@ -52,7 +52,7 @@ void main() {
       test("copyWith creates new object with correct values", () {
         const correctJobRelationship = JobRelationship(
           id: 1,
-          jobID: 3,
+          employmentID: 3,
           mainPersonID: 6,
           otherPersonID: 9,
           jobRelationshipType: "coworker",

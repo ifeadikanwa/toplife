@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class JobRelationship extends Equatable {
   final int? id;
-  final int jobID;
+  final int employmentID;
   final int mainPersonID;
   final int otherPersonID;
   final String jobRelationshipType;
@@ -11,7 +11,7 @@ class JobRelationship extends Equatable {
 
   const JobRelationship({
     this.id,
-    required this.jobID,
+    required this.employmentID,
     required this.mainPersonID,
     required this.otherPersonID,
     required this.jobRelationshipType,
@@ -22,7 +22,7 @@ class JobRelationship extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        jobID,
+        employmentID,
         mainPersonID,
         otherPersonID,
         jobRelationshipType,
@@ -35,7 +35,7 @@ class JobRelationship extends Equatable {
 
   //Helper constanrs
   static const idColumn = "_id";
-  static const jobIDColumn = "jobID";
+  static const employmentIDColumn = "employmentID";
   static const mainPersonIDColumn = "mainPersonID";
   static const otherPersonIDColumn = "otherPersonID";
   static const jobRelationshipTypeColumn = "jobRelationshipType";
@@ -44,7 +44,7 @@ class JobRelationship extends Equatable {
 
   static const allColumns = [
     idColumn,
-    jobIDColumn,
+    employmentIDColumn,
     mainPersonIDColumn,
     otherPersonIDColumn,
     jobRelationshipTypeColumn,
@@ -56,7 +56,7 @@ class JobRelationship extends Equatable {
       {required Map<String, Object?> jobRelationshipMap}) {
     return JobRelationship(
       id: jobRelationshipMap[idColumn] as int?,
-      jobID: jobRelationshipMap[jobIDColumn] as int,
+      employmentID: jobRelationshipMap[employmentIDColumn] as int,
       mainPersonID: jobRelationshipMap[mainPersonIDColumn] as int,
       otherPersonID: jobRelationshipMap[otherPersonIDColumn] as int,
       jobRelationshipType:
@@ -70,7 +70,7 @@ class JobRelationship extends Equatable {
   Map<String, Object?> toMap() {
     return {
       idColumn: id,
-      jobIDColumn: jobID,
+      employmentIDColumn: employmentID,
       mainPersonIDColumn: mainPersonID,
       otherPersonIDColumn: otherPersonID,
       jobRelationshipTypeColumn: jobRelationshipType,
@@ -81,7 +81,7 @@ class JobRelationship extends Equatable {
 
   JobRelationship copyWith({
     int? id,
-    int? jobID,
+    int? employmentID,
     int? mainPersonID,
     int? otherPersonID,
     String? jobRelationshipType,
@@ -90,11 +90,10 @@ class JobRelationship extends Equatable {
   }) {
     return JobRelationship(
       id: id ?? this.id,
-      jobID: jobID ?? this.jobID,
+      employmentID: employmentID ?? this.employmentID,
       mainPersonID: mainPersonID ?? this.mainPersonID,
       otherPersonID: otherPersonID ?? this.otherPersonID,
-      jobRelationshipType:
-          jobRelationshipType ?? this.jobRelationshipType,
+      jobRelationshipType: jobRelationshipType ?? this.jobRelationshipType,
       informalRelationshipType:
           informalRelationshipType ?? this.informalRelationshipType,
       jobLevel: jobLevel ?? this.jobLevel,
