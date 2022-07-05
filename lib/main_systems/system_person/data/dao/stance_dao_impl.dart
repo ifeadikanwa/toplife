@@ -16,6 +16,7 @@ class StanceDaoImpl implements StanceDao {
       ${Stance.idColumn} $idType,
       ${Stance.personIDColumn} $integerType $unique,
       ${Stance.openToAdoptionColumn} $boolType,
+      ${Stance.openToSexWorkerPartnerColumn} $boolType,
       ${Stance.openToAbortionColumn} $boolType,
       ${Stance.openToSurrogacyColumn} $boolType,
       ${Stance.openToAlternativeFertilityMethodsColumn} $boolType,

@@ -1,0 +1,4 @@
+enum EmploymentType {
+  fullTime,
+  partTime,
+}

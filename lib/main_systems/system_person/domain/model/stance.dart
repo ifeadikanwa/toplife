@@ -6,6 +6,7 @@ class Stance extends Equatable {
   final int? id;
   final int personID;
   final bool openToAdoption;
+  final bool openToSexWorkerPartner;
   final bool openToAbortion;
   final bool openToSurrogacy;
   final bool openToAlternativeFertilityMethods;
@@ -18,6 +19,7 @@ class Stance extends Equatable {
     this.id,
     required this.personID,
     required this.openToAdoption,
+    required this.openToSexWorkerPartner,
     required this.openToAbortion,
     required this.openToSurrogacy,
     required this.openToAlternativeFertilityMethods,
@@ -32,6 +34,7 @@ class Stance extends Equatable {
         id,
         personID,
         openToAdoption,
+        openToSexWorkerPartner,
         openToAbortion,
         openToSurrogacy,
         openToAlternativeFertilityMethods,
@@ -56,6 +59,7 @@ class Stance extends Equatable {
   static const idColumn = "_id";
   static const personIDColumn = "personID";
   static const openToAdoptionColumn = "openToAdoption";
+  static const openToSexWorkerPartnerColumn = "openToSexWorkerPartner";
   static const openToAbortionColumn = "openToAbortion";
   static const openToSurrogacyColumn = "openToSurrogacy";
   static const openToAlternativeFertilityMethodsColumn =
@@ -69,6 +73,7 @@ class Stance extends Equatable {
     idColumn,
     personIDColumn,
     openToAdoptionColumn,
+    openToSexWorkerPartnerColumn,
     openToAbortionColumn,
     openToSurrogacyColumn,
     openToAlternativeFertilityMethodsColumn,
@@ -83,6 +88,8 @@ class Stance extends Equatable {
       id: stanceMap[idColumn] as int?,
       personID: stanceMap[personIDColumn] as int,
       openToAdoption: stanceMap[openToAdoptionColumn] == databaseTrueValue,
+      openToSexWorkerPartner:
+          stanceMap[openToSexWorkerPartnerColumn] == databaseTrueValue,
       openToAbortion: stanceMap[openToAbortionColumn] == databaseTrueValue,
       openToSurrogacy: stanceMap[openToSurrogacyColumn] == databaseTrueValue,
       openToAlternativeFertilityMethods:
@@ -104,6 +111,8 @@ class Stance extends Equatable {
       personIDColumn: personID,
       openToAdoptionColumn:
           openToAdoption ? databaseTrueValue : databaseFalseValue,
+      openToSexWorkerPartnerColumn:
+          openToSexWorkerPartner ? databaseTrueValue : databaseFalseValue,
       openToAbortionColumn:
           openToAbortion ? databaseTrueValue : databaseFalseValue,
       openToSurrogacyColumn:
@@ -125,6 +134,7 @@ class Stance extends Equatable {
     int? id,
     int? personID,
     bool? openToAdoption,
+    bool? openToSexWorkerPartner,
     bool? openToAbortion,
     bool? openToSurrogacy,
     bool? openToAlternativeFertilityMethods,
@@ -137,6 +147,8 @@ class Stance extends Equatable {
       id: id ?? this.id,
       personID: personID ?? this.personID,
       openToAdoption: openToAdoption ?? this.openToAdoption,
+      openToSexWorkerPartner:
+          openToSexWorkerPartner ?? this.openToSexWorkerPartner,
       openToAbortion: openToAbortion ?? this.openToAbortion,
       openToSurrogacy: openToSurrogacy ?? this.openToSurrogacy,
       openToAlternativeFertilityMethods: openToAlternativeFertilityMethods ??
