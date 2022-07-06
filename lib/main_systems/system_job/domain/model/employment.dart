@@ -9,7 +9,8 @@ class Employment extends Equatable {
   final int startTime;
   //2-6 for parttime, 8 for fulltime, 10 - 12 for fulltime medical,
   final int shiftLength;
-  //a number between 0-5, 0 being no day off and 1-5 representing one of the days ntw monday to friday, it is for medical jobs
+  //a number between 1-5, 1-5 representing one of the days ntw monday to friday, it is for medical jobs. 7 is the default and it means no day off
+  //we do a dayNumber % 7 to get the day of the week and if it = dayOff we grey out the go to work and let them know it's their day off.
   final int dayOff;
   final bool isDayShift;
   final int currentLevel;
