@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/health_insurance_coverage.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
@@ -13,7 +15,7 @@ class MedicalJobs {
   //pay
   //level x = minlevelx + 1-30% for variability
 
-  static Set<Job> list = {
+  static HashSet<Job> list = HashSet.of({
     //20%
     Job(
       jobTitle: JobTitles.surgeon,
@@ -113,5 +115,5 @@ class MedicalJobs {
       qualifiedBranches: [DegreeBranch.nursing].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
-  };
+  });
 }

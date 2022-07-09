@@ -1,4 +1,7 @@
+import 'dart:collection';
+
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
+import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 import 'package:toplife/main_systems/system_job/job_info/jobs/degree/communications_jobs.dart';
 import 'package:toplife/main_systems/system_job/job_info/jobs/degree/creative_jobs.dart';
 import 'package:toplife/main_systems/system_job/job_info/jobs/degree/education_jobs.dart';
@@ -14,12 +17,12 @@ import 'package:toplife/main_systems/system_job/job_info/jobs/general/full_time_
 import 'package:toplife/main_systems/system_job/job_info/jobs/general/part_time_general_jobs.dart';
 
 class GameJobs {
-  //This is the official list of jobs in the game. 
+  //This is the official list of jobs in the game.
   //A job with a new name is a new job.
   //If the name of a job is changed it will be considered a new job by the game.
-  
 
-  static Set<Job> jobs = {
+  //I use hashset so that it is an unordered list and element positions are randomized
+  static HashSet<Job> jobs = HashSet.of({
     // medical
     ...MedicalJobs.list,
     // whiteCollar, blueCollar & sexWork part time general
@@ -46,5 +49,44 @@ class GameJobs {
     ...LawJobs.list,
     // tech
     ...TechJobs.list,
-  };
+  });
+
+  static const String emptyListString = "[]";
+
+  static Set<Job> getFullTimeGeneralJobs() {
+    //get jobs that are full time and require no degrees
+    return jobs
+        .where((job) =>
+            job.employmentType == EmploymentType.fullTime.name &&
+            job.qualifiedDisciplines == emptyListString)
+        .toSet();
+  }
+
+  static Set<Job> getPartTimeGeneralJobs() {
+    //get jobs that are part time and require no degrees
+    return jobs
+        .where((job) =>
+            job.employmentType == EmploymentType.partTime.name &&
+            job.qualifiedDisciplines == emptyListString)
+        .toSet();
+  }
+
+  static Set<Job> getFullTimeJobsForDegreeBranch(
+      {required String degreeBranch}) {
+    //get fulltime jobs that are require a specified degree
+    return jobs
+        .where((job) =>
+            job.employmentType == EmploymentType.fullTime.name &&
+            job.qualifiedBranches.contains(degreeBranch))
+        .toSet();
+  }
+
+  static Set<Job> getTenRandomDegreeJobs() {
+    return jobs
+        .where((job) =>
+            job.employmentType == EmploymentType.fullTime.name &&
+            !(job.qualifiedDisciplines == emptyListString))
+        .take(10)
+        .toSet();
+  }
 }

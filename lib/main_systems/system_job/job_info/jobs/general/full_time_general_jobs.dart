@@ -1,4 +1,6 @@
 
+import 'dart:collection';
+
 import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/health_insurance_coverage.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
@@ -18,7 +20,7 @@ class FullTimeGeneralJobs {
 
   //qualifiedDisciplines/qualifiedBranch: [] means no degree is required and it is open to all.
 
-  static Set<Job> list = {
+  static Set<Job> list = HashSet.of({
     //blue collar
 
     //
@@ -424,5 +426,5 @@ class FullTimeGeneralJobs {
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.none.percentage,
     ),
-  };
+  });
 }
