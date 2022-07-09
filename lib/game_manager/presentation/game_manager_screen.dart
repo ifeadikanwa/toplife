@@ -6,10 +6,6 @@ import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/repository/degree_repository_impl.dart';
-import 'package:toplife/main_systems/system_school/domain/usecases/create_and_populate_degree_table_usecase.dart';
-import 'package:toplife/main_systems/system_school/domain/usecases/get_constant_list_of_degrees_usecase.dart';
 
 class GameScreen extends ConsumerWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -97,12 +93,38 @@ class GameScreen extends ConsumerWidget {
 
               // DegreeDaoImpl().createDegree(Degree(discipline: "discipline2", branch: "branch2", isSpecialDegree: false));
 
-              CreateAndPopulateDegreeTableUsecase(
-                      degreeRepository:
-                          DegreeRepositoryImpl(degreeDao: DegreeDaoImpl()),
-                      getConstantListOfDegreesUsecase:
-                          const GetConstantListOfDegreesUsecase())
-                  .execute();
+              // CreateAndPopulateDegreeTableUsecase(
+              //         degreeRepository:
+              //             DegreeRepositoryImpl(degreeDao: DegreeDaoImpl()),
+              //         getConstantListOfDegreesUsecase:
+              //             const GetConstantListOfDegreesUsecase())
+              //     .execute();
+
+              // final job = Job(
+              //   jobTitle: "Game Developer",
+              //   jobType: "tech",
+              //   companySuffix: "Studio",
+              //   employmentType: EmploymentType.fullTime.name,
+              //   getsTips: true,
+              //   levelOneTitle: "level 1",
+              //   levelOneBasePay: 100,
+              //   levelTwoTitle: "level 2",
+              //   levelTwoBasePay: 200,
+              //   levelThreeTitle: "level 3",
+              //   levelThreeBasePay: 300,
+              //   qualifiedDisciplines: "[]",
+              //   qualifiedBranches: "[]",
+              //   healthInsuranceCoverage: 80,
+              // );
+
+              // // JobDaoImpl().createJob(EducationJobs.list.elementAt(0));
+              // Stopwatch stopwatch = Stopwatch();
+              // stopwatch.start();
+              // // await JobDaoImpl().dropAndRecreateJobTable();
+              // await JobDaoImpl().batchInsertJobs(GameJobs.jobs);
+              // stopwatch.stop();
+              // print(
+              //     "Second: ${stopwatch.elapsed.inSeconds}, Milliseconds: ${stopwatch.elapsed.inSeconds}");
             },
             child: const Text("do")),
         ElevatedButton(

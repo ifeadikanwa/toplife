@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
+import 'package:toplife/main_systems/system_job/data/dao/employment_dao_impl.dart';
+import 'package:toplife/main_systems/system_job/data/dao/job_dao_impl.dart';
+import 'package:toplife/main_systems/system_job/data/dao/job_relationship_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
@@ -69,6 +72,11 @@ class DatabaseProvider {
     await db.execute(SchoolProjectDaoImpl.createTableQuery);
     await db.execute(SchoolRelationshipDaoImpl.createTableQuery);
     await db.execute(DegreeDaoImpl.createTableQuery);
+
+    //Job
+    await db.execute(JobDaoImpl.createTableQuery);
+    await db.execute(EmploymentDaoImpl.createTableQuery);
+    await db.execute(JobRelationshipDaoImpl.createTableQuery);
   }
 
   Future<void> _onConfigure(Database db) async {

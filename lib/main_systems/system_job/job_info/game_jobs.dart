@@ -14,6 +14,11 @@ import 'package:toplife/main_systems/system_job/job_info/jobs/general/full_time_
 import 'package:toplife/main_systems/system_job/job_info/jobs/general/part_time_general_jobs.dart';
 
 class GameJobs {
+  //This is the official list of jobs in the game. 
+  //A job with a new name is a new job.
+  //If the name of a job is changed it will be considered a new job by the game.
+  
+
   static Set<Job> jobs = {
     // medical
     ...MedicalJobs.list,
