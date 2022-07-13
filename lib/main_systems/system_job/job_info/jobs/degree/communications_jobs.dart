@@ -9,8 +9,8 @@ import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/get_random_corporate_company_suffix.dart';
 import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
-import 'package:toplife/main_systems/system_school/degree_constants/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_constants/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
 
 class CommunicationsJobs {
   //pay

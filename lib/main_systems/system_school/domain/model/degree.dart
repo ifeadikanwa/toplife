@@ -54,9 +54,22 @@ class Degree extends Equatable {
       idColumn: id,
       disciplineColumn: discipline,
       branchColumn: branch,
-      isSpecialDegreeColumn: isSpecialDegree ? databaseTrueValue : databaseFalseValue,
+      isSpecialDegreeColumn:
+          isSpecialDegree ? databaseTrueValue : databaseFalseValue,
     };
   }
 
-  
+  Degree copyWith({
+    int? id,
+    String? discipline,
+    String? branch,
+    bool? isSpecialDegree,
+  }) {
+    return Degree(
+      id: id ?? this.id,
+      discipline: discipline ?? this.discipline,
+      branch: branch ?? this.branch,
+      isSpecialDegree: isSpecialDegree ?? this.isSpecialDegree,
+    );
+  }
 }

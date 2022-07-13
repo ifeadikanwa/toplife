@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_school/degree_constants/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
 
 void main() {
   group("Degree Disciplines: ", () {

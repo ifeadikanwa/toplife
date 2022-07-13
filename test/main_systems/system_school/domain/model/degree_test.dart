@@ -40,6 +40,20 @@ void main() {
         expect(result, sut);
       });
 
+      test("copyWith creates new object with correct values", () {
+        const correctDegree = Degree(
+          id: 1,
+          discipline: "Social Science",
+          branch: "Political Science",
+          isSpecialDegree: true,
+        );
+        final result = sut.copyWith(
+          branch: "Political Science",
+          isSpecialDegree: true,
+        );
+        expect(result, correctDegree);
+      });
+
       group("Constants:", () {
         test("id column should be defined as _id", () {
           expect(Degree.idColumn, "_id");

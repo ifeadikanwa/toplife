@@ -32,25 +32,6 @@ class DegreeDaoImpl implements DegreeDao {
   }
 
   @override
-  Future<void> deleteDegreeTable() async {
-    final db = await _databaseProvider.database;
-    await db.delete(degreeTable);
-  }
-
-  @override
-  Future<List<Degree>> getAllDegrees() async {
-    final db = await _databaseProvider.database;
-    final allDegreesMap = await db.query(
-      degreeTable,
-      columns: Degree.allColumns,
-    );
-
-    return allDegreesMap
-        .map((degreeMap) => Degree.fromMap(degreeMap: degreeMap))
-        .toList();
-  }
-
-  @override
   Future<Degree?> getDegree(int degreeID) async {
     final db = await _databaseProvider.database;
     final degreeMaps = await db.query(
@@ -58,6 +39,29 @@ class DegreeDaoImpl implements DegreeDao {
       columns: Degree.allColumns,
       where: "${Degree.idColumn} = ?",
       whereArgs: [degreeID],
+    );
+
+    if (degreeMaps.isNotEmpty) {
+      return Degree.fromMap(degreeMap: degreeMaps.first);
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<Degree?> findDegreeWithDegreeDisciplineAndBranch(
+    String degreeDiscipline,
+    String degreeBranch,
+  ) async {
+    final db = await _databaseProvider.database;
+    final degreeMaps = await db.query(
+      degreeTable,
+      columns: Degree.allColumns,
+      where: "${Degree.disciplineColumn} = ? and ${Degree.branchColumn} = ?",
+      whereArgs: [
+        degreeDiscipline,
+        degreeBranch,
+      ],
     );
 
     if (degreeMaps.isNotEmpty) {
@@ -77,22 +81,5 @@ class DegreeDaoImpl implements DegreeDao {
       whereArgs: [degree.id],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-  }
-
-  @override
-  Future<void> dropAndRecreateDegreeTable() async {
-    final db = await _databaseProvider.database;
-    await db.execute("DROP TABLE IF EXISTS $degreeTable");
-    await db.execute(createTableQuery);
-  }
-
-  @override
-  Future<void> batchInsertDegrees(Set<Degree> degreesSet) async {
-    final db = await _databaseProvider.database;
-    final Batch batch = db.batch();
-    for (var degree in degreesSet) {
-      batch.insert(degreeTable, degree.toMap());
-    }
-    batch.commit(noResult: true);
   }
 }

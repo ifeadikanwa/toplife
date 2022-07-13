@@ -14,16 +14,6 @@ class DegreeRepositoryImpl implements DegreeRepository {
   }
 
   @override
-  Future<void> deleteDegreeTable() async {
-    return _degreeDao.deleteDegreeTable();
-  }
-
-  @override
-  Future<List<Degree>> getAllDegrees() async {
-    return _degreeDao.getAllDegrees();
-  }
-
-  @override
   Future<Degree?> getDegree(int degreeID) async {
     return _degreeDao.getDegree(degreeID);
   }
@@ -34,12 +24,13 @@ class DegreeRepositoryImpl implements DegreeRepository {
   }
 
   @override
-  Future<void> batchInsertDegrees(Set<Degree> degreesSet) async {
-    return _degreeDao.batchInsertDegrees(degreesSet);
-  }
-
-  @override
-  Future<void> dropAndRecreateDegreeTable() async {
-    return _degreeDao.dropAndRecreateDegreeTable();
+  Future<Degree?> findDegreeWithDegreeDisciplineAndBranch(
+    String degreeDiscipline,
+    String degreeBranch,
+  ) async {
+    return _degreeDao.findDegreeWithDegreeDisciplineAndBranch(
+      degreeDiscipline,
+      degreeBranch,
+    );
   }
 }
