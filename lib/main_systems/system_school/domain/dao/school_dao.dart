@@ -4,6 +4,8 @@ abstract class SchoolDao {
   Future<School> createSchool(School school);
   Future<void> updateSchool(School school);
   Future<School?> getActiveSchool(int mainPersonID);
+  Future<List<School>> getAllCompletedSchool(int mainPersonID);
+  Future<List<School>> getAllCompletedSchoolForADegree(int mainPersonID, int degreeID);
   Future<List<School>> getAllSchools(int mainPersonID);
   Future<School?> getSchool(int schoolID);
   Future<void> deleteSchool(int schoolID);

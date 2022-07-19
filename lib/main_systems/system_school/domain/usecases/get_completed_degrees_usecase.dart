@@ -1,0 +1,41 @@
+import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
+import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
+import 'package:toplife/main_systems/system_school/domain/model/school.dart';
+
+class GetCompletedDegreesUsecase {
+  final SchoolRepositories _schoolRepositories;
+
+  const GetCompletedDegreesUsecase(
+      {required SchoolRepositories schoolRepositories})
+      : _schoolRepositories = schoolRepositories;
+
+  Future<List<Degree>> execute({required int personID}) async {
+    //get the persons completed school
+    //put the degree ids in a set
+    //get the degree info fo all the degrees in the set
+
+    List<Degree> completedDegrees = [];
+
+    List<School> completedSchool = await _schoolRepositories
+        .schoolRepositoryImpl
+        .getAllCompletedSchool(personID);
+
+    if (completedSchool.isNotEmpty) {
+      Set<int> degreeIDs = {};
+
+      for (School school in completedSchool) {
+        degreeIDs.add(school.degreeID);
+      }
+
+      for (int degreeID in degreeIDs) {
+        Degree? degree =
+            await _schoolRepositories.degreeRepositoryImpl.getDegree(degreeID);
+        if (degree != null) {
+          completedDegrees.add(degree);
+        }
+      }
+    }
+
+    return completedDegrees;
+  }
+}

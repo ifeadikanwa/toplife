@@ -124,4 +124,45 @@ class SchoolDaoImpl implements SchoolDao {
       whereArgs: [school.id],
     );
   }
+
+  @override
+  Future<List<School>> getAllCompletedSchool(int mainPersonID) async {
+    final db = await _databaseProvider.database;
+    final allCompletedSchoolsMap = await db.query(
+      schoolTable,
+      columns: School.allColumns,
+      where: "${School.mainPersonIDColumn} = ? and ${School.isCompletedColumn} = ? and ${School.isActiveColumn} = ?",
+      whereArgs: [
+        mainPersonID,
+        databaseTrueValue,
+        databaseFalseValue,
+      ],
+      orderBy: "${School.idColumn} DESC",
+    );
+
+    return allCompletedSchoolsMap
+        .map((schoolMap) => School.fromMap(schoolMap: schoolMap))
+        .toList();
+  }
+  
+  @override
+  Future<List<School>> getAllCompletedSchoolForADegree(int mainPersonID, int degreeID) async {
+     final db = await _databaseProvider.database;
+    final allCompletedSchoolsForADegreeMap = await db.query(
+      schoolTable,
+      columns: School.allColumns,
+      where: "${School.mainPersonIDColumn} = ? and ${School.isCompletedColumn} = ? and ${School.degreeIDColumn} and ${School.isActiveColumn} = ?",
+      whereArgs: [
+        mainPersonID,
+        databaseTrueValue,
+        degreeID,
+        databaseFalseValue,
+      ],
+      orderBy: "${School.idColumn} DESC",
+    );
+
+    return allCompletedSchoolsForADegreeMap
+        .map((schoolMap) => School.fromMap(schoolMap: schoolMap))
+        .toList();
+  }
 }

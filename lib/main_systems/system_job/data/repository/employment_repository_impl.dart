@@ -19,8 +19,8 @@ class EmploymentRepositoryImpl implements EmploymentRepository {
   }
 
   @override
-  Future<Employment?> getActiveEmployment(int mainPersonID) async {
-    return _employmentDao.getActiveEmployment(mainPersonID);
+  Future<List<Employment>> getAllActiveEmployments(int mainPersonID) async {
+    return _employmentDao.getAllActiveEmployments(mainPersonID);
   }
 
   @override
@@ -36,5 +36,11 @@ class EmploymentRepositoryImpl implements EmploymentRepository {
   @override
   Future<void> updateEmployment(Employment employment) async {
     return _employmentDao.updateEmployment(employment);
+  }
+
+  @override
+  Future<List<Employment>> getAllEmploymentsForAJob(
+      int mainPersonID, int jobID) {
+    return _employmentDao.getAllEmploymentsForAJob(mainPersonID, jobID);
   }
 }

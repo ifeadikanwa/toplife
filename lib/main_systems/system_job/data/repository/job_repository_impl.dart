@@ -23,7 +23,12 @@ class JobRepositoryImpl implements JobRepository {
   }
 
   @override
-  Future<Job?> findJobWithJobTitle(String jobTitle) {
-    return _jobDao.findJobWithJobTitle(jobTitle);
+  Future<Job?> findFullTimeJobWithJobTitle(String jobTitle) {
+    return _jobDao.findFullTimeJobWithJobTitle(jobTitle);
+  }
+
+  @override
+  Future<Job?> findPartTimeJobWithJobTitle(String jobTitle) {
+    return _jobDao.findPartTimeJobWithJobTitle(jobTitle);
   }
 }

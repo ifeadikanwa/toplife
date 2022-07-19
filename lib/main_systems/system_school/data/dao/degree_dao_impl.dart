@@ -21,14 +21,13 @@ class DegreeDaoImpl implements DegreeDao {
   @override
   Future<Degree> createDegree(Degree degree) async {
     final db = await _databaseProvider.database;
-    await db.insert(
+    final int id = await db.insert(
       degreeTable,
       degree.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
-    //i dont update with id because the degree table has no copyWith method to avoid updating because it is a record tabe that the user cannot change.
-    return degree;
+    return degree.copyWith(id: id);
   }
 
   @override

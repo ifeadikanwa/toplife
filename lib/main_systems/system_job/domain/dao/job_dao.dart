@@ -4,5 +4,6 @@ abstract class JobDao {
   Future<Job> createJob(Job job);
   Future<void> updateJob(Job job);
   Future<Job?> getJob(int jobID);
-  Future<Job?> findJobWithJobTitle(String jobTitle);
+  Future<Job?> findFullTimeJobWithJobTitle(String jobTitle);
+  Future<Job?> findPartTimeJobWithJobTitle(String jobTitle);
 }

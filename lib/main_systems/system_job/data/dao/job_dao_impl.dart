@@ -3,6 +3,7 @@ import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/job_dao.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
+import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 
 class JobDaoImpl implements JobDao {
   final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
@@ -32,14 +33,13 @@ class JobDaoImpl implements JobDao {
   @override
   Future<Job> createJob(Job job) async {
     final db = await _databaseProvider.database;
-    await db.insert(
+    final int id = await db.insert(
       jobTable,
       job.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
-    //i dont update with id because the degree table has no copyWith method to avoid updating because it is a record table that the user cannot change.
-    return job;
+    return job.copyWith(id: id);
   }
 
   @override
@@ -59,14 +59,37 @@ class JobDaoImpl implements JobDao {
     }
   }
 
-    @override
-  Future<Job?> findJobWithJobTitle(String jobTitle) async {
+  @override
+  Future<Job?> findFullTimeJobWithJobTitle(String jobTitle) async {
     final db = await _databaseProvider.database;
     final jobMaps = await db.query(
       jobTable,
       columns: Job.allColumns,
-      where: "${Job.jobTitleColumn} = ?",
-      whereArgs: [jobTitle],
+      where: "${Job.jobTitleColumn} = ? and ${Job.employmentTypeColumn} = ?",
+      whereArgs: [
+        jobTitle,
+        EmploymentType.fullTime.name,
+      ],
+    );
+
+    if (jobMaps.isNotEmpty) {
+      return Job.fromMap(jobMap: jobMaps.first);
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<Job?> findPartTimeJobWithJobTitle(String jobTitle) async {
+    final db = await _databaseProvider.database;
+    final jobMaps = await db.query(
+      jobTable,
+      columns: Job.allColumns,
+      where: "${Job.jobTitleColumn} = ? and ${Job.employmentTypeColumn} = ?",
+      whereArgs: [
+        jobTitle,
+        EmploymentType.partTime.name,
+      ],
     );
 
     if (jobMaps.isNotEmpty) {

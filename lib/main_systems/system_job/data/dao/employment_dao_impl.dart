@@ -68,7 +68,7 @@ class EmploymentDaoImpl implements EmploymentDao {
   }
 
   @override
-  Future<Employment?> getActiveEmployment(int mainPersonID) async {
+  Future<List<Employment>> getAllActiveEmployments(int mainPersonID) async {
     final db = await _databaseProvider.database;
     final allActiveEmploymentsMap = await db.query(
       employmentTable,
@@ -78,11 +78,10 @@ class EmploymentDaoImpl implements EmploymentDao {
       orderBy: "${Employment.idColumn} DESC",
     );
 
-    if (allActiveEmploymentsMap.isNotEmpty) {
-      return Employment.fromMap(employmentMap: allActiveEmploymentsMap.first);
-    } else {
-      return null;
-    }
+    return allActiveEmploymentsMap
+        .map(
+            (employmentMap) => Employment.fromMap(employmentMap: employmentMap))
+        .toList();
   }
 
   @override
@@ -125,5 +124,27 @@ class EmploymentDaoImpl implements EmploymentDao {
       where: "${Employment.idColumn} = ?",
       whereArgs: [employment.id],
     );
+  }
+
+  @override
+  Future<List<Employment>> getAllEmploymentsForAJob(
+      int mainPersonID, int jobID) async {
+    final db = await _databaseProvider.database;
+    final jobEmploymentsMap = await db.query(
+      employmentTable,
+      columns: Employment.allColumns,
+      where:
+          "${Employment.mainPersonIDColumn} = ? and ${Employment.jobIDColumn} = ?",
+      whereArgs: [
+        mainPersonID,
+        jobID,
+      ],
+      orderBy: "${Employment.idColumn} DESC",
+    );
+
+    return jobEmploymentsMap
+        .map(
+            (employmentMap) => Employment.fromMap(employmentMap: employmentMap))
+        .toList();
   }
 }

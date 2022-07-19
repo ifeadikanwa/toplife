@@ -37,4 +37,15 @@ class SchoolRepositoryImpl implements SchoolRepository {
   Future<void> updateSchool(School school) async {
     return _schoolDao.updateSchool(school);
   }
+
+  @override
+  Future<List<School>> getAllCompletedSchool(int mainPersonID) {
+    return _schoolDao.getAllCompletedSchool(mainPersonID);
+  }
+
+  @override
+  Future<List<School>> getAllCompletedSchoolForADegree(
+      int mainPersonID, int degreeID) {
+    return _schoolDao.getAllCompletedSchoolForADegree(mainPersonID, degreeID);
+  }
 }
