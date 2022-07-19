@@ -55,38 +55,54 @@ class GameJobs {
 
   static Set<Job> getFullTimeGeneralJobs() {
     //get jobs that are full time and require no degrees
-    return jobs
+    final fullTimeJobs = jobs
         .where((job) =>
             job.employmentType == EmploymentType.fullTime.name &&
             job.qualifiedDisciplines == emptyListString)
-        .toSet();
+        .toList();
+
+    fullTimeJobs.shuffle();
+
+    return fullTimeJobs.toSet();
   }
 
   static Set<Job> getPartTimeGeneralJobs() {
     //get jobs that are part time and require no degrees
-    return jobs
+    final partTimeJobs = jobs
         .where((job) =>
             job.employmentType == EmploymentType.partTime.name &&
             job.qualifiedDisciplines == emptyListString)
-        .toSet();
+        .toList();
+
+    partTimeJobs.shuffle();
+
+    return partTimeJobs.toSet();
   }
 
   static Set<Job> getFullTimeJobsForDegreeBranch(
       {required String degreeBranch}) {
     //get fulltime jobs that are require a specified degree
-    return jobs
+
+    final degreeJobs = jobs
         .where((job) =>
             job.employmentType == EmploymentType.fullTime.name &&
             job.qualifiedBranches.contains(degreeBranch))
-        .toSet();
+        .toList();
+
+    degreeJobs.shuffle();
+
+    return degreeJobs.toSet();
   }
 
   static Set<Job> getTenRandomDegreeJobs() {
-    return jobs
+    final degreeJobs = jobs
         .where((job) =>
             job.employmentType == EmploymentType.fullTime.name &&
             !(job.qualifiedDisciplines == emptyListString))
-        .take(10)
-        .toSet();
+        .toList();
+
+    degreeJobs.shuffle();
+
+    return degreeJobs.take(10).toSet();
   }
 }

@@ -1,5 +1,5 @@
-import 'dart:math';
 
+import 'package:toplife/core/utils/get_random_value_from_collections.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
 import 'package:toplife/main_systems/system_job/util/company_names.dart';
 
@@ -8,53 +8,37 @@ String getRandomCompanyName(String jobType) {
   if (jobType == JobType.science.name ||
       jobType == JobType.medical.name ||
       jobType == JobType.medical.name) {
-    return CompanyNames.scienceCompanyNamesList.elementAt(
-      Random().nextInt(CompanyNames.scienceCompanyNamesList.length),
-    );
+    return getRandomValueFromSet(set: CompanyNames.scienceCompanyNamesList);
   }
   //sex work
   else if (jobType == JobType.sexWork.name) {
-    return CompanyNames.sexWorkCompanyNamesList.elementAt(
-      Random().nextInt(CompanyNames.sexWorkCompanyNamesList.length),
-    );
+    return getRandomValueFromSet(set: CompanyNames.sexWorkCompanyNamesList);
   }
   //law
   else if (jobType == JobType.law.name) {
-    return CompanyNames.lawCompanyNamesList.elementAt(
-      Random().nextInt(CompanyNames.lawCompanyNamesList.length),
-    );
+    return getRandomValueFromSet(set: CompanyNames.lawCompanyNamesList);
   }
   //engineering
   else if (jobType == JobType.engineering.name) {
-    return CompanyNames.engineeringCompanyNamesList.elementAt(
-      Random().nextInt(CompanyNames.engineeringCompanyNamesList.length),
-    );
+    return getRandomValueFromSet(set: CompanyNames.engineeringCompanyNamesList);
   }
   //creative, communication
   else if (jobType == JobType.creative.name ||
       jobType == JobType.communication.name) {
-    return CompanyNames.creativeCompanyNamesList.elementAt(
-      Random().nextInt(CompanyNames.creativeCompanyNamesList.length),
-    );
+    return getRandomValueFromSet(set: CompanyNames.creativeCompanyNamesList);
   }
   //education
   else if (jobType == JobType.education.name) {
-    return CompanyNames.educationCompanyNamesList.elementAt(
-      Random().nextInt(CompanyNames.educationCompanyNamesList.length),
-    );
+    return getRandomValueFromSet(set: CompanyNames.educationCompanyNamesList);
   }
   //tech, finance, white collar
   else if (jobType == JobType.tech.name ||
       jobType == JobType.finance.name ||
       jobType == JobType.whiteCollar.name) {
-    return CompanyNames.corporateCompanyNamesList.elementAt(
-      Random().nextInt(CompanyNames.corporateCompanyNamesList.length),
-    );
+    return getRandomValueFromSet(set: CompanyNames.corporateCompanyNamesList);
   }
   //blueCollar, social work
   else {
-    return CompanyNames.workCompanyNamesList.elementAt(
-      Random().nextInt(CompanyNames.workCompanyNamesList.length),
-    );
+    return getRandomValueFromSet(set: CompanyNames.workCompanyNamesList);
   }
 }

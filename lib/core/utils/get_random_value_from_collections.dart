@@ -1,9 +1,8 @@
-import 'dart:collection';
 import 'dart:math';
 
-T getRandomValueFromHashSet<T>({required HashSet<T> hashSet}) {
-  int randomIndex = Random().nextInt(hashSet.length);
-  return hashSet.elementAt(randomIndex);
+T getRandomValueFromSet<T>({required Set<T> set}) {
+  int randomIndex = Random().nextInt(set.length);
+  return set.elementAt(randomIndex);
 }
 
 T getRandomValueFromList<T>({required List<T> list}) {

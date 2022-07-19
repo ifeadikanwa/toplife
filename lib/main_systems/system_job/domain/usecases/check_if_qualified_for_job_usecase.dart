@@ -80,25 +80,25 @@ class CheckIfQualifiedForFullTimeJobUsecase {
           );
         }
       }
+    }
 
-      //if the employment list was empty but it is a general job, then the player is qualified but for level 1
-      //there is a chance you won't be hired
-      if (isGeneralJob) {
-        final accepted = Chance.getTrueOrFalseBasedOnPercentageChance(
-          trueChancePercentage: 70,
+    //if the employment list was empty but it is a general job, then the player is qualified but for level 1
+    //there is a chance you won't be hired
+    if (isGeneralJob) {
+      final accepted = Chance.getTrueOrFalseBasedOnPercentageChance(
+        trueChancePercentage: 70,
+      );
+      if (accepted) {
+        return const JobInterviewResponse(
+          accepted: true,
+          qualifiedByEmployment: true,
         );
-        if (accepted) {
-          return const JobInterviewResponse(
-            accepted: true,
-            qualifiedByEmployment: true,
-          );
-        } else {
-          return const JobInterviewResponse(
-            accepted: false,
-            reason:
-                "Uhm actually has already been filled, sorry. We should really take the job ad down.",
-          );
-        }
+      } else {
+        return const JobInterviewResponse(
+          accepted: false,
+          reason:
+              "Uhm actually the position has already been filled, sorry. We should really take the job ad down.",
+        );
       }
     }
 
@@ -139,8 +139,7 @@ class CheckIfQualifiedForFullTimeJobUsecase {
             qualifiedByDegree: true,
             jobLevel: jobLevel,
           );
-        }
-        else {
+        } else {
           //they didn't get the job
           return const JobInterviewResponse(
             accepted: false,

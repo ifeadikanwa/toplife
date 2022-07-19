@@ -151,7 +151,7 @@ class SchoolDaoImpl implements SchoolDao {
     final allCompletedSchoolsForADegreeMap = await db.query(
       schoolTable,
       columns: School.allColumns,
-      where: "${School.mainPersonIDColumn} = ? and ${School.isCompletedColumn} = ? and ${School.degreeIDColumn} and ${School.isActiveColumn} = ?",
+      where: "${School.mainPersonIDColumn} = ? and ${School.isCompletedColumn} = ? and ${School.degreeIDColumn} = ? and ${School.isActiveColumn} = ?",
       whereArgs: [
         mainPersonID,
         databaseTrueValue,
