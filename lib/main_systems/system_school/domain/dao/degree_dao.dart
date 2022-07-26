@@ -4,8 +4,8 @@ abstract class DegreeDao {
   Future<Degree> createDegree(Degree degree);
   Future<void> updateDegree(Degree degree);
   Future<Degree?> getDegree(int degreeID);
-  Future<Degree?> findDegreeWithDegreeDisciplineAndBranch(
-    String degreeDiscipline,
-    String degreeBranch,
-  );
+  Future<Degree?> findDegreeWithDegreeDisciplineAndBranch({
+    required String degreeDiscipline,
+    required String degreeBranch,
+  });
 }

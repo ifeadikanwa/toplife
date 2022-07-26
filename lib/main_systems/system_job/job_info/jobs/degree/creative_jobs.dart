@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class CreativeJobs {
   //pay
@@ -31,7 +31,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -51,7 +51,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -71,7 +71,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -91,7 +91,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -111,7 +111,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -131,7 +131,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
     ),
@@ -151,7 +151,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art, DegreeBranch.history].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -171,7 +171,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -191,7 +191,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -211,7 +211,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -231,7 +231,7 @@ class CreativeJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.creative.minLevelThreeBasePay +
           (0.20 * GameJobPay.creative.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.art].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),

@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/get_random_corporate_company_suffix.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class FinanceJobs {
   //pay
@@ -31,7 +31,7 @@ class FinanceJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches: [
         DegreeBranch.finance,
         DegreeBranch.accounting,
@@ -55,7 +55,7 @@ class FinanceJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches: [
         DegreeBranch.finance,
         DegreeBranch.accounting,
@@ -79,7 +79,7 @@ class FinanceJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches: [
         DegreeBranch.finance,
         DegreeBranch.accounting,
@@ -104,7 +104,7 @@ class FinanceJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches: [
         DegreeBranch.finance,
         DegreeBranch.accounting,
@@ -128,7 +128,7 @@ class FinanceJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches: [
         DegreeBranch.finance,
         DegreeBranch.accounting,
@@ -153,7 +153,7 @@ class FinanceJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches: [
         DegreeBranch.finance,
         DegreeBranch.accounting,
@@ -178,7 +178,7 @@ class FinanceJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches: [
         DegreeBranch.finance,
         DegreeBranch.accounting,
@@ -204,8 +204,8 @@ class FinanceJobs {
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
       qualifiedDisciplines: [
-        DegreeDisciplines.business,
-        DegreeDisciplines.naturalScience
+        DegreeDiscipline.business,
+        DegreeDiscipline.naturalScience
       ].toString(),
       qualifiedBranches: [
         DegreeBranch.finance,
@@ -230,7 +230,7 @@ class FinanceJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches:
           [DegreeBranch.finance, DegreeBranch.accounting].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
@@ -252,8 +252,8 @@ class FinanceJobs {
       levelThreeBasePay: GameJobPay.finance.minLevelThreeBasePay +
           (0.20 * GameJobPay.finance.minLevelThreeBasePay).ceil(),
       qualifiedDisciplines: [
-        DegreeDisciplines.business,
-        DegreeDisciplines.naturalScience
+        DegreeDiscipline.business,
+        DegreeDiscipline.naturalScience
       ].toString(),
       qualifiedBranches: [
         DegreeBranch.finance,

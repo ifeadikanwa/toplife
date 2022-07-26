@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class PharmacyJobs {
   //pay
@@ -31,7 +31,7 @@ class PharmacyJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.pharmacy.minLevelThreeBasePay +
           (0.20 * GameJobPay.pharmacy.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.pharmacy].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.pharmacy].toString(),
       qualifiedBranches: [DegreeBranch.pharmacy].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),

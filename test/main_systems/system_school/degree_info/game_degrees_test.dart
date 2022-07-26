@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 import 'package:toplife/main_systems/system_school/degree_info/game_degrees.dart';
 import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 
@@ -9,7 +9,7 @@ void main() {
       final Set<Degree> degrees = GameDegrees.allDegrees;
 
       //Check that every discipline is represented in the degree list.
-      for (var discipline in DegreeDisciplines.values) {
+      for (var discipline in DegreeDiscipline.values) {
         final result =
             degrees.where((degree) => degree.discipline == discipline.name);
         expect(result.length, greaterThanOrEqualTo(1),
@@ -25,7 +25,7 @@ void main() {
       expect(result.length, 0, reason: "Cause: $result");
     });
 
-     test("Only special degree is added to the special degrees list", () {
+    test("Only special degree is added to the special degrees list", () {
       final Set<Degree> degrees = GameDegrees.specialDegrees();
 
       //Check that only special degree is represented in the degree list.

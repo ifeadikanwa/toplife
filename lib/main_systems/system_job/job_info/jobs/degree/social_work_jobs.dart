@@ -11,7 +11,7 @@ import 'package:toplife/main_systems/system_job/util/get_random_law_company_suff
 import 'package:toplife/main_systems/system_job/util/get_random_medical_company_suffix.dart';
 import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class SocialWorkJobs {
   //pay
@@ -34,8 +34,8 @@ class SocialWorkJobs {
       levelThreeBasePay: GameJobPay.socialWork.minLevelThreeBasePay +
           (0.20 * GameJobPay.socialWork.minLevelThreeBasePay).ceil(),
       qualifiedDisciplines: [
-        DegreeDisciplines.humanities,
-        DegreeDisciplines.socialScience
+        DegreeDiscipline.humanities,
+        DegreeDiscipline.socialScience
       ].toString(),
       qualifiedBranches: [
         DegreeBranch.languages,
@@ -67,7 +67,7 @@ class SocialWorkJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.socialWork.minLevelThreeBasePay +
           (0.20 * GameJobPay.socialWork.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.socialScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.socialScience].toString(),
       qualifiedBranches: [
         DegreeBranch.criminalJustice,
         DegreeBranch.politicalScience,
@@ -91,7 +91,7 @@ class SocialWorkJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.socialWork.minLevelThreeBasePay +
           (0.20 * GameJobPay.socialWork.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.socialScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.socialScience].toString(),
       qualifiedBranches:
           [DegreeBranch.sociology, DegreeBranch.psychology].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
@@ -112,7 +112,7 @@ class SocialWorkJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.socialWork.minLevelThreeBasePay +
           (0.20 * GameJobPay.socialWork.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.socialScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.socialScience].toString(),
       qualifiedBranches: [
         DegreeBranch.sociology,
         DegreeBranch.psychology,
@@ -137,7 +137,7 @@ class SocialWorkJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.socialWork.minLevelThreeBasePay +
           (0.20 * GameJobPay.socialWork.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.socialScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.socialScience].toString(),
       qualifiedBranches: [
         DegreeBranch.politicalScience,
         DegreeBranch.law,
@@ -160,7 +160,7 @@ class SocialWorkJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.socialWork.minLevelThreeBasePay +
           (0.20 * GameJobPay.socialWork.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.socialScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.socialScience].toString(),
       qualifiedBranches: [DegreeBranch.psychology].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -180,7 +180,7 @@ class SocialWorkJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.socialWork.minLevelThreeBasePay +
           (0.20 * GameJobPay.socialWork.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.socialScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.socialScience].toString(),
       qualifiedBranches: [
         DegreeBranch.criminalJustice,
         DegreeBranch.politicalScience,

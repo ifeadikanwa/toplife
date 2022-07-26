@@ -1,6 +1,6 @@
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
 
-enum DegreeDisciplines {
+enum DegreeDiscipline {
   socialScience(branches: {
     DegreeBranch.politicalScience,
     DegreeBranch.law,
@@ -65,7 +65,7 @@ enum DegreeDisciplines {
     DegreeBranch.english,
   });
 
-  const DegreeDisciplines({required this.branches});
+  const DegreeDiscipline({required this.branches});
 
   final Set<String> branches;
 }

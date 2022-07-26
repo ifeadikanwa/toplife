@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 
 class GameDegrees {
@@ -13,41 +13,41 @@ class GameDegrees {
     HashSet<Degree> regularDegrees = HashSet.of({});
 
     //regular degrees
-    for (var branch in DegreeDisciplines.humanities.branches) {
+    for (var branch in DegreeDiscipline.humanities.branches) {
       regularDegrees.add(Degree(
-        discipline: DegreeDisciplines.humanities.name,
+        discipline: DegreeDiscipline.humanities.name,
         branch: branch,
         isSpecialDegree: false,
       ));
     }
 
-    for (var branch in DegreeDisciplines.naturalScience.branches) {
+    for (var branch in DegreeDiscipline.naturalScience.branches) {
       regularDegrees.add(Degree(
-        discipline: DegreeDisciplines.naturalScience.name,
+        discipline: DegreeDiscipline.naturalScience.name,
         branch: branch,
         isSpecialDegree: false,
       ));
     }
 
-    for (var branch in DegreeDisciplines.business.branches) {
+    for (var branch in DegreeDiscipline.business.branches) {
       regularDegrees.add(Degree(
-        discipline: DegreeDisciplines.business.name,
+        discipline: DegreeDiscipline.business.name,
         branch: branch,
         isSpecialDegree: false,
       ));
     }
 
-    for (var branch in DegreeDisciplines.socialScience.branches) {
+    for (var branch in DegreeDiscipline.socialScience.branches) {
       regularDegrees.add(Degree(
-        discipline: DegreeDisciplines.socialScience.name,
+        discipline: DegreeDiscipline.socialScience.name,
         branch: branch,
         isSpecialDegree: false,
       ));
     }
 
-    for (var branch in DegreeDisciplines.engineering.branches) {
+    for (var branch in DegreeDiscipline.engineering.branches) {
       regularDegrees.add(Degree(
-        discipline: DegreeDisciplines.engineering.name,
+        discipline: DegreeDiscipline.engineering.name,
         branch: branch,
         isSpecialDegree: false,
       ));
@@ -60,41 +60,41 @@ class GameDegrees {
     HashSet<Degree> specialDegrees = HashSet.of({});
 
     //Special degrees
-    for (var branch in DegreeDisciplines.medical.branches) {
+    for (var branch in DegreeDiscipline.medical.branches) {
       specialDegrees.add(Degree(
-        discipline: DegreeDisciplines.medical.name,
+        discipline: DegreeDiscipline.medical.name,
         branch: branch,
         isSpecialDegree: true,
       ));
     }
 
-    for (var branch in DegreeDisciplines.nursing.branches) {
+    for (var branch in DegreeDiscipline.nursing.branches) {
       specialDegrees.add(Degree(
-        discipline: DegreeDisciplines.nursing.name,
+        discipline: DegreeDiscipline.nursing.name,
         branch: branch,
         isSpecialDegree: true,
       ));
     }
 
-    for (var branch in DegreeDisciplines.pharmacy.branches) {
+    for (var branch in DegreeDiscipline.pharmacy.branches) {
       specialDegrees.add(Degree(
-        discipline: DegreeDisciplines.pharmacy.name,
+        discipline: DegreeDiscipline.pharmacy.name,
         branch: branch,
         isSpecialDegree: true,
       ));
     }
 
-    for (var branch in DegreeDisciplines.law.branches) {
+    for (var branch in DegreeDiscipline.law.branches) {
       specialDegrees.add(Degree(
-        discipline: DegreeDisciplines.law.name,
+        discipline: DegreeDiscipline.law.name,
         branch: branch,
         isSpecialDegree: true,
       ));
     }
 
-    for (var branch in DegreeDisciplines.education.branches) {
+    for (var branch in DegreeDiscipline.education.branches) {
       specialDegrees.add(Degree(
-        discipline: DegreeDisciplines.education.name,
+        discipline: DegreeDiscipline.education.name,
         branch: branch,
         isSpecialDegree: true,
       ));

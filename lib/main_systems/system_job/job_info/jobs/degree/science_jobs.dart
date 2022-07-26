@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class ScienceJobs {
   //pay
@@ -31,7 +31,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [DegreeBranch.biology].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -51,7 +51,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches:
           [DegreeBranch.biology, DegreeBranch.chemistry].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
@@ -72,7 +72,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches:
           [DegreeBranch.biology, DegreeBranch.chemistry].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
@@ -93,7 +93,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [
         DegreeBranch.biology,
         DegreeBranch.chemistry,
@@ -118,7 +118,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches:
           [DegreeBranch.biology, DegreeBranch.chemistry].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
@@ -139,7 +139,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [DegreeBranch.chemistry].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -159,7 +159,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [DegreeBranch.chemistry].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -179,7 +179,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [DegreeBranch.physics].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -199,7 +199,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [DegreeBranch.physics].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -219,7 +219,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches:
           [DegreeBranch.physics, DegreeBranch.astronomy].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
@@ -240,7 +240,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [DegreeBranch.astronomy].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -260,7 +260,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [DegreeBranch.astronomy].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -280,7 +280,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [DegreeBranch.mathematics].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -300,7 +300,7 @@ class ScienceJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.science.minLevelThreeBasePay +
           (0.20 * GameJobPay.science.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.naturalScience].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.naturalScience].toString(),
       qualifiedBranches: [DegreeBranch.mathematics].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),

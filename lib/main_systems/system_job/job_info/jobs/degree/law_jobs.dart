@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/get_random_law_company_suffix.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class LawJobs {
   //pay
@@ -31,7 +31,7 @@ class LawJobs {
       levelThreeTitle: LevelTitle.partner.titleName,
       levelThreeBasePay: GameJobPay.law.minLevelThreeBasePay +
           (0.20 * GameJobPay.law.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.law].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.law].toString(),
       qualifiedBranches: [DegreeBranch.criminalLaw].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),
@@ -51,7 +51,7 @@ class LawJobs {
       levelThreeTitle: LevelTitle.partner.titleName,
       levelThreeBasePay: GameJobPay.law.minLevelThreeBasePay +
           (0.20 * GameJobPay.law.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.law].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.law].toString(),
       qualifiedBranches: [DegreeBranch.corporateLaw].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),
@@ -71,7 +71,7 @@ class LawJobs {
       levelThreeTitle: LevelTitle.partner.titleName,
       levelThreeBasePay: GameJobPay.law.minLevelThreeBasePay +
           (0.20 * GameJobPay.law.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.law].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.law].toString(),
       qualifiedBranches: [DegreeBranch.realEstateLaw].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),
@@ -91,7 +91,7 @@ class LawJobs {
       levelThreeTitle: LevelTitle.partner.titleName,
       levelThreeBasePay: GameJobPay.law.minLevelThreeBasePay +
           (0.20 * GameJobPay.law.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.law].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.law].toString(),
       qualifiedBranches: [DegreeBranch.familyLaw].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),

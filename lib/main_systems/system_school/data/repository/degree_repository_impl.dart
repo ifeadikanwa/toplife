@@ -24,13 +24,11 @@ class DegreeRepositoryImpl implements DegreeRepository {
   }
 
   @override
-  Future<Degree?> findDegreeWithDegreeDisciplineAndBranch(
-    String degreeDiscipline,
-    String degreeBranch,
-  ) async {
+  Future<Degree?> findDegreeWithDegreeDisciplineAndBranch({
+    required String degreeDiscipline,
+    required String degreeBranch,
+  }) async {
     return _degreeDao.findDegreeWithDegreeDisciplineAndBranch(
-      degreeDiscipline,
-      degreeBranch,
-    );
+        degreeDiscipline: degreeDiscipline, degreeBranch: degreeBranch);
   }
 }

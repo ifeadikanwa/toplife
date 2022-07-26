@@ -1,3 +1,4 @@
+import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_dao.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/repository/school_repository.dart';
@@ -39,13 +40,51 @@ class SchoolRepositoryImpl implements SchoolRepository {
   }
 
   @override
-  Future<List<School>> getAllCompletedSchool(int mainPersonID) {
+  Future<List<School>> getAllCompletedSchool(int mainPersonID) async {
     return _schoolDao.getAllCompletedSchool(mainPersonID);
   }
 
   @override
   Future<List<School>> getAllCompletedSchoolForADegree(
-      int mainPersonID, int degreeID) {
+      int mainPersonID, int degreeID) async {
     return _schoolDao.getAllCompletedSchoolForADegree(mainPersonID, degreeID);
+  }
+
+  @override
+  Future<List<School>> getAllCompletedDoctorateSchool(int mainPersonID) async {
+    return _schoolDao.getAllCompletedDoctorateSchool(mainPersonID);
+  }
+
+  @override
+  Future<List<School>> getAllCompletedGraduateSchool(int mainPersonID) async {
+    return _schoolDao.getAllCompletedGraduateSchool(mainPersonID);
+  }
+
+  @override
+  Future<List<School>> getAllCompletedUndergraduateSchool(int mainPersonID) async {
+    return _schoolDao.getAllCompletedUndergraduateSchool(mainPersonID);
+  }
+
+  @override
+  Future<List<School>> getAllActiveSchools(int mainPersonID) async {
+    return _schoolDao.getAllActiveSchools(mainPersonID);
+  }
+
+  @override
+  Future<School?> getCompletedSchoolForADegreeAtADegreeLevel(
+    int mainPersonID,
+    int degreeID,
+    DegreeLevel degreeLevel,
+  ) async {
+    return _schoolDao.getCompletedSchoolForADegreeAtADegreeLevel(
+      mainPersonID,
+      degreeID,
+      degreeLevel,
+    );
+  }
+
+  @override
+  Future<List<School>> getAllCompletedSpecialSchool(int mainPersonID) async {
+   return  _schoolDao.getAllCompletedSpecialSchool(mainPersonID);
   }
 }

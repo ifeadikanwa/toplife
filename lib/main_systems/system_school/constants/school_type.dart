@@ -1,5 +1,5 @@
 enum SchoolType{
-  university,
+  undergraduateSchool,
   graduateSchool,
   doctorateSchool,
   medicalSchool,

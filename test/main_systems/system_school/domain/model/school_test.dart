@@ -17,13 +17,16 @@ void main() {
       totalSemesterNumber: 8,
       currentSemesterNumber: 5,
       schoolType: "University",
+      currentDayInSemester: 2,
       semesterStartDay: 45,
       degreeID: 4,
       degreeLevel: "Master",
+      schoolFeesPerSemester: 200,
+      scholarshipPercentage: 20,
+      hasTakenLeave: true,
       isActive: false,
       isCompleted: true,
       wasExpelled: false,
-      country: "Canada",
     );
   });
 
@@ -43,13 +46,16 @@ void main() {
           "totalSemesterNumber": 8,
           "currentSemesterNumber": 5,
           "schoolType": "University",
+          "currentDayInSemester": 2,
           "semesterStartDay": 45,
           "degreeID": 4,
           "degreeLevel": "Master",
+          "schoolFeesPerSemester": 200,
+          "scholarshipPercentage": 20,
+          "hasTakenLeave": 1,
           "isActive": 0,
           "isCompleted": 1,
           "wasExpelled": 0,
-          "country": "Canada",
         };
 
         expect(sut.toMap(), correctMap);
@@ -68,13 +74,16 @@ void main() {
           "totalSemesterNumber": 8,
           "currentSemesterNumber": 5,
           "schoolType": "University",
+          "currentDayInSemester": 2,
           "semesterStartDay": 45,
           "degreeID": 4,
           "degreeLevel": "Master",
+          "schoolFeesPerSemester": 200,
+          "scholarshipPercentage": 20,
+          "hasTakenLeave": 1,
           "isActive": 0,
           "isCompleted": 1,
           "wasExpelled": 0,
-          "country": "Canada",
         };
 
         final result = School.fromMap(schoolMap: map);
@@ -95,15 +104,19 @@ void main() {
           totalSemesterNumber: 8,
           currentSemesterNumber: 6,
           schoolType: "University",
+          currentDayInSemester: 2,
           semesterStartDay: 45,
           degreeID: 4,
           degreeLevel: "Master",
+          schoolFeesPerSemester: 200,
+          scholarshipPercentage: 20,
+          hasTakenLeave: false,
           isActive: false,
           isCompleted: true,
           wasExpelled: false,
-          country: "Canada",
         );
-        final result = sut.copyWith(grades: 100, currentSemesterNumber: 6);
+        final result = sut.copyWith(
+            grades: 100, currentSemesterNumber: 6, hasTakenLeave: false);
         expect(result, correctSchool);
       });
 

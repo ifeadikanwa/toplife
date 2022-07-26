@@ -10,7 +10,7 @@ import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/get_random_corporate_company_suffix.dart';
 import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class CommunicationsJobs {
   //pay
@@ -32,7 +32,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches:
           [DegreeBranch.marketing, DegreeBranch.advertising].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
@@ -53,7 +53,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches:
           [DegreeBranch.marketing, DegreeBranch.advertising].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
@@ -74,7 +74,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.lead.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.business].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.business].toString(),
       qualifiedBranches:
           [DegreeBranch.marketing, DegreeBranch.advertising].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
@@ -96,7 +96,7 @@ class CommunicationsJobs {
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
       qualifiedDisciplines:
-          [DegreeDisciplines.business, DegreeDisciplines.humanities].toString(),
+          [DegreeDiscipline.business, DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [
         DegreeBranch.marketing,
         DegreeBranch.advertising,
@@ -122,8 +122,8 @@ class CommunicationsJobs {
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
       qualifiedDisciplines: [
-        DegreeDisciplines.humanities,
-        DegreeDisciplines.socialScience
+        DegreeDiscipline.humanities,
+        DegreeDiscipline.socialScience
       ].toString(),
       qualifiedBranches: [
         DegreeBranch.languages,
@@ -153,7 +153,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.languages].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -173,7 +173,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.languages].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -193,7 +193,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [
         DegreeBranch.languages,
         DegreeBranch.art,
@@ -219,7 +219,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [
         DegreeBranch.languages,
         DegreeBranch.art,
@@ -243,7 +243,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.history].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -263,7 +263,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.history].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -283,7 +283,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.history].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -303,7 +303,7 @@ class CommunicationsJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.humanities].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.humanities].toString(),
       qualifiedBranches: [DegreeBranch.history].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
@@ -324,8 +324,8 @@ class CommunicationsJobs {
       levelThreeBasePay: GameJobPay.communications.minLevelThreeBasePay +
           (0.20 * GameJobPay.communications.minLevelThreeBasePay).ceil(),
       qualifiedDisciplines: [
-        DegreeDisciplines.humanities,
-        DegreeDisciplines.socialScience
+        DegreeDiscipline.humanities,
+        DegreeDiscipline.socialScience
       ].toString(),
       qualifiedBranches: [
         DegreeBranch.philosophy,

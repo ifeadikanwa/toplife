@@ -8,7 +8,7 @@ import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class EducationJobs {
   //pay
@@ -30,8 +30,9 @@ class EducationJobs {
       levelThreeTitle: LevelTitle.head.titleName,
       levelThreeBasePay: GameJobPay.education.minLevelThreeBasePay +
           (0.20 * GameJobPay.education.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.education].toString(),
-      qualifiedBranches: DegreeDisciplines.education.branches.toList().toString(),
+      qualifiedDisciplines: [DegreeDiscipline.education].toString(),
+      qualifiedBranches:
+          DegreeDiscipline.education.branches.toList().toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
     ),
   });

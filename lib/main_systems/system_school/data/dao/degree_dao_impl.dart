@@ -9,7 +9,8 @@ class DegreeDaoImpl implements DegreeDao {
 
   static const degreeTable = "degree";
 
-  static const createTableQuery = '''
+  static const createTableQuery =
+      '''
     CREATE TABLE $degreeTable(
       ${Degree.idColumn} $idType,
       ${Degree.disciplineColumn} $textType,
@@ -48,10 +49,10 @@ class DegreeDaoImpl implements DegreeDao {
   }
 
   @override
-  Future<Degree?> findDegreeWithDegreeDisciplineAndBranch(
-    String degreeDiscipline,
-    String degreeBranch,
-  ) async {
+  Future<Degree?> findDegreeWithDegreeDisciplineAndBranch({
+    required String degreeDiscipline,
+    required String degreeBranch,
+  }) async {
     final db = await _databaseProvider.database;
     final degreeMaps = await db.query(
       degreeTable,

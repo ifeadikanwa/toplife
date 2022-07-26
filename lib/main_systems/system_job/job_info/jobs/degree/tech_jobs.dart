@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/get_random_tech_company_suffix.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class TechJobs {
   //pay
@@ -31,7 +31,7 @@ class TechJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.tech.minLevelThreeBasePay +
           (0.20 * GameJobPay.tech.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.engineering].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.engineering].toString(),
       qualifiedBranches: [DegreeBranch.computerScience].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),
@@ -51,7 +51,7 @@ class TechJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.tech.minLevelThreeBasePay +
           (0.20 * GameJobPay.tech.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.engineering].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.engineering].toString(),
       qualifiedBranches: [DegreeBranch.computerScience].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),
@@ -71,7 +71,7 @@ class TechJobs {
       levelThreeTitle: LevelTitle.senior.titleName,
       levelThreeBasePay: GameJobPay.tech.minLevelThreeBasePay +
           (0.20 * GameJobPay.tech.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.engineering].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.engineering].toString(),
       qualifiedBranches: [DegreeBranch.computerScience].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),

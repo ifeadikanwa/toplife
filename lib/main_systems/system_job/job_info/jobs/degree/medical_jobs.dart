@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/get_random_medical_company_suffix.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_disciplines.dart';
+import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 
 class MedicalJobs {
   //pay
@@ -31,7 +31,7 @@ class MedicalJobs {
       levelThreeTitle: LevelTitle.medicalDirector.titleName,
       levelThreeBasePay: GameJobPay.medical.minLevelThreeBasePay +
           (0.20 * GameJobPay.medical.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.medical].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.medical].toString(),
       qualifiedBranches: [DegreeBranch.surgery].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),
@@ -51,7 +51,7 @@ class MedicalJobs {
       levelThreeTitle: LevelTitle.medicalDirector.titleName,
       levelThreeBasePay: GameJobPay.medical.minLevelThreeBasePay +
           (0.17 * GameJobPay.medical.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.medical].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.medical].toString(),
       qualifiedBranches: [DegreeBranch.neurology].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),
@@ -71,7 +71,7 @@ class MedicalJobs {
       levelThreeTitle: LevelTitle.medicalDirector.titleName,
       levelThreeBasePay: GameJobPay.medical.minLevelThreeBasePay +
           (0.14 * GameJobPay.medical.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.medical].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.medical].toString(),
       qualifiedBranches: [DegreeBranch.pediatrics].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),
@@ -91,7 +91,7 @@ class MedicalJobs {
       levelThreeTitle: LevelTitle.medicalDirector.titleName,
       levelThreeBasePay: GameJobPay.medical.minLevelThreeBasePay +
           (0.12 * GameJobPay.medical.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.medical].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.medical].toString(),
       qualifiedBranches: [DegreeBranch.pathology].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
     ),
@@ -111,7 +111,7 @@ class MedicalJobs {
       levelThreeTitle: LevelTitle.medicalDirector.titleName,
       levelThreeBasePay: GameJobPay.medical.minLevelThreeBasePay +
           (0.04 * GameJobPay.medical.minLevelThreeBasePay).ceil(),
-      qualifiedDisciplines: [DegreeDisciplines.nursing].toString(),
+      qualifiedDisciplines: [DegreeDiscipline.nursing].toString(),
       qualifiedBranches: [DegreeBranch.nursing].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
     ),
