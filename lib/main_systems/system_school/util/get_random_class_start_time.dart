@@ -13,3 +13,4 @@ int getRandomClassStartTime() {
 
   return classStartTimeInMinutes;
 }
+  

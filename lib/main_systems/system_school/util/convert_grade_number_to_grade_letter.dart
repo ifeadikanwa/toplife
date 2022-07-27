@@ -15,8 +15,9 @@ String convertGradeNumberToGradeLetter({
   }
 
   //A+
-  if (gradeNumber >= Grade.aPlus.lowerBound &&
-      gradeNumber <= Grade.aPlus.upperBound) {
+  //I don't add an upperbound range check so that in case of an error 
+  //if the grade number is over the 100 we can safely return A+
+  if (gradeNumber >= Grade.aPlus.lowerBound) {
     return Grade.aPlus.letterGrade;
   }
   //A
