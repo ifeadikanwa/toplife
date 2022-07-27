@@ -13,18 +13,18 @@ import 'package:toplife/main_systems/system_school/domain/usecases/get_or_create
 class ApplyToLawSchoolUsecase {
   final SchoolRepositories _schoolRepositories;
   final GetOrCreateDegreeUsecase _getOrCreateDegreeUsecase;
-  final GetHighestGradeForAnyCompletedSchoolInADiscipline
+  final GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase
       _getHighestGradeForAnyCompletedSchoolInADiscipline;
 
   const ApplyToLawSchoolUsecase({
     required SchoolRepositories schoolRepositories,
     required GetOrCreateDegreeUsecase getOrCreateDegreeUsecase,
-    required GetHighestGradeForAnyCompletedSchoolInADiscipline
-        getHighestGradeForAnyCompletedSchoolInADiscipline,
+    required GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase
+        getHighestGradeForAnyCompletedSchoolInADisciplineUsecase,
   })  : _schoolRepositories = schoolRepositories,
         _getOrCreateDegreeUsecase = getOrCreateDegreeUsecase,
         _getHighestGradeForAnyCompletedSchoolInADiscipline =
-            getHighestGradeForAnyCompletedSchoolInADiscipline;
+            getHighestGradeForAnyCompletedSchoolInADisciplineUsecase;
 
   Future<SchoolApplicationResponse> execute(
       {required int mainPersonID,
@@ -59,13 +59,14 @@ class ApplyToLawSchoolUsecase {
     final int grade =
         await _getHighestGradeForAnyCompletedSchoolInADiscipline.execute(
       mainPersonID: mainPersonID,
-      degreeDiscipline: DegreeDiscipline.humanities,
+      degreeDiscipline: DegreeDiscipline.socialScience,
     );
 
     if (grade < Grade.b.lowerBound) {
       return SchoolApplicationResponse(
         degreeID: degreeRecord.id!,
         accepted: false,
+        reason: "Your application was rejected. You need to have at least a B in any social science degree.",
       );
     } else {
       late final int scholarshipPercentage;

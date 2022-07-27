@@ -46,6 +46,7 @@ class ApplyToGraduateSchoolUsecase {
       return SchoolApplicationResponse(
         degreeID: degreeRecord.id!,
         accepted: false,
+        reason: "Your application was rejected. You need to have at least a C+ in the relevant bachelor's degree.",
       );
     } else {
       

@@ -10,21 +10,21 @@ import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_highest_grade_for_any_completed_school_in_a_discipline_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_or_create_degree_usecase.dart';
 
-class ApplyToPharmacySchoolUsecase {
+class ApplyToMedicalSchoolUsecase {
   final SchoolRepositories _schoolRepositories;
   final GetOrCreateDegreeUsecase _getOrCreateDegreeUsecase;
-  final GetHighestGradeForAnyCompletedSchoolInADiscipline
+  final GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase
       _getHighestGradeForAnyCompletedSchoolInADiscipline;
 
-  const ApplyToPharmacySchoolUsecase({
+  const ApplyToMedicalSchoolUsecase({
     required SchoolRepositories schoolRepositories,
     required GetOrCreateDegreeUsecase getOrCreateDegreeUsecase,
-    required GetHighestGradeForAnyCompletedSchoolInADiscipline
-        getHighestGradeForAnyCompletedSchoolInADiscipline,
+    required GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase
+        getHighestGradeForAnyCompletedSchoolInADisciplineUsecase,
   })  : _schoolRepositories = schoolRepositories,
         _getOrCreateDegreeUsecase = getOrCreateDegreeUsecase,
         _getHighestGradeForAnyCompletedSchoolInADiscipline =
-            getHighestGradeForAnyCompletedSchoolInADiscipline;
+            getHighestGradeForAnyCompletedSchoolInADisciplineUsecase;
 
   Future<SchoolApplicationResponse> execute({
     required int mainPersonID,
@@ -67,6 +67,7 @@ class ApplyToPharmacySchoolUsecase {
       return SchoolApplicationResponse(
         degreeID: degreeRecord.id!,
         accepted: false,
+        reason: "Your application was rejected. You need to have at least a B in any natural science degree.",
       );
     } else {
       late final int scholarshipPercentage;
@@ -81,10 +82,12 @@ class ApplyToPharmacySchoolUsecase {
         degreeID: degreeRecord.id!,
         accepted: true,
         //amount = base cost * game economy + (1-5% of base cost for variability)
-        schoolFeesPerSemesterAmount: SchoolInfo.medicalSchoolDegreeBaseCost *
-                gameEconomy +
-            (0.05 * Random().nextDouble() * SchoolInfo.medicalSchoolDegreeBaseCost)
-                .toInt(),
+        schoolFeesPerSemesterAmount:
+            SchoolInfo.medicalSchoolDegreeBaseCost * gameEconomy +
+                (0.05 *
+                        Random().nextDouble() *
+                        SchoolInfo.medicalSchoolDegreeBaseCost)
+                    .toInt(),
         appliedForScholarship: false,
         scholarshipPercentage: scholarshipPercentage,
       );

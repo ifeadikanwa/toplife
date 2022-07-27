@@ -2,10 +2,10 @@ import 'package:toplife/main_systems/system_school/data/repository/school_reposi
 import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
-class GetHighestGradeForAnyCompletedSchoolInADiscipline {
+class GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase {
   final SchoolRepositories _schoolRepositories;
 
-  const GetHighestGradeForAnyCompletedSchoolInADiscipline({
+  const GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase({
     required SchoolRepositories schoolRepositories,
   }) : _schoolRepositories = schoolRepositories;
 

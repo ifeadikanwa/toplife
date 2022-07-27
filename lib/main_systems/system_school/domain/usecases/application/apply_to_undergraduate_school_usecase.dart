@@ -38,7 +38,7 @@ class ApplyToUndergraduateSchoolUsecase {
                       SchoolInfo.undergraduateDegreeBaseCost)
                   .toInt(),
       appliedForScholarship: false,
-      //scholarship = random percentage between 1-30%
+      //scholarship = random percentage between 0-30%
       scholarshipPercentage: Random().nextInt(4) * 10,
     );
   }

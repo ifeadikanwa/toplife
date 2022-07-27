@@ -13,18 +13,18 @@ import 'package:toplife/main_systems/system_school/domain/usecases/get_or_create
 class ApplyToNursingSchoolUsecase {
   final SchoolRepositories _schoolRepositories;
   final GetOrCreateDegreeUsecase _getOrCreateDegreeUsecase;
-  final GetHighestGradeForAnyCompletedSchoolInADiscipline
+  final GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase
       _getHighestGradeForAnyCompletedSchoolInADiscipline;
 
   const ApplyToNursingSchoolUsecase({
     required SchoolRepositories schoolRepositories,
     required GetOrCreateDegreeUsecase getOrCreateDegreeUsecase,
-    required GetHighestGradeForAnyCompletedSchoolInADiscipline
-        getHighestGradeForAnyCompletedSchoolInADiscipline,
+    required GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase
+        getHighestGradeForAnyCompletedSchoolInADisciplineUsecase,
   })  : _schoolRepositories = schoolRepositories,
         _getOrCreateDegreeUsecase = getOrCreateDegreeUsecase,
         _getHighestGradeForAnyCompletedSchoolInADiscipline =
-            getHighestGradeForAnyCompletedSchoolInADiscipline;
+            getHighestGradeForAnyCompletedSchoolInADisciplineUsecase;
 
   Future<SchoolApplicationResponse> execute({
     required int mainPersonID,
@@ -67,6 +67,7 @@ class ApplyToNursingSchoolUsecase {
       return SchoolApplicationResponse(
         degreeID: degreeRecord.id!,
         accepted: false,
+        reason: "Your application was rejected. You need to have at least a B in any natural science degree.",
       );
     } else {
       late final int scholarshipPercentage;
@@ -81,10 +82,12 @@ class ApplyToNursingSchoolUsecase {
         degreeID: degreeRecord.id!,
         accepted: true,
         //amount = base cost * game economy + (1-5% of base cost for variability)
-        schoolFeesPerSemesterAmount: SchoolInfo.nursingSchoolDegreeBaseCost *
-                gameEconomy +
-            (0.05 * Random().nextDouble() * SchoolInfo.nursingSchoolDegreeBaseCost)
-                .toInt(),
+        schoolFeesPerSemesterAmount:
+            SchoolInfo.nursingSchoolDegreeBaseCost * gameEconomy +
+                (0.05 *
+                        Random().nextDouble() *
+                        SchoolInfo.nursingSchoolDegreeBaseCost)
+                    .toInt(),
         appliedForScholarship: false,
         scholarshipPercentage: scholarshipPercentage,
       );

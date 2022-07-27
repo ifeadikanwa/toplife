@@ -22,13 +22,13 @@ class GraduateUsecase {
       late final String degreeType;
 
       if (school.schoolType == SchoolType.undergraduateSchool.name) {
-        degreeType = " Bachelor's";
+        degreeType = " bachelor's";
       } else if (school.schoolType == SchoolType.graduateSchool.name) {
-        degreeType = " Master's";
+        degreeType = " master's";
       } else if (school.schoolType == SchoolType.doctorateSchool.name) {
-        degreeType = " Doctorate";
+        degreeType = " doctorate";
       } else if (school.schoolType == SchoolType.teacherEducationProgram.name) {
-        degreeType = " Education";
+        degreeType = " education";
       } else {
         degreeType = "";
       }

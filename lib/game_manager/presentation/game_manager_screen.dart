@@ -5,7 +5,6 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
 
 class GameScreen extends ConsumerWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -74,56 +73,82 @@ class GameScreen extends ConsumerWidget {
               //     .changeCurrentPlayerUsecase
               //     .execute(gameID: 10, newCurrentPlayerID: 11);
 
-
-
-              // final result = ju.getAValidListOfFullTimeJobsUsecase.execute([
-              //   Degree(
-              //       discipline: "law",
-              //       branch: "Criminal Law",
-              //       isSpecialDegree: true)
-              // ]);
-
-              // print(result);
-
-           
-              // const degree = Degree(
-              //   discipline: "engineering",
-              //   branch: "Computer Science",
-              //   isSpecialDegree: false,
+              // final Degree degree = Degree(
+              //   discipline: DegreeDiscipline.education.name,
+              //   branch: "English",
+              //   isSpecialDegree: true,
               // );
 
-              // await DegreeDaoImpl().createDegree(degree);
-
-              // final result =
-              //     await DegreeDaoImpl().findDegreeWithDegreeDisciplineAndBranch(
-              //   "medical",
-              //   "Surgery",
+              // final schoolrepo = SchoolRepositories(
+              //   degreeDao: DegreeDaoImpl(),
+              //   schoolDao: SchoolDaoImpl(),
+              //   schoolProjectDao: SchoolProjectDaoImpl(),
+              //   schoolRelationshipDao: SchoolRelationshipDaoImpl(),
               // );
-              // print(result);
+              // final schoolUsecases =
+              //     SchoolUsecases(schoolRepositories: schoolrepo);
 
+              // // final school = await schoolrepo.schoolRepositoryImpl.getSchool(2);
+              // // final graduate =
+              // //     await schoolUsecases.graduateUsecase.execute(school: school!);
 
-              // await SchoolDaoImpl().createSchool(school);
+              // // print(graduate);
 
-              // final result = await SchoolDaoImpl().getAllCompletedSchoolForADegree(1, 4);
-              // print(result);
+              // final result = await schoolUsecases.applyToTeacherEducationProgramUsecase
+              //     .execute(mainPersonID: 1, degree: degree, gameEconomy: 1);
 
-              // final result = await GetCompletedDegreesUsecase(
-              //   schoolRepositories: SchoolRepositories(
-              //       degreeDao: DegreeDaoImpl(),
-              //       schoolDao: SchoolDaoImpl(),
-              //       schoolProjectDao: SchoolProjectDaoImpl(),
-              //       schoolRelationshipDao: SchoolRelationshipDaoImpl()),
-              // ).execute(personID: 1);
-
-              // final result = await GetHighestAttainedDegreeLevelForACompletedDegreeUsecase(
-              //   schoolRepositories: SchoolRepositories(
-              //       degreeDao: DegreeDaoImpl(),
-              //       schoolDao: SchoolDaoImpl(),
-              //       schoolProjectDao: SchoolProjectDaoImpl(),
-              //       schoolRelationshipDao: SchoolRelationshipDaoImpl()),
-              // ).execute(1, 4);
+              // // final admission = await schoolUsecases
+              // //     .admitIntoMedicalSchoolUsecase
+              // //     .execute(1, result, 24);
 
               // print(result);
+              // // print(admission);
+
+              // final list = await schoolUsecases
+              //     .getValidListOfBachelorDegreesUsecase
+              //     .execute(personID: 1);
+
+              // print(list);
+
+              // final job = Job(
+              //   jobTitle: JobTitles.surgeon,
+              //   jobType: JobType.medical.name,
+              //   companySuffix: getRandomMedicalCompanySuffix(),
+              //   employmentType: EmploymentType.fullTime.name,
+              //   levelOneTitle: LevelTitle.intern.titleName,
+              //   levelOneBasePay: GameJobPay.medical.minLevelOneBasePay +
+              //       (0.20 * GameJobPay.medical.minLevelOneBasePay).ceil(),
+              //   levelTwoTitle: LevelTitle.chiefResident.titleName,
+              //   levelTwoBasePay: GameJobPay.medical.minLevelTwoBasePay +
+              //       (0.20 * GameJobPay.medical.minLevelTwoBasePay).ceil(),
+              //   levelThreeTitle: LevelTitle.medicalDirector.titleName,
+              //   levelThreeBasePay: GameJobPay.medical.minLevelThreeBasePay +
+              //       (0.20 * GameJobPay.medical.minLevelThreeBasePay).ceil(),
+              //   qualifiedDisciplines: [DegreeDiscipline.medical].toString(),
+              //   qualifiedBranches: [DegreeBranch.surgery].toString(),
+              //   healthInsuranceCoverage:
+              //       HealthInsuranceCoverage.high.percentage,
+              // );
+
+              // JobUsecases(
+              //   jobRepositories: JobRepositories(
+              //       jobDao: JobDaoImpl(),
+              //       jobRelationshipDao: JobRelationshipDaoImpl(),
+              //       employmentDao: EmploymentDaoImpl()),
+              //   schoolUsecases: SchoolUsecases(
+              //     schoolRepositories: SchoolRepositories(
+              //         degreeDao: DegreeDaoImpl(),
+              //         schoolDao: SchoolDaoImpl(),
+              //         schoolProjectDao: SchoolProjectDaoImpl(),
+              //         schoolRelationshipDao: SchoolRelationshipDaoImpl()),
+              //   ),
+              // ).employPersonForFullTimeJobUsecase.execute(
+              //     mainPersonID: 1,
+              //     gameEconomy: 1,
+              //     currentDay: 34,
+              //     job: job,
+              //     jobInterviewResponse:
+              //         const JobInterviewResponse(accepted: true));
             },
             child: const Text("do")),
         ElevatedButton(
@@ -137,7 +162,7 @@ class GameScreen extends ConsumerWidget {
 
               // ref.read(personUsecasesProvider).deletePersonUsecase.execute( personID: 12);
 
-              await ParentDaoImpl().deleteParent(1, 2);
+              // await GameDaoImpl().deleteGame(2);
             },
             child: const Text("Delete")),
         Text(

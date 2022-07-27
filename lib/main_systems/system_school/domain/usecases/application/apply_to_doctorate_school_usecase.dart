@@ -46,6 +46,7 @@ class ApplyToDoctorateSchoolUsecase {
       return SchoolApplicationResponse(
         degreeID: degreeRecord.id!,
         accepted: false,
+        reason: "Your application was rejected. You need to have at least a B+ in the relevant master's degree.",
       );
     } else {
       late final int scholarshipPercentage;
