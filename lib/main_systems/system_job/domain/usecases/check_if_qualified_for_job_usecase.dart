@@ -3,6 +3,9 @@ import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
 import 'package:toplife/main_systems/system_job/domain/model/info_models/job_interview_response.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/data/repository/job_repositories.dart';
+import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
+import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
 import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/school_usecases.dart';
@@ -10,12 +13,15 @@ import 'package:toplife/main_systems/system_school/domain/usecases/school_usecas
 class CheckIfQualifiedForFullTimeJobUsecase {
   final JobRepositories _jobRepositories;
   final SchoolUsecases _schoolUsecases;
+  final PersonUsecases _personUsecases;
 
   const CheckIfQualifiedForFullTimeJobUsecase({
     required JobRepositories jobRepositories,
     required SchoolUsecases schoolUsecases,
+    required PersonUsecases personUsecases,
   })  : _jobRepositories = jobRepositories,
-        _schoolUsecases = schoolUsecases;
+        _schoolUsecases = schoolUsecases,
+        _personUsecases = personUsecases;
 
   Future<JobInterviewResponse> execute({
     required Job job,
@@ -36,6 +42,7 @@ class CheckIfQualifiedForFullTimeJobUsecase {
     //if you find a match they qualify
     //else they dont qualify
 
+    //*implement later:
     //what if the user has a higher degree level than their previous employment
     //get degree and employment info first
     //then use that to decide how to act
@@ -85,20 +92,51 @@ class CheckIfQualifiedForFullTimeJobUsecase {
     //if the employment list was empty but it is a general job, then the player is qualified but for level 1
     //there is a chance you won't be hired
     if (isGeneralJob) {
-      final accepted = Chance.getTrueOrFalseBasedOnPercentageChance(
-        trueChancePercentage: 70,
-      );
-      if (accepted) {
-        return const JobInterviewResponse(
-          accepted: true,
-          qualifiedByEmployment: true,
+      //if it is sex work we need to take looks into consideration.
+      if (job.jobType == JobType.sexWork.name) {
+        final Stats? personStats =
+            await _personUsecases.getPersonStatsUsecase.execute(personID);
+
+        if (personStats != null) {
+          final int looks = personStats.looks;
+
+          if (looks > 70) {
+            return const JobInterviewResponse(
+              accepted: true,
+              qualifiedByEmployment: true,
+            );
+          } else {
+            return const JobInterviewResponse(
+              accepted: false,
+              reason:
+                  "We expect a certain standard of beauty that you just do not possess. Come back when you look bett.. I mean different.",
+            );
+          }
+        } else {
+          return const JobInterviewResponse(
+            accepted: false,
+            reason:
+                "You sent an application but never heard back. Maybe it got lost in transit.",
+          );
+        }
+      }
+      //else just follow normal procedure
+      else {
+        final accepted = Chance.getTrueOrFalseBasedOnPercentageChance(
+          trueChancePercentage: 70,
         );
-      } else {
-        return const JobInterviewResponse(
-          accepted: false,
-          reason:
-              "Uhm actually the position has already been filled, sorry. We should really take the job ad down.",
-        );
+        if (accepted) {
+          return const JobInterviewResponse(
+            accepted: true,
+            qualifiedByEmployment: true,
+          );
+        } else {
+          return const JobInterviewResponse(
+            accepted: false,
+            reason:
+                "Uhm actually the position has already been filled, sorry. We should really take the job ad down.",
+          );
+        }
       }
     }
 

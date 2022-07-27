@@ -3,23 +3,28 @@ import 'package:toplife/main_systems/system_job/domain/usecases/check_if_qualifi
 import 'package:toplife/main_systems/system_job/domain/usecases/employ_person_for_fulltime_job_usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/end_all_active_fulltime_employment_usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/get_a_valid_list_of_fulltime_jobs_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/school_usecases.dart';
 
 class JobUsecases {
   final JobRepositories _jobRepositories;
   final SchoolUsecases _schoolUsecases;
+  final PersonUsecases _personUsecases;
 
   const JobUsecases({
     required JobRepositories jobRepositories,
     required SchoolUsecases schoolUsecases,
+    required PersonUsecases personUsecases,
   })  : _jobRepositories = jobRepositories,
-        _schoolUsecases = schoolUsecases;
+        _schoolUsecases = schoolUsecases,
+        _personUsecases = personUsecases;
 
   CheckIfQualifiedForFullTimeJobUsecase
       get checkIfQualifiedForFullTimeJobUsecase =>
           CheckIfQualifiedForFullTimeJobUsecase(
             jobRepositories: _jobRepositories,
             schoolUsecases: _schoolUsecases,
+            personUsecases: _personUsecases,
           );
 
   EndAllActiveFullTimeEmploymentUsecase
