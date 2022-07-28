@@ -25,7 +25,7 @@ class Canada implements Country {
 
   @override
   String get randomFemaleFirstName {
-    return getRandomValueFromHashSet(hashSet: femaleFirstNames);
+    return getRandomValueFromSet(set: femaleFirstNames);
   }
 
   @override
@@ -33,7 +33,7 @@ class Canada implements Country {
 
   @override
   String get randomLastName {
-    return getRandomValueFromHashSet(hashSet: lastNames);
+    return getRandomValueFromSet(set: lastNames);
   }
 
   @override
@@ -41,6 +41,6 @@ class Canada implements Country {
 
   @override
   String get randomMaleFirstName {
-    return getRandomValueFromHashSet(hashSet: maleFirstNames);
+    return getRandomValueFromSet(set: maleFirstNames);
   }
 }

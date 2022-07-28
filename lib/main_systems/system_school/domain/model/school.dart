@@ -14,12 +14,16 @@ class School extends Equatable {
   final int currentSemesterNumber;
   final String schoolType;
   final int semesterStartDay;
+  final int currentDayInSemester;
   final int degreeID;
   final String degreeLevel;
+  final int schoolFeesPerSemester;
+  final int scholarshipPercentage;
+  final bool
+      hasTakenLeave; // sets next semester start date to apprpriate date after 4 days.
   final bool isActive;
   final bool isCompleted;
   final bool wasExpelled;
-  final String country;
 
   const School({
     this.id,
@@ -33,13 +37,16 @@ class School extends Equatable {
     required this.totalSemesterNumber,
     required this.currentSemesterNumber,
     required this.schoolType,
+    required this.currentDayInSemester,
     required this.semesterStartDay,
     required this.degreeID,
     required this.degreeLevel,
+    required this.schoolFeesPerSemester,
+    required this.scholarshipPercentage,
+    required this.hasTakenLeave,
     required this.isActive,
     required this.isCompleted,
     required this.wasExpelled,
-    required this.country,
   });
 
   @override
@@ -55,13 +62,16 @@ class School extends Equatable {
         totalSemesterNumber,
         currentSemesterNumber,
         schoolType,
+        currentDayInSemester,
         semesterStartDay,
         degreeID,
         degreeLevel,
+        schoolFeesPerSemester,
+        scholarshipPercentage,
+        hasTakenLeave,
         isActive,
         isCompleted,
         wasExpelled,
-        country,
       ];
 
   @override
@@ -79,13 +89,16 @@ class School extends Equatable {
   static const totalSemesterNumberColumn = "totalSemesterNumber";
   static const currentSemesterNumberColumn = "currentSemesterNumber";
   static const schoolTypeColumn = "schoolType";
+  static const currentDayInSemesterColumn = "currentDayInSemester";
   static const semesterStartDayColumn = "semesterStartDay";
   static const degreeIDColumn = "degreeID";
   static const degreeLevelColumn = "degreeLevel";
+  static const schoolFeesPerSemesterColumn = "schoolFeesPerSemester";
+  static const scholarshipPercentageColumn = "scholarshipPercentage";
+  static const hasTakenLeaveColumn = "hasTakenLeave";
   static const isActiveColumn = "isActive";
   static const isCompletedColumn = "isCompleted";
   static const wasExpelledColumn = "wasExpelled";
-  static const countryColumn = "country";
 
   static const allColumns = [
     idColumn,
@@ -99,13 +112,16 @@ class School extends Equatable {
     totalSemesterNumberColumn,
     currentSemesterNumberColumn,
     schoolTypeColumn,
+    currentDayInSemesterColumn,
     semesterStartDayColumn,
     degreeIDColumn,
     degreeLevelColumn,
+    schoolFeesPerSemesterColumn,
+    scholarshipPercentageColumn,
+    hasTakenLeaveColumn,
     isActiveColumn,
     isCompletedColumn,
     wasExpelledColumn,
-    countryColumn,
   ];
 
   static School fromMap({required Map<String, Object?> schoolMap}) {
@@ -121,13 +137,16 @@ class School extends Equatable {
       totalSemesterNumber: schoolMap[totalSemesterNumberColumn] as int,
       currentSemesterNumber: schoolMap[currentSemesterNumberColumn] as int,
       schoolType: schoolMap[schoolTypeColumn] as String,
+      currentDayInSemester: schoolMap[currentDayInSemesterColumn] as int,
       semesterStartDay: schoolMap[semesterStartDayColumn] as int,
       degreeID: schoolMap[degreeIDColumn] as int,
       degreeLevel: schoolMap[degreeLevelColumn] as String,
+      schoolFeesPerSemester: schoolMap[schoolFeesPerSemesterColumn] as int,
+      scholarshipPercentage: schoolMap[scholarshipPercentageColumn] as int,
+      hasTakenLeave: schoolMap[hasTakenLeaveColumn] == databaseTrueValue,
       isActive: schoolMap[isActiveColumn] == databaseTrueValue,
       isCompleted: schoolMap[isCompletedColumn] == databaseTrueValue,
       wasExpelled: schoolMap[wasExpelledColumn] == databaseTrueValue,
-      country: schoolMap[countryColumn] as String,
     );
   }
 
@@ -144,13 +163,17 @@ class School extends Equatable {
       totalSemesterNumberColumn: totalSemesterNumber,
       currentSemesterNumberColumn: currentSemesterNumber,
       schoolTypeColumn: schoolType,
+      currentDayInSemesterColumn: currentDayInSemester,
       semesterStartDayColumn: semesterStartDay,
       degreeIDColumn: degreeID,
       degreeLevelColumn: degreeLevel,
+      schoolFeesPerSemesterColumn: schoolFeesPerSemester,
+      scholarshipPercentageColumn: scholarshipPercentage,
+      hasTakenLeaveColumn:
+          hasTakenLeave ? databaseTrueValue : databaseFalseValue,
       isActiveColumn: isActive ? databaseTrueValue : databaseFalseValue,
       isCompletedColumn: isCompleted ? databaseTrueValue : databaseFalseValue,
       wasExpelledColumn: wasExpelled ? databaseTrueValue : databaseFalseValue,
-      countryColumn: country,
     };
   }
 
@@ -166,13 +189,16 @@ class School extends Equatable {
     int? totalSemesterNumber,
     int? currentSemesterNumber,
     String? schoolType,
+    int? currentDayInSemester,
     int? semesterStartDay,
     int? degreeID,
     String? degreeLevel,
+    int? schoolFeesPerSemester,
+    int? scholarshipPercentage,
+    bool? hasTakenLeave,
     bool? isActive,
     bool? isCompleted,
     bool? wasExpelled,
-    String? country,
   }) {
     return School(
       id: id ?? this.id,
@@ -187,13 +213,18 @@ class School extends Equatable {
       currentSemesterNumber:
           currentSemesterNumber ?? this.currentSemesterNumber,
       schoolType: schoolType ?? this.schoolType,
+      currentDayInSemester: currentDayInSemester ?? this.currentDayInSemester,
       semesterStartDay: semesterStartDay ?? this.semesterStartDay,
       degreeID: degreeID ?? this.degreeID,
       degreeLevel: degreeLevel ?? this.degreeLevel,
+      schoolFeesPerSemester:
+          schoolFeesPerSemester ?? this.schoolFeesPerSemester,
+      scholarshipPercentage:
+          scholarshipPercentage ?? this.scholarshipPercentage,
+      hasTakenLeave: hasTakenLeave ?? this.hasTakenLeave,
       isActive: isActive ?? this.isActive,
       isCompleted: isCompleted ?? this.isCompleted,
       wasExpelled: wasExpelled ?? this.wasExpelled,
-      country: country ?? this.country,
     );
   }
 }

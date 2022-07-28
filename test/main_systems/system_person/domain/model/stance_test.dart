@@ -9,6 +9,7 @@ void main() {
       id: 1,
       personID: 3,
       openToAdoption: false,
+      openToSexWorkerPartner: true,
       openToAbortion: true,
       openToSurrogacy: false,
       openToAlternativeFertilityMethods: true,
@@ -27,6 +28,7 @@ void main() {
           "_id": 1,
           "personID": 3,
           "openToAdoption": 0,
+          "openToSexWorkerPartner": 1,
           "openToAbortion": 1,
           "openToSurrogacy": 0,
           "openToAlternativeFertilityMethods": 1,
@@ -44,6 +46,7 @@ void main() {
           "_id": 1,
           "personID": 3,
           "openToAdoption": 0,
+          "openToSexWorkerPartner": 1,
           "openToAbortion": 1,
           "openToSurrogacy": 0,
           "openToAlternativeFertilityMethods": 1,
@@ -63,6 +66,7 @@ void main() {
           id: 1,
           personID: 3,
           openToAdoption: true,
+          openToSexWorkerPartner: false,
           openToAbortion: false,
           openToSurrogacy: false,
           openToAlternativeFertilityMethods: true,
@@ -73,7 +77,7 @@ void main() {
         );
 
         final result =
-            sut.copyWith(openToAbortion: false, openToAdoption: true);
+            sut.copyWith(openToAbortion: false, openToAdoption: true, openToSexWorkerPartner: false);
 
         expect(result, correctStats);
       });

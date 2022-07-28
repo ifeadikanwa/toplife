@@ -9,7 +9,8 @@ class DegreeDaoImpl implements DegreeDao {
 
   static const degreeTable = "degree";
 
-  static const createTableQuery = '''
+  static const createTableQuery =
+      '''
     CREATE TABLE $degreeTable(
       ${Degree.idColumn} $idType,
       ${Degree.disciplineColumn} $textType,
@@ -21,33 +22,13 @@ class DegreeDaoImpl implements DegreeDao {
   @override
   Future<Degree> createDegree(Degree degree) async {
     final db = await _databaseProvider.database;
-    await db.insert(
+    final int id = await db.insert(
       degreeTable,
       degree.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
 
-    //i dont update with id because the degree table has no copyWith method to avoid updating because it is a record tabe that the user cannot change.
-    return degree;
-  }
-
-  @override
-  Future<void> deleteDegreeTable() async {
-    final db = await _databaseProvider.database;
-    await db.delete(degreeTable);
-  }
-
-  @override
-  Future<List<Degree>> getAllDegrees() async {
-    final db = await _databaseProvider.database;
-    final allDegreesMap = await db.query(
-      degreeTable,
-      columns: Degree.allColumns,
-    );
-
-    return allDegreesMap
-        .map((degreeMap) => Degree.fromMap(degreeMap: degreeMap))
-        .toList();
+    return degree.copyWith(id: id);
   }
 
   @override
@@ -68,6 +49,29 @@ class DegreeDaoImpl implements DegreeDao {
   }
 
   @override
+  Future<Degree?> findDegreeWithDegreeDisciplineAndBranch({
+    required String degreeDiscipline,
+    required String degreeBranch,
+  }) async {
+    final db = await _databaseProvider.database;
+    final degreeMaps = await db.query(
+      degreeTable,
+      columns: Degree.allColumns,
+      where: "${Degree.disciplineColumn} = ? and ${Degree.branchColumn} = ?",
+      whereArgs: [
+        degreeDiscipline,
+        degreeBranch,
+      ],
+    );
+
+    if (degreeMaps.isNotEmpty) {
+      return Degree.fromMap(degreeMap: degreeMaps.first);
+    } else {
+      return null;
+    }
+  }
+
+  @override
   Future<void> updateDegree(Degree degree) async {
     final db = await _databaseProvider.database;
     await db.update(
@@ -77,22 +81,5 @@ class DegreeDaoImpl implements DegreeDao {
       whereArgs: [degree.id],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
-  }
-
-  @override
-  Future<void> dropAndRecreateDegreeTable() async {
-    final db = await _databaseProvider.database;
-    await db.execute("DROP TABLE IF EXISTS $degreeTable");
-    await db.execute(createTableQuery);
-  }
-
-  @override
-  Future<void> batchInsertDegrees(Set<Degree> degreesSet) async {
-    final db = await _databaseProvider.database;
-    final Batch batch = db.batch();
-    for (var degree in degreesSet) {
-      batch.insert(degreeTable, degree.toMap());
-    }
-    batch.commit(noResult: true);
   }
 }

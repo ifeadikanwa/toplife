@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 
 class Degree extends Equatable {
+  //A degree with a different discipline-branch is a new degree.
+
   final int? id;
   final String discipline;
   final String branch;
@@ -52,7 +54,22 @@ class Degree extends Equatable {
       idColumn: id,
       disciplineColumn: discipline,
       branchColumn: branch,
-      isSpecialDegreeColumn: isSpecialDegree ? databaseTrueValue : databaseFalseValue,
+      isSpecialDegreeColumn:
+          isSpecialDegree ? databaseTrueValue : databaseFalseValue,
     };
+  }
+
+  Degree copyWith({
+    int? id,
+    String? discipline,
+    String? branch,
+    bool? isSpecialDegree,
+  }) {
+    return Degree(
+      id: id ?? this.id,
+      discipline: discipline ?? this.discipline,
+      branch: branch ?? this.branch,
+      isSpecialDegree: isSpecialDegree ?? this.isSpecialDegree,
+    );
   }
 }

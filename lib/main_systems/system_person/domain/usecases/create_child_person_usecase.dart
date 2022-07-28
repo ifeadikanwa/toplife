@@ -69,6 +69,7 @@ class CreateChildPersonUsecase {
       final createdPersonStance = Stance(
         personID: createdPerson.id!,
         openToAdoption: Stance.getValidStanceValue(),
+        openToSexWorkerPartner: Stance.getValidStanceValue(),
         openToAbortion: Stance.getValidStanceValue(),
         openToSurrogacy: Stance.getValidStanceValue(),
         openToAlternativeFertilityMethods: Stance.getValidStanceValue(),
