@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/config/theme/colors.dart';
+import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 
 class ProgressBar extends StatelessWidget {
   final int progressValue;
   final double minHeight;
+  final bool showProgressValue;
   const ProgressBar({
     Key? key,
     required this.progressValue,
     this.minHeight = 10.0,
+    this.showProgressValue = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: 100,
       margin: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -30,19 +32,21 @@ class ProgressBar extends StatelessWidget {
             color: Colors.green,
             minHeight: minHeight,
           ),
-          Positioned(
-            right: 1,
-            bottom: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "$progressValue",
-                  style: TextStyle(fontSize: minHeight - 2),
-                ),
-              ],
-            ),
-          ),
+          showProgressValue
+              ? Positioned(
+                  right: 1,
+                  bottom: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "$progressValue",
+                        style: TextStyle(fontSize: minHeight - 2),
+                      ),
+                    ],
+                  ),
+                )
+              : const AddHorizontalSpace(width: 0),
         ],
       ),
     );

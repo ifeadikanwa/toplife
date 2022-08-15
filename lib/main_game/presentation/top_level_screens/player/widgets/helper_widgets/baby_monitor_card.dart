@@ -9,27 +9,21 @@ class BabyMonitorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ElevatedCard(
-        children: [
-          const Text(
-            "Baby Monitor",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+    return ElevatedCard(
+      children: [
+        const Text(
+          "Baby Monitor",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
           ),
-          const AddVerticalSpace(height: 4.0),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ...babyStatus(babies),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+        const AddVerticalSpace(height: 4.0),
+        Column(
+          children: [
+            ...babyStatus(babies),
+          ],
+        ),
+      ],
     );
   }
 

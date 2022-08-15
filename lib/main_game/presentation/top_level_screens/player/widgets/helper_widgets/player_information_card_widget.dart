@@ -79,8 +79,8 @@ class PlayerInformationCard extends StatelessWidget {
               style: headerTextStyle,
             ),
             const AddHorizontalSpace(width: 4.0),
-            const Text(
-              "Young Adult (14/28)",
+            Text(
+              age,
               style: cardSecondaryTextStyle,
             ),
             Text(

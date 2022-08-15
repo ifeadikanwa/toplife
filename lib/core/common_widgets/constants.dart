@@ -10,6 +10,7 @@ const cardPadding = 8.0;
 //ProgressBar
 const largeMinHeight = 10.0;
 const smallMinHeight = 8.0;
+const textAndProgressBarSpacing = 4.0;
 
 //AppBar
 const appBarIconSpacing = 24.0;
@@ -38,3 +39,12 @@ const relationshipLabelTextStyle = TextStyle(
   fontStyle: FontStyle.italic,
 );
 const relationshipNameTextStyle = TextStyle();
+const relationshipListHeaderTextSyle = TextStyle(fontSize: 16.0);
+
+//List
+const double listVerticalPadding = 4.0;
+const Divider listDivider = Divider(
+  height: 2.0,
+  color: Colors.black,
+);
+const double listHeaderPadding = 10.0;

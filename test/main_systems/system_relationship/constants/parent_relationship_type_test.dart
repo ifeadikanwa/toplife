@@ -19,6 +19,13 @@ void main() {
       }
     );
 
+    test(
+      "grand is a type of parent relationship",
+      (){
+        assert(ParentRelationshipType.grand is ParentRelationshipType);
+      }
+    );
+
     
   });
 }

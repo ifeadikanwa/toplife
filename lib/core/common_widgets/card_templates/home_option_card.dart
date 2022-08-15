@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/config/theme/colors.dart';
 import 'package:toplife/core/common_widgets/constants.dart';
 
 class HomeOptionCard extends StatelessWidget {
@@ -11,30 +10,26 @@ class HomeOptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: brightPurple,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(cardPadding),
-        child: Column(
-          children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(iconData, color: Colors.white),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: cardPadding),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 40,
+            height: 40,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              color: Colors.purple,
+              shape: BoxShape.circle,
             ),
-            Text(
-              optionName,
-              style: cardSecondaryTextStyle.copyWith(color: Colors.white),
-            ),
-          ],
-        ),
+            child: Icon(iconData, color: Colors.white),
+          ),
+          Text(
+            optionName,
+            style: cardSecondaryTextStyle.copyWith(color: Colors.purple),
+          ),
+        ],
       ),
     );
   }
