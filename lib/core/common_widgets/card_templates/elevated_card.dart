@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/config/theme/colors.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class ElevatedCard extends StatelessWidget {
   final List<Widget> children;

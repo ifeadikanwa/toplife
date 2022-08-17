@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class ScreenContent extends StatelessWidget {
   final List<Widget> children;

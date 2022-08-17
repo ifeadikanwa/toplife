@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class InnerLevelAppBar extends StatelessWidget {
   final String title;

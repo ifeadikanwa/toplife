@@ -15,8 +15,11 @@ import 'package:toplife/main_systems/system_person/domain/usecases/person_usecas
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/graveyard_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/inlaw_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/relative_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
@@ -47,6 +50,9 @@ final relationshipUsecasesProvider = Provider<RelationshipUsecases>(((ref) {
       partnerDao: PartnerDaoImpl(),
       friendDao: FriendDaoImpl(),
       acquaintanceDao: AcquaintanceDaoImpl(),
+      relativeDao: RelativeDaoImpl(),
+      inLawDao: InLawDaoImpl(),
+      graveyardDao: GraveyardDaoImpl(),
     ),
     personUsecases: ref.watch(personUsecasesProvider),
   );

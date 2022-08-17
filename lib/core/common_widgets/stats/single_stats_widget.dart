@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/progress_bar/progress_bar.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 
