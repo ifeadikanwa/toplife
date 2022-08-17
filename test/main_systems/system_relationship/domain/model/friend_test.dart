@@ -48,6 +48,7 @@ void main() {
           mainPersonID: 3,
           friendID: 9,
           metAt: "Club",
+          haveRomanticRelationship: true,
           relationship: 89,
         );
 
