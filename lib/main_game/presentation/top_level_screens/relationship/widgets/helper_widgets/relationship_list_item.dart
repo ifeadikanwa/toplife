@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/avatar/avatar_widget.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_bar.dart';

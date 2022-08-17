@@ -14,8 +14,11 @@ import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart'
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/graveyard_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/inlaw_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/relative_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
@@ -66,7 +69,9 @@ class DatabaseProvider {
     await db.execute(PartnerDaoImpl.createTableQuery);
     await db.execute(FriendDaoImpl.createTableQuery);
     await db.execute(AcquaintanceDaoImpl.createTableQuery);
-
+    await db.execute(RelativeDaoImpl.createTableQuery);
+    await db.execute(InLawDaoImpl.createTableQuery);
+    await db.execute(GraveyardDaoImpl.createTableQuery);
     //School
     await db.execute(SchoolDaoImpl.createTableQuery);
     await db.execute(SchoolProjectDaoImpl.createTableQuery);

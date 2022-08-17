@@ -1,0 +1,4 @@
+enum RelativeRelationshipType{
+  grandchild,
+  nibling,
+}

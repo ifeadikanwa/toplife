@@ -69,10 +69,10 @@ class CreateNewPlayerFamilyUsecase {
       currentDay: currentDay,
     );
 
-    //create 1-4 children
-    const int maxNumberOfChildren = 4;
+    //create 1-5 children
+    const int maxNumberOfChildren = 5;
 
-    final int numberOfChildren = Random().nextInt(maxNumberOfChildren + 1) + 1;
+    final int numberOfChildren = Random().nextInt(maxNumberOfChildren) + 1;
 
 
     final List<Person> children =

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/helper_models/relationship_pair.dart';
