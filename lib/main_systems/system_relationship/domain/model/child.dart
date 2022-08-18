@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 
 class Child extends Equatable {
