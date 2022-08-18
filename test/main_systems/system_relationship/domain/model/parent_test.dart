@@ -10,6 +10,9 @@ void main() {
       mainPersonID: 1,
       parentID: 6,
       parentRelationshipType: ParentRelationshipType.main.name,
+      hidden: false,
+      paternityFraud: true,
+      assumedRelationshipType: "Niece",
       relationship: 76,
       isActive: true,
     );
@@ -23,6 +26,9 @@ void main() {
           "mainPersonID": 1,
           "parentID": 6,
           "parentRelationshipType": ParentRelationshipType.main.name,
+          "hidden": 0,
+          "paternityFraud": 1,
+          "assumedRelationshipType": "Niece",
           "relationship": 76,
           "isActive": 1,
         };
@@ -35,6 +41,9 @@ void main() {
           "mainPersonID": 1,
           "parentID": 6,
           "parentRelationshipType": ParentRelationshipType.main.name,
+          "hidden": 0,
+          "paternityFraud": 1,
+          "assumedRelationshipType": "Niece",
           "relationship": 76,
           "isActive": 1,
         };
@@ -49,11 +58,14 @@ void main() {
           mainPersonID: 1,
           parentID: 2,
           parentRelationshipType: ParentRelationshipType.main.name,
+          hidden: true,
+          paternityFraud: true,
+          assumedRelationshipType: "Niece",
           relationship: 76,
           isActive: false,
         );
 
-        final result = sut.copyWith(parentID: 2, isActive: false);
+        final result = sut.copyWith(parentID: 2, isActive: false, hidden: true,);
         expect(result, correctParent);
       });
 
@@ -64,6 +76,10 @@ void main() {
 
         test("parent female equivalent is called mother", () {
           expect(Parent.femaleEquivalent, "Mother");
+        });
+
+        test("empty string is an empty string", () {
+          expect(Parent.emptyString, "");
         });
       });
     },

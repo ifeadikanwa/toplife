@@ -1,5 +1,6 @@
 class TextConstants {
   static const appName = "TopLife";
+  static const emptyString = "";
   static const home = "Home";
   static const finances = "Finances";
   static const journal = "Journal";
