@@ -4,8 +4,8 @@ PartnerRelationshipType getPartnerRelationshipTypeEnum(
     String relationshipType) {
   if (relationshipType == PartnerRelationshipType.dating.name) {
     return PartnerRelationshipType.dating;
-  } else if (relationshipType == PartnerRelationshipType.marriage.name) {
-    return PartnerRelationshipType.marriage;
+  } else if (relationshipType == PartnerRelationshipType.married.name) {
+    return PartnerRelationshipType.married;
   } else if (relationshipType == PartnerRelationshipType.engaged.name) {
     return PartnerRelationshipType.engaged;
   } else {

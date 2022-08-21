@@ -3,12 +3,11 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_relationship/constants/sibling_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/helper_models/relationship_pair.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_item.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/single_list_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
-
-
+import 'package:toplife/main_systems/system_relationship/util/get_sibling_relationship_label.dart';
 
 class SiblingsScreen extends StatelessWidget {
   final List<RelationshipPair<Sibling, Person>> siblings;
@@ -19,7 +18,7 @@ class SiblingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleListScreen(
+    return RelationshipListScreen(
       listView: ListView.separated(
         itemCount: siblings.length,
         itemBuilder: (context, index) {
@@ -27,16 +26,8 @@ class SiblingsScreen extends StatelessWidget {
           final relationshipType =
               siblings[index].relationship.siblingRelationshipType;
           final gender = siblings[index].person.gender;
-          late final String relationshipLabel;
-          if (relationshipType == SiblingRelationshipType.full.name) {
-            relationshipLabel = (gender == Gender.Male.name)
-                ? Sibling.maleEquivalent.toLowerCase()
-                : Sibling.femaleEquivalent.toLowerCase();
-          } else {
-            relationshipLabel = (gender == Gender.Male.name)
-                ? "$relationshipType-${Sibling.maleEquivalent.toLowerCase()}"
-                : "$relationshipType-${Sibling.femaleEquivalent.toLowerCase()}";
-          }
+          final String relationshipLabel =
+              getSiblingRelationshipLabel(relationshipType, gender);
 
           //name
           final name =

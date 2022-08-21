@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_item_with_header.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item_with_header.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/helper_models/relationship_pair.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_item.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/single_list_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_partner_and_coparent_relationship_label.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_partner_relationship_type_enum.dart';
 
 class PartnersScreen extends StatelessWidget {
@@ -29,7 +30,7 @@ class PartnersScreen extends StatelessWidget {
     finalPartnersList.addAll(
         partners.where((partner) => partner.relationship.isActive == false));
 
-    return SingleListScreen(
+    return RelationshipListScreen(
       listView: ListView.separated(
         itemCount: partners.length,
         itemBuilder: (context, index) {
@@ -51,29 +52,12 @@ class PartnersScreen extends StatelessWidget {
           final gender = finalPartnersList[index].person.gender;
           final relationshipTypeEnum =
               getPartnerRelationshipTypeEnum(relationshipType);
-          late final String relationshipLabel;
-
-          //if it is active give the name only
-          if (currentPartnerIsActive) {
-            relationshipLabel = (gender == Gender.Male.name)
-                ? relationshipTypeEnum.maleEquivalent.toLowerCase()
-                : relationshipTypeEnum.femaleEquivalent.toLowerCase();
-          }
-          //if it isnt active, it is a coparent so say baby daddy/mama -> for fling, dating and ex -> for engaged, married
-          else {
-            if (relationshipTypeEnum == PartnerRelationshipType.casual ||
-                relationshipTypeEnum == PartnerRelationshipType.dating) {
-              relationshipLabel = (gender == Gender.Male.name)
-                  ? PartnerRelationshipType.coparent.maleEquivalent
-                      .toLowerCase()
-                  : PartnerRelationshipType.coparent.femaleEquivalent
-                      .toLowerCase();
-            } else {
-              relationshipLabel = (gender == Gender.Male.name)
-                  ? "ex-${relationshipTypeEnum.maleEquivalent.toLowerCase()}"
-                  : "ex-${relationshipTypeEnum.femaleEquivalent.toLowerCase()}";
-            }
-          }
+          final String relationshipLabel =
+              getPartnerAndCoparentRelationshipLabel(
+            gender,
+            relationshipTypeEnum,
+            currentPartnerIsActive,
+          );
 
           //name
           final name =
@@ -184,7 +168,7 @@ final testPartnersList = [
     relationship: Partner(
       mainPersonID: 1,
       partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.marriage.name,
+      partnerRelationshipType: PartnerRelationshipType.married.name,
       isActive: true,
       startDay: 34,
       isCoParent: true,
@@ -214,7 +198,7 @@ final testPartnersList = [
     relationship: Partner(
       mainPersonID: 1,
       partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.marriage.name,
+      partnerRelationshipType: PartnerRelationshipType.married.name,
       isActive: false,
       startDay: 34,
       isCoParent: true,

@@ -21,6 +21,8 @@ const appBarLeadingIconAndTextSpacing = 32.0;
 
 //Icons
 const cardInfoButtonSize = 16.0;
+const flutterDefaultIconSize = 24.0;
+const childrenListHomeIconSize = 20.0;
 
 //Text
 const verticalTextSpacing = 2.0;
@@ -31,7 +33,7 @@ const headerTextStyle = TextStyle(
 const cardSecondaryTextStyle = TextStyle(
   fontSize: 12,
 );
-const largeStatsTextStyle = TextStyle(
+const statsTextStyle = TextStyle(
   fontSize: 12,
 );
 const relationshipLabelTextStyle = TextStyle(
@@ -48,3 +50,4 @@ const Divider listDivider = Divider(
   color: Colors.black,
 );
 const double listHeaderPadding = 10.0;
+const double listRowItemsSpacing = 4.0;

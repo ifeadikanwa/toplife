@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       home: const Scaffold(
         bottomNavigationBar: BottomNavBar(),
         body: SafeArea(
-          child: GameScreen(),
+          child: GameManagerScreen(),
         ),
       ),
     );

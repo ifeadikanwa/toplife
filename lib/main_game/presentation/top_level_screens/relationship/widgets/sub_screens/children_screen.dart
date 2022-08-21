@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/children_list_item.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_relationship/constants/child_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/helper_models/relationship_pair.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_item.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/single_list_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_child_relationship_label.dart';
 
 class ChildrenScreen extends StatelessWidget {
   final List<RelationshipPair<Child, Person>> children;
@@ -17,7 +18,7 @@ class ChildrenScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleListScreen(
+    return RelationshipListScreen(
       listView: ListView.separated(
         itemCount: children.length,
         itemBuilder: (context, index) {
@@ -25,16 +26,8 @@ class ChildrenScreen extends StatelessWidget {
           final relationshipType =
               children[index].relationship.childRelationshipType;
           final gender = children[index].person.gender;
-          late final String relationshipLabel;
-          if (relationshipType == ChildRelationshipType.step.name) {
-            relationshipLabel = (gender == Gender.Male.name)
-                ? "$relationshipType-${Child.maleEquivalent.toLowerCase()}"
-                : "$relationshipType-${Child.femaleEquivalent.toLowerCase()}";
-          } else {
-            relationshipLabel = (gender == Gender.Male.name)
-                ? Child.maleEquivalent.toLowerCase()
-                : Child.femaleEquivalent.toLowerCase();
-          }
+          final String relationshipLabel =
+              getChildRelationshipLabel(relationshipType, gender);
 
           //name
           final name =
@@ -43,11 +36,16 @@ class ChildrenScreen extends StatelessWidget {
           //relationship amount
           final relationshipAmount = children[index].relationship.relationship;
 
-          return RelationshipListItem(
-              avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-              relationshipLabel: relationshipLabel,
-              name: name,
-              relationshipAmount: relationshipAmount);
+          //inYourCustody
+          final inYourCustody = children[index].relationship.inYourCustody;
+
+          return ChildrenListItem(
+            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+            relationshipLabel: relationshipLabel,
+            name: name,
+            relationshipAmount: relationshipAmount,
+            inYourCustody: inYourCustody,
+          );
         },
         separatorBuilder: (context, index) {
           return listDivider;
@@ -62,7 +60,7 @@ final testChildrenList = [
     relationship: Child(
         mainPersonID: 1,
         childID: 2,
-        custodianID: 3,
+        inYourCustody: true,
         childRelationshipType: ChildRelationshipType.adopted.name,
         relationship: 45),
     person: Person(
@@ -88,7 +86,7 @@ final testChildrenList = [
     relationship: Child(
         mainPersonID: 1,
         childID: 2,
-        custodianID: 3,
+        inYourCustody: false,
         childRelationshipType: ChildRelationshipType.step.name,
         relationship: 45),
     person: Person(
@@ -114,7 +112,7 @@ final testChildrenList = [
     relationship: Child(
         mainPersonID: 1,
         childID: 2,
-        custodianID: 3,
+        inYourCustody: true,
         childRelationshipType: ChildRelationshipType.birth.name,
         relationship: 45),
     person: Person(

@@ -3,10 +3,11 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/helper_models/relationship_pair.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_item.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/single_list_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_ex_relationship_label.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_partner_relationship_type_enum.dart';
 
 class ExesScreen extends StatelessWidget {
@@ -18,7 +19,7 @@ class ExesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleListScreen(
+    return RelationshipListScreen(
       listView: ListView.separated(
         itemCount: exes.length,
         itemBuilder: (context, index) {
@@ -30,18 +31,8 @@ class ExesScreen extends StatelessWidget {
           final relationshipTypeEnum =
               getPartnerRelationshipTypeEnum(relationshipType);
 
-          late final String relationshipLabel;
-
-          if (relationshipTypeEnum == PartnerRelationshipType.casual) {
-            relationshipLabel = (gender == Gender.Male.name)
-                ? relationshipTypeEnum.maleEquivalent.toLowerCase()
-                : relationshipTypeEnum.femaleEquivalent.toLowerCase();
-          } else {
-            //add "ex" to the front of relationship type enum.
-            relationshipLabel = (gender == Gender.Male.name)
-                ? "ex-${relationshipTypeEnum.maleEquivalent.toLowerCase()}"
-                : "ex-${relationshipTypeEnum.femaleEquivalent.toLowerCase()}";
-          }
+          final String relationshipLabel =
+              getExRelationshipLabel(gender, relationshipTypeEnum);
 
           //name
           final name =
@@ -129,7 +120,7 @@ final testExesList = [
     relationship: Partner(
       mainPersonID: 1,
       partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.marriage.name,
+      partnerRelationshipType: PartnerRelationshipType.married.name,
       isActive: false,
       startDay: 34,
       isCoParent: true,
@@ -159,7 +150,7 @@ final testExesList = [
     relationship: Partner(
       mainPersonID: 1,
       partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.marriage.name,
+      partnerRelationshipType: PartnerRelationshipType.married.name,
       isActive: false,
       startDay: 34,
       isCoParent: true,

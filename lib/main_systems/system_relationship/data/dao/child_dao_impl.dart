@@ -16,7 +16,7 @@ class ChildDaoImpl implements ChildDao {
     CREATE TABLE $childTable(
       ${Child.mainPersonIDColumn} $integerType,
       ${Child.childIDColumn} $integerType,
-      ${Child.custodianIDColumn} $integerType,
+      ${Child.inYourCustodyColumn} $boolType,
       ${Child.childRelationshipTypeColumn} $textType,
       ${Child.hiddenColumn} $boolType,
       ${Child.paternityFraudColumn} $boolType,

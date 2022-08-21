@@ -1,91 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item_with_header.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/helper_models/relationship_pair.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item_with_header.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
+import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_parent_relationship_label.dart';
-import 'package:toplife/main_systems/system_relationship/util/rearrange_parents_list.dart';
+import 'package:toplife/main_systems/system_relationship/constants/inlaw_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/helper_models/relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_inlaw_relationship_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/rearrange_inlaws_list.dart';
 
-class ParentsScreen extends StatelessWidget {
-  final List<RelationshipPair<Parent, Person>> parents;
-  const ParentsScreen({
-    Key? key,
-    required this.parents,
-  }) : super(key: key);
+class InLawsScreen extends StatelessWidget {
+  final List<RelationshipPair<InLaw, Person>> inLaws;
+  const InLawsScreen({Key? key, required this.inLaws}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //rearrange the parents list in order -> main, step and grand
-    final List<RelationshipPair<Parent, Person>> finalParentsList = rearrangeParentsList(parents);
-
+    final List<RelationshipPair<InLaw, Person>> finalInLawsList =
+        rearrangeInLawsList(inLaws);
 
     return RelationshipListScreen(
       listView: ListView.separated(
-        itemCount: parents.length,
+        itemCount: finalInLawsList.length,
         itemBuilder: (context, index) {
-          // if the parent is a step or main parent they fall under the parent category
-          //if it is a grand parent they fall under the grand parents category
-
-          //rearrange list
-
-          //if it is the first item in the list or if the previous item has a different type
-          //if it is greater than 0 and the type is step or main: do the regular.
-          //else we want to add a header:
-          //parent if step or main, grandparent if grand.
-
           //relationship label
-          final relationshipType =
-              finalParentsList[index].relationship.parentRelationshipType;
-          final gender = finalParentsList[index].person.gender;
-
+          final String relationshipType =
+              finalInLawsList[index].relationship.inLawRelationshipType;
+          final String gender = finalInLawsList[index].person.gender;
           final String relationshipLabel =
-              getParentRelationshipLabel(relationshipType, gender);
+              getInLawRelationshipLabel(relationshipType, gender);
 
           //name
           final name =
-              "${finalParentsList[index].person.firstName} ${finalParentsList[index].person.lastName}";
+              "${finalInLawsList[index].person.firstName} ${finalInLawsList[index].person.lastName}";
 
           //relationship amount
           final relationshipAmount =
-              finalParentsList[index].relationship.relationship;
+              finalInLawsList[index].relationship.relationship;
 
-          //Check if it needs a header
+          //divide into sections
           if (index == 0 ||
               relationshipType !=
-                  finalParentsList[index - 1]
+                  finalInLawsList[index - 1]
                       .relationship
-                      .parentRelationshipType) {
-            if (index > 0 &&
-                relationshipType != ParentRelationshipType.grand.name) {
-              //do nothing
+                      .inLawRelationshipType) {
+            if (relationshipType == InLawRelationshipType.parent.name) {
+              return RelationshipListItemWithHeader(
+                  title: TextConstants.parentsInLaw,
+                  avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+                  relationshipLabel: relationshipLabel,
+                  name: name,
+                  relationshipAmount: relationshipAmount);
+            } else if (relationshipType == InLawRelationshipType.child.name) {
+              return RelationshipListItemWithHeader(
+                  title: TextConstants.childrenInLaw,
+                  avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+                  relationshipLabel: relationshipLabel,
+                  name: name,
+                  relationshipAmount: relationshipAmount);
             } else {
-              if (relationshipType == ParentRelationshipType.grand.name) {
-                return RelationshipListItemWithHeader(
-                    title: TextConstants.grandparents,
-                    avatarImagePath:
-                        "assets/images/black_woman_placeholder.jpg",
-                    relationshipLabel: relationshipLabel,
-                    name: name,
-                    relationshipAmount: relationshipAmount);
-              } else {
-                return RelationshipListItemWithHeader(
-                    title: TextConstants.parents,
-                    avatarImagePath:
-                        "assets/images/black_woman_placeholder.jpg",
-                    relationshipLabel: relationshipLabel,
-                    name: name,
-                    relationshipAmount: relationshipAmount);
-              }
+              return RelationshipListItemWithHeader(
+                  title: TextConstants.siblingsInLaw,
+                  avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+                  relationshipLabel: relationshipLabel,
+                  name: name,
+                  relationshipAmount: relationshipAmount);
             }
           }
 
-          //No header needed if you get here
           return RelationshipListItem(
               avatarImagePath: "assets/images/black_woman_placeholder.jpg",
               relationshipLabel: relationshipLabel,
@@ -100,14 +84,14 @@ class ParentsScreen extends StatelessWidget {
   }
 }
 
-final testParentsList = [
+final testInLawsList = [
   RelationshipPair(
-    relationship: Parent(
+    relationship: InLaw(
         mainPersonID: 1,
-        parentID: 2,
-        parentRelationshipType: ParentRelationshipType.grand.name,
-        relationship: 34,
-        isActive: true),
+        inLawID: 2,
+        likesMainPerson: true,
+        inLawRelationshipType: InLawRelationshipType.sibling.name,
+        relationship: 89),
     person: Person(
       firstName: "Janet",
       lastName: "Johnson",
@@ -128,12 +112,12 @@ final testParentsList = [
     ),
   ),
   RelationshipPair(
-    relationship: Parent(
+    relationship: InLaw(
         mainPersonID: 1,
-        parentID: 2,
-        parentRelationshipType: ParentRelationshipType.main.name,
-        relationship: 34,
-        isActive: true),
+        inLawID: 2,
+        likesMainPerson: true,
+        inLawRelationshipType: InLawRelationshipType.child.name,
+        relationship: 89),
     person: Person(
       firstName: "Sam",
       lastName: "Johnson",
@@ -154,12 +138,12 @@ final testParentsList = [
     ),
   ),
   RelationshipPair(
-    relationship: Parent(
+    relationship: InLaw(
         mainPersonID: 1,
-        parentID: 2,
-        parentRelationshipType: ParentRelationshipType.step.name,
-        relationship: 34,
-        isActive: true),
+        inLawID: 2,
+        likesMainPerson: true,
+        inLawRelationshipType: InLawRelationshipType.child.name,
+        relationship: 89),
     person: Person(
       firstName: "Cynthia",
       lastName: "Johnson",
@@ -180,12 +164,12 @@ final testParentsList = [
     ),
   ),
   RelationshipPair(
-    relationship: Parent(
+    relationship: InLaw(
         mainPersonID: 1,
-        parentID: 2,
-        parentRelationshipType: ParentRelationshipType.grand.name,
-        relationship: 34,
-        isActive: true),
+        inLawID: 2,
+        likesMainPerson: true,
+        inLawRelationshipType: InLawRelationshipType.child.name,
+        relationship: 89),
     person: Person(
       firstName: "Jim",
       lastName: "Johnson",
@@ -206,12 +190,12 @@ final testParentsList = [
     ),
   ),
   RelationshipPair(
-    relationship: Parent(
+    relationship: InLaw(
         mainPersonID: 1,
-        parentID: 2,
-        parentRelationshipType: ParentRelationshipType.main.name,
-        relationship: 34,
-        isActive: true),
+        inLawID: 2,
+        likesMainPerson: true,
+        inLawRelationshipType: InLawRelationshipType.parent.name,
+        relationship: 89),
     person: Person(
       firstName: "Mary",
       lastName: "Johnson",
@@ -232,12 +216,12 @@ final testParentsList = [
     ),
   ),
   RelationshipPair(
-    relationship: Parent(
+    relationship: InLaw(
         mainPersonID: 1,
-        parentID: 2,
-        parentRelationshipType: ParentRelationshipType.step.name,
-        relationship: 34,
-        isActive: true),
+        inLawID: 2,
+        likesMainPerson: true,
+        inLawRelationshipType: InLawRelationshipType.sibling.name,
+        relationship: 89),
     person: Person(
       firstName: "Xavier",
       lastName: "Johnson",
@@ -258,12 +242,12 @@ final testParentsList = [
     ),
   ),
   RelationshipPair(
-    relationship: Parent(
+    relationship: InLaw(
         mainPersonID: 1,
-        parentID: 2,
-        parentRelationshipType: ParentRelationshipType.grand.name,
-        relationship: 34,
-        isActive: true),
+        inLawID: 2,
+        likesMainPerson: true,
+        inLawRelationshipType: InLawRelationshipType.sibling.name,
+        relationship: 89),
     person: Person(
       firstName: "Natalie",
       lastName: "Johnson",
@@ -284,12 +268,12 @@ final testParentsList = [
     ),
   ),
   RelationshipPair(
-    relationship: Parent(
+    relationship: InLaw(
         mainPersonID: 1,
-        parentID: 2,
-        parentRelationshipType: ParentRelationshipType.step.name,
-        relationship: 34,
-        isActive: true),
+        inLawID: 2,
+        likesMainPerson: true,
+        inLawRelationshipType: InLawRelationshipType.parent.name,
+        relationship: 89),
     person: Person(
       firstName: "Ted",
       lastName: "Johnson",

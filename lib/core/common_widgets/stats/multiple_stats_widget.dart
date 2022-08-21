@@ -37,7 +37,7 @@ class MultipleStatsWidget extends StatelessWidget {
           (stats) => addVerticalPadding(
             widget: Text(
               stats.statsName,
-              style: largeStatsTextStyle,
+              style: statsTextStyle,
             ),
           ),
         )

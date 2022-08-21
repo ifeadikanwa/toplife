@@ -36,11 +36,11 @@ void main() {
     });
 
     test("male marriage partner is called husband", () {
-      expect(PartnerRelationshipType.marriage.maleEquivalent, "Husband");
+      expect(PartnerRelationshipType.married.maleEquivalent, "Husband");
     });
 
     test("female marriage partner is called wife", () {
-      expect(PartnerRelationshipType.marriage.femaleEquivalent, "Wife");
+      expect(PartnerRelationshipType.married.femaleEquivalent, "Wife");
     });
   });
 }

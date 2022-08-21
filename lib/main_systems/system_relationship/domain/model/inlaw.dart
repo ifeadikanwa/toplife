@@ -33,14 +33,14 @@ class InLaw extends Equatable {
   bool? get stringify => true;
 
   //Helper constants
-  static const String parentMaleEquivalent = "Father";
-  static const String parentFemaleEquivalent = "Mother";
+  static const String parentMaleEquivalent = "Father-in-law";
+  static const String parentFemaleEquivalent = "Mother-in-law";
 
-  static const String childMaleEquivalent = "Son";
-  static const String childFemaleEquivalent = "Daughter";
+  static const String childMaleEquivalent = "Son-in-law";
+  static const String childFemaleEquivalent = "Daughter-in-law";
 
-  static const String siblingMaleEquivalent = "Brother";
-  static const String siblingFemaleEquivalent = "Sister";
+  static const String siblingMaleEquivalent = "Brother-in-law";
+  static const String siblingFemaleEquivalent = "Sister-in-law";
 
   static const String mainPersonIDColumn = "mainPersonID";
   static const String inLawIDColumn = "inLawID";

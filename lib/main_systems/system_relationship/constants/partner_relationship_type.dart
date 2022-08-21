@@ -15,7 +15,7 @@ enum PartnerRelationshipType {
     maleEquivalent: "Fiancé",
     femaleEquivalent: "Fiancée",
   ),
-  marriage(
+  married(
     maleEquivalent: "Husband",
     femaleEquivalent: "Wife",
   );

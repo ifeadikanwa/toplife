@@ -5,7 +5,7 @@ import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 class Child extends Equatable {
   final int mainPersonID;
   final int childID;
-  final int custodianID;
+  final bool inYourCustody;
   final String childRelationshipType;
   final bool hidden;
   final bool paternityFraud;
@@ -15,7 +15,7 @@ class Child extends Equatable {
   const Child({
     required this.mainPersonID,
     required this.childID,
-    required this.custodianID,
+    required this.inYourCustody,
     required this.childRelationshipType,
     this.hidden = false,
     this.paternityFraud = false,
@@ -27,7 +27,7 @@ class Child extends Equatable {
   List<Object?> get props => [
         mainPersonID,
         childID,
-        custodianID,
+        inYourCustody,
         childRelationshipType,
         hidden,
         paternityFraud,
@@ -46,7 +46,7 @@ class Child extends Equatable {
 
   static const String mainPersonIDColumn = "mainPersonID";
   static const String childIDColumn = "childID";
-  static const String custodianIDColumn = "custodianID";
+  static const String inYourCustodyColumn = "inYourCustody";
   static const String childRelationshipTypeColumn = "childRelationshipType";
   static const String hiddenColumn = "hidden";
   static const String paternityFraudColumn = "paternityFraud";
@@ -56,7 +56,7 @@ class Child extends Equatable {
   static const allColumns = [
     mainPersonIDColumn,
     childIDColumn,
-    custodianIDColumn,
+    inYourCustodyColumn,
     childRelationshipTypeColumn,
     hiddenColumn,
     paternityFraudColumn,
@@ -68,7 +68,7 @@ class Child extends Equatable {
     return Child(
       mainPersonID: childMap[mainPersonIDColumn] as int,
       childID: childMap[childIDColumn] as int,
-      custodianID: childMap[custodianIDColumn] as int,
+      inYourCustody: childMap[inYourCustodyColumn] == databaseTrueValue,
       childRelationshipType: childMap[childRelationshipTypeColumn] as String,
       hidden: childMap[hiddenColumn] == databaseTrueValue,
       paternityFraud: childMap[paternityFraudColumn] == databaseTrueValue,
@@ -82,7 +82,7 @@ class Child extends Equatable {
     return {
       mainPersonIDColumn: mainPersonID,
       childIDColumn: childID,
-      custodianIDColumn: custodianID,
+      inYourCustodyColumn: inYourCustody ? databaseTrueValue : databaseFalseValue,
       childRelationshipTypeColumn: childRelationshipType,
       hiddenColumn: hidden ? databaseTrueValue : databaseFalseValue,
       paternityFraudColumn:
@@ -95,7 +95,7 @@ class Child extends Equatable {
   Child copyWith({
     int? mainPersonID,
     int? childID,
-    int? custodianID,
+    bool? inYourCustody,
     String? childRelationshipType,
     bool? hidden,
     bool? paternityFraud,
@@ -105,7 +105,7 @@ class Child extends Equatable {
     return Child(
       mainPersonID: mainPersonID ?? this.mainPersonID,
       childID: childID ?? this.childID,
-      custodianID: custodianID ?? this.custodianID,
+      inYourCustody: inYourCustody ?? this.inYourCustody,
       childRelationshipType:
           childRelationshipType ?? this.childRelationshipType,
       hidden: hidden ?? this.hidden,

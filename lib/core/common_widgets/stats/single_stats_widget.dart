@@ -19,9 +19,9 @@ class SingleStatsWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2.0),
       child: Row(
         children: [
-           Text(
+          Text(
             statsName,
-            style: largeStatsTextStyle,
+            style: statsTextStyle,
           ),
           const AddHorizontalSpace(
             width: textAndProgressBarSpacing,

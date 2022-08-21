@@ -12,4 +12,9 @@ class TextConstants {
   static const parents = "Parents";
   static const coparents = "Co-parents";
   static const partner = "Partner";
+  static const grandchildren = "Grandchildren";
+  static const niecesAndNephews = "Nieces & Nephews";
+  static const parentsInLaw = "Parents-in-law";
+  static const childrenInLaw = "Children-in-law";
+  static const siblingsInLaw = "Siblings-in-Law";
 }

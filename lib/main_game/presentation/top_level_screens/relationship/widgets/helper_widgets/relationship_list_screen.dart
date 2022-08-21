@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 
-class SingleListScreen extends StatelessWidget {
+class RelationshipListScreen extends StatelessWidget {
   final ListView listView;
-  const SingleListScreen({
+  const RelationshipListScreen({
     Key? key,
     required this.listView,
   }) : super(key: key);

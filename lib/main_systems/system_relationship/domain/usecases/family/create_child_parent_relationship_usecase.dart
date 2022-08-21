@@ -23,7 +23,7 @@ class CreateChildParentRelationshipUsecase {
       Child(
         mainPersonID: mainParentID,
         childID: childID,
-        custodianID: mainParentID,
+        inYourCustody: true,
         childRelationshipType: isAdopted
             ? ChildRelationshipType.adopted.name
             : ChildRelationshipType.birth.name,
@@ -35,7 +35,7 @@ class CreateChildParentRelationshipUsecase {
       Child(
         mainPersonID: otherParentID,
         childID: childID,
-        custodianID: mainParentID,
+        inYourCustody: false,
         childRelationshipType: isAdopted
             ? ChildRelationshipType.adopted.name
             : ChildRelationshipType.birth.name,

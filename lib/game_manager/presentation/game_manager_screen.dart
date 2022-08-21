@@ -5,15 +5,9 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_relationship/constants/child_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
 
-class GameScreen extends ConsumerWidget {
-  const GameScreen({Key? key}) : super(key: key);
+class GameManagerScreen extends ConsumerWidget {
+  const GameManagerScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -89,31 +83,35 @@ class GameScreen extends ConsumerWidget {
 
               // final g = await GraveyardDaoImpl().deleteGraveyard(1, 4);
 
-              final child = Child(
-                mainPersonID: 2,
-                childID: 4,
-                custodianID: 2,
-                childRelationshipType: ChildRelationshipType.adopted.name,
-                hidden: true,
-                paternityFraud: false,
-                assumedRelationshipType: "Uncle",
-                relationship: 67,
-              );
+              // final child = Child(
+              //   mainPersonID: 1,
+              //   childID: 4,
+              //   inYourCustody: false,
+              //   childRelationshipType: ChildRelationshipType.adopted.name,
+              //   hidden: true,
+              //   paternityFraud: false,
+              //   assumedRelationshipType: "Uncle",
+              //   relationship: 67,
+              // );
 
-              final parent = Parent(
-                mainPersonID: 1,
-                parentID: 2,
-                parentRelationshipType: ParentRelationshipType.main.name,
-                hidden: false,
-                paternityFraud: true,
-                assumedRelationshipType: "Niece",
-                relationship: 76,
-                isActive: true,
-              );
+              // final parent = Parent(
+              //   mainPersonID: 1,
+              //   parentID: 5,
+              //   parentRelationshipType: ParentRelationshipType.main.name,
+              //   hidden: false,
+              //   paternityFraud: true,
+              //   assumedRelationshipType: "Niece",
+              //   relationship: 76,
+              //   isActive: true,
+              // );
 
-              await ChildDaoImpl().createChild(child);
+              // await ChildDaoImpl().createChild(child);
 
-              await ParentDaoImpl().createParent(parent);
+              // await ParentDaoImpl().createParent(parent);
+              // await ChildDaoImpl().updateChild(child);
+
+              // final c = await ChildDaoImpl().getChild(1, 4);
+              // print(c);
             },
             child: const Text("do")),
         ElevatedButton(
