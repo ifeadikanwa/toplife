@@ -62,27 +62,27 @@ void main() {
 
       group("Constants: ", () {
         test("male equivalent of parent in law is father", () {
-          expect(InLaw.parentMaleEquivalent, "Father");
+          expect(InLaw.parentMaleEquivalent, "Father-in-law");
         });
 
         test("female equivalent of parent in law is mother", () {
-          expect(InLaw.parentFemaleEquivalent, "Mother");
+          expect(InLaw.parentFemaleEquivalent, "Mother-in-law");
         });
 
          test("male equivalent of child in law is son", () {
-          expect(InLaw.childMaleEquivalent, "Son");
+          expect(InLaw.childMaleEquivalent, "Son-in-law");
         });
 
         test("female equivalent of child in law is daughter", () {
-          expect(InLaw.childFemaleEquivalent, "Daughter");
+          expect(InLaw.childFemaleEquivalent, "Daughter-in-law");
         });
 
         test("male equivalent of sibling in law is brother", () {
-          expect(InLaw.siblingMaleEquivalent, "Brother");
+          expect(InLaw.siblingMaleEquivalent, "Brother-in-law");
         });
 
         test("female equivalent of sibling in law is sister", () {
-          expect(InLaw.siblingFemaleEquivalent, "Sister");
+          expect(InLaw.siblingFemaleEquivalent, "Sister-in-law");
         });
       });
     },
