@@ -22,7 +22,7 @@ class RelationshipLabelAndName extends StatelessWidget {
         ),
         Text(
           name,
-          style: relationshipNameTextStyle,
+          style: primaryTextStyle,
         ),
       ],
     );

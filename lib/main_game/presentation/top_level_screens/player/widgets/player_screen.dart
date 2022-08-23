@@ -16,46 +16,51 @@ class PlayerScreen extends StatelessWidget {
     const flagImagePath = "assets/images/france_flag.jpg";
 
     return Column(
-      children: const [
+      children: [
         TopLevelAppBar(
-          leading: Icon(
+          leading: const Icon(
             Icons.menu_outlined,
           ),
-          title: TextConstants.appName,
-          actions: [
+          title: TextConstants.appName.toUpperCase(),
+          actions: const [
             Icon(
               Icons.emoji_events_outlined,
             )
           ],
         ),
-        ScreenContent(
-          children: [
-            MoneyAndTimeCard(
-                currency: "\$",
-                bankBalance: "65,000",
-                time: "08:45  AM",
-                dayNumber: "34"),
-            PlayerInformationCard(
-              firstName: "Janet",
-              lastName: "Jackson",
-              age: "Young Adult",
-              jobTitle: "Singer",
-              avatarImagePath: avatarImagePath,
-              flagImagePath: flagImagePath,
+        Expanded(
+          child: ScreenContent(
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                MoneyAndTimeCard(
+                    currency: "\$",
+                    bankBalance: "65,000",
+                    time: "08:45  AM",
+                    dayNumber: "34"),
+                PlayerInformationCard(
+                  firstName: "Janet",
+                  lastName: "Jackson",
+                  age: "Young Adult",
+                  jobTitle: "Singer",
+                  avatarImagePath: avatarImagePath,
+                  flagImagePath: flagImagePath,
+                ),
+                HomeOptions(),
+                // BabyMonitorCard(
+                //   babies: [
+                //     ["Natasha", "Happy"],
+                //     ["Christian", "Happy"],
+                //     ["Jason", "Happy"],
+                //   ],
+                // ),
+                TodaysJournalCard(
+                    todaysJournalEntry:
+                        "Normally, Both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass."),
+              ],
             ),
-            HomeOptions(),
-            // BabyMonitorCard(
-            //   babies: [
-            //     ["Natasha", "Happy"],
-            //     ["Christian", "Happy"],
-            //     ["Jason", "Happy"],
-            //   ],
-            // ),
-            TodaysJournalCard(
-                todaysJournalEntry:
-                    "Normally, Both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass."),
-          ],
-        ),
+          ),
+        )
       ],
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/core/common_widgets/app_templates/screen_content.dart';
 
+//this exists because relationship screens should take in ONLY listview as the screen content.
+//this is a way to ensure that restriction.
 class RelationshipListScreen extends StatelessWidget {
   final ListView listView;
   const RelationshipListScreen({
@@ -10,12 +12,6 @@ class RelationshipListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: appSidePadding,
-        vertical: widgetVerticalSpacing,
-      ),
-      child: listView,
-    );
+    return ScreenContent(content: listView);
   }
 }

@@ -18,6 +18,7 @@ class SchoolDaoImpl implements SchoolDao {
     CREATE TABLE $schoolTable(
       ${School.idColumn} $idType,
       ${School.mainPersonIDColumn} $integerType,
+      ${School.nameColumn} $textType,
       ${School.gradesColumn} $integerType,
       ${School.attendanceColumn} $integerType,
       ${School.projectColumn} $integerType,

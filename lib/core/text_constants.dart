@@ -1,10 +1,12 @@
 class TextConstants {
+  //app
   static const appName = "TopLife";
   static const emptyString = "";
   static const home = "Home";
   static const finances = "Finances";
   static const journal = "Journal";
   static const events = "Events";
+  //relationship
   static const relationship = "Relationship";
   static const friend = "Friend";
   static const grand = "Grand";
@@ -17,4 +19,11 @@ class TextConstants {
   static const parentsInLaw = "Parents-in-law";
   static const childrenInLaw = "Children-in-law";
   static const siblingsInLaw = "Siblings-in-Law";
+
+  //work
+  static const work = "Work";
+  static const performance = "Performance";
+  static const opportunities = "Opportunities";
+  static const history = "History";
+  static const current = "Current";
 }

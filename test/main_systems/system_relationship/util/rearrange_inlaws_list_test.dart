@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/constants/inlaw_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/helper_models/relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
 import 'package:toplife/main_systems/system_relationship/util/rearrange_inlaws_list.dart';
 

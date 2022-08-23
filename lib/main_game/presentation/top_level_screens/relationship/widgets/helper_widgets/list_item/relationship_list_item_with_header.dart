@@ -21,11 +21,12 @@ class RelationshipListItemWithHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const AddVerticalSpace(height: listHeaderPadding),
         Text(
           title,
-          style: relationshipListHeaderTextSyle,
+          style: sectionHeaderTextStyle,
         ),
         const AddVerticalSpace(height: listHeaderPadding),
         RelationshipListItem(
