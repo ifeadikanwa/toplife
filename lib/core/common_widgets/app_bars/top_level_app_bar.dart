@@ -20,36 +20,44 @@ class TopLevelAppBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: appSidePadding,
-        vertical: topLevelAppBarVerticalPadding,
+        vertical: appBarVerticalPadding,
       ),
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         border: Border.symmetric(
-          horizontal: (appTheme.brightness == Brightness.dark) ? const BorderSide(color: Colors.white) : const BorderSide(),
+          horizontal: (appTheme.brightness == Brightness.dark)
+              ? const BorderSide(color: Colors.white)
+              : const BorderSide(),
         ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              leading ?? const AddHorizontalSpace(width: 0),
-              leading == null
-                  ? const AddHorizontalSpace(width: 0)
-                  : const AddHorizontalSpace(width: appSidePadding),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                leading ?? const AddHorizontalSpace(width: 0),
+                leading == null
+                    ? const AddHorizontalSpace(width: 0)
+                    : const AddHorizontalSpace(width: appSidePadding),
+                Expanded(
+                  child: FittedBox(
+                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      title.toUpperCase(),
+                      overflow: TextOverflow.ellipsis,
+                      style: appBarTextStyle,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             children: [
-              ...?rightPadEachAction(actions),
+              ...?leftPadEachAction(actions),
             ],
           ),
         ],
@@ -58,7 +66,7 @@ class TopLevelAppBar extends StatelessWidget {
   }
 }
 
-List<Widget>? rightPadEachAction(List<Widget>? actions) {
+List<Widget>? leftPadEachAction(List<Widget>? actions) {
   if (actions != null) {
     return actions
         .map(

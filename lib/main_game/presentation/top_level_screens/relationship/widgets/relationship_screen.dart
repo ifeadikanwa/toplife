@@ -9,6 +9,7 @@ import 'package:toplife/main_systems/system_relationship/constants/parent_relati
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
 
+
 class RelationshipScreen extends StatelessWidget {
   const RelationshipScreen({Key? key}) : super(key: key);
 
@@ -30,7 +31,7 @@ class RelationshipScreen extends StatelessWidget {
           dayNumber: "34",
         ),
         TopLevelAppBar(
-          title: TextConstants.relationship.toUpperCase(),
+          title: TextConstants.relationships.toUpperCase(),
           // leading: Icon(
           //   Icons.menu_outlined,
           // ),

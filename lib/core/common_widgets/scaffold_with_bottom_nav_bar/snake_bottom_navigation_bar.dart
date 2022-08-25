@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class SnakeBottomNavigationBar extends StatefulWidget {
   const SnakeBottomNavigationBar({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _SnakeBottomNavigationBarState extends State<SnakeBottomNavigationBar> {
     final appTheme = Theme.of(context);
 
     return SnakeNavigationBar.color(
+      height: bottomNavBarHeight,
       behaviour: SnakeBarBehaviour.pinned,
       snakeShape: SnakeShape.indicator,
       backgroundColor: appTheme.scaffoldBackgroundColor,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/core/utils/extensions/string_extensions.dart';
 
 class InnerLevelAppBar extends StatelessWidget {
   final String title;
@@ -19,7 +20,7 @@ class InnerLevelAppBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: appSidePadding,
-        vertical: innerLevelAppBarVerticalPadding,
+        vertical: appBarVerticalPadding,
       ),
       decoration: BoxDecoration(
         border: Border.symmetric(
@@ -37,25 +38,33 @@ class InnerLevelAppBar extends StatelessWidget {
               leading ?? backButton(),
             ],
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: defaultIconSize),
-                child: Center(
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: (actions != null)
+                        ? const EdgeInsets.only(left: defaultIconSize)
+                        : const EdgeInsets.only(left: appSidePadding),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Center(
+                        child: Text(
+                          title.prepareTextToEllipsize().toUpperCase(),
+                          overflow: TextOverflow.ellipsis,
+                          style: appBarTextStyle,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             children: [
-              ...?rightPadEachAction(actions),
+              ...?leftPadEachAction(actions),
             ],
           ),
         ],
@@ -71,12 +80,12 @@ Widget backButton() {
   );
 }
 
-List<Widget>? rightPadEachAction(List<Widget>? actions) {
+List<Widget>? leftPadEachAction(List<Widget>? actions) {
   if (actions != null) {
     return actions
         .map(
           (action) => Padding(
-            padding: const EdgeInsets.only(left: 24.0),
+            padding: const EdgeInsets.only(left: defaultIconSize),
             child: action,
           ),
         )

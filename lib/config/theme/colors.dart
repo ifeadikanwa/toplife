@@ -24,7 +24,7 @@ const mattePink = Color.fromARGB(255, 210, 136, 162);
 const mustardYellow = Color.fromARGB(255, 234, 170, 0);
 
 const darkPastelOrange = Color.fromARGB(255, 255, 150, 79);
-const lightPastelOrange = Color.fromARGB(255, 250, 200, 152);
+const lightPastelOrange = Color.fromARGB(255, 253, 215, 180);
 const pastelCream = Color.fromARGB(255, 255, 232, 218);
 const pastelYellow = Color.fromARGB(255, 255, 179, 71);
 

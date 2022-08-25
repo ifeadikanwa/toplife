@@ -22,8 +22,8 @@ class ParentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //rearrange the parents list in order -> main, step and grand
-    final List<RelationshipPair<Parent, Person>> finalParentsList = rearrangeParentsList(parents);
-
+    final List<RelationshipPair<Parent, Person>> finalParentsList =
+        rearrangeParentsList(parents);
 
     return RelationshipListScreen(
       listView: ListView.separated(
@@ -67,7 +67,7 @@ class ParentsScreen extends StatelessWidget {
             } else {
               if (relationshipType == ParentRelationshipType.grand.name) {
                 return RelationshipListItemWithHeader(
-                    title: TextConstants.grandparents,
+                    sectionTitle: TextConstants.grandparents,
                     avatarImagePath:
                         "assets/images/black_woman_placeholder.jpg",
                     relationshipLabel: relationshipLabel,
@@ -75,7 +75,7 @@ class ParentsScreen extends StatelessWidget {
                     relationshipAmount: relationshipAmount);
               } else {
                 return RelationshipListItemWithHeader(
-                    title: TextConstants.parents,
+                    sectionTitle: TextConstants.parents,
                     avatarImagePath:
                         "assets/images/black_woman_placeholder.jpg",
                     relationshipLabel: relationshipLabel,

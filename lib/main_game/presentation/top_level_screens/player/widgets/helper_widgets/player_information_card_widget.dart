@@ -6,6 +6,7 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/stats/multiple_stats_widget.dart';
 import 'package:toplife/main_systems/system_person/domain/model/helpers/stats_item.dart';
+import 'package:toplife/core/utils/extensions/string_extensions.dart';
 
 class PlayerInformationCard extends StatelessWidget {
   final String firstName;
@@ -26,16 +27,20 @@ class PlayerInformationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
+
     return Stack(
       children: [
         BorderCard(
           children: [
             playerInfo(),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Divider(
                 height: 0.5,
-                color: Colors.black,
+                color: (appTheme.brightness == Brightness.light)
+                    ? Colors.black
+                    : Colors.white,
               ),
             ),
             allStats(),
@@ -55,6 +60,7 @@ class PlayerInformationCard extends StatelessWidget {
       children: [
         faceAndFlag(),
         basicInfo(),
+        const AddHorizontalSpace(width: horizontalTextSpacing),
       ],
     );
   }
@@ -75,7 +81,8 @@ class PlayerInformationCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "$firstName $lastName",
+              "$firstName $lastName".prepareTextToEllipsize(),
+              overflow: TextOverflow.ellipsis,
               style: headerTextStyle,
             ),
             const AddHorizontalSpace(width: 4.0),

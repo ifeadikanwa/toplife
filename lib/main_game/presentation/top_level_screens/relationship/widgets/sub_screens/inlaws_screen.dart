@@ -48,21 +48,21 @@ class InLawsScreen extends StatelessWidget {
                       .inLawRelationshipType) {
             if (relationshipType == InLawRelationshipType.parent.name) {
               return RelationshipListItemWithHeader(
-                  title: TextConstants.parentsInLaw,
+                  sectionTitle: TextConstants.parentsInLaw,
                   avatarImagePath: "assets/images/black_woman_placeholder.jpg",
                   relationshipLabel: relationshipLabel,
                   name: name,
                   relationshipAmount: relationshipAmount);
             } else if (relationshipType == InLawRelationshipType.child.name) {
               return RelationshipListItemWithHeader(
-                  title: TextConstants.childrenInLaw,
+                  sectionTitle: TextConstants.childrenInLaw,
                   avatarImagePath: "assets/images/black_woman_placeholder.jpg",
                   relationshipLabel: relationshipLabel,
                   name: name,
                   relationshipAmount: relationshipAmount);
             } else {
               return RelationshipListItemWithHeader(
-                  title: TextConstants.siblingsInLaw,
+                  sectionTitle: TextConstants.siblingsInLaw,
                   avatarImagePath: "assets/images/black_woman_placeholder.jpg",
                   relationshipLabel: relationshipLabel,
                   name: name,
@@ -77,7 +77,7 @@ class InLawsScreen extends StatelessWidget {
               relationshipAmount: relationshipAmount);
         },
         separatorBuilder: (context, index) {
-         return const ListDivider();
+          return const ListDivider();
         },
       ),
     );

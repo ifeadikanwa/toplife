@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/card_templates/elevated_card.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/utils/extensions/string_extensions.dart';
 
 class BabyMonitorCard extends StatelessWidget {
   final List<List<String>> babies;
@@ -13,9 +14,7 @@ class BabyMonitorCard extends StatelessWidget {
       children: [
         const Text(
           "Baby Monitor",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: boldTextStyle,
         ),
         const AddVerticalSpace(height: 4.0),
         Column(
@@ -34,7 +33,10 @@ class BabyMonitorCard extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: verticalTextSpacing),
             child: Row(
               children: [
-                Text("${baby[0]}: "),
+                Text(
+                  "${baby[0].prepareTextToEllipsize()} → ",
+                  overflow: TextOverflow.ellipsis,
+                ),
                 Text(
                   baby[1],
                   style: const TextStyle(color: Colors.green),

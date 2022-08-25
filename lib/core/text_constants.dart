@@ -8,6 +8,7 @@ class TextConstants {
   static const events = "Events";
   //relationship
   static const relationship = "Relationship";
+  static const relationships = "Relationships";
   static const friend = "Friend";
   static const grand = "Grand";
   static const grandparents = "Grandparents";

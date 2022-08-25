@@ -20,7 +20,8 @@ class RelativesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //re-arrange to children then niblings
-    final List<RelationshipPair<Relative, Person>> finalRelativesList = rearrangeRelativesList(relatives);
+    final List<RelationshipPair<Relative, Person>> finalRelativesList =
+        rearrangeRelativesList(relatives);
 
     return RelationshipListScreen(
       listView: ListView.separated(
@@ -48,7 +49,7 @@ class RelativesScreen extends StatelessWidget {
                       .relativeRelationshipType) {
             if (relationshipType == RelativeRelationshipType.grandchild.name) {
               return RelationshipListItemWithHeader(
-                title: TextConstants.grandchildren,
+                sectionTitle: TextConstants.grandchildren,
                 avatarImagePath: "assets/images/black_woman_placeholder.jpg",
                 relationshipLabel: relationshipLabel,
                 name: name,
@@ -56,7 +57,7 @@ class RelativesScreen extends StatelessWidget {
               );
             } else {
               return RelationshipListItemWithHeader(
-                title: TextConstants.niecesAndNephews,
+                sectionTitle: TextConstants.niecesAndNephews,
                 avatarImagePath: "assets/images/black_woman_placeholder.jpg",
                 relationshipLabel: relationshipLabel,
                 name: name,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/config/theme/colors.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavigationBarTheme(
       data: const NavigationBarThemeData(
-        height: 50.0,
+        height: bottomNavBarHeight,
         backgroundColor: darkPastelOrange,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       ),

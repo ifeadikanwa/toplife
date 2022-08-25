@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //App
 const appSidePadding = 16.0;
 const widgetVerticalSpacing = 8.0;
+const bottomNavBarHeight = 50.0;
 
 //Card
 const cardPadding = 8.0;
@@ -15,8 +16,7 @@ const textAndProgressBarSpacing = 4.0;
 //AppBar
 const appBarIconSpacing = 24.0;
 const defaultIconSize = 24.0;
-const innerLevelAppBarVerticalPadding = 12.0;
-const topLevelAppBarVerticalPadding = 12.0;
+const appBarVerticalPadding = 12.0;
 const appBarLeadingIconAndTextSpacing = 32.0;
 
 //Icons
@@ -26,12 +26,20 @@ const childrenListHomeIconSize = 20.0;
 
 //Text
 const verticalTextSpacing = 2.0;
+const horizontalTextSpacing = 10.0;
+const appBarTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 20.0,
+);
 const headerTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 15.0,
 );
 const cardSecondaryTextStyle = TextStyle(
   fontSize: 12,
+);
+const boldTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
 );
 const statsTextStyle = TextStyle(
   fontSize: 12,
@@ -52,7 +60,7 @@ const sectionHeaderTextStyle = TextStyle(
 );
 const primaryTextStyle = TextStyle(
   fontSize: 16.0,
-  fontWeight: FontWeight.bold,
+  fontWeight: FontWeight.w500,
 );
 const secondaryTextStyle = TextStyle(
   fontSize: 12.0,

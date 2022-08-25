@@ -73,14 +73,14 @@ class PartnersScreen extends StatelessWidget {
                   finalPartnersList[index - 1].relationship.isActive) {
             if (currentPartnerIsActive) {
               return RelationshipListItemWithHeader(
-                  title: TextConstants.partner,
+                  sectionTitle: TextConstants.partner,
                   avatarImagePath: "assets/images/black_woman_placeholder.jpg",
                   relationshipLabel: relationshipLabel,
                   name: name,
                   relationshipAmount: relationshipAmount);
             } else {
               return RelationshipListItemWithHeader(
-                  title: TextConstants.coparents,
+                  sectionTitle: TextConstants.coparents,
                   avatarImagePath: "assets/images/black_woman_placeholder.jpg",
                   relationshipLabel: relationshipLabel,
                   name: name,

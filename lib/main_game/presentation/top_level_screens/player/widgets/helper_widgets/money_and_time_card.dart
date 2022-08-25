@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 
@@ -23,20 +24,23 @@ class MoneyAndTimeCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "$currency$bankBalance",
-                style: headerTextStyle,
-              ),
-              const AddVerticalSpace(height: verticalTextSpacing),
-              const Text(
-                "Bank balance",
-                style: cardSecondaryTextStyle,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "$currency$bankBalance",
+                  style: headerTextStyle,
+                ),
+                const AddVerticalSpace(height: verticalTextSpacing),
+                const Text(
+                  "Bank balance",
+                  style: cardSecondaryTextStyle,
+                ),
+              ],
+            ),
           ),
+          const AddHorizontalSpace(width: horizontalTextSpacing),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
