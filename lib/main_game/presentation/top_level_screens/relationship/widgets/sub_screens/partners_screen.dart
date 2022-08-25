@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item_with_header.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
@@ -96,7 +96,7 @@ class PartnersScreen extends StatelessWidget {
               relationshipAmount: relationshipAmount);
         },
         separatorBuilder: (context, index) {
-          return listDivider;
+          return const ListDivider();
         },
       ),
     );

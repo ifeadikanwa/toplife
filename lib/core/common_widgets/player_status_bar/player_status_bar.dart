@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/config/theme/colors.dart';
 import 'package:toplife/core/common_widgets/avatar/avatar_with_flag.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
@@ -29,8 +28,9 @@ class PlayerStatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Container(
-      color: pastelPurple,
+      color: appTheme.colorScheme.secondary,
       padding:
           const EdgeInsets.symmetric(vertical: 8.0, horizontal: appSidePadding),
       child: Row(
@@ -64,7 +64,6 @@ class PlayerStatusBar extends StatelessWidget {
         Text(
           "$firstName $lastName",
           style: headerTextStyle.copyWith(
-            color: brightPurple,
             decoration: TextDecoration.underline,
           ),
         ),

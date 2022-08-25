@@ -20,13 +20,14 @@ class RelationshipListItemWithHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Column(
-      // crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const AddVerticalSpace(height: listHeaderPadding),
         Text(
           title,
-          style: sectionHeaderTextStyle,
+          style: sectionHeaderTextStyle.copyWith(color: appTheme.colorScheme.tertiary),
         ),
         const AddVerticalSpace(height: listHeaderPadding),
         RelationshipListItem(

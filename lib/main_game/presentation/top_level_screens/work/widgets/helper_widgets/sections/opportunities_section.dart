@@ -45,6 +45,7 @@ class OpportunitiesSection extends StatelessWidget {
           child: const WorkListItem(
             actionTitle: WorkScreenText.specialCareers,
             actionDescription: WorkScreenText.specialsCareerDesc,
+            hasDivider: false,
           ),
         ),
       ],

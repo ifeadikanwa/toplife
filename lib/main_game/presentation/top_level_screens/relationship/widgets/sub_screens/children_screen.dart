@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/children_list_item.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_relationship/constants/child_relationship_type.dart';
@@ -48,7 +48,7 @@ class ChildrenScreen extends StatelessWidget {
           );
         },
         separatorBuilder: (context, index) {
-          return listDivider;
+          return const ListDivider();
         },
       ),
     );

@@ -8,8 +8,8 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavigationBarTheme(
       data: const NavigationBarThemeData(
-        height: 60.0,
-        backgroundColor: translucentWhite,
+        height: 50.0,
+        backgroundColor: darkPastelOrange,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       ),
       child: NavigationBar(

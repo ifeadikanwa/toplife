@@ -6,7 +6,7 @@ class TopLevelAppBar extends StatelessWidget {
   final String title;
   final Widget? leading;
   final List<Widget>? actions;
-  
+
   const TopLevelAppBar({
     Key? key,
     required this.title,
@@ -16,14 +16,15 @@ class TopLevelAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: appSidePadding,
         vertical: topLevelAppBarVerticalPadding,
       ),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         border: Border.symmetric(
-          horizontal: BorderSide(),
+          horizontal: (appTheme.brightness == Brightness.dark) ? const BorderSide(color: Colors.white) : const BorderSide(),
         ),
       ),
       child: Row(

@@ -3,14 +3,18 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 
 class MoneyAndTimeCard extends StatelessWidget {
-  
-
   final String currency;
   final String bankBalance;
   final String time;
   final String dayNumber;
 
-  const MoneyAndTimeCard({Key? key, required this.currency, required this.bankBalance, required this.time, required this.dayNumber,}) : super(key: key);
+  const MoneyAndTimeCard({
+    Key? key,
+    required this.currency,
+    required this.bankBalance,
+    required this.time,
+    required this.dayNumber,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +28,7 @@ class MoneyAndTimeCard extends StatelessWidget {
             children: [
               Text(
                 "$currency$bankBalance",
-                style: headerTextStyle.copyWith(color: Colors.green),
+                style: headerTextStyle,
               ),
               const AddVerticalSpace(height: verticalTextSpacing),
               const Text(

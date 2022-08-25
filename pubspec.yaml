@@ -48,6 +48,9 @@ dependencies:
   equatable: ^2.0.3
   #progress bar
   percent_indicator: ^4.0.1
+  #nav bar
+  custom_navigation_bar: ^0.8.2
+  flutter_snake_navigationbar: ^0.6.1
 
 dev_dependencies:
   flutter_test:
@@ -111,13 +114,13 @@ flutter:
     - family: Ubuntu
       fonts:
         - asset: assets/fonts/Ubuntu/Ubuntu-Regular.ttf
+        - asset: assets/fonts/Ubuntu/Ubuntu-Italic.ttf
+          style: italic
         - asset: assets/fonts/Ubuntu/Ubuntu-Bold.ttf
           weight: 700
         - asset: assets/fonts/Ubuntu/Ubuntu-BoldItalic.ttf
           weight: 700
-          style: italic
-        - asset: assets/fonts/Ubuntu/Ubuntu-Italic.ttf
-          style: italic
+          style: italic 
         - asset: assets/fonts/Ubuntu/Ubuntu-Light.ttf
           weight: 300
         - asset: assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf
@@ -126,10 +129,41 @@ flutter:
         - asset: assets/fonts/Ubuntu/Ubuntu-Medium.ttf
           weight: 500
         - asset: assets/fonts/Ubuntu/Ubuntu-MediumItalic.ttf
-          weight: 400
+          weight: 500
           style: italic
         
-        
+    - family: Beliber
+      fonts:
+        - asset: assets/fonts/Beliber/BeliberRegular.otf
+        - asset: assets/fonts/Beliber/BeliberRegularItalic.otf
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberMedium.otf
+          weight: 500
+        - asset: assets/fonts/Beliber/BeliberMediumItalic.otf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberSemiBold.otf
+          weight: 600
+        - asset: assets/fonts/Beliber/BeliberSemiBoldItalic.otf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberBold.otf
+          weight: 700
+        - asset: assets/fonts/Beliber/BeliberBoldItalic.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberExtraBold.otf
+          weight: 800
+        - asset: assets/fonts/Beliber/BeliberExtraBoldItalic.otf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberBlack.otf
+          weight: 900
+        - asset: assets/fonts/Beliber/BeliberBlackItalic.otf
+          weight: 900
+          style: italic
+
+          
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

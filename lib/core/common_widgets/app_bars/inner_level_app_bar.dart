@@ -15,14 +15,17 @@ class InnerLevelAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: appSidePadding,
         vertical: innerLevelAppBarVerticalPadding,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border.symmetric(
-          horizontal: BorderSide(),
+          horizontal: (appTheme.brightness == Brightness.dark)
+              ? const BorderSide(color: Colors.white)
+              : const BorderSide(),
         ),
       ),
       child: Row(

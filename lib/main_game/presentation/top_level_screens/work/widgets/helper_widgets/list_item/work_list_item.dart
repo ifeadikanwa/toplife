@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class WorkListItem extends StatelessWidget {
   final String actionTitle;
   final String actionDescription;
-  
-  const WorkListItem({Key? key, required this.actionTitle, required this.actionDescription}) : super(key: key);
+  final bool hasDivider;
+
+  const WorkListItem({
+    Key? key,
+    required this.actionTitle,
+    required this.actionDescription,
+    this.hasDivider = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class WorkListItem extends StatelessWidget {
             style: secondaryTextStyle,
           ),
           const AddVerticalSpace(height: listVerticalPadding),
-          listDivider,
+          hasDivider ? const ListDivider() : const SizedBox(),
         ],
       ),
     );

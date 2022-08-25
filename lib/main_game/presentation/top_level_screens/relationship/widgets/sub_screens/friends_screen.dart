@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
@@ -38,7 +38,7 @@ class FriendsScreen extends StatelessWidget {
               relationshipAmount: relationshipAmount);
         },
         separatorBuilder: (context, index) {
-          return listDivider;
+         return const ListDivider();
         },
       ),
     );

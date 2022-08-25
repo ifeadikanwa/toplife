@@ -8,10 +8,11 @@ class BorderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+
     return Card(
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: appTheme.colorScheme.secondary,
+          color: (appTheme.brightness == Brightness.light) ? Colors.black : Colors.white,
         ),
         borderRadius: BorderRadius.circular(4.0),
       ),

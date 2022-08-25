@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/graveyard_list_item.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/graveyard.dart';
@@ -30,7 +30,7 @@ class GraveyardScreen extends StatelessWidget {
               dayOfDeath: dayOfDeath);
         },
         separatorBuilder: (context, index) {
-          return listDivider;
+        return const ListDivider();
         },
       ),
     );

@@ -60,10 +60,6 @@ const secondaryTextStyle = TextStyle(
 
 //List
 const double listVerticalPadding = 10.0;
-const Divider listDivider = Divider(
-  height: 2.0,
-  color: Colors.black,
-);
-const double listHeaderPadding = 16.0;
+const double listHeaderPadding = 14.0;
 const double listRowItemsSpacing = 4.0;
 const sectionHeaderPadding = 4.0;

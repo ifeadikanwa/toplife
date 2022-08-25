@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class HomeOptionCard extends StatelessWidget {
@@ -10,6 +11,7 @@ class HomeOptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: cardPadding),
       child: Column(
@@ -19,15 +21,21 @@ class HomeOptionCard extends StatelessWidget {
             width: 40,
             height: 40,
             alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: Colors.purple,
+            decoration: BoxDecoration(
+              color: (appTheme.brightness == Brightness.light) ? Colors.black : Colors.white,
               shape: BoxShape.circle,
             ),
-            child: Icon(iconData, color: Colors.white),
+            child: Icon(
+              iconData,
+              color: (appTheme.brightness == Brightness.light) ? Colors.white.withAlpha(225) : Colors.black,
+            ),
           ),
+          const AddVerticalSpace(height: 2.0),
           Text(
             optionName,
-            style: cardSecondaryTextStyle.copyWith(color: Colors.purple),
+            style: cardSecondaryTextStyle.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

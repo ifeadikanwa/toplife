@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/config/theme/colors.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 
 class ProgressBar extends StatelessWidget {
@@ -28,7 +27,7 @@ class ProgressBar extends StatelessWidget {
         children: [
           LinearProgressIndicator(
             value: progressValue / 100,
-            backgroundColor: offWhite,
+            backgroundColor: Colors.grey.withOpacity(0.2),
             color: Colors.green,
             minHeight: minHeight,
           ),
