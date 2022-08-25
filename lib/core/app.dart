@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toplife/config/theme/app_theme.dart';
 import 'package:toplife/core/common_widgets/scaffold_with_bottom_nav_bar/snake_bottom_navigation_bar.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/player_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -13,11 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: TextConstants.appName,
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkPinkTheme,
+      theme: AppTheme.darkBlueTheme,
       home: const Scaffold(
         bottomNavigationBar: SnakeBottomNavigationBar(),
         body: SafeArea(
-          child: RelationshipScreen(),
+          child: PlayerScreen(),
         ),
       ),
     );

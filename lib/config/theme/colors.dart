@@ -42,3 +42,17 @@ const beige = Color.fromARGB(255, 235, 213, 197);
 const turquoise = Color.fromARGB(255, 0, 138, 129);
 const deepAqua = Color.fromARGB(255, 58, 140, 195);
 const deepSkyBlue = Color.fromARGB(255, 11, 168, 230);
+
+//progress bar colors
+const progressBarDarkThemeRed = Colors.red;
+const progressBarLightThemeRed = Color.fromARGB(255, 244, 30, 15);
+const progressBarDarkThemeOrange = Colors.orange;
+const progressBarLightThemeOrange = Color.fromARGB(255, 248, 105, 3);
+const progressBarDarkThemeGreen = Colors.green;
+const progressBarLightThemeGreen = Color.fromARGB(255, 40, 226, 46);
+
+//red, green text colors
+const textDarkThemeRed = Colors.red;
+const textLightThemeRed = Color.fromARGB(255, 244, 30, 15);
+const textDarkThemeGreen = Colors.green;
+const textLightThemeGreen = Color.fromARGB(255, 0, 150, 5);

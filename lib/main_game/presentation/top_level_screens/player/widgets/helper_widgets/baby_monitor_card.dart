@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/config/theme/colors.dart';
 import 'package:toplife/core/common_widgets/card_templates/elevated_card.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
@@ -10,6 +11,8 @@ class BabyMonitorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
+
     return ElevatedCard(
       children: [
         const Text(
@@ -19,14 +22,14 @@ class BabyMonitorCard extends StatelessWidget {
         const AddVerticalSpace(height: 4.0),
         Column(
           children: [
-            ...babyStatus(babies),
+            ...babyStatus(babies, appTheme),
           ],
         ),
       ],
     );
   }
 
-  List<Widget> babyStatus(List<List<String>> babies) {
+  List<Widget> babyStatus(List<List<String>> babies, ThemeData appTheme) {
     return babies
         .map(
           (baby) => Padding(
@@ -39,7 +42,10 @@ class BabyMonitorCard extends StatelessWidget {
                 ),
                 Text(
                   baby[1],
-                  style: const TextStyle(color: Colors.green),
+                  style: TextStyle(
+                      color: (appTheme.brightness == Brightness.light)
+                          ? textLightThemeRed
+                          : textDarkThemeRed),
                 ),
               ],
             ),

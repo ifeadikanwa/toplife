@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/config/theme/colors.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 
 class ProgressBar extends StatelessWidget {
@@ -14,6 +15,8 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
+
     return Container(
       width: 100,
       margin: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -21,14 +24,16 @@ class ProgressBar extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(
         width: 0.5,
-        color: Colors.black,
+        color: (appTheme.brightness == Brightness.light)
+            ? Colors.black
+            : Colors.white,
       )),
       child: Stack(
         children: [
           LinearProgressIndicator(
             value: progressValue / 100,
             backgroundColor: Colors.grey.withOpacity(0.2),
-            color: Colors.green,
+            color: getProgressBarColor(appTheme),
             minHeight: minHeight,
           ),
           showProgressValue
@@ -49,5 +54,24 @@ class ProgressBar extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Color getProgressBarColor(ThemeData appTheme) {
+    if (progressValue < 20) {
+      //red
+      return (appTheme.brightness == Brightness.light)
+          ? progressBarLightThemeRed
+          : progressBarDarkThemeRed;
+    } else if (progressValue >= 20 && progressValue < 50) {
+      //yellow
+      return (appTheme.brightness == Brightness.light)
+          ? progressBarLightThemeOrange
+          : progressBarDarkThemeOrange;
+    } else {
+      //green
+      return (appTheme.brightness == Brightness.light)
+          ? progressBarLightThemeGreen
+          : progressBarDarkThemeGreen;
+    }
   }
 }

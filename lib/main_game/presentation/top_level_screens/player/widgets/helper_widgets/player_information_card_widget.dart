@@ -113,8 +113,8 @@ class PlayerInformationCard extends StatelessWidget {
   Widget allStats() {
     return const MultipleStatsWidget(
       statsList: [
-        StatsItem(statsName: "ENERGY", statsLevel: 80),
-        StatsItem(statsName: "HUNGER", statsLevel: 30),
+        StatsItem(statsName: "ENERGY", statsLevel: 10),
+        StatsItem(statsName: "HUNGER", statsLevel: 40),
         StatsItem(statsName: "WELLBEING", statsLevel: 99),
       ],
     );
