@@ -47,7 +47,7 @@ class PlayerStatusBar extends StatelessWidget {
               ],
             ),
           ),
-          const AddHorizontalSpace(width: horizontalTextSpacing),
+          const AddHorizontalSpace(width: horizontalWidgetSpacing),
           dayAndTime(time: time, dayNumber: dayNumber),
         ],
       ),

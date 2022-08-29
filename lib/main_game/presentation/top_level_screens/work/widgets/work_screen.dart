@@ -173,6 +173,9 @@ class WorkScreen extends StatelessWidget {
 //   ],
 // );
 
+//import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/work_screen.dart';
+// import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
+// import 'package:toplife/main_systems/system_job/domain/model/info_models/job_pair.dart';
 // import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 // import 'package:toplife/main_systems/system_job/job_info/constants/health_insurance_coverage.dart';
 // import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
@@ -181,6 +184,10 @@ class WorkScreen extends StatelessWidget {
 // import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 // import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 // import 'package:toplife/main_systems/system_job/util/get_random_corporate_company_suffix.dart';
+// import 'package:toplife/main_systems/system_job/util/get_random_tech_company_suffix.dart';
 // import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
 // import 'package:toplife/main_systems/system_school/degree_info/degree_branch.dart';
 // import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
+// import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
+// import 'package:toplife/main_systems/system_school/domain/model/info_models/school_pair.dart';
+// import 'package:toplife/main_systems/system_school/domain/model/school.dart';

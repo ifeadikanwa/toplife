@@ -8,10 +8,14 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
-    return Text(
-      sectionTitle,
-      style: sectionHeaderTextStyle.copyWith(
-        color: appTheme.colorScheme.tertiary,
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Text(
+        sectionTitle,
+        style: sectionHeaderTextStyle.copyWith(
+          color: appTheme.colorScheme.tertiary,
+        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/text_templates/section_header.dart';
+import 'package:toplife/core/common_widgets/list_templates/helper_widgets/section_header.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';

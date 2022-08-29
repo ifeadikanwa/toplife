@@ -60,7 +60,7 @@ class PlayerInformationCard extends StatelessWidget {
       children: [
         faceAndFlag(),
         basicInfo(),
-        const AddHorizontalSpace(width: horizontalTextSpacing),
+        const AddHorizontalSpace(width: horizontalWidgetSpacing),
       ],
     );
   }

@@ -40,7 +40,7 @@ class MoneyAndTimeCard extends StatelessWidget {
               ],
             ),
           ),
-          const AddHorizontalSpace(width: horizontalTextSpacing),
+          const AddHorizontalSpace(width: horizontalWidgetSpacing),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

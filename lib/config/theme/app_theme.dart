@@ -4,6 +4,9 @@ import 'package:toplife/config/theme/colors.dart';
 class AppTheme {
   static const appFont = 'Ubuntu';
 
+  //LIGHT THEMES
+
+  //?
   static final pastelOrangeTheme = ThemeData(
     brightness: Brightness.light,
     fontFamily: appFont,
@@ -25,27 +28,29 @@ class AppTheme {
     ),
   );
 
-  static final cottonCandyTheme = ThemeData(
-    brightness: Brightness.light,
-    fontFamily: appFont,
-    primaryColor: Colors.white,
-    scaffoldBackgroundColor: pastelBlue,
-    iconTheme: const IconThemeData(color: Colors.black),
-    colorScheme: const ColorScheme.light(
-      brightness: Brightness.light,
-      primary: pastelBlue,
-      onPrimary: Colors.black,
-      secondary: pastelPink,
-      onSecondary: Colors.black,
-      tertiary: Colors.white,
-      onTertiary: Colors.black,
-      surface: Colors.white,
-    ),
-    cardTheme: const CardTheme(
-      color: pastelBlue,
-    ),
-  );
+  // 
+  // static final cottonCandyTheme = ThemeData(
+  //   brightness: Brightness.light,
+  //   fontFamily: appFont,
+  //   primaryColor: Colors.white,
+  //   scaffoldBackgroundColor: pastelBlue,
+  //   iconTheme: const IconThemeData(color: Colors.black),
+  //   colorScheme: const ColorScheme.light(
+  //     brightness: Brightness.light,
+  //     primary: pastelBlue,
+  //     onPrimary: Colors.black,
+  //     secondary: pastelPink,
+  //     onSecondary: Colors.black,
+  //     tertiary: Colors.white,
+  //     onTertiary: Colors.black,
+  //     surface: Colors.white,
+  //   ),
+  //   cardTheme: const CardTheme(
+  //     color: pastelBlue,
+  //   ),
+  // );
 
+  //approved
   static final pastelPinkTheme = ThemeData(
     brightness: Brightness.light,
     fontFamily: appFont,
@@ -58,7 +63,7 @@ class AppTheme {
       onPrimary: Colors.black,
       secondary: pastelPink,
       onSecondary: Colors.black,
-      tertiary: matteOrange,
+      tertiary: darkPink,
       onTertiary: Colors.black,
       surface: Colors.white,
     ),
@@ -67,6 +72,7 @@ class AppTheme {
     ),
   );
 
+  //approved
   static final shadesOfOrangeTheme = ThemeData(
     brightness: Brightness.light,
     fontFamily: appFont,
@@ -88,6 +94,7 @@ class AppTheme {
     ),
   );
 
+  //approved
   static final shadesOfAquaTheme = ThemeData(
     brightness: Brightness.light,
     fontFamily: appFont,
@@ -109,6 +116,117 @@ class AppTheme {
     ),
   );
 
+  //
+  static final sereneTheme = ThemeData(
+    brightness: Brightness.light,
+    fontFamily: appFont,
+    primaryColor: Colors.white,
+    scaffoldBackgroundColor: whiteChocolate,
+    iconTheme: const IconThemeData(color: Colors.black),
+    colorScheme: const ColorScheme.light(
+      brightness: Brightness.light,
+      primary: whiteChocolate,
+      onPrimary: Colors.black,
+      secondary: cambridgeBlue,
+      onSecondary: Colors.black,
+      tertiary: darkCambridgeBlue,
+      onTertiary: Colors.black,
+      surface: Colors.white,
+    ),
+    cardTheme: const CardTheme(
+      color: whiteChocolate,
+    ),
+  );
+
+  //approved
+  static final oceanBlueTheme = ThemeData(
+    brightness: Brightness.light,
+    fontFamily: appFont,
+    primaryColor: Colors.white,
+    scaffoldBackgroundColor: lightCoolBlue,
+    iconTheme: const IconThemeData(color: Colors.black),
+    colorScheme: const ColorScheme.light(
+      brightness: Brightness.light,
+      primary: lightCoolBlue,
+      onPrimary: Colors.black,
+      secondary: aeroBlue,
+      onSecondary: Colors.black,
+      tertiary: darkCeruleanBlue,
+      onTertiary: Colors.black,
+      surface: Colors.white,
+    ),
+    cardTheme: const CardTheme(
+      color: lightCoolBlue,
+    ),
+  );
+
+  //approved
+  static final vintageBrownTheme = ThemeData(
+    brightness: Brightness.light,
+    fontFamily: appFont,
+    primaryColor: Colors.white,
+    scaffoldBackgroundColor: crayola,
+    iconTheme: const IconThemeData(color: Colors.black),
+    colorScheme: const ColorScheme.light(
+      brightness: Brightness.light,
+      primary: crayola,
+      onPrimary: Colors.black,
+      secondary: ruddyBrown,
+      onSecondary: Colors.black,
+      tertiary: firebrickRed,
+      onTertiary: Colors.black,
+      surface: Colors.white,
+    ),
+    cardTheme: const CardTheme(
+      color: crayola,
+    ),
+  );
+
+  //approved
+  static final shadesOfPinkTheme = ThemeData(
+    brightness: Brightness.light,
+    fontFamily: appFont,
+    primaryColor: Colors.white,
+    scaffoldBackgroundColor: mistyRosePink,
+    iconTheme: const IconThemeData(color: Colors.black),
+    colorScheme: const ColorScheme.light(
+      brightness: Brightness.light,
+      primary: mistyRosePink,
+      onPrimary: Colors.black,
+      secondary: persianPink,
+      onSecondary: Colors.black,
+      tertiary: paradisePink,
+      onTertiary: Colors.black,
+      surface: Colors.white,
+    ),
+    cardTheme: const CardTheme(
+      color: mistyRosePink,
+    ),
+  );
+
+  //approved
+  static final shadesOfGreenTheme = ThemeData(
+    brightness: Brightness.light,
+    fontFamily: appFont,
+    primaryColor: Colors.white,
+    scaffoldBackgroundColor: almondWhite,
+    iconTheme: const IconThemeData(color: Colors.black),
+    colorScheme: const ColorScheme.light(
+      brightness: Brightness.light,
+      primary: almondWhite,
+      onPrimary: Colors.black,
+      secondary: middleGreen,
+      onSecondary: Colors.black,
+      tertiary: jungleGreen,
+      onTertiary: Colors.black,
+      surface: Colors.white,
+    ),
+    cardTheme: const CardTheme(
+      color: almondWhite,
+    ),
+  );
+
+  //DARK THEMES
   static final darkThemeBlueprint = ThemeData(
     brightness: Brightness.dark,
     fontFamily: appFont,
@@ -130,18 +248,20 @@ class AppTheme {
     ),
   );
 
+  //approved
   static final darkOrangeTheme = darkThemeBlueprint.copyWith(
     colorScheme: darkThemeBlueprint.colorScheme.copyWith(
       tertiary: matteOrange,
     ),
   );
-
+  //approved
   static final darkPinkTheme = darkThemeBlueprint.copyWith(
     colorScheme: darkThemeBlueprint.colorScheme.copyWith(
       tertiary: mattePink,
     ),
   );
 
+  //approved
   static final darkBlueTheme = darkThemeBlueprint.copyWith(
     colorScheme: darkThemeBlueprint.colorScheme.copyWith(
       tertiary: deepSkyBlue,

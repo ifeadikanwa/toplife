@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/core/common_widgets/list_templates/section.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/list_item/current_work_list_item.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/sections/helper_widgets/work_section.dart';
 import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
 import 'package:toplife/main_systems/system_job/domain/model/info_models/job_pair.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
@@ -23,39 +23,35 @@ class CurrentSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return (currentSchool == null && currentEmployments.isEmpty)
         ? const SizedBox()
-        : WorkSection(
+        : Section(
             sectionTitle: TextConstants.current,
-            sections: [
+            sectionItems: [
               (currentSchool == null)
                   ? const SizedBox()
-                  : GestureDetector(
+                  : CurrentWorkListItem(
+                      workTitle: currentSchool!.school.name,
+                      performance: currentSchool!.school.grades,
                       onTap: () {},
-                      child: CurrentWorkListItem(
-                        workTitle: currentSchool!.school.name,
-                        performance: currentSchool!.school.grades,
-                      ),
                     ),
               ...employmentWidgets(currentEmployments),
             ],
           );
   }
 
-  List<GestureDetector> employmentWidgets(
+  List<CurrentWorkListItem> employmentWidgets(
     List<JobPair<Employment, Job>> employments,
   ) {
-    List<GestureDetector> employmentsWidgets = [];
+    List<CurrentWorkListItem> employmentsWidgets = [];
 
     for (var employment in employments) {
       employmentsWidgets.add(
-        GestureDetector(
-          onTap: () {},
-          child: CurrentWorkListItem(
-            workTitle: getFullJobTitle(
-              employment.employment.currentLevel,
-              employment.job,
-            ),
-            performance: employment.employment.jobPerformance,
+        CurrentWorkListItem(
+          workTitle: getFullJobTitle(
+            employment.employment.currentLevel,
+            employment.job,
           ),
+          performance: employment.employment.jobPerformance,
+          onTap: () {},
         ),
       );
     }

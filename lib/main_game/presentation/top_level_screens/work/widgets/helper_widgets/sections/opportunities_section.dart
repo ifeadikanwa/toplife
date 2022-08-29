@@ -1,52 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/core/common_widgets/list_templates/section.dart';
+import 'package:toplife/core/common_widgets/list_templates/action_list_item.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/work/constants/work_screen_texts.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/list_item/work_list_item.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/sections/helper_widgets/work_section.dart';
-
+import 'package:toplife/main_game/presentation/top_level_screens/work/constants/work_screen_text.dart';
 class OpportunitiesSection extends StatelessWidget {
   const OpportunitiesSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return WorkSection(
+    return Section(
       sectionTitle: TextConstants.opportunities,
-      sections: [
-        GestureDetector(
+      sectionItems: [
+        ActionListItem(
+          actionTitle: WorkScreenText.school,
+          actionDescription: WorkScreenText.schoolDesc,
           onTap: () {},
-          child: const WorkListItem(
-            actionTitle: WorkScreenText.school,
-            actionDescription: WorkScreenText.schoolDesc,
-          ),
         ),
-        GestureDetector(
+        ActionListItem(
+          actionTitle: WorkScreenText.fulltimeJobBoard,
+          actionDescription: WorkScreenText.fullTimeJobBoardDesc,
           onTap: () {},
-          child: const WorkListItem(
-            actionTitle: WorkScreenText.fulltimeJobBoard,
-            actionDescription: WorkScreenText.fullTimeJobBoardDesc,
-          ),
         ),
-        GestureDetector(
+        ActionListItem(
+          actionTitle: WorkScreenText.parttimeJobBoard,
+          actionDescription: WorkScreenText.partTimeJobBoardDesc,
           onTap: () {},
-          child: const WorkListItem(
-            actionTitle: WorkScreenText.parttimeJobBoard,
-            actionDescription: WorkScreenText.partTimeJobBoardDesc,
-          ),
         ),
-        GestureDetector(
+        ActionListItem(
+          actionTitle: WorkScreenText.freelanceJobBoard,
+          actionDescription: WorkScreenText.freelanceJobBoardDesc,
           onTap: () {},
-          child: const WorkListItem(
-            actionTitle: WorkScreenText.freelanceJobBoard,
-            actionDescription: WorkScreenText.freelanceJobBoardDesc,
-          ),
         ),
-        GestureDetector(
+        ActionListItem(
+          actionTitle: WorkScreenText.specialCareers,
+          actionDescription: WorkScreenText.specialsCareerDesc,
+          hasDivider: false,
           onTap: () {},
-          child: const WorkListItem(
-            actionTitle: WorkScreenText.specialCareers,
-            actionDescription: WorkScreenText.specialsCareerDesc,
-            hasDivider: false,
-          ),
         ),
       ],
     );

@@ -19,6 +19,7 @@ const darkThemeBlack = Color.fromARGB(255, 42, 42, 42);
 const lightBlack = Color.fromARGB(255, 23, 23, 23);
 const midnightPurple = Color.fromARGB(255, 52, 32, 72);
 
+const darkPink = Color.fromARGB(255, 212, 11, 149);
 const matteOrange = Color.fromARGB(255, 236, 76, 1);
 const mattePink = Color.fromARGB(255, 210, 136, 162);
 const mustardYellow = Color.fromARGB(255, 234, 170, 0);
@@ -42,6 +43,35 @@ const beige = Color.fromARGB(255, 235, 213, 197);
 const turquoise = Color.fromARGB(255, 0, 138, 129);
 const deepAqua = Color.fromARGB(255, 58, 140, 195);
 const deepSkyBlue = Color.fromARGB(255, 11, 168, 230);
+
+//
+const whiteChocolate = Color.fromARGB(255, 239, 230, 213);
+const cambridgeBlue = Color.fromARGB(255, 157, 190, 183);
+const darkCambridgeBlue = Color.fromARGB(255, 65, 106, 97);
+//
+const darkDullGreen = Color.fromARGB(255, 1, 133, 88);
+const bitterLemon = Color.fromARGB(255, 189, 233, 2);
+const maxYellow = Color.fromARGB(255, 254, 240, 49);
+//
+const lightCoolBlue = Color.fromARGB(255, 215, 234, 243);
+const aeroBlue = Color.fromARGB(255, 119, 181, 217);
+const darkCeruleanBlue = Color.fromARGB(255, 20, 57, 125);
+//
+const firebrickRed = Color.fromARGB(255, 183, 40, 24);
+// const ruddyBrown = Color.fromARGB(255, 188, 96, 34);
+const ruddyBrown = Color.fromARGB(255, 198, 122, 71);
+const crayola = Color.fromARGB(255, 232, 197, 153);
+//
+const mistyRosePink = Color.fromARGB(255, 253, 228, 227);
+// const persianPink = Color.fromARGB(255, 242, 130, 180);
+const persianPink = Color.fromARGB(255, 238, 144, 186);
+const paradisePink = Color.fromARGB(255, 239, 65, 94);
+//
+// const jungleGreen = Color.fromARGB(255, 29, 60, 38);
+// const middleGreen = Color.fromARGB(255, 87, 143, 83);
+const jungleGreen = Color.fromARGB(255, 44, 90, 57);
+const middleGreen = Color.fromARGB(255, 108, 180, 103);
+const almondWhite = Color.fromARGB(255, 234, 223, 206);
 
 //progress bar colors
 const progressBarDarkThemeRed = Colors.red;

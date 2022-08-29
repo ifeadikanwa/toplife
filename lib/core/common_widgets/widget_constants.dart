@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 const appSidePadding = 16.0;
 const widgetVerticalSpacing = 8.0;
 const bottomNavBarHeight = 50.0;
+const horizontalWidgetSpacing = 10.0;
 
 //Card
 const cardPadding = 8.0;
@@ -23,10 +24,12 @@ const appBarLeadingIconAndTextSpacing = 32.0;
 const cardInfoButtonSize = 16.0;
 const flutterDefaultIconSize = 24.0;
 const childrenListHomeIconSize = 20.0;
+const listClockIconSize = 15.0;
+const listArrowIconSize = 15.0;
 
 //Text
 const verticalTextSpacing = 2.0;
-const horizontalTextSpacing = 10.0;
+
 const appBarTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 20.0,

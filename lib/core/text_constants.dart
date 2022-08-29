@@ -27,4 +27,8 @@ class TextConstants {
   static const opportunities = "Opportunities";
   static const history = "History";
   static const current = "Current";
+
+  //activities
+  static const activities = "Activities";
+  static const quickActions = "Quick Actions";
 }
