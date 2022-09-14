@@ -11,6 +11,8 @@ class Car extends Equatable {
   final String quality;
   final int basePrice;
   final int dayOfPurchase;
+  final int fuelTank;
+  final String problem;
   final int useCondition;
   final int maxConditionAtPurchase;
   final bool fullyPaidFor;
@@ -24,6 +26,8 @@ class Car extends Equatable {
     required this.quality,
     required this.basePrice,
     required this.dayOfPurchase,
+    required this.fuelTank,
+    required this.problem,
     required this.useCondition,
     required this.maxConditionAtPurchase,
     this.fullyPaidFor = true,
@@ -39,6 +43,8 @@ class Car extends Equatable {
         quality,
         basePrice,
         dayOfPurchase,
+        fuelTank,
+        problem,
         useCondition,
         maxConditionAtPurchase,
         fullyPaidFor,
@@ -48,6 +54,8 @@ class Car extends Equatable {
   bool? get stringify => true;
 
   //helper constants
+  static const maxConditionDepreciationDaysLength = 10;
+
   static const idColumn = "_id";
   static const personIDColumn = "personID";
   static const nameColumn = "name";
@@ -56,6 +64,8 @@ class Car extends Equatable {
   static const qualityColumn = "quality";
   static const basePriceColumn = "basePrice";
   static const dayOfPurchaseColumn = "dayOfPurchase";
+  static const fuelTankColumn = "fuelTank";
+  static const problemColumn = "problem";
   static const useConditionColumn = "useCondition";
   static const maxConditionAtPurchaseColumn = "maxConditionAtPurchase";
   static const fullyPaidForColumn = "fullyPaidFor";
@@ -69,6 +79,8 @@ class Car extends Equatable {
     qualityColumn,
     basePriceColumn,
     dayOfPurchaseColumn,
+    fuelTankColumn,
+    problemColumn,
     useConditionColumn,
     maxConditionAtPurchaseColumn,
     fullyPaidForColumn,
@@ -84,6 +96,8 @@ class Car extends Equatable {
       quality: carMap[qualityColumn] as String,
       basePrice: carMap[basePriceColumn] as int,
       dayOfPurchase: carMap[dayOfPurchaseColumn] as int,
+      fuelTank: carMap[fuelTankColumn] as int,
+      problem: carMap[problemColumn] as String,
       useCondition: carMap[useConditionColumn] as int,
       maxConditionAtPurchase: carMap[maxConditionAtPurchaseColumn] as int,
       fullyPaidFor: carMap[fullyPaidForColumn] == databaseTrueValue,
@@ -100,6 +114,8 @@ class Car extends Equatable {
       qualityColumn: quality,
       basePriceColumn: basePrice,
       dayOfPurchaseColumn: dayOfPurchase,
+      fuelTankColumn: fuelTank,
+      problemColumn: problem,
       useConditionColumn: useCondition,
       maxConditionAtPurchaseColumn: maxConditionAtPurchase,
       fullyPaidForColumn: fullyPaidFor ? databaseTrueValue : databaseFalseValue,
@@ -115,6 +131,8 @@ class Car extends Equatable {
     String? quality,
     int? basePrice,
     int? dayOfPurchase,
+    int? fuelTank,
+    String? problem,
     int? useCondition,
     int? maxConditionAtPurchase,
     bool? fullyPaidFor,
@@ -124,10 +142,13 @@ class Car extends Equatable {
       personID: personID ?? this.personID,
       name: name ?? this.name,
       type: type ?? this.type,
-      percentageOfTravelTime: crossCheckStat(percentageOfTravelTime) ?? this.percentageOfTravelTime,
+      percentageOfTravelTime:
+          crossCheckStat(percentageOfTravelTime) ?? this.percentageOfTravelTime,
       quality: quality ?? this.quality,
       basePrice: basePrice ?? this.basePrice,
       dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
+      fuelTank: crossCheckStat(fuelTank) ?? this.fuelTank,
+      problem: problem ?? this.problem,
       useCondition: crossCheckStat(useCondition) ?? this.useCondition,
       maxConditionAtPurchase:
           crossCheckStat(maxConditionAtPurchase) ?? this.maxConditionAtPurchase,

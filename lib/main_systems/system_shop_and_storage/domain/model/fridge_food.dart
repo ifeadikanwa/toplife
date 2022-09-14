@@ -42,13 +42,13 @@ class FridgeFood extends Equatable {
     expiryDayColumn,
   ];
 
-  static FridgeFood fromMap({required Map<String, Object?> frigdeFoodMap}) {
+  static FridgeFood fromMap({required Map<String, Object?> fridgeFoodMap}) {
     return FridgeFood(
-      id: frigdeFoodMap[idColumn] as int?,
-      personID: frigdeFoodMap[personIDColumn] as int,
-      foodID: frigdeFoodMap[foodIDColumn] as int,
-      servingsLeft: frigdeFoodMap[servingsLeftColumn] as int,
-      expiryDay: frigdeFoodMap[expiryDayColumn] as int,
+      id: fridgeFoodMap[idColumn] as int?,
+      personID: fridgeFoodMap[personIDColumn] as int,
+      foodID: fridgeFoodMap[foodIDColumn] as int,
+      servingsLeft: fridgeFoodMap[servingsLeftColumn] as int,
+      expiryDay: fridgeFoodMap[expiryDayColumn] as int,
     );
   }
 

@@ -24,6 +24,13 @@ import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart
 import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/data/dao/school_project_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/data/dao/school_relationship_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/food_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/fridge_food_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/house_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/item_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/jewelry_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
 
 class DatabaseProvider {
   static final DatabaseProvider instance = DatabaseProvider._init();
@@ -82,6 +89,15 @@ class DatabaseProvider {
     await db.execute(JobDaoImpl.createTableQuery);
     await db.execute(EmploymentDaoImpl.createTableQuery);
     await db.execute(JobRelationshipDaoImpl.createTableQuery);
+
+    //Shop & Storage
+    await db.execute(FoodDaoImpl.createTableQuery);
+    await db.execute(FridgeFoodDaoImpl.createTableQuery);
+    await db.execute(ItemDaoImpl.createTableQuery);
+    await db.execute(StoreroomItemDaoImpl.createTableQuery);
+    await db.execute(HouseDaoImpl.createTableQuery);
+    await db.execute(JewelryDaoImpl.createTableQuery);
+    await db.execute(CarDaoImpl.createTableQuery);
   }
 
   Future<void> _onConfigure(Database db) async {

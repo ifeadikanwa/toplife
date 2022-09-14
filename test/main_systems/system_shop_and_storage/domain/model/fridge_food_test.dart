@@ -35,7 +35,7 @@ void main() {
         "expiryDay": 56,
       };
 
-      final result = FridgeFood.fromMap(frigdeFoodMap: map);
+      final result = FridgeFood.fromMap(fridgeFoodMap: map);
 
       expect(result, sut);
     });

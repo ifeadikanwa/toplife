@@ -14,6 +14,8 @@ void main() {
       quality: "quality",
       basePrice: 100,
       dayOfPurchase: 1,
+      fuelTank: 60,
+      problem: "noProblem",
       useCondition: 80,
       maxConditionAtPurchase: 100,
       fullyPaidFor: false,
@@ -30,6 +32,8 @@ void main() {
         "quality": "quality",
         "basePrice": 100,
         "dayOfPurchase": 1,
+        "fuelTank": 60,
+        "problem": "noProblem",
         "useCondition": 80,
         "maxConditionAtPurchase": 100,
         "fullyPaidFor": 0
@@ -48,6 +52,8 @@ void main() {
         "quality": "quality",
         "basePrice": 100,
         "dayOfPurchase": 1,
+        "fuelTank": 60,
+        "problem": "noProblem",
         "useCondition": 80,
         "maxConditionAtPurchase": 100,
         "fullyPaidFor": 0
@@ -68,6 +74,8 @@ void main() {
         quality: "quality",
         basePrice: 100,
         dayOfPurchase: 1,
+        fuelTank: 100,
+        problem: "noProblem",
         useCondition: 80,
         maxConditionAtPurchase: 100,
         fullyPaidFor: true,
@@ -76,6 +84,7 @@ void main() {
       final result = sut.copyWith(
         id: 1,
         fullyPaidFor: true,
+        fuelTank: 250
       );
       expect(result, correctCar);
     });

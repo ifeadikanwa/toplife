@@ -112,6 +112,95 @@ class GameManagerScreen extends ConsumerWidget {
 
               // final c = await ChildDaoImpl().getChild(1, 4);
               // print(c);
+
+              // ShopAndStorageRepositories shopAndStorageRepositories =
+              //     ShopAndStorageRepositories(
+              //   carDao: CarDaoImpl(),
+              //   houseDao: HouseDaoImpl(),
+              //   foodDao: FoodDaoImpl(),
+              //   fridgeFoodDao: FridgeFoodDaoImpl(),
+              //   itemDao: ItemDaoImpl(),
+              //   storeroomItemDao: StoreroomItemDaoImpl(),
+              //   jewelryDao: JewelryDaoImpl(),
+              // );
+
+              // Food food = const Food(
+              //   id: 2,
+              //   name: "Large Fries",
+              //   type: "readyMeal",
+              //   basePrice: 100,
+              //   lifespanInDays: 5,
+              //   nutrition: 30,
+              //   servings: 1,
+              //   isOrganic: true,
+              // );
+
+              // FridgeFood fridgeFood = const FridgeFood(
+              //   id: 1,
+              //   personID: 1,
+              //   foodID: 2,
+              //   servingsLeft: 2,
+              //   expiryDay: 16,
+              // );
+
+              // Item item = const Item(
+              //     id: 2,
+              //     name: "Baby Wipes",
+              //     type: "wipes",
+              //     basePrice: 120,
+              //     count: 6);
+
+              // StoreroomItem storeroomItem = const StoreroomItem(
+              //   id: 3,
+              //   personID: 1,
+              //   itemID: 2,
+              //   countsLeft: 2,
+              // );
+
+              // Car car = const Car(
+              //   id: 2,
+              //   personID: 1,
+              //   name: "Audi Celeno",
+              //   type: "seran",
+              //   percentageOfTravelTime: 60,
+              //   quality: "mid",
+              //   basePrice: 5000,
+              //   dayOfPurchase: 34,
+              //   useCondition: 80,
+              //   maxConditionAtPurchase: 100,
+              // );
+
+              // House house = const House(
+              //     id: 1,
+              //     isCurrentHome: true,
+              //     personID: 1,
+              //     bedrooms: 3,
+              //     bathrooms: 1,
+              //     storage: 12,
+              //     address: "address",
+              //     isForRent: false,
+              //     buildingType: "apartment",
+              //     settlement: "town",
+              //     lastMaintainedDay: 24,
+              //     basePrice: 200,
+              //     dayOfPurchase: 54,
+              //     condition: 100,
+              //     purchasePrice: 200);
+
+              // Jewelry jewelry = const Jewelry(
+              //   personID: 1,
+              //   jewel: "jewel",
+              //   type: "type",
+              //   carat: 2.5,
+              //   quality: "quality",
+              //   basePrice: 8500,
+              //   dayOfPurchase: 24,
+              //   maxConditionAtPurchase: 100,
+              // );
+
+              // final result = await shopAndStorageRepositories
+              //     .jewelryRepositoryImpl.createJewelry(jewelry);
+              // print(result);
             },
             child: const Text("do")),
         ElevatedButton(
