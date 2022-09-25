@@ -1,4 +1,4 @@
-class BuildingBasePrice{
+class BuildingBasePrice {
   /*
    Game designer notes:
    I need an affordable option and then it needs to scale up.
@@ -9,8 +9,8 @@ class BuildingBasePrice{
   */
 
   //apartment. rent price.
-  static const apartmentBedroomBasePrice = 0;
-  static const apartmentBathroomBasePrice = 0;
+  static const apartmentBedroomBasePrice = 350; //current num was used for test
+  static const apartmentBathroomBasePrice = 200; //current num was used for test
 
   //condo. purchase price. rent price is a fraction of this.
   static const condoBedroomBasePrice = 0;

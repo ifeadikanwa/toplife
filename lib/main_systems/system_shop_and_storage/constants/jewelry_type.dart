@@ -1,8 +1,8 @@
 enum JewelryType {
-  ring(basePrice: 0),
-  necklace(basePrice: 0),
-  chain(basePrice: 0),
-  earring(basePrice: 0);
+  ring(basePrice: 0), //1 expensive
+  necklace(basePrice: 0), //3 expensive
+  chain(basePrice: 0), //2 expensive
+  earrings(basePrice: 0); //4 expensive
 
   const JewelryType({
     required this.basePrice,

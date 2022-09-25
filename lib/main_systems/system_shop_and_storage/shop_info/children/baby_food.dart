@@ -1,0 +1,88 @@
+import 'package:toplife/main_systems/system_shop_and_storage/constants/food_lifespan.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/constants/food_type.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/constants/baby_food_names.dart';
+
+Set<Food> babyFood = {
+  Food(
+    name: BabyFoodNames.sunshineBabyFormula,
+    type: FoodType.babyFood.name,
+    basePrice: 0,
+    lifespanInDays: FoodLifespan.short.days,
+    nutrition: 35,
+    servings: 4,
+    isOrganic: false,
+  ),
+  Food(
+    name: BabyFoodNames.fuzziesOrganicBabyFormula,
+    type: FoodType.babyFood.name,
+    basePrice: 0,
+    lifespanInDays: FoodLifespan.mid.days,
+    nutrition: 40,
+    servings: 4,
+    isOrganic: true,
+  ),
+  Food(
+    name: BabyFoodNames.sunshineMegaBabyFormula,
+    type: FoodType.babyFood.name,
+    basePrice: 0,
+    lifespanInDays: FoodLifespan.mid.days,
+    nutrition: 35,
+    servings: 9,
+    isOrganic: false,
+  ),
+  Food(
+    name: BabyFoodNames.fuzziesMegaOrganicBabyFormula,
+    type: FoodType.babyFood.name,
+    basePrice: 0,
+    lifespanInDays: FoodLifespan.mid.days,
+    nutrition: 40,
+    servings: 9,
+    isOrganic: true,
+  ),
+  Food(
+    name: BabyFoodNames.majesticRiceCereal,
+    type: FoodType.babyFood.name,
+    basePrice: 0,
+    lifespanInDays: FoodLifespan.short.days,
+    nutrition: 30,
+    servings: 2,
+    isOrganic: false,
+  ),
+  Food(
+    name: BabyFoodNames.majesticOrganicOatmealCereal,
+    type: FoodType.babyFood.name,
+    basePrice: 0,
+    lifespanInDays: FoodLifespan.mid.days,
+    nutrition: 35,
+    servings: 2,
+    isOrganic: true,
+  ),
+  Food(
+    name: BabyFoodNames.delightPumpkinPuree,
+    type: FoodType.babyFood.name,
+    basePrice: 0,
+    lifespanInDays: FoodLifespan.mid.days,
+    nutrition: 35,
+    servings: 2,
+    isOrganic: false,
+  ),
+  Food(
+    name: BabyFoodNames.delightBananaPuree,
+    type: FoodType.babyFood.name,
+    basePrice: 0,
+    lifespanInDays: FoodLifespan.mid.days,
+    nutrition: 35,
+    servings: 2,
+    isOrganic: false,
+  ),
+  Food(
+    name: BabyFoodNames.delightPearPuree,
+    type: FoodType.babyFood.name,
+    basePrice: 0,
+    lifespanInDays: FoodLifespan.mid.days,
+    nutrition: 35,
+    servings: 2,
+    isOrganic: false,
+  ),
+};

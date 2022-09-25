@@ -26,6 +26,7 @@ class PersonDaoImpl implements PersonDao {
       ${Person.zodiacSignColumn} $textType,
       ${Person.importantStatusColumn} $nullableTextType,
       ${Person.custodianIDColumn} $nullableIntegerType,
+      ${Person.hasDriversLicenseColumn} $boolType,
       ${Person.hasFertilityIssuesColumn} $boolType,
       ${Person.onBirthControlColumn} $boolType,
       ${Person.isSterileColumn} $boolType,

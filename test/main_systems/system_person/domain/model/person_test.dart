@@ -23,6 +23,7 @@ void main() {
       zodiacSign: ZodiacSign.Libra.name,
       importantStatus: null,
       custodianID: 2,
+      hasDriversLicense: true,
       hasFertilityIssues: false,
       onBirthControl: false,
       isSterile: false,
@@ -51,6 +52,7 @@ void main() {
           "importantStatus": null,
           "custodianID": 2,
           "zodiacSign": "Libra",
+          "hasDriversLicense": 1,
           "hasFertilityIssues": 0,
           "onBirthControl": 0,
           "isSterile": 0,
@@ -78,7 +80,8 @@ void main() {
           "importantStatus": null,
           "custodianID": 2,
           "zodiacSign": "Libra",
-           "hasFertilityIssues": 0,
+          "hasDriversLicense": 1,
+          "hasFertilityIssues": 0,
           "onBirthControl": 0,
           "isSterile": 0,
           "sickly": 0,
@@ -107,6 +110,7 @@ void main() {
           zodiacSign: ZodiacSign.Libra.name,
           importantStatus: "status changed",
           custodianID: 2,
+          hasDriversLicense: false,
           hasFertilityIssues: false,
           onBirthControl: false,
           isSterile: false,
@@ -119,6 +123,7 @@ void main() {
           sexuality: Sexuality.Bisexual.name,
           importantStatus: "status changed",
           rebellious: false,
+          hasDriversLicense: false,
         );
         expect(result, correctPerson);
       });

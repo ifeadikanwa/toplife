@@ -12,4 +12,5 @@ abstract class Country {
   String get randomMaleFirstName;
   HashSet<String> get lastNames;
   String get randomLastName;
+  bool get requiresCarInsurance;
 }

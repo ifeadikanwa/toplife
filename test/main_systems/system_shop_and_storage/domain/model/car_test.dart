@@ -19,6 +19,9 @@ void main() {
       useCondition: 80,
       maxConditionAtPurchase: 100,
       fullyPaidFor: false,
+      isInsured: true,
+      insuranceCost: 200,
+      insuranceType: "basic",
     );
   });
   group("Car:", () {
@@ -36,7 +39,10 @@ void main() {
         "problem": "noProblem",
         "useCondition": 80,
         "maxConditionAtPurchase": 100,
-        "fullyPaidFor": 0
+        "fullyPaidFor": 0,
+        "isInsured": 1,
+        "insuranceCost": 200,
+        "insuranceType": "basic",
       };
 
       expect(sut.toMap(), correctMap);
@@ -56,7 +62,10 @@ void main() {
         "problem": "noProblem",
         "useCondition": 80,
         "maxConditionAtPurchase": 100,
-        "fullyPaidFor": 0
+        "fullyPaidFor": 0,
+        "isInsured": 1,
+        "insuranceCost": 200,
+        "insuranceType": "basic",
       };
 
       final result = Car.fromMap(carMap: map);
@@ -79,12 +88,18 @@ void main() {
         useCondition: 80,
         maxConditionAtPurchase: 100,
         fullyPaidFor: true,
+        isInsured: false,
+        insuranceCost: 1000,
+        insuranceType: "premium",
       );
 
       final result = sut.copyWith(
         id: 1,
         fullyPaidFor: true,
-        fuelTank: 250
+        fuelTank: 250,
+        isInsured: false,
+        insuranceCost: 1000,
+        insuranceType: "premium",
       );
       expect(result, correctCar);
     });

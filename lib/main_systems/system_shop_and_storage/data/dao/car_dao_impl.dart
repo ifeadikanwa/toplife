@@ -26,6 +26,9 @@ class CarDaoImpl implements CarDao {
       ${Car.useConditionColumn} $integerType,
       ${Car.maxConditionAtPurchaseColumn} $integerType,
       ${Car.fullyPaidForColumn} $boolType,
+      ${Car.isInsuredColumn} $boolType,
+      ${Car.insuranceCostColumn} $integerType,
+      ${Car.insuranceTypeColumn} $textType,
       FOREIGN KEY (${Car.personIDColumn})
        REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
        ON UPDATE CASCADE

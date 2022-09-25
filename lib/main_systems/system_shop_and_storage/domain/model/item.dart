@@ -24,7 +24,6 @@ class Item extends Equatable {
         type,
         basePrice,
         count,
-
       ];
 
   @override

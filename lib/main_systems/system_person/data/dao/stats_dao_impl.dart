@@ -17,6 +17,7 @@ class StatsDaoImpl implements StatsDao {
       ${Stats.personIDColumn} $integerType $unique,
       ${Stats.energyColumn} $integerType,
       ${Stats.hungerColumn} $integerType,
+      ${Stats.soberColumn} $integerType,
       ${Stats.looksColumn} $integerType,
       ${Stats.intellectColumn} $integerType,
       ${Stats.athleticismColumn} $integerType,

@@ -16,6 +16,9 @@ class Car extends Equatable {
   final int useCondition;
   final int maxConditionAtPurchase;
   final bool fullyPaidFor;
+  final bool isInsured;
+  final int insuranceCost;
+  final String insuranceType;
 
   const Car({
     this.id,
@@ -31,6 +34,9 @@ class Car extends Equatable {
     required this.useCondition,
     required this.maxConditionAtPurchase,
     this.fullyPaidFor = true,
+    this.isInsured = false,
+    this.insuranceCost = 0,
+    this.insuranceType = "",
   });
 
   @override
@@ -48,6 +54,9 @@ class Car extends Equatable {
         useCondition,
         maxConditionAtPurchase,
         fullyPaidFor,
+        isInsured,
+        insuranceCost,
+        insuranceType,
       ];
 
   @override
@@ -69,6 +78,9 @@ class Car extends Equatable {
   static const useConditionColumn = "useCondition";
   static const maxConditionAtPurchaseColumn = "maxConditionAtPurchase";
   static const fullyPaidForColumn = "fullyPaidFor";
+  static const isInsuredColumn = "isInsured";
+  static const insuranceCostColumn = "insuranceCost";
+  static const insuranceTypeColumn = "insuranceType";
 
   static const allColumns = [
     idColumn,
@@ -84,6 +96,9 @@ class Car extends Equatable {
     useConditionColumn,
     maxConditionAtPurchaseColumn,
     fullyPaidForColumn,
+    isInsuredColumn,
+    insuranceCostColumn,
+    insuranceTypeColumn,
   ];
 
   static Car fromMap({required Map<String, Object?> carMap}) {
@@ -101,6 +116,9 @@ class Car extends Equatable {
       useCondition: carMap[useConditionColumn] as int,
       maxConditionAtPurchase: carMap[maxConditionAtPurchaseColumn] as int,
       fullyPaidFor: carMap[fullyPaidForColumn] == databaseTrueValue,
+      isInsured: carMap[isInsuredColumn] == databaseTrueValue,
+      insuranceCost: carMap[insuranceCostColumn] as int,
+      insuranceType: carMap[insuranceTypeColumn] as String,
     );
   }
 
@@ -119,6 +137,9 @@ class Car extends Equatable {
       useConditionColumn: useCondition,
       maxConditionAtPurchaseColumn: maxConditionAtPurchase,
       fullyPaidForColumn: fullyPaidFor ? databaseTrueValue : databaseFalseValue,
+      isInsuredColumn: isInsured ? databaseTrueValue : databaseFalseValue,
+      insuranceCostColumn: insuranceCost,
+      insuranceTypeColumn: insuranceType,
     };
   }
 
@@ -136,6 +157,9 @@ class Car extends Equatable {
     int? useCondition,
     int? maxConditionAtPurchase,
     bool? fullyPaidFor,
+    bool? isInsured,
+    int? insuranceCost,
+    String? insuranceType,
   }) {
     return Car(
       id: id ?? this.id,
@@ -153,6 +177,9 @@ class Car extends Equatable {
       maxConditionAtPurchase:
           crossCheckStat(maxConditionAtPurchase) ?? this.maxConditionAtPurchase,
       fullyPaidFor: fullyPaidFor ?? this.fullyPaidFor,
+      isInsured: isInsured ?? this.isInsured,
+      insuranceCost: insuranceCost ?? this.insuranceCost,
+      insuranceType: insuranceType ?? this.insuranceType,
     );
   }
 }

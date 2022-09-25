@@ -6,4 +6,7 @@ enum ItemType{
   toy,
   phone,
   book,
+  card,
+  console,
+  flower,
 }

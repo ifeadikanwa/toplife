@@ -43,4 +43,7 @@ class Canada implements Country {
   String get randomMaleFirstName {
     return getRandomValueFromSet(set: maleFirstNames);
   }
+
+    @override
+  bool get requiresCarInsurance => true;
 }

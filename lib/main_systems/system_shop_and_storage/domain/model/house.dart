@@ -14,9 +14,11 @@ class House extends Equatable {
   final String buildingType;
   final String settlement;
   final String country;
+  final String style;
   final int lastMaintainedDay;
   final int basePrice;
   final int dayOfPurchase;
+  final int endOfLeaseDay;
   final int condition;
   final int purchasePrice;
   final bool fullyPaidFor;
@@ -33,9 +35,11 @@ class House extends Equatable {
     required this.buildingType,
     required this.settlement,
     this.country = "",
+    required this.style,
     required this.lastMaintainedDay,
     required this.basePrice,
     required this.dayOfPurchase,
+    this.endOfLeaseDay = 0,
     required this.condition,
     required this.purchasePrice,
     this.fullyPaidFor = true,
@@ -54,9 +58,11 @@ class House extends Equatable {
         buildingType,
         settlement,
         country,
+        style,
         lastMaintainedDay,
         basePrice,
         dayOfPurchase,
+        endOfLeaseDay,
         condition,
         purchasePrice,
         fullyPaidFor,
@@ -66,6 +72,9 @@ class House extends Equatable {
   bool? get stringify => true;
 
   //helper constants
+  static const conditionDepreciationDaysLength = 10;
+  static const conditionDepreciationAmount = 10;
+
   static const idColumn = "_id";
   static const personIDColumn = "personID";
   static const isCurrentHomeColumn = "isCurrentHome";
@@ -77,9 +86,11 @@ class House extends Equatable {
   static const buildingTypeColumn = "buildingType";
   static const settlementColumn = "settlement";
   static const countryColumn = "country";
+  static const styleColumn = "style";
   static const lastMaintainedDayColumn = "lastMaintainedDay";
   static const basePriceColumn = "basePrice";
   static const dayOfPurchaseColumn = "dayOfPurchase";
+  static const endOfLeaseDayColumn = "endOfLeaseDay";
   static const conditionColumn = "condition";
   static const purchasePriceColumn = "purchasePrice";
   static const fullyPaidForColumn = "fullyPaidFor";
@@ -96,9 +107,11 @@ class House extends Equatable {
     buildingTypeColumn,
     settlementColumn,
     countryColumn,
+    styleColumn,
     lastMaintainedDayColumn,
     basePriceColumn,
     dayOfPurchaseColumn,
+    endOfLeaseDayColumn,
     conditionColumn,
     purchasePriceColumn,
     fullyPaidForColumn,
@@ -117,9 +130,11 @@ class House extends Equatable {
       buildingType: houseMap[buildingTypeColumn] as String,
       settlement: houseMap[settlementColumn] as String,
       country: houseMap[countryColumn] as String,
+      style: houseMap[styleColumn] as String,
       lastMaintainedDay: houseMap[lastMaintainedDayColumn] as int,
       basePrice: houseMap[basePriceColumn] as int,
       dayOfPurchase: houseMap[dayOfPurchaseColumn] as int,
+      endOfLeaseDay: houseMap[endOfLeaseDayColumn] as int,
       condition: houseMap[conditionColumn] as int,
       purchasePrice: houseMap[purchasePriceColumn] as int,
       fullyPaidFor: houseMap[fullyPaidForColumn] == databaseTrueValue,
@@ -140,9 +155,11 @@ class House extends Equatable {
       buildingTypeColumn: buildingType,
       settlementColumn: settlement,
       countryColumn: country,
+      styleColumn: style,
       lastMaintainedDayColumn: lastMaintainedDay,
       basePriceColumn: basePrice,
       dayOfPurchaseColumn: dayOfPurchase,
+      endOfLeaseDayColumn: endOfLeaseDay,
       conditionColumn: condition,
       purchasePriceColumn: purchasePrice,
       fullyPaidForColumn: fullyPaidFor ? databaseTrueValue : databaseFalseValue,
@@ -161,10 +178,12 @@ class House extends Equatable {
     String? buildingType,
     String? settlement,
     String? country,
+    String? style,
     int? lastMaintainedDay,
     String? quality,
     int? basePrice,
     int? dayOfPurchase,
+    int? endOfLeaseDay,
     int? condition,
     int? purchasePrice,
     bool? fullyPaidFor,
@@ -181,9 +200,11 @@ class House extends Equatable {
       buildingType: buildingType ?? this.buildingType,
       settlement: settlement ?? this.settlement,
       country: country ?? this.country,
+      style: style ?? this.style,
       lastMaintainedDay: lastMaintainedDay ?? this.lastMaintainedDay,
       basePrice: basePrice ?? this.basePrice,
       dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
+      endOfLeaseDay: endOfLeaseDay ?? this.endOfLeaseDay,
       condition: crossCheckStat(condition) ?? this.condition,
       purchasePrice: purchasePrice ?? this.purchasePrice,
       fullyPaidFor: fullyPaidFor ?? this.fullyPaidFor,
