@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:toplife/core/utils/numbers/flunctuate_number.dart';
+import 'package:toplife/core/utils/numbers/fluctuate_number.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/jewel.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/jewelry_quality.dart';
@@ -18,7 +18,7 @@ class JewelryGenerator {
   static const double moreExpensiveOptionMinCarat = maxCarat / 2;
 
   //jewlry price can be increased or reduced by up to 10%
-  static const int priceMaxFlunctuationPercentage = 10;
+  static const int priceMaxFluctuationPercentage = 10;
 
   static final jewelryTemplate = Jewelry(
     jewel: "",
@@ -216,13 +216,13 @@ class JewelryGenerator {
     final double standardPrice =
         (jewelPricePerCarat * numberOfCarats) + jewelryTypeBasePrice;
 
-    final int flunctuatedPrice = flunctuateNumber(
+    final int fluctuatedPrice = fluctuateNumber(
       number: standardPrice,
-      maxPercentage: priceMaxFlunctuationPercentage,
-      canBeNegativeFlunctuation: true,
+      maxPercentage: priceMaxFluctuationPercentage,
+      canBeNegativeFluctuation: true,
     ).round();
 
-    return flunctuatedPrice;
+    return fluctuatedPrice;
   }
 
   //*Jewelry type generators

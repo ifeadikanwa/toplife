@@ -8,9 +8,9 @@ void main() {
   group("Car generator:", () {
     group("Constants:", () {
       test(
-        "flunctuation percentage is 10",
+        "fluctuation percentage is 10",
         () {
-          expect(CarGenerator.flunctuationPercentage, 10);
+          expect(CarGenerator.fluctuationPercentage, 10);
         },
       );
 
@@ -73,7 +73,7 @@ void main() {
         },
       );
 
-       test(
+      test(
         "all cars are NOT insured",
         () {
           for (var newCar in result) {
@@ -82,7 +82,7 @@ void main() {
         },
       );
 
-       test(
+      test(
         "all cars have insurance cost of 0",
         () {
           for (var newCar in result) {
@@ -151,7 +151,7 @@ void main() {
         },
       );
 
-       test(
+      test(
         "all cars have insurance cost of 0",
         () {
           for (var usedCar in result) {

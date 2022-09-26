@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:toplife/core/utils/chance.dart';
-import 'package:toplife/core/utils/numbers/flunctuate_number.dart';
+import 'package:toplife/core/utils/numbers/fluctuate_number.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/cars/cars_list.dart';
 
 class CarGenerator {
-  static const flunctuationPercentage = 10;
+  static const fluctuationPercentage = 10;
 
   static const int numberOfCarsToGenerateForEachType = 2;
 
@@ -51,23 +51,23 @@ class CarGenerator {
     );
 
     //*The list to be returned
-    List<Car> flunctuatedNewCars = [];
+    List<Car> fluctuatedNewCars = [];
 
     //flunctuate the base price of all the cars
     for (var car in unEditedNewCars) {
-      flunctuatedNewCars.add(
+      fluctuatedNewCars.add(
         car.copyWith(
-          basePrice: flunctuateNumber(
+          basePrice: fluctuateNumber(
             number: car.basePrice.toDouble(),
-            maxPercentage: flunctuationPercentage,
-            canBeNegativeFlunctuation: true,
+            maxPercentage: fluctuationPercentage,
+            canBeNegativeFluctuation: true,
           ).round(),
         ),
       );
     }
 
     //sort the list in descending order of base price and return
-    return sortCarsInDescendingOrderOfPrice(flunctuatedNewCars);
+    return sortCarsInDescendingOrderOfPrice(fluctuatedNewCars);
   }
 
   static List<Car> generateUsedCars() {

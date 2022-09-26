@@ -15,21 +15,21 @@ void main() {
       test("rent price percentage is 20%", () {
         expect(HouseUtils.rentPricePercentage, 0.2);
       });
-      test("max building price flunctuation percentage is 5", () {
-        expect(HouseUtils.maxBuildingPriceFlunctuationPercentage, 5);
+      test("max building price fluctuation percentage is 5", () {
+        expect(HouseUtils.maxBuildingPriceFluctuationPercentage, 5);
       });
-      test("max storage space flunctuator is 4", () {
-        expect(HouseUtils.maxStorageSpaceFlunctuator, 4);
+      test("max storage space fluctuator is 4", () {
+        expect(HouseUtils.maxStorageSpaceFluctuator, 4);
       });
 
-      test("flunctuationCanBeNegative is true", () {
-        expect(HouseUtils.flunctuationCanBeNegative, true);
+      test("fluctuationCanBeNegative is true", () {
+        expect(HouseUtils.fluctuationCanBeNegative, true);
       });
     });
 
     group("building price calculator:", () {
       test(
-        "price returned is greater than (lowest negative flunctuation of bedroom price + lowest negative flunctuation of bathroom price) and less than (highest positive flunctuation of bedroom price + highest positive flunctuation of bathroom price)",
+        "price returned is greater than (lowest negative fluctuation of bedroom price + lowest negative fluctuation of bathroom price) and less than (highest positive fluctuation of bedroom price + highest positive fluctuation of bathroom price)",
         () {
           final bedroomStandardPrice =
               buildingType.basePricePerBedroom * bedroomCount;
@@ -37,22 +37,22 @@ void main() {
           final bathroomStandardPrice =
               buildingType.basePricePerBathroom * bathroomCount;
 
-          const lowestFlunctuator =
-              (-HouseUtils.maxBuildingPriceFlunctuationPercentage / 100);
+          const lowestFluctuator =
+              (-HouseUtils.maxBuildingPriceFluctuationPercentage / 100);
 
-          const highestFlunctuator =
-              (HouseUtils.maxBuildingPriceFlunctuationPercentage / 100);
+          const highestFluctuator =
+              (HouseUtils.maxBuildingPriceFluctuationPercentage / 100);
 
           final lowestPossibleBuildingPrice =
-              ((lowestFlunctuator * bedroomStandardPrice) +
+              ((lowestFluctuator * bedroomStandardPrice) +
                       bedroomStandardPrice) +
-                  ((lowestFlunctuator * bathroomStandardPrice) +
+                  ((lowestFluctuator * bathroomStandardPrice) +
                       bathroomStandardPrice);
 
           final highestPossibleBuildingPrice =
-              ((highestFlunctuator * bedroomStandardPrice) +
+              ((highestFluctuator * bedroomStandardPrice) +
                       bedroomStandardPrice) +
-                  ((highestFlunctuator * bathroomStandardPrice) +
+                  ((highestFluctuator * bathroomStandardPrice) +
                       bathroomStandardPrice);
 
           final result = HouseUtils.buildingPriceCalculator(
@@ -124,25 +124,25 @@ void main() {
           final bathroomStandardPrice =
               buildingType.basePricePerBathroom * bathroomCount;
 
-          const lowestFlunctuator =
-              (-HouseUtils.maxBuildingPriceFlunctuationPercentage / 100);
+          const lowestFluctuator =
+              (-HouseUtils.maxBuildingPriceFluctuationPercentage / 100);
 
-          const highestFlunctuator =
-              (HouseUtils.maxBuildingPriceFlunctuationPercentage / 100);
+          const highestFluctuator =
+              (HouseUtils.maxBuildingPriceFluctuationPercentage / 100);
 
           final lowestPossibleBuildingPrice =
-              ((lowestFlunctuator * bedroomStandardPrice) +
+              ((lowestFluctuator * bedroomStandardPrice) +
                       bedroomStandardPrice) +
-                  ((lowestFlunctuator * bathroomStandardPrice) +
+                  ((lowestFluctuator * bathroomStandardPrice) +
                       bathroomStandardPrice);
 
           final lowestPossibleRentPrice =
               HouseUtils.rentPricePercentage * lowestPossibleBuildingPrice;
 
           final highestPossibleBuildingPrice =
-              ((highestFlunctuator * bedroomStandardPrice) +
+              ((highestFluctuator * bedroomStandardPrice) +
                       bedroomStandardPrice) +
-                  ((highestFlunctuator * bathroomStandardPrice) +
+                  ((highestFluctuator * bathroomStandardPrice) +
                       bathroomStandardPrice);
 
           final highestPossibleRentPrice =
@@ -167,17 +167,17 @@ void main() {
 
     group("Storage space calculator:", () {
       test(
-        "returns a number within the range (standard storage - maxStorageSpaceFlunctuator) to (standard storage + maxStorageSpaceFlunctuator)",
+        "returns a number within the range (standard storage - maxStorageSpaceFluctuator) to (standard storage + maxStorageSpaceFluctuator)",
         () {
           final int standardStorage =
               (bedroomCount * buildingType.storagePerSpace) +
                   (bathroomCount * (buildingType.storagePerSpace ~/ 2));
 
           final lowestPossibleStorage =
-              standardStorage - HouseUtils.maxStorageSpaceFlunctuator;
+              standardStorage - HouseUtils.maxStorageSpaceFluctuator;
 
           final highestPossibleStorage =
-              standardStorage + HouseUtils.maxStorageSpaceFlunctuator;
+              standardStorage + HouseUtils.maxStorageSpaceFluctuator;
 
           final int result = HouseUtils.storageSpaceCalculator(
             buildingType: buildingType,

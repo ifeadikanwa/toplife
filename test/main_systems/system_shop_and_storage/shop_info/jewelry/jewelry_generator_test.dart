@@ -21,8 +21,8 @@ void main() {
         expect(JewelryGenerator.moreExpensiveOptionMinCarat, 2.5);
       });
 
-      test("jewelry price max flunctuation percentage is 10", () {
-        expect(JewelryGenerator.priceMaxFlunctuationPercentage, 10);
+      test("jewelry price max fluctuation percentage is 10", () {
+        expect(JewelryGenerator.priceMaxFluctuationPercentage, 10);
       });
       test("jewelry template has correct properties", () {
         expect(
@@ -738,23 +738,20 @@ void main() {
         const standardPrice = (pricePerCarat * carats) + jewelryTypePrice;
 
         final int lowestPossiblePrice = (standardPrice -
-                ((JewelryGenerator.priceMaxFlunctuationPercentage / 100) *
+                ((JewelryGenerator.priceMaxFluctuationPercentage / 100) *
                     standardPrice))
             .round();
-
 
         final int highestPossiblePrice = (standardPrice +
-                ((JewelryGenerator.priceMaxFlunctuationPercentage / 100) *
+                ((JewelryGenerator.priceMaxFluctuationPercentage / 100) *
                     standardPrice))
             .round();
-
 
         final result = JewelryGenerator.getJewelryPrice(
           numberOfCarats: carats,
           jewelPricePerCarat: pricePerCarat,
           jewelryTypeBasePrice: jewelryTypePrice,
         );
-
 
         expect(
           result,

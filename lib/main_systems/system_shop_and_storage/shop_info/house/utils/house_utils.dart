@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:toplife/core/utils/numbers/flunctuate_number.dart';
+import 'package:toplife/core/utils/numbers/fluctuate_number.dart';
 import 'package:toplife/core/utils/numbers/get_negative_or_positive_multiplier.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/building_type.dart';
@@ -10,14 +10,14 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/utils/get_random_address.dart';
 
 class HouseUtils {
-  static const maxBuildingPriceFlunctuationPercentage = 5;
+  static const maxBuildingPriceFluctuationPercentage = 5;
 
   //rent is 20% of the full regular building price
   static const double rentPricePercentage = 0.2;
 
-  static const bool flunctuationCanBeNegative = true;
+  static const bool fluctuationCanBeNegative = true;
 
-  static const maxStorageSpaceFlunctuator = 4;
+  static const maxStorageSpaceFluctuator = 4;
 
   static int buildingPriceCalculator({
     required BuildingType buildingType,
@@ -27,23 +27,22 @@ class HouseUtils {
     final int bedroomBasePrice =
         buildingType.basePricePerBedroom * bedroomCount;
 
-    final int flunctuatedBedroomPrice = flunctuateNumber(
+    final int fluctuatedBedroomPrice = fluctuateNumber(
       number: bedroomBasePrice.toDouble(),
-      maxPercentage: maxBuildingPriceFlunctuationPercentage,
-      canBeNegativeFlunctuation: flunctuationCanBeNegative,
+      maxPercentage: maxBuildingPriceFluctuationPercentage,
+      canBeNegativeFluctuation: fluctuationCanBeNegative,
     ).round();
 
     final int bathroomBasePrice =
         buildingType.basePricePerBathroom * bathroomCount;
 
-    final int flunctuatedBathroomPrice = flunctuateNumber(
+    final int fluctuatedBathroomPrice = fluctuateNumber(
       number: bathroomBasePrice.toDouble(),
-      maxPercentage: maxBuildingPriceFlunctuationPercentage,
-      canBeNegativeFlunctuation: flunctuationCanBeNegative,
+      maxPercentage: maxBuildingPriceFluctuationPercentage,
+      canBeNegativeFluctuation: fluctuationCanBeNegative,
     ).round();
 
-    final int buildingPrice =
-        flunctuatedBedroomPrice + flunctuatedBathroomPrice;
+    final int buildingPrice = fluctuatedBedroomPrice + fluctuatedBathroomPrice;
 
     return buildingPrice;
   }
@@ -93,7 +92,7 @@ class HouseUtils {
 
     final int storageSpace = (bedroomCount * buildingType.storagePerSpace) +
         (bathroomCount * (buildingType.storagePerSpace ~/ 2)) +
-        (Random().nextInt(maxStorageSpaceFlunctuator) *
+        (Random().nextInt(maxStorageSpaceFluctuator) *
                 getNegativeOrPositiveMultiplier())
             .toInt();
 

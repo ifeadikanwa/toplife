@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/core/utils/numbers/flunctuate_number.dart';
+import 'package:toplife/core/utils/numbers/fluctuate_number.dart';
 
 void main() {
-  group("Flunctuate number:", () {
+  group("Fluctuate number:", () {
     test(
-      "returns number in the range (((-maxPercentage/100) * number) + number) -> (((maxPercentage/100) * number) + number) when canBeNegativeFlunctuation = true",
+      "returns number in the range (((-maxPercentage/100) * number) + number) -> (((maxPercentage/100) * number) + number) when canBeNegativeFluctuation = true",
       () {
         const double num = 450;
         const int maxPercentage = 6;
@@ -12,10 +12,10 @@ void main() {
         const lowestPossibleValue = ((-maxPercentage / 100) * num) + num;
         const highestPossibleValue = ((maxPercentage / 100) * num) + num;
 
-        final result = flunctuateNumber(
+        final result = fluctuateNumber(
           number: num,
           maxPercentage: maxPercentage,
-          canBeNegativeFlunctuation: true,
+          canBeNegativeFluctuation: true,
         );
 
         expect(
@@ -29,7 +29,7 @@ void main() {
     );
 
     test(
-      "returns number in the range: number -> (((maxPercentage/100) * number) + number) when canBeNegativeFlunctuation = false",
+      "returns number in the range: number -> (((maxPercentage/100) * number) + number) when canBeNegativeFluctuation = false",
       () {
         const double num = 450;
         const int maxPercentage = 6;
@@ -37,10 +37,10 @@ void main() {
         const lowestPossibleValue = ((0) * num) + num;
         const highestPossibleValue = ((maxPercentage / 100) * num) + num;
 
-        final result = flunctuateNumber(
+        final result = fluctuateNumber(
           number: num,
           maxPercentage: maxPercentage,
-          canBeNegativeFlunctuation: false,
+          canBeNegativeFluctuation: false,
         );
 
         expect(
