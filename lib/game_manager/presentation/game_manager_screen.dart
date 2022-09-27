@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
-import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
@@ -75,18 +73,7 @@ class GameManagerScreen extends ConsumerWidget {
               //     .changeCurrentPlayerUsecase
               //     .execute(gameID: 10, newCurrentPlayerID: 11);
 
-              const event = Event(
-                id: 6,
-                gameID: 1,
-                eventType: "eventType6",
-                eventDay: 8,
-                mainPersonID: 3,
-                relationshipToMainPlayer: "sibling",
-                journalEntryOnly: false,
-                performed: true,
-              );
-
-              EventDaoImpl().updateEvent(event);
+             
             },
             child: const Text("do")),
         ElevatedButton(

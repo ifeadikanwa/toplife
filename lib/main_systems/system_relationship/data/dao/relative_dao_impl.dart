@@ -127,4 +127,23 @@ class RelativeDaoImpl implements RelativeDao {
         .map((relativeMap) => Relative.fromMap(relativeMap: relativeMap))
         .toList();
   }
+
+  @override
+  Future<List<Relative>> getAllNiblings(int mainPersonID) async {
+    final db = await _databaseProvider.database;
+    final relativesMap = await db.query(
+      relativeTable,
+      columns: Relative.allColumns,
+      where:
+          "${Relative.mainPersonIDColumn} = ? and ${Relative.relativeRelationshipTypeColumn} = ?",
+      whereArgs: [
+        mainPersonID,
+        RelativeRelationshipType.nibling.name,
+      ],
+    );
+
+    return relativesMap
+        .map((relativeMap) => Relative.fromMap(relativeMap: relativeMap))
+        .toList();
+  }
 }

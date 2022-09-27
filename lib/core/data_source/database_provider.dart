@@ -7,6 +7,7 @@ import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
 import 'package:toplife/main_systems/system_job/data/dao/employment_dao_impl.dart';
 import 'package:toplife/main_systems/system_job/data/dao/job_dao_impl.dart';
 import 'package:toplife/main_systems/system_job/data/dao/job_relationship_dao_impl.dart';
+import 'package:toplife/main_systems/system_journal/data/dao/journal_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
@@ -102,6 +103,9 @@ class DatabaseProvider {
 
     //Event
     await db.execute(EventDaoImpl.createTableQuery);
+
+    //Journal
+    await db.execute(JournalDaoImpl.createTableQuery);
   }
 
   Future<void> _onConfigure(Database db) async {
