@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
 import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/relatives_screen.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
 
 class RelationshipScreen extends StatelessWidget {
