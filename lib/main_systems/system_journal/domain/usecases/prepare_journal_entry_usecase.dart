@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
-import 'package:toplife/main_systems/system_journal/domain/repository/journal_repository.dart';
 
 class PrepareJournalEntryUsecase {
   String execute({required String journalEntry}) {
