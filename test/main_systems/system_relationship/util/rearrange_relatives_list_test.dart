@@ -8,7 +8,7 @@ import 'package:toplife/main_systems/system_relationship/util/rearrange_relative
 void main() {
   group("rearrangeRelativesList:", () {
     test(
-        "given a relatives list in the order nibling -> grandchild rearrange list in the order granchild -> nibling",
+        "given a relatives list in the order nibling -> grandchild -> cousin -> pibling rearrange list in the order granchild -> nibling -> pibling -> cousin",
         () {
       List<RelationshipPair<Relative, Person>> givenRelativesList = [
         RelationshipPair(
@@ -44,6 +44,60 @@ void main() {
             relativeID: 2,
             inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.grandchild.name,
+            relationship: 56,
+          ),
+          person: const Person(
+            firstName: "Sam",
+            lastName: "Johnson",
+            dayOfBirth: 34,
+            gender: "gender",
+            subjectPronoun: "subjectPronoun",
+            objectPronoun: "objectPronoun",
+            sexuality: "sexuality",
+            state: "state",
+            country: "country",
+            zodiacSign: "zodiacSign",
+            hasFertilityIssues: true,
+            onBirthControl: false,
+            isSterile: false,
+            sickly: true,
+            rebellious: false,
+            dead: false,
+          ),
+        ),
+        RelationshipPair(
+          relationship: Relative(
+            mainPersonID: 1,
+            relativeID: 2,
+            inYourCustody: true,
+            relativeRelationshipType: RelativeRelationshipType.cousin.name,
+            relationship: 56,
+          ),
+          person: const Person(
+            firstName: "Sam",
+            lastName: "Johnson",
+            dayOfBirth: 34,
+            gender: "gender",
+            subjectPronoun: "subjectPronoun",
+            objectPronoun: "objectPronoun",
+            sexuality: "sexuality",
+            state: "state",
+            country: "country",
+            zodiacSign: "zodiacSign",
+            hasFertilityIssues: true,
+            onBirthControl: false,
+            isSterile: false,
+            sickly: true,
+            rebellious: false,
+            dead: false,
+          ),
+        ),
+        RelationshipPair(
+          relationship: Relative(
+            mainPersonID: 1,
+            relativeID: 2,
+            inYourCustody: true,
+            relativeRelationshipType: RelativeRelationshipType.pibling.name,
             relationship: 56,
           ),
           person: const Person(
@@ -122,6 +176,60 @@ void main() {
             dead: false,
           ),
         ),
+        RelationshipPair(
+          relationship: Relative(
+            mainPersonID: 1,
+            relativeID: 2,
+            inYourCustody: true,
+            relativeRelationshipType: RelativeRelationshipType.pibling.name,
+            relationship: 56,
+          ),
+          person: const Person(
+            firstName: "Sam",
+            lastName: "Johnson",
+            dayOfBirth: 34,
+            gender: "gender",
+            subjectPronoun: "subjectPronoun",
+            objectPronoun: "objectPronoun",
+            sexuality: "sexuality",
+            state: "state",
+            country: "country",
+            zodiacSign: "zodiacSign",
+            hasFertilityIssues: true,
+            onBirthControl: false,
+            isSterile: false,
+            sickly: true,
+            rebellious: false,
+            dead: false,
+          ),
+        ),
+        RelationshipPair(
+          relationship: Relative(
+            mainPersonID: 1,
+            relativeID: 2,
+            inYourCustody: true,
+            relativeRelationshipType: RelativeRelationshipType.cousin.name,
+            relationship: 56,
+          ),
+          person: const Person(
+            firstName: "Sam",
+            lastName: "Johnson",
+            dayOfBirth: 34,
+            gender: "gender",
+            subjectPronoun: "subjectPronoun",
+            objectPronoun: "objectPronoun",
+            sexuality: "sexuality",
+            state: "state",
+            country: "country",
+            zodiacSign: "zodiacSign",
+            hasFertilityIssues: true,
+            onBirthControl: false,
+            isSterile: false,
+            sickly: true,
+            rebellious: false,
+            dead: false,
+          ),
+        ),
       ];
 
       final resultRelativesList = rearrangeRelativesList(givenRelativesList);
@@ -130,6 +238,10 @@ void main() {
           reason: "Cause: index 0");
       expect(resultRelativesList[1], correctRelativesList[1],
           reason: "Cause: index 1");
+      expect(resultRelativesList[2], correctRelativesList[2],
+          reason: "Cause: index 2");
+      expect(resultRelativesList[3], correctRelativesList[3],
+          reason: "Cause: index 3");
     });
   });
 }

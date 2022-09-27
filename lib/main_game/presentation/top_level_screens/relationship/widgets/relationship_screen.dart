@@ -3,12 +3,14 @@ import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
 import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/relatives_screen.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
-
+import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
 
 class RelationshipScreen extends StatelessWidget {
   const RelationshipScreen({Key? key}) : super(key: key);
@@ -37,14 +39,17 @@ class RelationshipScreen extends StatelessWidget {
           // ),
         ),
         Expanded(
-          child: ParentsScreen(parents: [
+            child: RelativesScreen(
+          relatives: [
             RelationshipPair(
-              relationship: Parent(
-                  mainPersonID: 1,
-                  parentID: 2,
-                  parentRelationshipType: ParentRelationshipType.grand.name,
-                  relationship: 34,
-                  isActive: true),
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType:
+                    RelativeRelationshipType.grandchild.name,
+                relationship: 56,
+              ),
               person: Person(
                 firstName: "Janet",
                 lastName: "Johnson",
@@ -65,12 +70,13 @@ class RelationshipScreen extends StatelessWidget {
               ),
             ),
             RelationshipPair(
-              relationship: Parent(
-                  mainPersonID: 1,
-                  parentID: 2,
-                  parentRelationshipType: ParentRelationshipType.main.name,
-                  relationship: 34,
-                  isActive: true),
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType: RelativeRelationshipType.nibling.name,
+                relationship: 56,
+              ),
               person: Person(
                 firstName: "Sam",
                 lastName: "Johnson",
@@ -91,12 +97,41 @@ class RelationshipScreen extends StatelessWidget {
               ),
             ),
             RelationshipPair(
-              relationship: Parent(
-                  mainPersonID: 1,
-                  parentID: 2,
-                  parentRelationshipType: ParentRelationshipType.step.name,
-                  relationship: 34,
-                  isActive: true),
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType: RelativeRelationshipType.pibling.name,
+                relationship: 56,
+              ),
+              person: Person(
+                firstName: "Stella",
+                lastName: "Johnson",
+                dayOfBirth: 34,
+                gender: Gender.Female.name,
+                subjectPronoun: "subjectPronoun",
+                objectPronoun: "objectPronoun",
+                sexuality: "sexuality",
+                state: "state",
+                country: "country",
+                zodiacSign: "zodiacSign",
+                hasFertilityIssues: true,
+                onBirthControl: false,
+                isSterile: false,
+                sickly: true,
+                rebellious: false,
+                dead: false,
+              ),
+            ),
+            RelationshipPair(
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType:
+                    RelativeRelationshipType.grandchild.name,
+                relationship: 56,
+              ),
               person: Person(
                 firstName: "Cynthia",
                 lastName: "Johnson",
@@ -117,12 +152,41 @@ class RelationshipScreen extends StatelessWidget {
               ),
             ),
             RelationshipPair(
-              relationship: Parent(
-                  mainPersonID: 1,
-                  parentID: 2,
-                  parentRelationshipType: ParentRelationshipType.grand.name,
-                  relationship: 34,
-                  isActive: true),
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType: RelativeRelationshipType.cousin.name,
+                relationship: 56,
+              ),
+              person: Person(
+                firstName: "Jarvis",
+                lastName: "Johnson",
+                dayOfBirth: 34,
+                gender: Gender.Male.name,
+                subjectPronoun: "subjectPronoun",
+                objectPronoun: "objectPronoun",
+                sexuality: "sexuality",
+                state: "state",
+                country: "country",
+                zodiacSign: "zodiacSign",
+                hasFertilityIssues: true,
+                onBirthControl: false,
+                isSterile: false,
+                sickly: true,
+                rebellious: false,
+                dead: false,
+              ),
+            ),
+            RelationshipPair(
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType:
+                    RelativeRelationshipType.grandchild.name,
+                relationship: 56,
+              ),
               person: Person(
                 firstName: "Jim",
                 lastName: "Johnson",
@@ -143,12 +207,40 @@ class RelationshipScreen extends StatelessWidget {
               ),
             ),
             RelationshipPair(
-              relationship: Parent(
-                  mainPersonID: 1,
-                  parentID: 2,
-                  parentRelationshipType: ParentRelationshipType.main.name,
-                  relationship: 34,
-                  isActive: true),
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType: RelativeRelationshipType.pibling.name,
+                relationship: 56,
+              ),
+              person: Person(
+                firstName: "Mark",
+                lastName: "Johnson",
+                dayOfBirth: 34,
+                gender: Gender.Male.name,
+                subjectPronoun: "subjectPronoun",
+                objectPronoun: "objectPronoun",
+                sexuality: "sexuality",
+                state: "state",
+                country: "country",
+                zodiacSign: "zodiacSign",
+                hasFertilityIssues: true,
+                onBirthControl: false,
+                isSterile: false,
+                sickly: true,
+                rebellious: false,
+                dead: false,
+              ),
+            ),
+            RelationshipPair(
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType: RelativeRelationshipType.nibling.name,
+                relationship: 56,
+              ),
               person: Person(
                 firstName: "Mary",
                 lastName: "Johnson",
@@ -169,12 +261,14 @@ class RelationshipScreen extends StatelessWidget {
               ),
             ),
             RelationshipPair(
-              relationship: Parent(
-                  mainPersonID: 1,
-                  parentID: 2,
-                  parentRelationshipType: ParentRelationshipType.step.name,
-                  relationship: 34,
-                  isActive: true),
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType:
+                    RelativeRelationshipType.grandchild.name,
+                relationship: 56,
+              ),
               person: Person(
                 firstName: "Xavier",
                 lastName: "Johnson",
@@ -195,12 +289,13 @@ class RelationshipScreen extends StatelessWidget {
               ),
             ),
             RelationshipPair(
-              relationship: Parent(
-                  mainPersonID: 1,
-                  parentID: 2,
-                  parentRelationshipType: ParentRelationshipType.grand.name,
-                  relationship: 34,
-                  isActive: true),
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType: RelativeRelationshipType.nibling.name,
+                relationship: 56,
+              ),
               person: Person(
                 firstName: "Natalie",
                 lastName: "Johnson",
@@ -221,12 +316,14 @@ class RelationshipScreen extends StatelessWidget {
               ),
             ),
             RelationshipPair(
-              relationship: Parent(
-                  mainPersonID: 1,
-                  parentID: 2,
-                  parentRelationshipType: ParentRelationshipType.step.name,
-                  relationship: 34,
-                  isActive: true),
+              relationship: Relative(
+                mainPersonID: 1,
+                relativeID: 2,
+                inYourCustody: true,
+                relativeRelationshipType:
+                    RelativeRelationshipType.grandchild.name,
+                relationship: 56,
+              ),
               person: Person(
                 firstName: "Ted",
                 lastName: "Johnson",
@@ -246,8 +343,8 @@ class RelationshipScreen extends StatelessWidget {
                 dead: false,
               ),
             ),
-          ]),
-        ),
+          ],
+        )),
       ],
     );
   }

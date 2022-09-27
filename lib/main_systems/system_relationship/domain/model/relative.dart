@@ -33,13 +33,20 @@ class Relative extends Equatable {
   static const String grandChildMaleEquivalent = "Grandson";
   static const String grandChildFemaleEquivalent = "Granddaughter";
 
-   static const String niblingMaleEquivalent = "Nephew";
+  static const String niblingMaleEquivalent = "Nephew";
   static const String niblingFemaleEquivalent = "Niece";
+
+  static const String piblingMaleEquivalent = "Uncle";
+  static const String piblingFemaleEquivalent = "Aunt";
+
+  static const String cousinMaleEquivalent = "Cousin";
+  static const String cousinFemaleEquivalent = "Cousin";
 
   static const String mainPersonIDColumn = "mainPersonID";
   static const String relativeIDColumn = "relativeID";
   static const String inYourCustodyColumn = "inYourCustody";
-  static const String relativeRelationshipTypeColumn = "relativeRelationshipType";
+  static const String relativeRelationshipTypeColumn =
+      "relativeRelationshipType";
   static const String relationshipColumn = "relationship";
 
   static const allColumns = [
@@ -55,7 +62,8 @@ class Relative extends Equatable {
       mainPersonID: relativeMap[mainPersonIDColumn] as int,
       relativeID: relativeMap[relativeIDColumn] as int,
       inYourCustody: relativeMap[inYourCustodyColumn] == databaseTrueValue,
-      relativeRelationshipType: relativeMap[relativeRelationshipTypeColumn] as String,
+      relativeRelationshipType:
+          relativeMap[relativeRelationshipTypeColumn] as String,
       relationship: relativeMap[relationshipColumn] as int,
     );
   }
@@ -64,7 +72,8 @@ class Relative extends Equatable {
     return {
       mainPersonIDColumn: mainPersonID,
       relativeIDColumn: relativeID,
-      inYourCustodyColumn: inYourCustody ? databaseTrueValue : databaseFalseValue,
+      inYourCustodyColumn:
+          inYourCustody ? databaseTrueValue : databaseFalseValue,
       relativeRelationshipTypeColumn: relativeRelationshipType,
       relationshipColumn: relationship,
     };
