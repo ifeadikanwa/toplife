@@ -9,8 +9,8 @@ class BuildingBasePrice {
   */
 
   //apartment. rent price.
-  static const apartmentBedroomBasePrice = 350; //current num was used for test
-  static const apartmentBathroomBasePrice = 200; //current num was used for test
+  static const apartmentBedroomBasePrice = 0; 
+  static const apartmentBathroomBasePrice = 0; 
 
   //condo. purchase price. rent price is a fraction of this.
   static const condoBedroomBasePrice = 0;
