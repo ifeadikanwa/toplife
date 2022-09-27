@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_systems/system_journal/data/dao/journal_dao_impl.dart';
+import 'package:toplife/main_systems/system_journal/data/repository/journal_repository_impl.dart';
 import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
+import 'package:toplife/main_systems/system_journal/domain/repository/journal_repository.dart';
+import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
@@ -75,14 +78,19 @@ class GameManagerScreen extends ConsumerWidget {
               //     .changeCurrentPlayerUsecase
               //     .execute(gameID: 10, newCurrentPlayerID: 11);
 
-              const journal = Journal(
-                gameID: 1,
-                day: 16,
-                mainPlayerID: 2,
-                entry: "another trash entry",
-              );
+              const gameID = 2;
+              const day = 24;
+              const mainPlayerID = 3;
+              const entry = "today was so warm and great, I'm dreading winter";
 
-              JournalDaoImpl().createJournal(journal);
+              final ju = JournalUsecases(
+                  journalRepository:
+                      JournalRepositoryImpl(journalDao: JournalDaoImpl()));
+
+              final result = await ju.getPlayersJournalsUsecase
+                  .execute(gameID: gameID, mainPlayerID: mainPlayerID);
+
+              print(result);
             },
             child: const Text("do")),
         ElevatedButton(
