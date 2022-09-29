@@ -12,6 +12,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/eat_usecase.d
 import 'package:toplife/main_systems/system_person/domain/usecases/generate_a_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/generate_list_of_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get_person_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/make_non_player_hungry_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/sleep_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_person_usecase.dart';
@@ -102,4 +103,7 @@ class PersonUsecases {
 
   GetPersonStatsUsecase get getPersonStatsUsecase => GetPersonStatsUsecase(
       statsRepository: _personRepositories.statsRepositoryImpl);
+
+  GetPersonUsecase get getPersonUsecase => GetPersonUsecase(
+      personRepository: _personRepositories.personRepositoryImpl);
 }

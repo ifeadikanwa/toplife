@@ -3,4 +3,5 @@ class JournalCharacters {
   static const String questionMark = "?";
   static const String newLine = "\n";
   static const String emptyString = "";
+  static const String space = " ";
 }

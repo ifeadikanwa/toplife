@@ -1,11 +1,11 @@
-import 'package:toplife/core/utils/date_and_time/time_in_minutes.dart';
+import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
 
 enum DefaultActivityDuration {
   eat(
-    durationInMinutes: TimeInMinutes.thirtyMinutes,
+    durationInMinutes: DurationTimeInMinutes.thirtyMinutes,
   ),
   sleep(
-    durationInMinutes: TimeInMinutes.oneHour,
+    durationInMinutes: DurationTimeInMinutes.oneHour,
     canTakeLonger: true,
   );
 

@@ -30,5 +30,11 @@ void main() {
         expect(JournalCharacters.emptyString, "");
       },
     );
+     test(
+      "space is " "",
+      () {
+        expect(JournalCharacters.space, " ");
+      },
+    );
   });
 }

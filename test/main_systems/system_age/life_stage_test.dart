@@ -62,5 +62,52 @@ void main() {
     test("elder life stage is called Elder", () {
       expect(LifeStage.elder.stageName, "Elder");
     });
+
+    test(
+      "baby has no school for stage",
+      () {
+        expect(LifeStage.baby.schoolForStage, "");
+      },
+    );
+
+    test(
+      "toddler school for stage is preschool",
+      () {
+        expect(LifeStage.toddler.schoolForStage, "Preschool");
+      },
+    );
+
+    test(
+      "child school for stage is middle school",
+      () {
+        expect(LifeStage.child.schoolForStage, "Middle School");
+      },
+    );
+
+    test(
+      "teen school for stage is High School",
+      () {
+        expect(LifeStage.teen.schoolForStage, "High School");
+      },
+    );
+
+    test(
+      "young adult has no school for stage",
+      () {
+        expect(LifeStage.youngAdult.schoolForStage, "");
+      },
+    );
+    test(
+      "adult has no school for stage",
+      () {
+        expect(LifeStage.adult.schoolForStage, "");
+      },
+    );
+    test(
+      "elder has no school for stage",
+      () {
+        expect(LifeStage.elder.schoolForStage, "");
+      },
+    );
   });
 }
