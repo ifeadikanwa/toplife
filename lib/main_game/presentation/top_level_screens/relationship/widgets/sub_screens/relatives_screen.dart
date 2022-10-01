@@ -55,9 +55,27 @@ class RelativesScreen extends StatelessWidget {
                 name: name,
                 relationshipAmount: relationshipAmount,
               );
-            } else {
+            } else if (relationshipType ==
+                RelativeRelationshipType.nibling.name) {
               return RelationshipListItemWithHeader(
                 sectionTitle: TextConstants.niecesAndNephews,
+                avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+                relationshipLabel: relationshipLabel,
+                name: name,
+                relationshipAmount: relationshipAmount,
+              );
+            } else if (relationshipType ==
+                RelativeRelationshipType.pibling.name) {
+              return RelationshipListItemWithHeader(
+                sectionTitle: TextConstants.unclesAndAunts,
+                avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+                relationshipLabel: relationshipLabel,
+                name: name,
+                relationshipAmount: relationshipAmount,
+              );
+            } else {
+              return RelationshipListItemWithHeader(
+                sectionTitle: TextConstants.cousins,
                 avatarImagePath: "assets/images/black_woman_placeholder.jpg",
                 relationshipLabel: relationshipLabel,
                 name: name,
@@ -140,6 +158,33 @@ final testRelativesList = [
       mainPersonID: 1,
       relativeID: 2,
       inYourCustody: true,
+      relativeRelationshipType: RelativeRelationshipType.pibling.name,
+      relationship: 56,
+    ),
+    person: Person(
+      firstName: "Stella",
+      lastName: "Johnson",
+      dayOfBirth: 34,
+      gender: Gender.Female.name,
+      subjectPronoun: "subjectPronoun",
+      objectPronoun: "objectPronoun",
+      sexuality: "sexuality",
+      state: "state",
+      country: "country",
+      zodiacSign: "zodiacSign",
+      hasFertilityIssues: true,
+      onBirthControl: false,
+      isSterile: false,
+      sickly: true,
+      rebellious: false,
+      dead: false,
+    ),
+  ),
+  RelationshipPair(
+    relationship: Relative(
+      mainPersonID: 1,
+      relativeID: 2,
+      inYourCustody: true,
       relativeRelationshipType: RelativeRelationshipType.grandchild.name,
       relationship: 56,
     ),
@@ -167,11 +212,65 @@ final testRelativesList = [
       mainPersonID: 1,
       relativeID: 2,
       inYourCustody: true,
+      relativeRelationshipType: RelativeRelationshipType.cousin.name,
+      relationship: 56,
+    ),
+    person: Person(
+      firstName: "Jarvis",
+      lastName: "Johnson",
+      dayOfBirth: 34,
+      gender: Gender.Male.name,
+      subjectPronoun: "subjectPronoun",
+      objectPronoun: "objectPronoun",
+      sexuality: "sexuality",
+      state: "state",
+      country: "country",
+      zodiacSign: "zodiacSign",
+      hasFertilityIssues: true,
+      onBirthControl: false,
+      isSterile: false,
+      sickly: true,
+      rebellious: false,
+      dead: false,
+    ),
+  ),
+  RelationshipPair(
+    relationship: Relative(
+      mainPersonID: 1,
+      relativeID: 2,
+      inYourCustody: true,
       relativeRelationshipType: RelativeRelationshipType.grandchild.name,
       relationship: 56,
     ),
     person: Person(
       firstName: "Jim",
+      lastName: "Johnson",
+      dayOfBirth: 34,
+      gender: Gender.Male.name,
+      subjectPronoun: "subjectPronoun",
+      objectPronoun: "objectPronoun",
+      sexuality: "sexuality",
+      state: "state",
+      country: "country",
+      zodiacSign: "zodiacSign",
+      hasFertilityIssues: true,
+      onBirthControl: false,
+      isSterile: false,
+      sickly: true,
+      rebellious: false,
+      dead: false,
+    ),
+  ),
+  RelationshipPair(
+    relationship: Relative(
+      mainPersonID: 1,
+      relativeID: 2,
+      inYourCustody: true,
+      relativeRelationshipType: RelativeRelationshipType.pibling.name,
+      relationship: 56,
+    ),
+    person: Person(
+      firstName: "Mark",
       lastName: "Johnson",
       dayOfBirth: 34,
       gender: Gender.Male.name,

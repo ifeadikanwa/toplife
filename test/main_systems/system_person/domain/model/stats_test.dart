@@ -10,6 +10,7 @@ void main() {
       personID: 2,
       energy: 46,
       hunger: 76,
+      sober: 99,
       looks: 89,
       intellect: 87,
       athleticism: 54,
@@ -25,6 +26,7 @@ void main() {
           "personID": 2,
           "energy": 46,
           "hunger": 76,
+          "sober": 99,
           "looks": 89,
           "intellect": 87,
           "athleticism": 54,
@@ -39,6 +41,7 @@ void main() {
           "personID": 2,
           "energy": 46,
           "hunger": 76,
+          "sober": 99,
           "looks": 89,
           "intellect": 87,
           "athleticism": 54,
@@ -55,6 +58,7 @@ void main() {
           personID: 2,
           energy: 70,
           hunger: 76,
+          sober: 99,
           looks: 89,
           intellect: 90,
           athleticism: 54,
@@ -68,8 +72,6 @@ void main() {
         test("id column should be defined as _id", () {
           expect(Stats.idColumn, "_id");
         });
-
-
       });
     },
   );

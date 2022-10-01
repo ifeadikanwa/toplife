@@ -6,6 +6,7 @@ import 'package:toplife/game_manager/domain/usecases/get_all_active_games_usecas
 import 'package:toplife/game_manager/domain/usecases/get_game_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/get_last_played_active_game_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/update_game_usecase.dart';
+import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
@@ -13,19 +14,23 @@ class GameUsecases {
   final GameRepository _gameRepository;
   final PersonUsecases _personUsecases;
   final RelationshipUsecases _relationshipUsecases;
+  final AgeUsecases _ageUsecases;
 
   const GameUsecases(
     GameRepository gameRepository,
     PersonUsecases personUsecases,
     RelationshipUsecases relationshipUsecases,
+    AgeUsecases ageUsecases,
   )   : _gameRepository = gameRepository,
         _personUsecases = personUsecases,
-        _relationshipUsecases = relationshipUsecases;
+        _relationshipUsecases = relationshipUsecases,
+        _ageUsecases = ageUsecases;
 
   CreateNewGameUsecase get createGameUsecase => CreateNewGameUsecase(
         gameRepository: _gameRepository,
         personUsecases: _personUsecases,
         relationshipUsecases: _relationshipUsecases,
+        ageUsecases: _ageUsecases,
       );
 
   UpdateGameUsecase get updateGameUsecase =>

@@ -17,6 +17,8 @@ class TextConstants {
   static const partner = "Partner";
   static const grandchildren = "Grandchildren";
   static const niecesAndNephews = "Nieces & Nephews";
+  static const unclesAndAunts = "Uncles & Aunts";
+  static const cousins = "Cousins";
   static const parentsInLaw = "Parents-in-law";
   static const childrenInLaw = "Children-in-law";
   static const siblingsInLaw = "Siblings-in-Law";

@@ -72,6 +72,22 @@ void main() {
         test("female equivalent of nibling is niece", () {
           expect(Relative.niblingFemaleEquivalent, "Niece");
         });
+
+         test("male equivalent of pibling is uncle", () {
+          expect(Relative.piblingMaleEquivalent, "Uncle");
+        });
+
+        test("female equivalent of pibling is aunt", () {
+          expect(Relative.piblingFemaleEquivalent, "Aunt");
+        });
+
+         test("male equivalent of cousin is cousin", () {
+          expect(Relative.cousinMaleEquivalent, "Cousin");
+        });
+
+        test("female equivalent of cousin is cousin", () {
+          expect(Relative.cousinFemaleEquivalent, "Cousin");
+        });
       });
     },
   );

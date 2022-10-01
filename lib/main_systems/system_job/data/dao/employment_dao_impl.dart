@@ -40,7 +40,7 @@ class EmploymentDaoImpl implements EmploymentDao {
        ON DELETE CASCADE,
       FOREIGN KEY (${Employment.jobIDColumn})
        REFERENCES ${JobDaoImpl.jobTable} (${Job.idColumn}) 
-       ON UPDATE NO ACTION
+       ON UPDATE CASCADE
        ON DELETE NO ACTION
       )
   ''';

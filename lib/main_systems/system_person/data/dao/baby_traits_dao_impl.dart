@@ -17,6 +17,7 @@ class BabyTraitsDaoImpl implements BabyTraitsDao {
       ${BabyTraits.personIDColumn} $integerType $unique,
       ${BabyTraits.fussinessColumn} $integerType,
       ${BabyTraits.appetiteColumn} $integerType,
+      ${BabyTraits.needsChangingColumn} $boolType,
       FOREIGN KEY (${BabyTraits.personIDColumn})
        REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
        ON UPDATE CASCADE

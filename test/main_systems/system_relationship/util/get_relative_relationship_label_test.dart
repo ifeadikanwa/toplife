@@ -34,40 +34,73 @@ void main() {
     });
 
     test(
-        "invalid relationship type returns nephew and niece for male and female gender",
+        "pibling relationship type returns uncle and aunt for male and female gender",
         () {
-       final String maleResult = getRelativeRelationshipLabel(
-         "wrong", Gender.Male.name);
+      final String maleResult = getRelativeRelationshipLabel(
+          RelativeRelationshipType.pibling.name, Gender.Male.name);
 
-      expect(maleResult, "nephew", reason: "Cause: male gender");
+      expect(maleResult, "uncle", reason: "Cause: male gender");
 
       final String femaleResult = getRelativeRelationshipLabel(
-         "wrong", Gender.Female.name);
+          RelativeRelationshipType.pibling.name, Gender.Female.name);
 
-      expect(femaleResult, "niece", reason: "Cause: female gender");
+      expect(femaleResult, "aunt", reason: "Cause: female gender");
+    });
+
+    test("cousin relationship type returns cousin for male and female gender",
+        () {
+      final String maleResult = getRelativeRelationshipLabel(
+          RelativeRelationshipType.cousin.name, Gender.Male.name);
+
+      expect(maleResult, "cousin", reason: "Cause: male gender");
+
+      final String femaleResult = getRelativeRelationshipLabel(
+          RelativeRelationshipType.cousin.name, Gender.Female.name);
+
+      expect(femaleResult, "cousin", reason: "Cause: female gender");
+    });
+
+    test("invalid relationship type returns cousin for male and female gender",
+        () {
+      final String maleResult =
+          getRelativeRelationshipLabel("wrong", Gender.Male.name);
+
+      expect(maleResult, "cousin", reason: "Cause: male gender");
+
+      final String femaleResult =
+          getRelativeRelationshipLabel("wrong", Gender.Female.name);
+
+      expect(femaleResult, "cousin", reason: "Cause: female gender");
     });
 
     test(
         "valid relationship type with invalid gender returns female label for type",
         () {
-      final String grandchildResult =
-          getRelativeRelationshipLabel(
+      final String grandchildResult = getRelativeRelationshipLabel(
           RelativeRelationshipType.grandchild.name, "wrong");
 
       expect(grandchildResult, "granddaughter", reason: "Cause: grandchild");
 
-      final String niblingResult =
-          getRelativeRelationshipLabel(
+      final String niblingResult = getRelativeRelationshipLabel(
           RelativeRelationshipType.nibling.name, "wrong");
 
-      expect(niblingResult, "niece", reason: "Cause: nibing");
+      expect(niblingResult, "niece", reason: "Cause: nibling");
+
+      final String piblingResult = getRelativeRelationshipLabel(
+          RelativeRelationshipType.pibling.name, "wrong");
+
+      expect(piblingResult, "aunt", reason: "Cause: pibling");
+
+      final String cousinResult = getRelativeRelationshipLabel(
+          RelativeRelationshipType.cousin.name, "wrong");
+
+      expect(cousinResult, "cousin", reason: "Cause: cousin");
     });
 
-    test("invalid relationship type with invalid gender returns niece",
-        () {
+    test("invalid relationship type with invalid gender returns cousin", () {
       final String result = getRelativeRelationshipLabel("wrong", "wrong");
 
-      expect(result, "niece");
+      expect(result, "cousin");
     });
   });
 }

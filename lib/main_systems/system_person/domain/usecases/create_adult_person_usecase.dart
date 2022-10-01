@@ -1,3 +1,4 @@
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
 import 'package:toplife/main_systems/system_person/data/repository/stance_repository_impl.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
@@ -32,6 +33,7 @@ class CreateAdultPersonUsecase {
         personID: createdPerson.id!,
         energy: Stats.getValidEnergyorHungerStatsValue(),
         hunger: Stats.getValidEnergyorHungerStatsValue(),
+        sober: maxStatsValue,
         looks: getValidRandomStatsValue(),
         intellect: getValidRandomStatsValue(),
         athleticism: getValidRandomStatsValue(),
@@ -64,6 +66,7 @@ class CreateAdultPersonUsecase {
         wantsPartnerToSignPrenup: Stance.getValidStanceValue(),
         openToCrimes: Stance.getValidStanceValue(),
         openToStayAtHomeParenting: Stance.getValidStanceValue(),
+        openToPremaritalSex: Stance.getValidStanceValue(),
       );
 
       await _stanceRepositoryImpl.createStance(createdPersonStance);

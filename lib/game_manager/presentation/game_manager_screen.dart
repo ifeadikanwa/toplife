@@ -42,12 +42,12 @@ class GameManagerScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(personUsecasesProvider).createChildPersonUsecase.execute(
                     person: Person(
-                      firstName: "Chinwe",
-                      lastName: "Eze",
-                      dayOfBirth: 23,
-                      gender: Gender.Male.name,
-                      subjectPronoun: Gender.Male.subjectPronoun,
-                      objectPronoun: Gender.Male.objectPronoun,
+                      firstName: "Stella",
+                      lastName: "Baker",
+                      dayOfBirth: -23,
+                      gender: Gender.Female.name,
+                      subjectPronoun: Gender.Female.subjectPronoun,
+                      objectPronoun: Gender.Female.objectPronoun,
                       sexuality: Sexuality.Straight.name,
                       state: "state",
                       country: "country",
@@ -73,45 +73,67 @@ class GameManagerScreen extends ConsumerWidget {
               //     .changeCurrentPlayerUsecase
               //     .execute(gameID: 10, newCurrentPlayerID: 11);
 
-              // const graveyard = Graveyard(
-              //     mainPersonID: 2,
-              //     deadPersonID: 8,
-              //     relationshipType: "Brother",
-              //     dayOfDeath: 45,
-              //     fullName: "John Doe",
-              //     ageAtDeath: "Elder");
-
-              // final g = await GraveyardDaoImpl().deleteGraveyard(1, 4);
-
-              // final child = Child(
+              // final p1 = Partner(
               //   mainPersonID: 1,
-              //   childID: 4,
-              //   inYourCustody: false,
-              //   childRelationshipType: ChildRelationshipType.adopted.name,
-              //   hidden: true,
-              //   paternityFraud: false,
-              //   assumedRelationshipType: "Uncle",
-              //   relationship: 67,
+              //   partnerID: 7,
+              //   partnerRelationshipType: PartnerRelationshipType.engaged.name,
+              //   isActive: false,
+              //   startDay: 1,
+              //   isCoParent: true,
+              //   metAt: "metAt",
+              //   relationship: 87,
               // );
 
-              // final parent = Parent(
+              // final p2 = Partner(
               //   mainPersonID: 1,
-              //   parentID: 5,
-              //   parentRelationshipType: ParentRelationshipType.main.name,
-              //   hidden: false,
-              //   paternityFraud: true,
-              //   assumedRelationshipType: "Niece",
-              //   relationship: 76,
+              //   partnerID: 8,
+              //   partnerRelationshipType: PartnerRelationshipType.dating.name,
               //   isActive: true,
+              //   startDay: 1,
+              //   isCoParent: false,
+              //   metAt: "metAt",
+              //   relationship: 99,
               // );
 
-              // await ChildDaoImpl().createChild(child);
+              // PartnerDaoImpl().createPartner(p1);
+              // PartnerDaoImpl().createPartner(p2);
 
-              // await ParentDaoImpl().createParent(parent);
-              // await ChildDaoImpl().updateChild(child);
+              // const currentDay = 1;
 
-              // final c = await ChildDaoImpl().getChild(1, 4);
-              // print(c);
+              // final event = Event(
+              //   id: 2,
+              //   gameID: 1,
+              //   eventType: EventType.birthday.name,
+              //   eventDay: currentDay,
+              //   mainPersonID: 5,
+              //   relationshipToMainPlayer: InformalRelationshipType.sibling.name,
+              //   journalEntryOnly: true,
+              //   performed: false,
+              // );
+
+              // final birthdayPerson = await ref
+              //     .read(personUsecasesProvider)
+              //     .getPersonUsecase
+              //     .execute(personID: 5);
+
+              // final age =
+              //     ref.read(ageUsecasesProvider).getPersonAgeUsecase.execute(
+              //           dayOfBirth: birthdayPerson!.dayOfBirth,
+              //           currentDay: currentDay,
+              //         );
+
+              // await BirthdayEvent(
+              //   ref.read(relationshipUsecasesProvider),
+              //   ref.read(personUsecasesProvider),
+              //   ref.read(ageUsecasesProvider),
+              //   ref.read(journalUsecasesProvider),
+              //   EventScheduler(ref.read(eventRepositoryProvider)),
+              //   ref.read(eventRepositoryProvider),
+              // ).execute(1, event);
+
+              // print(EventManager.convertEventTypeStringToEnum("birthday"));
+
+              // print(result);
             },
             child: const Text("do")),
         ElevatedButton(

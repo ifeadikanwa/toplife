@@ -16,6 +16,7 @@ class Person extends Equatable {
   final String zodiacSign;
   final String? importantStatus;
   final int? custodianID;
+  final bool hasDriversLicense;
   final bool hasFertilityIssues;
   final bool onBirthControl;
   final bool isSterile;
@@ -38,6 +39,7 @@ class Person extends Equatable {
     required this.zodiacSign,
     this.importantStatus,
     this.custodianID,
+    this.hasDriversLicense = false,
     required this.hasFertilityIssues,
     required this.onBirthControl,
     required this.isSterile,
@@ -62,6 +64,7 @@ class Person extends Equatable {
         zodiacSign,
         importantStatus,
         custodianID,
+        hasDriversLicense,
         hasFertilityIssues,
         onBirthControl,
         isSterile,
@@ -88,6 +91,7 @@ class Person extends Equatable {
   static const zodiacSignColumn = "zodiacSign";
   static const importantStatusColumn = "importantStatus";
   static const custodianIDColumn = "custodianID";
+  static const hasDriversLicenseColumn = "hasDriversLicense";
   static const sicklyColumn = "sickly";
   static const hasFertilityIssuesColumn = "hasFertilityIssues";
   static const onBirthControlColumn = "onBirthControl";
@@ -110,6 +114,7 @@ class Person extends Equatable {
     zodiacSignColumn,
     importantStatusColumn,
     custodianIDColumn,
+    hasDriversLicenseColumn,
     hasFertilityIssuesColumn,
     onBirthControlColumn,
     isSterileColumn,
@@ -134,7 +139,10 @@ class Person extends Equatable {
       zodiacSign: personMap[zodiacSignColumn] as String,
       importantStatus: personMap[importantStatusColumn] as String?,
       custodianID: personMap[custodianIDColumn] as int?,
-      hasFertilityIssues: personMap[hasFertilityIssuesColumn]== databaseTrueValue,
+      hasDriversLicense:
+          personMap[hasDriversLicenseColumn] == databaseTrueValue,
+      hasFertilityIssues:
+          personMap[hasFertilityIssuesColumn] == databaseTrueValue,
       onBirthControl: personMap[onBirthControlColumn] == databaseTrueValue,
       isSterile: personMap[isSterileColumn] == databaseTrueValue,
       sickly: personMap[sicklyColumn] == databaseTrueValue,
@@ -159,8 +167,12 @@ class Person extends Equatable {
       zodiacSignColumn: zodiacSign,
       importantStatusColumn: importantStatus,
       custodianIDColumn: custodianID,
-      hasFertilityIssuesColumn: hasFertilityIssues ? databaseTrueValue : databaseFalseValue,
-      onBirthControlColumn: onBirthControl ? databaseTrueValue : databaseFalseValue,
+      hasDriversLicenseColumn:
+          hasDriversLicense ? databaseTrueValue : databaseFalseValue,
+      hasFertilityIssuesColumn:
+          hasFertilityIssues ? databaseTrueValue : databaseFalseValue,
+      onBirthControlColumn:
+          onBirthControl ? databaseTrueValue : databaseFalseValue,
       isSterileColumn: isSterile ? databaseTrueValue : databaseFalseValue,
       sicklyColumn: sickly ? databaseTrueValue : databaseFalseValue,
       rebelliousColumn: rebellious ? databaseTrueValue : databaseFalseValue,
@@ -183,6 +195,7 @@ class Person extends Equatable {
     String? zodiacSign,
     String? importantStatus,
     int? custodianID,
+    bool? hasDriversLicense,
     bool? hasFertilityIssues,
     bool? onBirthControl,
     bool? isSterile,
@@ -204,6 +217,7 @@ class Person extends Equatable {
       country: country ?? this.country,
       importantStatus: importantStatus ?? this.importantStatus,
       custodianID: custodianID ?? this.custodianID,
+      hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
       zodiacSign: zodiacSign ?? this.zodiacSign,
       hasFertilityIssues: hasFertilityIssues ?? this.hasFertilityIssues,
       onBirthControl: onBirthControl ?? this.onBirthControl,

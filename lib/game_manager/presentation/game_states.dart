@@ -5,6 +5,13 @@ import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/game_manager/presentation/game_manager_viewmodel.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
+import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
+import 'package:toplife/main_systems/system_event/data/repository/event_repository_impl.dart';
+import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart';
+import 'package:toplife/main_systems/system_journal/data/dao/journal_dao_impl.dart';
+import 'package:toplife/main_systems/system_journal/data/repository/journal_repository_impl.dart';
+import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
@@ -58,6 +65,27 @@ final relationshipUsecasesProvider = Provider<RelationshipUsecases>(((ref) {
   );
 }));
 
+final journalUsecasesProvider = Provider<JournalUsecases>(((ref) {
+  return JournalUsecases(
+    journalRepository: JournalRepositoryImpl(
+      journalDao: JournalDaoImpl(),
+    ),
+  );
+}));
+
+final eventManagerProvider = Provider<EventManager>(((ref) {
+  return EventManager(
+      relationshipUsecases: ref.watch(relationshipUsecasesProvider),
+      personUsecases: ref.watch(personUsecasesProvider),
+      ageUsecases: ref.watch(ageUsecasesProvider),
+      journalUsecases: ref.watch(journalUsecasesProvider),
+      eventRepository: EventRepositoryImpl(eventDao: EventDaoImpl()));
+}));
+
+final eventRepositoryProvider = Provider<EventRepository>(((ref) {
+  return EventRepositoryImpl(eventDao: EventDaoImpl());
+}));
+
 final currentGameProvider = StateProvider<Game?>(((ref) {
   final game = ref.watch(gameManagerViewModel);
   return game.valueOrNull;
@@ -73,6 +101,7 @@ final gameUsecasesProvider = Provider<GameUsecases>(
         ref.watch(gameRepositoryImplProvider),
         ref.watch(personUsecasesProvider),
         ref.watch(relationshipUsecasesProvider),
+        ref.watch(ageUsecasesProvider),
       )),
 );
 

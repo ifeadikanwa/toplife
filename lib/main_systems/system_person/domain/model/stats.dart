@@ -7,6 +7,7 @@ class Stats extends Equatable {
   final int personID;
   final int energy;
   final int hunger;
+  final int sober;
   final int looks;
   final int athleticism;
   final int intellect;
@@ -16,6 +17,7 @@ class Stats extends Equatable {
     required this.personID,
     required this.energy,
     required this.hunger,
+    required this.sober,
     required this.looks,
     required this.intellect,
     required this.athleticism,
@@ -27,6 +29,7 @@ class Stats extends Equatable {
         personID,
         energy,
         hunger,
+        sober,
         looks,
         intellect,
         athleticism,
@@ -38,7 +41,7 @@ class Stats extends Equatable {
   //Helper constants
 
   static const hungerDepletionRatePerHour = 10;
-  static const energyDepletionRatePerHour = 5;
+  static const energyDepletionRatePerHour = 7;
 
   static const nonPlayerHungerDepletionRatePerHour = 8;
 
@@ -51,7 +54,7 @@ class Stats extends Equatable {
 
   static const hungerEmergencyModeStat = 20;
   static const energyEmergencyModeStat = 20;
-  static const babyHungerEmergencyModeStat = 15;
+  static const babyHungerEmergencyModeStat = 10;
   static const babyEnergyEmergencyModeStat = 10;
 
   static int getValidEnergyorHungerStatsValue() {
@@ -62,6 +65,7 @@ class Stats extends Equatable {
   static const personIDColumn = "personID";
   static const energyColumn = "energy";
   static const hungerColumn = "hunger";
+  static const soberColumn = "sober";
   static const looksColumn = "looks";
   static const intellectColumn = "intellect";
   static const athleticismColumn = "athleticism";
@@ -71,6 +75,7 @@ class Stats extends Equatable {
     personIDColumn,
     energyColumn,
     hungerColumn,
+    soberColumn,
     looksColumn,
     intellectColumn,
     athleticismColumn,
@@ -82,6 +87,7 @@ class Stats extends Equatable {
       personID: statsMap[personIDColumn] as int,
       energy: statsMap[energyColumn] as int,
       hunger: statsMap[hungerColumn] as int,
+      sober: statsMap[soberColumn] as int,
       looks: statsMap[looksColumn] as int,
       intellect: statsMap[intellectColumn] as int,
       athleticism: statsMap[athleticismColumn] as int,
@@ -94,6 +100,7 @@ class Stats extends Equatable {
       personIDColumn: personID,
       energyColumn: energy,
       hungerColumn: hunger,
+      soberColumn: sober,
       looksColumn: looks,
       intellectColumn: intellect,
       athleticismColumn: athleticism,
@@ -105,6 +112,7 @@ class Stats extends Equatable {
     int? personID,
     int? energy,
     int? hunger,
+    int? sober,
     int? looks,
     int? intellect,
     int? athleticism,
@@ -114,6 +122,7 @@ class Stats extends Equatable {
       personID: personID ?? this.personID,
       energy: crossCheckStat(energy) ?? this.energy,
       hunger: crossCheckStat(hunger) ?? this.hunger,
+      sober: crossCheckStat(sober) ?? this.sober,
       looks: crossCheckStat(looks) ?? this.looks,
       intellect: crossCheckStat(intellect) ?? this.intellect,
       athleticism: crossCheckStat(athleticism) ?? this.athleticism,
