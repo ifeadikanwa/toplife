@@ -3,7 +3,7 @@ import 'package:toplife/core/common_widgets/list_templates/section.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/list_item/current_work_list_item.dart';
 import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
-import 'package:toplife/main_systems/system_job/domain/model/info_models/job_pair.dart';
+import 'package:toplife/main_systems/system_job/domain/model/info_models/employment_pair.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/util/get_full_job_title.dart';
 import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
@@ -12,7 +12,7 @@ import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 class CurrentSection extends StatelessWidget {
   final SchoolPair<School, Degree>? currentSchool;
-  final List<JobPair<Employment, Job>> currentEmployments;
+  final List<EmploymentPair<Employment, Job>> currentEmployments;
   const CurrentSection({
     Key? key,
     this.currentSchool,
@@ -39,7 +39,7 @@ class CurrentSection extends StatelessWidget {
   }
 
   List<CurrentWorkListItem> employmentWidgets(
-    List<JobPair<Employment, Job>> employments,
+    List<EmploymentPair<Employment, Job>> employments,
   ) {
     List<CurrentWorkListItem> employmentsWidgets = [];
 

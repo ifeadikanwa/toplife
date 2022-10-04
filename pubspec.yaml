@@ -52,6 +52,7 @@ dependencies:
   custom_navigation_bar: ^0.8.2
   flutter_snake_navigationbar: ^0.6.1
   intl: ^0.17.0
+  go_router: ^5.0.5
 
 dev_dependencies:
   flutter_test:
