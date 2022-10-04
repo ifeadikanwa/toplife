@@ -2,6 +2,7 @@ class TextConstants {
   //app
   static const appName = "TopLife";
   static const emptyString = "";
+  static const me = "Me";
   static const home = "Home";
   static const finances = "Finances";
   static const journal = "Journal";
