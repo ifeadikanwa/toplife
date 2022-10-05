@@ -1,13 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
 import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/relatives_screen.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_test_lists.dart';
 
 class RelationshipScreen extends StatelessWidget {
   const RelationshipScreen({Key? key}) : super(key: key);
@@ -17,332 +15,86 @@ class RelationshipScreen extends StatelessWidget {
     const avatarImagePath = "assets/images/black_woman_placeholder.jpg";
     const flagImagePath = "assets/images/france_flag.jpg";
 
-    return Column(
-      children: [
-        const PlayerStatusBar(
-          firstName: "Janet",
-          lastName: "Jackson",
-          avatarImagePath: avatarImagePath,
-          flagImagePath: flagImagePath,
-          currency: "\$",
-          bankBalance: "60,000",
-          time: "08:45 AM",
-          dayNumber: "34",
-        ),
-        TopLevelAppBar(
-          title: TextConstants.relationships.toUpperCase(),
-          // leading: Icon(
-          //   Icons.menu_outlined,
-          // ),
-        ),
-        Expanded(
-            child: RelativesScreen(
-          relatives: [
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType:
-                    RelativeRelationshipType.grandchild.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Janet",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Female.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
+    return AutoTabsRouter.tabBar(
+      routes: [
+        ParentsRoute(parents: RelationshipTestLists.testParentsList),
+        SiblingsRoute(siblings: RelationshipTestLists.testSiblingList),
+        PartnersRoute(partners: RelationshipTestLists.testPartnersList),
+        ChildrenRoute(childrenList: RelationshipTestLists.testChildrenList),
+        RelativesRoute(relatives: RelationshipTestLists.testRelativesList),
+        InLawsRoute(inLaws: RelationshipTestLists.testInLawsList),
+        FriendsRoute(friends: RelationshipTestLists.testFriendsList),
+        ExesRoute(exes: RelationshipTestLists.testExesList),
+        GraveyardRoute(graveyards: RelationshipTestLists.testGraveyards),
+      ],
+      builder: (context, child, tabController) {
+        final appTheme = Theme.of(context);
+
+        return Column(
+          children: [
+            const PlayerStatusBar(
+              firstName: "Janet",
+              lastName: "Jackson",
+              avatarImagePath: avatarImagePath,
+              flagImagePath: flagImagePath,
+              currency: "\$",
+              bankBalance: "60,000",
+              time: "08:45 AM",
+              dayNumber: "34",
             ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType: RelativeRelationshipType.nibling.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Sam",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Male.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
+            TopLevelAppBar(
+              title: TextConstants.relationships.toUpperCase(),
+              // leading: Icon(
+              //   Icons.menu_outlined,
+              // ),
             ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType: RelativeRelationshipType.pibling.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Stella",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Female.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
-            ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType:
-                    RelativeRelationshipType.grandchild.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Cynthia",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Female.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
-            ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType: RelativeRelationshipType.cousin.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Jarvis",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Male.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
-            ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType:
-                    RelativeRelationshipType.grandchild.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Jim",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Male.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
-            ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType: RelativeRelationshipType.pibling.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Mark",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Male.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
-            ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType: RelativeRelationshipType.nibling.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Mary",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Female.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
-            ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType:
-                    RelativeRelationshipType.grandchild.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Xavier",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Male.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
-            ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType: RelativeRelationshipType.nibling.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Natalie",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Female.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
-              ),
-            ),
-            RelationshipPair(
-              relationship: Relative(
-                mainPersonID: 1,
-                relativeID: 2,
-                inYourCustody: true,
-                relativeRelationshipType:
-                    RelativeRelationshipType.grandchild.name,
-                relationship: 56,
-              ),
-              person: Person(
-                firstName: "Ted",
-                lastName: "Johnson",
-                dayOfBirth: 34,
-                gender: Gender.Male.name,
-                subjectPronoun: "subjectPronoun",
-                objectPronoun: "objectPronoun",
-                sexuality: "sexuality",
-                state: "state",
-                country: "country",
-                zodiacSign: "zodiacSign",
-                hasFertilityIssues: true,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: true,
-                rebellious: false,
-                dead: false,
+            Expanded(
+              child: Scaffold(
+                appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(kToolbarHeight),
+                  child: TabBar(
+                    isScrollable: true,
+                    labelStyle: boldTextStyle,
+                    indicatorColor: appTheme.colorScheme.tertiary,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    controller: tabController,
+                    tabs: [
+                      Tab(
+                        text: TextConstants.parents.toUpperCase(),
+                      ),
+                      Tab(
+                        text: TextConstants.siblings.toUpperCase(),
+                      ),
+                      Tab(
+                        text: TextConstants.partners.toUpperCase(),
+                      ),
+                      Tab(
+                        text: TextConstants.children.toUpperCase(),
+                      ),
+                      Tab(
+                        text: TextConstants.relatives.toUpperCase(),
+                      ),
+                      Tab(
+                        text: TextConstants.inLaws.toUpperCase(),
+                      ),
+                      Tab(
+                        text: TextConstants.friends.toUpperCase(),
+                      ),
+                      Tab(
+                        text: TextConstants.exes.toUpperCase(),
+                      ),
+                      Tab(
+                        text: TextConstants.graveyard.toUpperCase(),
+                      ),
+                    ],
+                  ),
+                ),
+                body: child,
               ),
             ),
           ],
-        )),
-      ],
+        );
+      },
     );
   }
 }

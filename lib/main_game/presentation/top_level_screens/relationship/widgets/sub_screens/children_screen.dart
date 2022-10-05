@@ -10,34 +10,35 @@ import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_child_relationship_label.dart';
 
 class ChildrenScreen extends StatelessWidget {
-  final List<RelationshipPair<Child, Person>> children;
+  final List<RelationshipPair<Child, Person>> childrenList;
   const ChildrenScreen({
     Key? key,
-    required this.children,
+    required this.childrenList,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RelationshipListScreen(
       listView: ListView.separated(
-        itemCount: children.length,
+        itemCount: childrenList.length,
         itemBuilder: (context, index) {
           //relationship label
           final relationshipType =
-              children[index].relationship.childRelationshipType;
-          final gender = children[index].person.gender;
+              childrenList[index].relationship.childRelationshipType;
+          final gender = childrenList[index].person.gender;
           final String relationshipLabel =
               getChildRelationshipLabel(relationshipType, gender);
 
           //name
           final name =
-              "${children[index].person.firstName} ${children[index].person.lastName}";
+              "${childrenList[index].person.firstName} ${childrenList[index].person.lastName}";
 
           //relationship amount
-          final relationshipAmount = children[index].relationship.relationship;
+          final relationshipAmount =
+              childrenList[index].relationship.relationship;
 
           //inYourCustody
-          final inYourCustody = children[index].relationship.inYourCustody;
+          final inYourCustody = childrenList[index].relationship.inYourCustody;
 
           return ChildrenListItem(
             avatarImagePath: "assets/images/black_woman_placeholder.jpg",

@@ -6,6 +6,15 @@ import 'package:toplife/main_game/presentation/main_game_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/player_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/children_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/exes_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/friends_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/graveyard_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/inlaws_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/partners_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/relatives_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/siblings_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/shop_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/work_screen.dart';
 
@@ -51,6 +60,9 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
             AutoRoute(
               path: RouteName.emptyPath,
               page: ShopScreen,
+              children: [
+                
+              ],
             ),
           ],
         ),
@@ -63,6 +75,18 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
             AutoRoute(
               path: RouteName.emptyPath,
               page: RelationshipScreen,
+              //all tabs in relationship screen
+              children: [
+                AutoRoute(path: RouteName.parentsPath, page: ParentsScreen),
+                AutoRoute(path: RouteName.siblingsPath, page: SiblingsScreen),
+                AutoRoute(path: RouteName.partnersPath, page: PartnersScreen),
+                AutoRoute(path: RouteName.childrenPath, page: ChildrenScreen),
+                AutoRoute(path: RouteName.relativesPath, page: RelativesScreen),
+                AutoRoute(path: RouteName.inLawsPath, page: InLawsScreen),
+                AutoRoute(path: RouteName.friendsPath, page: FriendsScreen),
+                AutoRoute(path: RouteName.exesPath, page: ExesScreen),
+                AutoRoute(path: RouteName.graveyardPath, page: GraveyardScreen),
+              ],
             ),
           ],
         ),

@@ -6,5 +6,13 @@ class ShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
+    // return AutoTabsRouter.tabBar(
+    //   routes: const [],
+    //   builder: (context, child, tabController) {
+    //     final appTheme = Theme.of(context);
+
+    //     return Scaffold();
+    //   },
+    // );
   }
 }

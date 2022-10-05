@@ -10,10 +10,18 @@ class TextConstants {
   //relationship
   static const relationship = "Relationship";
   static const relationships = "Relationships";
+  static const parents = "Parents";
+  static const siblings = "Siblings";
+  static const children = "Children";
+  static const partners = "Partners";
+  static const relatives = "Relatives";
+  static const inLaws = "In-Laws";
+  static const friends = "Friends";
+  static const exes = "Exes";
+  static const graveyard = "Graveyard";
   static const friend = "Friend";
   static const grand = "Grand";
   static const grandparents = "Grandparents";
-  static const parents = "Parents";
   static const coparents = "Co-parents";
   static const partner = "Partner";
   static const grandchildren = "Grandchildren";

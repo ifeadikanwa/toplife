@@ -28,7 +28,7 @@ class AppTheme {
     ),
   );
 
-  // 
+  //
   // static final cottonCandyTheme = ThemeData(
   //   brightness: Brightness.light,
   //   fontFamily: appFont,
@@ -232,6 +232,7 @@ class AppTheme {
     fontFamily: appFont,
     primaryColor: Colors.white,
     scaffoldBackgroundColor: darkThemeBlack,
+    tabBarTheme: const TabBarTheme(labelColor: Colors.white),
     iconTheme: const IconThemeData(color: Colors.white),
     colorScheme: const ColorScheme.dark(
       brightness: Brightness.dark,

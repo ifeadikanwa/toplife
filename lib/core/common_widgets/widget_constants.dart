@@ -52,10 +52,6 @@ const relationshipLabelTextStyle = TextStyle(
   fontStyle: FontStyle.italic,
 );
 const relationshipNameTextStyle = TextStyle();
-const relationshipListHeaderTextSyle = TextStyle(
-  fontSize: 16.0,
-  fontWeight: FontWeight.bold,
-);
 
 const sectionHeaderTextStyle = TextStyle(
   fontSize: 18.0,
