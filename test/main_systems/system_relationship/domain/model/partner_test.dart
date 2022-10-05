@@ -11,6 +11,7 @@ void main() {
       partnerID: 5,
       partnerRelationshipType: PartnerRelationshipType.dating.maleEquivalent,
       isActive: true,
+      jointMoney: 3500,
       startDay: 34,
       isCoParent: true,
       metAt: "Online",
@@ -21,6 +22,23 @@ void main() {
   group(
     "Partner:",
     () {
+      test(
+        "new partner has a default value of 0 for jointMoney",
+        () {
+          const newPartner = Partner(
+            mainPersonID: 1,
+            partnerID: 1,
+            partnerRelationshipType: "partnerRelationshipType",
+            isActive: true,
+            startDay: 2,
+            isCoParent: false,
+            metAt: "metAt",
+            relationship: 60,
+          );
+
+          expect(newPartner.jointMoney, 0);
+        },
+      );
       test("toMap returns map equivalent of object", () {
         final Map<String, Object?> correctMap = {
           "mainPersonID": 1,
@@ -28,6 +46,7 @@ void main() {
           "partnerRelationshipType":
               PartnerRelationshipType.dating.maleEquivalent,
           "isActive": 1,
+          "jointMoney": 3500,
           "startDay": 34,
           "endDay": null,
           "isCoParent": 1,
@@ -45,6 +64,7 @@ void main() {
           "partnerRelationshipType":
               PartnerRelationshipType.dating.maleEquivalent,
           "isActive": 1,
+          "jointMoney": 3500,
           "startDay": 34,
           "endDay": null,
           "isCoParent": 1,
@@ -64,6 +84,7 @@ void main() {
           partnerRelationshipType:
               PartnerRelationshipType.coparent.maleEquivalent,
           isActive: true,
+          jointMoney: 1200,
           endDay: 90,
           startDay: 34,
           isCoParent: true,
@@ -72,9 +93,11 @@ void main() {
         );
 
         final result = sut.copyWith(
-            endDay: 90,
-            partnerRelationshipType:
-                PartnerRelationshipType.coparent.maleEquivalent);
+          endDay: 90,
+          partnerRelationshipType:
+              PartnerRelationshipType.coparent.maleEquivalent,
+          jointMoney: 1200,
+        );
         expect(result, correctPartner);
       });
     },

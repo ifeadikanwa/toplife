@@ -42,6 +42,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -68,6 +70,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -94,6 +98,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
   ];
@@ -127,6 +133,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -157,6 +165,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -187,6 +197,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -217,6 +229,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -247,6 +261,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -277,6 +293,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -307,6 +325,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -337,6 +357,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
   ];
@@ -362,6 +384,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -384,6 +408,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -406,6 +432,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
   ];
@@ -462,6 +490,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -488,6 +518,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -514,6 +546,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -540,6 +574,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -566,6 +602,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -592,6 +630,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -618,6 +658,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -644,6 +686,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
   ];
@@ -673,6 +717,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -699,6 +745,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -725,6 +773,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -751,6 +801,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -777,6 +829,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -803,6 +857,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -829,6 +885,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -855,6 +913,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
   ];
@@ -888,6 +948,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -918,6 +980,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -948,6 +1012,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -978,6 +1044,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1008,6 +1076,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1038,6 +1108,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1068,6 +1140,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1098,6 +1172,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
   ];
@@ -1128,6 +1204,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1155,6 +1233,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1182,6 +1262,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1209,6 +1291,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1236,6 +1320,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1263,6 +1349,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1290,6 +1378,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1317,6 +1407,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1344,6 +1436,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1371,6 +1465,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1398,6 +1494,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
   ];
@@ -1427,6 +1525,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1453,6 +1553,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
     RelationshipPair(
@@ -1479,6 +1581,8 @@ class RelationshipTestLists {
         sickly: true,
         rebellious: false,
         dead: false,
+        possessivePronoun: "possessivePronoun",
+        money: 750,
       ),
     ),
   ];

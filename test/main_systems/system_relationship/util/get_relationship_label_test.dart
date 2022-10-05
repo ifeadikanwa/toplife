@@ -26,9 +26,11 @@ void main() {
       gender: Gender.Female.name,
       subjectPronoun: "subjectPronoun",
       objectPronoun: "objectPronoun",
+      possessivePronoun: "possessivePronoun",
       sexuality: "sexuality",
       state: "state",
       country: "country",
+      money: 130,
       zodiacSign: "zodiacSign",
       hasFertilityIssues: true,
       onBirthControl: true,
@@ -270,10 +272,8 @@ void main() {
 
         expect(
           getRelationshipLabel(
-            relationshipPair: RelationshipPair(
-              relationship: friend,
-              person: testPerson
-            ),
+            relationshipPair:
+                RelationshipPair(relationship: friend, person: testPerson),
             onlyActivePartnerWanted: true,
           ),
           "friend",

@@ -10,9 +10,11 @@ class Person extends Equatable {
   final String gender;
   final String subjectPronoun;
   final String objectPronoun;
+  final String possessivePronoun;
   final String sexuality;
   final String state;
   final String country;
+  final int money;
   final String zodiacSign;
   final String? importantStatus;
   final int? custodianID;
@@ -33,9 +35,11 @@ class Person extends Equatable {
     required this.gender,
     required this.subjectPronoun,
     required this.objectPronoun,
+    required this.possessivePronoun,
     required this.sexuality,
     required this.state,
     required this.country,
+    required this.money,
     required this.zodiacSign,
     this.importantStatus,
     this.custodianID,
@@ -58,9 +62,11 @@ class Person extends Equatable {
         gender,
         subjectPronoun,
         objectPronoun,
+        possessivePronoun,
         sexuality,
         state,
         country,
+        money,
         zodiacSign,
         importantStatus,
         custodianID,
@@ -85,9 +91,11 @@ class Person extends Equatable {
   static const genderColumn = "gender";
   static const subjectPronounColumn = "subjectPronoun";
   static const objectPronounColumn = "objectPronoun";
+  static const possessivePronounColumn = "possessivePronoun";
   static const sexualityColumn = "sexuality";
   static const stateColumn = "state";
   static const countryColumn = "country";
+  static const moneyColumn = "money";
   static const zodiacSignColumn = "zodiacSign";
   static const importantStatusColumn = "importantStatus";
   static const custodianIDColumn = "custodianID";
@@ -108,9 +116,11 @@ class Person extends Equatable {
     genderColumn,
     subjectPronounColumn,
     objectPronounColumn,
+    possessivePronounColumn,
     sexualityColumn,
     stateColumn,
     countryColumn,
+    moneyColumn,
     zodiacSignColumn,
     importantStatusColumn,
     custodianIDColumn,
@@ -133,9 +143,11 @@ class Person extends Equatable {
       gender: personMap[genderColumn] as String,
       subjectPronoun: personMap[subjectPronounColumn] as String,
       objectPronoun: personMap[objectPronounColumn] as String,
+      possessivePronoun: personMap[possessivePronounColumn] as String,
       sexuality: personMap[sexualityColumn] as String,
       state: personMap[stateColumn] as String,
       country: personMap[countryColumn] as String,
+      money: personMap[moneyColumn] as int,
       zodiacSign: personMap[zodiacSignColumn] as String,
       importantStatus: personMap[importantStatusColumn] as String?,
       custodianID: personMap[custodianIDColumn] as int?,
@@ -161,9 +173,11 @@ class Person extends Equatable {
       genderColumn: gender,
       subjectPronounColumn: subjectPronoun,
       objectPronounColumn: objectPronoun,
+      possessivePronounColumn: possessivePronoun,
       sexualityColumn: sexuality,
       stateColumn: state,
       countryColumn: country,
+      moneyColumn: money,
       zodiacSignColumn: zodiacSign,
       importantStatusColumn: importantStatus,
       custodianIDColumn: custodianID,
@@ -189,9 +203,11 @@ class Person extends Equatable {
     String? gender,
     String? subjectPronoun,
     String? objectPronoun,
+    String? possessivePronoun,
     String? sexuality,
     String? state,
     String? country,
+    int? money,
     String? zodiacSign,
     String? importantStatus,
     int? custodianID,
@@ -212,9 +228,11 @@ class Person extends Equatable {
       gender: gender ?? this.gender,
       subjectPronoun: subjectPronoun ?? this.subjectPronoun,
       objectPronoun: objectPronoun ?? this.objectPronoun,
+      possessivePronoun: possessivePronoun ?? this.possessivePronoun,
       sexuality: sexuality ?? this.sexuality,
       state: state ?? this.state,
       country: country ?? this.country,
+      money: money ?? this.money,
       importantStatus: importantStatus ?? this.importantStatus,
       custodianID: custodianID ?? this.custodianID,
       hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,

@@ -25,9 +25,11 @@ void main() {
             gender: "gender",
             subjectPronoun: "subjectPronoun",
             objectPronoun: "objectPronoun",
+            possessivePronoun: "possessivePronoun",
             sexuality: "sexuality",
             state: "state",
             country: "country",
+            money: 120,
             zodiacSign: "zodiacSign",
             hasFertilityIssues: true,
             onBirthControl: false,
@@ -51,9 +53,11 @@ void main() {
             gender: "gender",
             subjectPronoun: "subjectPronoun",
             objectPronoun: "objectPronoun",
+            possessivePronoun: "possessivePronoun",
             sexuality: "sexuality",
             state: "state",
             country: "country",
+            money: 120,
             zodiacSign: "zodiacSign",
             hasFertilityIssues: true,
             onBirthControl: false,
@@ -77,9 +81,11 @@ void main() {
             gender: "gender",
             subjectPronoun: "subjectPronoun",
             objectPronoun: "objectPronoun",
+            possessivePronoun: "possessivePronoun",
             sexuality: "sexuality",
             state: "state",
             country: "country",
+            money: 120,
             zodiacSign: "zodiacSign",
             hasFertilityIssues: true,
             onBirthControl: false,
@@ -106,9 +112,11 @@ void main() {
             gender: "gender",
             subjectPronoun: "subjectPronoun",
             objectPronoun: "objectPronoun",
+            possessivePronoun: "possessivePronoun",
             sexuality: "sexuality",
             state: "state",
             country: "country",
+            money: 120,
             zodiacSign: "zodiacSign",
             hasFertilityIssues: true,
             onBirthControl: false,
@@ -132,9 +140,11 @@ void main() {
             gender: "gender",
             subjectPronoun: "subjectPronoun",
             objectPronoun: "objectPronoun",
+            possessivePronoun: "possessivePronoun",
             sexuality: "sexuality",
             state: "state",
             country: "country",
+            money: 120,
             zodiacSign: "zodiacSign",
             hasFertilityIssues: true,
             onBirthControl: false,
@@ -158,9 +168,11 @@ void main() {
             gender: "gender",
             subjectPronoun: "subjectPronoun",
             objectPronoun: "objectPronoun",
+            possessivePronoun: "possessivePronoun",
             sexuality: "sexuality",
             state: "state",
             country: "country",
+            money: 120,
             zodiacSign: "zodiacSign",
             hasFertilityIssues: true,
             onBirthControl: false,
@@ -175,9 +187,12 @@ void main() {
       final List<RelationshipPair<InLaw, Person>> resultInLawsList =
           rearrangeInLawsList(givenInLawsList);
 
-      expect(resultInLawsList[0], correctInLawsList[0], reason: "Cause: index 0");
-      expect(resultInLawsList[1], correctInLawsList[1], reason: "Cause: index 1");
-      expect(resultInLawsList[2], correctInLawsList[2], reason: "Cause: index 2");
+      expect(resultInLawsList[0], correctInLawsList[0],
+          reason: "Cause: index 0");
+      expect(resultInLawsList[1], correctInLawsList[1],
+          reason: "Cause: index 1");
+      expect(resultInLawsList[2], correctInLawsList[2],
+          reason: "Cause: index 2");
     });
   });
 }

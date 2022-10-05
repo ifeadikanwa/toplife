@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
@@ -87,9 +89,11 @@ class GenerateAPersonUsecase {
       gender: personGender.name,
       subjectPronoun: personGender.subjectPronoun,
       objectPronoun: personGender.objectPronoun,
+      possessivePronoun: personGender.possessivepronoun,
       sexuality: personSexuality.name,
       state: currentState,
       country: currentCountry,
+      money: Random().nextInt(60) + 40, //random amount in 40-100
       zodiacSign: personZodiacSign.name,
       hasFertilityIssues: Chance.getTrueOrFalseBasedOnPercentageChance(
         trueChancePercentage: 10,
