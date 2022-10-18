@@ -89,7 +89,7 @@ void main() {
           startDay: 34,
           isCoParent: true,
           metAt: "Online",
-          relationship: 90,
+          relationship: 100,
         );
 
         final result = sut.copyWith(
@@ -97,6 +97,7 @@ void main() {
           partnerRelationshipType:
               PartnerRelationshipType.coparent.maleEquivalent,
           jointMoney: 1200,
+          relationship: 150
         );
         expect(result, correctPartner);
       });

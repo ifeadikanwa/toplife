@@ -20,7 +20,7 @@ class PrepareJournalEntryUsecase {
       editedJournalEntry = "$editedJournalEntry${JournalCharacters.fullStop}";
     }
 
-    editedJournalEntry = "$editedJournalEntry${JournalCharacters.newLine}";
+    editedJournalEntry = "$editedJournalEntry${JournalCharacters.newLine}${JournalCharacters.newLine}";
 
     return editedJournalEntry;
   }

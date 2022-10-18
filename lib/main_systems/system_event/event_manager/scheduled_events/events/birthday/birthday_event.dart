@@ -85,6 +85,7 @@ class BirthdayEvent {
     else {
       return NpcBirthday(
         _relationshipUsecases,
+        _personUsecases,
         _ageUsecases,
         _eventScheduler,
       ).run(

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
 class EventUtil {
   //9am-11am
@@ -10,8 +11,9 @@ class EventUtil {
     ClockTimeInMinutes.elevenAM,
   ];
 
-  //1pm-4pm
+  //12pm-4pm
   static const List<int> afternoonEventStartTimes = [
+    ClockTimeInMinutes.twelvePM,
     ClockTimeInMinutes.onePM,
     ClockTimeInMinutes.twoPM,
     ClockTimeInMinutes.threePM,
@@ -53,5 +55,13 @@ class EventUtil {
 
     //return a random possible time
     return possibleStartTimes[Random().nextInt(possibleStartTimes.length)];
+  }
+
+   static bool checkIfPlayerCanAttendEvent({
+    required Person mainPlayerPerson,
+    required Person eventMainPerson,
+  }) {
+    return mainPlayerPerson.country.toLowerCase() ==
+        eventMainPerson.country.toLowerCase();
   }
 }

@@ -4,11 +4,6 @@ import 'package:toplife/config/theme/colors.dart';
 class AppTheme {
   static const appFont = 'Ubuntu';
 
-  static final lightThemeOutlineButtonTheme = OutlinedButtonThemeData(
-    style: OutlinedButton.styleFrom(
-        foregroundColor: Colors.black, side: const BorderSide(color: darkPink)),
-  );
-
   //LIGHT THEMES
 
   //?
@@ -396,9 +391,6 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: deepSkyBlue,
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.w400,
-        ),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(

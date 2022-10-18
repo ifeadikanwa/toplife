@@ -67,4 +67,39 @@ class EventScheduler {
       _eventRepository.createEvent(nextBirthday);
     }
   }
+
+  Future<Event> scheduleFuneral({
+    required int gameID,
+    required int mainPlayerID,
+    required int deadPersonID,
+    required int currentDay,
+    int? eventStartTime,
+    required String relationshipToMainPlayer,
+  }) {
+    late final int funeralEventStartTime;
+
+    if (eventStartTime == null) {
+      funeralEventStartTime = EventUtil.getRandomEventStartTime(
+        canBeMorning: true,
+        canBeAfternoon: true,
+        canBeNight: false,
+      );
+    } else {
+      funeralEventStartTime = eventStartTime;
+    }
+
+    final Event funeral = Event(
+      gameID: gameID,
+      eventType: EventType.funeral.name,
+      eventDay: currentDay + 1,
+      mainPersonID: deadPersonID,
+      relationshipToMainPlayer: relationshipToMainPlayer,
+      startTime: funeralEventStartTime,
+      endTime: funeralEventStartTime + EventType.funeral.eventDuration,
+      journalEntryOnly: false,
+      performed: false,
+    );
+
+    return _eventRepository.createEvent(funeral);
+  }
 }

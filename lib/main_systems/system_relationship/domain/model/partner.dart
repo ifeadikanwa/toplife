@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 
 class Partner extends Equatable {
   final int mainPersonID;
@@ -123,7 +124,7 @@ class Partner extends Equatable {
       endDay: endDay ?? this.endDay,
       isCoParent: isCoParent ?? this.isCoParent,
       metAt: metAt ?? this.metAt,
-      relationship: relationship ?? this.relationship,
+      relationship: crossCheckStat(relationship) ?? this.relationship,
     );
   }
 }

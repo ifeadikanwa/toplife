@@ -36,5 +36,19 @@ void main() {
         expect(JournalCharacters.space, " ");
       },
     );
+
+    test(
+      "comma is ,",
+      () {
+        expect(JournalCharacters.comma, ",");
+      },
+    );
+
+    test(
+      "exclamation mark is !",
+      () {
+        expect(JournalCharacters.exclamationMark, "!");
+      },
+    );
   });
 }

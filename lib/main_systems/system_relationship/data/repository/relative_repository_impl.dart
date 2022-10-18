@@ -42,4 +42,9 @@ class RelativeRepositoryImpl implements RelativeRepository {
   Future<List<Relative>> getAllNiblings(int mainPersonID) async {
     return _relativeDao.getAllNiblings(mainPersonID);
   }
+
+  @override
+  Future<List<Relative>> getAllPiblings(int mainPersonID) {
+    return _relativeDao.getAllPiblings(mainPersonID);
+  }
 }

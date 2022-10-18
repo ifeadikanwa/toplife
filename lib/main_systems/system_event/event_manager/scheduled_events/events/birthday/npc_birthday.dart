@@ -1,12 +1,13 @@
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
-import 'package:toplife/core/utils/words/get_article.dart';
+import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
 import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
@@ -17,11 +18,13 @@ import 'package:toplife/main_systems/system_relationship/util/get_relationship_l
 
 class NpcBirthday {
   final RelationshipUsecases _relationshipUsecases;
+  final PersonUsecases _personUsecases;
   final AgeUsecases _ageUsecases;
   final EventScheduler _eventScheduler;
 
   const NpcBirthday(
     this._relationshipUsecases,
+    this._personUsecases,
     this._ageUsecases,
     this._eventScheduler,
   );
@@ -37,6 +40,7 @@ class NpcBirthday {
     final RelationshipPair? relationshipPair = await _relationshipUsecases
         .getRelationshipPairBasedOnTypeUsecase
         .execute(
+      personUsecases: _personUsecases,
       mainPersonID: mainPlayerID,
       relationshipPersonID: event.mainPersonID,
       informalRelationshipType: event.relationshipToMainPlayer,
@@ -66,7 +70,6 @@ class NpcBirthday {
             relationshipPair.relationship is Parent ||
             relationshipPair.relationship is Sibling ||
             relationshipPair.relationship is Child) {
-              
           final daysLived = _ageUsecases.getDaysLivedUsecase.execute(
               dayOfBirth: person.dayOfBirth, currentDay: event.eventDay);
 

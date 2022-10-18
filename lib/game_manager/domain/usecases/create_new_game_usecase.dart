@@ -27,7 +27,7 @@ class CreateNewGameUsecase {
     const newGameDay = 1;
     const newGameGenerationNumber = 1;
 
-    //edit the person passed to be a fresh young adult
+    //edit the person passed to be a fresh young adult and attach to the game
     final youngAdultPerson = person.copyWith(
         dayOfBirth: _ageUsecases.getDayOfBirthFromDaysLivedUsecase.execute(
       currentDay: newGameDay,
@@ -59,6 +59,7 @@ class CreateNewGameUsecase {
 
     //create players family
     await _relationshipUsecases.createNewPlayerFamilyUsecase.execute(
+      _personUsecases,
       updatedCurrentPlayer,
       newGameDay,
     );

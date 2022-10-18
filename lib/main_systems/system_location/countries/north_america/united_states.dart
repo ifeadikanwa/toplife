@@ -16,6 +16,9 @@ class UnitedStates implements Country {
       ["California", "Texas", "Florida", "Michigan", "New York"];
 
   @override
+  int get economy => 2;
+
+  @override
   String get randomState {
     return getRandomValueFromList(list: states);
   }

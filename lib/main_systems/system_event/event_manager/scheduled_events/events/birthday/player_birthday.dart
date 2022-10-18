@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:toplife/core/utils/words/get_article.dart';
+import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/birthday_comments.dart';

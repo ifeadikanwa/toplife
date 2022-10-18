@@ -1,0 +1,283 @@
+import 'package:flutter/material.dart';
+import 'package:toplife/main_systems/system_age/age.dart';
+import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
+import 'package:toplife/main_systems/system_event/domain/model/event.dart';
+import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_descriptions.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/family_planned_funeral.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/npc_planned_funeral.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/player_planned_funeral.dart';
+import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
+import 'package:toplife/main_systems/system_location/countries/country.dart';
+import 'package:toplife/main_systems/system_location/location_manager.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_relationship_label.dart';
+
+class DeathEvent {
+  final EventRepository _eventRepository;
+  final PersonUsecases _personUsecases;
+  final RelationshipUsecases _relationshipUsecases;
+  final EventScheduler _eventScheduler;
+  final JournalUsecases _journalUsecases;
+  final AgeUsecases _ageUsecases;
+
+  const DeathEvent(
+    this._eventRepository,
+    this._personUsecases,
+    this._relationshipUsecases,
+    this._eventScheduler,
+    this._journalUsecases,
+    this._ageUsecases,
+  );
+
+  static const resultTitle = "Funeral Arrangements";
+
+  Future<void> execute({
+    required BuildContext context,
+    required Event deathEvent,
+    required int mainPlayerID,
+    String? causeOfDeath,
+  }) async {
+    if (mainPlayerID != deathEvent.mainPersonID) {
+      //clean up from the event queue
+      npcvEventCleanup(
+        deadPersonID: deathEvent.mainPersonID,
+        gameID: deathEvent.gameID,
+      );
+
+      //get people involved
+      final Person? mainPlayerPerson =
+          await _personUsecases.getPersonUsecase.execute(
+        personID: mainPlayerID,
+      );
+
+      final RelationshipPair? relationshipPair = await _relationshipUsecases
+          .getRelationshipPairBasedOnTypeUsecase
+          .execute(
+        personUsecases: _personUsecases,
+        mainPersonID: mainPlayerID,
+        relationshipPersonID: deathEvent.mainPersonID,
+        informalRelationshipType: deathEvent.relationshipToMainPlayer,
+      );
+
+      //if all people involved are valid
+      if (mainPlayerPerson != null && relationshipPair != null) {
+        final Person deadPerson = relationshipPair.person as Person;
+
+        //update as dead
+        _personUsecases.updatePersonUsecase.execute(
+          person: deadPerson.copyWith(
+            dead: true,
+          ),
+        );
+
+        //reduce player wellbeing
+        reducePlayerWellbeingForMourning(
+          mainPlayerID: mainPlayerID,
+          relationshipPair: relationshipPair,
+        );
+
+        //get relationship label and event description
+        final String relationshipLabel = getRelationshipLabel(
+          relationshipPair: relationshipPair,
+          onlyActivePartnerWanted: false,
+        );
+
+        final String deathCause = causeOfDeath ??
+            DeathDescriptions.getRandomDeathCause(
+              deadPerson.gender,
+            );
+
+        final String firstPersonEventDesc =
+            "My $relationshipLabel, ${deadPerson.firstName} has died. $deathCause.";
+
+        //get main player country
+        final Country playerCountry = LocationManager.getCountryClass(
+          countryName: mainPlayerPerson.country,
+        );
+
+        //instantiate all funeral types
+        final PlayerPlannedFuneral playerPlannedFuneral = PlayerPlannedFuneral(
+          _personUsecases,
+          _eventScheduler,
+          _journalUsecases,
+        );
+        final FamilyPlannedFuneral familyPlannedFuneral = FamilyPlannedFuneral(
+          _personUsecases,
+          _relationshipUsecases,
+          _eventScheduler,
+          _journalUsecases,
+        );
+        final NpcPlannedFuneral npcPlannedFuneral = NpcPlannedFuneral(
+          _eventRepository,
+          _eventScheduler,
+          _journalUsecases,
+        );
+
+        //if player is baby - teen. all funerals are npc planned
+        final mainPlayerDaysLived = _ageUsecases.getDaysLivedUsecase.execute(
+          dayOfBirth: mainPlayerPerson.dayOfBirth,
+          currentDay: deathEvent.eventDay,
+        );
+
+        if (mainPlayerDaysLived < Age.newYoungAdultDaysLived) {
+          npcPlannedFuneral.run(
+            context: context,
+            mainPlayerID: mainPlayerID,
+            deathEvent: deathEvent,
+            firstPersonEventDescription: firstPersonEventDesc,
+          );
+        }
+        //if the main player is young adult and above
+        else {
+          //parent
+          if (relationshipPair.relationship is Parent) {
+            familyPlannedFuneral.run(
+              context: context,
+              mainPlayerID: mainPlayerID,
+              deathEvent: deathEvent,
+              firstPersonEventDescription: firstPersonEventDesc,
+              deadPerson: deadPerson,
+              playerCountry: playerCountry,
+            );
+          }
+          //partner
+          else if (relationshipPair.relationship is Partner) {
+            final Partner partner = relationshipPair.relationship as Partner;
+
+            if (partner.isActive &&
+                partner.partnerRelationshipType ==
+                    PartnerRelationshipType.married.name) {
+              playerPlannedFuneral.run(
+                context: context,
+                mainPlayerID: mainPlayerID,
+                deathEvent: deathEvent,
+                firstPersonEventDescription: firstPersonEventDesc,
+                playerCountry: playerCountry,
+              );
+            } else {
+              npcPlannedFuneral.run(
+                context: context,
+                mainPlayerID: mainPlayerID,
+                deathEvent: deathEvent,
+                firstPersonEventDescription: firstPersonEventDesc,
+              );
+            }
+          }
+          //child
+          else if (relationshipPair.relationship is Child) {
+            //if child is baby - teen or ya> with no spouse
+            final int childDaysLived = _ageUsecases.getDaysLivedUsecase.execute(
+              dayOfBirth: deadPerson.dayOfBirth,
+              currentDay: deathEvent.eventDay,
+            );
+
+            final childPartner =
+                await _relationshipUsecases.getCurrentPartnerUsecase.execute(
+              deadPerson.id!,
+            );
+
+            final bool childIsAMinor =
+                childDaysLived < Age.newYoungAdultDaysLived;
+
+            final bool childIsAnAdultWithNoSpouse =
+                childDaysLived > Age.newYoungAdultDaysLived &&
+                    (childPartner == null ||
+                        childPartner.partnerRelationshipType !=
+                            PartnerRelationshipType.married.name);
+
+            if (childIsAMinor || childIsAnAdultWithNoSpouse) {
+              playerPlannedFuneral.run(
+                context: context,
+                mainPlayerID: mainPlayerID,
+                deathEvent: deathEvent,
+                firstPersonEventDescription: firstPersonEventDesc,
+                playerCountry: playerCountry,
+              );
+            } else {
+              npcPlannedFuneral.run(
+                context: context,
+                mainPlayerID: mainPlayerID,
+                deathEvent: deathEvent,
+                firstPersonEventDescription: firstPersonEventDesc,
+              );
+            }
+          }
+          //any other relationship type
+          else {
+            npcPlannedFuneral.run(
+              context: context,
+              mainPlayerID: mainPlayerID,
+              deathEvent: deathEvent,
+              firstPersonEventDescription: firstPersonEventDesc,
+            );
+          }
+        }
+      }
+    }
+  }
+
+  Future<void> npcvEventCleanup({
+    required int deadPersonID,
+    required int gameID,
+  }) async {
+    //delete all events involving this npc character from the event table
+    //make sure it is not the main player
+
+    _eventRepository.deleteAllEventsInvolvingAPerson(
+      personID: deadPersonID,
+      gameID: gameID,
+    );
+  }
+
+  Future<void> reducePlayerWellbeingForMourning({
+    required int mainPlayerID,
+    required RelationshipPair relationshipPair,
+  }) async {
+    //parent
+    if (relationshipPair.relationship is Parent) {
+      _personUsecases.updateWellbeingStatsUsecase.execute(
+        mainPersonID: mainPlayerID,
+        change: -60,
+      );
+    }
+    //child
+    else if (relationshipPair.relationship is Child) {
+      _personUsecases.updateWellbeingStatsUsecase.execute(
+        mainPersonID: mainPlayerID,
+        change: -70,
+      );
+    }
+    //partner
+    else if (relationshipPair.relationship is Partner) {
+      final Partner partner = relationshipPair.relationship as Partner;
+
+      if (partner.isActive) {
+        _personUsecases.updateWellbeingStatsUsecase.execute(
+          mainPersonID: mainPlayerID,
+          change: -60,
+        );
+      } else {
+        _personUsecases.updateWellbeingStatsUsecase.execute(
+          mainPersonID: mainPlayerID,
+          change: -30,
+        );
+      }
+    }
+    //others
+    else {
+      _personUsecases.updateWellbeingStatsUsecase.execute(
+        mainPersonID: mainPlayerID,
+        change: -30,
+      );
+    }
+  }
+}

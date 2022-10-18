@@ -1,30 +1,43 @@
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/create_adult_person_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/create_child_person_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/delete_person_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/deplete_baby_energy_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/deplete_baby_hunger_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/deplete_main_player_energy_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/deplete_main_player_hunger_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/deplete_non_player_hunger_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/eat_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/generate_a_person_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/generate_list_of_person_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/get_person_stats_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/get_person_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/make_non_player_hungry_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/sleep_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/update_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/add_money_to_player_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_adult_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_child_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/delete_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/deplete_baby_energy_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/deplete_baby_hunger_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/deplete_main_player_energy_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/deplete_main_player_hunger_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/deplete_non_player_hunger_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/eat_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_a_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_list_of_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_player_money_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/make_non_player_hungry_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/sleep_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/take_money_from_player_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_athleticism_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_intellect_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_looks_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_sober_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_wellbeing_stats_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class PersonUsecases {
   final PersonRepositories _personRepositories;
+  final RelationshipUsecases _relationshipUsecases;
   final AgeUsecases _ageUsecases;
 
   const PersonUsecases({
     required PersonRepositories personRepositories,
+    required RelationshipUsecases relationshipUsecases,
     required AgeUsecases ageUsecases,
   })  : _personRepositories = personRepositories,
+        _relationshipUsecases = relationshipUsecases,
         _ageUsecases = ageUsecases;
 
   GenerateAPersonUsecase get generateAPersonUsecase =>
@@ -106,4 +119,52 @@ class PersonUsecases {
 
   GetPersonUsecase get getPersonUsecase => GetPersonUsecase(
       personRepository: _personRepositories.personRepositoryImpl);
+
+  GetPlayerMoneyUsecase get getPlayerMoneyUsecase => GetPlayerMoneyUsecase(
+        personRepositories: _personRepositories,
+        relationshipUsecases: _relationshipUsecases,
+      );
+
+  TakeMoneyFromPlayerUsecase get takeMoneyFromPlayerUsecase =>
+      TakeMoneyFromPlayerUsecase(
+        personRepositories: _personRepositories,
+        relationshipUsecases: _relationshipUsecases,
+      );
+
+  AddMoneyToPlayerUsecase get addMoneyToPlayerUsecase =>
+      AddMoneyToPlayerUsecase(
+        personRepositories: _personRepositories,
+        relationshipUsecases: _relationshipUsecases,
+      );
+
+  UpdateStatsUsecase get updateStatsUsecase => UpdateStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+      );
+
+  UpdateWellbeingStatsUsecase get updateWellbeingStatsUsecase =>
+      UpdateWellbeingStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+      );
+
+  UpdateLooksStatsUsecase get updateLooksStatsUsecase =>
+      UpdateLooksStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+      );
+
+  UpdateSoberStatsUsecase get updateSoberStatsUsecase =>
+      UpdateSoberStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+      );
+
+  UpdateIntellectStatsUsecase get updateIntellectStatsUsecase =>
+      UpdateIntellectStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+      );
+
+  UpdateAthleticismStatsUsecase get updateAthleticismStatsUsecase =>
+      UpdateAthleticismStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+      );
+
+ 
 }

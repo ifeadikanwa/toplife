@@ -30,12 +30,35 @@ import 'package:toplife/main_systems/system_relationship/data/dao/relative_dao_i
 import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/food_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/fridge_food_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/house_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/item_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/jewelry_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/repository/shop_and_storage_repositories.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 
-final ageUsecasesProvider = Provider<AgeUsecases>(((ref) {
+final shopAndStorageUsecaseProvider = Provider<ShopAndStorageUsecases>((ref) {
+  return ShopAndStorageUsecases(
+    shopAndStorageRepositories: ShopAndStorageRepositories(
+      carDao: CarDaoImpl(),
+      houseDao: HouseDaoImpl(),
+      foodDao: FoodDaoImpl(),
+      fridgeFoodDao: FridgeFoodDaoImpl(),
+      itemDao: ItemDaoImpl(),
+      storeroomItemDao: StoreroomItemDaoImpl(),
+      jewelryDao: JewelryDaoImpl(),
+    ),
+  );
+});
+
+final ageUsecasesProvider = Provider<AgeUsecases>((ref) {
   return AgeUsecases();
-}));
+});
 
-final personUsecasesProvider = Provider<PersonUsecases>(((ref) {
+final personUsecasesProvider = Provider<PersonUsecases>((ref) {
   return PersonUsecases(
     personRepositories: PersonRepositories(
       personDao: PersonDaoImpl(),
@@ -44,11 +67,12 @@ final personUsecasesProvider = Provider<PersonUsecases>(((ref) {
       babyTraitsDao: BabyTraitsDaoImpl(),
       stanceDao: StanceDaoImpl(),
     ),
+    relationshipUsecases: ref.watch(relationshipUsecasesProvider),
     ageUsecases: ref.watch(ageUsecasesProvider),
   );
-}));
+});
 
-final relationshipUsecasesProvider = Provider<RelationshipUsecases>(((ref) {
+final relationshipUsecasesProvider = Provider<RelationshipUsecases>((ref) {
   return RelationshipUsecases(
     relationshipRepositories: RelationshipRepositories(
       parentDao: ParentDaoImpl(),
@@ -61,35 +85,35 @@ final relationshipUsecasesProvider = Provider<RelationshipUsecases>(((ref) {
       inLawDao: InLawDaoImpl(),
       graveyardDao: GraveyardDaoImpl(),
     ),
-    personUsecases: ref.watch(personUsecasesProvider),
   );
-}));
+});
 
-final journalUsecasesProvider = Provider<JournalUsecases>(((ref) {
+final journalUsecasesProvider = Provider<JournalUsecases>((ref) {
   return JournalUsecases(
     journalRepository: JournalRepositoryImpl(
       journalDao: JournalDaoImpl(),
     ),
   );
-}));
+});
 
-final eventManagerProvider = Provider<EventManager>(((ref) {
+final eventManagerProvider = Provider<EventManager>((ref) {
   return EventManager(
       relationshipUsecases: ref.watch(relationshipUsecasesProvider),
       personUsecases: ref.watch(personUsecasesProvider),
       ageUsecases: ref.watch(ageUsecasesProvider),
       journalUsecases: ref.watch(journalUsecasesProvider),
+      shopAndStorageUsecases: ref.watch(shopAndStorageUsecaseProvider),
       eventRepository: EventRepositoryImpl(eventDao: EventDaoImpl()));
-}));
+});
 
-final eventRepositoryProvider = Provider<EventRepository>(((ref) {
+final eventRepositoryProvider = Provider<EventRepository>((ref) {
   return EventRepositoryImpl(eventDao: EventDaoImpl());
-}));
+});
 
-final currentGameProvider = StateProvider<Game?>(((ref) {
+final currentGameProvider = StateProvider<Game?>((ref) {
   final game = ref.watch(gameManagerViewModel);
   return game.valueOrNull;
-}));
+});
 
 final gameManagerViewModel =
     StateNotifierProvider<GameManagerViewModel, AsyncValue<Game?>>((ref) {
@@ -106,6 +130,6 @@ final gameUsecasesProvider = Provider<GameUsecases>(
 );
 
 final gameRepositoryImplProvider = Provider<GameRepositoryImpl>(
-    ((ref) => GameRepositoryImpl(ref.watch(gameDaoImplProvider))));
+    (ref) => GameRepositoryImpl(ref.watch(gameDaoImplProvider)));
 
 final gameDaoImplProvider = Provider<GameDaoImpl>(((ref) => GameDaoImpl()));

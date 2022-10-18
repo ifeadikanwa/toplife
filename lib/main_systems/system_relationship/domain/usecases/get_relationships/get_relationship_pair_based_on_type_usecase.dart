@@ -14,15 +14,13 @@ import 'package:toplife/main_systems/system_relationship/domain/model/sibling.da
 
 class GetRelationshipPairBasedOnTypeUsecase {
   final RelationshipRepositories _relationshipRepositories;
-  final PersonUsecases _personUsecases;
 
   const GetRelationshipPairBasedOnTypeUsecase({
     required RelationshipRepositories relationshipRepositories,
-    required PersonUsecases personUsecases,
-  })  : _relationshipRepositories = relationshipRepositories,
-        _personUsecases = personUsecases;
+  }) : _relationshipRepositories = relationshipRepositories;
 
   Future<RelationshipPair?> execute({
+    required PersonUsecases personUsecases,
     required int mainPersonID,
     required int relationshipPersonID,
     required String informalRelationshipType,
@@ -38,48 +36,56 @@ class GetRelationshipPairBasedOnTypeUsecase {
     if (informalRelationshipType ==
         InformalRelationshipType.acquaintance.name) {
       return getAcquaintanceRelationshipPair(
+        personUsecases: personUsecases,
         mainPersonID: mainPersonID,
         acquaintanceID: relationshipPersonID,
       );
     } else if (informalRelationshipType ==
         InformalRelationshipType.friend.name) {
       return getFriendRelationshipPair(
+        personUsecases: personUsecases,
         mainPersonID: mainPersonID,
         friendID: relationshipPersonID,
       );
     } else if (informalRelationshipType ==
         InformalRelationshipType.parent.name) {
       return getParentRelationshipPair(
+        personUsecases: personUsecases,
         mainPersonID: mainPersonID,
         parentID: relationshipPersonID,
       );
     } else if (informalRelationshipType ==
         InformalRelationshipType.sibling.name) {
       return getSiblingRelationshipPair(
+        personUsecases: personUsecases,
         mainPersonID: mainPersonID,
         siblingID: relationshipPersonID,
       );
     } else if (informalRelationshipType ==
         InformalRelationshipType.partner.name) {
       return getPartnerRelationshipPair(
+        personUsecases: personUsecases,
         mainPersonID: mainPersonID,
         partnerID: relationshipPersonID,
       );
     } else if (informalRelationshipType ==
         InformalRelationshipType.child.name) {
       return getChildRelationshipPair(
+        personUsecases: personUsecases,
         mainPersonID: mainPersonID,
         childID: relationshipPersonID,
       );
     } else if (informalRelationshipType ==
         InformalRelationshipType.relative.name) {
       return getRelativeRelationshipPair(
+        personUsecases: personUsecases,
         mainPersonID: mainPersonID,
         relativeID: relationshipPersonID,
       );
     } else if (informalRelationshipType ==
         InformalRelationshipType.inLaw.name) {
       return getInLawRelationshipPair(
+        personUsecases: personUsecases,
         mainPersonID: mainPersonID,
         inLawID: relationshipPersonID,
       );
@@ -91,6 +97,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
   //Relationship pair getters
 
   Future<RelationshipPair?> getAcquaintanceRelationshipPair({
+    required PersonUsecases personUsecases,
     required int mainPersonID,
     required int acquaintanceID,
   }) async {
@@ -102,7 +109,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
     );
 
     if (acquaintance != null) {
-      final Person? person = await _personUsecases.getPersonUsecase.execute(
+      final Person? person = await personUsecases.getPersonUsecase.execute(
         personID: acquaintanceID,
       );
 
@@ -118,6 +125,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
   }
 
   Future<RelationshipPair?> getFriendRelationshipPair({
+    required PersonUsecases personUsecases,
     required int mainPersonID,
     required int friendID,
   }) async {
@@ -128,7 +136,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
     );
 
     if (friend != null) {
-      final Person? person = await _personUsecases.getPersonUsecase.execute(
+      final Person? person = await personUsecases.getPersonUsecase.execute(
         personID: friendID,
       );
 
@@ -144,6 +152,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
   }
 
   Future<RelationshipPair?> getParentRelationshipPair({
+    required PersonUsecases personUsecases,
     required int mainPersonID,
     required int parentID,
   }) async {
@@ -154,7 +163,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
     );
 
     if (parent != null) {
-      final Person? person = await _personUsecases.getPersonUsecase.execute(
+      final Person? person = await personUsecases.getPersonUsecase.execute(
         personID: parentID,
       );
 
@@ -170,6 +179,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
   }
 
   Future<RelationshipPair?> getPartnerRelationshipPair({
+    required PersonUsecases personUsecases,
     required int mainPersonID,
     required int partnerID,
   }) async {
@@ -180,7 +190,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
     );
 
     if (partner != null) {
-      final Person? person = await _personUsecases.getPersonUsecase.execute(
+      final Person? person = await personUsecases.getPersonUsecase.execute(
         personID: partnerID,
       );
 
@@ -196,6 +206,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
   }
 
   Future<RelationshipPair?> getChildRelationshipPair({
+    required PersonUsecases personUsecases,
     required int mainPersonID,
     required int childID,
   }) async {
@@ -206,7 +217,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
     );
 
     if (child != null) {
-      final Person? person = await _personUsecases.getPersonUsecase.execute(
+      final Person? person = await personUsecases.getPersonUsecase.execute(
         personID: childID,
       );
 
@@ -222,6 +233,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
   }
 
   Future<RelationshipPair?> getSiblingRelationshipPair({
+    required PersonUsecases personUsecases,
     required int mainPersonID,
     required int siblingID,
   }) async {
@@ -232,7 +244,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
     );
 
     if (sibling != null) {
-      final Person? person = await _personUsecases.getPersonUsecase.execute(
+      final Person? person = await personUsecases.getPersonUsecase.execute(
         personID: siblingID,
       );
 
@@ -248,6 +260,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
   }
 
   Future<RelationshipPair?> getRelativeRelationshipPair({
+    required PersonUsecases personUsecases,
     required int mainPersonID,
     required int relativeID,
   }) async {
@@ -258,7 +271,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
     );
 
     if (relative != null) {
-      final Person? person = await _personUsecases.getPersonUsecase.execute(
+      final Person? person = await personUsecases.getPersonUsecase.execute(
         personID: relativeID,
       );
 
@@ -274,6 +287,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
   }
 
   Future<RelationshipPair?> getInLawRelationshipPair({
+    required PersonUsecases personUsecases,
     required int mainPersonID,
     required int inLawID,
   }) async {
@@ -284,7 +298,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
     );
 
     if (inLaw != null) {
-      final Person? person = await _personUsecases.getPersonUsecase.execute(
+      final Person? person = await personUsecases.getPersonUsecase.execute(
         personID: inLawID,
       );
 

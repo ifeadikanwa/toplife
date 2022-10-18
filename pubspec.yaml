@@ -47,6 +47,7 @@ dependencies:
   flutter_snake_navigationbar: ^0.6.1
   intl: ^0.17.0
   auto_route: ^5.0.1
+  dropdown_button2: ^1.8.2
 
 
 dev_dependencies:

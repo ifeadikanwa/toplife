@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
@@ -7,6 +8,7 @@ import 'package:toplife/main_systems/system_event/event_manager/scheduled_events
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 
 //The main point of contact for everything event related.
 //other systems outside of the event system should only have access to this class.
@@ -18,6 +20,7 @@ class EventManager {
   final PersonUsecases _personUsecases;
   final AgeUsecases _ageUsecases;
   final JournalUsecases _journalUsecases;
+  final ShopAndStorageUsecases _shopAndStorageUsecases;
   final EventRepository _eventRepository;
 
   const EventManager({
@@ -25,11 +28,13 @@ class EventManager {
     required PersonUsecases personUsecases,
     required AgeUsecases ageUsecases,
     required JournalUsecases journalUsecases,
+    required ShopAndStorageUsecases shopAndStorageUsecases,
     required EventRepository eventRepository,
   })  : _relationshipUsecases = relationshipUsecases,
         _personUsecases = personUsecases,
         _ageUsecases = ageUsecases,
         _journalUsecases = journalUsecases,
+        _shopAndStorageUsecases = shopAndStorageUsecases,
         _eventRepository = eventRepository;
 
   EventScheduler get _eventScheduler => EventScheduler(
@@ -42,11 +47,12 @@ class EventManager {
         _personUsecases,
         _ageUsecases,
         _journalUsecases,
+        _shopAndStorageUsecases,
         _eventScheduler,
         _eventRepository,
       );
 
-  void runEvent(int mainPlayerID, Event event) {
+  void runEvent(int mainPlayerID, Event event, BuildContext context) {
     final eventTypeEnum = convertEventTypeStringToEnum(event.eventType);
 
     switch (eventTypeEnum) {
@@ -57,10 +63,25 @@ class EventManager {
         );
         break;
       case EventType.birthdayParty:
+        _scheduledEvents.birthdayPartyEvent.execute(
+          context: context,
+          birthdayEvent: event,
+          mainPlayerID: mainPlayerID,
+        );
         break;
       case EventType.death:
+        _scheduledEvents.deathEvent.execute(
+          context: context,
+          deathEvent: event,
+          mainPlayerID: mainPlayerID,
+        );
         break;
       case EventType.funeral:
+        _scheduledEvents.funeralEvent.execute(
+          context: context,
+          funeralEvent: event,
+          mainPlayerID: mainPlayerID,
+        );
         break;
       case EventType.schoolAdmission:
         break;
