@@ -3,18 +3,15 @@ import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
-import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 
 class NpcPlannedFuneral {
-  final EventRepository _eventRepository;
   final EventScheduler _eventScheduler;
   final JournalUsecases _journalUsecases;
 
   const NpcPlannedFuneral(
-    this._eventRepository,
     this._eventScheduler,
     this._journalUsecases,
   );

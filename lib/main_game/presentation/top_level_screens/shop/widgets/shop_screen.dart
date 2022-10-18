@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/dialogs/choice_dialog.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event_dialog.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral_dialog.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
@@ -10,25 +8,9 @@ import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
 import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
-import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_location/countries/north_america/canada.dart';
-import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/dao/person_dao.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/relative_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/item_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/supplies/supplies.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -101,26 +83,26 @@ class ShopScreen extends ConsumerWidget {
           ),
           OutlinedButton(
             onPressed: () async {
-              final person = Person(
-                firstName: "Wendy",
-                lastName: "Schumdt",
-                dayOfBirth: -27,
-                gender: "Female",
-                subjectPronoun: "she",
-                objectPronoun: "her",
-                possessivePronoun: "her",
-                sexuality: Sexuality.Straight.name,
-                state: "Toronto",
-                country: "Canada",
-                money: 2500,
-                zodiacSign: "Libra",
-                hasFertilityIssues: false,
-                onBirthControl: false,
-                isSterile: false,
-                sickly: false,
-                rebellious: false,
-                dead: false,
-              );
+              // final person = Person(
+              //   firstName: "Wendy",
+              //   lastName: "Schumdt",
+              //   dayOfBirth: -27,
+              //   gender: "Female",
+              //   subjectPronoun: "she",
+              //   objectPronoun: "her",
+              //   possessivePronoun: "her",
+              //   sexuality: Sexuality.Straight.name,
+              //   state: "Toronto",
+              //   country: "Canada",
+              //   money: 2500,
+              //   zodiacSign: "Libra",
+              //   hasFertilityIssues: false,
+              //   onBirthControl: false,
+              //   isSterile: false,
+              //   sickly: false,
+              //   rebellious: false,
+              //   dead: false,
+              // );
 
               // await PersonDaoImpl().createPerson(person);
 

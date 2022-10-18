@@ -1,4 +1,3 @@
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_child_parent_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_new_player_family_usecase.dart';

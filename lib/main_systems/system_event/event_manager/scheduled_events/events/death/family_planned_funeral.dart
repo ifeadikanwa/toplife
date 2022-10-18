@@ -9,7 +9,6 @@ import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
-import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_descriptions.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';

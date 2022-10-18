@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event_dialog.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_regular_event_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/chance.dart';
@@ -14,7 +13,6 @@ import 'package:toplife/main_systems/system_event/event_manager/scheduled_events
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/standard_event_sentences.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
@@ -110,6 +108,7 @@ class FuneralEvent {
     required EventStayDuration eventStayDuration,
   }) async {
     //get player travel time: gets the player travel time based on their current settlement and transportation. (in shop and storage?)
+    // ignore: todo
     //TODO: move forward in time:
     //a usecase in game that gets the player travel time and uses that to determine the new time after an event has been performed. it takes in the end time of the event and how long the player wants to stay and updates the game time in the usecase.
 
@@ -146,6 +145,7 @@ class FuneralEvent {
     required EventStayDuration eventStayDuration,
   }) async {
     // get player travel time: gets the player travel time based on their current settlement and transportation. (in shop and storage?)
+    // ignore: todo
     //TODO: move forward in time:
     //a usecase in game that gets the player travel time and uses that to determine the new time after an event has been performed. it takes in the end time of the event and how long the player wants to stay and updates the game time in the usecase.
 

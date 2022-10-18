@@ -117,7 +117,6 @@ class DeathEvent {
           _journalUsecases,
         );
         final NpcPlannedFuneral npcPlannedFuneral = NpcPlannedFuneral(
-          _eventRepository,
           _eventScheduler,
           _journalUsecases,
         );

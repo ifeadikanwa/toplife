@@ -2,28 +2,23 @@
 //if they are in different countries the player cannot attend the event because of Location//comunicate that to them
 //if they are in the same country then run they can attend
 
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
-import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
 import 'package:toplife/main_systems/system_event/constants/party_event_activity.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
-import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/attend_party.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/get_first_person_party_partner_attendance_description.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/get_first_person_gift_reaction.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/get_first_person_party_description.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/perform_party_activity.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/party_event_descriptions.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/standard_event_sentences.dart';
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';

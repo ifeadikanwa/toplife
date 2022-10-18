@@ -1,6 +1,5 @@
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 
 class UpdateParentRelationshipUsecase {
   final RelationshipRepositories _relationshipRepositories;

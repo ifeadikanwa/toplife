@@ -1,6 +1,4 @@
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
-import 'package:toplife/main_systems/system_person/domain/repository/person_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
 class UpdateWellbeingStatsUsecase {
