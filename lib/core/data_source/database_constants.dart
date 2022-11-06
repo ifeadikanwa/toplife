@@ -12,3 +12,5 @@ const unique = "UNIQUE";
 
 const int databaseTrueValue = 1;
 const int databaseFalseValue = 0;
+const String dbValueIsNotNull = "IS NOT NULL";
+const String dbValueIsNull = "IS NULL";

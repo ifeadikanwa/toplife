@@ -57,6 +57,14 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
+  Future<List<Event>> getAttendableEventsForDay({
+    required int day,
+    required int gameID,
+  }) async {
+    return _eventDao.getAttendableEventsForDay(day, gameID);
+  }
+
+  @override
   Future<void> updateEvent(Event event) async {
     return _eventDao.updateEvent(event);
   }

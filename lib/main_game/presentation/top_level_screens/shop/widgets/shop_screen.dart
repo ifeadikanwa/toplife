@@ -119,24 +119,30 @@ class ShopScreen extends ConsumerWidget {
               //   ),
               // );
 
-              final event = Event(
-                id: 2,
-                gameID: 1,
-                eventType: EventType.birthdayParty.name,
-                eventDay: 4,
-                mainPersonID: 2,
-                relationshipToMainPlayer: "parent",
-                journalEntryOnly: true,
-                performed: false,
-              );
+              // final event = Event(
+              //   id: 2,
+              //   gameID: 1,
+              //   eventType: EventType.birthdayParty.name,
+              //   eventDay: 4,
+              //   mainPersonID: 2,
+              //   relationshipToMainPlayer: "parent",
+              //   journalEntryOnly: true,
+              //   performed: false,
+              // );
 
-              EventDaoImpl().createEvent(event);
+              // EventDaoImpl().createEvent(event);
 
-              ref.watch(eventManagerProvider).runEvent(
-                    5,
-                    event,
-                    context,
-                  );
+              // ref.watch(eventManagerProvider).runEvent(
+              //       5,
+              //       event,
+              //       context,
+              //     );
+
+              final result = await ref
+                  .watch(eventManagerProvider)
+                  .getTodaysAttendableEvents(currentDay: 4, gameID: 1);
+
+              print(result);
             },
             child: const Text("TEST"),
           ),

@@ -13,8 +13,7 @@ class EventDaoImpl implements EventDao {
 
   static const eventTable = "event";
 
-  static const createTableQuery =
-      '''
+  static const createTableQuery = '''
     CREATE TABLE $eventTable(
       ${Event.idColumn} $idType,
       ${Event.gameIDColumn} $integerType,
@@ -150,6 +149,25 @@ class EventDaoImpl implements EventDao {
     );
 
     return allUnperformedDayEventsMap
+        .map((eventMap) => Event.fromMap(eventMap: eventMap))
+        .toList();
+  }
+
+  @override
+  Future<List<Event>> getAttendableEventsForDay(int day, int gameID) async {
+    final db = await _databaseProvider.database;
+    final allDayAttendableEventsMap = await db.query(
+      eventTable,
+      columns: Event.allColumns,
+      where:
+          "${Event.eventDayColumn} = ? and ${Event.gameIDColumn} = ? and ${Event.startTimeColumn} $dbValueIsNotNull and ${Event.endTimeColumn} $dbValueIsNotNull",
+      whereArgs: [
+        day,
+        gameID,
+      ],
+    );
+
+    return allDayAttendableEventsMap
         .map((eventMap) => Event.fromMap(eventMap: eventMap))
         .toList();
   }

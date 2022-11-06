@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
+import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/scheduled_events.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
@@ -97,6 +99,35 @@ class EventManager {
         //do nothing for now
         break;
     }
+  }
+
+  Future<List<EventPersonPair>> getTodaysAttendableEvents({
+    required int currentDay,
+    required int gameID,
+  }) async {
+    List<EventPersonPair> todaysAttendableEvents = [];
+
+    final List<Event> events = await _eventRepository.getAttendableEventsForDay(
+      day: currentDay,
+      gameID: gameID,
+    );
+
+    for (var event in events) {
+      final Person? mainPerson = await _personUsecases.getPersonUsecase.execute(
+        personID: event.mainPersonID,
+      );
+
+      if (mainPerson != null) {
+        todaysAttendableEvents.add(
+          EventPersonPair(
+            event: event,
+            person: mainPerson,
+          ),
+        );
+      }
+    }
+
+    return todaysAttendableEvents;
   }
 
   static EventType? convertEventTypeStringToEnum(String eventType) {

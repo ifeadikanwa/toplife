@@ -7,6 +7,7 @@ abstract class EventDao {
   Future<void> deleteEvent(int eventID);
   Future<List<Event>> getEventsForDay(int day, int gameID);
   Future<List<Event>> getUnperformedEventsForDay(int day, int gameID);
+  Future<List<Event>> getAttendableEventsForDay(int day, int gameID);
   Future<List<Event>> getAllEventsInvolvingAPerson(
     int personID,
     int gameID,

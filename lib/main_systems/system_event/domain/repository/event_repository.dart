@@ -13,6 +13,11 @@ abstract class EventRepository {
     required int day,
     required int gameID,
   });
+  Future<List<Event>> getAttendableEventsForDay({
+    required int day,
+    required int gameID,
+  });
+
   Future<List<Event>> getAllEventsInvolvingAPerson({
     required int personID,
     required int gameID,
