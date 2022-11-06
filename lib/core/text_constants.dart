@@ -42,6 +42,7 @@ class TextConstants {
   //activities
   static const activities = "Activities";
   static const quickActions = "Quick Actions";
+  static const attend = "Attend";
 
   //shop
   static const shop = "Shop";

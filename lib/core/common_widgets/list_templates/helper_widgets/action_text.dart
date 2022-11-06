@@ -22,7 +22,7 @@ class ActionText extends StatelessWidget {
             style: primaryTextStyle,
           ),
         ),
-        const AddVerticalSpace(height: 4.0),
+        const AddVerticalSpace(height: 6.0),
         FittedBox(
           fit: BoxFit.scaleDown,
           alignment: Alignment.centerLeft,
