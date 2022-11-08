@@ -2,20 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
-import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
-import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
-import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/building_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/constants/baby_food_names.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/constants/food_names.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);

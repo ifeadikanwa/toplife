@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/list_templates/case/general_list_item_case.dart';
 import 'package:toplife/core/common_widgets/list_templates/case/list_view_item_case.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';

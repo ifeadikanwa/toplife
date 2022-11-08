@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
-import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/sections/history_section.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/sections/opportunities_section.dart';
@@ -14,8 +12,6 @@ class WorkScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return TopLevelScreen(
       title: TextConstants.work,
       child: ScrollableScreenContent(

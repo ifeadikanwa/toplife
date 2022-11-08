@@ -1,12 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
-import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/tab_screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
-import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
 import 'package:toplife/core/common_widgets/tab/app_tab.dart';
-import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_test_lists.dart';
 

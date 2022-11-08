@@ -1,7 +1,5 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:toplife/config/routing/route_name.dart';
 import 'package:toplife/game_manager/presentation/game_manager_screen.dart';
 import 'package:toplife/main_game/presentation/main_game_screen.dart';
