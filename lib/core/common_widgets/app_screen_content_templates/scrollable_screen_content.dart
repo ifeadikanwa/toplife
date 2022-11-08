@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/app_templates/screen_content.dart';
+import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
 
 class ScrollableScreenContent extends StatelessWidget {
   final Widget content;

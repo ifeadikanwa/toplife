@@ -26,6 +26,7 @@ const flutterDefaultIconSize = 24.0;
 const childrenListHomeIconSize = 20.0;
 const listClockIconSize = 15.0;
 const listArrowIconSize = 15.0;
+const shopCategoryIconSize = 40.0;
 
 //Text
 const verticalTextSpacing = 2.0;
@@ -65,8 +66,18 @@ const secondaryTextStyle = TextStyle(
   fontSize: 12.0,
 );
 
+final shopListItemDetailsTextStyle = primaryTextStyle.copyWith(
+  fontSize: 13.0,
+);
+
 //List
 const double listVerticalPadding = 10.0;
 const double listHeaderPadding = 14.0;
 const double listRowItemsSpacing = 4.0;
-const sectionHeaderPadding = 4.0;
+const double sectionHeaderPadding = 4.0;
+
+//shop
+const double shopCategoryVerticalPadding = 16.0;
+const double shopCategoryHorizontalPadding = 16.0;
+
+

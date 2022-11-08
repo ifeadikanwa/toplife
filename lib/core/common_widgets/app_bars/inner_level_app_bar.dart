@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
+import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/utils/extensions/string_extensions.dart';
 
@@ -35,27 +37,21 @@ class InnerLevelAppBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              leading ?? backButton(),
+              leading ?? backButton(context),
             ],
           ),
+          const AddHorizontalSpace(width: 16.0),
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: Padding(
-                    padding: (actions != null)
-                        ? const EdgeInsets.only(left: defaultIconSize)
-                        : const EdgeInsets.only(left: appSidePadding),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Center(
-                        child: Text(
-                          title.prepareTextToEllipsize().toUpperCase(),
-                          overflow: TextOverflow.ellipsis,
-                          style: appBarTextStyle,
-                        ),
-                      ),
+                  child: FittedBox(
+                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      title.prepareTextToEllipsize().toUpperCase(),
+                      overflow: TextOverflow.ellipsis,
+                      style: appBarTextStyle,
                     ),
                   ),
                 ),
@@ -73,10 +69,10 @@ class InnerLevelAppBar extends StatelessWidget {
   }
 }
 
-Widget backButton() {
+Widget backButton(BuildContext context) {
   return PlainIconButton(
     icon: const Icon(Icons.arrow_back_outlined),
-    onPressed: () {},
+    onPressed: () => AutoRouter.of(context).pop(),
   );
 }
 

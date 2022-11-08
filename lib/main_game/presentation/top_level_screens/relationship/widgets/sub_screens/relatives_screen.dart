@@ -3,7 +3,6 @@ import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item_with_header.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
@@ -22,78 +21,62 @@ class RelativesScreen extends StatelessWidget {
     final List<RelationshipPair<Relative, Person>> finalRelativesList =
         rearrangeRelativesList(relatives);
 
-    return RelationshipListScreen(
-      listView: ListView.separated(
-        itemCount: finalRelativesList.length,
-        itemBuilder: (context, index) {
-          //relationship label
-          final String relationshipType =
-              finalRelativesList[index].relationship.relativeRelationshipType;
-          final String gender = finalRelativesList[index].person.gender;
-          final String relationshipLabel =
-              getRelativeRelationshipLabel(relationshipType, gender);
+    return ListView.separated(
+      itemCount: finalRelativesList.length,
+      itemBuilder: (context, index) {
+        //relationship label
+        final String relationshipType =
+            finalRelativesList[index].relationship.relativeRelationshipType;
+        final String gender = finalRelativesList[index].person.gender;
+        final String relationshipLabel =
+            getRelativeRelationshipLabel(relationshipType, gender);
 
-          //name
-          final name =
-              "${finalRelativesList[index].person.firstName} ${finalRelativesList[index].person.lastName}";
+        //name
+        final name =
+            "${finalRelativesList[index].person.firstName} ${finalRelativesList[index].person.lastName}";
 
-          //relationship amount
-          final relationshipAmount =
-              finalRelativesList[index].relationship.relationship;
+        //relationship amount
+        final relationshipAmount =
+            finalRelativesList[index].relationship.relationship;
 
-          if (index == 0 ||
-              relationshipType !=
-                  finalRelativesList[index - 1]
-                      .relationship
-                      .relativeRelationshipType) {
-            if (relationshipType == RelativeRelationshipType.grandchild.name) {
-              return RelationshipListItemWithHeader(
-                sectionTitle: TextConstants.grandchildren,
-                avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-                relationshipLabel: relationshipLabel,
-                name: name,
-                relationshipAmount: relationshipAmount,
-              );
-            } else if (relationshipType ==
-                RelativeRelationshipType.nibling.name) {
-              return RelationshipListItemWithHeader(
-                sectionTitle: TextConstants.niecesAndNephews,
-                avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-                relationshipLabel: relationshipLabel,
-                name: name,
-                relationshipAmount: relationshipAmount,
-              );
-            } else if (relationshipType ==
-                RelativeRelationshipType.pibling.name) {
-              return RelationshipListItemWithHeader(
-                sectionTitle: TextConstants.unclesAndAunts,
-                avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-                relationshipLabel: relationshipLabel,
-                name: name,
-                relationshipAmount: relationshipAmount,
-              );
-            } else {
-              return RelationshipListItemWithHeader(
-                sectionTitle: TextConstants.cousins,
-                avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-                relationshipLabel: relationshipLabel,
-                name: name,
-                relationshipAmount: relationshipAmount,
-              );
-            }
+        if (index == 0 ||
+            relationshipType !=
+                finalRelativesList[index - 1]
+                    .relationship
+                    .relativeRelationshipType) {
+          late final String sectionTitle;
+
+          if (relationshipType == RelativeRelationshipType.grandchild.name) {
+            sectionTitle = TextConstants.grandchildren;
+          } else if (relationshipType ==
+              RelativeRelationshipType.nibling.name) {
+            sectionTitle = TextConstants.niecesAndNephews;
+          } else if (relationshipType ==
+              RelativeRelationshipType.pibling.name) {
+            sectionTitle = TextConstants.unclesAndAunts;
+          } else {
+            sectionTitle = TextConstants.cousins;
           }
+          return RelationshipListItemWithHeader(
+            onTap: () {},
+            sectionTitle: sectionTitle,
+            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+            relationshipLabel: relationshipLabel,
+            name: name,
+            relationshipAmount: relationshipAmount,
+          );
+        }
 
-          return RelationshipListItem(
-              avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-              relationshipLabel: relationshipLabel,
-              name: name,
-              relationshipAmount: relationshipAmount);
-        },
-        separatorBuilder: (context, index) {
-          return const ListDivider();
-        },
-      ),
+        return RelationshipListItem(
+            onTap: () {},
+            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+            relationshipLabel: relationshipLabel,
+            name: name,
+            relationshipAmount: relationshipAmount);
+      },
+      separatorBuilder: (context, index) {
+        return const ListDivider();
+      },
     );
   }
 }
-

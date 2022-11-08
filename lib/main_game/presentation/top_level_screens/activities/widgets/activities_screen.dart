@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
-import 'package:toplife/core/common_widgets/app_templates/scrollable_screen_content.dart';
+import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
+import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/activities/widgets/activities_test_lists.dart';
@@ -13,36 +14,19 @@ class ActivitiesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const avatarImagePath = "assets/images/black_woman_placeholder.jpg";
-    const flagImagePath = "assets/images/france_flag.jpg";
-
-    return Column(
-      children: [
-        const PlayerStatusBar(
-          firstName: "Janet",
-          lastName: "Jackson",
-          avatarImagePath: avatarImagePath,
-          flagImagePath: flagImagePath,
-          currency: "\$",
-          bankBalance: "60,000",
-          time: "08:45 AM",
-          dayNumber: "34",
+    return TopLevelScreen(
+      title: TextConstants.activities,
+      child: ScrollableScreenContent(
+        content: Column(
+          children: [
+            const QuickActionsSection(),
+            EventSection(
+              eventPersonPairs: ActivitiesTestList.eventPersonPairsList,
+            ),
+            const ActivitiesSection(),
+          ],
         ),
-        TopLevelAppBar(
-          title: TextConstants.activities.toUpperCase(),
-        ),
-        ScrollableScreenContent(
-          content: Column(
-            children: [
-              const QuickActionsSection(),
-              EventSection(
-                eventPersonPairs: ActivitiesTestList.eventPersonPairsList,
-              ),
-              const ActivitiesSection(),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

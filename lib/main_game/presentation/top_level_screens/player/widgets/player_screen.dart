@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
-import 'package:toplife/core/common_widgets/app_templates/screen_content.dart';
+import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/baby_monitor_card.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/home_options.dart';
@@ -18,12 +18,12 @@ class PlayerScreen extends StatelessWidget {
 
     return Column(
       children: [
-        TopLevelAppBar(
-          leading: const Icon(
+        const TopLevelAppBar(
+          leading: Icon(
             Icons.menu_outlined,
           ),
-          title: TextConstants.appName.toUpperCase(),
-          actions: const [
+          title: TextConstants.appName,
+          actions: [
             Icon(
               Icons.emoji_events_outlined,
             )

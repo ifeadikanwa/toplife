@@ -3,6 +3,7 @@ class TextConstants {
   static const appName = "TopLife";
   static const emptyString = "";
   static const me = "Me";
+  static const others = "Others";
   static const home = "Home";
   static const finances = "Finances";
   static const journal = "Journal";
@@ -46,4 +47,30 @@ class TextConstants {
 
   //shop
   static const shop = "Shop";
+  static const jeweler = "Jeweler";
+  static const carDealer = "Car Dealer";
+  static const realEstate = "Real Estate";
+  static const food = "Food";
+  static const supplies = "Supplies";
+  static const babyFood = "Baby Food";
+  static const babyItems = "Baby Items";
+  static const natural = "Natural";
+  static const synthetic = "Synthetic";
+  static const rent = "Rent";
+  static const purchase = "Purchase";
+  static const new_ = "New";
+  static const used = "Used";
+  static const readyMeals = "Ready Meals";
+  static const ingredients = "Ingredients";
+  static const drinks = "Drinks";
+  static const sweets = "Sweets";
+  static const serving = "Serving";
+  static const servings = "Servings";
+  static const count = "Count";
+  static const counts = "Counts";
+  static const carat = "Carat";
+  static const bedroom = "Bedroom";
+  static const bedrooms = "Bedrooms";
+  static const bathroom = "Bathroom";
+  static const bathrooms = "Bathrooms";
 }

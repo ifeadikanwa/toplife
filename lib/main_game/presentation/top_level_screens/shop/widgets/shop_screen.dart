@@ -1,162 +1,131 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral_dialog.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
-import 'package:toplife/main_systems/system_event/constants/event_type.dart';
-import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
-import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
-import 'package:toplife/main_systems/system_location/countries/country.dart';
-import 'package:toplife/main_systems/system_location/countries/north_america/canada.dart';
-import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
+import 'package:toplife/config/routing/app_router.gr.dart';
+import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
+import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
+import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
+import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
+import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
+import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
+import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/constants/building_type.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/constants/baby_food_names.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/constants/food_names.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          OutlinedButton(
-            onPressed: () {
-              ResultDialog.show(
-                  context: context,
-                  title: "Go shawty, it's your birthday!",
-                  result:
-                      "Ahh adulthood, the pressure to have your life figured out while also preparing for the end. The final chance to accomplish something. Ahh adulthood! Ahh adulthood, the pressure to have your life figured out while also preparing for the end. The final chance to accomplish something. Ahh adulthood!");
-            },
-            child: const Text(
-              "Result Dialog",
-              // style: TextStyle(color: Colors.black),
+    return TopLevelScreen(
+      title: TextConstants.shop,
+      child: ScrollableScreenContent(
+        content: Column(
+          children: [
+            const AddVerticalSpace(height: shopCategoryVerticalPadding),
+            Row(
+              children: [
+                Expanded(
+                  child: ShopCategoryItem(
+                    icon: Icons.lunch_dining,
+                    categoryTitle: TextConstants.food,
+                    onTap: () => AutoRouter.of(context).push(
+                      const FoodShopRoute(),
+                    ),
+                  ),
+                ),
+                const AddHorizontalSpace(width: shopCategoryHorizontalPadding),
+                Expanded(
+                  child: ShopCategoryItem(
+                    icon: Icons.crib,
+                    categoryTitle: TextConstants.children,
+                    onTap: () => AutoRouter.of(context).push(
+                      const ChildrenShopRoute(),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              final deathEvent = Event(
-                gameID: 1,
-                eventType: EventType.death.name,
-                eventDay: 34,
-                mainPersonID: 2,
-                relationshipToMainPlayer: InformalRelationshipType.parent.name,
-                journalEntryOnly: false,
-                performed: false,
-              );
-
-              PlayerPlannedFuneralDialog.show(
-                context: context,
-                mainPlayerID: 1,
-                deathEvent: deathEvent,
-                firstPersonEventDescription: "firstPersonEventDescription",
-                playerCountry: Canada(),
-                planFuneral: ({
-                  required BuildContext context,
-                  required int mainPlayerID,
-                  required Event deathEvent,
-                  required String firstPersonEventDescription,
-                  required Country playerCountry,
-                  required FuneralType funeralType,
-                  required int cost,
-                  required int eventStartTime,
-                }) async {
-                  return;
-                },
-              );
-            },
-            child: const Text("Player Planned Funeral Dialog"),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const DialogContainer(
-                      title: Text("Test"),
-                      closeable: true,
-                    );
-                  });
-            },
-            child: const Text("Attend Invitation Event Dailog"),
-          ),
-          OutlinedButton(
-            onPressed: () async {
-              // final person = Person(
-              //   firstName: "Wendy",
-              //   lastName: "Schumdt",
-              //   dayOfBirth: -27,
-              //   gender: "Female",
-              //   subjectPronoun: "she",
-              //   objectPronoun: "her",
-              //   possessivePronoun: "her",
-              //   sexuality: Sexuality.Straight.name,
-              //   state: "Toronto",
-              //   country: "Canada",
-              //   money: 2500,
-              //   zodiacSign: "Libra",
-              //   hasFertilityIssues: false,
-              //   onBirthControl: false,
-              //   isSterile: false,
-              //   sickly: false,
-              //   rebellious: false,
-              //   dead: false,
-              // );
-
-              // await PersonDaoImpl().createPerson(person);
-
-              // await PartnerDaoImpl().createPartner(
-              //   Partner(
-              //     mainPersonID: 5,
-              //     partnerID: 8,
-              //     partnerRelationshipType: PartnerRelationshipType.married.name,
-              //     isActive: true,
-              //     startDay: 6,
-              //     isCoParent: true,
-              //     metAt: "metAt",
-              //     relationship: 56,
-              //   ),
-              // );
-
-              // final event = Event(
-              //   id: 2,
-              //   gameID: 1,
-              //   eventType: EventType.birthdayParty.name,
-              //   eventDay: 4,
-              //   mainPersonID: 2,
-              //   relationshipToMainPlayer: "parent",
-              //   journalEntryOnly: true,
-              //   performed: false,
-              // );
-
-              // EventDaoImpl().createEvent(event);
-
-              // ref.watch(eventManagerProvider).runEvent(
-              //       5,
-              //       event,
-              //       context,
-              //     );
-
-              final result = await ref
-                  .watch(eventManagerProvider)
-                  .getTodaysAttendableEvents(currentDay: 4, gameID: 1);
-
-              print(result);
-            },
-            child: const Text("TEST"),
-          ),
-        ],
+            const AddVerticalSpace(height: shopCategoryVerticalPadding),
+            Row(
+              children: [
+                Expanded(
+                  child: ShopCategoryItem(
+                    icon: Icons.shopping_bag,
+                    categoryTitle: TextConstants.supplies,
+                    onTap: () => AutoRouter.of(context).push(
+                      const SuppliesShopRoute(),
+                    ),
+                  ),
+                ),
+                const AddHorizontalSpace(width: shopCategoryHorizontalPadding),
+                Expanded(
+                  child: ShopCategoryItem(
+                    icon: Icons.diamond,
+                    categoryTitle: TextConstants.jeweler,
+                    onTap: () => AutoRouter.of(context).push(
+                      const JewelryShopRoute(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const AddVerticalSpace(height: shopCategoryVerticalPadding),
+            Row(
+              children: [
+                Expanded(
+                  child: ShopCategoryItem(
+                    icon: Icons.directions_car,
+                    categoryTitle: TextConstants.carDealer,
+                    onTap: () => AutoRouter.of(context).push(
+                      const CarShopRoute(),
+                    ),
+                  ),
+                ),
+                const AddHorizontalSpace(width: shopCategoryHorizontalPadding),
+                Expanded(
+                  child: ShopCategoryItem(
+                    icon: Icons.house,
+                    categoryTitle: TextConstants.realEstate,
+                    onTap: () => AutoRouter.of(context).push(
+                      const HouseShopRoute(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
-
-    // return AutoTabsRouter.tabBar(
-    //   routes: const [],
-    //   builder: (context, child, tabController) {
-    //     final appTheme = Theme.of(context);
-
-    //     return Scaffold();
-    //   },
-    // );
   }
 }
+
+
+//  [
+//               const ShopListItem(
+//                   itemName: BabyFoodNames.fuzziesMegaOrganicBabyFormula,
+//                   itemDetails: "2 Servings",
+//                   itemPrice: 30,
+//                   itemImage: "itemImage"),
+//               const ShopListItem(
+//                   itemName: BabyFoodNames.mangoPuree,
+//                   itemDetails: "2 Servings",
+//                   itemPrice: 30,
+//                   itemImage: "itemImage"),
+//               const ShopListItem(
+//                   itemName: BabyFoodNames.bananaAppleMangoPuree,
+//                   itemDetails: "1 Servings",
+//                   itemPrice: 55,
+//                   itemImage: "itemImage"),
+//               ShopListItem(
+//                   itemName: BuildingType.mordernHome.fullName,
+//                   itemDetails: "2 bedrooms & 1 bathroom",
+//                   itemPrice: 250000,
+//                   itemImage: "itemImage"),
+//             ],

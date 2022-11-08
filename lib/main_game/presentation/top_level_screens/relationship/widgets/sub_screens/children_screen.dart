@@ -3,7 +3,6 @@ import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/children_list_item.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_child_relationship_label.dart';
 
@@ -16,8 +15,7 @@ class ChildrenScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RelationshipListScreen(
-      listView: ListView.separated(
+    return ListView.separated(
         itemCount: childrenList.length,
         itemBuilder: (context, index) {
           //relationship label
@@ -39,6 +37,7 @@ class ChildrenScreen extends StatelessWidget {
           final inYourCustody = childrenList[index].relationship.inYourCustody;
 
           return ChildrenListItem(
+            onTap: (){},
             avatarImagePath: "assets/images/black_woman_placeholder.jpg",
             relationshipLabel: relationshipLabel,
             name: name,
@@ -49,7 +48,7 @@ class ChildrenScreen extends StatelessWidget {
         separatorBuilder: (context, index) {
           return const ListDivider();
         },
-      ),
+      
     );
   }
 }
