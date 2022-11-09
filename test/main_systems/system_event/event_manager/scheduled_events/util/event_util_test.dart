@@ -22,6 +22,7 @@ void main() {
       importantStatus: null,
       custodianID: 2,
       hasDriversLicense: true,
+      transportMode: "bus",
       hasFertilityIssues: false,
       onBirthControl: false,
       isSterile: false,

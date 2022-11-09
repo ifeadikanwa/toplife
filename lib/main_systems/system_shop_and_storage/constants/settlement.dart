@@ -7,14 +7,18 @@ enum Settlement {
 
   Village(
     defaultCommuteTimeInMinutes: DurationTimeInMinutes.twoHours,
+    defaultCommuteFuelConsumption: 20,
   ), //2hr?
   Town(
     defaultCommuteTimeInMinutes: DurationTimeInMinutes.oneHourThirtyMinutes,
+    defaultCommuteFuelConsumption: 15,
   ), //1hr30m?,
   City(
     defaultCommuteTimeInMinutes: DurationTimeInMinutes.oneHour,
+    defaultCommuteFuelConsumption: 10,
   ); //1hr?
 
-  const Settlement({required this.defaultCommuteTimeInMinutes});
+  const Settlement({required this.defaultCommuteTimeInMinutes, required this.defaultCommuteFuelConsumption,});
   final int defaultCommuteTimeInMinutes;
+  final int defaultCommuteFuelConsumption;
 }

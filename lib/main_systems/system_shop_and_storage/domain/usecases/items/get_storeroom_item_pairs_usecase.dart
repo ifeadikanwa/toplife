@@ -2,7 +2,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_m
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/item_repository.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/get_available_storeroom_items_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_available_storeroom_items_usecase.dart';
 
 class GetStoreroomItemPairsUsecase {
   final ItemRepository _itemRepository;

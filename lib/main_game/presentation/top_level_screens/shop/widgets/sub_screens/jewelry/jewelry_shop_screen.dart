@@ -8,6 +8,7 @@ import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/jewelry/get_jewelries.dart';
 
 class JewelryShopScreen extends StatelessWidget {
+  
   const JewelryShopScreen({Key? key}) : super(key: key);
 
   @override

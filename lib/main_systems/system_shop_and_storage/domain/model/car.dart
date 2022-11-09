@@ -16,6 +16,7 @@ class Car extends Equatable {
   final int useCondition;
   final int maxConditionAtPurchase;
   final bool fullyPaidFor;
+  final bool currentlyDriving;
   final bool isInsured;
   final int insuranceCost;
   final String insuranceType;
@@ -34,6 +35,7 @@ class Car extends Equatable {
     required this.useCondition,
     required this.maxConditionAtPurchase,
     this.fullyPaidFor = true,
+    this.currentlyDriving = false,
     this.isInsured = false,
     this.insuranceCost = 0,
     this.insuranceType = "",
@@ -54,6 +56,7 @@ class Car extends Equatable {
         useCondition,
         maxConditionAtPurchase,
         fullyPaidFor,
+        currentlyDriving,
         isInsured,
         insuranceCost,
         insuranceType,
@@ -78,6 +81,7 @@ class Car extends Equatable {
   static const useConditionColumn = "useCondition";
   static const maxConditionAtPurchaseColumn = "maxConditionAtPurchase";
   static const fullyPaidForColumn = "fullyPaidFor";
+  static const currentlyDrivingColumn = "currentlyDriving";
   static const isInsuredColumn = "isInsured";
   static const insuranceCostColumn = "insuranceCost";
   static const insuranceTypeColumn = "insuranceType";
@@ -96,6 +100,7 @@ class Car extends Equatable {
     useConditionColumn,
     maxConditionAtPurchaseColumn,
     fullyPaidForColumn,
+    currentlyDrivingColumn,
     isInsuredColumn,
     insuranceCostColumn,
     insuranceTypeColumn,
@@ -115,6 +120,7 @@ class Car extends Equatable {
       problem: carMap[problemColumn] as String,
       useCondition: carMap[useConditionColumn] as int,
       maxConditionAtPurchase: carMap[maxConditionAtPurchaseColumn] as int,
+      currentlyDriving: carMap[currentlyDrivingColumn] == databaseTrueValue,
       fullyPaidFor: carMap[fullyPaidForColumn] == databaseTrueValue,
       isInsured: carMap[isInsuredColumn] == databaseTrueValue,
       insuranceCost: carMap[insuranceCostColumn] as int,
@@ -136,6 +142,7 @@ class Car extends Equatable {
       problemColumn: problem,
       useConditionColumn: useCondition,
       maxConditionAtPurchaseColumn: maxConditionAtPurchase,
+      currentlyDrivingColumn: currentlyDriving ? databaseTrueValue : databaseFalseValue,
       fullyPaidForColumn: fullyPaidFor ? databaseTrueValue : databaseFalseValue,
       isInsuredColumn: isInsured ? databaseTrueValue : databaseFalseValue,
       insuranceCostColumn: insuranceCost,
@@ -156,6 +163,7 @@ class Car extends Equatable {
     String? problem,
     int? useCondition,
     int? maxConditionAtPurchase,
+    bool? currentlyDriving,
     bool? fullyPaidFor,
     bool? isInsured,
     int? insuranceCost,
@@ -176,6 +184,7 @@ class Car extends Equatable {
       useCondition: crossCheckStat(useCondition) ?? this.useCondition,
       maxConditionAtPurchase:
           crossCheckStat(maxConditionAtPurchase) ?? this.maxConditionAtPurchase,
+      currentlyDriving: currentlyDriving ?? this.currentlyDriving,
       fullyPaidFor: fullyPaidFor ?? this.fullyPaidFor,
       isInsured: isInsured ?? this.isInsured,
       insuranceCost: insuranceCost ?? this.insuranceCost,

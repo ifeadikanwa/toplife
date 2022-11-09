@@ -33,4 +33,14 @@ class CarRepositoryImpl implements CarRepository {
   Future<void> updateCar(Car car) {
     return _carDao.updateCar(car);
   }
+
+  @override
+  Future<Car?> getCurrentCar(int personID) {
+    return _carDao.getCurrentCar(personID);
+  }
+
+  @override
+  Future<List<Car>> getAllCurrentlyDrivingCars(int personID) {
+    return _carDao.getAllCurrentlyDrivingCars(personID);
+  }
 }

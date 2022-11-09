@@ -5,6 +5,7 @@ import 'package:toplife/game_manager/domain/usecases/delete_game_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/get_all_active_games_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/get_game_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/get_last_played_active_game_usecase.dart';
+import 'package:toplife/game_manager/domain/usecases/move_time_forward_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/update_game_usecase.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -50,4 +51,7 @@ class GameUsecases {
 
   ChangeCurrentPlayerUsecase get changeCurrentPlayerUsecase =>
       ChangeCurrentPlayerUsecase(gameRepository: _gameRepository);
+
+  MoveTimeForwardUsecase get moveTimeForwardUsecase =>
+      MoveTimeForwardUsecase(gameRepository: _gameRepository);
 }

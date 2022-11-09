@@ -39,6 +39,15 @@ import 'package:toplife/main_systems/system_shop_and_storage/data/dao/jewelry_da
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/shop_and_storage_repositories.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/transportation_usecases.dart';
+
+final transportationUsecaseProvider = Provider<TransportationUsescases>((ref) {
+  return TransportationUsescases(
+    personUsecases: ref.watch(personUsecasesProvider),
+    shopAndStorageUsecases: ref.watch(shopAndStorageUsecaseProvider),
+    gameUsecases: ref.watch(gameUsecasesProvider),
+  );
+});
 
 final shopAndStorageUsecaseProvider = Provider<ShopAndStorageUsecases>((ref) {
   return ShopAndStorageUsecases(

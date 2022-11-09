@@ -1,4 +1,7 @@
+import 'package:toplife/main_systems/system_location/countries/country.dart';
+import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
@@ -15,46 +18,68 @@ class TakeMoneyFromPlayerUsecase {
 
   Future<bool> execute({
     required int mainPlayerID,
-    required int amountToTake,
+    required int baseAmountToTake,
+    required bool adjustToEconomy,
   }) async {
-    //check if player is married
-    final currentPartner = await _relationshipUsecases.getCurrentPartnerUsecase
-        .execute(mainPlayerID);
-
-    //player is married
-    if (currentPartner != null &&
-        currentPartner.partnerRelationshipType ==
-            PartnerRelationshipType.married.name) {
-      return takeMoneyFromMarriedPlayer(
-        mainPlayerID: mainPlayerID,
-        amountToTake: amountToTake,
-        currentPartner: currentPartner,
-      );
-    }
-    //player is not married
-    else {
-      return takeMoneyFromUnmarriedPlayer(
-        mainPlayerID: mainPlayerID,
-        amountToTake: amountToTake,
-      );
-    }
-  }
-
-  Future<bool> takeMoneyFromMarriedPlayer({
-    required int mainPlayerID,
-    required int amountToTake,
-    required Partner currentPartner,
-  }) async {
-    final mainPlayerPerson =
+    //get player
+    final Person? mainPlayerPerson =
         await _personRepositories.personRepositoryImpl.getPerson(
       mainPlayerID,
     );
+
+    //if player is a valid person
+    if (mainPlayerPerson != null) {
+      //get player economy and adjust amount to take
+      final Country playerCountry = LocationManager.getCountryClass(
+        countryName: mainPlayerPerson.country,
+      );
+
+      late final int finalAmountToTake;
+      if (adjustToEconomy) {
+        finalAmountToTake = baseAmountToTake * playerCountry.economy;
+      } else {
+        finalAmountToTake = baseAmountToTake;
+      }
+
+      //check if player is married
+      final currentPartner = await _relationshipUsecases
+          .getCurrentPartnerUsecase
+          .execute(mainPlayerID);
+
+      //player is married
+      if (currentPartner != null &&
+          currentPartner.partnerRelationshipType ==
+              PartnerRelationshipType.married.name) {
+        return takeMoneyFromMarriedPlayer(
+          mainPlayerPerson: mainPlayerPerson,
+          amountToTake: finalAmountToTake,
+          currentPartner: currentPartner,
+        );
+      }
+      //player is not married
+      else {
+        return takeMoneyFromUnmarriedPlayer(
+          mainPlayerPerson: mainPlayerPerson,
+          amountToTake: finalAmountToTake,
+        );
+      }
+    }
+
+    //player is not a valid person
+    return false;
+  }
+
+  Future<bool> takeMoneyFromMarriedPlayer({
+    required Person mainPlayerPerson,
+    required int amountToTake,
+    required Partner currentPartner,
+  }) async {
     final partnerPerson =
         await _personRepositories.personRepositoryImpl.getPerson(
       currentPartner.partnerID,
     );
 
-    if (mainPlayerPerson != null && partnerPerson != null) {
+    if (partnerPerson != null) {
       final int playerAccount = mainPlayerPerson.money;
       final int partnerAccount = partnerPerson.money;
       final int jointAccount = currentPartner.jointMoney;
@@ -151,26 +176,19 @@ class TakeMoneyFromPlayerUsecase {
   }
 
   Future<bool> takeMoneyFromUnmarriedPlayer({
-    required int mainPlayerID,
+    required Person mainPlayerPerson,
     required int amountToTake,
   }) async {
-    final mainPlayerPerson =
-        await _personRepositories.personRepositoryImpl.getPerson(
-      mainPlayerID,
-    );
+    final int playerAccount = mainPlayerPerson.money;
 
-    if (mainPlayerPerson != null) {
-      final int playerAccount = mainPlayerPerson.money;
+    if (playerAccount >= amountToTake) {
+      await _personRepositories.personRepositoryImpl.updatePerson(
+        mainPlayerPerson.copyWith(
+          money: (playerAccount - amountToTake),
+        ),
+      );
 
-      if (playerAccount >= amountToTake) {
-        await _personRepositories.personRepositoryImpl.updatePerson(
-          mainPlayerPerson.copyWith(
-            money: (playerAccount - amountToTake),
-          ),
-        );
-
-        return true;
-      }
+      return true;
     }
 
     return false;

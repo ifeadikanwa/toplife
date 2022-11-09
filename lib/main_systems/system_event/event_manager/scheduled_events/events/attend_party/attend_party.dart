@@ -68,7 +68,8 @@ class AttendParty {
     //remove chosen money gift from account
     _personUsecases.takeMoneyFromPlayerUsecase.execute(
       mainPlayerID: mainPlayerID,
-      amountToTake: chosenMoneyGiftAmount.toInt(),
+      baseAmountToTake: chosenMoneyGiftAmount.toInt(),
+      adjustToEconomy: false,
     );
 
     //log in journal

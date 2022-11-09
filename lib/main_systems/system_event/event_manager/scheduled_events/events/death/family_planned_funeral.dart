@@ -141,7 +141,8 @@ class FamilyPlannedFuneral {
     final bool playerCanAffordToContribute =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
       mainPlayerID: mainPlayerID,
-      amountToTake: contribution,
+      baseAmountToTake: contribution,
+      adjustToEconomy: false,
     );
 
     late final String resultActionDesc;

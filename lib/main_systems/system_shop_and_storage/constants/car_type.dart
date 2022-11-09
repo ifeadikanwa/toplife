@@ -5,4 +5,7 @@ enum CarType {
   minivan,
   convertible,
   truck,
+  bus,
+  train,
+  taxi,
 }

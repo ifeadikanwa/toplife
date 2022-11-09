@@ -58,7 +58,8 @@ class PlayerPlannedFuneral {
     final playerCanAffordFuneralPlan =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
       mainPlayerID: mainPlayerID,
-      amountToTake: cost * playerCountry.economy,
+      baseAmountToTake: cost * playerCountry.economy,
+      adjustToEconomy: false,
     );
 
     if (playerCanAffordFuneralPlan) {

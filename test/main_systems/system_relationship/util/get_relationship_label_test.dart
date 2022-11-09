@@ -32,6 +32,7 @@ void main() {
       country: "country",
       money: 130,
       zodiacSign: "zodiacSign",
+      transportMode: "bus",
       hasFertilityIssues: true,
       onBirthControl: true,
       isSterile: true,

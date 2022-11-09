@@ -23,16 +23,16 @@ void main() {
       );
     });
 
-    test("high car quality max depreciation is 0", () {
-      expect(CarQuality.high.maxDepreciation, 0);
+    test("high car quality max depreciation is 11", () {
+      expect(CarQuality.high.maxDepreciation, 11);
     });
 
-    test("mid car quality max depreciation is 0", () {
-      expect(CarQuality.mid.maxDepreciation, 0);
+    test("mid car quality max depreciation is 14", () {
+      expect(CarQuality.mid.maxDepreciation, 14);
     });
 
-    test("low car quality max depreciation is 0", () {
-      expect(CarQuality.low.maxDepreciation, 0);
+    test("low car quality max depreciation is 20", () {
+      expect(CarQuality.low.maxDepreciation, 20);
     });
   });
 }

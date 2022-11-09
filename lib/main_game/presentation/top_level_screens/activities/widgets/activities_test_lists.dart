@@ -35,6 +35,7 @@ class ActivitiesTestList {
     zodiacSign: ZodiacSign.Libra.name,
     importantStatus: null,
     custodianID: 2,
+      transportMode: "bus",
     hasDriversLicense: true,
     hasFertilityIssues: false,
     onBirthControl: false,

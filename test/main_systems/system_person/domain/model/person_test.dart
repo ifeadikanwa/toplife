@@ -26,6 +26,7 @@ void main() {
       importantStatus: null,
       custodianID: 2,
       hasDriversLicense: true,
+      transportMode: "bus",
       hasFertilityIssues: false,
       onBirthControl: false,
       isSterile: false,
@@ -57,6 +58,7 @@ void main() {
           "custodianID": 2,
           "zodiacSign": "Libra",
           "hasDriversLicense": 1,
+          "transportMode": "bus",
           "hasFertilityIssues": 0,
           "onBirthControl": 0,
           "isSterile": 0,
@@ -87,6 +89,7 @@ void main() {
           "custodianID": 2,
           "zodiacSign": "Libra",
           "hasDriversLicense": 1,
+          "transportMode": "bus",
           "hasFertilityIssues": 0,
           "onBirthControl": 0,
           "isSterile": 0,
@@ -119,6 +122,7 @@ void main() {
           importantStatus: "status changed",
           custodianID: 2,
           hasDriversLicense: false,
+          transportMode: "train",
           hasFertilityIssues: false,
           onBirthControl: false,
           isSterile: false,
@@ -133,6 +137,7 @@ void main() {
           rebellious: false,
           hasDriversLicense: false,
           money: 80,
+          transportMode: "train",
         );
         expect(result, correctPerson);
       });

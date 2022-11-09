@@ -18,6 +18,7 @@ void main() {
       problem: "noProblem",
       useCondition: 80,
       maxConditionAtPurchase: 100,
+      currentlyDriving: true,
       fullyPaidFor: false,
       isInsured: true,
       insuranceCost: 200,
@@ -39,6 +40,7 @@ void main() {
         "problem": "noProblem",
         "useCondition": 80,
         "maxConditionAtPurchase": 100,
+        "currentlyDriving": 1,
         "fullyPaidFor": 0,
         "isInsured": 1,
         "insuranceCost": 200,
@@ -62,6 +64,7 @@ void main() {
         "problem": "noProblem",
         "useCondition": 80,
         "maxConditionAtPurchase": 100,
+        "currentlyDriving": 1,
         "fullyPaidFor": 0,
         "isInsured": 1,
         "insuranceCost": 200,
@@ -87,6 +90,7 @@ void main() {
         problem: "noProblem",
         useCondition: 80,
         maxConditionAtPurchase: 100,
+        currentlyDriving: false,
         fullyPaidFor: true,
         isInsured: false,
         insuranceCost: 1000,
@@ -100,6 +104,7 @@ void main() {
         isInsured: false,
         insuranceCost: 1000,
         insuranceType: "premium",
+        currentlyDriving: false,
       );
       expect(result, correctCar);
     });

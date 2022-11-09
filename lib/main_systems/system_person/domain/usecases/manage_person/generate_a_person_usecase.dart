@@ -9,6 +9,7 @@ import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_gender.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_sexuality.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_zodiac_sign.dart';
+import 'package:toplife/main_systems/system_transportation/constants/transport_mode.dart';
 
 class GenerateAPersonUsecase {
   final AgeUsecases _ageUsecases;
@@ -95,6 +96,7 @@ class GenerateAPersonUsecase {
       country: currentCountry,
       money: Random().nextInt(60) + 40, //random amount in 40-100
       zodiacSign: personZodiacSign.name,
+      transportMode: TransportMode.bus.name,
       hasFertilityIssues: Chance.getTrueOrFalseBasedOnPercentageChance(
         trueChancePercentage: 10,
       ),

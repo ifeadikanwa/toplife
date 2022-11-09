@@ -33,4 +33,9 @@ class HouseRepositoryImpl implements HouseRepository {
   Future<void> updateHouse(House house) {
     return _houseDao.updateHouse(house);
   }
+
+  @override
+  Future<House?> getCurrentHouse(int personID) {
+    return _houseDao.getCurrentHouse(personID);
+  }
 }

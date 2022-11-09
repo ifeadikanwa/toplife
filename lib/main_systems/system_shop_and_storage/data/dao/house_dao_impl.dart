@@ -106,4 +106,24 @@ class HouseDaoImpl implements HouseDao {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  @override
+  Future<House?> getCurrentHouse(int personID) async {
+    final db = await _databaseProvider.database;
+    final houseMaps = await db.query(
+      houseTable,
+      columns: House.allColumns,
+      where: "${House.personIDColumn} = ? and ${House.isCurrentHomeColumn} = ?",
+      whereArgs: [
+        personID,
+        databaseTrueValue,
+      ],
+    );
+
+    if (houseMaps.isNotEmpty) {
+      return House.fromMap(houseMap: houseMaps.first);
+    } else {
+      return null;
+    }
+  }
 }
