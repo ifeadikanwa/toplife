@@ -113,8 +113,6 @@ final eventManagerProvider = Provider<EventManager>((ref) {
     journalUsecases: ref.watch(journalUsecasesProvider),
     shopAndStorageUsecases: ref.watch(shopAndStorageUsecaseProvider),
     eventRepository: EventRepositoryImpl(eventDao: EventDaoImpl()),
-    gameUsecases: ref.watch(gameUsecasesProvider),
-    transportationUsescases: ref.watch(transportationUsecaseProvider),
   );
 });
 

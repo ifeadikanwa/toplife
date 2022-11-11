@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/list_templates/case/clickable_general_list_item_case.dart';
-import 'package:toplife/core/common_widgets/list_templates/case/general_list_item_case.dart';
 import 'package:toplife/core/common_widgets/list_templates/helper_widgets/open_forward_arrow.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
