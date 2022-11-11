@@ -24,7 +24,6 @@ class EventListItem extends ConsumerWidget {
     final currentGame = ref.watch(currentGameProvider);
 
     return GeneralListItemCase(
-      onTap: () {},
       hasDivider: true,
       content: [
         Row(

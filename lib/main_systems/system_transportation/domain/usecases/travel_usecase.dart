@@ -33,9 +33,55 @@ class TravelUsecase {
     this._shopAndStorageUsecases,
   );
 
-  Future<TravelResponse> execute({
+  Future<TravelResponse> executeDurationTravel({
     required int personID,
     required int eventDuration,
+  }) async {
+    //here there is no set and start time so it is assumed that the player will:
+    //travel there then spend the given duration then travel back(two travels added)
+
+    return _execute(
+      personID: personID,
+      eventDuration: eventDuration,
+      twoWayTravel: true,
+    );
+  }
+
+  Future<TravelResponse> executeTimedEventTravel({
+    required int personID,
+    required int eventStartTime,
+    required int eventEndTime,
+  }) async {
+    //here there is a set start and end time, so we assume the player has to leave by the end time then travel back.
+    //we also know that that the validity of whether the player should even be able to make that travel has been handled before this is called.
+    //so we don't think about travelling there, we simply move time forward till the end of the event then travel back(only one travel added)
+
+    final Game? currentGame =
+        await _gameUsecases.getLastPlayedActiveGameUsecase.execute();
+
+    if (currentGame != null) {
+      final int entireDurationBeforeEventEnd =
+          eventEndTime - currentGame.currentTimeInMinutes;
+
+      return _execute(
+        personID: personID,
+        eventDuration: entireDurationBeforeEventEnd,
+        twoWayTravel: false,
+      );
+    }
+
+    //if game is not valid
+    return const TravelResponse(
+      isSuccesful: false,
+      problem: TravelProblemTexts.unknownReason,
+    );
+  }
+
+  //travels based on transportation and settlement
+  Future<TravelResponse> _execute({
+    required int personID,
+    required int eventDuration,
+    required bool twoWayTravel,
   }) async {
     final Person? person = await _personUsecases.getPersonUsecase.execute(
       personID: personID,
@@ -64,21 +110,23 @@ class TravelUsecase {
         case TransportMode.bus:
         case TransportMode.train:
         case TransportMode.taxi:
-          return await takePublicTransport(
+          return await _takePublicTransport(
             transportMode: transportMode,
             currentTransportation: currentTransportation,
             person: person,
             travelTime: travelTime,
             eventDuration: eventDuration,
+            twoWayTravel: twoWayTravel,
           );
         case TransportMode.private:
-          return await takePrivateTransport(
+          return await _takePrivateTransport(
             transportMode: transportMode,
             currentTransportation: currentTransportation,
             settlement: settlement,
             person: person,
             travelTime: travelTime,
             eventDuration: eventDuration,
+            twoWayTravel: twoWayTravel,
           );
       }
     }
@@ -89,12 +137,13 @@ class TravelUsecase {
     );
   }
 
-  Future<TravelResponse> takePublicTransport({
+  Future<TravelResponse> _takePublicTransport({
     required TransportMode transportMode,
     required Car currentTransportation,
     required Person person,
     required int travelTime,
     required int eventDuration,
+    required bool twoWayTravel,
   }) async {
     final bool paymentSuccessful =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
@@ -104,10 +153,11 @@ class TravelUsecase {
     );
 
     if (paymentSuccessful) {
-      moveTimeForward(
+      _moveTimeForward(
         gameID: person.gameID!,
         travelTime: travelTime,
         eventDuration: eventDuration,
+        twoWayTravel: twoWayTravel,
       );
       return const TravelResponse(
         isSuccesful: true,
@@ -121,13 +171,14 @@ class TravelUsecase {
     }
   }
 
-  Future<TravelResponse> takePrivateTransport({
+  Future<TravelResponse> _takePrivateTransport({
     required TransportMode transportMode,
     required Car currentTransportation,
     required Settlement settlement,
     required Person person,
     required int travelTime,
     required int eventDuration,
+    required bool twoWayTravel,
   }) async {
     //check that car is not dead
     //check if there is fuel
@@ -179,10 +230,11 @@ class TravelUsecase {
         currentDay: currentGame.currentDay,
       );
 
-      moveTimeForward(
+      _moveTimeForward(
         gameID: person.gameID!,
         travelTime: travelTime,
         eventDuration: eventDuration,
+        twoWayTravel: twoWayTravel,
       );
 
       return const TravelResponse(
@@ -198,13 +250,20 @@ class TravelUsecase {
     );
   }
 
-  void moveTimeForward({
+  void _moveTimeForward({
     required int gameID,
     required int travelTime,
     required int eventDuration,
+    required bool twoWayTravel,
   }) {
     //travel time for going and coming + event duration;
-    final int totalTime = (travelTime * 2) + eventDuration;
+
+    late final int totalTime;
+    if (twoWayTravel) {
+      totalTime = (travelTime * 2) + eventDuration;
+    } else {
+      totalTime = travelTime + eventDuration;
+    }
 
     _gameUsecases.moveTimeForwardUsecase.execute(
       gameID: gameID,

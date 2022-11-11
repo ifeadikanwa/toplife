@@ -8,7 +8,14 @@ import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
+import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
+import 'package:toplife/main_systems/system_person/constants/gender.dart';
+import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
+import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -91,6 +98,60 @@ class ShopScreen extends ConsumerWidget {
                   ),
                 ),
               ],
+            ),
+
+            //test
+            const AddVerticalSpace(height: 16.0),
+            OutlinedButton(
+              onPressed: () async {
+                final person = Person(
+                  firstName: "David",
+                  lastName: "Smith",
+                  dayOfBirth: 21,
+                  gender: Gender.Male.name,
+                  subjectPronoun: Gender.Male.subjectPronoun,
+                  objectPronoun: Gender.Male.objectPronoun,
+                  possessivePronoun: Gender.Male.possessivepronoun,
+                  sexuality: Sexuality.Straight.name,
+                  state: "Ontario",
+                  country: "Canada",
+                  money: 12000,
+                  zodiacSign: ZodiacSign.Libra.name,
+                  transportMode: "bus",
+                  hasFertilityIssues: false,
+                  onBirthControl: false,
+                  isSterile: false,
+                  sickly: false,
+                  rebellious: true,
+                  dead: false,
+                );
+
+                // final result = await ref
+                //     .watch(gameUsecasesProvider)
+                //     .createGameUsecase
+                //     .execute(person);
+
+                final result = await ref
+                    .watch(gameUsecasesProvider)
+                    .getLastPlayedActiveGameUsecase
+                    .execute();
+
+                //  final result = await ref
+                //       .watch(personUsecasesProvider)
+                //       .getPersonUsecase
+                //       .execute(personID: 1);
+
+                // final result = await ref
+                //     .watch(transportationUsecaseProvider)
+                //     .travelUsecase
+                //     .executeDurationTravel(
+                //       personID: 1,
+                //       eventDuration: 60,
+                //     );
+
+                print(result);
+              },
+              child: const Text("TEST"),
             ),
           ],
         ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
@@ -11,6 +13,7 @@ import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/transportation_usecases.dart';
 
 //The main point of contact for everything event related.
 //other systems outside of the event system should only have access to this class.
@@ -24,6 +27,8 @@ class EventManager {
   final JournalUsecases _journalUsecases;
   final ShopAndStorageUsecases _shopAndStorageUsecases;
   final EventRepository _eventRepository;
+  final GameUsecases _gameUsecases;
+  final TransportationUsescases _transportationUsescases;
 
   const EventManager({
     required RelationshipUsecases relationshipUsecases,
@@ -32,12 +37,16 @@ class EventManager {
     required JournalUsecases journalUsecases,
     required ShopAndStorageUsecases shopAndStorageUsecases,
     required EventRepository eventRepository,
+    required GameUsecases gameUsecases,
+    required TransportationUsescases transportationUsescases,
   })  : _relationshipUsecases = relationshipUsecases,
         _personUsecases = personUsecases,
         _ageUsecases = ageUsecases,
         _journalUsecases = journalUsecases,
         _shopAndStorageUsecases = shopAndStorageUsecases,
-        _eventRepository = eventRepository;
+        _eventRepository = eventRepository,
+        _gameUsecases = gameUsecases,
+        _transportationUsescases = transportationUsescases;
 
   EventScheduler get _eventScheduler => EventScheduler(
         _eventRepository,
@@ -53,6 +62,8 @@ class EventManager {
         _eventScheduler,
         _eventRepository,
       );
+
+  static const int eventAttendanceAllowanceTime = 30;
 
   void runEvent(int mainPlayerID, Event event, BuildContext context) {
     final eventTypeEnum = convertEventTypeStringToEnum(event.eventType);
@@ -128,6 +139,29 @@ class EventManager {
     }
 
     return todaysAttendableEvents;
+  }
+
+  static bool checkIfEventIsOpen({
+    required int startTime,
+    required int endTime,
+    required int travelTime,
+    required int currentTime,
+  }) {
+
+    //check if the player can start making the journey to attend the event. 
+    //this way we always account for the players actual travel time, even when it changes
+    return currentTime >=
+        (startTime - travelTime - eventAttendanceAllowanceTime);
+  }
+
+ static bool checkIfEventCanStillBeAttended({
+    required int startTime,
+    required int endTime,
+    required int travelTime,
+    required int currentTime,
+  }) {
+    //if the event duration is greater than the travel time
+    return (endTime - currentTime) > travelTime;
   }
 
   static EventType? convertEventTypeStringToEnum(String eventType) {
