@@ -14,13 +14,13 @@ class ActivitiesTestList {
     eventType: EventType.birthdayParty.name,
     eventDay: 34,
     mainPersonID: 2,
-    relationshipToMainPlayer: InformalRelationshipType.friend.name,
+    relationshipToMainPlayer: InformalRelationshipType.parent.name,
     journalEntryOnly: false,
     performed: false,
   );
   static final testPerson = Person(
-    id: 1,
-    gameID: 2,
+    id: 2,
+    gameID: 1,
     firstName: "Ify",
     lastName: "Eze",
     dayOfBirth: 21,
@@ -35,7 +35,7 @@ class ActivitiesTestList {
     zodiacSign: ZodiacSign.Libra.name,
     importantStatus: null,
     custodianID: 2,
-      transportMode: "bus",
+    transportMode: "bus",
     hasDriversLicense: true,
     hasFertilityIssues: false,
     onBirthControl: false,
@@ -48,7 +48,7 @@ class ActivitiesTestList {
   static final eventPersonPairsList = [
     EventPersonPair(
       event: testEvent.copyWith(
-        startTime: ClockTimeInMinutes.eightAM,
+        startTime: ClockTimeInMinutes.oneAM,
         endTime: ClockTimeInMinutes.twelvePM,
       ),
       person: testPerson.copyWith(firstName: "Sandra"),

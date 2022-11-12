@@ -12,16 +12,20 @@ import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 class EventListItem extends ConsumerWidget {
   final Person eventMainPerson;
   final Event event;
+  final bool eventIsOpen;
+  final bool eventCanStillBeAttended;
 
   const EventListItem({
     Key? key,
     required this.eventMainPerson,
     required this.event,
+    required this.eventIsOpen,
+    required this.eventCanStillBeAttended,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentGame = ref.watch(currentGameProvider);
+    final currentGame = ref.watch(currentGameProvider).valueOrNull;
 
     return GeneralListItemCase(
       hasDivider: true,
@@ -39,18 +43,21 @@ class EventListItem extends ConsumerWidget {
                 actionDescription: getAttendableEventTime(
                   event: event,
                 ),
+                disabled: (eventCanStillBeAttended) ? false : true,
               ),
             ),
             OutlinedButton(
-              onPressed: () {
-                if (currentGame != null) {
-                  ref.read(eventManagerProvider).runEvent(
-                        currentGame.currentPlayerID,
-                        event,
-                        context,
-                      );
-                }
-              },
+              onPressed: (!eventIsOpen || !eventCanStillBeAttended)
+                  ? null //disable button
+                  : () async {
+                      if (currentGame != null) {
+                        ref.read(eventManagerProvider).runEvent(
+                              currentGame.currentPlayerID,
+                              event,
+                              context,
+                            );
+                      }
+                    },
               child: const Text(TextConstants.attend),
             ),
           ],

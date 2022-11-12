@@ -120,9 +120,26 @@ final eventRepositoryProvider = Provider<EventRepository>((ref) {
   return EventRepositoryImpl(eventDao: EventDaoImpl());
 });
 
-final currentGameProvider = StateProvider<Game?>((ref) {
+final currentGameProvider = FutureProvider<Game?>((ref) {
   final game = ref.watch(gameManagerViewModel);
   return game.valueOrNull;
+});
+
+final travelTimeProvider = FutureProvider<int>((ref) async {
+  final currentGame = ref.watch(currentGameProvider).valueOrNull;
+
+  final int? mainPlayerID = currentGame?.currentPlayerID;
+
+  if (mainPlayerID != null) {
+    return ref
+        .watch(transportationUsecaseProvider)
+        .getTravelTimeUsecase
+        .execute(
+          personID: mainPlayerID,
+        );
+  }
+
+  return 0;
 });
 
 final gameManagerViewModel =

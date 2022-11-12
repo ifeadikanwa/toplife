@@ -92,59 +92,6 @@ class ShopScreen extends ConsumerWidget {
                 ),
               ],
             ),
-
-            //test
-            const AddVerticalSpace(height: 16.0),
-            OutlinedButton(
-              onPressed: () async {
-                // final person = Person(
-                //   firstName: "David",
-                //   lastName: "Smith",
-                //   dayOfBirth: 21,
-                //   gender: Gender.Male.name,
-                //   subjectPronoun: Gender.Male.subjectPronoun,
-                //   objectPronoun: Gender.Male.objectPronoun,
-                //   possessivePronoun: Gender.Male.possessivepronoun,
-                //   sexuality: Sexuality.Straight.name,
-                //   state: "Ontario",
-                //   country: "Canada",
-                //   money: 12000,
-                //   zodiacSign: ZodiacSign.Libra.name,
-                //   transportMode: "bus",
-                //   hasFertilityIssues: false,
-                //   onBirthControl: false,
-                //   isSterile: false,
-                //   sickly: false,
-                //   rebellious: true,
-                //   dead: false,
-                // );
-
-                // final result = await ref
-                //     .watch(gameUsecasesProvider)
-                //     .createGameUsecase
-                //     .execute(person);
-
-                // final result = await ref
-                //     .watch(gameUsecasesProvider)
-                //     .getLastPlayedActiveGameUsecase
-                //     .execute();
-
-                //  final result = await ref
-                //       .watch(personUsecasesProvider)
-                //       .getPersonUsecase
-                //       .execute(personID: 1);
-
-                // final result = await ref
-                //     .watch(transportationUsecaseProvider)
-                //     .travelUsecase
-                //     .executeDurationTravel(
-                //       personID: 1,
-                //       eventDuration: 60,
-                //     );
-
-              },
-              child: const Text("TEST"),
-            ),
           ],
         ),
       ),

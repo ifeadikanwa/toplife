@@ -133,6 +133,8 @@ class EventManager {
     return todaysAttendableEvents;
   }
 
+  //this is checking if access to travelling to the event is available so we can communicate that specific situation through the UI
+  //for example we disable only the attend button until the event is open
   static bool checkIfEventIsOpen({
     required int startTime,
     required int endTime,
@@ -146,6 +148,7 @@ class EventManager {
         (startTime - travelTime - eventAttendanceAllowanceTime);
   }
 
+//this is checking if the event has passed so we can communicate that specific situation through the UI
  static bool checkIfEventCanStillBeAttended({
     required int startTime,
     required int endTime,
