@@ -1,65 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
-import 'package:toplife/core/common_widgets/app_templates/scrollable_screen_content.dart';
-import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
+import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
+import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/sections/current_section.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/sections/history_section.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/helper_widgets/sections/opportunities_section.dart';
-import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
-import 'package:toplife/main_systems/system_job/domain/model/info_models/job_pair.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
-import 'package:toplife/main_systems/system_school/domain/model/info_models/school_pair.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 class WorkScreen extends StatelessWidget {
-  final SchoolPair<School, Degree>? currentSchool;
-  final List<JobPair<Employment, Job>> currentEmployments;
-
   const WorkScreen({
     Key? key,
-    this.currentSchool,
-    required this.currentEmployments,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const avatarImagePath = "assets/images/black_woman_placeholder.jpg";
-    const flagImagePath = "assets/images/france_flag.jpg";
-
-    return Column(
-      children: [
-        const PlayerStatusBar(
-          firstName: "Janet",
-          lastName: "Jackson",
-          avatarImagePath: avatarImagePath,
-          flagImagePath: flagImagePath,
-          currency: "\$",
-          bankBalance: "60,000",
-          time: "08:45 AM",
-          dayNumber: "34",
+    return TopLevelScreen(
+      title: TextConstants.work,
+      child: ScrollableScreenContent(
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            //A provider should provide the needed arguments for current section
+            // CurrentSection(
+            //   currentSchool: workScreenArgs.currentSchool,
+            //   currentEmployments: workScreenArgs.currentEmployments,
+            // ),
+            HistorySection(),
+            OpportunitiesSection(),
+          ],
         ),
-        TopLevelAppBar(
-          title: TextConstants.work.toUpperCase(),
-          // leading: Icon(
-          //   Icons.menu_outlined,
-          // ),
-        ),
-        ScrollableScreenContent(
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CurrentSection(
-                currentSchool: currentSchool,
-                currentEmployments: currentEmployments,
-              ),
-              const HistorySection(),
-              const OpportunitiesSection(),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

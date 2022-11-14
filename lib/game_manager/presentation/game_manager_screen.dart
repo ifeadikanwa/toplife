@@ -25,10 +25,13 @@ class GameManagerScreen extends ConsumerWidget {
                     gender: Gender.Male.name,
                     subjectPronoun: Gender.Male.subjectPronoun,
                     objectPronoun: Gender.Male.objectPronoun,
+                    possessivePronoun: Gender.Male.possessivepronoun,
                     sexuality: Sexuality.Straight.name,
                     state: "Ontario",
                     country: "Canada",
+                    money: 12000,
                     zodiacSign: ZodiacSign.Libra.name,
+                    transportMode: "bus",
                     hasFertilityIssues: false,
                     onBirthControl: false,
                     isSterile: false,
@@ -42,17 +45,20 @@ class GameManagerScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(personUsecasesProvider).createChildPersonUsecase.execute(
                     person: Person(
-                      firstName: "Chinwe",
-                      lastName: "Eze",
-                      dayOfBirth: 23,
-                      gender: Gender.Male.name,
-                      subjectPronoun: Gender.Male.subjectPronoun,
-                      objectPronoun: Gender.Male.objectPronoun,
+                      firstName: "Stella",
+                      lastName: "Baker",
+                      dayOfBirth: -23,
+                      gender: Gender.Female.name,
+                      subjectPronoun: Gender.Female.subjectPronoun,
+                      objectPronoun: Gender.Female.objectPronoun,
+                      possessivePronoun: Gender.Female.possessivepronoun,
                       sexuality: Sexuality.Straight.name,
                       state: "state",
                       country: "country",
+                      money: 3000,
                       zodiacSign: ZodiacSign.Capricorn.name,
                       importantStatus: null,
+                      transportMode: "bus",
                       hasFertilityIssues: false,
                       onBirthControl: false,
                       isSterile: false,
@@ -73,133 +79,66 @@ class GameManagerScreen extends ConsumerWidget {
               //     .changeCurrentPlayerUsecase
               //     .execute(gameID: 10, newCurrentPlayerID: 11);
 
-              // const graveyard = Graveyard(
-              //     mainPersonID: 2,
-              //     deadPersonID: 8,
-              //     relationshipType: "Brother",
-              //     dayOfDeath: 45,
-              //     fullName: "John Doe",
-              //     ageAtDeath: "Elder");
-
-              // final g = await GraveyardDaoImpl().deleteGraveyard(1, 4);
-
-              // final child = Child(
+              // final p1 = Partner(
               //   mainPersonID: 1,
-              //   childID: 4,
-              //   inYourCustody: false,
-              //   childRelationshipType: ChildRelationshipType.adopted.name,
-              //   hidden: true,
-              //   paternityFraud: false,
-              //   assumedRelationshipType: "Uncle",
-              //   relationship: 67,
+              //   partnerID: 7,
+              //   partnerRelationshipType: PartnerRelationshipType.engaged.name,
+              //   isActive: false,
+              //   startDay: 1,
+              //   isCoParent: true,
+              //   metAt: "metAt",
+              //   relationship: 87,
               // );
 
-              // final parent = Parent(
+              // final p2 = Partner(
               //   mainPersonID: 1,
-              //   parentID: 5,
-              //   parentRelationshipType: ParentRelationshipType.main.name,
-              //   hidden: false,
-              //   paternityFraud: true,
-              //   assumedRelationshipType: "Niece",
-              //   relationship: 76,
+              //   partnerID: 8,
+              //   partnerRelationshipType: PartnerRelationshipType.dating.name,
               //   isActive: true,
+              //   startDay: 1,
+              //   isCoParent: false,
+              //   metAt: "metAt",
+              //   relationship: 99,
               // );
 
-              // await ChildDaoImpl().createChild(child);
+              // PartnerDaoImpl().createPartner(p1);
+              // PartnerDaoImpl().createPartner(p2);
 
-              // await ParentDaoImpl().createParent(parent);
-              // await ChildDaoImpl().updateChild(child);
+              // const currentDay = 1;
 
-              // final c = await ChildDaoImpl().getChild(1, 4);
-              // print(c);
-
-              // ShopAndStorageRepositories shopAndStorageRepositories =
-              //     ShopAndStorageRepositories(
-              //   carDao: CarDaoImpl(),
-              //   houseDao: HouseDaoImpl(),
-              //   foodDao: FoodDaoImpl(),
-              //   fridgeFoodDao: FridgeFoodDaoImpl(),
-              //   itemDao: ItemDaoImpl(),
-              //   storeroomItemDao: StoreroomItemDaoImpl(),
-              //   jewelryDao: JewelryDaoImpl(),
-              // );
-
-              // Food food = const Food(
+              // final event = Event(
               //   id: 2,
-              //   name: "Large Fries",
-              //   type: "readyMeal",
-              //   basePrice: 100,
-              //   lifespanInDays: 5,
-              //   nutrition: 30,
-              //   servings: 1,
-              //   isOrganic: true,
+              //   gameID: 1,
+              //   eventType: EventType.birthday.name,
+              //   eventDay: currentDay,
+              //   mainPersonID: 5,
+              //   relationshipToMainPlayer: InformalRelationshipType.sibling.name,
+              //   journalEntryOnly: true,
+              //   performed: false,
               // );
 
-              // FridgeFood fridgeFood = const FridgeFood(
-              //   id: 1,
-              //   personID: 1,
-              //   foodID: 2,
-              //   servingsLeft: 2,
-              //   expiryDay: 16,
-              // );
+              // final birthdayPerson = await ref
+              //     .read(personUsecasesProvider)
+              //     .getPersonUsecase
+              //     .execute(personID: 5);
 
-              // Item item = const Item(
-              //     id: 2,
-              //     name: "Baby Wipes",
-              //     type: "wipes",
-              //     basePrice: 120,
-              //     count: 6);
+              // final age =
+              //     ref.read(ageUsecasesProvider).getPersonAgeUsecase.execute(
+              //           dayOfBirth: birthdayPerson!.dayOfBirth,
+              //           currentDay: currentDay,
+              //         );
 
-              // StoreroomItem storeroomItem = const StoreroomItem(
-              //   id: 3,
-              //   personID: 1,
-              //   itemID: 2,
-              //   countsLeft: 2,
-              // );
+              // await BirthdayEvent(
+              //   ref.read(relationshipUsecasesProvider),
+              //   ref.read(personUsecasesProvider),
+              //   ref.read(ageUsecasesProvider),
+              //   ref.read(journalUsecasesProvider),
+              //   EventScheduler(ref.read(eventRepositoryProvider)),
+              //   ref.read(eventRepositoryProvider),
+              // ).execute(1, event);
 
-              // Car car = const Car(
-              //   id: 2,
-              //   personID: 1,
-              //   name: "Audi Celeno",
-              //   type: "seran",
-              //   percentageOfTravelTime: 60,
-              //   quality: "mid",
-              //   basePrice: 5000,
-              //   dayOfPurchase: 34,
-              //   useCondition: 80,
-              //   maxConditionAtPurchase: 100,
-              // );
+              // print(EventManager.convertEventTypeStringToEnum("birthday"));
 
-              // House house = const House(
-              //     id: 1,
-              //     isCurrentHome: true,
-              //     personID: 1,
-              //     bedrooms: 3,
-              //     bathrooms: 1,
-              //     storage: 12,
-              //     address: "address",
-              //     isForRent: false,
-              //     buildingType: "apartment",
-              //     settlement: "town",
-              //     lastMaintainedDay: 24,
-              //     basePrice: 200,
-              //     dayOfPurchase: 54,
-              //     condition: 100,
-              //     purchasePrice: 200);
-
-              // Jewelry jewelry = const Jewelry(
-              //   personID: 1,
-              //   jewel: "jewel",
-              //   type: "type",
-              //   carat: 2.5,
-              //   quality: "quality",
-              //   basePrice: 8500,
-              //   dayOfPurchase: 24,
-              //   maxConditionAtPurchase: 100,
-              // );
-
-              // final result = await shopAndStorageRepositories
-              //     .jewelryRepositoryImpl.createJewelry(jewelry);
               // print(result);
             },
             child: const Text("do")),

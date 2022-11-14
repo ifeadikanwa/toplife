@@ -29,8 +29,8 @@ void main() {
       assert(HouseDesignStyle.Chic is HouseDesignStyle);
     });
 
-    test("asian is a house design style", () {
-      assert(HouseDesignStyle.Asian is HouseDesignStyle);
+    test("midcentury is a house design style", () {
+      assert(HouseDesignStyle.Midcentury is HouseDesignStyle);
     });
 
     test("contemporary is a house design style", () {
@@ -45,8 +45,8 @@ void main() {
       assert(HouseDesignStyle.Modern is HouseDesignStyle);
     });
 
-    test("mediterranean is a house design style", () {
-      assert(HouseDesignStyle.Mediterranean is HouseDesignStyle);
+    test("maximalist is a house design style", () {
+      assert(HouseDesignStyle.Maximalist is HouseDesignStyle);
     });
 
     test("tropical is a house design style", () {

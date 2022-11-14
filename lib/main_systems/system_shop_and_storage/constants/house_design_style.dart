@@ -7,10 +7,10 @@ enum HouseDesignStyle {
   Industrial,
   Country,
   Chic,
-  Asian,
   Contemporary,
   Traditional,
   Modern,
-  Mediterranean,
   Tropical,
+  Midcentury,
+  Maximalist,
 }

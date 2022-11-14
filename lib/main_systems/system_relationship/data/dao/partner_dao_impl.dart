@@ -17,6 +17,7 @@ class PartnerDaoImpl implements PartnerDao {
       ${Partner.partnerIDColumn} $integerType,
       ${Partner.partnerRelationshipTypeColumn} $textType,
       ${Partner.isActiveColumn} $boolType,
+      ${Partner.jointMoneyColumn} $integerType,
       ${Partner.startDayColumn} $integerType,
       ${Partner.endDayColumn} $nullableIntegerType,
       ${Partner.isCoParentColumn} $boolType,

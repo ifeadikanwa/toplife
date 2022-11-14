@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/graveyard_list_item.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/graveyard.dart';
 
 class GraveyardScreen extends StatelessWidget {
@@ -10,29 +9,28 @@ class GraveyardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RelationshipListScreen(
-      listView: ListView.separated(
-        itemCount: graveyards.length,
-        itemBuilder: (context, index) {
-          //relationship label
-          final String relationshipLabel = graveyards[index].relationshipType;
+    return ListView.separated(
+      itemCount: graveyards.length,
+      itemBuilder: (context, index) {
+        //relationship label
+        final String relationshipLabel = graveyards[index].relationshipType;
 
-          //name
-          final name = graveyards[index].fullName;
+        //name
+        final name = graveyards[index].fullName;
 
-          //day of death
-          final dayOfDeath = graveyards[index].dayOfDeath;
+        //day of death
+        final dayOfDeath = graveyards[index].dayOfDeath;
 
-          return GraveyardListItem(
-              avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-              relationshipLabel: relationshipLabel,
-              name: name,
-              dayOfDeath: dayOfDeath);
-        },
-        separatorBuilder: (context, index) {
+        return GraveyardListItem(
+            onTap: () {},
+            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+            relationshipLabel: relationshipLabel,
+            name: name,
+            dayOfDeath: dayOfDeath);
+      },
+      separatorBuilder: (context, index) {
         return const ListDivider();
-        },
-      ),
+      },
     );
   }
 }

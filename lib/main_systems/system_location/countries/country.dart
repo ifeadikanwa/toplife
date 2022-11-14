@@ -5,6 +5,7 @@ abstract class Country {
   List<String> get states;
   String get randomState;
   String get currency;
+  int get economy;
   // bool get abortionLaw;
   HashSet<String> get femaleFirstNames;
   String get randomFemaleFirstName;

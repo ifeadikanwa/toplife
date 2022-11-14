@@ -143,6 +143,22 @@ void main() {
       });
     });
 
+    group("getDaysLived:", () {
+      test(
+        "returns correct value for calculation",
+        () {
+          const currentDay = 20;
+          const dayOfBirth = -30;
+          final result = Age.getDaysLived(currentDay, dayOfBirth);
+
+          expect(
+            result,
+            currentDay - dayOfBirth,
+          );
+        },
+      );
+    });
+
     group("getBirthDayFromDaysLived: ", () {
       test(
           "getBirthDayFromDaysLived returns -10 as birthday if you've lived 20 days and the current day is 10",
@@ -426,7 +442,8 @@ void main() {
     group("getDayOfNextBirthday: ", () {
       const currentDay = 10;
       test("when person is a baby return day of their toddler birthday", () {
-        final babyDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.babyAgeLimit - 2);
+        final babyDayOfBirth = Age.getDayOfBirthFromDaysLived(
+            currentDay: currentDay, daysLived: Age.babyAgeLimit - 2);
 
         final result = Age.getDayOfNextBirthday(
             currentDay: currentDay, dayOfBirth: babyDayOfBirth);
@@ -437,7 +454,8 @@ void main() {
       });
 
       test("when person is a toddler return day of their child birthday", () {
-        final toddlerDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.toddlerAgeLimit - 3);
+        final toddlerDayOfBirth = Age.getDayOfBirthFromDaysLived(
+            currentDay: currentDay, daysLived: Age.toddlerAgeLimit - 3);
 
         final result = Age.getDayOfNextBirthday(
             currentDay: currentDay, dayOfBirth: toddlerDayOfBirth);
@@ -447,8 +465,9 @@ void main() {
         expect(result, correctDayOfNextBirtday);
       });
 
-        test("when person is a child return day of their teen birthday", () {
-        final childDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.childAgeLimit - 5);
+      test("when person is a child return day of their teen birthday", () {
+        final childDayOfBirth = Age.getDayOfBirthFromDaysLived(
+            currentDay: currentDay, daysLived: Age.childAgeLimit - 5);
 
         final result = Age.getDayOfNextBirthday(
             currentDay: currentDay, dayOfBirth: childDayOfBirth);
@@ -457,9 +476,11 @@ void main() {
 
         expect(result, correctDayOfNextBirtday);
       });
-      
-      test("when person is a teen return day of their young adult birthday", () {
-        final teenDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.teenAgeLimit - 5);
+
+      test("when person is a teen return day of their young adult birthday",
+          () {
+        final teenDayOfBirth = Age.getDayOfBirthFromDaysLived(
+            currentDay: currentDay, daysLived: Age.teenAgeLimit - 5);
 
         final result = Age.getDayOfNextBirthday(
             currentDay: currentDay, dayOfBirth: teenDayOfBirth);
@@ -469,8 +490,10 @@ void main() {
         expect(result, correctDayOfNextBirtday);
       });
 
-       test("when person is a young adult return day of their adult birthday", () {
-        final yaDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.youngAdultAgeLimit - 15);
+      test("when person is a young adult return day of their adult birthday",
+          () {
+        final yaDayOfBirth = Age.getDayOfBirthFromDaysLived(
+            currentDay: currentDay, daysLived: Age.youngAdultAgeLimit - 15);
 
         final result = Age.getDayOfNextBirthday(
             currentDay: currentDay, dayOfBirth: yaDayOfBirth);
@@ -481,7 +504,8 @@ void main() {
       });
 
       test("when person is a adult return day of their elder birthday", () {
-        final adultDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.adultAgeLimit - 10);
+        final adultDayOfBirth = Age.getDayOfBirthFromDaysLived(
+            currentDay: currentDay, daysLived: Age.adultAgeLimit - 10);
 
         final result = Age.getDayOfNextBirthday(
             currentDay: currentDay, dayOfBirth: adultDayOfBirth);
@@ -492,7 +516,8 @@ void main() {
       });
 
       test("when person is a elder return null", () {
-        final elderDayOfBirth = Age.getDayOfBirthFromDaysLived(currentDay: currentDay, daysLived: Age.adultAgeLimit + 2);
+        final elderDayOfBirth = Age.getDayOfBirthFromDaysLived(
+            currentDay: currentDay, daysLived: Age.adultAgeLimit + 2);
 
         final result = Age.getDayOfNextBirthday(
             currentDay: currentDay, dayOfBirth: elderDayOfBirth);
@@ -502,6 +527,5 @@ void main() {
         expect(result, correctDayOfNextBirtday);
       });
     });
-
   });
 }

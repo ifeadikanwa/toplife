@@ -10,13 +10,16 @@ class Person extends Equatable {
   final String gender;
   final String subjectPronoun;
   final String objectPronoun;
+  final String possessivePronoun;
   final String sexuality;
   final String state;
   final String country;
+  final int money;
   final String zodiacSign;
   final String? importantStatus;
   final int? custodianID;
   final bool hasDriversLicense;
+  final String transportMode;
   final bool hasFertilityIssues;
   final bool onBirthControl;
   final bool isSterile;
@@ -33,13 +36,16 @@ class Person extends Equatable {
     required this.gender,
     required this.subjectPronoun,
     required this.objectPronoun,
+    required this.possessivePronoun,
     required this.sexuality,
     required this.state,
     required this.country,
+    required this.money,
     required this.zodiacSign,
     this.importantStatus,
     this.custodianID,
     this.hasDriversLicense = false,
+    required this.transportMode,
     required this.hasFertilityIssues,
     required this.onBirthControl,
     required this.isSterile,
@@ -58,13 +64,16 @@ class Person extends Equatable {
         gender,
         subjectPronoun,
         objectPronoun,
+        possessivePronoun,
         sexuality,
         state,
         country,
+        money,
         zodiacSign,
         importantStatus,
         custodianID,
         hasDriversLicense,
+        transportMode,
         hasFertilityIssues,
         onBirthControl,
         isSterile,
@@ -85,13 +94,16 @@ class Person extends Equatable {
   static const genderColumn = "gender";
   static const subjectPronounColumn = "subjectPronoun";
   static const objectPronounColumn = "objectPronoun";
+  static const possessivePronounColumn = "possessivePronoun";
   static const sexualityColumn = "sexuality";
   static const stateColumn = "state";
   static const countryColumn = "country";
+  static const moneyColumn = "money";
   static const zodiacSignColumn = "zodiacSign";
   static const importantStatusColumn = "importantStatus";
   static const custodianIDColumn = "custodianID";
   static const hasDriversLicenseColumn = "hasDriversLicense";
+  static const transportModeColumn = "transportMode";
   static const sicklyColumn = "sickly";
   static const hasFertilityIssuesColumn = "hasFertilityIssues";
   static const onBirthControlColumn = "onBirthControl";
@@ -108,13 +120,16 @@ class Person extends Equatable {
     genderColumn,
     subjectPronounColumn,
     objectPronounColumn,
+    possessivePronounColumn,
     sexualityColumn,
     stateColumn,
     countryColumn,
+    moneyColumn,
     zodiacSignColumn,
     importantStatusColumn,
     custodianIDColumn,
     hasDriversLicenseColumn,
+    transportModeColumn,
     hasFertilityIssuesColumn,
     onBirthControlColumn,
     isSterileColumn,
@@ -133,14 +148,17 @@ class Person extends Equatable {
       gender: personMap[genderColumn] as String,
       subjectPronoun: personMap[subjectPronounColumn] as String,
       objectPronoun: personMap[objectPronounColumn] as String,
+      possessivePronoun: personMap[possessivePronounColumn] as String,
       sexuality: personMap[sexualityColumn] as String,
       state: personMap[stateColumn] as String,
       country: personMap[countryColumn] as String,
+      money: personMap[moneyColumn] as int,
       zodiacSign: personMap[zodiacSignColumn] as String,
       importantStatus: personMap[importantStatusColumn] as String?,
       custodianID: personMap[custodianIDColumn] as int?,
       hasDriversLicense:
           personMap[hasDriversLicenseColumn] == databaseTrueValue,
+      transportMode: personMap[transportModeColumn] as String,
       hasFertilityIssues:
           personMap[hasFertilityIssuesColumn] == databaseTrueValue,
       onBirthControl: personMap[onBirthControlColumn] == databaseTrueValue,
@@ -161,14 +179,17 @@ class Person extends Equatable {
       genderColumn: gender,
       subjectPronounColumn: subjectPronoun,
       objectPronounColumn: objectPronoun,
+      possessivePronounColumn: possessivePronoun,
       sexualityColumn: sexuality,
       stateColumn: state,
       countryColumn: country,
+      moneyColumn: money,
       zodiacSignColumn: zodiacSign,
       importantStatusColumn: importantStatus,
       custodianIDColumn: custodianID,
       hasDriversLicenseColumn:
           hasDriversLicense ? databaseTrueValue : databaseFalseValue,
+      transportModeColumn: transportMode,
       hasFertilityIssuesColumn:
           hasFertilityIssues ? databaseTrueValue : databaseFalseValue,
       onBirthControlColumn:
@@ -189,13 +210,16 @@ class Person extends Equatable {
     String? gender,
     String? subjectPronoun,
     String? objectPronoun,
+    String? possessivePronoun,
     String? sexuality,
     String? state,
     String? country,
+    int? money,
     String? zodiacSign,
     String? importantStatus,
     int? custodianID,
     bool? hasDriversLicense,
+    String? transportMode,
     bool? hasFertilityIssues,
     bool? onBirthControl,
     bool? isSterile,
@@ -212,12 +236,15 @@ class Person extends Equatable {
       gender: gender ?? this.gender,
       subjectPronoun: subjectPronoun ?? this.subjectPronoun,
       objectPronoun: objectPronoun ?? this.objectPronoun,
+      possessivePronoun: possessivePronoun ?? this.possessivePronoun,
       sexuality: sexuality ?? this.sexuality,
       state: state ?? this.state,
       country: country ?? this.country,
+      money: money ?? this.money,
       importantStatus: importantStatus ?? this.importantStatus,
       custodianID: custodianID ?? this.custodianID,
       hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
+      transportMode: transportMode ?? this.transportMode,
       zodiacSign: zodiacSign ?? this.zodiacSign,
       hasFertilityIssues: hasFertilityIssues ?? this.hasFertilityIssues,
       onBirthControl: onBirthControl ?? this.onBirthControl,

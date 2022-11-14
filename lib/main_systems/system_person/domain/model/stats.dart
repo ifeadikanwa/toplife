@@ -7,6 +7,7 @@ class Stats extends Equatable {
   final int personID;
   final int energy;
   final int hunger;
+  final int wellbeing;
   final int sober;
   final int looks;
   final int athleticism;
@@ -17,6 +18,7 @@ class Stats extends Equatable {
     required this.personID,
     required this.energy,
     required this.hunger,
+    required this.wellbeing,
     required this.sober,
     required this.looks,
     required this.intellect,
@@ -29,6 +31,7 @@ class Stats extends Equatable {
         personID,
         energy,
         hunger,
+        wellbeing,
         sober,
         looks,
         intellect,
@@ -65,6 +68,7 @@ class Stats extends Equatable {
   static const personIDColumn = "personID";
   static const energyColumn = "energy";
   static const hungerColumn = "hunger";
+  static const wellbeingColumn = "wellbeing";
   static const soberColumn = "sober";
   static const looksColumn = "looks";
   static const intellectColumn = "intellect";
@@ -75,6 +79,7 @@ class Stats extends Equatable {
     personIDColumn,
     energyColumn,
     hungerColumn,
+    wellbeingColumn,
     soberColumn,
     looksColumn,
     intellectColumn,
@@ -87,6 +92,7 @@ class Stats extends Equatable {
       personID: statsMap[personIDColumn] as int,
       energy: statsMap[energyColumn] as int,
       hunger: statsMap[hungerColumn] as int,
+      wellbeing: statsMap[wellbeingColumn] as int,
       sober: statsMap[soberColumn] as int,
       looks: statsMap[looksColumn] as int,
       intellect: statsMap[intellectColumn] as int,
@@ -100,6 +106,7 @@ class Stats extends Equatable {
       personIDColumn: personID,
       energyColumn: energy,
       hungerColumn: hunger,
+      wellbeingColumn: wellbeing,
       soberColumn: sober,
       looksColumn: looks,
       intellectColumn: intellect,
@@ -112,6 +119,7 @@ class Stats extends Equatable {
     int? personID,
     int? energy,
     int? hunger,
+    int? wellbeing,
     int? sober,
     int? looks,
     int? intellect,
@@ -122,6 +130,7 @@ class Stats extends Equatable {
       personID: personID ?? this.personID,
       energy: crossCheckStat(energy) ?? this.energy,
       hunger: crossCheckStat(hunger) ?? this.hunger,
+      wellbeing: crossCheckStat(wellbeing) ?? this.wellbeing,
       sober: crossCheckStat(sober) ?? this.sober,
       looks: crossCheckStat(looks) ?? this.looks,
       intellect: crossCheckStat(intellect) ?? this.intellect,

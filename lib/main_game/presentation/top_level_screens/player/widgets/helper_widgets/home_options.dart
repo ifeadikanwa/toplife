@@ -8,29 +8,33 @@ class HomeOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: const [
+      children: [
         Expanded(
           child: HomeOptionCard(
             iconData: Icons.home_outlined,
             optionName: TextConstants.home,
+            onTap: () {},
           ),
         ),
         Expanded(
           child: HomeOptionCard(
             iconData: Icons.account_balance_wallet_outlined,
             optionName: TextConstants.finances,
+            onTap: () {},
           ),
         ),
         Expanded(
           child: HomeOptionCard(
             iconData: Icons.event_outlined,
             optionName: TextConstants.events,
+            onTap: () {},
           ),
         ),
         Expanded(
           child: HomeOptionCard(
             iconData: Icons.book_outlined,
             optionName: TextConstants.journal,
+            onTap: () {},
           ),
         ),
       ],

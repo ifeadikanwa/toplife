@@ -11,7 +11,8 @@ class CarDaoImpl implements CarDao {
 
   static const carTable = "car";
 
-  static const createTableQuery = '''
+  static const createTableQuery =
+      '''
     CREATE TABLE $carTable(
       ${Car.idColumn} $idType,
       ${Car.personIDColumn} $integerType,
@@ -25,6 +26,7 @@ class CarDaoImpl implements CarDao {
       ${Car.problemColumn} $textType,
       ${Car.useConditionColumn} $integerType,
       ${Car.maxConditionAtPurchaseColumn} $integerType,
+      ${Car.currentlyDrivingColumn} $boolType,
       ${Car.fullyPaidForColumn} $boolType,
       ${Car.isInsuredColumn} $boolType,
       ${Car.insuranceCostColumn} $integerType,
@@ -102,5 +104,45 @@ class CarDaoImpl implements CarDao {
       whereArgs: [car.id],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  @override
+  Future<Car?> getCurrentCar(int personID) async {
+    final db = await _databaseProvider.database;
+    final carMaps = await db.query(
+      carTable,
+      columns: Car.allColumns,
+      where: "${Car.personIDColumn} = ? and ${Car.currentlyDrivingColumn} = ?",
+      whereArgs: [
+        personID,
+        databaseTrueValue,
+      ],
+    );
+
+    if (carMaps.isNotEmpty) {
+      return Car.fromMap(carMap: carMaps.first);
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<List<Car>> getAllCurrentlyDrivingCars(int personID) async {
+    final db = await _databaseProvider.database;
+    final allCarMap = await db.query(
+      carTable,
+      columns: Car.allColumns,
+      where: "${Car.personIDColumn} = ? and ${Car.currentlyDrivingColumn} = ?",
+      whereArgs: [
+        personID,
+        databaseTrueValue,
+      ],
+    );
+
+    return allCarMap
+        .map((carMap) => Car.fromMap(
+              carMap: carMap,
+            ))
+        .toList();
   }
 }

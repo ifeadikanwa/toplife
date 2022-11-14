@@ -25,7 +25,7 @@ void main() {
     });
 
     test("modern home has the correct full name", () {
-      expect(BuildingType.mordernHome.fullName, "Modern Home");
+      expect(BuildingType.modernHome.fullName, "Modern Home");
     });
 
     //*this is supposed to ensure that all items in the list have a price.
@@ -40,7 +40,7 @@ void main() {
           reason: "Cause: $buildingType bedroom",
         );
 
-         expect(
+        expect(
           buildingType.basePricePerBathroom,
           0,
           reason: "Cause: $buildingType bathroom",
@@ -131,13 +131,13 @@ void main() {
 
     test("modern home has the correct price for bedroom and bathroom", () {
       expect(
-        BuildingType.mordernHome.basePricePerBedroom,
+        BuildingType.modernHome.basePricePerBedroom,
         BuildingBasePrice.modernHomeBedroomBasePrice,
         reason: "Cause: bedroom",
       );
 
       expect(
-        BuildingType.mordernHome.basePricePerBathroom,
+        BuildingType.modernHome.basePricePerBathroom,
         BuildingBasePrice.modernHomeBathroomBasePrice,
         reason: "Cause: bathroom",
       );

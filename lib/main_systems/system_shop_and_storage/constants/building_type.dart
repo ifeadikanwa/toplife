@@ -31,7 +31,7 @@ enum BuildingType {
     basePricePerBathroom: BuildingBasePrice.condoBathroomBasePrice,
     storagePerSpace: 18,
   ),
-  mordernHome(
+  modernHome(
     fullName: "Modern Home",
     basePricePerBedroom: BuildingBasePrice.modernHomeBedroomBasePrice,
     basePricePerBathroom: BuildingBasePrice.modernHomeBathroomBasePrice,

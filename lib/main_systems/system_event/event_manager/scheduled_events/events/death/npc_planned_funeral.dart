@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
+import 'package:toplife/core/utils/words/sentence_util.dart';
+import 'package:toplife/main_systems/system_event/domain/model/event.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
+import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
+
+class NpcPlannedFuneral {
+  final EventScheduler _eventScheduler;
+  final JournalUsecases _journalUsecases;
+
+  const NpcPlannedFuneral(
+    this._eventScheduler,
+    this._journalUsecases,
+  );
+
+  Future<void> run({
+    required BuildContext context,
+    required int mainPlayerID,
+    required Event deathEvent,
+    required String firstPersonEventDescription,
+  }) async {
+    final Event scheduledFuneral = await _eventScheduler.scheduleFuneral(
+      gameID: deathEvent.gameID,
+      mainPlayerID: mainPlayerID,
+      deadPersonID: deathEvent.mainPersonID,
+      currentDay: deathEvent.eventDay,
+      relationshipToMainPlayer: deathEvent.relationshipToMainPlayer,
+    );
+
+    final String firstPersonFuneralArrangement =
+        "I am invited to their funeral event tomorrow, Day ${scheduledFuneral.eventDay} at ${getClockTime(timeInMinutes: scheduledFuneral.startTime ?? 0)}.";
+
+    //log in journal
+    _journalUsecases.addToJournalUsecase.execute(
+      gameID: deathEvent.gameID,
+      day: deathEvent.eventDay,
+      mainPlayerID: mainPlayerID,
+      entry: "$firstPersonEventDescription $firstPersonEventDescription",
+    );
+
+    //show in dialog
+    final String result = "${SentenceUtil.convertFromFirstPersonToSecondPerson(
+      firstPersonSentence: firstPersonEventDescription,
+    )}\n${SentenceUtil.convertFromFirstPersonToSecondPerson(
+      firstPersonSentence: firstPersonFuneralArrangement,
+    )}";
+
+    ResultDialog.show(
+      context: context,
+      title: DeathEvent.resultTitle,
+      result: result,
+    );
+  }
+}

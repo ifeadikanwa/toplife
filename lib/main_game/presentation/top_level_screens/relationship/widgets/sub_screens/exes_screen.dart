@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/relationship_list_screen.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_ex_relationship_label.dart';
@@ -19,281 +16,37 @@ class ExesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RelationshipListScreen(
-      listView: ListView.separated(
-        itemCount: exes.length,
-        itemBuilder: (context, index) {
-          //relationship label
-          final relationshipType =
-              exes[index].relationship.partnerRelationshipType;
-          final gender = exes[index].person.gender;
+    return ListView.separated(
+      itemCount: exes.length,
+      itemBuilder: (context, index) {
+        //relationship label
+        final relationshipType =
+            exes[index].relationship.partnerRelationshipType;
+        final gender = exes[index].person.gender;
 
-          final relationshipTypeEnum =
-              getPartnerRelationshipTypeEnum(relationshipType);
+        final relationshipTypeEnum =
+            getPartnerRelationshipTypeEnum(relationshipType);
 
-          final String relationshipLabel =
-              getExRelationshipLabel(gender, relationshipTypeEnum);
+        final String relationshipLabel =
+            getExRelationshipLabel(gender, relationshipTypeEnum);
 
-          //name
-          final name =
-              "${exes[index].person.firstName} ${exes[index].person.lastName}";
+        //name
+        final name =
+            "${exes[index].person.firstName} ${exes[index].person.lastName}";
 
-          //relationship amount
-          final relationshipAmount = exes[index].relationship.relationship;
+        //relationship amount
+        final relationshipAmount = exes[index].relationship.relationship;
 
-          return RelationshipListItem(
-              avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-              relationshipLabel: relationshipLabel,
-              name: name,
-              relationshipAmount: relationshipAmount);
-        },
-        separatorBuilder: (context, index) {
-          return const ListDivider();
-        },
-      ),
+        return RelationshipListItem(
+            onTap: () {},
+            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+            relationshipLabel: relationshipLabel,
+            name: name,
+            relationshipAmount: relationshipAmount);
+      },
+      separatorBuilder: (context, index) {
+        return const ListDivider();
+      },
     );
   }
 }
-
-final testExesList = [
-  RelationshipPair(
-    relationship: Partner(
-      mainPersonID: 1,
-      partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.casual.name,
-      isActive: false,
-      startDay: 34,
-      isCoParent: true,
-      metAt: "metAt",
-      relationship: 68,
-    ),
-    person: Person(
-      firstName: "Janet",
-      lastName: "Johnson",
-      dayOfBirth: 34,
-      gender: Gender.Female.name,
-      subjectPronoun: "subjectPronoun",
-      objectPronoun: "objectPronoun",
-      sexuality: "sexuality",
-      state: "state",
-      country: "country",
-      zodiacSign: "zodiacSign",
-      hasFertilityIssues: true,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: true,
-      rebellious: false,
-      dead: false,
-    ),
-  ),
-  RelationshipPair(
-    relationship: Partner(
-      mainPersonID: 1,
-      partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.casual.name,
-      isActive: false,
-      startDay: 34,
-      isCoParent: true,
-      metAt: "metAt",
-      relationship: 68,
-    ),
-    person: Person(
-      firstName: "Sam",
-      lastName: "Johnson",
-      dayOfBirth: 34,
-      gender: Gender.Male.name,
-      subjectPronoun: "subjectPronoun",
-      objectPronoun: "objectPronoun",
-      sexuality: "sexuality",
-      state: "state",
-      country: "country",
-      zodiacSign: "zodiacSign",
-      hasFertilityIssues: true,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: true,
-      rebellious: false,
-      dead: false,
-    ),
-  ),
-  RelationshipPair(
-    relationship: Partner(
-      mainPersonID: 1,
-      partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.married.name,
-      isActive: false,
-      startDay: 34,
-      isCoParent: true,
-      metAt: "metAt",
-      relationship: 68,
-    ),
-    person: Person(
-      firstName: "Cynthia",
-      lastName: "Johnson",
-      dayOfBirth: 34,
-      gender: Gender.Female.name,
-      subjectPronoun: "subjectPronoun",
-      objectPronoun: "objectPronoun",
-      sexuality: "sexuality",
-      state: "state",
-      country: "country",
-      zodiacSign: "zodiacSign",
-      hasFertilityIssues: true,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: true,
-      rebellious: false,
-      dead: false,
-    ),
-  ),
-  RelationshipPair(
-    relationship: Partner(
-      mainPersonID: 1,
-      partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.married.name,
-      isActive: false,
-      startDay: 34,
-      isCoParent: true,
-      metAt: "metAt",
-      relationship: 68,
-    ),
-    person: Person(
-      firstName: "Jim",
-      lastName: "Johnson",
-      dayOfBirth: 34,
-      gender: Gender.Male.name,
-      subjectPronoun: "subjectPronoun",
-      objectPronoun: "objectPronoun",
-      sexuality: "sexuality",
-      state: "state",
-      country: "country",
-      zodiacSign: "zodiacSign",
-      hasFertilityIssues: true,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: true,
-      rebellious: false,
-      dead: false,
-    ),
-  ),
-  RelationshipPair(
-    relationship: Partner(
-      mainPersonID: 1,
-      partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.dating.name,
-      isActive: false,
-      startDay: 34,
-      isCoParent: true,
-      metAt: "metAt",
-      relationship: 68,
-    ),
-    person: Person(
-      firstName: "Mary",
-      lastName: "Johnson",
-      dayOfBirth: 34,
-      gender: Gender.Female.name,
-      subjectPronoun: "subjectPronoun",
-      objectPronoun: "objectPronoun",
-      sexuality: "sexuality",
-      state: "state",
-      country: "country",
-      zodiacSign: "zodiacSign",
-      hasFertilityIssues: true,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: true,
-      rebellious: false,
-      dead: false,
-    ),
-  ),
-  RelationshipPair(
-    relationship: Partner(
-      mainPersonID: 1,
-      partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.dating.name,
-      isActive: false,
-      startDay: 34,
-      isCoParent: true,
-      metAt: "metAt",
-      relationship: 68,
-    ),
-    person: Person(
-      firstName: "Xavier",
-      lastName: "Johnson",
-      dayOfBirth: 34,
-      gender: Gender.Male.name,
-      subjectPronoun: "subjectPronoun",
-      objectPronoun: "objectPronoun",
-      sexuality: "sexuality",
-      state: "state",
-      country: "country",
-      zodiacSign: "zodiacSign",
-      hasFertilityIssues: true,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: true,
-      rebellious: false,
-      dead: false,
-    ),
-  ),
-  RelationshipPair(
-    relationship: Partner(
-      mainPersonID: 1,
-      partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.engaged.name,
-      isActive: false,
-      startDay: 34,
-      isCoParent: true,
-      metAt: "metAt",
-      relationship: 68,
-    ),
-    person: Person(
-      firstName: "Natalie",
-      lastName: "Johnson",
-      dayOfBirth: 34,
-      gender: Gender.Female.name,
-      subjectPronoun: "subjectPronoun",
-      objectPronoun: "objectPronoun",
-      sexuality: "sexuality",
-      state: "state",
-      country: "country",
-      zodiacSign: "zodiacSign",
-      hasFertilityIssues: true,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: true,
-      rebellious: false,
-      dead: false,
-    ),
-  ),
-  RelationshipPair(
-    relationship: Partner(
-      mainPersonID: 1,
-      partnerID: 2,
-      partnerRelationshipType: PartnerRelationshipType.engaged.name,
-      isActive: false,
-      startDay: 34,
-      isCoParent: true,
-      metAt: "metAt",
-      relationship: 68,
-    ),
-    person: Person(
-      firstName: "Ted",
-      lastName: "Johnson",
-      dayOfBirth: 34,
-      gender: Gender.Male.name,
-      subjectPronoun: "subjectPronoun",
-      objectPronoun: "objectPronoun",
-      sexuality: "sexuality",
-      state: "state",
-      country: "country",
-      zodiacSign: "zodiacSign",
-      hasFertilityIssues: true,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: true,
-      rebellious: false,
-      dead: false,
-    ),
-  ),
-];

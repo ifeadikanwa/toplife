@@ -12,5 +12,13 @@ void main() {
     test("nibling is a type of relative relationship", () {
       assert(RelativeRelationshipType.nibling is RelativeRelationshipType);
     });
+
+      test("pibling is a type of relative relationship", () {
+      assert(RelativeRelationshipType.pibling is RelativeRelationshipType);
+    });
+
+      test("cousin is a type of relative relationship", () {
+      assert(RelativeRelationshipType.cousin is RelativeRelationshipType);
+    });
   });
 }

@@ -10,14 +10,17 @@ class RelationshipListItemWithHeader extends StatelessWidget {
   final String relationshipLabel;
   final String name;
   final int relationshipAmount;
-  const RelationshipListItemWithHeader(
-      {Key? key,
-      required this.sectionTitle,
-      required this.avatarImagePath,
-      required this.relationshipLabel,
-      required this.name,
-      required this.relationshipAmount})
-      : super(key: key);
+  final void Function() onTap;
+
+  const RelationshipListItemWithHeader({
+    Key? key,
+    required this.sectionTitle,
+    required this.avatarImagePath,
+    required this.relationshipLabel,
+    required this.name,
+    required this.relationshipAmount,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +31,12 @@ class RelationshipListItemWithHeader extends StatelessWidget {
         SectionHeader(sectionTitle: sectionTitle),
         const AddVerticalSpace(height: listHeaderPadding),
         RelationshipListItem(
-            avatarImagePath: avatarImagePath,
-            relationshipLabel: relationshipLabel,
-            name: name,
-            relationshipAmount: relationshipAmount)
+          avatarImagePath: avatarImagePath,
+          relationshipLabel: relationshipLabel,
+          name: name,
+          relationshipAmount: relationshipAmount,
+          onTap: onTap,
+        )
       ],
     );
   }

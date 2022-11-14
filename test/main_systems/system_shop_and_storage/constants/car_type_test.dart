@@ -28,5 +28,17 @@ void main() {
     test("truck is a car type", () {
       assert(CarType.truck is CarType);
     });
+
+    test("bus is a car type", () {
+      assert(CarType.bus is CarType);
+    });
+
+    test("train is a car type", () {
+      assert(CarType.train is CarType);
+    });
+
+    test("truck is a car type", () {
+      assert(CarType.taxi is CarType);
+    });
   });
 }

@@ -14,5 +14,17 @@ void main() {
     test("city default commute is 1 hours", () {
       expect(Settlement.City.defaultCommuteTimeInMinutes, 60);
     });
+
+    test("village default fuel consumption is 20", () {
+      expect(Settlement.Village.defaultCommuteFuelConsumption, 20);
+    });
+
+    test("town default fuel consumption is 15", () {
+      expect(Settlement.Town.defaultCommuteFuelConsumption, 15);
+    });
+
+    test("city default fuel consumption is 10", () {
+      expect(Settlement.City.defaultCommuteFuelConsumption, 10);
+    });
   });
 }

@@ -123,7 +123,7 @@ class CheckIfQualifiedForFullTimeJobUsecase {
       //else just follow normal procedure
       else {
         final accepted = Chance.getTrueOrFalseBasedOnPercentageChance(
-          trueChancePercentage: 70,
+          trueChancePercentage: 40,
         );
         if (accepted) {
           return const JobInterviewResponse(

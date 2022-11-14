@@ -10,6 +10,7 @@ void main() {
       personID: 2,
       energy: 46,
       hunger: 76,
+      wellbeing: 45,
       sober: 99,
       looks: 89,
       intellect: 87,
@@ -26,6 +27,7 @@ void main() {
           "personID": 2,
           "energy": 46,
           "hunger": 76,
+          "wellbeing": 45,
           "sober": 99,
           "looks": 89,
           "intellect": 87,
@@ -41,6 +43,7 @@ void main() {
           "personID": 2,
           "energy": 46,
           "hunger": 76,
+          "wellbeing": 45,
           "sober": 99,
           "looks": 89,
           "intellect": 87,
@@ -58,13 +61,14 @@ void main() {
           personID: 2,
           energy: 70,
           hunger: 76,
+          wellbeing: 69,
           sober: 99,
           looks: 89,
           intellect: 90,
           athleticism: 54,
         );
 
-        final result = sut.copyWith(energy: 70, intellect: 90);
+        final result = sut.copyWith(energy: 70, intellect: 90, wellbeing: 69);
         expect(result, correctStats);
       });
 
