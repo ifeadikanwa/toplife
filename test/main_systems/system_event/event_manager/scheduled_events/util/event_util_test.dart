@@ -39,9 +39,9 @@ void main() {
     );
 
     test(
-      "afternoon event start times are 1pm - 4pm",
+      "afternoon event start times are 12pm - 4pm",
       () {
-        expect(EventUtil.afternoonEventStartTimes, [780, 840, 900, 960]);
+        expect(EventUtil.afternoonEventStartTimes, [720, 780, 840, 900, 960]);
       },
     );
 
