@@ -46,11 +46,11 @@ void main() {
     group("Generate new cars:", () {
       final List<Car> result = CarGenerator.generateNewCars();
       test(
-        "generates (car types count * numberOfCarsToGenerateForEachType) number of cars",
+        "generates (6 * numberOfCarsToGenerateForEachType) number of cars",
         () {
           expect(
             result,
-            hasLength(CarType.values.length *
+            hasLength(6 *
                 CarGenerator.numberOfCarsToGenerateForEachType),
           );
         },
@@ -109,11 +109,11 @@ void main() {
     group("Generate used cars:", () {
       final List<Car> result = CarGenerator.generateUsedCars();
       test(
-        "generates (car types count * numberOfCarsToGenerateForEachType) number of cars",
+        "generates (6 * numberOfCarsToGenerateForEachType) number of cars",
         () {
           expect(
             result,
-            hasLength(CarType.values.length *
+            hasLength(6 *
                 CarGenerator.numberOfCarsToGenerateForEachType),
           );
         },
