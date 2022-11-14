@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/car_type.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/car_generator.dart';
 
@@ -50,8 +49,7 @@ void main() {
         () {
           expect(
             result,
-            hasLength(6 *
-                CarGenerator.numberOfCarsToGenerateForEachType),
+            hasLength(6 * CarGenerator.numberOfCarsToGenerateForEachType),
           );
         },
       );
@@ -113,8 +111,7 @@ void main() {
         () {
           expect(
             result,
-            hasLength(6 *
-                CarGenerator.numberOfCarsToGenerateForEachType),
+            hasLength(6 * CarGenerator.numberOfCarsToGenerateForEachType),
           );
         },
       );
