@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/progress_bar/progress_bar.dart';
 import 'package:toplife/main_systems/system_person/domain/model/helpers/stats_item.dart';
 
@@ -37,7 +37,7 @@ class MultipleStatsWidget extends StatelessWidget {
           (stats) => addVerticalPadding(
             widget: Text(
               stats.statsName,
-              style: largeStatsTextStyle,
+              style: statsTextStyle,
             ),
           ),
         )

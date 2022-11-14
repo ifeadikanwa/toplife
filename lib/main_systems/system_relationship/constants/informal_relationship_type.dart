@@ -5,4 +5,6 @@ enum InformalRelationshipType {
   child,
   sibling,
   partner,
+  relative,
+  inLaw,
 }

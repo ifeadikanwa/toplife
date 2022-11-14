@@ -9,6 +9,7 @@ void main() {
       mainPersonID: 3,
       friendID: 9,
       metAt: "University",
+      haveRomanticRelationship: true,
       relationship: 89,
     );
   });
@@ -21,6 +22,7 @@ void main() {
           "mainPersonID": 3,
           "friendID": 9,
           "metAt": "University",
+          'haveRomanticRelationship': 1,
           "relationship": 89,
         };
 
@@ -32,6 +34,7 @@ void main() {
           "mainPersonID": 3,
           "friendID": 9,
           "metAt": "University",
+          'haveRomanticRelationship': 1,
           "relationship": 89,
         };
 
@@ -45,6 +48,7 @@ void main() {
           mainPersonID: 3,
           friendID: 9,
           metAt: "Club",
+          haveRomanticRelationship: true,
           relationship: 89,
         );
 

@@ -1,8 +1,7 @@
-
 import 'package:toplife/core/utils/date_and_time/convert_to_hours_and_minutes.dart';
 import 'package:toplife/core/utils/date_and_time/time.dart';
 
-String getLabelTime({required int timeInMinutes}) {
+String getLabelTime({required int timeInMinutes, bool addPlus = false}) {
   final Time time = convertToHoursAndMinutes(timeInMinutes: timeInMinutes);
 
   String labelTime = "";
@@ -17,6 +16,10 @@ String getLabelTime({required int timeInMinutes}) {
     } else {
       labelTime += "${time.minutes}m";
     }
+  }
+
+  if (labelTime.isNotEmpty && addPlus) {
+    labelTime += "+";
   }
 
   return labelTime.isEmpty ? "-" : labelTime;

@@ -4,6 +4,7 @@ import 'package:toplife/core/data_source/database_constants.dart';
 class School extends Equatable {
   final int? id;
   final int mainPersonID;
+  final String name;
   final int grades;
   final int attendance;
   final int project;
@@ -28,6 +29,7 @@ class School extends Equatable {
   const School({
     this.id,
     required this.mainPersonID,
+    required this.name,
     required this.grades,
     required this.attendance,
     required this.project,
@@ -53,6 +55,7 @@ class School extends Equatable {
   List<Object?> get props => [
         id,
         mainPersonID,
+        name,
         grades,
         attendance,
         project,
@@ -78,8 +81,16 @@ class School extends Equatable {
   bool? get stringify => true;
 
   //Helper constants
+  static const university = "University";
+  static const medicalSchool = "Medical School";
+  static const lawSchool = "Law School";
+  static const nursingSchool = "Nursing School";
+  static const pharmacySchool = "Pharmacy School";
+  static const teachersAcademy = "Teachers Academy";
+
   static const idColumn = "_id";
   static const mainPersonIDColumn = "mainPersonID";
+  static const nameColumn = "name";
   static const gradesColumn = "grades";
   static const attendanceColumn = "attendance";
   static const projectColumn = "project";
@@ -103,6 +114,7 @@ class School extends Equatable {
   static const allColumns = [
     idColumn,
     mainPersonIDColumn,
+    nameColumn,
     gradesColumn,
     attendanceColumn,
     projectColumn,
@@ -128,6 +140,7 @@ class School extends Equatable {
     return School(
       id: schoolMap[idColumn] as int?,
       mainPersonID: schoolMap[mainPersonIDColumn] as int,
+      name: schoolMap[nameColumn] as String,
       grades: schoolMap[gradesColumn] as int,
       attendance: schoolMap[attendanceColumn] as int,
       project: schoolMap[projectColumn] as int,
@@ -154,6 +167,7 @@ class School extends Equatable {
     return {
       idColumn: id,
       mainPersonIDColumn: mainPersonID,
+      nameColumn: name,
       gradesColumn: grades,
       attendanceColumn: attendance,
       projectColumn: project,
@@ -180,6 +194,7 @@ class School extends Equatable {
   School copyWith({
     int? id,
     int? mainPersonID,
+    String? name,
     int? grades,
     int? attendance,
     int? project,
@@ -203,6 +218,7 @@ class School extends Equatable {
     return School(
       id: id ?? this.id,
       mainPersonID: mainPersonID ?? this.mainPersonID,
+      name: name ?? this.name,
       grades: grades ?? this.grades,
       attendance: attendance ?? this.attendance,
       project: project ?? this.project,

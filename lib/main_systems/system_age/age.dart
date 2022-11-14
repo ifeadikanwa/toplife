@@ -124,6 +124,10 @@ class Age extends Equatable {
     }
   }
 
+  static int getDaysLived(int currentDay, int dayOfBirth) {
+    return currentDay - dayOfBirth;
+  }
+
   //this generates a random age(days lived) in a stage that can be usd to create a birthday for a person
   static int getRandomDaysLivedForALifeStage({
     required LifeStage lifeStage,

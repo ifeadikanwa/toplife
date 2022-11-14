@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/config/theme/colors.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class ElevatedCard extends StatelessWidget {
   final List<Widget> children;
@@ -9,8 +8,7 @@ class ElevatedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: translucentWhite,
-      elevation: 2.0,
+      elevation: 6.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),

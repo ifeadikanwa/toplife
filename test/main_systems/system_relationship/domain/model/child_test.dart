@@ -9,8 +9,11 @@ void main() {
     sut = Child(
       mainPersonID: 2,
       childID: 8,
-      custodianID: 2,
+      inYourCustody: true,
       childRelationshipType: ChildRelationshipType.adopted.name,
+      hidden: true,
+      paternityFraud: false,
+      assumedRelationshipType: "Uncle",
       relationship: 67,
     );
   });
@@ -22,8 +25,11 @@ void main() {
         final Map<String, Object> correctMap = {
           "mainPersonID": 2,
           "childID": 8,
-          "custodianID": 2,
+          "inYourCustody": 1,
           "childRelationshipType": "adopted",
+          "hidden": 1,
+          "paternityFraud": 0,
+          "assumedRelationshipType": "Uncle",
           "relationship": 67,
         };
 
@@ -34,8 +40,11 @@ void main() {
         final Map<String, Object> map = {
           "mainPersonID": 2,
           "childID": 8,
-          "custodianID": 2,
+          "inYourCustody": 1,
           "childRelationshipType": "adopted",
+          "hidden": 1,
+          "paternityFraud": 0,
+          "assumedRelationshipType": "Uncle",
           "relationship": 67,
         };
 
@@ -48,13 +57,17 @@ void main() {
         final correctChild = Child(
           mainPersonID: 2,
           childID: 8,
-          custodianID: 2,
+          inYourCustody: true,
           childRelationshipType: ChildRelationshipType.birth.name,
+          hidden: true,
+          paternityFraud: true,
+          assumedRelationshipType: "Uncle",
           relationship: 67,
         );
 
         final result = sut.copyWith(
-            childRelationshipType: ChildRelationshipType.birth.name);
+            childRelationshipType: ChildRelationshipType.birth.name,
+            paternityFraud: true);
         expect(result, correctChild);
       });
 
@@ -65,6 +78,10 @@ void main() {
 
         test("female equivalent of child is daughter", () {
           expect(Child.femaleEquivalent, "Daughter");
+        });
+
+        test("empty string is an empty string", () {
+          expect(Child.emptyString, "");
         });
       });
     },

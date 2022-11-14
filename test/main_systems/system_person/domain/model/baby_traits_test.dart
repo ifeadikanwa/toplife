@@ -5,7 +5,8 @@ void main() {
   late BabyTraits sut;
 
   setUp(() {
-    sut = const BabyTraits(id: 1, personID: 1, fussiness: 10, appetite: 6);
+    sut = const BabyTraits(
+        id: 1, personID: 1, fussiness: 10, appetite: 6, needsChanging: true);
   });
 
   group(
@@ -17,6 +18,7 @@ void main() {
           "personID": 1,
           "fussiness": 10,
           "appetite": 6,
+          "needsChanging": 1,
         };
 
         expect(sut.toMap(), correctMap);
@@ -28,6 +30,7 @@ void main() {
           "personID": 1,
           "fussiness": 10,
           "appetite": 6,
+          "needsChanging": 1,
         };
 
         final result = BabyTraits.fromMap(babyTraitsMap: map);
@@ -36,10 +39,20 @@ void main() {
       });
 
       test("copyWith creates new object with correct values", () {
-        const correctBabyTraits =
-            BabyTraits(id: 1, personID: 1, fussiness: 20, appetite: 3);
+        const correctBabyTraits = BabyTraits(
+          id: 1,
+          personID: 1,
+          fussiness: 20,
+          appetite: 3,
+          needsChanging: false,
+        );
 
-        final result = sut.copyWith(id: 1, fussiness: 20, appetite: 3);
+        final result = sut.copyWith(
+          id: 1,
+          fussiness: 20,
+          appetite: 3,
+          needsChanging: false,
+        );
         expect(result, correctBabyTraits);
       });
 
@@ -61,10 +74,11 @@ void main() {
         });
 
         test("possibleAppetite values should be defined as this range", () {
-          expect(BabyTraits.possibleAppetite, [2, 3, 4, 5, 6]);
+          expect(BabyTraits.possibleAppetite, [2, 3, 4]);
         });
 
-        test("getValidAppetiteValue values should return value in possibleAppetite range",
+        test(
+            "getValidAppetiteValue values should return value in possibleAppetite range",
             () {
           assert(BabyTraits.possibleAppetite
               .contains(BabyTraits.getValidAppetiteValue()));

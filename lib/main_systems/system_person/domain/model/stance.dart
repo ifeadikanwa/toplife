@@ -14,6 +14,7 @@ class Stance extends Equatable {
   final bool wantsPartnerToSignPrenup;
   final bool openToCrimes;
   final bool openToStayAtHomeParenting;
+  final bool openToPremaritalSex;
 
   const Stance({
     this.id,
@@ -27,6 +28,7 @@ class Stance extends Equatable {
     required this.wantsPartnerToSignPrenup,
     required this.openToCrimes,
     required this.openToStayAtHomeParenting,
+    required this.openToPremaritalSex,
   });
 
   @override
@@ -42,6 +44,7 @@ class Stance extends Equatable {
         wantsPartnerToSignPrenup,
         openToCrimes,
         openToStayAtHomeParenting,
+        openToPremaritalSex,
       ];
 
   @override
@@ -68,6 +71,7 @@ class Stance extends Equatable {
   static const wantsPartnerToSignPrenupColumn = "wantsPartnerToSignPrenup";
   static const openToCrimesColumn = "openToCrimes";
   static const openToStayAtHomeParentingColumn = "openToStayAtHomeParenting";
+  static const openToPremaritalSexColumn = "openToPremaritalSex";
 
   static const allColumns = [
     idColumn,
@@ -81,6 +85,7 @@ class Stance extends Equatable {
     wantsPartnerToSignPrenupColumn,
     openToCrimesColumn,
     openToStayAtHomeParentingColumn,
+    openToPremaritalSexColumn,
   ];
 
   static Stance fromMap({required Map<String, Object?> stanceMap}) {
@@ -102,6 +107,8 @@ class Stance extends Equatable {
       openToCrimes: stanceMap[openToCrimesColumn] == databaseTrueValue,
       openToStayAtHomeParenting:
           stanceMap[openToStayAtHomeParentingColumn] == databaseTrueValue,
+      openToPremaritalSex:
+          stanceMap[openToPremaritalSexColumn] == databaseTrueValue,
     );
   }
 
@@ -127,6 +134,8 @@ class Stance extends Equatable {
       openToCrimesColumn: openToCrimes ? databaseTrueValue : databaseFalseValue,
       openToStayAtHomeParentingColumn:
           openToStayAtHomeParenting ? databaseTrueValue : databaseFalseValue,
+      openToPremaritalSexColumn:
+          openToPremaritalSex ? databaseTrueValue : databaseFalseValue,
     };
   }
 
@@ -142,6 +151,7 @@ class Stance extends Equatable {
     bool? wantsPartnerToSignPrenup,
     bool? openToCrimes,
     bool? openToStayAtHomeParenting,
+    bool? openToPremaritalSex,
   }) {
     return Stance(
       id: id ?? this.id,
@@ -159,6 +169,7 @@ class Stance extends Equatable {
       openToCrimes: openToCrimes ?? this.openToCrimes,
       openToStayAtHomeParenting:
           openToStayAtHomeParenting ?? this.openToStayAtHomeParenting,
+      openToPremaritalSex: openToPremaritalSex ?? this.openToPremaritalSex,
     );
   }
 }

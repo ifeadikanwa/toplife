@@ -24,6 +24,7 @@ class StanceDaoImpl implements StanceDao {
       ${Stance.wantsPartnerToSignPrenupColumn} $boolType,
       ${Stance.openToCrimesColumn} $boolType,
       ${Stance.openToStayAtHomeParentingColumn} $boolType,
+      ${Stance.openToPremaritalSexColumn} $boolType,
       FOREIGN KEY (${Stance.personIDColumn})
        REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
        ON UPDATE CASCADE

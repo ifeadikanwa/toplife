@@ -1,6 +1,7 @@
 import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
+import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
@@ -9,23 +10,26 @@ class CreateNewGameUsecase {
   final GameRepository _gameRepository;
   final PersonUsecases _personUsecases;
   final RelationshipUsecases _relationshipUsecases;
+  final AgeUsecases _ageUsecases;
 
   const CreateNewGameUsecase({
     required GameRepository gameRepository,
     required PersonUsecases personUsecases,
     required RelationshipUsecases relationshipUsecases,
+    required AgeUsecases ageUsecases,
   })  : _gameRepository = gameRepository,
         _personUsecases = personUsecases,
-        _relationshipUsecases = relationshipUsecases;
+        _relationshipUsecases = relationshipUsecases,
+        _ageUsecases = ageUsecases;
 
   Future<Game> execute(Person person) async {
     const newGameTime = 480; //8 AM
     const newGameDay = 1;
     const newGameGenerationNumber = 1;
 
-    //edit the person passed to be a fresh young adult
+    //edit the person passed to be a fresh young adult and attach to the game
     final youngAdultPerson = person.copyWith(
-        dayOfBirth: Age.getDayOfBirthFromDaysLived(
+        dayOfBirth: _ageUsecases.getDayOfBirthFromDaysLivedUsecase.execute(
       currentDay: newGameDay,
       daysLived: Age.newYoungAdultDaysLived,
     ));
@@ -55,6 +59,7 @@ class CreateNewGameUsecase {
 
     //create players family
     await _relationshipUsecases.createNewPlayerFamilyUsecase.execute(
+      _personUsecases,
       updatedCurrentPlayer,
       newGameDay,
     );

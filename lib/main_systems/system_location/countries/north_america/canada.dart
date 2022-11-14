@@ -15,6 +15,9 @@ class Canada implements Country {
       ["Ontario", "Quebec", "Alberta", "British Columbia", "Saskatchewan"];
 
   @override
+  int get economy => 2;
+
+  @override
   String get randomState {
     return getRandomValueFromList(list: states);
   }
@@ -43,4 +46,7 @@ class Canada implements Country {
   String get randomMaleFirstName {
     return getRandomValueFromSet(set: maleFirstNames);
   }
+
+  @override
+  bool get requiresCarInsurance => true;
 }

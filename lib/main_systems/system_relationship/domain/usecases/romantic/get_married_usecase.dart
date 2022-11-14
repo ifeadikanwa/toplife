@@ -20,9 +20,8 @@ class GetMarriedUsecase {
     _createExclusiveRomanticRelationshipUsecase.execute(
       mainPersonID: mainPersonID,
       partnerID: partnerID,
-      partnerRelationshipType: PartnerRelationshipType.marriage,
+      partnerRelationshipType: PartnerRelationshipType.married,
       currentDay: currentDay,
     );
-
   }
 }

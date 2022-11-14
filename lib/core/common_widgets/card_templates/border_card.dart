@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class BorderCard extends StatelessWidget {
   final List<Widget> children;
@@ -8,10 +8,11 @@ class BorderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+
     return Card(
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: appTheme.colorScheme.secondary,
+          color: (appTheme.brightness == Brightness.light) ? Colors.black : Colors.white,
         ),
         borderRadius: BorderRadius.circular(4.0),
       ),

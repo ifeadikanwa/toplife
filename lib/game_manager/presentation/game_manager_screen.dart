@@ -1,33 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
-// import 'package:toplife/main_systems/system_job/data/dao/employment_dao_impl.dart';
-// import 'package:toplife/main_systems/system_job/data/dao/job_dao_impl.dart';
-// import 'package:toplife/main_systems/system_job/data/dao/job_relationship_dao_impl.dart';
-// import 'package:toplife/main_systems/system_job/data/repository/job_repositories.dart';
-// import 'package:toplife/main_systems/system_job/domain/model/job.dart';
-// import 'package:toplife/main_systems/system_job/domain/usecases/job_usecases.dart';
-// import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
-// import 'package:toplife/main_systems/system_job/job_info/constants/health_insurance_coverage.dart';
-// import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
-// import 'package:toplife/main_systems/system_job/job_info/constants/level_titles.dart';
-// import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
-// import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
-// import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-// import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-// import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
-// import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
-// import 'package:toplife/main_systems/system_school/data/dao/school_project_dao_impl.dart';
-// import 'package:toplife/main_systems/system_school/data/dao/school_relationship_dao_impl.dart';
-// import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
-// import 'package:toplife/main_systems/system_school/domain/usecases/school_usecases.dart';
 
-class GameScreen extends ConsumerWidget {
-  const GameScreen({Key? key}) : super(key: key);
+class GameManagerScreen extends ConsumerWidget {
+  const GameManagerScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,10 +25,13 @@ class GameScreen extends ConsumerWidget {
                     gender: Gender.Male.name,
                     subjectPronoun: Gender.Male.subjectPronoun,
                     objectPronoun: Gender.Male.objectPronoun,
+                    possessivePronoun: Gender.Male.possessivepronoun,
                     sexuality: Sexuality.Straight.name,
                     state: "Ontario",
                     country: "Canada",
+                    money: 12000,
                     zodiacSign: ZodiacSign.Libra.name,
+                    transportMode: "bus",
                     hasFertilityIssues: false,
                     onBirthControl: false,
                     isSterile: false,
@@ -62,17 +45,20 @@ class GameScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(personUsecasesProvider).createChildPersonUsecase.execute(
                     person: Person(
-                      firstName: "Chinwe",
-                      lastName: "Eze",
-                      dayOfBirth: 23,
-                      gender: Gender.Male.name,
-                      subjectPronoun: Gender.Male.subjectPronoun,
-                      objectPronoun: Gender.Male.objectPronoun,
+                      firstName: "Stella",
+                      lastName: "Baker",
+                      dayOfBirth: -23,
+                      gender: Gender.Female.name,
+                      subjectPronoun: Gender.Female.subjectPronoun,
+                      objectPronoun: Gender.Female.objectPronoun,
+                      possessivePronoun: Gender.Female.possessivepronoun,
                       sexuality: Sexuality.Straight.name,
                       state: "state",
                       country: "country",
+                      money: 3000,
                       zodiacSign: ZodiacSign.Capricorn.name,
                       importantStatus: null,
+                      transportMode: "bus",
                       hasFertilityIssues: false,
                       onBirthControl: false,
                       isSterile: false,
@@ -93,104 +79,66 @@ class GameScreen extends ConsumerWidget {
               //     .changeCurrentPlayerUsecase
               //     .execute(gameID: 10, newCurrentPlayerID: 11);
 
-              // final Degree degree = Degree(
-              //   discipline: DegreeDiscipline.education.name,
-              //   branch: "English",
-              //   isSpecialDegree: true,
+              // final p1 = Partner(
+              //   mainPersonID: 1,
+              //   partnerID: 7,
+              //   partnerRelationshipType: PartnerRelationshipType.engaged.name,
+              //   isActive: false,
+              //   startDay: 1,
+              //   isCoParent: true,
+              //   metAt: "metAt",
+              //   relationship: 87,
               // );
 
-              // final schoolrepo = SchoolRepositories(
-              //   degreeDao: DegreeDaoImpl(),
-              //   schoolDao: SchoolDaoImpl(),
-              //   schoolProjectDao: SchoolProjectDaoImpl(),
-              //   schoolRelationshipDao: SchoolRelationshipDaoImpl(),
+              // final p2 = Partner(
+              //   mainPersonID: 1,
+              //   partnerID: 8,
+              //   partnerRelationshipType: PartnerRelationshipType.dating.name,
+              //   isActive: true,
+              //   startDay: 1,
+              //   isCoParent: false,
+              //   metAt: "metAt",
+              //   relationship: 99,
               // );
-              // final schoolUsecases =
-              //     SchoolUsecases(schoolRepositories: schoolrepo);
 
-              // // final school = await schoolrepo.schoolRepositoryImpl.getSchool(2);
-              // // final graduate =
-              // //     await schoolUsecases.graduateUsecase.execute(school: school!);
+              // PartnerDaoImpl().createPartner(p1);
+              // PartnerDaoImpl().createPartner(p2);
 
-              // // print(graduate);
+              // const currentDay = 1;
 
-              // final result = await schoolUsecases.applyToTeacherEducationProgramUsecase
-              //     .execute(mainPersonID: 1, degree: degree, gameEconomy: 1);
-
-              // // final admission = await schoolUsecases
-              // //     .admitIntoMedicalSchoolUsecase
-              // //     .execute(1, result, 24);
-
-              // print(result);
-              // // print(admission);
-
-              // final list = await schoolUsecases
-              //     .getValidListOfBachelorDegreesUsecase
-              //     .execute(personID: 1);
-
-              // print(list);
-
-              // final job = Job(
-              //   jobTitle: JobTitles.surgeon,
-              //   jobType: JobType.medical.name,
-              //   companySuffix: getRandomMedicalCompanySuffix(),
-              //   employmentType: EmploymentType.fullTime.name,
-              //   levelOneTitle: LevelTitle.intern.titleName,
-              //   levelOneBasePay: GameJobPay.medical.minLevelOneBasePay +
-              //       (0.20 * GameJobPay.medical.minLevelOneBasePay).ceil(),
-              //   levelTwoTitle: LevelTitle.chiefResident.titleName,
-              //   levelTwoBasePay: GameJobPay.medical.minLevelTwoBasePay +
-              //       (0.20 * GameJobPay.medical.minLevelTwoBasePay).ceil(),
-              //   levelThreeTitle: LevelTitle.medicalDirector.titleName,
-              //   levelThreeBasePay: GameJobPay.medical.minLevelThreeBasePay +
-              //       (0.20 * GameJobPay.medical.minLevelThreeBasePay).ceil(),
-              //   qualifiedDisciplines: [DegreeDiscipline.medical].toString(),
-              //   qualifiedBranches: [DegreeBranch.surgery].toString(),
-              //   healthInsuranceCoverage:
-              //       HealthInsuranceCoverage.high.percentage,
+              // final event = Event(
+              //   id: 2,
+              //   gameID: 1,
+              //   eventType: EventType.birthday.name,
+              //   eventDay: currentDay,
+              //   mainPersonID: 5,
+              //   relationshipToMainPlayer: InformalRelationshipType.sibling.name,
+              //   journalEntryOnly: true,
+              //   performed: false,
               // );
-              //
-              // final job = Job(
-              //   jobTitle: JobTitles.exoticDancer,
-              //   jobType: JobType.sexWork.name,
-              //   companySuffix: SpecificCompanySuffix.club,
-              //   employmentType: EmploymentType.fullTime.name,
-              //   levelOneTitle: LevelTitle.trainee.titleName,
-              //   levelOneBasePay: GameJobPay.generalFullTime.minLevelOneBasePay +
-              //       (0.20 * GameJobPay.generalFullTime.minLevelOneBasePay)
-              //           .ceil(),
-              //   levelTwoTitle: LevelTitle.backup.titleName,
-              //   levelTwoBasePay: GameJobPay.generalFullTime.minLevelOneBasePay +
-              //       (0.20 * GameJobPay.generalFullTime.minLevelOneBasePay)
-              //           .ceil(),
-              //   levelThreeTitle: LevelTitle.lead.titleName,
-              //   levelThreeBasePay:
-              //       GameJobPay.generalFullTime.minLevelOneBasePay +
-              //           (0.20 * GameJobPay.generalFullTime.minLevelOneBasePay)
-              //               .ceil(),
-              //   qualifiedDisciplines: [].toString(),
-              //   qualifiedBranches: [].toString(),
-              //   healthInsuranceCoverage:
-              //       HealthInsuranceCoverage.none.percentage,
-              // );
-              //
-              // final result = await JobUsecases(
-              //   jobRepositories: JobRepositories(
-              //       jobDao: JobDaoImpl(),
-              //       jobRelationshipDao: JobRelationshipDaoImpl(),
-              //       employmentDao: EmploymentDaoImpl()),
-              //   schoolUsecases: SchoolUsecases(
-              //     schoolRepositories: SchoolRepositories(
-              //         degreeDao: DegreeDaoImpl(),
-              //         schoolDao: SchoolDaoImpl(),
-              //         schoolProjectDao: SchoolProjectDaoImpl(),
-              //         schoolRelationshipDao: SchoolRelationshipDaoImpl()),
-              //   ),
-              //   personUsecases: ref.read(personUsecasesProvider),
-              // )
-              //     .checkIfQualifiedForFullTimeJobUsecase
-              //     .execute(job: job, personID: 1);
-              //
+
+              // final birthdayPerson = await ref
+              //     .read(personUsecasesProvider)
+              //     .getPersonUsecase
+              //     .execute(personID: 5);
+
+              // final age =
+              //     ref.read(ageUsecasesProvider).getPersonAgeUsecase.execute(
+              //           dayOfBirth: birthdayPerson!.dayOfBirth,
+              //           currentDay: currentDay,
+              //         );
+
+              // await BirthdayEvent(
+              //   ref.read(relationshipUsecasesProvider),
+              //   ref.read(personUsecasesProvider),
+              //   ref.read(ageUsecasesProvider),
+              //   ref.read(journalUsecasesProvider),
+              //   EventScheduler(ref.read(eventRepositoryProvider)),
+              //   ref.read(eventRepositoryProvider),
+              // ).execute(1, event);
+
+              // print(EventManager.convertEventTypeStringToEnum("birthday"));
+
               // print(result);
             },
             child: const Text("do")),

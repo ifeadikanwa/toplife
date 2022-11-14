@@ -10,27 +10,25 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/family/
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/get_married_usecase.dart';
 
 class CreateNewPlayerFamilyUsecase {
-  final PersonUsecases _personUsecases;
   final GetMarriedUsecase _getMarriedUsecase;
   final CreateChildParentRelationshipUsecase
       _createChildParentRelationshipUsecase;
   final CreateSiblingRelationshipUsecase _createSiblingRelationshipUsecase;
 
   const CreateNewPlayerFamilyUsecase({
-    required PersonUsecases personUsecases,
     required GetMarriedUsecase getMarriedUsecase,
     required CreateChildParentRelationshipUsecase
         createChildParentRelationshipUsecase,
     required CreateSiblingRelationshipUsecase createSiblingRelationshipUsecase,
-  })  : _personUsecases = personUsecases,
-        _getMarriedUsecase = getMarriedUsecase,
+  })  : _getMarriedUsecase = getMarriedUsecase,
         _createChildParentRelationshipUsecase =
             createChildParentRelationshipUsecase,
         _createSiblingRelationshipUsecase = createSiblingRelationshipUsecase;
 
-  Future<void> execute(Person currentPlayer, int currentDay) async {
+  Future<void> execute(PersonUsecases personUsecases, Person currentPlayer,
+      int currentDay) async {
     //create two parent
-    final Person maleParent = _personUsecases.generateAPersonUsecase.execute(
+    final Person maleParent = personUsecases.generateAPersonUsecase.execute(
       currentGameID: currentPlayer.gameID!,
       currentDay: currentDay,
       currentCountry: currentPlayer.country,
@@ -42,7 +40,7 @@ class CreateNewPlayerFamilyUsecase {
       lateStageInAge: true,
     );
 
-    final Person femaleParent = _personUsecases.generateAPersonUsecase.execute(
+    final Person femaleParent = personUsecases.generateAPersonUsecase.execute(
       currentGameID: currentPlayer.gameID!,
       currentDay: currentDay,
       currentCountry: currentPlayer.country,
@@ -54,11 +52,11 @@ class CreateNewPlayerFamilyUsecase {
       earlyStageInAge: true,
     );
 
-    final Person createdMaleParent = await _personUsecases
+    final Person createdMaleParent = await personUsecases
         .createAdultPersonUsecase
         .execute(person: maleParent);
 
-    final Person createdFemaleParent = await _personUsecases
+    final Person createdFemaleParent = await personUsecases
         .createAdultPersonUsecase
         .execute(person: femaleParent);
 
@@ -69,14 +67,13 @@ class CreateNewPlayerFamilyUsecase {
       currentDay: currentDay,
     );
 
-    //create 1-4 children
-    const int maxNumberOfChildren = 4;
+    //create 1-5 children
+    const int maxNumberOfChildren = 5;
 
-    final int numberOfChildren = Random().nextInt(maxNumberOfChildren + 1) + 1;
-
+    final int numberOfChildren = Random().nextInt(maxNumberOfChildren) + 1;
 
     final List<Person> children =
-        _personUsecases.generateListOfPersonUsecase.execute(
+        personUsecases.generateListOfPersonUsecase.execute(
       numberOfPerson: numberOfChildren,
       currentGameID: currentPlayer.gameID!,
       currentDay: currentDay,
@@ -89,16 +86,14 @@ class CreateNewPlayerFamilyUsecase {
       earlyStageInAge: true,
     );
 
-
     List<Person> createdChildrenPerson = [];
 
     for (var child in children) {
       Person createdChild =
-          await _personUsecases.createChildPersonUsecase.execute(person: child);
+          await personUsecases.createChildPersonUsecase.execute(person: child);
 
       createdChildrenPerson.add(createdChild);
     }
-
 
     //create a child-parent relationship between all the children(including the player) and the parents
     _createChildParentRelationshipUsecase.execute(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/config/theme/colors.dart';
 import 'package:toplife/core/common_widgets/avatar/avatar_with_flag.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/utils/extensions/string_extensions.dart';
 
 class PlayerStatusBar extends StatelessWidget {
   final String firstName;
@@ -29,42 +29,39 @@ class PlayerStatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Container(
-      color: pastelPurple,
+      color: appTheme.colorScheme.secondary,
       padding:
           const EdgeInsets.symmetric(vertical: 8.0, horizontal: appSidePadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              faceAndFlag(),
-              const AddHorizontalSpace(width: 8.0),
-              nameAndBankBalance(
-                  name: firstName,
-                  currency: currency,
-                  bankBalance: bankBalance),
-            ],
+          Expanded(
+            child: Row(
+              children: [
+                faceAndFlag(),
+                const AddHorizontalSpace(width: 8.0),
+                Expanded(child: nameAndBankBalance()),
+              ],
+            ),
           ),
+          const AddHorizontalSpace(width: horizontalWidgetSpacing),
           dayAndTime(time: time, dayNumber: dayNumber),
         ],
       ),
     );
   }
 
-  Widget nameAndBankBalance({
-    required String name,
-    required String currency,
-    required String bankBalance,
-  }) {
+  Widget nameAndBankBalance() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "$firstName $lastName",
+          "$firstName $lastName".prepareTextToEllipsize(),
+          overflow: TextOverflow.ellipsis,
           style: headerTextStyle.copyWith(
-            color: brightPurple,
             decoration: TextDecoration.underline,
           ),
         ),

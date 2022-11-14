@@ -1,37 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/config/theme/colors.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class HomeOptionCard extends StatelessWidget {
   final IconData iconData;
   final String optionName;
+  final void Function() onTap;
+  
   const HomeOptionCard(
-      {Key? key, required this.iconData, required this.optionName})
+      {Key? key, required this.iconData, required this.optionName, required this.onTap,})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: brightPurple,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4.0),
-      ),
+    final appTheme = Theme.of(context);
+    return InkWell(
+      onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(cardPadding),
+        padding: const EdgeInsets.symmetric(vertical: cardPadding),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               width: 40,
               height: 40,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
+                color: (appTheme.brightness == Brightness.light)
+                    ? Colors.black
+                    : Colors.white,
                 shape: BoxShape.circle,
               ),
-              child: Icon(iconData, color: Colors.white),
+              child: Icon(
+                iconData,
+                color: (appTheme.brightness == Brightness.light)
+                    ? Colors.white.withAlpha(225)
+                    : Colors.black,
+              ),
             ),
+            const AddVerticalSpace(height: 2.0),
             Text(
               optionName,
-              style: cardSecondaryTextStyle.copyWith(color: Colors.white),
+              style: cardSecondaryTextStyle.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),

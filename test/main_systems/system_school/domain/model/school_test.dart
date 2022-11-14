@@ -8,6 +8,7 @@ void main() {
     sut = const School(
       id: 1,
       mainPersonID: 3,
+      name: "Sunshine University",
       grades: 89,
       attendance: 78,
       project: 56,
@@ -37,6 +38,7 @@ void main() {
         final Map<String, Object?> correctMap = {
           "_id": 1,
           "mainPersonID": 3,
+          "name": "Sunshine University",
           "grades": 89,
           "attendance": 78,
           "project": 56,
@@ -65,6 +67,7 @@ void main() {
         final Map<String, Object?> map = {
           "_id": 1,
           "mainPersonID": 3,
+          "name": "Sunshine University",
           "grades": 89,
           "attendance": 78,
           "project": 56,
@@ -95,6 +98,7 @@ void main() {
         const correctSchool = School(
           id: 1,
           mainPersonID: 3,
+          name: "Sunshine University",
           grades: 100,
           attendance: 78,
           project: 56,
@@ -123,6 +127,26 @@ void main() {
       group("Constants:", () {
         test("id column should be defined as _id", () {
           expect(School.idColumn, "_id");
+        });
+         test("university constant is university", () {
+          expect(School.university, "University");
+        });
+
+        test("lawSchool constant is Law School", () {
+          expect(School.lawSchool, "Law School");
+        });
+
+        test("medicalSchool constant is Medical School", () {
+          expect(School.medicalSchool, "Medical School");
+        });
+        test("pharmacySchool constant is Pharmacy School", () {
+          expect(School.pharmacySchool, "Pharmacy School");
+        });
+        test("nursingSchool constant is Nursing School", () {
+          expect(School.nursingSchool, "Nursing School");
+        });
+        test("teachersAcademy constant is Teachers Academy", () {
+          expect(School.teachersAcademy, "Teachers Academy");
         });
       });
     },

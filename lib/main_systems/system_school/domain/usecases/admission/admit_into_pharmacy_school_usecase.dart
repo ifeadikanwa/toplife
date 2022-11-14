@@ -7,6 +7,7 @@ import 'package:toplife/main_systems/system_school/domain/model/info_models/scho
 import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/end_all_active_school_programs_usecase.dart';
 import 'package:toplife/main_systems/system_school/util/get_random_class_start_time.dart';
+import 'package:toplife/main_systems/system_school/util/get_random_school_name.dart';
 
 class AdmitIntoPharmacySchoolUsecase {
   final SchoolRepositories _schoolRepositories;
@@ -38,6 +39,7 @@ class AdmitIntoPharmacySchoolUsecase {
 
     final School pharmacySchool = School(
       mainPersonID: mainPersonID,
+      name: "${getRandomSchoolName()} ${School.pharmacySchool}",
       grades: SchoolInfo.newSemesterGradeReset,
       attendance: SchoolInfo.newSemesterGradeReset,
       project: SchoolInfo.newSemesterGradeReset,

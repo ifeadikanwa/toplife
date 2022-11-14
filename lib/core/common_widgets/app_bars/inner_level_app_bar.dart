@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
-import 'package:toplife/core/common_widgets/constants.dart';
+import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/core/utils/extensions/string_extensions.dart';
 
 class InnerLevelAppBar extends StatelessWidget {
   final String title;
@@ -15,14 +18,17 @@ class InnerLevelAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: appSidePadding,
-        vertical: innerLevelAppBarVerticalPadding,
+        vertical: appBarVerticalPadding,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border.symmetric(
-          horizontal: BorderSide(),
+          horizontal: (appTheme.brightness == Brightness.dark)
+              ? const BorderSide(color: Colors.white)
+              : const BorderSide(),
         ),
       ),
       child: Row(
@@ -31,28 +37,30 @@ class InnerLevelAppBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              leading ?? backButton(),
+              leading ?? backButton(context),
             ],
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: defaultIconSize),
-                child: Center(
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+          const AddHorizontalSpace(width: 16.0),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: FittedBox(
+                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      title.prepareTextToEllipsize().toUpperCase(),
+                      overflow: TextOverflow.ellipsis,
+                      style: appBarTextStyle,
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Row(
             children: [
-              ...?rightPadEachAction(actions),
+              ...?leftPadEachAction(actions),
             ],
           ),
         ],
@@ -61,19 +69,19 @@ class InnerLevelAppBar extends StatelessWidget {
   }
 }
 
-Widget backButton() {
+Widget backButton(BuildContext context) {
   return PlainIconButton(
     icon: const Icon(Icons.arrow_back_outlined),
-    onPressed: () {},
+    onPressed: () => AutoRouter.of(context).pop(),
   );
 }
 
-List<Widget>? rightPadEachAction(List<Widget>? actions) {
+List<Widget>? leftPadEachAction(List<Widget>? actions) {
   if (actions != null) {
     return actions
         .map(
           (action) => Padding(
-            padding: const EdgeInsets.only(left: 24.0),
+            padding: const EdgeInsets.only(left: defaultIconSize),
             child: action,
           ),
         )

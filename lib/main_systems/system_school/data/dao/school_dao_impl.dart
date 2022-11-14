@@ -18,6 +18,7 @@ class SchoolDaoImpl implements SchoolDao {
     CREATE TABLE $schoolTable(
       ${School.idColumn} $idType,
       ${School.mainPersonIDColumn} $integerType,
+      ${School.nameColumn} $textType,
       ${School.gradesColumn} $integerType,
       ${School.attendanceColumn} $integerType,
       ${School.projectColumn} $integerType,
@@ -43,7 +44,7 @@ class SchoolDaoImpl implements SchoolDao {
        ON DELETE CASCADE,
       FOREIGN KEY (${School.degreeIDColumn})
        REFERENCES ${DegreeDaoImpl.degreeTable} (${Degree.idColumn}) 
-       ON UPDATE NO ACTION
+       ON UPDATE CASCADE
        ON DELETE NO ACTION
       )
   ''';

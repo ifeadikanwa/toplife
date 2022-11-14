@@ -42,5 +42,15 @@ void main() {
 
       expect(result, correctLabelTime);
     });
+
+    test("if asked to add plus, the returned string contains correct time with plus at the end", () {
+      const int timeInMinutes = 810;
+
+      const String correctLabelTime = "13h 30m+";
+
+      final String result = getLabelTime(timeInMinutes: timeInMinutes, addPlus: true);
+
+      expect(result, correctLabelTime);
+    });
   });
 }

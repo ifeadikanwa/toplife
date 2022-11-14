@@ -8,7 +8,13 @@ class Default {
   static const defaultNorthAmericanCurrency = Currency.dollar;
   static const defaultEuropeanCurrency = Currency.euro;
 
-  static final HashSet<String> defaultFemaleEnglishFirstNames = femaleEnglishNames;
+  //Economy
+  static const defaultNorthAmericanEconomy = 2;
+  static const defaultEuropeanEconomy = 3;
+
+  //names
+  static final HashSet<String> defaultFemaleEnglishFirstNames =
+      femaleEnglishNames;
   static final HashSet<String> defaultMaleEnglishFirstNames = maleEnglishNames;
   static final HashSet<String> defaultEnglishLastNames = englishLastNames;
 }

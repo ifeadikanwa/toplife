@@ -17,6 +17,7 @@ class FriendDaoImpl implements FriendDao {
       ${Friend.mainPersonIDColumn} $integerType,
       ${Friend.friendIDColumn} $integerType,
       ${Friend.metAtColumn} $textType,
+      ${Friend.haveRomanticRelationshipColumn} $boolType,
       ${Friend.relationshipColumn} $integerType,
       PRIMARY KEY (${Friend.mainPersonIDColumn}, ${Friend.friendIDColumn}),
       FOREIGN KEY (${Friend.mainPersonIDColumn})
