@@ -6,4 +6,9 @@ abstract class FridgeFoodRepository {
   Future<void> updateFridgeFood(FridgeFood fridgeFood);
   Future<void> deleteFridgeFood(int fridgeFoodID);
   Future<List<FridgeFood>> getAllFridgeFood(int personID);
+  Future<FridgeFood?> findParticularFridgeFood({
+    required int personID,
+    required int foodID,
+    required int expiryDay,
+  });
 }

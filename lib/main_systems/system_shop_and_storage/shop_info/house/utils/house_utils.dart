@@ -12,8 +12,8 @@ import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/uti
 class HouseUtils {
   static const maxBuildingPriceFluctuationPercentage = 5;
 
-  //rent is 20% of the full regular building price
-  static const double rentPricePercentage = 0.2;
+  //rent is 10% of the full regular building price
+  static const double rentPricePercentage = 0.1;
 
   static const bool fluctuationCanBeNegative = true;
 

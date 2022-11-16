@@ -8,7 +8,10 @@ import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/game_manager/presentation/game_states.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/food/buy_food_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/shop_info/supplies/supplies.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -91,6 +94,86 @@ class ShopScreen extends ConsumerWidget {
                   ),
                 ),
               ],
+            ),
+
+            //test
+            const AddVerticalSpace(height: 16.0),
+            OutlinedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const BuyFoodDialog(),
+                );
+              },
+              child: const Text("Dialog"),
+            ),
+
+            const AddVerticalSpace(height: 16.0),
+            OutlinedButton(
+              onPressed: () async {
+                // ref.read(gameManagerViewModel.notifier).createGame(Person(
+                //       firstName: "David",
+                //       lastName: "Smith",
+                //       dayOfBirth: 21,
+                //       gender: Gender.Male.name,
+                //       subjectPronoun: Gender.Male.subjectPronoun,
+                //       objectPronoun: Gender.Male.objectPronoun,
+                //       possessivePronoun: Gender.Male.possessivepronoun,
+                //       sexuality: Sexuality.Straight.name,
+                //       state: "Ontario",
+                //       country: "Canada",
+                //       money: 12000,
+                //       zodiacSign: ZodiacSign.Libra.name,
+                //       transportMode: "bus",
+                //       hasFertilityIssues: false,
+                //       onBirthControl: false,
+                //       isSterile: false,
+                //       sickly: false,
+                //       rebellious: true,
+                //       dead: false,
+                //     ));
+
+                // const house = House(
+                //     isCurrentHome: true,
+                //     bedrooms: 3,
+                //     bathrooms: 2,
+                //     storage: 8,
+                //     address: "address",
+                //     isForRent: true,
+                //     buildingType: "buildingType",
+                //     settlement: "City",
+                //     country: "country",
+                //     style: "style",
+                //     lastMaintainedDay: 24,
+                //     basePrice: 500,
+                //     dayOfPurchase: 12,
+                //     condition: 78,
+                //     purchasePrice: 5900,
+                //     fullyPaidFor: false);
+
+                // const jewelry = Jewelry(
+                //   jewel: "Gold",
+                //   type: "ring",
+                //   carat: 1.2,
+                //   quality: "natural",
+                //   basePrice: 500,
+                //   dayOfPurchase: 34,
+                //   maxConditionAtPurchase: 89,
+                // );
+
+                await ref
+                    .watch(shopAndStorageUsecaseProvider)
+                    .purchaseItemUsecase
+                    .execute(
+                      context: context,
+                      personID: 1,
+                      item: supplies.first,
+                      quantity: 1,
+                    );
+
+                // print(result);
+              },
+              child: const Text("Purchase"),
             ),
           ],
         ),

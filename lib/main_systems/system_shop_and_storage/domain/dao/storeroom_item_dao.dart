@@ -6,4 +6,8 @@ abstract class StoreroomItemDao {
   Future<void> updateStoreroomItem(StoreroomItem storeroomItem);
   Future<void> deleteStoreroomItem(int storeroomItemID);
   Future<List<StoreroomItem>> getAllStoreroomItems(int personID);
+  Future<StoreroomItem?> findParticularStoreroomItem({
+    required int personID,
+    required int itemID,
+  });
 }

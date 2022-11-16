@@ -33,4 +33,15 @@ class StoreroomItemRepositoryImpl implements StoreroomItemRepository {
   Future<void> updateStoreroomItem(StoreroomItem storeroomItem) {
     return _storeroomItemDao.updateStoreroomItem(storeroomItem);
   }
+
+  @override
+  Future<StoreroomItem?> findParticularStoreroomItem({
+    required int personID,
+    required int itemID,
+  }) {
+    return _storeroomItemDao.findParticularStoreroomItem(
+      personID: personID,
+      itemID: itemID,
+    );
+  }
 }

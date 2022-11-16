@@ -32,4 +32,17 @@ class FridgeFoodRepositoryImpl implements FridgeFoodRepository {
   Future<void> updateFridgeFood(FridgeFood fridgeFood) async {
     return _fridgeFoodDao.updateFridgeFood(fridgeFood);
   }
+
+  @override
+  Future<FridgeFood?> findParticularFridgeFood({
+    required int personID,
+    required int foodID,
+    required int expiryDay,
+  }) async {
+    return _fridgeFoodDao.findParticularFridgeFood(
+      personID: personID,
+      foodID: foodID,
+      expiryDay: expiryDay,
+    );
+  }
 }

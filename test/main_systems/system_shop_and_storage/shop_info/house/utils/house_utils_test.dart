@@ -12,8 +12,8 @@ void main() {
     const buildingType = BuildingType.apartment;
 
     group("Constants:", () {
-      test("rent price percentage is 20%", () {
-        expect(HouseUtils.rentPricePercentage, 0.2);
+      test("rent price percentage is 10%", () {
+        expect(HouseUtils.rentPricePercentage, 0.1);
       });
       test("max building price fluctuation percentage is 5", () {
         expect(HouseUtils.maxBuildingPriceFluctuationPercentage, 5);

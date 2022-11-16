@@ -13,7 +13,8 @@ class StoreroomItemDaoImpl implements StoreroomItemDao {
 
   static const storeroomItemTable = "storeroom_item";
 
-  static const createTableQuery = '''
+  static const createTableQuery =
+      '''
     CREATE TABLE $storeroomItemTable(
       ${StoreroomItem.idColumn} $idType,
       ${StoreroomItem.personIDColumn} $integerType,
@@ -96,5 +97,29 @@ class StoreroomItemDaoImpl implements StoreroomItemDao {
       whereArgs: [storeroomItem.id],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  @override
+  Future<StoreroomItem?> findParticularStoreroomItem({
+    required int personID,
+    required int itemID,
+  }) async {
+    final db = await _databaseProvider.database;
+    final storeroomItemMaps = await db.query(
+      storeroomItemTable,
+      columns: StoreroomItem.allColumns,
+      where:
+          "${StoreroomItem.personIDColumn} = ? and ${StoreroomItem.itemIDColumn} = ?",
+      whereArgs: [
+        personID,
+        itemID,
+      ],
+    );
+
+    if (storeroomItemMaps.isNotEmpty) {
+      return StoreroomItem.fromMap(storeroomItemMap: storeroomItemMaps.first);
+    } else {
+      return null;
+    }
   }
 }

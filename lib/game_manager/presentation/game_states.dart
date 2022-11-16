@@ -60,6 +60,9 @@ final shopAndStorageUsecaseProvider = Provider<ShopAndStorageUsecases>((ref) {
       storeroomItemDao: StoreroomItemDaoImpl(),
       jewelryDao: JewelryDaoImpl(),
     ),
+    personUsecases: ref.watch(personUsecasesProvider),
+    journalUsecases: ref.watch(journalUsecasesProvider),
+    gameUsecases: ref.watch(gameUsecasesProvider),
   );
 });
 

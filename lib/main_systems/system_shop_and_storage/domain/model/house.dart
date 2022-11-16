@@ -74,6 +74,7 @@ class House extends Equatable {
   //helper constants
   static const conditionDepreciationDaysLength = 10;
   static const conditionDepreciationAmount = 10;
+  static const homelessStorageSpace = 5;
 
   static const idColumn = "_id";
   static const personIDColumn = "personID";

@@ -116,6 +116,13 @@ void main() {
       test("id column should be defined as _id", () {
         expect(House.idColumn, "_id");
       });
+
+      test(
+        "homeless storage space is 5",
+        () {
+          expect(House.homelessStorageSpace, 5);
+        },
+      );
     });
   });
 }

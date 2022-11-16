@@ -13,7 +13,8 @@ class FridgeFoodDaoImpl implements FridgeFoodDao {
 
   static const fridgeFoodTable = "fridge_food";
 
-  static const createTableQuery = '''
+  static const createTableQuery =
+      '''
     CREATE TABLE $fridgeFoodTable(
       ${FridgeFood.idColumn} $idType,
       ${FridgeFood.personIDColumn} $integerType,
@@ -97,5 +98,31 @@ class FridgeFoodDaoImpl implements FridgeFoodDao {
       whereArgs: [fridgeFood.id],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+
+  @override
+  Future<FridgeFood?> findParticularFridgeFood({
+    required int personID,
+    required int foodID,
+    required int expiryDay,
+  }) async {
+    final db = await _databaseProvider.database;
+    final foundFridgeFoodMap = await db.query(
+      fridgeFoodTable,
+      columns: FridgeFood.allColumns,
+      where:
+          "${FridgeFood.personIDColumn} = ? and ${FridgeFood.foodIDColumn} = ? and ${FridgeFood.expiryDayColumn} = ?",
+      whereArgs: [
+        personID,
+        foodID,
+        expiryDay,
+      ],
+    );
+
+   if (foundFridgeFoodMap.isNotEmpty) {
+      return FridgeFood.fromMap(fridgeFoodMap: foundFridgeFoodMap.first);
+    } else {
+      return null;
+    }
   }
 }
