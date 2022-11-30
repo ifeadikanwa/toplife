@@ -19,6 +19,9 @@ import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/repository/recurring_bill_repository_impl.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
@@ -40,6 +43,15 @@ import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/shop_and_storage_repositories.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/transportation_usecases.dart';
+
+final recurringBillUsecaseProvider = Provider<RecurringBillsUsecases>(
+  (ref) => RecurringBillsUsecases(
+    recurringBillRepository: RecurringBillRepositoryImpl(
+      recurringBillDao: RecurringBillDaoImpl(),
+    ),
+    gameUsecases: ref.watch(gameUsecasesProvider),
+  ),
+);
 
 final transportationUsecaseProvider = Provider<TransportationUsescases>((ref) {
   return TransportationUsescases(
@@ -63,6 +75,7 @@ final shopAndStorageUsecaseProvider = Provider<ShopAndStorageUsecases>((ref) {
     personUsecases: ref.watch(personUsecasesProvider),
     journalUsecases: ref.watch(journalUsecasesProvider),
     gameUsecases: ref.watch(gameUsecasesProvider),
+    recurringBillsUsecases: ref.watch(recurringBillUsecaseProvider),
   );
 });
 

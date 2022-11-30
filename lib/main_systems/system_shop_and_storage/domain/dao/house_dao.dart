@@ -7,4 +7,5 @@ abstract class HouseDao {
   Future<void> updateHouse(House house);
   Future<void> deleteHouse(int houseID);
   Future<List<House>> getAllHouses(int personID);
+  Future<List<House>> getAllCurrentHouses(int personID);
 }

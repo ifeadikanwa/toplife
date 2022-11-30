@@ -20,6 +20,8 @@ class School extends Equatable {
   final String degreeLevel;
   final int schoolFeesPerSemester;
   final int scholarshipPercentage;
+  final int totalLoanAmount;
+  final bool loanProcessed;
   final bool
       hasTakenLeave; // sets next semester start date to apprpriate date after 4 days.
   final bool isActive;
@@ -45,6 +47,8 @@ class School extends Equatable {
     required this.degreeLevel,
     required this.schoolFeesPerSemester,
     required this.scholarshipPercentage,
+    this.totalLoanAmount = 0,
+    this.loanProcessed = false,
     required this.hasTakenLeave,
     required this.isActive,
     required this.isCompleted,
@@ -71,6 +75,8 @@ class School extends Equatable {
         degreeLevel,
         schoolFeesPerSemester,
         scholarshipPercentage,
+        totalLoanAmount,
+        loanProcessed,
         hasTakenLeave,
         isActive,
         isCompleted,
@@ -106,6 +112,8 @@ class School extends Equatable {
   static const degreeLevelColumn = "degreeLevel";
   static const schoolFeesPerSemesterColumn = "schoolFeesPerSemester";
   static const scholarshipPercentageColumn = "scholarshipPercentage";
+  static const totalLoanAmountColumn = "totalLoanAmount";
+  static const loanProcessedColumn = "loanProcessed";
   static const hasTakenLeaveColumn = "hasTakenLeave";
   static const isActiveColumn = "isActive";
   static const isCompletedColumn = "isCompleted";
@@ -130,6 +138,8 @@ class School extends Equatable {
     degreeLevelColumn,
     schoolFeesPerSemesterColumn,
     scholarshipPercentageColumn,
+    totalLoanAmountColumn,
+    loanProcessedColumn,
     hasTakenLeaveColumn,
     isActiveColumn,
     isCompletedColumn,
@@ -156,6 +166,8 @@ class School extends Equatable {
       degreeLevel: schoolMap[degreeLevelColumn] as String,
       schoolFeesPerSemester: schoolMap[schoolFeesPerSemesterColumn] as int,
       scholarshipPercentage: schoolMap[scholarshipPercentageColumn] as int,
+      totalLoanAmount: schoolMap[totalLoanAmountColumn] as int,
+      loanProcessed: schoolMap[loanProcessedColumn] == databaseTrueValue,
       hasTakenLeave: schoolMap[hasTakenLeaveColumn] == databaseTrueValue,
       isActive: schoolMap[isActiveColumn] == databaseTrueValue,
       isCompleted: schoolMap[isCompletedColumn] == databaseTrueValue,
@@ -183,6 +195,9 @@ class School extends Equatable {
       degreeLevelColumn: degreeLevel,
       schoolFeesPerSemesterColumn: schoolFeesPerSemester,
       scholarshipPercentageColumn: scholarshipPercentage,
+      totalLoanAmountColumn: totalLoanAmount,
+      loanProcessedColumn:
+          loanProcessed ? databaseTrueValue : databaseFalseValue,
       hasTakenLeaveColumn:
           hasTakenLeave ? databaseTrueValue : databaseFalseValue,
       isActiveColumn: isActive ? databaseTrueValue : databaseFalseValue,
@@ -210,6 +225,8 @@ class School extends Equatable {
     String? degreeLevel,
     int? schoolFeesPerSemester,
     int? scholarshipPercentage,
+    int? totalLoanAmount,
+    bool? loanProcessed,
     bool? hasTakenLeave,
     bool? isActive,
     bool? isCompleted,
@@ -237,6 +254,8 @@ class School extends Equatable {
           schoolFeesPerSemester ?? this.schoolFeesPerSemester,
       scholarshipPercentage:
           scholarshipPercentage ?? this.scholarshipPercentage,
+      totalLoanAmount: totalLoanAmount ?? this.totalLoanAmount,
+      loanProcessed: loanProcessed ?? this.loanProcessed,
       hasTakenLeave: hasTakenLeave ?? this.hasTakenLeave,
       isActive: isActive ?? this.isActive,
       isCompleted: isCompleted ?? this.isCompleted,

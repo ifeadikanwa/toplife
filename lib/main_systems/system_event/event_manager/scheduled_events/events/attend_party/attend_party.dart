@@ -61,7 +61,6 @@ class AttendParty {
     if (chosenGift != null && chosenGift.storeroomItem.id != null) {
       _shopAndStorageUsecases.useStoreroomItemUsecase.execute(
         storeroomItemID: chosenGift.storeroomItem.id!,
-        personID: chosenGift.storeroomItem.personID,
       );
     }
 

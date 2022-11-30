@@ -24,6 +24,8 @@ void main() {
       degreeLevel: "Master",
       schoolFeesPerSemester: 200,
       scholarshipPercentage: 20,
+      totalLoanAmount: 5000,
+      loanProcessed: true,
       hasTakenLeave: true,
       isActive: false,
       isCompleted: true,
@@ -54,6 +56,8 @@ void main() {
           "degreeLevel": "Master",
           "schoolFeesPerSemester": 200,
           "scholarshipPercentage": 20,
+          "totalLoanAmount": 5000,
+          "loanProcessed": 1,
           "hasTakenLeave": 1,
           "isActive": 0,
           "isCompleted": 1,
@@ -83,6 +87,8 @@ void main() {
           "degreeLevel": "Master",
           "schoolFeesPerSemester": 200,
           "scholarshipPercentage": 20,
+          "totalLoanAmount": 5000,
+          "loanProcessed": 1,
           "hasTakenLeave": 1,
           "isActive": 0,
           "isCompleted": 1,
@@ -114,13 +120,21 @@ void main() {
           degreeLevel: "Master",
           schoolFeesPerSemester: 200,
           scholarshipPercentage: 20,
+          totalLoanAmount: 1200,
+          loanProcessed: false,
           hasTakenLeave: false,
           isActive: false,
           isCompleted: true,
           wasExpelled: false,
         );
         final result = sut.copyWith(
-            grades: 100, currentSemesterNumber: 6, hasTakenLeave: false);
+          grades: 100,
+          currentSemesterNumber: 6,
+          hasTakenLeave: false,
+          totalLoanAmount: 1200,
+          loanProcessed: false,
+        );
+
         expect(result, correctSchool);
       });
 
@@ -128,7 +142,7 @@ void main() {
         test("id column should be defined as _id", () {
           expect(School.idColumn, "_id");
         });
-         test("university constant is university", () {
+        test("university constant is university", () {
           expect(School.university, "University");
         });
 

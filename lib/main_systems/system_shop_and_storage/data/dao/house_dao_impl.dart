@@ -126,4 +126,21 @@ class HouseDaoImpl implements HouseDao {
       return null;
     }
   }
+
+  @override
+  Future<List<House>> getAllCurrentHouses(int personID) async {
+    final db = await _databaseProvider.database;
+    final allHouseMap = await db.query(
+      houseTable,
+      columns: House.allColumns,
+      where: "${House.personIDColumn} = ? and ${House.isCurrentHomeColumn} = ?",
+      whereArgs: [personID, databaseTrueValue],
+    );
+
+    return allHouseMap
+        .map((houseMap) => House.fromMap(
+              houseMap: houseMap,
+            ))
+        .toList();
+  }
 }

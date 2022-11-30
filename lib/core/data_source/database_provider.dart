@@ -13,6 +13,7 @@ import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart
 import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
@@ -106,6 +107,9 @@ class DatabaseProvider {
 
     //Journal
     await db.execute(JournalDaoImpl.createTableQuery);
+
+    //Bills & Loans
+    await db.execute(RecurringBillDaoImpl.createTableQuery);
   }
 
   Future<void> _onConfigure(Database db) async {

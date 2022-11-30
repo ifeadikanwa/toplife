@@ -8,10 +8,11 @@ import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/food/buy_food_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/supplies/supplies.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -112,8 +113,8 @@ class ShopScreen extends ConsumerWidget {
             OutlinedButton(
               onPressed: () async {
                 // ref.read(gameManagerViewModel.notifier).createGame(Person(
-                //       firstName: "David",
-                //       lastName: "Smith",
+                //       firstName: "Denver",
+                //       lastName: "Jacobs",
                 //       dayOfBirth: 21,
                 //       gender: Gender.Male.name,
                 //       subjectPronoun: Gender.Male.subjectPronoun,
@@ -133,23 +134,26 @@ class ShopScreen extends ConsumerWidget {
                 //       dead: false,
                 //     ));
 
-                // const house = House(
-                //     isCurrentHome: true,
-                //     bedrooms: 3,
-                //     bathrooms: 2,
-                //     storage: 8,
-                //     address: "address",
-                //     isForRent: true,
-                //     buildingType: "buildingType",
-                //     settlement: "City",
-                //     country: "country",
-                //     style: "style",
-                //     lastMaintainedDay: 24,
-                //     basePrice: 500,
-                //     dayOfPurchase: 12,
-                //     condition: 78,
-                //     purchasePrice: 5900,
-                //     fullyPaidFor: false);
+                const house = House(
+                  isCurrentHome: false,
+                  bedrooms: 3,
+                  bathrooms: 2,
+                  storage: 8,
+                  address: "1234 Daisy Road",
+                  isForRent: true,
+                  buildingType: "Apartment18",
+                  settlement: "City",
+                  country: "country",
+                  style: "style",
+                  lastMaintainedDay: 24,
+                  basePrice: 1000,
+                  dayOfPurchase: 12,
+                  condition: 78,
+                  purchasePrice: 5900,
+                  fullyPaidFor: false,
+                );
+
+                // HouseDaoImpl().createHouse(house);
 
                 // const jewelry = Jewelry(
                 //   jewel: "Gold",
@@ -161,19 +165,112 @@ class ShopScreen extends ConsumerWidget {
                 //   maxConditionAtPurchase: 89,
                 // );
 
-                await ref
-                    .watch(shopAndStorageUsecaseProvider)
-                    .purchaseItemUsecase
-                    .execute(
-                      context: context,
-                      personID: 1,
-                      item: supplies.first,
-                      quantity: 1,
-                    );
+                // ref
+                //     .read(personUsecasesProvider)
+                //     .addMoneyToPlayerUsecase
+                //     .execute(
+                //       mainPlayerID: 2,
+                //       baseAmountToAdd: 1000,
+                //       adjustToEconomy: true,
+                //     );
 
-                // print(result);
+                // const rb = RecurringBill(
+                //   personID: 1,
+                //   billType: "rent",
+                //   billDescription: "Rent for home",
+                //   billAmount: 400,
+                //   paymentsLeft: 0,
+                //   dueDay: 3,
+                //   purchaseID: 1,
+                //   missedPayments: 0,
+                //   isUrgent: false,
+                // );
+
+                // RecurringBillDaoImpl().createRecurringBill(rb);
+
+                // ItemDaoImpl().createItem(supplies.elementAt(0));
+                // ItemDaoImpl().createItem(supplies.elementAt(1));
+                // ItemDaoImpl().createItem(supplies.elementAt(2));
+                // ItemDaoImpl().createItem(supplies.elementAt(3));
+                // ItemDaoImpl().createItem(supplies.elementAt(4));
+
+                // FoodDaoImpl().createFood(readyMeals.elementAt(0));
+                // FoodDaoImpl().createFood(readyMeals.elementAt(1));
+                // FoodDaoImpl().createFood(readyMeals.elementAt(2));
+                // FoodDaoImpl().createFood(readyMeals.elementAt(3));
+                // FoodDaoImpl().createFood(readyMeals.elementAt(4));
+
+                // final storeroomItem = StoreroomItem(
+                //   personID: 1,
+                //   itemID: 1,
+                //   countsLeft: 4,
+                // );
+
+                // StoreroomItemDaoImpl().createStoreroomItem(
+                //   storeroomItem.copyWith(
+                //     itemID: 1,
+                //   ),
+                // );
+                // StoreroomItemDaoImpl().createStoreroomItem(
+                //   storeroomItem.copyWith(
+                //     itemID: 2,
+                //   ),
+                // );
+                // StoreroomItemDaoImpl().createStoreroomItem(
+                //   storeroomItem.copyWith(
+                //     itemID: 3,
+                //   ),
+                // );
+                // StoreroomItemDaoImpl().createStoreroomItem(
+                //   storeroomItem.copyWith(
+                //     itemID: 4,
+                //   ),
+                // );
+                // StoreroomItemDaoImpl().createStoreroomItem(
+                //   storeroomItem.copyWith(
+                //     itemID: 5,
+                //   ),
+                // );
+
+                // final fridgeFood = FridgeFood(
+                //   personID: 1,
+                //   foodID: 1,
+                //   servingsLeft: 5,
+                //   expiryDay: 4,
+                // );
+
+                // FridgeFoodDaoImpl().createFridgeFood(
+                //   fridgeFood.copyWith(foodID: 1),
+                // );
+                // FridgeFoodDaoImpl().createFridgeFood(
+                //   fridgeFood.copyWith(foodID: 2),
+                // );
+                // FridgeFoodDaoImpl().createFridgeFood(
+                //   fridgeFood.copyWith(foodID: 3),
+                // );
+                // FridgeFoodDaoImpl().createFridgeFood(
+                //   fridgeFood.copyWith(foodID: 4),
+                // );
+                // FridgeFoodDaoImpl().createFridgeFood(
+                //   fridgeFood.copyWith(foodID: 5),
+                // );
+
+                final Game? game = await ref.watch(currentGameProvider.future);
+                if (game != null) {
+                  await ref
+                      .read(shopAndStorageUsecaseProvider)
+                      .rentHouseUsecase
+                      .execute(
+                        context: context,
+                        personID: 1,
+                        house: house,
+                        leaseDuration: 14,
+                      );
+
+                  // print(result);
+                }
               },
-              child: const Text("Purchase"),
+              child: const Text("Run"),
             ),
           ],
         ),

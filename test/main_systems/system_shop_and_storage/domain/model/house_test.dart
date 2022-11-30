@@ -123,6 +123,13 @@ void main() {
           expect(House.homelessStorageSpace, 5);
         },
       );
+
+      test(
+        "minLeaseAgreementDuration is 14 days",
+        () {
+          expect(House.minLeaseAgreementDuration, 14);
+        },
+      );
     });
   });
 }

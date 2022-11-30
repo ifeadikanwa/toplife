@@ -75,6 +75,7 @@ class House extends Equatable {
   static const conditionDepreciationDaysLength = 10;
   static const conditionDepreciationAmount = 10;
   static const homelessStorageSpace = 5;
+  static const minLeaseAgreementDuration = 14; //in DAYS
 
   static const idColumn = "_id";
   static const personIDColumn = "personID";
@@ -151,7 +152,7 @@ class House extends Equatable {
       bedroomsColumn: bedrooms,
       bathroomsColumn: bathrooms,
       storageColumn: storage,
-      address: address,
+      addressColumn: address,
       isForRentColumn: isForRent ? databaseTrueValue : databaseFalseValue,
       buildingTypeColumn: buildingType,
       settlementColumn: settlement,
