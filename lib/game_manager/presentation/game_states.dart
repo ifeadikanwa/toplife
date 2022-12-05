@@ -50,6 +50,7 @@ final recurringBillUsecaseProvider = Provider<RecurringBillsUsecases>(
       recurringBillDao: RecurringBillDaoImpl(),
     ),
     gameUsecases: ref.watch(gameUsecasesProvider),
+    personUsecases: ref.watch(personUsecasesProvider),
   ),
 );
 

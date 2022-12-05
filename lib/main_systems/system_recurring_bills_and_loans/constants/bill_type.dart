@@ -8,8 +8,8 @@ enum BillType {
   carLoan(
     presentationName: "Car Loan",
   ),
-  studentLoans(
-    presentationName: "Student Loans",
+  studentLoan(
+    presentationName: "Student Loan",
   ),
   propertyTax(
     presentationName: "Property Tax",

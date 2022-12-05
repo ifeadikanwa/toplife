@@ -25,9 +25,9 @@ void main() {
     );
 
     test(
-      "student loans presentation name is Student Loans",
+      "student loan presentation name is Student Loan",
       () {
-        expect(BillType.studentLoans.presentationName, "Student Loans");
+        expect(BillType.studentLoan.presentationName, "Student Loan");
       },
     );
 
