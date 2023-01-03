@@ -100,7 +100,9 @@ class RecurringBillDaoImpl implements RecurringBillDao {
 
   @override
   Future<List<RecurringBill>> getTheDaysRecurringBills(
-      int personID, int dueDay) async {
+    int personID,
+    int dueDay,
+  ) async {
     final db = await _databaseProvider.database;
     final allRecurringBillsMap = await db.query(
       recurringBillTable,
@@ -141,5 +143,26 @@ class RecurringBillDaoImpl implements RecurringBillDao {
     } else {
       return null;
     }
+  }
+
+  @override
+  Future<List<RecurringBill>> findRecurringBillsWithType(
+    int personID,
+    String billType,
+  ) async {
+    final db = await _databaseProvider.database;
+    final allRecurringBillsMap = await db.query(
+      recurringBillTable,
+      columns: RecurringBill.allColumns,
+      where:
+          "${RecurringBill.personIDColumn} = ? and ${RecurringBill.billTypeColumn} = ?",
+      whereArgs: [personID, billType],
+    );
+
+    return allRecurringBillsMap
+        .map((recurringBillMap) => RecurringBill.fromMap(
+              recurringBillMap: recurringBillMap,
+            ))
+        .toList();
   }
 }

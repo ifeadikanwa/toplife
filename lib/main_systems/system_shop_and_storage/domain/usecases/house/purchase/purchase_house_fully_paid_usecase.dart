@@ -29,7 +29,7 @@ class PurchaseHouseFullyPaidUsecase {
     required House house,
     required int personID,
   }) async {
-    //does not use the storage limit
+    //does not check the storage limit because the user would have to manually move in, it's not automatic on purchase like renting is.
     final Game? currentGame =
         await _gameUsecases.getLastPlayedActiveGameUsecase.execute();
 
@@ -64,6 +64,7 @@ class PurchaseHouseFullyPaidUsecase {
       await _houseRepository.createHouse(
         house.copyWith(
           personID: personID,
+          isCurrentHome: false,
           dayOfPurchase: currentGame.currentDay,
           lastMaintainedDay: currentGame.currentDay,
           country: person.country,

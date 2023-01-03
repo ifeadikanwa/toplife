@@ -7,7 +7,6 @@ import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
@@ -62,21 +61,20 @@ class RentHouseUsecase {
 
     //if person and game are valid, start processing
     if (person != null && currentGame != null && currentGame.id != null) {
+      //first rent is double: security deposit + rent
+      final int baseHouseRentPrice = 2 * house.basePrice;
+
       //check if player has enough money
-      final int playerMoney =
-          await _personUsecases.getPlayerMoneyUsecase.execute(
-        mainPlayerID: personID,
+      final bool playerCanAffordIt =
+          await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
+        personID: personID,
+        basePrice: baseHouseRentPrice,
+        country: person.country,
+        adjustToEconomy: true,
       );
 
-      //first rent is double: security deposit + rent
-      final int housePrice = 2 *
-          getCountryEconomyAdjustedPrice(
-            country: person.country,
-            basePrice: house.basePrice,
-          );
-
       //player CANT afford it
-      if (playerMoney < housePrice) {
+      if (!playerCanAffordIt) {
         journalEntry = ShopResultConstants.noFundsForRentJournalEntry(
           houseName,
           houseQuantifier,
@@ -142,7 +140,7 @@ class RentHouseUsecase {
 
           resultTitle = ShopResultConstants.houseRentCheckoutSuccessTitle;
         }
-        
+
         //lease is expired so rent
         else if (rentals.first.endOfLeaseDay == currentGame.currentDay) {
           //end expired lease

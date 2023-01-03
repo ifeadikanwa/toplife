@@ -9,7 +9,13 @@ abstract class RecurringBillDao {
     String billType,
   );
   Future<List<RecurringBill>> getTheDaysRecurringBills(
-      int personID, int dueDay);
+    int personID,
+    int dueDay,
+  );
+  Future<List<RecurringBill>> findRecurringBillsWithType(
+    int personID,
+    String billType,
+  );
   Future<void> updateRecurringBill(RecurringBill recurringBill);
   Future<void> deleteRecurringBill(int recurringBillID);
   Future<List<RecurringBill>> getAllRecurringBill(int personID);

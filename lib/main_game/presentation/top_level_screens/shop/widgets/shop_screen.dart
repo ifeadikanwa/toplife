@@ -8,7 +8,6 @@ import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/food/buy_food_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
 
@@ -139,12 +138,12 @@ class ShopScreen extends ConsumerWidget {
                 //   storage: 8,
                 //   address: "1234 Daisy Road",
                 //   isForRent: true,
-                //   buildingType: "Apartment18",
+                //   buildingType: "Home14",
                 //   settlement: "City",
                 //   country: "country",
                 //   style: "style",
                 //   lastMaintainedDay: 24,
-                //   basePrice: 1000,
+                //   basePrice: 2000,
                 //   dayOfPurchase: 12,
                 //   condition: 78,
                 //   purchasePrice: 5900,
@@ -153,10 +152,16 @@ class ShopScreen extends ConsumerWidget {
 
                 // HouseDaoImpl().createHouse(house);
 
-                await ref
-                    .read(recurringBillUsecaseProvider)
-                    .removeStudentLoanFromBillsUsecase
-                    .execute(personID: 1, schoolID: 1);
+                // final result = await ref
+                //     .read(shopAndStorageUsecaseProvider)
+                //     .purchaseHouseWithLoanUsecase
+                //     .execute(
+                //       context: context,
+                //       house: house,
+                //       downPaymentPercentage: 50,
+                //       personID: 1,
+                //     );
+                // print(result);
               },
               child: const Text("Run"),
             ),

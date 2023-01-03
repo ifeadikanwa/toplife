@@ -90,6 +90,11 @@ void main() {
           expect(RecurringBill.propertyTaxPercentage, 2);
         });
 
+        test("multiple loans expected reserve percentage is 40% of house price",
+            () {
+          expect(RecurringBill.multipleLoansExpectedBankReservePercentage, 40);
+        });
+
         test("car loan number of payments is 5", () {
           expect(RecurringBill.carLoanNumOfPayments, 5);
         });

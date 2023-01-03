@@ -4,9 +4,11 @@ import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/rep
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/add_car_loan_to_bills_usecase.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/car_loan_calculator_usecase.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/car_loan_recurring_payment_calculator_usecase.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/check_if_there_is_an_existing_car_loan_usecase.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/remove_car_loan_from_bills_usecase.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/add_mortgage_loan_to_bills_usecase.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/add_property_tax_to_bills_usecase.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/check_if_there_is_an_existing_mortgage_loan_usecase.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/mortgage_loan_calculator_usecase.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/mortgage_loan_recurring_payment_calculator_usecase.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/remove_mortgage_loan_from_bills_usecase.dart';
@@ -108,4 +110,16 @@ class RecurringBillsUsecases {
       get studentLoanRecurringPaymentCalculatorUsecase =>
           StudentLoanRecurringPaymentCalculatorUsecase(
               studentLoanCalculatorUsecase);
+
+  CheckIfThereIsAnExistingCarLoanUsecase
+      get checkIfThereIsAnExistingCarLoanUsecase =>
+          CheckIfThereIsAnExistingCarLoanUsecase(
+            _recurringBillRepository,
+          );
+
+  CheckIfThereIsAnExistingMortgageLoanUsecase
+      get checkIfThereIsAnExistingMortgageLoanUsecase =>
+          CheckIfThereIsAnExistingMortgageLoanUsecase(
+            _recurringBillRepository,
+          );
 }

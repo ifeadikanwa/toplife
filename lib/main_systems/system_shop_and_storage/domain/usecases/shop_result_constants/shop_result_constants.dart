@@ -124,4 +124,55 @@ class ShopResultConstants {
     required int newHouseStorage,
   }) =>
       "I signed the lease for a $newHouseName on $newHouseAddress with $newHouseStorage storage space.";
+
+  //LOAN
+  static const rejectedLoanApplicationTitle = "Application Rejected";
+
+  static const acceptedLoanApplicationTitle = "Application Approved";
+
+  static const String loanInvalidIDsResultEntry =
+      "Loan application could not be processed.";
+
+  static const notEnoughFundsForDownPaymentResultEntry =
+      "You don't have enough funds for the down payment.";
+
+  static String notEnoughFundsForDownPaymentJournalEntry({
+    required String itemName,
+  }) =>
+      "My application for a loan to buy a $itemName was rejected because I didn't have enough money for the down payment.";
+
+  static String recurringPaymentResultEntry({
+    required int recurringPayment,
+  }) =>
+      "You are expected to pay $recurringPayment every ${RecurringBill.recurringPaymentDuration} days until the entire loan is paid off.";
+
+  static String loanSuccesfulJournalEntry({
+    required String itemName,
+    required int recurringPayment,
+  }) =>
+      "I bought a $itemName with a loan. I agreed to pay $recurringPayment every ${RecurringBill.recurringPaymentDuration} days until the entire loan is paid off.";
+
+  //Car Loan
+  static const existingCarLoanRejectionResultEntry =
+      "No one is willing to lend you money because you have an existing car loan you have not paid off.";
+
+  static String existingCarLoanRejectionJournalEntry({
+    required String carName,
+  }) =>
+      "My application for a loan to buy a $carName was rejected because I haven't paid off my current car loan.";
+
+  static String carLoanSuccesfulResultEntry({required int recurringPayment}) =>
+      "$carDeliveredResultEntry ${recurringPaymentResultEntry(recurringPayment: recurringPayment)}";
+
+  //Mortgage loan
+  static String mortgageLoanSuccesfulResultEntry(
+          {required int recurringPayment}) =>
+      "$housePurchasedResultEntry ${recurringPaymentResultEntry(recurringPayment: recurringPayment)}";
+
+  static const notEnoughInReserveLoanRejectionResultEntry =
+      "After looking through your bank statements lenders don't feel confident enough to approve the loan.";
+
+  static String notEnoughInReserveLoanRejectionJournalEntry(
+          {required String houseName}) =>
+      "My application for a loan to buy a $houseName was rejected.";
 }

@@ -1,6 +1,7 @@
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/add_money_to_player_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/check_if_player_can_afford_it_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_adult_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_child_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/delete_person_usecase.dart';
@@ -166,5 +167,8 @@ class PersonUsecases {
         statsRepository: _personRepositories.statsRepositoryImpl,
       );
 
- 
+  CheckIfPlayerCanAffordItUsecase get checkIfPlayerCanAffordItUsecase =>
+      CheckIfPlayerCanAffordItUsecase(
+        getPlayerMoneyUsecase: getPlayerMoneyUsecase,
+      );
 }

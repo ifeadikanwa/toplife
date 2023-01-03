@@ -12,6 +12,10 @@ abstract class RecurringBillRepository {
     required int personID,
     required int dueDay,
   });
+  Future<List<RecurringBill>> findRecurringBillsWithType({
+    required int personID,
+    required String billType,
+  });
   Future<void> updateRecurringBill(RecurringBill recurringBill);
   Future<void> deleteRecurringBill(int recurringBillID);
   Future<List<RecurringBill>> getAllRecurringBill(int personID);

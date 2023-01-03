@@ -8,6 +8,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_car_max_condition.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_current_car_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/purchase_car_fully_paid_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/purchase_car_with_loan_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/set_all_person_cars_to_not_currently_driving_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/update_car_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/add_food_to_fridge_usecase.dart';
@@ -19,6 +20,8 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/hou
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_storage_to_new_house_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_fully_paid_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_with_loan_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/sign_mortgage_loan_contract.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/unset_all_current_homes_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/break_old_lease_sign_new_lease_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/end_lease_usecase.dart';
@@ -219,5 +222,31 @@ class ShopAndStorageUsecases {
 
   UseFoodUsecase get useFoodUsecase => UseFoodUsecase(
         _shopAndStorageRepositories.fridgeFoodRepositoryImpl,
+      );
+
+  PurchaseCarWithLoanUsecase get purchaseCarWithLoanUsecase =>
+      PurchaseCarWithLoanUsecase(
+        _shopAndStorageRepositories.carRepositoryImpl,
+        _personUsecases,
+        _journalUsecases,
+        _gameUsecases,
+        _recurringBillsUsecases,
+      );
+
+  PurchaseHouseWithLoanUsecase get purchaseHouseWithLoanUsecase =>
+      PurchaseHouseWithLoanUsecase(
+        _personUsecases,
+        _journalUsecases,
+        _gameUsecases,
+        _recurringBillsUsecases,
+        signMortgageLoanContract,
+      );
+
+  SignMortgageLoanContract get signMortgageLoanContract =>
+      SignMortgageLoanContract(
+        _shopAndStorageRepositories.houseRepositoryImpl,
+        _personUsecases,
+        _journalUsecases,
+        _recurringBillsUsecases,
       );
 }

@@ -57,4 +57,10 @@ class RecurringBillRepositoryImpl implements RecurringBillRepository {
       billType,
     );
   }
+
+  @override
+  Future<List<RecurringBill>> findRecurringBillsWithType(
+      {required int personID, required String billType}) {
+    return _recurringBillDao.findRecurringBillsWithType(personID, billType);
+  }
 }

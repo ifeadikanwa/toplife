@@ -41,9 +41,11 @@ class RecurringBill extends Equatable {
       ];
 
   //helper constants
-  
+
   static const int recurringPaymentDuration = 7; //every 7 days
   static const int propertyTaxPercentage = 2; //2% of full house price
+  //40% of house price is expected to be in the bank for mortgage approval
+  static const int multipleLoansExpectedBankReservePercentage = 40;
   //-repayments
   static const int mortgageLoanNumOfPayments = 8;
   static const int carLoanNumOfPayments = 5;
