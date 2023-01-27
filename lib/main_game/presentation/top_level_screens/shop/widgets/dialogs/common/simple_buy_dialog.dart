@@ -1,12 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
+import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/helper_widgets/shop_dialog_item_info_row.dart';
+import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 
-class SimpleBuyDialog extends StatefulWidget {
+class SimpleBuyDialog extends ConsumerStatefulWidget {
   final String title;
   final String subtitle1;
   final String? subtitle2;
@@ -23,14 +27,17 @@ class SimpleBuyDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SimpleBuyDialog> createState() => _SimpleBuyDialogState();
+  ConsumerState<SimpleBuyDialog> createState() => _SimpleBuyDialogState();
 }
 
-class _SimpleBuyDialogState extends State<SimpleBuyDialog> {
+class _SimpleBuyDialogState extends ConsumerState<SimpleBuyDialog> {
   int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
+    final String? currentPlayerCountry =
+        ref.watch(currentPlayerCountryProvider).valueOrNull;
+
     return DialogContainer(
       children: [
         ShopDialogItemInfoRow(
@@ -49,11 +56,15 @@ class _SimpleBuyDialogState extends State<SimpleBuyDialog> {
         const AddVerticalSpace(
           height: ShopDialogConstants.sectionVerticalSpacing,
         ),
-        totalRow(widget.basePrice),
+        totalRow(
+          widget.basePrice,
+          currentPlayerCountry,
+        ),
         const AddVerticalSpace(
             height: ShopDialogConstants.sectionVerticalSpacing),
         ElevatedButton(
           onPressed: () {
+            AutoRouter.of(context).popForced();
             widget.onCheckout(quantity);
           },
           child: const Text(ShopDialogConstants.checkout),
@@ -102,7 +113,14 @@ class _SimpleBuyDialogState extends State<SimpleBuyDialog> {
     );
   }
 
-  Widget totalRow(int basePrice) {
+  Widget totalRow(int basePrice, String? playerCountry) {
+    final int totalPrice = playerCountry != null
+        ? getCountryEconomyAdjustedPrice(
+            country: playerCountry,
+            basePrice: basePrice,
+          )
+        : basePrice;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -111,7 +129,7 @@ class _SimpleBuyDialogState extends State<SimpleBuyDialog> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         Text(
-          "\$${quantity * basePrice}",
+          "\$${quantity * totalPrice}",
         ),
       ],
     );

@@ -20,6 +20,7 @@ class CarListScreen extends StatelessWidget {
           ),
           itemPrice: car.basePrice,
           itemImage: "",
+          onTap: (){},
         );
       },
       separatorBuilder: (context, index) => const ListDivider(),

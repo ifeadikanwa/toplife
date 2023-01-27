@@ -9,6 +9,7 @@ class ShopListItem extends StatelessWidget {
   final String itemDetails;
   final int itemPrice;
   final String itemImage;
+  final void Function() onTap;
 
   const ShopListItem({
     Key? key,
@@ -16,6 +17,7 @@ class ShopListItem extends StatelessWidget {
     required this.itemDetails,
     required this.itemPrice,
     required this.itemImage,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class ShopListItem extends StatelessWidget {
     final appTheme = Theme.of(context);
 
     return ListViewItemCase(
-      onTap: () {},
+      onTap: onTap,
       content: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,

@@ -5,40 +5,66 @@ import 'package:toplife/main_systems/system_shop_and_storage/constants/car_type.
 
 void main() {
   group("Car Type:", () {
-    test("sports car is a car type", () {
-      assert(CarType.sportsCar is CarType);
-    });
+    test(
+      "sports car presentation name is Sports Car",
+      () {
+        expect(CarType.sportsCar.presentationName, "Sports Car");
+      },
+    );
 
-    test("suv is a car type", () {
-      assert(CarType.suv is CarType);
-    });
+     test(
+      "suv presentation name is SUV",
+      () {
+        expect(CarType.suv.presentationName, "SUV");
+      },
+    );
 
-    test("sedan is a car type", () {
-      assert(CarType.sedan is CarType);
-    });
+    test(
+      "sedan presentation name is Sedan",
+      () {
+        expect(CarType.sedan.presentationName, "Sedan");
+      },
+    );
 
-    test("minivan is a car type", () {
-      assert(CarType.minivan is CarType);
-    });
+    test(
+      "minivan presentation name is Minivan",
+      () {
+        expect(CarType.minivan.presentationName, "Minivan");
+      },
+    );
+    test(
+      "convertible presentation name is Convertible",
+      () {
+        expect(CarType.convertible.presentationName, "Convertible");
+      },
+    );
 
-    test("convertible is a car type", () {
-      assert(CarType.convertible is CarType);
-    });
+    test(
+      "truck presentation name is Truck",
+      () {
+        expect(CarType.truck.presentationName, "Truck");
+      },
+    );
 
-    test("truck is a car type", () {
-      assert(CarType.truck is CarType);
-    });
+    test(
+      "bus presentation name is Bus",
+      () {
+        expect(CarType.bus.presentationName, "Bus");
+      },
+    );
 
-    test("bus is a car type", () {
-      assert(CarType.bus is CarType);
-    });
+    test(
+      "train presentation name is Train",
+      () {
+        expect(CarType.train.presentationName, "Train");
+      },
+    );
 
-    test("train is a car type", () {
-      assert(CarType.train is CarType);
-    });
-
-    test("truck is a car type", () {
-      assert(CarType.taxi is CarType);
-    });
+    test(
+      "taxi presentation name is Taxi",
+      () {
+        expect(CarType.taxi.presentationName, "Taxi");
+      },
+    );
   });
 }

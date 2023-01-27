@@ -12,12 +12,14 @@ import 'package:toplife/main_systems/system_event/event_manager/event_manager.da
 import 'package:toplife/main_systems/system_journal/data/dao/journal_dao_impl.dart';
 import 'package:toplife/main_systems/system_journal/data/repository/journal_repository_impl.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
+import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/repository/recurring_bill_repository_impl.dart';
@@ -140,6 +142,36 @@ final eventRepositoryProvider = Provider<EventRepository>((ref) {
 final currentGameProvider = FutureProvider<Game?>((ref) {
   final game = ref.watch(gameManagerViewModel);
   return game.valueOrNull;
+});
+
+final currentPlayerProvider = FutureProvider<Person?>((ref) {
+  final currentGame = ref.watch(currentGameProvider).valueOrNull;
+
+  if (currentGame?.currentPlayerID != null) {
+    return ref
+        .read(personUsecasesProvider)
+        .getPersonUsecase
+        .execute(personID: currentGame!.currentPlayerID);
+  }
+
+  return null;
+});
+
+final currentPlayerCountryProvider = FutureProvider<String>((ref) {
+  final currentPlayer = ref.watch(currentPlayerProvider).valueOrNull;
+
+  return currentPlayer != null
+      ? currentPlayer.country
+      : LocationManager.getDefaultCountryString();
+});
+
+final currentPlayerCurrencyProvider = FutureProvider<String>((ref) {
+  final currentPlayer = ref.watch(currentPlayerProvider).valueOrNull;
+
+  final countryString =
+      currentPlayer?.country ?? LocationManager.getDefaultCountryString();
+
+  return LocationManager.getCountryClass(countryName: countryString).currency;
 });
 
 final travelTimeProvider = FutureProvider<int>((ref) async {

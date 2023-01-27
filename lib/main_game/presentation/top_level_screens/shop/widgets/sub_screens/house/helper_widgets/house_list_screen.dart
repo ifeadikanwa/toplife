@@ -26,6 +26,7 @@ class HouseListScreen extends StatelessWidget {
           ),
           itemPrice: house.basePrice,
           itemImage: "",
+          onTap: (){},
         );
       },
       separatorBuilder: (context, index) => const ListDivider(),

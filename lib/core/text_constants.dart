@@ -56,6 +56,7 @@ class TextConstants {
   static const babyItems = "Baby Items";
   static const natural = "Natural";
   static const synthetic = "Synthetic";
+  static const labGrown = "Lab Grown";
   static const rent = "Rent";
   static const purchase = "Purchase";
   static const new_ = "New";
@@ -66,6 +67,11 @@ class TextConstants {
   static const sweets = "Sweets";
   static const serving = "Serving";
   static const servings = "Servings";
+  static const nutrition = "Nutrition";
+  static const quality = "Quality";
+  static const type = "Type";
+  static const condition = "Condition";
+  static const fuelTank = "Fuel Tank";
   static const count = "Count";
   static const counts = "Counts";
   static const carat = "Carat";

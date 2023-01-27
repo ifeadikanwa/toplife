@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/food/buy_food_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_servings_label.dart';
@@ -22,6 +23,9 @@ class FoodListScreen extends StatelessWidget {
           itemDetails: getServingsLabel(servings: food.servings),
           itemPrice: food.basePrice,
           itemImage: "",
+          onTap: () => showDialog(
+              context: context,
+              builder: (context) => BuyFoodDialog(food: food)),
         );
       },
       separatorBuilder: (context, index) => const ListDivider(),

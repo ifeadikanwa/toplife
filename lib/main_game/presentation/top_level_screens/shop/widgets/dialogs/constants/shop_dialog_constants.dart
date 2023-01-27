@@ -6,4 +6,6 @@ class ShopDialogConstants {
   static const quantity = "Quantity";
   static const total = "Total";
   static const checkout = "Checkout";
+  static const payFullAmount = "Pay Full Amount";
+  static const applyForCarLoan = "Apply For Car Loan";
 }

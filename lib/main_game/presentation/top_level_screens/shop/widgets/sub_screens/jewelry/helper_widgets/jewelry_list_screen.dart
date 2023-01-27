@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/jewelry/buy_jewelry_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_carat_label.dart';
@@ -21,6 +22,10 @@ class JewelryListScreen extends StatelessWidget {
               getCaratLabel(jewel: jewelry.jewel, carat: jewelry.carat),
           itemPrice: jewelry.basePrice,
           itemImage: "",
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => BuyJewelryDialog(jewelry: jewelry),
+          ),
         );
       },
       separatorBuilder: (context, index) => const ListDivider(),

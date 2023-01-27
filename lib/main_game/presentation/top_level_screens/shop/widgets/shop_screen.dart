@@ -8,8 +8,9 @@ import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/food/buy_food_dialog.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/car/buy_car_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/cars/trucks.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -99,9 +100,9 @@ class ShopScreen extends ConsumerWidget {
             OutlinedButton(
               onPressed: () {
                 showDialog(
-                  context: context,
-                  builder: (context) => const BuyFoodDialog(),
-                );
+                    context: context,
+                    builder: (context) =>
+                       BuyCarDialog(car: trucks.first));
               },
               child: const Text("Dialog"),
             ),
@@ -162,6 +163,11 @@ class ShopScreen extends ConsumerWidget {
                 //       personID: 1,
                 //     );
                 // print(result);
+
+                // print(await ref
+                //     .read(shopAndStorageUsecaseProvider)
+                //     .getFridgeFoodCountUsecase
+                //     .execute(personID: 1));
               },
               child: const Text("Run"),
             ),
