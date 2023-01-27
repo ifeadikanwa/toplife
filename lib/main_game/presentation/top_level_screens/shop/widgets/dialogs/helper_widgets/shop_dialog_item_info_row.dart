@@ -15,33 +15,40 @@ class ShopDialogItemInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Image.asset(
-          "assets/images/baby_food.jpg",
-          height: 40,
-          width: 40,
-        ),
-        const AddHorizontalSpace(width: 8.0),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Image.asset(
+            "assets/images/baby_food.jpg",
+            height: 40,
+            width: 40,
+          ),
+          const AddHorizontalSpace(width: 8.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  softWrap: true,
+                ),
+                Text(
+                  subtitle1,
+                  softWrap: true,
+                ),
+                (subtitle2 != null)
+                    ? Text(
+                        subtitle2!,
+                        softWrap: true,
+                      )
+                    : const SizedBox(),
+              ],
             ),
-            Text(
-              subtitle1,
-            ),
-            (subtitle2 != null)
-                ? Text(
-                    subtitle2!,
-                  )
-                : const SizedBox(),
-          ],
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
