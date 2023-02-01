@@ -130,6 +130,21 @@ void main() {
           expect(House.minLeaseAgreementDuration, 14);
         },
       );
+
+
+      test(
+        "maxLeaseAgreementDuration is 35 days",
+        () {
+          expect(House.maxLeaseAgreementDuration, 35);
+        },
+      );
+
+      test(
+        "leaseAgreementDurationIncrement is 7 days",
+        () {
+          expect(House.leaseAgreementDurationIncrement, 7);
+        },
+      );
     });
   });
 }

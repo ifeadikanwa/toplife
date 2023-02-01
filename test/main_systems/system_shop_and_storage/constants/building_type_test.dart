@@ -4,28 +4,28 @@ import 'package:toplife/main_systems/system_shop_and_storage/constants/building_
 
 void main() {
   group("Building type:", () {
-    test("apartment has the correct full name", () {
-      expect(BuildingType.apartment.fullName, "Apartment");
+    test("apartment has the correct presentation name", () {
+      expect(BuildingType.apartment.presentationName, "Apartment");
     });
 
-    test("tiny home has the correct full name", () {
-      expect(BuildingType.tinyHome.fullName, "Tiny Home");
+    test("tiny home has the correct presentation name", () {
+      expect(BuildingType.tinyHome.presentationName, "Tiny Home");
     });
 
-    test("town house has the correct full name", () {
-      expect(BuildingType.townhouse.fullName, "Town House");
+    test("town house has the correct presentation name", () {
+      expect(BuildingType.townhouse.presentationName, "Town House");
     });
 
-    test("cottage has the correct full name", () {
-      expect(BuildingType.cottage.fullName, "Cottage");
+    test("cottage has the correct presentation name", () {
+      expect(BuildingType.cottage.presentationName, "Cottage");
     });
 
-    test("condo has the correct full name", () {
-      expect(BuildingType.condo.fullName, "Condo");
+    test("condo has the correct presentation name", () {
+      expect(BuildingType.condo.presentationName, "Condo");
     });
 
-    test("modern home has the correct full name", () {
-      expect(BuildingType.modernHome.fullName, "Modern Home");
+    test("modern home has the correct presentation name", () {
+      expect(BuildingType.modernHome.presentationName, "Modern Home");
     });
 
     //*this is supposed to ensure that all items in the list have a price.

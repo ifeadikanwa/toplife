@@ -11,6 +11,7 @@ class ShopDialogConstants {
   static const downPayment = "Down Payment";
   static const installment = "Installment";
   static const loan = "Loan";
+  static const signLease = "Sign Lease";
   static const payFullAmount = "Pay Full Amount";
   static const applyForCarLoan = "Apply For Car Loan";
   static const applyForMortgageLoan = "Apply For Mortgage Loan";

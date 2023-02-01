@@ -80,5 +80,3 @@ const double sectionHeaderPadding = 4.0;
 //shop
 const double shopCategoryVerticalPadding = 16.0;
 const double shopCategoryHorizontalPadding = 16.0;
-
-

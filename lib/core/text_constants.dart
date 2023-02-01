@@ -84,4 +84,7 @@ class TextConstants {
   static const settlement = "Settlement";
   static const speed = "Speed";
   static const style = "Style";
+  static const leaseTerm = "Lease Term";
+  static const firstRent = "First Rent";
+  static const securityDeposit = "Security Deposit";
 }

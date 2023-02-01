@@ -191,6 +191,18 @@ final travelTimeProvider = FutureProvider<int>((ref) async {
   return 0;
 });
 
+final currentHouseStorageProvider = FutureProvider.autoDispose<int?>((ref) async {
+  final Game? currentGame = ref.watch(currentGameProvider).valueOrNull;
+  return (currentGame != null)
+      ? await ref
+          .watch(shopAndStorageUsecaseProvider)
+          .getCurrentHouseStorageSpaceUsecase
+          .execute(
+            personID: currentGame.currentPlayerID,
+          )
+      : null;
+});
+
 final gameManagerViewModel =
     StateNotifierProvider<GameManagerViewModel, AsyncValue<Game?>>((ref) {
   return GameManagerViewModel(gameUsecases: ref.watch(gameUsecasesProvider));

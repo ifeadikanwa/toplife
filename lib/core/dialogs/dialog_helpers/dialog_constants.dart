@@ -12,6 +12,9 @@ class DialogConstants {
   static const double verticalTextTextSpacing = 12.0;
 
   static const defaultBodyTextStyle = TextStyle(fontSize: 14.0);
+  static const dialogDescriptorTextStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+  );
 
   static const dropdownMenuMaxHeight = 180.0;
 

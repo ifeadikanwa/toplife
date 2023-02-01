@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/utils/get_currency_label.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/editable_quantity_widget.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/helper_widgets/shop_dialog_item_info_row.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
@@ -85,33 +85,22 @@ class _SimpleBuyDialogState extends ConsumerState<SimpleBuyDialog> {
           ShopDialogConstants.quantity,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        Row(
-          children: [
-            PlainIconButton(
-              onPressed: () {
-                if (quantity > 1) {
-                  setState(() {
-                    quantity--;
-                  });
-                }
-              },
-              icon: const Icon(Icons.remove),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text("$quantity"),
-            ),
-            PlainIconButton(
-              onPressed: () {
-                if (quantity < 10) {
-                  setState(() {
-                    quantity++;
-                  });
-                }
-              },
-              icon: const Icon(Icons.add),
-            ),
-          ],
+        EditableQuantity(
+          text: "$quantity",
+          onIncrease: () {
+            if (quantity < 10) {
+              setState(() {
+                quantity++;
+              });
+            }
+          },
+          onDecrease: () {
+            if (quantity > 1) {
+              setState(() {
+                quantity--;
+              });
+            }
+          },
         )
       ],
     );

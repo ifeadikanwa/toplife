@@ -2,14 +2,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
+import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/descriptor_row.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/mortgage_loan_dialog.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/editable_quantity_widget.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/price_descriptor_row.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/static_total_row.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/helper_widgets/shop_dialog_item_info_row.dart';
@@ -19,12 +22,13 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_building_t
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_storage_change_label.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_style_label.dart';
 
+final _chosenLeaseDurationProvider = StateProvider.autoDispose<int>(
+  (ref) => House.minLeaseAgreementDuration,
+);
 
-
-class BuyHouseDialog extends ConsumerWidget {
+class RentHouseDialog extends ConsumerWidget {
   final House house;
-
-  const BuyHouseDialog({
+  const RentHouseDialog({
     Key? key,
     required this.house,
   }) : super(key: key);
@@ -48,7 +52,7 @@ class BuyHouseDialog extends ConsumerWidget {
               const AddVerticalSpace(
                 height: ShopDialogConstants.sectionVerticalSpacing,
               ),
-              descriptors(currentHouseStorage: currentHouseStorage),
+              descriptors(currentHouseStorage: currentHouseStorage, ref: ref),
               const AddVerticalSpace(
                 height: ShopDialogConstants.sectionVerticalSpacing,
               ),
@@ -57,22 +61,30 @@ class BuyHouseDialog extends ConsumerWidget {
                 height: ShopDialogConstants.sectionVerticalSpacing,
               ),
               StaticTotalRow(
-                basePrice: house.basePrice,
+                basePrice: house.basePrice * 2,
               ),
               const AddVerticalSpace(
                 height: ShopDialogConstants.sectionVerticalSpacing,
               ),
-              choiceButtons(
-                context,
-                shopAndStorageUsecases,
-                currentGame.currentPlayerID,
+              ElevatedButton(
+                onPressed: () {
+                  AutoRouter.of(context).popForced();
+                  shopAndStorageUsecases.rentHouseUsecase.execute(
+                    context: context,
+                    house: house,
+                    personID: currentGame.currentPlayerID,
+                    leaseDuration: ref.watch(_chosenLeaseDurationProvider),
+                  );
+                },
+                child: const Text(ShopDialogConstants.signLease),
               ),
             ],
           )
         : Container();
   }
 
-  Widget descriptors({required int currentHouseStorage}) {
+  Widget descriptors(
+      {required int currentHouseStorage, required WidgetRef ref}) {
     return Column(
       children: [
         DescriptorRow(
@@ -100,55 +112,56 @@ class BuyHouseDialog extends ConsumerWidget {
           height: ShopDialogConstants.sectionVerticalSpacing,
         ),
         DescriptorRow(
-          descriptor: TextConstants.condition,
-          value: "${house.condition}%",
+          descriptor: TextConstants.settlement,
+          value: house.settlement,
         ),
         const AddVerticalSpace(
           height: ShopDialogConstants.sectionVerticalSpacing,
         ),
-        DescriptorRow(
-          descriptor: TextConstants.settlement,
-          value: house.settlement,
+        leaseDurationRow(ref),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        PriceDescriptorRow(
+          descriptor: TextConstants.securityDeposit,
+          basePrice: house.basePrice,
+        ),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        PriceDescriptorRow(
+          descriptor: TextConstants.firstRent,
+          basePrice: house.basePrice,
         ),
       ],
     );
   }
 
-  Widget choiceButtons(
-    BuildContext context,
-    ShopAndStorageUsecases shopAndStorageUsecases,
-    int personID,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+  Row leaseDurationRow(WidgetRef ref) {
+    final int chosenLeaseDuration = ref.watch(_chosenLeaseDurationProvider);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ElevatedButton(
-          onPressed: () {
-            AutoRouter.of(context).popForced();
-            shopAndStorageUsecases.purchaseHouseFullyPaidUsecase.execute(
-              context: context,
-              house: house,
-              personID: personID,
-            );
-          },
-          child: const Text(ShopDialogConstants.payFullAmount),
+        const Text(
+          TextConstants.leaseTerm,
+          style: DialogConstants.dialogDescriptorTextStyle,
         ),
-        const AddVerticalSpace(
-          height: DialogConstants.verticalChoiceButtonSpacing,
-        ),
-        ElevatedButton(
-          onPressed: () {
-            AutoRouter.of(context).popForced();
-            showDialog(
-              context: context,
-              builder: (context) => MortgageLoanDialog(
-                house: house,
-                personID: personID,
-              ),
-            );
-          },
-          child: const Text(ShopDialogConstants.applyForMortgageLoan),
-        ),
+        const AddHorizontalSpace(width: horizontalTextBufferSpacing),
+        EditableQuantity(
+            text: "$chosenLeaseDuration days",
+            onIncrease: () {
+              if (chosenLeaseDuration < House.maxLeaseAgreementDuration) {
+                ref.read(_chosenLeaseDurationProvider.notifier).state =
+                    chosenLeaseDuration + House.leaseAgreementDurationIncrement;
+              }
+            },
+            onDecrease: () {
+              if (chosenLeaseDuration > House.minLeaseAgreementDuration) {
+                ref.read(_chosenLeaseDurationProvider.notifier).state =
+                    chosenLeaseDuration - House.leaseAgreementDurationIncrement;
+              }
+            })
       ],
     );
   }
