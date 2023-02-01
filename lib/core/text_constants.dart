@@ -2,6 +2,7 @@ class TextConstants {
   //app
   static const appName = "TopLife";
   static const emptyString = "";
+  static const dash = "-";
   static const me = "Me";
   static const others = "Others";
   static const home = "Home";
@@ -79,4 +80,8 @@ class TextConstants {
   static const bedrooms = "Bedrooms";
   static const bathroom = "Bathroom";
   static const bathrooms = "Bathrooms";
+  static const storage = "Storage";
+  static const settlement = "Settlement";
+  static const speed = "Speed";
+  static const style = "Style";
 }

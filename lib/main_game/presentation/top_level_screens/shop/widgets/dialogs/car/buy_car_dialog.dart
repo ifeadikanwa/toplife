@@ -9,12 +9,14 @@ import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/descriptor_row.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/car/car_loan_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/static_total_row.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/helper_widgets/shop_dialog_item_info_row.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_quality_label.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_speed.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_type_label.dart';
 
 class BuyCarDialog extends ConsumerWidget {
@@ -76,6 +78,14 @@ class BuyCarDialog extends ConsumerWidget {
           height: ShopDialogConstants.sectionVerticalSpacing,
         ),
         DescriptorRow(
+          descriptor: TextConstants.speed,
+          value:
+              "${getCarSpeed(percentageTravel: car.percentageOfTravelTime)}%",
+        ),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        DescriptorRow(
           descriptor: TextConstants.fuelTank,
           value: "${car.fuelTank}%",
         ),
@@ -93,7 +103,7 @@ class BuyCarDialog extends ConsumerWidget {
   Widget choiceButtons(
     BuildContext context,
     ShopAndStorageUsecases shopAndStorageUsecases,
-    personID,
+    int personID,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -115,10 +125,12 @@ class BuyCarDialog extends ConsumerWidget {
         ElevatedButton(
           onPressed: () {
             AutoRouter.of(context).popForced();
-            shopAndStorageUsecases.purchaseCarFullyPaidUsecase.execute(
+            showDialog(
               context: context,
-              car: car,
-              personID: personID,
+              builder: (context) => CarLoanDialog(
+                car: car,
+                personID: personID,
+              ),
             );
           },
           child: const Text(ShopDialogConstants.applyForCarLoan),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/buy_house_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_name.dart';
@@ -26,7 +27,11 @@ class HouseListScreen extends StatelessWidget {
           ),
           itemPrice: house.basePrice,
           itemImage: "",
-          onTap: (){},
+          onTap: () => showDialog(
+              context: context,
+              builder: (context) => (house.isForRent)
+                  ? Container()
+                  : BuyHouseDialog(house: house)),
         );
       },
       separatorBuilder: (context, index) => const ListDivider(),

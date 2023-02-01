@@ -30,6 +30,7 @@ const shopCategoryIconSize = 40.0;
 
 //Text
 const verticalTextSpacing = 2.0;
+const horizontalTextBufferSpacing = 4.0;
 
 const appBarTextStyle = TextStyle(
   fontWeight: FontWeight.bold,

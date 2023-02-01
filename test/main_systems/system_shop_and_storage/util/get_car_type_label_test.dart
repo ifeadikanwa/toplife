@@ -7,7 +7,7 @@ void main() {
     test(
       "when given a valid car type string, the correct label is returned",
       () {
-        expect(getCarTypeLabel(CarType.bus.name), "Type: Bus");
+        expect(getCarTypeLabel(CarType.bus.name), "Bus");
       },
     );
 
@@ -16,7 +16,7 @@ void main() {
       () {
         expect(
           getCarTypeLabel("invalid"),
-          "Type: ",
+          "",
         );
       },
     );

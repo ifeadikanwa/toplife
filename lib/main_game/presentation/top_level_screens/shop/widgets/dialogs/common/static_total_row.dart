@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/core/utils/get_currency_label.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
@@ -35,7 +35,7 @@ class StaticTotalRow extends ConsumerWidget {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         Text(
-          "${currentCurrency ?? TextConstants.emptyString}$totalPrice",
+          "${getCurrencyLabel(currentCurrency)}$totalPrice",
         ),
       ],
     );

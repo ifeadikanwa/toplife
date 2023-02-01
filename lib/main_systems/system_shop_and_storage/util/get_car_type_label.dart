@@ -4,5 +4,5 @@ import 'package:toplife/main_systems/system_shop_and_storage/constants/car_type.
 String getCarTypeLabel(String type) {
   final carTypeMap = CarType.values.asNameMap();
 
-  return ("${TextConstants.type}: ${carTypeMap[type]?.presentationName ?? TextConstants.emptyString}");
+  return (carTypeMap[type]?.presentationName ?? TextConstants.emptyString);
 }

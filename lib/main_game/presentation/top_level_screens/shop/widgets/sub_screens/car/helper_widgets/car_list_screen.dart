@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/car/buy_car_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_speed_label.dart';
@@ -20,7 +21,10 @@ class CarListScreen extends StatelessWidget {
           ),
           itemPrice: car.basePrice,
           itemImage: "",
-          onTap: (){},
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => BuyCarDialog(car: car),
+          ),
         );
       },
       separatorBuilder: (context, index) => const ListDivider(),

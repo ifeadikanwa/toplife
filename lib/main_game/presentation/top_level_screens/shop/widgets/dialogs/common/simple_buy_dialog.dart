@@ -5,6 +5,7 @@ import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
+import 'package:toplife/core/utils/get_currency_label.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/helper_widgets/shop_dialog_item_info_row.dart';
@@ -35,6 +36,8 @@ class _SimpleBuyDialogState extends ConsumerState<SimpleBuyDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final String? currentCurrency =
+        ref.watch(currentPlayerCurrencyProvider).valueOrNull;
     final String? currentPlayerCountry =
         ref.watch(currentPlayerCountryProvider).valueOrNull;
 
@@ -57,8 +60,9 @@ class _SimpleBuyDialogState extends ConsumerState<SimpleBuyDialog> {
           height: ShopDialogConstants.sectionVerticalSpacing,
         ),
         totalRow(
-          widget.basePrice,
-          currentPlayerCountry,
+          basePrice: widget.basePrice,
+          playerCountry: currentPlayerCountry,
+          playerCurrency: currentCurrency,
         ),
         const AddVerticalSpace(
             height: ShopDialogConstants.sectionVerticalSpacing),
@@ -113,7 +117,11 @@ class _SimpleBuyDialogState extends ConsumerState<SimpleBuyDialog> {
     );
   }
 
-  Widget totalRow(int basePrice, String? playerCountry) {
+  Widget totalRow({
+    required int basePrice,
+    required String? playerCountry,
+    required String? playerCurrency,
+  }) {
     final int totalPrice = playerCountry != null
         ? getCountryEconomyAdjustedPrice(
             country: playerCountry,
@@ -129,7 +137,7 @@ class _SimpleBuyDialogState extends ConsumerState<SimpleBuyDialog> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         Text(
-          "\$${quantity * totalPrice}",
+          "${getCurrencyLabel(playerCurrency)}${quantity * totalPrice}",
         ),
       ],
     );

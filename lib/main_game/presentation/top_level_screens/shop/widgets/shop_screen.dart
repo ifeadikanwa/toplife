@@ -8,9 +8,9 @@ import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/car/buy_car_dialog.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/buy_house_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/cars/trucks.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -100,9 +100,28 @@ class ShopScreen extends ConsumerWidget {
             OutlinedButton(
               onPressed: () {
                 showDialog(
-                    context: context,
-                    builder: (context) =>
-                       BuyCarDialog(car: trucks.first));
+                  context: context,
+                  builder: (context) => const BuyHouseDialog(
+                    house: House(
+                      isCurrentHome: false,
+                      bedrooms: 3,
+                      bathrooms: 2,
+                      storage: 8,
+                      address: "1234 Daisy Road",
+                      isForRent: true,
+                      buildingType: "townhouse",
+                      settlement: "City",
+                      country: "country",
+                      style: "Rustic",
+                      lastMaintainedDay: 24,
+                      basePrice: 2000,
+                      dayOfPurchase: 12,
+                      condition: 78,
+                      purchasePrice: 5900,
+                      fullyPaidFor: false,
+                    ),
+                  ),
+                );
               },
               child: const Text("Dialog"),
             ),
@@ -168,6 +187,8 @@ class ShopScreen extends ConsumerWidget {
                 //     .read(shopAndStorageUsecaseProvider)
                 //     .getFridgeFoodCountUsecase
                 //     .execute(personID: 1));
+
+                // print(await ref.watch(currentGameProvider).value);
               },
               child: const Text("Run"),
             ),
