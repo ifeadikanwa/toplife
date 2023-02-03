@@ -15,7 +15,8 @@ class FamilyPlannedFuneralDialog {
     required String playerCurrency,
     required List<EventChoice> choices,
   }) async {
-    return showPersistentDialog(
+    if(context.mounted){
+      return showPersistentDialog(
       context: context,
       child: FamilyPlannedFuneralWidget(
         mainPlayerID: mainPlayerID,
@@ -27,5 +28,7 @@ class FamilyPlannedFuneralDialog {
         choices: choices,
       ),
     );
+    }
+    
   }
 }

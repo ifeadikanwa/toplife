@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral_widget.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/show_persistent_dialog.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
@@ -23,20 +24,17 @@ class PlayerPlannedFuneralDialog {
     })
         planFuneral,
   }) async {
-    showDialog(
+    if (context.mounted) {
+      return showPersistentDialog(
         context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: PlayerPlannedFuneralWidget(
-              mainPlayerID: mainPlayerID,
-              deathEvent: deathEvent,
-              firstPersonEventDescription: firstPersonEventDescription,
-              playerCountry: playerCountry,
-              planFuneral: planFuneral,
-            ),
-          );
-        });
+        child: PlayerPlannedFuneralWidget(
+          mainPlayerID: mainPlayerID,
+          deathEvent: deathEvent,
+          firstPersonEventDescription: firstPersonEventDescription,
+          playerCountry: playerCountry,
+          planFuneral: planFuneral,
+        ),
+      );
+    }
   }
 }

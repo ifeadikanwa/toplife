@@ -45,22 +45,24 @@ class AttendPartyEventDialog {
     })
         attendPartyWithPartner,
   }) async {
-    return showPersistentDialog(
-      context: context,
-      child: AttendPartyEventWidget(
-        eventTitle: eventTitle,
-        event: event,
-        mainPlayerID: mainPlayerID,
-        eventMainPerson: eventMainPerson,
-        secondPersonEventDescription: secondPersonEventDescription,
-        relationshipLabel: relationshipLabel,
-        hasActivePartner: hasActivePartner,
-        currency: currency,
-        maxPlayerMoney: maxPlayerMoney,
-        giftOptionsInStorage: giftOptionsInStorage,
-        attendPartyAlone: attendPartyAlone,
-        attendPartyWithPartner: attendPartyWithPartner,
-      ),
-    );
+    if (context.mounted) {
+      return showPersistentDialog(
+        context: context,
+        child: AttendPartyEventWidget(
+          eventTitle: eventTitle,
+          event: event,
+          mainPlayerID: mainPlayerID,
+          eventMainPerson: eventMainPerson,
+          secondPersonEventDescription: secondPersonEventDescription,
+          relationshipLabel: relationshipLabel,
+          hasActivePartner: hasActivePartner,
+          currency: currency,
+          maxPlayerMoney: maxPlayerMoney,
+          giftOptionsInStorage: giftOptionsInStorage,
+          attendPartyAlone: attendPartyAlone,
+          attendPartyWithPartner: attendPartyWithPartner,
+        ),
+      );
+    }
   }
 }

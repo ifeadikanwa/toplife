@@ -1,3 +1,6 @@
+//the called dialogs already check for context mount status
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/choice_dialog.dart';

@@ -34,19 +34,21 @@ class AttendRegularEventDialog {
     })
         attendWithPartner,
   }) async {
-    return showPersistentDialog(
-      context: context,
-      child: AttendRegularEventWidget(
-        mainPlayerID: mainPlayerID,
-        event: event,
-        eventMainPerson: eventMainPerson,
-        relationshipLabel: relationshipLabel,
-        eventTitle: eventTitle,
-        eventDescription: eventDescription,
-        hasActivePartner: hasActivePartner,
-        attendAlone: attendAlone,
-        attendWithPartner: attendWithPartner,
-      ),
-    );
+    if (context.mounted) {
+      return showPersistentDialog(
+        context: context,
+        child: AttendRegularEventWidget(
+          mainPlayerID: mainPlayerID,
+          event: event,
+          eventMainPerson: eventMainPerson,
+          relationshipLabel: relationshipLabel,
+          eventTitle: eventTitle,
+          eventDescription: eventDescription,
+          hasActivePartner: hasActivePartner,
+          attendAlone: attendAlone,
+          attendWithPartner: attendWithPartner,
+        ),
+      );
+    }
   }
 }

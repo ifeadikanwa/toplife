@@ -1,3 +1,6 @@
+//the called dialogs already check for context mount status
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/game_manager/domain/model/game.dart';

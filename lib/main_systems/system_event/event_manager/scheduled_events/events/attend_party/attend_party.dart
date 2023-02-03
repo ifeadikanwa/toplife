@@ -1,3 +1,6 @@
+//the called dialogs already check for context mount status
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';

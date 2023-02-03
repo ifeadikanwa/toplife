@@ -8,19 +8,21 @@ class ResultDialog {
     required BuildContext context,
     required String title,
     required String result,
-  }) {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return DialogContainer(
-          title: DialogTitleText(text: title),
-          children: [
-            Center(
-              child: DialogBodyText(text: result),
-            )
-          ],
-        );
-      },
-    );
+  }) async {
+    if (context.mounted) {
+      return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return DialogContainer(
+            title: DialogTitleText(text: title),
+            children: [
+              Center(
+                child: DialogBodyText(text: result),
+              )
+            ],
+          );
+        },
+      );
+    }
   }
 }

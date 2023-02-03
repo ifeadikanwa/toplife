@@ -14,21 +14,23 @@ class ChoiceDialog {
     required String categoryTitle,
     required String eventDescription,
     required List<EventChoice> choices,
-  }) {
-    return showPersistentDialog(
-      context: context,
-      child: DialogContainer(
-        title: DialogTitleText(text: categoryTitle),
-        children: [
-          DialogBodyText(
-            text: eventDescription,
-            style: DialogConstants.defaultBodyTextStyle,
-          ),
-          const AddVerticalSpace(
-              height: DialogConstants.verticalDescriptionButtonSpacing),
-          DialogEventChoicesToWidgets(eventChoices: choices),
-        ],
-      ),
-    );
+  }) async {
+    if (context.mounted) {
+      return showPersistentDialog(
+        context: context,
+        child: DialogContainer(
+          title: DialogTitleText(text: categoryTitle),
+          children: [
+            DialogBodyText(
+              text: eventDescription,
+              style: DialogConstants.defaultBodyTextStyle,
+            ),
+            const AddVerticalSpace(
+                height: DialogConstants.verticalDescriptionButtonSpacing),
+            DialogEventChoicesToWidgets(eventChoices: choices),
+          ],
+        ),
+      );
+    }
   }
 }

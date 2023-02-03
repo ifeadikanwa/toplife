@@ -1,3 +1,6 @@
+//the called dialogs already check for context mount status
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/choice_dialog.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral_dialog.dart';

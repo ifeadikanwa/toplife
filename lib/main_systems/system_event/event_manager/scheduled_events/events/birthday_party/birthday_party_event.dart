@@ -2,6 +2,8 @@
 //if they are in different countries the player cannot attend the event because of Location//comunicate that to them
 //if they are in the same country then run they can attend
 
+//the called dialogs already check for context mount status
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event_dialog.dart';
