@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/progress_bar/progress_bar.dart';
-import 'package:toplife/main_systems/system_person/domain/model/helpers/stats_item.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/stats_item.dart';
 
 class MultipleStatsWidget extends StatelessWidget {
   final List<StatsItem> statsList;

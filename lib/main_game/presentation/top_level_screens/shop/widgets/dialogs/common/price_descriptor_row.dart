@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/utils/get_currency_label.dart';
+import 'package:toplife/core/utils/money/get_currency_label_from_currency_string.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/descriptor_row.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
@@ -31,7 +31,8 @@ class PriceDescriptorRow extends ConsumerWidget {
 
     return DescriptorRow(
       descriptor: descriptor,
-      value: "${getCurrencyLabel(currentCurrency)}$totalPrice",
+      value:
+          "${getCurrencyLabelFromCurrencyString(currentCurrency)}$totalPrice",
     );
   }
 }

@@ -18,7 +18,7 @@ class GameManagerScreen extends ConsumerWidget {
       children: [
         ElevatedButton(
             onPressed: () {
-              ref.read(gameManagerViewModel.notifier).createGame(Person(
+              ref.read(gameUsecasesProvider).createGameUsecase.execute(Person(
                     firstName: "David",
                     lastName: "Smith",
                     dayOfBirth: 21,
@@ -142,11 +142,7 @@ class GameManagerScreen extends ConsumerWidget {
               // print(result);
             },
             child: const Text("do")),
-        ElevatedButton(
-            onPressed: () async {
-              await ref.read(gameManagerViewModel.notifier).getAllActiveGames();
-            },
-            child: const Text("getAllActive")),
+        ElevatedButton(onPressed: () {}, child: const Text("run")),
         ElevatedButton(
             onPressed: () async {
               // ref.read(gameManagerViewModel.notifier).deleteGame(9);

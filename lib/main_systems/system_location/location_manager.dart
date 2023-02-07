@@ -33,4 +33,8 @@ class LocationManager {
 
     return getDefaultCountryClass();
   }
+
+  static String getCountryCurrency(String countryName) {
+    return getCountryClass(countryName: countryName).currency;
+  }
 }

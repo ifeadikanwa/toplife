@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
-import 'package:toplife/core/utils/get_currency_label.dart';
+import 'package:toplife/core/utils/money/get_currency_label_from_currency_string.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/editable_quantity_widget.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
@@ -126,7 +126,7 @@ class _SimpleBuyDialogState extends ConsumerState<SimpleBuyDialog> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         Text(
-          "${getCurrencyLabel(playerCurrency)}${quantity * totalPrice}",
+          "${getCurrencyLabelFromCurrencyString(playerCurrency)}${quantity * totalPrice}",
         ),
       ],
     );

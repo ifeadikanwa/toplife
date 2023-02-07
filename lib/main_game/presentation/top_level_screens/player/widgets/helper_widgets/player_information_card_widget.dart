@@ -5,7 +5,7 @@ import 'package:toplife/core/common_widgets/card_templates/border_card.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/stats/multiple_stats_widget.dart';
-import 'package:toplife/main_systems/system_person/domain/model/helpers/stats_item.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/stats_item.dart';
 import 'package:toplife/core/utils/extensions/string_extensions.dart';
 
 class PlayerInformationCard extends StatelessWidget {

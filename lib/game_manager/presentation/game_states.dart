@@ -3,7 +3,7 @@ import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
 import 'package:toplife/game_manager/data/repository/game_repository_impl.dart';
 import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/game_manager/presentation/game_manager_viewmodel.dart';
+import 'package:toplife/game_manager/presentation/game_manager_provider.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
 import 'package:toplife/main_systems/system_event/data/repository/event_repository_impl.dart';
@@ -140,7 +140,7 @@ final eventRepositoryProvider = Provider<EventRepository>((ref) {
 });
 
 final currentGameProvider = FutureProvider<Game?>((ref) {
-  final game = ref.watch(gameManagerViewModel);
+  final game = ref.watch(gameManagerProvider);
   return game.valueOrNull;
 });
 
@@ -191,7 +191,8 @@ final travelTimeProvider = FutureProvider<int>((ref) async {
   return 0;
 });
 
-final currentHouseStorageProvider = FutureProvider.autoDispose<int?>((ref) async {
+final currentHouseStorageProvider =
+    FutureProvider.autoDispose<int?>((ref) async {
   final Game? currentGame = ref.watch(currentGameProvider).valueOrNull;
   return (currentGame != null)
       ? await ref
@@ -203,10 +204,6 @@ final currentHouseStorageProvider = FutureProvider.autoDispose<int?>((ref) async
       : null;
 });
 
-final gameManagerViewModel =
-    StateNotifierProvider<GameManagerViewModel, AsyncValue<Game?>>((ref) {
-  return GameManagerViewModel(gameUsecases: ref.watch(gameUsecasesProvider));
-});
 
 final gameUsecasesProvider = Provider<GameUsecases>(
   ((ref) => GameUsecases(

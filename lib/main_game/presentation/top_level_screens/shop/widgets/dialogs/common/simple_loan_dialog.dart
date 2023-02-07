@@ -8,7 +8,7 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_slider.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/core/utils/get_currency_label.dart';
+import 'package:toplife/core/utils/money/get_currency_label_from_currency_string.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/descriptor_row.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
@@ -92,7 +92,7 @@ class SimpleLoanDialog extends ConsumerWidget {
               DescriptorRow(
                 descriptor: ShopDialogConstants.downPayment,
                 value:
-                    "${getCurrencyLabel(currentCurrency)}${getCountryEconomyAdjustedPrice(
+                    "${getCurrencyLabelFromCurrencyString(currentCurrency)}${getCountryEconomyAdjustedPrice(
                   country: currentPlayerCountry,
                   basePrice: baseDownPayment,
                 )}",
@@ -109,7 +109,8 @@ class SimpleLoanDialog extends ConsumerWidget {
               ),
               DescriptorRow(
                 descriptor: ShopDialogConstants.loan,
-                value: "${getCurrencyLabel(currentCurrency)}${getLoan(
+                value:
+                    "${getCurrencyLabelFromCurrencyString(currentCurrency)}${getLoan(
                   recurringBillsUsecases,
                   billType,
                   baseLoanAmount,
@@ -123,7 +124,8 @@ class SimpleLoanDialog extends ConsumerWidget {
               ),
               DescriptorRow(
                   descriptor: ShopDialogConstants.installment,
-                  value: "${getCurrencyLabel(currentCurrency)}${getInstallment(
+                  value:
+                      "${getCurrencyLabelFromCurrencyString(currentCurrency)}${getInstallment(
                     recurringBillsUsecases,
                     billType,
                     baseLoanAmount,
