@@ -11,7 +11,7 @@ void main() {
   });
 
   test(
-      "get country class and string returns United States class and name string",
+      "get default country class and string returns United States class and name string",
       () {
     expect(
       LocationManager.getDefaultCountryClass(),
@@ -24,4 +24,24 @@ void main() {
       reason: "Cause: string",
     );
   });
+
+  test(
+    "get country currency returns currency of the given country if valid",
+    () {
+      expect(
+        LocationManager.getCountryCurrency(Canada().name),
+        Canada().currency,
+      );
+    },
+  );
+
+  test(
+    "get country currency returns currency of the default country if invalid",
+    () {
+      expect(
+        LocationManager.getCountryCurrency("wrong"),
+        LocationManager.getDefaultCountryClass().currency,
+      );
+    },
+  );
 }
