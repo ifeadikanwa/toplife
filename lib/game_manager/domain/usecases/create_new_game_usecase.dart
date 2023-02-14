@@ -1,4 +1,5 @@
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/database_constants.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
@@ -40,6 +41,7 @@ class CreateNewGameUsecase {
 
     //Create a new game and register the new person as the main player.
     final game = Game(
+      id: DatabaseConstants.dummyId,
       currentPlayerID: currentPlayer.id!,
       isActive: true,
       lastPlayedTime: DateTime.now().millisecondsSinceEpoch,

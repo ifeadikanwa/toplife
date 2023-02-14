@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
 import 'package:toplife/game_manager/data/repository/game_repository_impl.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/game_manager/presentation/game_manager_provider.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
@@ -204,7 +204,6 @@ final currentHouseStorageProvider =
       : null;
 });
 
-
 final gameUsecasesProvider = Provider<GameUsecases>(
   ((ref) => GameUsecases(
         ref.watch(gameRepositoryImplProvider),
@@ -217,4 +216,7 @@ final gameUsecasesProvider = Provider<GameUsecases>(
 final gameRepositoryImplProvider = Provider<GameRepositoryImpl>(
     (ref) => GameRepositoryImpl(ref.watch(gameDaoImplProvider)));
 
-final gameDaoImplProvider = Provider<GameDaoImpl>(((ref) => GameDaoImpl()));
+final gameDaoImplProvider =
+    Provider<GameDaoImpl>(((ref) => GameDaoImpl(ref.watch(databasePovider))));
+
+final databasePovider = Provider<DatabaseProvider>((ref) => DatabaseProvider());

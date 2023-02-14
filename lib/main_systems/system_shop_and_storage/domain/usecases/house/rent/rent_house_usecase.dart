@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/choice_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
@@ -63,7 +63,7 @@ class RentHouseUsecase {
         await _gameUsecases.getLastPlayedActiveGameUsecase.execute();
 
     //if person and game are valid, start processing
-    if (person != null && currentGame != null && currentGame.id != null) {
+    if (person != null && currentGame != null) {
       //first rent is double: security deposit + rent
       final int baseHouseRentPrice = 2 * house.basePrice;
 
@@ -84,7 +84,7 @@ class RentHouseUsecase {
         );
 
         _journalUsecases.addToJournalUsecase.execute(
-          gameID: currentGame.id!,
+          gameID: currentGame.id,
           day: currentGame.currentDay,
           mainPlayerID: personID,
           entry: journalEntry,
@@ -131,7 +131,7 @@ class RentHouseUsecase {
           )} $firstPersonMoveStatus";
 
           _journalUsecases.addToJournalUsecase.execute(
-            gameID: currentGame.id!,
+            gameID: currentGame.id,
             day: currentGame.currentDay,
             mainPlayerID: personID,
             entry: journalEntry,
@@ -174,7 +174,7 @@ class RentHouseUsecase {
           )} $firstPersonMoveStatus";
 
           _journalUsecases.addToJournalUsecase.execute(
-            gameID: currentGame.id!,
+            gameID: currentGame.id,
             day: currentGame.currentDay,
             mainPlayerID: personID,
             entry: journalEntry,

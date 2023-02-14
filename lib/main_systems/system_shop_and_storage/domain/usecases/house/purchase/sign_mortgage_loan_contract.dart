@@ -3,7 +3,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
@@ -93,7 +93,7 @@ class SignMortgageLoanContract {
 
     //log in journal
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: currentGame.id!,
+      gameID: currentGame.id,
       day: currentGame.currentDay,
       mainPlayerID: person.id!,
       entry: journalEntry,

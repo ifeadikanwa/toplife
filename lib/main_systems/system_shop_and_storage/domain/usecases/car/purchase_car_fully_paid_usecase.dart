@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -79,9 +79,9 @@ class PurchaseCarFullyPaidUsecase {
     }
 
     //log in journal
-    if (currentGame != null && currentGame.id != null) {
+    if (currentGame != null) {
       _journalUsecases.addToJournalUsecase.execute(
-        gameID: currentGame.id!,
+        gameID: currentGame.id,
         day: currentGame.currentDay,
         mainPlayerID: personID,
         entry: journalEntry,

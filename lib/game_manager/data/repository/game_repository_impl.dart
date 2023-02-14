@@ -1,5 +1,5 @@
 import 'package:toplife/game_manager/domain/dao/game_dao.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 
 class GameRepositoryImpl implements GameRepository {
@@ -35,5 +35,10 @@ class GameRepositoryImpl implements GameRepository {
   @override
   Future<Game?> getLastPlayedActiveGame() {
     return _gameDao.getLastPlayedActiveGame();
+  }
+
+  @override
+  Stream<Game?> watchGame(int gameID) {
+    return _gameDao.watchGame(gameID);
   }
 }

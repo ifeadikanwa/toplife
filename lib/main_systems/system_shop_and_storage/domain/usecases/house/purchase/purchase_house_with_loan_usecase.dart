@@ -3,7 +3,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
@@ -56,7 +56,6 @@ class PurchaseHouseWithLoanUsecase {
 
     //if game and person is valid
     if (currentGame != null &&
-        currentGame.id != null &&
         person != null &&
         person.id != null) {
       final int baseDownPayment =
@@ -148,7 +147,7 @@ class PurchaseHouseWithLoanUsecase {
       //if contract is not signed you reach here
       //log in journal
       await _journalUsecases.addToJournalUsecase.execute(
-        gameID: currentGame.id!,
+        gameID: currentGame.id,
         day: currentGame.currentDay,
         mainPlayerID: personID,
         entry: journalEntry,

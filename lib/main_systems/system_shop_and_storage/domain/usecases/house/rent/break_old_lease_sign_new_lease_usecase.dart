@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/end_lease_usecase.dart';
@@ -64,7 +64,7 @@ class BreakOldLeaseSignNewLease {
     )} $firstPersonMoveStatus";
 
     _journalUsecases.addToJournalUsecase.execute(
-      gameID: currentGame.id!,
+      gameID: currentGame.id,
       day: currentGame.currentDay,
       mainPlayerID: personID,
       entry: journalEntry,

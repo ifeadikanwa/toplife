@@ -1,7 +1,4 @@
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/person_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
@@ -10,38 +7,39 @@ class PersonDaoImpl implements PersonDao {
 
   static const personTable = "person";
 
-  static const createTableQuery = '''
-    CREATE TABLE $personTable(
-      ${Person.idColumn} $idType,
-      ${Person.gameIDColumn} $nullableIntegerType,
-      ${Person.firstNameColumn} $textType,
-      ${Person.lastNameColumn} $textType,
-      ${Person.dayOfBirthColumn} $integerType,
-      ${Person.genderColumn} $textType,
-      ${Person.subjectPronounColumn} $textType,
-      ${Person.objectPronounColumn} $textType,
-      ${Person.possessivePronounColumn} $textType,
-      ${Person.sexualityColumn} $textType,
-      ${Person.stateColumn} $textType,
-      ${Person.countryColumn} $textType,
-      ${Person.moneyColumn} $integerType,
-      ${Person.zodiacSignColumn} $textType,
-      ${Person.importantStatusColumn} $nullableTextType,
-      ${Person.custodianIDColumn} $nullableIntegerType,
-      ${Person.hasDriversLicenseColumn} $boolType,
-      ${Person.transportModeColumn} $textType,
-      ${Person.hasFertilityIssuesColumn} $boolType,
-      ${Person.onBirthControlColumn} $boolType,
-      ${Person.isSterileColumn} $boolType,
-      ${Person.sicklyColumn} $boolType,
-      ${Person.rebelliousColumn} $boolType,
-      ${Person.deadColumn} $boolType,
-      FOREIGN KEY (${Person.gameIDColumn})
-       REFERENCES ${GameDaoImpl.gameTable} (${Game.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-  ''';
+  static const createTableQuery = "";
+  // '''
+  //   CREATE TABLE $personTable(
+  //     ${Person.idColumn} $idType,
+  //     ${Person.gameIDColumn} $nullableIntegerType,
+  //     ${Person.firstNameColumn} $textType,
+  //     ${Person.lastNameColumn} $textType,
+  //     ${Person.dayOfBirthColumn} $integerType,
+  //     ${Person.genderColumn} $textType,
+  //     ${Person.subjectPronounColumn} $textType,
+  //     ${Person.objectPronounColumn} $textType,
+  //     ${Person.possessivePronounColumn} $textType,
+  //     ${Person.sexualityColumn} $textType,
+  //     ${Person.stateColumn} $textType,
+  //     ${Person.countryColumn} $textType,
+  //     ${Person.moneyColumn} $integerType,
+  //     ${Person.zodiacSignColumn} $textType,
+  //     ${Person.importantStatusColumn} $nullableTextType,
+  //     ${Person.custodianIDColumn} $nullableIntegerType,
+  //     ${Person.hasDriversLicenseColumn} $boolType,
+  //     ${Person.transportModeColumn} $textType,
+  //     ${Person.hasFertilityIssuesColumn} $boolType,
+  //     ${Person.onBirthControlColumn} $boolType,
+  //     ${Person.isSterileColumn} $boolType,
+  //     ${Person.sicklyColumn} $boolType,
+  //     ${Person.rebelliousColumn} $boolType,
+  //     ${Person.deadColumn} $boolType,
+  //     FOREIGN KEY (${Person.gameIDColumn})
+  //      REFERENCES ${GameDaoImpl.gameTable} (${Game.idColumn}) 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE
+  //   )
+  // ''';
 
   @override
   Future<Person> createPerson(Person person) async {

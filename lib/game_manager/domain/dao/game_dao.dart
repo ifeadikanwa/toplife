@@ -1,5 +1,4 @@
-import 'package:toplife/game_manager/domain/model/game.dart';
-
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 abstract class GameDao {
   Future<Game> createGame(Game game);
   Future<Game?> getGame(int gameID);
@@ -7,4 +6,5 @@ abstract class GameDao {
   Future<void> deleteGame(int gameID);
   Future<List<Game>> getAllActiveGames();
   Future<Game?> getLastPlayedActiveGame();
+  Stream<Game?> watchGame(int gameID);
 }

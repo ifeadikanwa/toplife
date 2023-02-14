@@ -1,36 +1,31 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/main_systems/system_journal/domain/dao/journal_dao.dart';
 import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
 class JournalDaoImpl implements JournalDao {
   final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
 
   static const journalTable = "journal";
 
-  static const createTableQuery =
-      '''
-    CREATE TABLE $journalTable(
-      ${Journal.gameIDColumn} $integerType,
-      ${Journal.dayColumn} $integerType,
-      ${Journal.mainPlayerIDColumn} $integerType,
-      ${Journal.entryColumn} $textType,
-      PRIMARY KEY (${Journal.gameIDColumn}, ${Journal.dayColumn}),
-      FOREIGN KEY (${Journal.gameIDColumn})
-       REFERENCES ${GameDaoImpl.gameTable} (${Game.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION,
-      FOREIGN KEY (${Journal.mainPlayerIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION
-    )
-''';
+  static const createTableQuery ="";
+//       '''
+//     CREATE TABLE $journalTable(
+//       ${Journal.gameIDColumn} $integerType,
+//       ${Journal.dayColumn} $integerType,
+//       ${Journal.mainPlayerIDColumn} $integerType,
+//       ${Journal.entryColumn} $textType,
+//       PRIMARY KEY (${Journal.gameIDColumn}, ${Journal.dayColumn}),
+//       FOREIGN KEY (${Journal.gameIDColumn})
+//        REFERENCES ${GameDaoImpl.gameTable} (${Game.idColumn}) 
+//        ON UPDATE CASCADE
+//        ON DELETE NO ACTION,
+//       FOREIGN KEY (${Journal.mainPlayerIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
+//        ON UPDATE CASCADE
+//        ON DELETE NO ACTION
+//     )
+// ''';
 
   @override
   Future<Journal> createJournal(Journal journal) async {

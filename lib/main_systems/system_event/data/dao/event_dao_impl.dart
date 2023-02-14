@@ -1,45 +1,42 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/main_systems/system_event/domain/dao/event_dao.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
 class EventDaoImpl implements EventDao {
   final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
 
   static const eventTable = "event";
 
-  static const createTableQuery = '''
-    CREATE TABLE $eventTable(
-      ${Event.idColumn} $idType,
-      ${Event.gameIDColumn} $integerType,
-      ${Event.eventTypeColumn} $textType,
-      ${Event.eventDayColumn} $integerType,
-      ${Event.mainPersonIDColumn} $integerType,
-      ${Event.otherPersonIDColumn} $nullableIntegerType,
-      ${Event.relationshipToMainPlayerColumn} $textType,
-      ${Event.startTimeColumn} $nullableIntegerType,
-      ${Event.endTimeColumn} $nullableIntegerType,
-      ${Event.journalEntryOnlyColumn} $boolType,
-      ${Event.performedColumn} $boolType,
-      FOREIGN KEY (${Event.gameIDColumn})
-       REFERENCES ${GameDaoImpl.gameTable} (${Game.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Event.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION,
-      FOREIGN KEY (${Event.otherPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION
-    )
-''';
+  static const createTableQuery = "";
+  
+    // CREATE TABLE $eventTable(
+    //   ${Event.idColumn} $idType,
+    //   ${Event.gameIDColumn} $integerType,
+    //   ${Event.eventTypeColumn} $textType,
+    //   ${Event.eventDayColumn} $integerType,
+    //   ${Event.mainPersonIDColumn} $integerType,
+    //   ${Event.otherPersonIDColumn} $nullableIntegerType,
+    //   ${Event.relationshipToMainPlayerColumn} $textType,
+    //   ${Event.startTimeColumn} $nullableIntegerType,
+    //   ${Event.endTimeColumn} $nullableIntegerType,
+    //   ${Event.journalEntryOnlyColumn} $boolType,
+    //   ${Event.performedColumn} $boolType,
+    //   FOREIGN KEY (${Event.gameIDColumn})
+    //    REFERENCES ${GameDaoImpl.gameTable} (${Game.idColumn}) 
+    //    ON UPDATE CASCADE
+    //    ON DELETE CASCADE,
+    //   FOREIGN KEY (${Event.mainPersonIDColumn})
+    //    REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
+    //    ON UPDATE CASCADE
+    //    ON DELETE NO ACTION,
+    //   FOREIGN KEY (${Event.otherPersonIDColumn})
+    //    REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
+    //    ON UPDATE CASCADE
+    //    ON DELETE NO ACTION
+    // )
+
 
   @override
   Future<Event> createEvent(Event event) async {

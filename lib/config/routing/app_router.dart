@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
+import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:toplife/config/routing/route_name.dart';
 import 'package:toplife/game_manager/presentation/game_manager_screen.dart';
 import 'package:toplife/main_game/presentation/main_game_screen.dart';
@@ -85,6 +86,9 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
               path: RouteName.emptyPath,
               page: ShopScreen,
             ),
+
+            //!Database viewer for testing purposes
+            AutoRoute(path: 'database_viewer', page: DriftDbViewer),
 
             CustomRoute(
               path: RouteName.foodShopPath,
