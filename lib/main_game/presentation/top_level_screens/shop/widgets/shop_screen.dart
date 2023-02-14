@@ -7,7 +7,6 @@ import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
-import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/buy_house_dialog.dart';
@@ -199,22 +198,7 @@ class ShopScreen extends ConsumerWidget {
 
                 // print(await ref.watch(currentGameProvider).value);
 
-                final game = Game(
-                  id: 0,
-                  currentPlayerID: 1,
-                  isActive: false,
-                  lastPlayedTime: DateTime.now().microsecondsSinceEpoch,
-                  currentDay: 2,
-                  currentTimeInMinutes: 60,
-                  generation: 5,
-                );
-                // ref.read(gameDaoImplProvider).createGame(game);
-                // print(await ref.read(gameDaoImplProvider).getGame(2));
-                final watchStream = ref.read(gameDaoImplProvider).watchGame(3);
-
-                watchStream.listen((event) {
-                  print("From stream: $event");
-                });
+               
               },
               child: const Text("Run"),
             ),
