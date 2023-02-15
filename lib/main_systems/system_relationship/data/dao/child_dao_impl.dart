@@ -1,8 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/constants/child_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/child_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
@@ -12,27 +9,28 @@ class ChildDaoImpl implements ChildDao {
 
   static const childTable = "child";
 
-  static const createTableQuery = '''
-    CREATE TABLE $childTable(
-      ${Child.mainPersonIDColumn} $integerType,
-      ${Child.childIDColumn} $integerType,
-      ${Child.inYourCustodyColumn} $boolType,
-      ${Child.childRelationshipTypeColumn} $textType,
-      ${Child.hiddenColumn} $boolType,
-      ${Child.paternityFraudColumn} $boolType,
-      ${Child.assumedRelationshipTypeColumn} $textType,
-      ${Child.relationshipColumn} $integerType,
-      PRIMARY KEY (${Child.mainPersonIDColumn}, ${Child.childIDColumn}),
-      FOREIGN KEY (${Child.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Child.childIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery = "";
+//    '''
+//     CREATE TABLE $childTable(
+//       ${Child.mainPersonIDColumn} $integerType,
+//       ${Child.childIDColumn} $integerType,
+//       ${Child.inYourCustodyColumn} $boolType,
+//       ${Child.childRelationshipTypeColumn} $textType,
+//       ${Child.hiddenColumn} $boolType,
+//       ${Child.paternityFraudColumn} $boolType,
+//       ${Child.assumedRelationshipTypeColumn} $textType,
+//       ${Child.relationshipColumn} $integerType,
+//       PRIMARY KEY (${Child.mainPersonIDColumn}, ${Child.childIDColumn}),
+//       FOREIGN KEY (${Child.mainPersonIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${Child.childIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
   @override
   Future<Child> createChild(Child child) async {

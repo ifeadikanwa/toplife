@@ -6,7 +6,7 @@ import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
 import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';

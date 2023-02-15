@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_person/domain/model/relationship_traits.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class RelationshipTraitsDao {
   Future<RelationshipTraits> createRelationshipTraits(RelationshipTraits relationshipTraits);

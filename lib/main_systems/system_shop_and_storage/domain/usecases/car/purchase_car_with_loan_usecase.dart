@@ -6,7 +6,6 @@ import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 class EventUtil {
   //9am-11am

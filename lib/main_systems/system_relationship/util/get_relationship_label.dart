@@ -1,5 +1,5 @@
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';

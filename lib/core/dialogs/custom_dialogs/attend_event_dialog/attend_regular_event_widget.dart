@@ -11,7 +11,7 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 final regularEventStayDurationProvider =
     StateProvider.autoDispose<EventStayDuration>(

@@ -6,7 +6,7 @@ import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/npc_birthday.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/player_birthday.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 

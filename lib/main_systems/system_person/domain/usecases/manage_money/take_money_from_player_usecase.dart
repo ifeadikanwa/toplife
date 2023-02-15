@@ -1,7 +1,7 @@
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';

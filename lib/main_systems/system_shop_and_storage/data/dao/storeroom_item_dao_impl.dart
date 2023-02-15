@@ -1,11 +1,6 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/item_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/storeroom_item_dao.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
 
 class StoreroomItemDaoImpl implements StoreroomItemDao {
@@ -13,23 +8,23 @@ class StoreroomItemDaoImpl implements StoreroomItemDao {
 
   static const storeroomItemTable = "storeroom_item";
 
-  static const createTableQuery =
-      '''
-    CREATE TABLE $storeroomItemTable(
-      ${StoreroomItem.idColumn} $idType,
-      ${StoreroomItem.personIDColumn} $integerType,
-      ${StoreroomItem.itemIDColumn} $integerType,
-      ${StoreroomItem.countsLeftColumn} $integerType,
-      FOREIGN KEY (${StoreroomItem.personIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${StoreroomItem.itemIDColumn})
-       REFERENCES ${ItemDaoImpl.itemTable} (${Item.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION
-    )
-''';
+  static const createTableQuery ="";
+//       '''
+//     CREATE TABLE $storeroomItemTable(
+//       ${StoreroomItem.idColumn} $idType,
+//       ${StoreroomItem.personIDColumn} $integerType,
+//       ${StoreroomItem.itemIDColumn} $integerType,
+//       ${StoreroomItem.countsLeftColumn} $integerType,
+//       FOREIGN KEY (${StoreroomItem.personIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${StoreroomItem.itemIDColumn})
+//        REFERENCES ${ItemDaoImpl.itemTable} (${Item.idColumn}) 
+//        ON UPDATE CASCADE
+//        ON DELETE NO ACTION
+//     )
+// ''';
 
   @override
   Future<StoreroomItem> createStoreroomItem(StoreroomItem storeroomItem) async {

@@ -1,42 +1,38 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_job/data/dao/employment_dao_impl.dart';
-import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/database_provider.dart' as old_db;
 import 'package:toplife/main_systems/system_job/constants/job_relationship_type.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/job_relationship_dao.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job_relationship.dart';
 
 class JobRelationshipDaoImpl implements JobRelationshipDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+  final  _databaseProvider = old_db.DatabaseProvider.instance;
 
   static const jobRelationshipTable = "job_relationship";
 
-  static const createTableQuery = '''
-    CREATE TABLE $jobRelationshipTable(
-      ${JobRelationship.idColumn} $idType,
-      ${JobRelationship.employmentIDColumn} $integerType,
-      ${JobRelationship.mainPersonIDColumn} $integerType,
-      ${JobRelationship.otherPersonIDColumn} $integerType,
-      ${JobRelationship.jobRelationshipTypeColumn} $textType,
-      ${JobRelationship.informalRelationshipTypeColumn} $textType,
-      ${JobRelationship.jobLevelColumn} $integerType,
-      FOREIGN KEY (${JobRelationship.employmentIDColumn})
-       REFERENCES ${EmploymentDaoImpl.employmentTable} (${Employment.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${JobRelationship.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${JobRelationship.otherPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-  ''';
+  static const createTableQuery = "";
+  //  '''
+  //   CREATE TABLE $jobRelationshipTable(
+  //     ${JobRelationship.idColumn} $idType,
+  //     ${JobRelationship.employmentIDColumn} $integerType,
+  //     ${JobRelationship.mainPersonIDColumn} $integerType,
+  //     ${JobRelationship.otherPersonIDColumn} $integerType,
+  //     ${JobRelationship.jobRelationshipTypeColumn} $textType,
+  //     ${JobRelationship.informalRelationshipTypeColumn} $textType,
+  //     ${JobRelationship.jobLevelColumn} $integerType,
+  //     FOREIGN KEY (${JobRelationship.employmentIDColumn})
+  //      REFERENCES ${EmploymentDaoImpl.employmentTable} (${Employment.idColumn}) 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE,
+  //     FOREIGN KEY (${JobRelationship.mainPersonIDColumn})
+  //      REFERENCES ${PersonDaoImpl.personTable} () 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE,
+  //     FOREIGN KEY (${JobRelationship.otherPersonIDColumn})
+  //      REFERENCES ${PersonDaoImpl.personTable} ()) 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE
+  //   )
+  // ''';
 
   @override
   Future<JobRelationship> createJobRelationship(

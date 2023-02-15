@@ -1,6 +1,6 @@
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/party_event_descriptions.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/storeroom_item_pair.dart';
 
 class GetFirstPersonGiftReaction {

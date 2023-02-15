@@ -1,8 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/acquaintance_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/acquaintance.dart';
 
@@ -11,23 +8,24 @@ class AcquaintanceDaoImpl implements AcquaintanceDao {
 
   static const acquaintanceTable = "acquaintance";
 
-  static const createTableQuery = '''
-    CREATE TABLE $acquaintanceTable(
-      ${Acquaintance.mainPersonIDColumn} $integerType,
-      ${Acquaintance.acquaintanceIDColumn} $integerType,
-      ${Acquaintance.metAtColumn} $textType,
-      ${Acquaintance.relationshipColumn} $integerType,
-      PRIMARY KEY (${Acquaintance.mainPersonIDColumn}, ${Acquaintance.acquaintanceIDColumn}),
-      FOREIGN KEY (${Acquaintance.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Acquaintance.acquaintanceIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery ="";
+//    '''
+//     CREATE TABLE $acquaintanceTable(
+//       ${Acquaintance.mainPersonIDColumn} $integerType,
+//       ${Acquaintance.acquaintanceIDColumn} $integerType,
+//       ${Acquaintance.metAtColumn} $textType,
+//       ${Acquaintance.relationshipColumn} $integerType,
+//       PRIMARY KEY (${Acquaintance.mainPersonIDColumn}, ${Acquaintance.acquaintanceIDColumn}),
+//       FOREIGN KEY (${Acquaintance.mainPersonIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${Acquaintance.acquaintanceIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
 
   @override

@@ -1,11 +1,6 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/food_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/fridge_food_dao.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/fridge_food.dart';
 
 class FridgeFoodDaoImpl implements FridgeFoodDao {
@@ -13,24 +8,24 @@ class FridgeFoodDaoImpl implements FridgeFoodDao {
 
   static const fridgeFoodTable = "fridge_food";
 
-  static const createTableQuery =
-      '''
-    CREATE TABLE $fridgeFoodTable(
-      ${FridgeFood.idColumn} $idType,
-      ${FridgeFood.personIDColumn} $integerType,
-      ${FridgeFood.foodIDColumn} $integerType,
-      ${FridgeFood.servingsLeftColumn} $integerType,
-      ${FridgeFood.expiryDayColumn} $integerType,
-      FOREIGN KEY (${FridgeFood.personIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${FridgeFood.foodIDColumn})
-       REFERENCES ${FoodDaoImpl.foodTable} (${Food.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION
-    )
-''';
+  static const createTableQuery ="";
+//       '''
+//     CREATE TABLE $fridgeFoodTable(
+//       ${FridgeFood.idColumn} $idType,
+//       ${FridgeFood.personIDColumn} $integerType,
+//       ${FridgeFood.foodIDColumn} $integerType,
+//       ${FridgeFood.servingsLeftColumn} $integerType,
+//       ${FridgeFood.expiryDayColumn} $integerType,
+//       FOREIGN KEY (${FridgeFood.personIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${FridgeFood.foodIDColumn})
+//        REFERENCES ${FoodDaoImpl.foodTable} (${Food.idColumn}) 
+//        ON UPDATE CASCADE
+//        ON DELETE NO ACTION
+//     )
+// ''';
 
   @override
   Future<FridgeFood> createFridgeFood(FridgeFood fridgeFood) async {

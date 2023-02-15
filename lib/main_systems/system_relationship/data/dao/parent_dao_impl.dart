@@ -1,8 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/parent_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
 
@@ -11,27 +9,28 @@ class ParentDaoImpl implements ParentDao {
 
   static const parentTable = "parent";
 
-  static const createTableQuery = '''
-    CREATE TABLE $parentTable(
-      ${Parent.mainPersonIDColumn} $integerType,
-      ${Parent.parentIDColumn} $integerType,
-      ${Parent.parentRelationshipTypeColumn} $textType,
-      ${Parent.hiddenColumn} $boolType,
-      ${Parent.paternityFraudColumn} $boolType,
-      ${Parent.assumedRelationshipTypeColumn} $textType,
-      ${Parent.relationshipColumn} $integerType,
-      ${Parent.isActiveColumn} $boolType,
-      PRIMARY KEY (${Parent.mainPersonIDColumn}, ${Parent.parentIDColumn}),
-      FOREIGN KEY (${Parent.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Parent.parentIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery ="";
+//    '''
+//     CREATE TABLE $parentTable(
+//       ${Parent.mainPersonIDColumn} $integerType,
+//       ${Parent.parentIDColumn} $integerType,
+//       ${Parent.parentRelationshipTypeColumn} $textType,
+//       ${Parent.hiddenColumn} $boolType,
+//       ${Parent.paternityFraudColumn} $boolType,
+//       ${Parent.assumedRelationshipTypeColumn} $textType,
+//       ${Parent.relationshipColumn} $integerType,
+//       ${Parent.isActiveColumn} $boolType,
+//       PRIMARY KEY (${Parent.mainPersonIDColumn}, ${Parent.parentIDColumn}),
+//       FOREIGN KEY (${Parent.mainPersonIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${Parent.parentIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
   @override
   Future<Parent> createParent(Parent parent) async {

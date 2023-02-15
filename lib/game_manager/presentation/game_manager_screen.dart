@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 class GameManagerScreen extends ConsumerWidget {
   const GameManagerScreen({Key? key}) : super(key: key);
@@ -19,6 +20,8 @@ class GameManagerScreen extends ConsumerWidget {
         ElevatedButton(
             onPressed: () {
               ref.read(gameUsecasesProvider).createGameUsecase.execute(Person(
+                    id: DatabaseConstants.dummyId,
+                    gameId: DatabaseConstants.dummyId,
                     firstName: "David",
                     lastName: "Smith",
                     dayOfBirth: 21,
@@ -32,6 +35,7 @@ class GameManagerScreen extends ConsumerWidget {
                     money: 12000,
                     zodiacSign: ZodiacSign.Libra.name,
                     transportMode: "bus",
+                    hasDriversLicense: false,
                     hasFertilityIssues: false,
                     onBirthControl: false,
                     isSterile: false,
@@ -45,6 +49,8 @@ class GameManagerScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(personUsecasesProvider).createChildPersonUsecase.execute(
                     person: Person(
+                      id: DatabaseConstants.dummyId,
+                      gameId: DatabaseConstants.dummyId,
                       firstName: "Stella",
                       lastName: "Baker",
                       dayOfBirth: -23,
@@ -57,7 +63,7 @@ class GameManagerScreen extends ConsumerWidget {
                       country: "country",
                       money: 3000,
                       zodiacSign: ZodiacSign.Capricorn.name,
-                      importantStatus: null,
+                      hasDriversLicense: false,
                       transportMode: "bus",
                       hasFertilityIssues: false,
                       onBirthControl: false,

@@ -1,0 +1,24 @@
+import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
+
+class StatsConstants{
+   static const hungerDepletionRatePerHour = 10;
+  static const energyDepletionRatePerHour = 7;
+
+  static const nonPlayerHungerDepletionRatePerHour = 8;
+
+  static const babyEnergyDepletionRatePerHour = 10;
+
+  static const hungerEmergencyDepletionRatePerHour = 1;
+  static const energyEmergencyDepletionRatePerHour = 2;
+  static const babyHungerEmergencyDepletionRatePerHour = 5;
+  static const babyEnergyEmergencyDepletionRatePerHour = 1;
+
+  static const hungerEmergencyModeStat = 20;
+  static const energyEmergencyModeStat = 20;
+  static const babyHungerEmergencyModeStat = 10;
+  static const babyEnergyEmergencyModeStat = 10;
+
+  static int getValidEnergyorHungerStatsValue() {
+    return getValidRandomStatsValue(minValue: 50);
+  }
+}

@@ -13,7 +13,7 @@ import 'package:toplife/main_systems/system_event/constants/event_stay_duration.
 import 'package:toplife/main_systems/system_event/constants/party_event_activity.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/storeroom_item_pair.dart';
 
 final giftProvider =

@@ -1,8 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/dao/recurring_bill_dao.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
 
@@ -11,24 +8,25 @@ class RecurringBillDaoImpl implements RecurringBillDao {
 
   static const recurringBillTable = "recurring_bill";
 
-  static const createTableQuery = '''
-    CREATE TABLE $recurringBillTable(
-      ${RecurringBill.idColumn} $idType,
-      ${RecurringBill.personIDColumn} $integerType,
-      ${RecurringBill.billTypeColumn} $textType,
-      ${RecurringBill.billDescriptionColumn} $textType,
-      ${RecurringBill.billAmountColumn} $integerType,
-      ${RecurringBill.paymentsLeftColumn} $integerType,
-      ${RecurringBill.dueDayColumn} $integerType,
-      ${RecurringBill.purchaseIDColumn} $integerType,
-      ${RecurringBill.missedPaymentsColumn} $integerType,
-      ${RecurringBill.isUrgentColumn} $boolType,
-      FOREIGN KEY (${RecurringBill.personIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-  ''';
+  static const createTableQuery = "";
+  // '''
+  //   CREATE TABLE $recurringBillTable(
+  //     ${RecurringBill.idColumn} $idType,
+  //     ${RecurringBill.personIDColumn} $integerType,
+  //     ${RecurringBill.billTypeColumn} $textType,
+  //     ${RecurringBill.billDescriptionColumn} $textType,
+  //     ${RecurringBill.billAmountColumn} $integerType,
+  //     ${RecurringBill.paymentsLeftColumn} $integerType,
+  //     ${RecurringBill.dueDayColumn} $integerType,
+  //     ${RecurringBill.purchaseIDColumn} $integerType,
+  //     ${RecurringBill.missedPaymentsColumn} $integerType,
+  //     ${RecurringBill.isUrgentColumn} $boolType,
+  //     FOREIGN KEY (${RecurringBill.personIDColumn})
+  //      REFERENCES ${PersonDaoImpl.personTable} () 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE
+  //   )
+  // ''';
 
   @override
   Future<RecurringBill> createRecurringBill(RecurringBill recurringBill) async {

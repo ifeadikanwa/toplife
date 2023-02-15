@@ -1,12 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
-import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_dao.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 class SchoolDaoImpl implements SchoolDao {
@@ -14,40 +10,41 @@ class SchoolDaoImpl implements SchoolDao {
 
   static const schoolTable = "school";
 
-  static const createTableQuery = '''
-    CREATE TABLE $schoolTable(
-      ${School.idColumn} $idType,
-      ${School.mainPersonIDColumn} $integerType,
-      ${School.nameColumn} $textType,
-      ${School.gradesColumn} $integerType,
-      ${School.attendanceColumn} $integerType,
-      ${School.projectColumn} $integerType,
-      ${School.examColumn} $integerType,
-      ${School.classStartTimeColumn} $integerType,
-      ${School.classEndTimeColumn} $integerType,
-      ${School.totalSemesterNumberColumn} $integerType,
-      ${School.currentSemesterNumberColumn} $integerType,
-      ${School.schoolTypeColumn} $textType,
-      ${School.currentDayInSemesterColumn} $integerType,
-      ${School.semesterStartDayColumn} $integerType,
-      ${School.degreeIDColumn} $integerType,
-      ${School.degreeLevelColumn} $textType,
-      ${School.schoolFeesPerSemesterColumn} $integerType,
-      ${School.scholarshipPercentageColumn} $integerType,
-      ${School.hasTakenLeaveColumn} $boolType,
-      ${School.isActiveColumn} $boolType,
-      ${School.isCompletedColumn} $boolType,
-      ${School.wasExpelledColumn} $boolType,
-      FOREIGN KEY (${School.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${School.degreeIDColumn})
-       REFERENCES ${DegreeDaoImpl.degreeTable} (${Degree.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION
-      )
-  ''';
+  static const createTableQuery ="";
+  //  '''
+  //   CREATE TABLE $schoolTable(
+  //     ${School.idColumn} $idType,
+  //     ${School.mainPersonIDColumn} $integerType,
+  //     ${School.nameColumn} $textType,
+  //     ${School.gradesColumn} $integerType,
+  //     ${School.attendanceColumn} $integerType,
+  //     ${School.projectColumn} $integerType,
+  //     ${School.examColumn} $integerType,
+  //     ${School.classStartTimeColumn} $integerType,
+  //     ${School.classEndTimeColumn} $integerType,
+  //     ${School.totalSemesterNumberColumn} $integerType,
+  //     ${School.currentSemesterNumberColumn} $integerType,
+  //     ${School.schoolTypeColumn} $textType,
+  //     ${School.currentDayInSemesterColumn} $integerType,
+  //     ${School.semesterStartDayColumn} $integerType,
+  //     ${School.degreeIDColumn} $integerType,
+  //     ${School.degreeLevelColumn} $textType,
+  //     ${School.schoolFeesPerSemesterColumn} $integerType,
+  //     ${School.scholarshipPercentageColumn} $integerType,
+  //     ${School.hasTakenLeaveColumn} $boolType,
+  //     ${School.isActiveColumn} $boolType,
+  //     ${School.isCompletedColumn} $boolType,
+  //     ${School.wasExpelledColumn} $boolType,
+  //     FOREIGN KEY (${School.mainPersonIDColumn})
+  //      REFERENCES ${PersonDaoImpl.personTable} () 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE,
+  //     FOREIGN KEY (${School.degreeIDColumn})
+  //      REFERENCES ${DegreeDaoImpl.degreeTable} (${Degree.idColumn}) 
+  //      ON UPDATE CASCADE
+  //      ON DELETE NO ACTION
+  //     )
+  // ''';
 
   @override
   Future<School> createSchool(School school) async {

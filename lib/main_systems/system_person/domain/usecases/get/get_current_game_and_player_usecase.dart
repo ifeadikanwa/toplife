@@ -1,7 +1,6 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/game_manager/domain/model/info_models/person_game_pair.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_usecase.dart';
 
 class GetCurrentGameAndPlayerUsecase {

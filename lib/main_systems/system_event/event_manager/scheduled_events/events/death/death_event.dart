@@ -14,7 +14,7 @@ import 'package:toplife/main_systems/system_event/event_manager/scheduled_events
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
@@ -184,7 +184,7 @@ class DeathEvent {
 
             final childPartner =
                 await _relationshipUsecases.getCurrentPartnerUsecase.execute(
-              deadPerson.id!,
+              deadPerson.id,
             );
 
             final bool childIsAMinor =

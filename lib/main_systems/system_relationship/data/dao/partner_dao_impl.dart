@@ -1,8 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/partner_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 
@@ -11,29 +9,30 @@ class PartnerDaoImpl implements PartnerDao {
 
   static const partnerTable = "partner";
 
-  static const createTableQuery = '''
-    CREATE TABLE $partnerTable(
-      ${Partner.mainPersonIDColumn} $integerType,
-      ${Partner.partnerIDColumn} $integerType,
-      ${Partner.partnerRelationshipTypeColumn} $textType,
-      ${Partner.isActiveColumn} $boolType,
-      ${Partner.jointMoneyColumn} $integerType,
-      ${Partner.startDayColumn} $integerType,
-      ${Partner.endDayColumn} $nullableIntegerType,
-      ${Partner.isCoParentColumn} $boolType,
-      ${Partner.metAtColumn} $textType,
-      ${Partner.relationshipColumn} $integerType,
-      PRIMARY KEY (${Partner.mainPersonIDColumn}, ${Partner.partnerIDColumn}),
-      FOREIGN KEY (${Partner.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Partner.partnerIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery = "";
+//    '''
+//     CREATE TABLE $partnerTable(
+//       ${Partner.mainPersonIDColumn} $integerType,
+//       ${Partner.partnerIDColumn} $integerType,
+//       ${Partner.partnerRelationshipTypeColumn} $textType,
+//       ${Partner.isActiveColumn} $boolType,
+//       ${Partner.jointMoneyColumn} $integerType,
+//       ${Partner.startDayColumn} $integerType,
+//       ${Partner.endDayColumn} $nullableIntegerType,
+//       ${Partner.isCoParentColumn} $boolType,
+//       ${Partner.metAtColumn} $textType,
+//       ${Partner.relationshipColumn} $integerType,
+//       PRIMARY KEY (${Partner.mainPersonIDColumn}, ${Partner.partnerIDColumn}),
+//       FOREIGN KEY (${Partner.mainPersonIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${Partner.partnerIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
   @override
   Future<Partner> createPartner(Partner partner) async {

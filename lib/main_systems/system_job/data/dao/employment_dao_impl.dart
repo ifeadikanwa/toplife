@@ -1,49 +1,46 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_job/data/dao/job_dao_impl.dart';
+import 'package:toplife/core/data_source/database_provider.dart' as old_db;
 import 'package:toplife/main_systems/system_job/domain/dao/employment_dao.dart';
 import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
 class EmploymentDaoImpl implements EmploymentDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+  final _databaseProvider = old_db.DatabaseProvider.instance;
 
   static const employmentTable = "employment";
 
-  static const createTableQuery = '''
-    CREATE TABLE $employmentTable(
-      ${Employment.idColumn} $idType,
-      ${Employment.jobIDColumn} $integerType,
-      ${Employment.mainPersonIDColumn} $integerType,
-      ${Employment.companyNameColumn} $textType,
-      ${Employment.startTimeColumn} $integerType,
-      ${Employment.shiftLengthColumn} $integerType,
-      ${Employment.dayOffColumn} $integerType,
-      ${Employment.isDayShiftColumn} $boolType,
-      ${Employment.currentLevelColumn} $integerType,
-      ${Employment.currentPayColumn} $integerType,
-      ${Employment.raisesGivenColumn} $integerType,
-      ${Employment.jobPerformanceColumn} $integerType,
-      ${Employment.daysOfConsistentGoodPerformanceColumn} $integerType,
-      ${Employment.vacationDaysLeftColumn} $integerType,
-      ${Employment.onLeaveColumn} $boolType,
-      ${Employment.firstDayColumn} $integerType,
-      ${Employment.lastDayColumn} $integerType,
-      ${Employment.wasFiredColumn} $boolType,
-      ${Employment.isActiveColumn} $boolType,
-      FOREIGN KEY (${Employment.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Employment.jobIDColumn})
-       REFERENCES ${JobDaoImpl.jobTable} (${Job.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION
-      )
-  ''';
+  static const createTableQuery = "";
+  //  '''
+  //   CREATE TABLE $employmentTable(
+  //     ${Employment.idColumn} $idType,
+  //     ${Employment.jobIDColumn} $integerType,
+  //     ${Employment.mainPersonIDColumn} $integerType,
+  //     ${Employment.companyNameColumn} $textType,
+  //     ${Employment.startTimeColumn} $integerType,
+  //     ${Employment.shiftLengthColumn} $integerType,
+  //     ${Employment.dayOffColumn} $integerType,
+  //     ${Employment.isDayShiftColumn} $boolType,
+  //     ${Employment.currentLevelColumn} $integerType,
+  //     ${Employment.currentPayColumn} $integerType,
+  //     ${Employment.raisesGivenColumn} $integerType,
+  //     ${Employment.jobPerformanceColumn} $integerType,
+  //     ${Employment.daysOfConsistentGoodPerformanceColumn} $integerType,
+  //     ${Employment.vacationDaysLeftColumn} $integerType,
+  //     ${Employment.onLeaveColumn} $boolType,
+  //     ${Employment.firstDayColumn} $integerType,
+  //     ${Employment.lastDayColumn} $integerType,
+  //     ${Employment.wasFiredColumn} $boolType,
+  //     ${Employment.isActiveColumn} $boolType,
+  //     FOREIGN KEY (${Employment.mainPersonIDColumn})
+  //      REFERENCES ${PersonDaoImpl.personTable} () 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE,
+  //     FOREIGN KEY (${Employment.jobIDColumn})
+  //      REFERENCES ${JobDaoImpl.jobTable} (${Job.idColumn}) 
+  //      ON UPDATE CASCADE
+  //      ON DELETE NO ACTION
+  //     )
+  // ''';
 
   @override
   Future<Employment> createEmployment(Employment employment) async {

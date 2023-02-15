@@ -1,85 +1,47 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/stance_dao.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stance.dart';
 
-class StanceDaoImpl implements StanceDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'stance_dao_impl.g.dart';
 
-  static const stanceTable = "stance";
-
-  static const createTableQuery = '''
-    CREATE TABLE $stanceTable(
-      ${Stance.idColumn} $idType,
-      ${Stance.personIDColumn} $integerType $unique,
-      ${Stance.openToAdoptionColumn} $boolType,
-      ${Stance.openToSexWorkerPartnerColumn} $boolType,
-      ${Stance.openToAbortionColumn} $boolType,
-      ${Stance.openToSurrogacyColumn} $boolType,
-      ${Stance.openToAlternativeFertilityMethodsColumn} $boolType,
-      ${Stance.openToSigningPrenupColumn} $boolType,
-      ${Stance.wantsPartnerToSignPrenupColumn} $boolType,
-      ${Stance.openToCrimesColumn} $boolType,
-      ${Stance.openToStayAtHomeParentingColumn} $boolType,
-      ${Stance.openToPremaritalSexColumn} $boolType,
-      FOREIGN KEY (${Stance.personIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-  ''';
+@DriftAccessor(tables: [StanceTable])
+class StanceDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$StanceDaoImplMixin
+    implements StanceDao {
+  StanceDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Stance> createStance(Stance stance) async {
-    final db = await _databaseProvider.database;
-    final id = await db.insert(
-      stanceTable,
-      stance.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+    final StanceTableCompanion stanceWithoutID =
+        stance.toCompanion(false).copyWith(
+              id: const Value.absent(),
+            );
+    final stanceID = await into(stanceTable).insertOnConflictUpdate(
+      stanceWithoutID,
     );
-
-    return stance.copyWith(id: id);
+    return stance.copyWith(id: stanceID);
   }
 
   @override
-  Future<void> deleteStance(int stanceID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      stanceTable,
-      where: "${Stance.idColumn} = ?",
-      whereArgs: [stanceID],
-    );
+  Future<void> deleteStance(int stanceID) {
+    return (delete(stanceTable)
+          ..where(
+            (stance) => stance.id.equals(stanceID),
+          ))
+        .go();
   }
 
   @override
-  Future<Stance?> getStance(int personID) async {
-    final db = await _databaseProvider.database;
-    final stanceMaps = await db.query(
-      stanceTable,
-      columns: Stance.allColumns,
-      where: "${Stance.personIDColumn} = ?",
-      whereArgs: [personID],
-    );
-
-    if (stanceMaps.isNotEmpty) {
-      return Stance.fromMap(stanceMap: stanceMaps.first);
-    } else {
-      return null;
-    }
+  Future<Stance?> getStance(int personID) {
+    return (select(stanceTable)
+          ..where((stance) => stance.personId.equals(personID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateStance(Stance stance) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      stanceTable,
-      stance.toMap(),
-      where: "${Stance.idColumn} = ?",
-      whereArgs: [stance.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<void> updateStance(Stance stance) {
+    return update(stanceTable).replace(stance);
   }
 }

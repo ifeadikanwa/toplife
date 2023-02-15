@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
+import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
 class DepleteMainPlayerHungerUsecase {
@@ -16,7 +16,7 @@ class DepleteMainPlayerHungerUsecase {
       int depletedHunger = 0;
       int updatedHungerStat = 0;
 
-      if (currentHungerStat <= Stats.hungerEmergencyModeStat) {
+      if (currentHungerStat <= StatsConstants.hungerEmergencyModeStat) {
         //Handle depletion with emergency mode
         depletedHunger = getEmergencyDepletionValue(hours);
         updatedHungerStat = currentHungerStat - depletedHunger;
@@ -28,8 +28,8 @@ class DepleteMainPlayerHungerUsecase {
         //then just update to enter emergency mode.
         //or else do a regular depletion update
         if ((currentHungerStat - depletedHunger) <=
-            Stats.hungerEmergencyModeStat) {
-          updatedHungerStat = Stats.hungerEmergencyModeStat;
+            StatsConstants.hungerEmergencyModeStat) {
+          updatedHungerStat = StatsConstants.hungerEmergencyModeStat;
         } else {
           updatedHungerStat = currentHungerStat - depletedHunger;
         }
@@ -42,10 +42,10 @@ class DepleteMainPlayerHungerUsecase {
   }
 
   int getEmergencyDepletionValue(int hours) {
-    return hours * Stats.hungerEmergencyDepletionRatePerHour;
+    return hours * StatsConstants.hungerEmergencyDepletionRatePerHour;
   }
 
   int getRegularDepletionValue(int hours) {
-    return hours * Stats.hungerDepletionRatePerHour;
+    return hours * StatsConstants.hungerDepletionRatePerHour;
   }
 }

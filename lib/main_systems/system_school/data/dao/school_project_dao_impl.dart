@@ -1,44 +1,38 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/dao/school_relationship_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_project_dao.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_project.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
 
 class SchoolProjectDaoImpl implements SchoolProjectDao {
   final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
 
   static const schoolProjectTable = "school_project";
 
-  static const createTableQuery = '''
-    CREATE TABLE $schoolProjectTable(
-      ${SchoolProject.idColumn} $idType,
-      ${SchoolProject.schoolIDColumn} $integerType,
-      ${SchoolProject.semesterNumberColumn} $integerType,
-      ${SchoolProject.mainPersonIDColumn} $integerType,
-      ${SchoolProject.mainPersonContributionColumn} $integerType,
-      ${SchoolProject.projectPartnerSchoolRelationshipIDColumn} $integerType,
-      ${SchoolProject.projectPartnerContributionColumn} $integerType,
-      ${SchoolProject.projectPartnerWillContributeColumn} $boolType,
-      FOREIGN KEY (${SchoolProject.schoolIDColumn})
-       REFERENCES ${SchoolDaoImpl.schoolTable} (${School.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${SchoolProject.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${SchoolProject.projectPartnerSchoolRelationshipIDColumn})
-       REFERENCES ${SchoolRelationshipDaoImpl.schoolRelationshipTable} (${SchoolRelationship.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-  ''';
+  static const createTableQuery ="";
+  //  '''
+  //   CREATE TABLE $schoolProjectTable(
+  //     ${SchoolProject.idColumn} $idType,
+  //     ${SchoolProject.schoolIDColumn} $integerType,
+  //     ${SchoolProject.semesterNumberColumn} $integerType,
+  //     ${SchoolProject.mainPersonIDColumn} $integerType,
+  //     ${SchoolProject.mainPersonContributionColumn} $integerType,
+  //     ${SchoolProject.projectPartnerSchoolRelationshipIDColumn} $integerType,
+  //     ${SchoolProject.projectPartnerContributionColumn} $integerType,
+  //     ${SchoolProject.projectPartnerWillContributeColumn} $boolType,
+  //     FOREIGN KEY (${SchoolProject.schoolIDColumn})
+  //      REFERENCES ${SchoolDaoImpl.schoolTable} (${School.idColumn}) 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE,
+  //     FOREIGN KEY (${SchoolProject.mainPersonIDColumn})
+  //      REFERENCES ${PersonDaoImpl.personTable} () 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE,
+  //     FOREIGN KEY (${SchoolProject.projectPartnerSchoolRelationshipIDColumn})
+  //      REFERENCES ${SchoolRelationshipDaoImpl.schoolRelationshipTable} (${SchoolRelationship.idColumn}) 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE
+  //   )
+  // ''';
 
   @override
   Future<SchoolProject> createSchoolProject(SchoolProject schoolProject) async {

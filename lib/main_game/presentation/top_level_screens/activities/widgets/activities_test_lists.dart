@@ -5,7 +5,7 @@ import 'package:toplife/main_systems/system_event/domain/model/info_models/event
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 
 class ActivitiesTestList {
@@ -20,7 +20,7 @@ class ActivitiesTestList {
   );
   static final testPerson = Person(
     id: 2,
-    gameID: 1,
+    gameId: 1,
     firstName: "Ify",
     lastName: "Eze",
     dayOfBirth: 21,
@@ -33,8 +33,6 @@ class ActivitiesTestList {
     country: "country",
     money: 120,
     zodiacSign: ZodiacSign.Libra.name,
-    importantStatus: null,
-    custodianID: 2,
     transportMode: "bus",
     hasDriversLicense: true,
     hasFertilityIssues: false,

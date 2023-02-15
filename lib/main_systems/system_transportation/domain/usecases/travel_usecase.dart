@@ -1,6 +1,5 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_problem.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
@@ -87,7 +86,7 @@ class TravelUsecase {
       personID: personID,
     );
 
-    if (person != null && person.gameID != null && person.id != null) {
+    if (person != null) {
       final int travelTime = await _getTravelTimeUsecase.execute(
         personID: personID,
       );
@@ -147,14 +146,14 @@ class TravelUsecase {
   }) async {
     final bool paymentSuccessful =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
-      mainPlayerID: person.id!,
+      mainPlayerID: person.id,
       baseAmountToTake: currentTransportation.basePrice,
       adjustToEconomy: true,
     );
 
     if (paymentSuccessful) {
       _moveTimeForward(
-        gameID: person.gameID!,
+        gameID: person.gameId,
         travelTime: travelTime,
         eventDuration: eventDuration,
         twoWayTravel: twoWayTravel,
@@ -188,7 +187,7 @@ class TravelUsecase {
     //travel then trigger reduction (fuel & condition)
 
     final Game? currentGame =
-        await _gameUsecases.getGameUsecase.execute(person.gameID!);
+        await _gameUsecases.getGameUsecase.execute(person.gameId);
 
     if (currentGame != null) {
       final bool carIsNotDead =
@@ -231,7 +230,7 @@ class TravelUsecase {
       );
 
       _moveTimeForward(
-        gameID: person.gameID!,
+        gameID: person.gameId,
         travelTime: travelTime,
         eventDuration: eventDuration,
         twoWayTravel: twoWayTravel,

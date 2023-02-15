@@ -19,7 +19,6 @@ import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_
 import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/repository/recurring_bill_repository_impl.dart';
@@ -87,13 +86,14 @@ final ageUsecasesProvider = Provider<AgeUsecases>((ref) {
 });
 
 final personUsecasesProvider = Provider<PersonUsecases>((ref) {
+  final db = ref.watch(databasePovider);
   return PersonUsecases(
     personRepositories: PersonRepositories(
-      personDao: PersonDaoImpl(),
-      statsDao: StatsDaoImpl(),
-      relationshipTraitsDao: RelationshipTraitsDaoImpl(),
-      babyTraitsDao: BabyTraitsDaoImpl(),
-      stanceDao: StanceDaoImpl(),
+      personDao: PersonDaoImpl(db),
+      statsDao: StatsDaoImpl(db),
+      relationshipTraitsDao: RelationshipTraitsDaoImpl(db),
+      babyTraitsDao: BabyTraitsDaoImpl(db),
+      stanceDao: StanceDaoImpl(db),
     ),
     relationshipUsecases: ref.watch(relationshipUsecasesProvider),
     ageUsecases: ref.watch(ageUsecasesProvider),

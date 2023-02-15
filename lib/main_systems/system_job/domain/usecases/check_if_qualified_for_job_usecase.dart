@@ -4,11 +4,12 @@ import 'package:toplife/main_systems/system_job/domain/model/info_models/job_int
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/data/repository/job_repositories.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
-import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
 import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/school_usecases.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+
 
 class CheckIfQualifiedForFullTimeJobUsecase {
   final JobRepositories _jobRepositories;

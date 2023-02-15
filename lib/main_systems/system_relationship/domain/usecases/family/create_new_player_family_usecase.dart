@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/constants/sibling_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_child_parent_relationship_usecase.dart';
@@ -29,7 +29,7 @@ class CreateNewPlayerFamilyUsecase {
       int currentDay) async {
     //create two parent
     final Person maleParent = personUsecases.generateAPersonUsecase.execute(
-      currentGameID: currentPlayer.gameID!,
+      currentGameID: currentPlayer.gameId,
       currentDay: currentDay,
       currentCountry: currentPlayer.country,
       currentState: currentPlayer.state,
@@ -41,7 +41,7 @@ class CreateNewPlayerFamilyUsecase {
     );
 
     final Person femaleParent = personUsecases.generateAPersonUsecase.execute(
-      currentGameID: currentPlayer.gameID!,
+      currentGameID: currentPlayer.gameId,
       currentDay: currentDay,
       currentCountry: currentPlayer.country,
       currentState: currentPlayer.state,
@@ -62,8 +62,8 @@ class CreateNewPlayerFamilyUsecase {
 
     //create a marriage partner relationship between the two parents
     await _getMarriedUsecase.execute(
-      mainPersonID: createdMaleParent.id!,
-      partnerID: createdFemaleParent.id!,
+      mainPersonID: createdMaleParent.id,
+      partnerID: createdFemaleParent.id,
       currentDay: currentDay,
     );
 
@@ -75,7 +75,7 @@ class CreateNewPlayerFamilyUsecase {
     final List<Person> children =
         personUsecases.generateListOfPersonUsecase.execute(
       numberOfPerson: numberOfChildren,
-      currentGameID: currentPlayer.gameID!,
+      currentGameID: currentPlayer.gameId,
       currentDay: currentDay,
       currentCountry: currentPlayer.country,
       currentState: currentPlayer.state,
@@ -97,23 +97,23 @@ class CreateNewPlayerFamilyUsecase {
 
     //create a child-parent relationship between all the children(including the player) and the parents
     _createChildParentRelationshipUsecase.execute(
-      mainParentID: createdFemaleParent.id!,
-      otherParentID: createdMaleParent.id!,
-      childID: currentPlayer.id!,
+      mainParentID: createdFemaleParent.id,
+      otherParentID: createdMaleParent.id,
+      childID: currentPlayer.id,
     );
 
     for (var createdChildPerson in createdChildrenPerson) {
       //connect all the children to their parents
       _createChildParentRelationshipUsecase.execute(
-        mainParentID: createdFemaleParent.id!,
-        otherParentID: createdMaleParent.id!,
-        childID: createdChildPerson.id!,
+        mainParentID: createdFemaleParent.id,
+        otherParentID: createdMaleParent.id,
+        childID: createdChildPerson.id,
       );
 
       //connect all the children to player as sibling
       _createSiblingRelationshipUsecase.execute(
-        mainPersonID: currentPlayer.id!,
-        siblingID: createdChildPerson.id!,
+        mainPersonID: currentPlayer.id,
+        siblingID: createdChildPerson.id,
         siblingRelationshipType: SiblingRelationshipType.full,
       );
     }

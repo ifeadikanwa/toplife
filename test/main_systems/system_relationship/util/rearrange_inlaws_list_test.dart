@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/inlaw_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
@@ -19,6 +19,9 @@ void main() {
               inLawRelationshipType: InLawRelationshipType.sibling.name,
               relationship: 89),
           person: const Person(
+            id: 1,
+            gameId: 2,
+            hasDriversLicense: false,
             firstName: "Janet",
             lastName: "Johnson",
             dayOfBirth: 34,
@@ -48,6 +51,9 @@ void main() {
               inLawRelationshipType: InLawRelationshipType.parent.name,
               relationship: 89),
           person: const Person(
+            id: 1,
+            gameId: 2,
+            hasDriversLicense: false,
             firstName: "Janet",
             lastName: "Johnson",
             dayOfBirth: 34,
@@ -77,6 +83,9 @@ void main() {
               inLawRelationshipType: InLawRelationshipType.child.name,
               relationship: 89),
           person: const Person(
+            id: 1,
+            gameId: 2,
+            hasDriversLicense: false,
             firstName: "Janet",
             lastName: "Johnson",
             dayOfBirth: 34,
@@ -109,6 +118,9 @@ void main() {
               inLawRelationshipType: InLawRelationshipType.parent.name,
               relationship: 89),
           person: const Person(
+            id: 1,
+            gameId: 2,
+            hasDriversLicense: false,
             firstName: "Janet",
             lastName: "Johnson",
             dayOfBirth: 34,
@@ -138,6 +150,9 @@ void main() {
               inLawRelationshipType: InLawRelationshipType.child.name,
               relationship: 89),
           person: const Person(
+            id: 1,
+            gameId: 2,
+            hasDriversLicense: false,
             firstName: "Janet",
             lastName: "Johnson",
             dayOfBirth: 34,
@@ -167,6 +182,9 @@ void main() {
               inLawRelationshipType: InLawRelationshipType.sibling.name,
               relationship: 89),
           person: const Person(
+            id: 1,
+            gameId: 2,
+            hasDriversLicense: false,
             firstName: "Janet",
             lastName: "Johnson",
             dayOfBirth: 34,

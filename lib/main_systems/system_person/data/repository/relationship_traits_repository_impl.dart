@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_person/domain/dao/relationship_traits_dao.dart';
-import 'package:toplife/main_systems/system_person/domain/model/relationship_traits.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/relationship_traits_repository.dart';
 
 class RelationshipTraitsRepositoryImpl implements RelationshipTraitsRepository {

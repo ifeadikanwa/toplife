@@ -1,8 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/graveyard_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/graveyard.dart';
 
@@ -12,26 +9,26 @@ class GraveyardDaoImpl implements GraveyardDao {
 
   static const graveyardTable = "graveyard";
 
-  static const createTableQuery =
-      '''
-    CREATE TABLE $graveyardTable(
-      ${Graveyard.mainPersonIDColumn} $integerType,
-      ${Graveyard.deadPersonIDColumn} $integerType,
-      ${Graveyard.relationshipTypeColumn} $textType,
-      ${Graveyard.dayOfDeathColumn} $integerType,
-      ${Graveyard.fullNameColumn} $textType,
-      ${Graveyard.ageAtDeathColumn} $textType,
-      PRIMARY KEY (${Graveyard.mainPersonIDColumn}, ${Graveyard.deadPersonIDColumn}),
-      FOREIGN KEY (${Graveyard.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Graveyard.deadPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery ="";
+//       '''
+//     CREATE TABLE $graveyardTable(
+//       ${Graveyard.mainPersonIDColumn} $integerType,
+//       ${Graveyard.deadPersonIDColumn} $integerType,
+//       ${Graveyard.relationshipTypeColumn} $textType,
+//       ${Graveyard.dayOfDeathColumn} $integerType,
+//       ${Graveyard.fullNameColumn} $textType,
+//       ${Graveyard.ageAtDeathColumn} $textType,
+//       PRIMARY KEY (${Graveyard.mainPersonIDColumn}, ${Graveyard.deadPersonIDColumn}),
+//       FOREIGN KEY (${Graveyard.mainPersonIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${Graveyard.deadPersonIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
   @override
   Future<Graveyard> createGraveyard(Graveyard graveyard) async {

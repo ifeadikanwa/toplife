@@ -1,8 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/relative_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
@@ -12,24 +9,25 @@ class RelativeDaoImpl implements RelativeDao {
 
   static const relativeTable = "relative";
 
-  static const createTableQuery = '''
-    CREATE TABLE $relativeTable(
-      ${Relative.mainPersonIDColumn} $integerType,
-      ${Relative.relativeIDColumn} $integerType,
-      ${Relative.inYourCustodyColumn} $boolType,
-      ${Relative.relativeRelationshipTypeColumn} $textType,
-      ${Relative.relationshipColumn} $integerType,
-      PRIMARY KEY (${Relative.mainPersonIDColumn}, ${Relative.relativeIDColumn}),
-      FOREIGN KEY (${Relative.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Relative.relativeIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery ="";
+//    '''
+//     CREATE TABLE $relativeTable(
+//       ${Relative.mainPersonIDColumn} $integerType,
+//       ${Relative.relativeIDColumn} $integerType,
+//       ${Relative.inYourCustodyColumn} $boolType,
+//       ${Relative.relativeRelationshipTypeColumn} $textType,
+//       ${Relative.relationshipColumn} $integerType,
+//       PRIMARY KEY (${Relative.mainPersonIDColumn}, ${Relative.relativeIDColumn}),
+//       FOREIGN KEY (${Relative.mainPersonIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${Relative.relativeIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
   @override
   Future<Relative> createRelative(Relative relative) async {

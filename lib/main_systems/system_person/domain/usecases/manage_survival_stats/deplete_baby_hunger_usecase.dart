@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
+import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/baby_traits_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
@@ -26,15 +26,15 @@ class DepleteBabyHungerUsecase {
       int updatedHungerStat = 0;
       int depletedHunger = 0;
 
-      if (currentHungerStat <= Stats.babyHungerEmergencyModeStat) {
+      if (currentHungerStat <= StatsConstants.babyHungerEmergencyModeStat) {
         depletedHunger = getEmergencyDepletionValue(hours);
         updatedHungerStat = currentHungerStat - depletedHunger;
       } else {
         depletedHunger = getRegularDepletionValue(hours, appetite);
 
         if ((currentHungerStat - depletedHunger) <=
-            Stats.babyHungerEmergencyModeStat) {
-          updatedHungerStat = Stats.babyHungerEmergencyModeStat;
+            StatsConstants.babyHungerEmergencyModeStat) {
+          updatedHungerStat = StatsConstants.babyHungerEmergencyModeStat;
         } else {
           updatedHungerStat = currentHungerStat - depletedHunger;
         }
@@ -47,7 +47,7 @@ class DepleteBabyHungerUsecase {
   }
 
   int getEmergencyDepletionValue(int hours) {
-    return hours * Stats.babyHungerEmergencyDepletionRatePerHour;
+    return hours * StatsConstants.babyHungerEmergencyDepletionRatePerHour;
   }
 
   int getRegularDepletionValue(int hours, int appetite) {

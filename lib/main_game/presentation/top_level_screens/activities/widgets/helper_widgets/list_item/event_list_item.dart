@@ -7,7 +7,7 @@ import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_time.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 class EventListItem extends ConsumerWidget {
   final Person eventMainPerson;

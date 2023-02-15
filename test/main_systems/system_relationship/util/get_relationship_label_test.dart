@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/child_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/inlaw_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
@@ -20,6 +20,9 @@ import 'package:toplife/main_systems/system_relationship/util/get_relationship_l
 void main() {
   group("getRelationshipLabel:", () {
     final Person testPerson = Person(
+      id: 1,
+      gameId: 2,
+      hasDriversLicense: false,
       firstName: "firstName",
       lastName: "lastName",
       dayOfBirth: 0,

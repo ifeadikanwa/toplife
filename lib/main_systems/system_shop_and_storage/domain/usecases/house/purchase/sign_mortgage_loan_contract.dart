@@ -6,7 +6,6 @@ import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
@@ -37,7 +36,7 @@ class SignMortgageLoanContract {
   }) async {
     //pay down payment
     await _personUsecases.takeMoneyFromPlayerUsecase.execute(
-      mainPlayerID: person.id!,
+      mainPlayerID: person.id,
       baseAmountToTake: baseDownPayment,
       adjustToEconomy: true,
     );
@@ -45,7 +44,7 @@ class SignMortgageLoanContract {
     //add house to storage
     final createdHouse = await _houseRepository.createHouse(
       house.copyWith(
-        personID: person.id!,
+        personID: person.id,
         isCurrentHome: false,
         country: person.country,
         lastMaintainedDay: currentGame.currentDay,
@@ -63,7 +62,7 @@ class SignMortgageLoanContract {
 
     //add loan to bills
     await _recurringBillsUsecases.addMortgageLoanToBillsUsecase.execute(
-      personID: person.id!,
+      personID: person.id,
       baseLoanAmount: baseLoanAmount,
       houseID: createdHouse.id!,
       houseAddress: house.address,
@@ -95,7 +94,7 @@ class SignMortgageLoanContract {
     await _journalUsecases.addToJournalUsecase.execute(
       gameID: currentGame.id,
       day: currentGame.currentDay,
-      mainPlayerID: person.id!,
+      mainPlayerID: person.id,
       entry: journalEntry,
     );
 

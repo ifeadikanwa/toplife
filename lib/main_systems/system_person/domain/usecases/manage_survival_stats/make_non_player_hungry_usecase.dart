@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
+import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
 class MakeNonPlayerHungryUsecase {
@@ -13,7 +13,7 @@ class MakeNonPlayerHungryUsecase {
     if (personStats != null) {
 
       final updatedPersonStats =
-          personStats.copyWith(hunger: Stats.hungerEmergencyModeStat);
+          personStats.copyWith(hunger: StatsConstants.hungerEmergencyModeStat);
 
       _statsRepository.updateStats(updatedPersonStats);
     }

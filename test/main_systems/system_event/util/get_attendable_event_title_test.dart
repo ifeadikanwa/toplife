@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 void main() {
   group("getAttendableEventTitle:", () {
     const event = Event(
@@ -19,7 +18,7 @@ void main() {
 
     const person = Person(
       id: 1,
-      gameID: 2,
+      gameId: 2,
       firstName: "Ify",
       lastName: "Eze",
       dayOfBirth: 21,
@@ -32,8 +31,6 @@ void main() {
       country: "country",
       money: 120,
       zodiacSign: "",
-      importantStatus: null,
-      custodianID: 2,
       hasDriversLicense: true,
       transportMode: "bus",
       hasFertilityIssues: false,

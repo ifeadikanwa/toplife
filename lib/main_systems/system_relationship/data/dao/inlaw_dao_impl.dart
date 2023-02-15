@@ -1,8 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/inlaw_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
 
@@ -11,26 +8,26 @@ class InLawDaoImpl implements InLawDao {
 
   static const inLawTable = "in_law";
 
-  static const createTableQuery =
-      '''
-    CREATE TABLE $inLawTable(
-      ${InLaw.mainPersonIDColumn} $integerType,
-      ${InLaw.inLawIDColumn} $integerType,
-      ${InLaw.likesMainPersonColumn} $boolType,
-      ${InLaw.inLawRelationshipTypeColumn} $textType,
-      ${InLaw.haveRomanticRelationshipColumn} $boolType,
-      ${InLaw.relationshipColumn} $integerType,
-      PRIMARY KEY (${InLaw.mainPersonIDColumn}, ${InLaw.inLawIDColumn}),
-      FOREIGN KEY (${InLaw.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${InLaw.inLawIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery ="";
+//       '''
+//     CREATE TABLE $inLawTable(
+//       ${InLaw.mainPersonIDColumn} $integerType,
+//       ${InLaw.inLawIDColumn} $integerType,
+//       ${InLaw.likesMainPersonColumn} $boolType,
+//       ${InLaw.inLawRelationshipTypeColumn} $textType,
+//       ${InLaw.haveRomanticRelationshipColumn} $boolType,
+//       ${InLaw.relationshipColumn} $integerType,
+//       PRIMARY KEY (${InLaw.mainPersonIDColumn}, ${InLaw.inLawIDColumn}),
+//       FOREIGN KEY (${InLaw.mainPersonIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${InLaw.inLawIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
   @override
   Future<InLaw> createInLaw(InLaw inLaw) async {

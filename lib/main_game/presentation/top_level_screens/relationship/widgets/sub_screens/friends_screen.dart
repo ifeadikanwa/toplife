@@ -3,7 +3,7 @@ import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 
 class FriendsScreen extends StatelessWidget {

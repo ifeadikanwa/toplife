@@ -1,8 +1,9 @@
-import 'package:toplife/main_systems/system_person/domain/model/baby_traits.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class BabyTraitsRepository{
   Future<BabyTraits> createBabyTraits(BabyTraits babyTraits);
   Future<BabyTraits?> getBabyTraits(int personID);
   Future<void> updateBabyTraits(BabyTraits babyTraits);
   Future<void> deleteBabyTraits(int babyTraitsID);
+  Stream<BabyTraits?> watchBabyTraits(int personID);
 }

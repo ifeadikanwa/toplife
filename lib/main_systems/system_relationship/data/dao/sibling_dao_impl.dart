@@ -1,8 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/sibling_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 
@@ -11,23 +8,24 @@ class SiblingDaoImpl implements SiblingDao{
 
   static const siblingTable = "sibling";
 
-  static const createTableQuery = '''
-    CREATE TABLE $siblingTable(
-      ${Sibling.mainPersonIDColumn} $integerType,
-      ${Sibling.siblingIDColumn} $integerType,
-      ${Sibling.siblingRelationshipTypeColumn} $textType,
-      ${Sibling.relationshipColumn} $integerType,
-      PRIMARY KEY (${Sibling.mainPersonIDColumn}, ${Sibling.siblingIDColumn}),
-      FOREIGN KEY (${Sibling.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Sibling.siblingIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery = "";
+//   ''
+//     CREATE TABLE $siblingTable(
+//       ${Sibling.mainPersonIDColumn} $integerType,
+//       ${Sibling.siblingIDColumn} $integerType,
+//       ${Sibling.siblingRelationshipTypeColumn} $textType,
+//       ${Sibling.relationshipColumn} $integerType,
+//       PRIMARY KEY (${Sibling.mainPersonIDColumn}, ${Sibling.siblingIDColumn}),
+//       FOREIGN KEY (${Sibling.mainPersonIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE,
+//       FOREIGN KEY (${Sibling.siblingIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
 
 

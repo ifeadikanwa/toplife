@@ -1,12 +1,7 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_school/constants/school_relationship_type.dart';
-import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_relationship_dao.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
 
 class SchoolRelationshipDaoImpl implements SchoolRelationshipDao {
@@ -14,32 +9,33 @@ class SchoolRelationshipDaoImpl implements SchoolRelationshipDao {
 
   static const schoolRelationshipTable = "school_relationship";
 
-  static const createTableQuery = '''
-    CREATE TABLE $schoolRelationshipTable(
-      ${SchoolRelationship.idColumn} $idType,
-      ${SchoolRelationship.schoolIDColumn} $integerType,
-      ${SchoolRelationship.mainPersonIDColumn} $integerType,
-      ${SchoolRelationship.otherPersonIDColumn} $integerType,
-      ${SchoolRelationship.schoolRelationshipTypeColumn} $textType,
-      ${SchoolRelationship.informalRelationshipTypeColumn} $textType,
-      ${SchoolRelationship.gradesColumn} $integerType,
-      ${SchoolRelationship.professionalColumn} $boolType,
-      ${SchoolRelationship.helpfulColumn} $boolType,
-      ${SchoolRelationship.personalityTypeColumn} $textType,
-      FOREIGN KEY (${SchoolRelationship.schoolIDColumn})
-       REFERENCES ${SchoolDaoImpl.schoolTable} (${School.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${SchoolRelationship.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${SchoolRelationship.otherPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-  ''';
+  static const createTableQuery ="";
+  //  '''
+  //   CREATE TABLE $schoolRelationshipTable(
+  //     ${SchoolRelationship.idColumn} $idType,
+  //     ${SchoolRelationship.schoolIDColumn} $integerType,
+  //     ${SchoolRelationship.mainPersonIDColumn} $integerType,
+  //     ${SchoolRelationship.otherPersonIDColumn} $integerType,
+  //     ${SchoolRelationship.schoolRelationshipTypeColumn} $textType,
+  //     ${SchoolRelationship.informalRelationshipTypeColumn} $textType,
+  //     ${SchoolRelationship.gradesColumn} $integerType,
+  //     ${SchoolRelationship.professionalColumn} $boolType,
+  //     ${SchoolRelationship.helpfulColumn} $boolType,
+  //     ${SchoolRelationship.personalityTypeColumn} $textType,
+  //     FOREIGN KEY (${SchoolRelationship.schoolIDColumn})
+  //      REFERENCES ${SchoolDaoImpl.schoolTable} (${School.idColumn}) 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE,
+  //     FOREIGN KEY (${SchoolRelationship.mainPersonIDColumn})
+  //      REFERENCES ${PersonDaoImpl.personTable} () 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE,
+  //     FOREIGN KEY (${SchoolRelationship.otherPersonIDColumn})
+  //      REFERENCES ${PersonDaoImpl.personTable} () 
+  //      ON UPDATE CASCADE
+  //      ON DELETE CASCADE
+  //   )
+  // ''';
 
   @override
   Future<SchoolRelationship> createSchoolRelationship(

@@ -1,8 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/house_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 
@@ -11,33 +9,34 @@ class HouseDaoImpl implements HouseDao {
 
   static const houseTable = "house";
 
-  static const createTableQuery = '''
-    CREATE TABLE $houseTable(
-      ${House.idColumn} $idType,
-      ${House.personIDColumn} $integerType,
-      ${House.isCurrentHomeColumn} $boolType,
-      ${House.bedroomsColumn} $integerType,
-      ${House.bathroomsColumn} $integerType,
-      ${House.storageColumn} $integerType,
-      ${House.addressColumn} $textType,
-      ${House.isForRentColumn} $boolType,
-      ${House.buildingTypeColumn} $textType,
-      ${House.settlementColumn} $textType,
-      ${House.countryColumn} $textType,
-      ${House.styleColumn} $textType,
-      ${House.lastMaintainedDayColumn} $integerType,
-      ${House.basePriceColumn} $integerType,
-      ${House.dayOfPurchaseColumn} $integerType,
-      ${House.endOfLeaseDayColumn} $integerType,
-      ${House.conditionColumn} $integerType,
-      ${House.purchasePriceColumn} $integerType,
-      ${House.fullyPaidForColumn} $boolType,
-      FOREIGN KEY (${House.personIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery ="";
+//    '''
+//     CREATE TABLE $houseTable(
+//       ${House.idColumn} $idType,
+//       ${House.personIDColumn} $integerType,
+//       ${House.isCurrentHomeColumn} $boolType,
+//       ${House.bedroomsColumn} $integerType,
+//       ${House.bathroomsColumn} $integerType,
+//       ${House.storageColumn} $integerType,
+//       ${House.addressColumn} $textType,
+//       ${House.isForRentColumn} $boolType,
+//       ${House.buildingTypeColumn} $textType,
+//       ${House.settlementColumn} $textType,
+//       ${House.countryColumn} $textType,
+//       ${House.styleColumn} $textType,
+//       ${House.lastMaintainedDayColumn} $integerType,
+//       ${House.basePriceColumn} $integerType,
+//       ${House.dayOfPurchaseColumn} $integerType,
+//       ${House.endOfLeaseDayColumn} $integerType,
+//       ${House.conditionColumn} $integerType,
+//       ${House.purchasePriceColumn} $integerType,
+//       ${House.fullyPaidForColumn} $boolType,
+//       FOREIGN KEY (${House.personIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
   @override
   Future<House> createHouse(House house) async {

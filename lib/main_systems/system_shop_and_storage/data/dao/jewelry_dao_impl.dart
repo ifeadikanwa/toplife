@@ -1,8 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/jewelry_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
 
@@ -11,23 +8,24 @@ class JewelryDaoImpl implements JewelryDao {
 
   static const jewelryTable = "jewelry";
 
-  static const createTableQuery = '''
-    CREATE TABLE $jewelryTable(
-      ${Jewelry.idColumn} $idType,
-      ${Jewelry.personIDColumn} $integerType,
-      ${Jewelry.jewelColumn} $textType,
-      ${Jewelry.typeColumn} $textType,
-      ${Jewelry.caratColumn} $decimalType,
-      ${Jewelry.qualityColumn} $textType,
-      ${Jewelry.basePriceColumn} $integerType,
-      ${Jewelry.dayOfPurchaseColumn} $integerType,
-      ${Jewelry.maxConditionAtPurchaseColumn} $integerType,
-      FOREIGN KEY (${Jewelry.personIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-''';
+  static const createTableQuery ="";
+//    '''
+//     CREATE TABLE $jewelryTable(
+//       ${Jewelry.idColumn} $idType,
+//       ${Jewelry.personIDColumn} $integerType,
+//       ${Jewelry.jewelColumn} $textType,
+//       ${Jewelry.typeColumn} $textType,
+//       ${Jewelry.caratColumn} $decimalType,
+//       ${Jewelry.qualityColumn} $textType,
+//       ${Jewelry.basePriceColumn} $integerType,
+//       ${Jewelry.dayOfPurchaseColumn} $integerType,
+//       ${Jewelry.maxConditionAtPurchaseColumn} $integerType,
+//       FOREIGN KEY (${Jewelry.personIDColumn})
+//        REFERENCES ${PersonDaoImpl.personTable} () 
+//        ON UPDATE CASCADE
+//        ON DELETE CASCADE
+//     )
+// ''';
 
   @override
   Future<Jewelry> createJewelry(Jewelry jewelry) async {

@@ -1,11 +1,12 @@
 import 'dart:math';
 
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_gender.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_sexuality.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_zodiac_sign.dart';
@@ -81,7 +82,8 @@ class GenerateAPersonUsecase {
     );
 
     return Person(
-      gameID: currentGameID,
+      id: DatabaseConstants.dummyId,
+      gameId: currentGameID,
       firstName: (personGender == Gender.Female)
           ? country.randomFemaleFirstName
           : country.randomMaleFirstName,
@@ -97,6 +99,7 @@ class GenerateAPersonUsecase {
       money: Random().nextInt(60) + 40, //random amount in 40-100
       zodiacSign: personZodiacSign.name,
       transportMode: TransportMode.bus.name,
+      hasDriversLicense: false,
       hasFertilityIssues: Chance.getTrueOrFalseBasedOnPercentageChance(
         trueChancePercentage: 10,
       ),

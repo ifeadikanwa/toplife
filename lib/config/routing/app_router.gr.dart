@@ -17,6 +17,7 @@ import 'package:drift/drift.dart' as _i39;
 import 'package:drift_db_viewer/drift_db_viewer.dart' as _i7;
 import 'package:flutter/material.dart' as _i38;
 
+import '../../core/data_source/drift_database/database_provider.dart' as _i47;
 import '../../game_manager/presentation/game_manager_screen.dart' as _i2;
 import '../../main_game/presentation/main_game_screen.dart' as _i1;
 import '../../main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart'
@@ -83,7 +84,6 @@ import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/
     as _i13;
 import '../../main_game/presentation/top_level_screens/work/widgets/work_screen.dart'
     as _i5;
-import '../../main_systems/system_person/domain/model/person.dart' as _i47;
 import '../../main_systems/system_relationship/domain/model/child.dart' as _i50;
 import '../../main_systems/system_relationship/domain/model/friend.dart'
     as _i53;
