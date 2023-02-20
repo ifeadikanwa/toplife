@@ -4,7 +4,7 @@
 // import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 // import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
-// void main() {
+void main() {
 //   late Person sut;
 
 //   setUp(() {
@@ -149,4 +149,4 @@
 //       });
 //     },
 //   );
-// }
+}

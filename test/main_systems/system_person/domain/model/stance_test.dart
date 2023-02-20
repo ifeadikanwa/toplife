@@ -1,7 +1,7 @@
 // import 'package:flutter_test/flutter_test.dart';
 // import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
-// void main() {
+void main() {
 //   late Stance sut;
 
 //   setUp(() {
@@ -100,4 +100,4 @@
 //       });
 //     },
 //   );
-// }
+}
