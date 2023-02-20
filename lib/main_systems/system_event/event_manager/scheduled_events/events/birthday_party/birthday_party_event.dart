@@ -102,7 +102,7 @@ class BirthdayPartyEvent {
 
         //get player currency
         final playerCountry = LocationManager.getCountryClass(
-          countryName: mainPlayerPerson.country,
+          countryName: mainPlayerPerson.currentCountry,
         );
 
         //get player money
@@ -138,8 +138,8 @@ class BirthdayPartyEvent {
           context: context,
           title: StandardEventSentences.playerCantAttendTitle,
           result: StandardEventSentences.getPlayerCantAttendDescription(
-            playerCountry: mainPlayerPerson.country,
-            eventMainPersonCountry: birthdayPerson.country,
+            playerCountry: mainPlayerPerson.currentCountry,
+            eventMainPersonCountry: birthdayPerson.currentCountry,
           ),
         );
       }

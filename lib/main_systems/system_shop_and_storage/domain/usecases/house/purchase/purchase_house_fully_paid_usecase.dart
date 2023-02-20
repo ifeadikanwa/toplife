@@ -59,7 +59,7 @@ class PurchaseHouseFullyPaidUsecase {
     //add to storage if successful
     if (paymentSuccessful && currentGame != null && person != null) {
       final int purchasePrice = getCountryEconomyAdjustedPrice(
-        country: person.country,
+        country: person.currentCountry,
         basePrice: house.basePrice,
       );
 
@@ -69,7 +69,7 @@ class PurchaseHouseFullyPaidUsecase {
           isCurrentHome: false,
           dayOfPurchase: currentGame.currentDay,
           lastMaintainedDay: currentGame.currentDay,
-          country: person.country,
+          country: person.currentCountry,
           purchasePrice: purchasePrice,
           fullyPaidFor: true,
         ),

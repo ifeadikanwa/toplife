@@ -43,12 +43,12 @@ class AddMortgageLoanToBillsUsecase {
       //get loan amount and reccuring payment
       final int totalLoanAmount = _mortgageLoanCalculatorUsecase.execute(
         baseLoanAmount: baseLoanAmount,
-        country: person.country,
+        country: person.currentCountry,
       );
       final int recurringPayment =
           _mortgageLoanRecurringPaymentCalculatorUsecase.execute(
         baseLoanAmount: baseLoanAmount,
-        country: person.country,
+        country: person.currentCountry,
       );
 
       //get due day of the week

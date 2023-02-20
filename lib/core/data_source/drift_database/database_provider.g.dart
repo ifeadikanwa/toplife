@@ -459,16 +459,29 @@ class $PersonTableTable extends PersonTable
   late final GeneratedColumn<String> sexuality = GeneratedColumn<String>(
       'sexuality', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _stateMeta = const VerificationMeta('state');
+  static const VerificationMeta _currentStateMeta =
+      const VerificationMeta('currentState');
   @override
-  late final GeneratedColumn<String> state = GeneratedColumn<String>(
-      'state', aliasedName, false,
+  late final GeneratedColumn<String> currentState = GeneratedColumn<String>(
+      'current_state', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _countryMeta =
-      const VerificationMeta('country');
+  static const VerificationMeta _currentCountryMeta =
+      const VerificationMeta('currentCountry');
   @override
-  late final GeneratedColumn<String> country = GeneratedColumn<String>(
-      'country', aliasedName, false,
+  late final GeneratedColumn<String> currentCountry = GeneratedColumn<String>(
+      'current_country', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _birthStateMeta =
+      const VerificationMeta('birthState');
+  @override
+  late final GeneratedColumn<String> birthState = GeneratedColumn<String>(
+      'birth_state', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _birthCountryMeta =
+      const VerificationMeta('birthCountry');
+  @override
+  late final GeneratedColumn<String> birthCountry = GeneratedColumn<String>(
+      'birth_country', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _moneyMeta = const VerificationMeta('money');
   @override
@@ -581,8 +594,10 @@ class $PersonTableTable extends PersonTable
         objectPronoun,
         possessivePronoun,
         sexuality,
-        state,
-        country,
+        currentState,
+        currentCountry,
+        birthState,
+        birthCountry,
         money,
         zodiacSign,
         hasDriversLicense,
@@ -668,17 +683,37 @@ class $PersonTableTable extends PersonTable
     } else if (isInserting) {
       context.missing(_sexualityMeta);
     }
-    if (data.containsKey('state')) {
+    if (data.containsKey('current_state')) {
       context.handle(
-          _stateMeta, state.isAcceptableOrUnknown(data['state']!, _stateMeta));
+          _currentStateMeta,
+          currentState.isAcceptableOrUnknown(
+              data['current_state']!, _currentStateMeta));
     } else if (isInserting) {
-      context.missing(_stateMeta);
+      context.missing(_currentStateMeta);
     }
-    if (data.containsKey('country')) {
-      context.handle(_countryMeta,
-          country.isAcceptableOrUnknown(data['country']!, _countryMeta));
+    if (data.containsKey('current_country')) {
+      context.handle(
+          _currentCountryMeta,
+          currentCountry.isAcceptableOrUnknown(
+              data['current_country']!, _currentCountryMeta));
     } else if (isInserting) {
-      context.missing(_countryMeta);
+      context.missing(_currentCountryMeta);
+    }
+    if (data.containsKey('birth_state')) {
+      context.handle(
+          _birthStateMeta,
+          birthState.isAcceptableOrUnknown(
+              data['birth_state']!, _birthStateMeta));
+    } else if (isInserting) {
+      context.missing(_birthStateMeta);
+    }
+    if (data.containsKey('birth_country')) {
+      context.handle(
+          _birthCountryMeta,
+          birthCountry.isAcceptableOrUnknown(
+              data['birth_country']!, _birthCountryMeta));
+    } else if (isInserting) {
+      context.missing(_birthCountryMeta);
     }
     if (data.containsKey('money')) {
       context.handle(
@@ -781,10 +816,14 @@ class $PersonTableTable extends PersonTable
           DriftSqlType.string, data['${effectivePrefix}possessive_pronoun'])!,
       sexuality: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}sexuality'])!,
-      state: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}state'])!,
-      country: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}country'])!,
+      currentState: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}current_state'])!,
+      currentCountry: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}current_country'])!,
+      birthState: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}birth_state'])!,
+      birthCountry: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}birth_country'])!,
       money: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}money'])!,
       zodiacSign: attachedDatabase.typeMapping
@@ -825,8 +864,10 @@ class Person extends DataClass implements Insertable<Person> {
   final String objectPronoun;
   final String possessivePronoun;
   final String sexuality;
-  final String state;
-  final String country;
+  final String currentState;
+  final String currentCountry;
+  final String birthState;
+  final String birthCountry;
   final int money;
   final String zodiacSign;
   final bool hasDriversLicense;
@@ -848,8 +889,10 @@ class Person extends DataClass implements Insertable<Person> {
       required this.objectPronoun,
       required this.possessivePronoun,
       required this.sexuality,
-      required this.state,
-      required this.country,
+      required this.currentState,
+      required this.currentCountry,
+      required this.birthState,
+      required this.birthCountry,
       required this.money,
       required this.zodiacSign,
       required this.hasDriversLicense,
@@ -873,8 +916,10 @@ class Person extends DataClass implements Insertable<Person> {
     map['object_pronoun'] = Variable<String>(objectPronoun);
     map['possessive_pronoun'] = Variable<String>(possessivePronoun);
     map['sexuality'] = Variable<String>(sexuality);
-    map['state'] = Variable<String>(state);
-    map['country'] = Variable<String>(country);
+    map['current_state'] = Variable<String>(currentState);
+    map['current_country'] = Variable<String>(currentCountry);
+    map['birth_state'] = Variable<String>(birthState);
+    map['birth_country'] = Variable<String>(birthCountry);
     map['money'] = Variable<int>(money);
     map['zodiac_sign'] = Variable<String>(zodiacSign);
     map['has_drivers_license'] = Variable<bool>(hasDriversLicense);
@@ -900,8 +945,10 @@ class Person extends DataClass implements Insertable<Person> {
       objectPronoun: Value(objectPronoun),
       possessivePronoun: Value(possessivePronoun),
       sexuality: Value(sexuality),
-      state: Value(state),
-      country: Value(country),
+      currentState: Value(currentState),
+      currentCountry: Value(currentCountry),
+      birthState: Value(birthState),
+      birthCountry: Value(birthCountry),
       money: Value(money),
       zodiacSign: Value(zodiacSign),
       hasDriversLicense: Value(hasDriversLicense),
@@ -929,8 +976,10 @@ class Person extends DataClass implements Insertable<Person> {
       objectPronoun: serializer.fromJson<String>(json['objectPronoun']),
       possessivePronoun: serializer.fromJson<String>(json['possessivePronoun']),
       sexuality: serializer.fromJson<String>(json['sexuality']),
-      state: serializer.fromJson<String>(json['state']),
-      country: serializer.fromJson<String>(json['country']),
+      currentState: serializer.fromJson<String>(json['currentState']),
+      currentCountry: serializer.fromJson<String>(json['currentCountry']),
+      birthState: serializer.fromJson<String>(json['birthState']),
+      birthCountry: serializer.fromJson<String>(json['birthCountry']),
       money: serializer.fromJson<int>(json['money']),
       zodiacSign: serializer.fromJson<String>(json['zodiacSign']),
       hasDriversLicense: serializer.fromJson<bool>(json['hasDriversLicense']),
@@ -957,8 +1006,10 @@ class Person extends DataClass implements Insertable<Person> {
       'objectPronoun': serializer.toJson<String>(objectPronoun),
       'possessivePronoun': serializer.toJson<String>(possessivePronoun),
       'sexuality': serializer.toJson<String>(sexuality),
-      'state': serializer.toJson<String>(state),
-      'country': serializer.toJson<String>(country),
+      'currentState': serializer.toJson<String>(currentState),
+      'currentCountry': serializer.toJson<String>(currentCountry),
+      'birthState': serializer.toJson<String>(birthState),
+      'birthCountry': serializer.toJson<String>(birthCountry),
       'money': serializer.toJson<int>(money),
       'zodiacSign': serializer.toJson<String>(zodiacSign),
       'hasDriversLicense': serializer.toJson<bool>(hasDriversLicense),
@@ -983,8 +1034,10 @@ class Person extends DataClass implements Insertable<Person> {
           String? objectPronoun,
           String? possessivePronoun,
           String? sexuality,
-          String? state,
-          String? country,
+          String? currentState,
+          String? currentCountry,
+          String? birthState,
+          String? birthCountry,
           int? money,
           String? zodiacSign,
           bool? hasDriversLicense,
@@ -1006,8 +1059,10 @@ class Person extends DataClass implements Insertable<Person> {
         objectPronoun: objectPronoun ?? this.objectPronoun,
         possessivePronoun: possessivePronoun ?? this.possessivePronoun,
         sexuality: sexuality ?? this.sexuality,
-        state: state ?? this.state,
-        country: country ?? this.country,
+        currentState: currentState ?? this.currentState,
+        currentCountry: currentCountry ?? this.currentCountry,
+        birthState: birthState ?? this.birthState,
+        birthCountry: birthCountry ?? this.birthCountry,
         money: money ?? this.money,
         zodiacSign: zodiacSign ?? this.zodiacSign,
         hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
@@ -1032,8 +1087,10 @@ class Person extends DataClass implements Insertable<Person> {
           ..write('objectPronoun: $objectPronoun, ')
           ..write('possessivePronoun: $possessivePronoun, ')
           ..write('sexuality: $sexuality, ')
-          ..write('state: $state, ')
-          ..write('country: $country, ')
+          ..write('currentState: $currentState, ')
+          ..write('currentCountry: $currentCountry, ')
+          ..write('birthState: $birthState, ')
+          ..write('birthCountry: $birthCountry, ')
           ..write('money: $money, ')
           ..write('zodiacSign: $zodiacSign, ')
           ..write('hasDriversLicense: $hasDriversLicense, ')
@@ -1060,8 +1117,10 @@ class Person extends DataClass implements Insertable<Person> {
         objectPronoun,
         possessivePronoun,
         sexuality,
-        state,
-        country,
+        currentState,
+        currentCountry,
+        birthState,
+        birthCountry,
         money,
         zodiacSign,
         hasDriversLicense,
@@ -1087,8 +1146,10 @@ class Person extends DataClass implements Insertable<Person> {
           other.objectPronoun == this.objectPronoun &&
           other.possessivePronoun == this.possessivePronoun &&
           other.sexuality == this.sexuality &&
-          other.state == this.state &&
-          other.country == this.country &&
+          other.currentState == this.currentState &&
+          other.currentCountry == this.currentCountry &&
+          other.birthState == this.birthState &&
+          other.birthCountry == this.birthCountry &&
           other.money == this.money &&
           other.zodiacSign == this.zodiacSign &&
           other.hasDriversLicense == this.hasDriversLicense &&
@@ -1112,8 +1173,10 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
   final Value<String> objectPronoun;
   final Value<String> possessivePronoun;
   final Value<String> sexuality;
-  final Value<String> state;
-  final Value<String> country;
+  final Value<String> currentState;
+  final Value<String> currentCountry;
+  final Value<String> birthState;
+  final Value<String> birthCountry;
   final Value<int> money;
   final Value<String> zodiacSign;
   final Value<bool> hasDriversLicense;
@@ -1135,8 +1198,10 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     this.objectPronoun = const Value.absent(),
     this.possessivePronoun = const Value.absent(),
     this.sexuality = const Value.absent(),
-    this.state = const Value.absent(),
-    this.country = const Value.absent(),
+    this.currentState = const Value.absent(),
+    this.currentCountry = const Value.absent(),
+    this.birthState = const Value.absent(),
+    this.birthCountry = const Value.absent(),
     this.money = const Value.absent(),
     this.zodiacSign = const Value.absent(),
     this.hasDriversLicense = const Value.absent(),
@@ -1159,8 +1224,10 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     required String objectPronoun,
     required String possessivePronoun,
     required String sexuality,
-    required String state,
-    required String country,
+    required String currentState,
+    required String currentCountry,
+    required String birthState,
+    required String birthCountry,
     required int money,
     required String zodiacSign,
     required bool hasDriversLicense,
@@ -1180,8 +1247,10 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
         objectPronoun = Value(objectPronoun),
         possessivePronoun = Value(possessivePronoun),
         sexuality = Value(sexuality),
-        state = Value(state),
-        country = Value(country),
+        currentState = Value(currentState),
+        currentCountry = Value(currentCountry),
+        birthState = Value(birthState),
+        birthCountry = Value(birthCountry),
         money = Value(money),
         zodiacSign = Value(zodiacSign),
         hasDriversLicense = Value(hasDriversLicense),
@@ -1203,8 +1272,10 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     Expression<String>? objectPronoun,
     Expression<String>? possessivePronoun,
     Expression<String>? sexuality,
-    Expression<String>? state,
-    Expression<String>? country,
+    Expression<String>? currentState,
+    Expression<String>? currentCountry,
+    Expression<String>? birthState,
+    Expression<String>? birthCountry,
     Expression<int>? money,
     Expression<String>? zodiacSign,
     Expression<bool>? hasDriversLicense,
@@ -1227,8 +1298,10 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       if (objectPronoun != null) 'object_pronoun': objectPronoun,
       if (possessivePronoun != null) 'possessive_pronoun': possessivePronoun,
       if (sexuality != null) 'sexuality': sexuality,
-      if (state != null) 'state': state,
-      if (country != null) 'country': country,
+      if (currentState != null) 'current_state': currentState,
+      if (currentCountry != null) 'current_country': currentCountry,
+      if (birthState != null) 'birth_state': birthState,
+      if (birthCountry != null) 'birth_country': birthCountry,
       if (money != null) 'money': money,
       if (zodiacSign != null) 'zodiac_sign': zodiacSign,
       if (hasDriversLicense != null) 'has_drivers_license': hasDriversLicense,
@@ -1254,8 +1327,10 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       Value<String>? objectPronoun,
       Value<String>? possessivePronoun,
       Value<String>? sexuality,
-      Value<String>? state,
-      Value<String>? country,
+      Value<String>? currentState,
+      Value<String>? currentCountry,
+      Value<String>? birthState,
+      Value<String>? birthCountry,
       Value<int>? money,
       Value<String>? zodiacSign,
       Value<bool>? hasDriversLicense,
@@ -1277,8 +1352,10 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       objectPronoun: objectPronoun ?? this.objectPronoun,
       possessivePronoun: possessivePronoun ?? this.possessivePronoun,
       sexuality: sexuality ?? this.sexuality,
-      state: state ?? this.state,
-      country: country ?? this.country,
+      currentState: currentState ?? this.currentState,
+      currentCountry: currentCountry ?? this.currentCountry,
+      birthState: birthState ?? this.birthState,
+      birthCountry: birthCountry ?? this.birthCountry,
       money: money ?? this.money,
       zodiacSign: zodiacSign ?? this.zodiacSign,
       hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
@@ -1325,11 +1402,17 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     if (sexuality.present) {
       map['sexuality'] = Variable<String>(sexuality.value);
     }
-    if (state.present) {
-      map['state'] = Variable<String>(state.value);
+    if (currentState.present) {
+      map['current_state'] = Variable<String>(currentState.value);
     }
-    if (country.present) {
-      map['country'] = Variable<String>(country.value);
+    if (currentCountry.present) {
+      map['current_country'] = Variable<String>(currentCountry.value);
+    }
+    if (birthState.present) {
+      map['birth_state'] = Variable<String>(birthState.value);
+    }
+    if (birthCountry.present) {
+      map['birth_country'] = Variable<String>(birthCountry.value);
     }
     if (money.present) {
       map['money'] = Variable<int>(money.value);
@@ -1377,8 +1460,10 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
           ..write('objectPronoun: $objectPronoun, ')
           ..write('possessivePronoun: $possessivePronoun, ')
           ..write('sexuality: $sexuality, ')
-          ..write('state: $state, ')
-          ..write('country: $country, ')
+          ..write('currentState: $currentState, ')
+          ..write('currentCountry: $currentCountry, ')
+          ..write('birthState: $birthState, ')
+          ..write('birthCountry: $birthCountry, ')
           ..write('money: $money, ')
           ..write('zodiacSign: $zodiacSign, ')
           ..write('hasDriversLicense: $hasDriversLicense, ')

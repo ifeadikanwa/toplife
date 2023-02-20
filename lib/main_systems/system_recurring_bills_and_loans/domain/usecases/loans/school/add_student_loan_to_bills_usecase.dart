@@ -43,12 +43,12 @@ class AddStudentLoanToBillsUsecase {
       //get loan amount and reccuring payment
       final int totalLoanAmount = _studentLoanCalculatorUsecase.execute(
         baseLoanAmount: baseLoanAmount,
-        country: person.country,
+        country: person.currentCountry,
       );
       final int recurringPayment =
           _studentLoanRecurringPaymentCalculatorUsecase.execute(
         baseLoanAmount: baseLoanAmount,
-        country: person.country,
+        country: person.currentCountry,
       );
 
       //get due day of the week

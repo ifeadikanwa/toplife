@@ -104,7 +104,7 @@ class DeathEvent {
 
         //get main player country
         final Country playerCountry = LocationManager.getCountryClass(
-          countryName: mainPlayerPerson.country,
+          countryName: mainPlayerPerson.currentCountry,
         );
 
         //instantiate all funeral types

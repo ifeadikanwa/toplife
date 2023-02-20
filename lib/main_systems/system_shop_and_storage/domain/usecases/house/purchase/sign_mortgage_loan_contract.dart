@@ -46,11 +46,11 @@ class SignMortgageLoanContract {
       house.copyWith(
         personID: person.id,
         isCurrentHome: false,
-        country: person.country,
+        country: person.currentCountry,
         lastMaintainedDay: currentGame.currentDay,
         dayOfPurchase: currentGame.currentDay,
         purchasePrice: getCountryEconomyAdjustedPrice(
-          country: person.country,
+          country: person.currentCountry,
           basePrice: house.basePrice,
         ),
         fullyPaidFor: false,
@@ -73,7 +73,7 @@ class SignMortgageLoanContract {
         .mortgageLoanRecurringPaymentCalculatorUsecase
         .execute(
       baseLoanAmount: baseLoanAmount,
-      country: person.country,
+      country: person.currentCountry,
     );
 
     //set entries

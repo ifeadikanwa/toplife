@@ -49,7 +49,7 @@ class GetPlayerBarInfoUsecase {
         firstName: currentGameAndPlayer.person.firstName,
         lastName: currentGameAndPlayer.person.lastName,
         currency: LocationManager.getCountryCurrency(
-          currentGameAndPlayer.person.country,
+          currentGameAndPlayer.person.currentCountry,
         ),
         bankBalance: formatMoneyToString(currentBankBalance),
         time: getClockTime(

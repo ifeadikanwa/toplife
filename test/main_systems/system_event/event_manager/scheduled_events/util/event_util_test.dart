@@ -15,8 +15,10 @@ void main() {
       objectPronoun: "object",
       possessivePronoun: "possessive",
       sexuality: "sexuality",
-      state: "state",
-      country: "country",
+      birthState: "Ontario",
+      birthCountry: "Canada",
+      currentState: "Ontario",
+      currentCountry: "Canada",
       money: 120,
       zodiacSign: "sign",
       hasDriversLicense: true,
@@ -141,8 +143,8 @@ void main() {
       () {
         expect(
           EventUtil.checkIfPlayerCanAttendEvent(
-            mainPlayerPerson: person.copyWith(country: "Canada"),
-            eventMainPerson: person.copyWith(country: "Canada"),
+            mainPlayerPerson: person.copyWith(currentCountry: "Canada"),
+            eventMainPerson: person.copyWith(currentCountry: "Canada"),
           ),
           true,
         );
@@ -154,8 +156,8 @@ void main() {
       () {
         expect(
           EventUtil.checkIfPlayerCanAttendEvent(
-            mainPlayerPerson: person.copyWith(country: "Canada"),
-            eventMainPerson: person.copyWith(country: "USA"),
+            mainPlayerPerson: person.copyWith(currentCountry: "Canada"),
+            eventMainPerson: person.copyWith(currentCountry: "USA"),
           ),
           false,
         );

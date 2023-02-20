@@ -64,7 +64,7 @@ class PurchaseHouseWithLoanUsecase {
           await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
         personID: personID,
         basePrice: baseDownPayment,
-        country: person.country,
+        country: person.currentCountry,
         adjustToEconomy: true,
       );
 
@@ -114,7 +114,7 @@ class PurchaseHouseWithLoanUsecase {
               await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
             personID: personID,
             basePrice: baseAllExpectedAmount,
-            country: person.country,
+            country: person.currentCountry,
             adjustToEconomy: true,
           );
 

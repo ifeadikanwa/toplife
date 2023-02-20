@@ -94,8 +94,10 @@ class GenerateAPersonUsecase {
       objectPronoun: personGender.objectPronoun,
       possessivePronoun: personGender.possessivepronoun,
       sexuality: personSexuality.name,
-      state: currentState,
-      country: currentCountry,
+      birthState: currentState,
+      birthCountry: currentCountry,
+      currentState: currentState,
+      currentCountry: currentCountry,
       money: Random().nextInt(60) + 40, //random amount in 40-100
       zodiacSign: personZodiacSign.name,
       transportMode: TransportMode.bus.name,

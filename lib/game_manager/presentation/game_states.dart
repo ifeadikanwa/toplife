@@ -161,7 +161,7 @@ final currentPlayerCountryProvider = FutureProvider<String>((ref) {
   final currentPlayer = ref.watch(currentPlayerProvider).valueOrNull;
 
   return currentPlayer != null
-      ? currentPlayer.country
+      ? currentPlayer.currentCountry
       : LocationManager.getDefaultCountryString();
 });
 
@@ -169,7 +169,7 @@ final currentPlayerCurrencyProvider = FutureProvider<String>((ref) {
   final currentPlayer = ref.watch(currentPlayerProvider).valueOrNull;
 
   final countryString =
-      currentPlayer?.country ?? LocationManager.getDefaultCountryString();
+      currentPlayer?.currentCountry ?? LocationManager.getDefaultCountryString();
 
   return LocationManager.getCountryClass(countryName: countryString).currency;
 });

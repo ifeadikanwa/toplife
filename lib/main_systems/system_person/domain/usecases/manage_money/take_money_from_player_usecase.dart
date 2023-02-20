@@ -31,7 +31,7 @@ class TakeMoneyFromPlayerUsecase {
     if (mainPlayerPerson != null) {
       //get player economy and adjust amount to take
       final Country playerCountry = LocationManager.getCountryClass(
-        countryName: mainPlayerPerson.country,
+        countryName: mainPlayerPerson.currentCountry,
       );
 
       late final int finalAmountToTake;

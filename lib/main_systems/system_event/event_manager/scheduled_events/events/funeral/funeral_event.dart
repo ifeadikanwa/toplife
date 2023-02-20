@@ -94,8 +94,8 @@ class FuneralEvent {
           context: context,
           title: StandardEventSentences.playerCantAttendTitle,
           result: StandardEventSentences.getPlayerCantAttendDescription(
-            playerCountry: mainPlayerPerson.country,
-            eventMainPersonCountry: deadPerson.country,
+            playerCountry: mainPlayerPerson.currentCountry,
+            eventMainPersonCountry: deadPerson.currentCountry,
           ),
         );
       }

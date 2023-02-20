@@ -71,7 +71,7 @@ class PurchaseCarWithLoanUsecase {
             await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
           personID: personID,
           basePrice: baseDownPayment,
-          country: person.country,
+          country: person.currentCountry,
           adjustToEconomy: true,
         );
 
@@ -120,7 +120,7 @@ class PurchaseCarWithLoanUsecase {
               .carLoanRecurringPaymentCalculatorUsecase
               .execute(
             baseLoanAmount: baseLoanAmount,
-            country: person.country,
+            country: person.currentCountry,
           );
 
           //set all entries

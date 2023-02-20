@@ -35,7 +35,7 @@ class AddMoneyToPlayerUsecase {
       
       //get player economy and adjust amount to add
       final Country playerCountry = LocationManager.getCountryClass(
-        countryName: mainPlayerPerson.country,
+        countryName: mainPlayerPerson.currentCountry,
       ); 
 
       late final int finalAmountToAdd;

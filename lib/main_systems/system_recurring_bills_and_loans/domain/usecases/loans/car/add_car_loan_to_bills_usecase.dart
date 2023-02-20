@@ -42,12 +42,12 @@ class AddCarLoanToBillsUsecase {
       //get loan amount and reccuring payment
       final int totalLoanAmount = _carLoanCalculatorUsecase.execute(
         baseLoanAmount: baseLoanAmount,
-        country: person.country,
+        country: person.currentCountry,
       );
       final int recurringPayment =
           _carLoanRecurringPaymentCalculatorUsecase.execute(
         baseLoanAmount: baseLoanAmount,
-        country: person.country,
+        country: person.currentCountry,
       );
 
       //get due day of the week

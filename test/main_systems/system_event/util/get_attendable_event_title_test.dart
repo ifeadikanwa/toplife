@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+
 void main() {
   group("getAttendableEventTitle:", () {
     const event = Event(
@@ -27,8 +28,10 @@ void main() {
       objectPronoun: "",
       possessivePronoun: "",
       sexuality: "",
-      state: "state",
-      country: "country",
+      birthState: "Ontario",
+      birthCountry: "Canada",
+      currentState: "Ontario",
+      currentCountry: "Canada",
       money: 120,
       zodiacSign: "",
       hasDriversLicense: true,

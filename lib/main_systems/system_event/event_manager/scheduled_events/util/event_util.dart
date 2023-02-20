@@ -61,7 +61,7 @@ class EventUtil {
     required Person mainPlayerPerson,
     required Person eventMainPerson,
   }) {
-    return mainPlayerPerson.country.toLowerCase() ==
-        eventMainPerson.country.toLowerCase();
+    return mainPlayerPerson.currentCountry.toLowerCase() ==
+        eventMainPerson.currentCountry.toLowerCase();
   }
 }

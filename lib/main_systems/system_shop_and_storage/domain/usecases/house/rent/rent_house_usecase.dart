@@ -71,7 +71,7 @@ class RentHouseUsecase {
           await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
         personID: personID,
         basePrice: baseHouseRentPrice,
-        country: person.country,
+        country: person.currentCountry,
         adjustToEconomy: true,
       );
 
@@ -119,7 +119,7 @@ class RentHouseUsecase {
             personID: personID,
             house: house,
             currentDay: currentGame.currentDay,
-            country: person.country,
+            country: person.currentCountry,
           );
 
           //set entries
@@ -158,7 +158,7 @@ class RentHouseUsecase {
             personID: personID,
             house: house,
             currentDay: currentGame.currentDay,
-            country: person.country,
+            country: person.currentCountry,
           );
 
           //set entries
@@ -203,7 +203,7 @@ class RentHouseUsecase {
                 oldHouse: rentals.first,
                 leaseDuration: leaseDuration,
                 currentGame: currentGame,
-                country: person.country,
+                country: person.currentCountry,
               );
             },
           );

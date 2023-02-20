@@ -21,12 +21,10 @@ class PersonTable extends Table {
   TextColumn get objectPronoun => text()();
   TextColumn get possessivePronoun => text()();
   TextColumn get sexuality => text()();
-  // TextColumn get currentState => text()();
-  // TextColumn get currentCountry => text()();
-  // TextColumn get birthState => text()();
-  // TextColumn get birthCountry => text()();
-  TextColumn get state => text()();
-  TextColumn get country => text()();
+  TextColumn get currentState => text()();
+  TextColumn get currentCountry => text()();
+  TextColumn get birthState => text()();
+  TextColumn get birthCountry => text()();
   IntColumn get money => integer()();
   TextColumn get zodiacSign => text()();
   BoolColumn get hasDriversLicense => boolean()();
