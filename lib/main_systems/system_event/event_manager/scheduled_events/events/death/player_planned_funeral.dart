@@ -2,12 +2,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/choice_dialog.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
@@ -70,9 +70,9 @@ class PlayerPlannedFuneral {
       //show a result pop up saying the invitation for the funeral your [relationship], [name]'s has been sent out and the event will happen tomorrow, day [number] at [time chosen].
 
       final Event scheduledFuneral = await _eventScheduler.scheduleFuneral(
-        gameID: deathEvent.gameID,
+        gameID: deathEvent.gameId,
         mainPlayerID: mainPlayerID,
-        deadPersonID: deathEvent.mainPersonID,
+        deadPersonID: deathEvent.mainPersonId,
         currentDay: deathEvent.eventDay,
         eventStartTime: eventStartTime,
         relationshipToMainPlayer: deathEvent.relationshipToMainPlayer,
@@ -83,7 +83,7 @@ class PlayerPlannedFuneral {
           "I planned the ${funeralType.name.toLowerCase()} funeral for tomorrow at ${getClockTime(timeInMinutes: eventStartTime)} and sent out the invitations.";
 
       _journalUsecases.addToJournalUsecase.execute(
-          gameID: deathEvent.gameID,
+          gameID: deathEvent.gameId,
           day: deathEvent.eventDay,
           mainPlayerID: mainPlayerID,
           entry: "$firstPersonEventDescription $firstPersonJournalDesc");

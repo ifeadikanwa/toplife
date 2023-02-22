@@ -13,7 +13,6 @@ import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
 import 'package:toplife/main_systems/system_event/constants/party_event_activity.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/attend_party.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/get_first_person_party_partner_attendance_description.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/get_first_person_gift_reaction.dart';
@@ -67,7 +66,7 @@ class BirthdayPartyEvent {
         .execute(
       personUsecases: _personUsecases,
       mainPersonID: mainPlayerID,
-      relationshipPersonID: birthdayEvent.mainPersonID,
+      relationshipPersonID: birthdayEvent.mainPersonId,
       informalRelationshipType: birthdayEvent.relationshipToMainPlayer,
     );
 

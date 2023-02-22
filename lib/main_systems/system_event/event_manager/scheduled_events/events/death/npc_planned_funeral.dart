@@ -2,10 +2,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
@@ -26,9 +26,9 @@ class NpcPlannedFuneral {
     required String firstPersonEventDescription,
   }) async {
     final Event scheduledFuneral = await _eventScheduler.scheduleFuneral(
-      gameID: deathEvent.gameID,
+      gameID: deathEvent.gameId,
       mainPlayerID: mainPlayerID,
-      deadPersonID: deathEvent.mainPersonID,
+      deadPersonID: deathEvent.mainPersonId,
       currentDay: deathEvent.eventDay,
       relationshipToMainPlayer: deathEvent.relationshipToMainPlayer,
     );
@@ -38,7 +38,7 @@ class NpcPlannedFuneral {
 
     //log in journal
     _journalUsecases.addToJournalUsecase.execute(
-      gameID: deathEvent.gameID,
+      gameID: deathEvent.gameId,
       day: deathEvent.eventDay,
       mainPlayerID: mainPlayerID,
       entry: "$firstPersonEventDescription $firstPersonEventDescription",

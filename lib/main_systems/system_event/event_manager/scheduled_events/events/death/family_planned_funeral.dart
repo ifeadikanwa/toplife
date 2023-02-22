@@ -5,7 +5,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/family_planned_funeral_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/chance.dart';
@@ -168,9 +167,9 @@ class FamilyPlannedFuneral {
 
     //schedule funeral
     final Event scheduledFuneral = await _eventScheduler.scheduleFuneral(
-      gameID: deathEvent.gameID,
+      gameID: deathEvent.gameId,
       mainPlayerID: mainPlayerID,
-      deadPersonID: deathEvent.mainPersonID,
+      deadPersonID: deathEvent.mainPersonId,
       currentDay: deathEvent.eventDay,
       relationshipToMainPlayer: deathEvent.relationshipToMainPlayer,
     );
@@ -180,7 +179,7 @@ class FamilyPlannedFuneral {
 
     //Log info in journal
     _journalUsecases.addToJournalUsecase.execute(
-      gameID: deathEvent.gameID,
+      gameID: deathEvent.gameId,
       day: deathEvent.eventDay,
       mainPlayerID: mainPlayerID,
       entry:
@@ -288,9 +287,9 @@ class FamilyPlannedFuneral {
 
     //schedule funeral
     final Event scheduledFuneral = await _eventScheduler.scheduleFuneral(
-      gameID: deathEvent.gameID,
+      gameID: deathEvent.gameId,
       mainPlayerID: mainPlayerID,
-      deadPersonID: deathEvent.mainPersonID,
+      deadPersonID: deathEvent.mainPersonId,
       currentDay: deathEvent.eventDay,
       relationshipToMainPlayer: deathEvent.relationshipToMainPlayer,
     );
@@ -301,7 +300,7 @@ class FamilyPlannedFuneral {
     //Log info in journal
     const journalActionDesc = "I refused to contribute.";
     _journalUsecases.addToJournalUsecase.execute(
-      gameID: deathEvent.gameID,
+      gameID: deathEvent.gameId,
       day: deathEvent.eventDay,
       mainPlayerID: mainPlayerID,
       entry:

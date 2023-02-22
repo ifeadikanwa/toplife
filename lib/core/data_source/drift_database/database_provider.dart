@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
 import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
@@ -35,6 +36,7 @@ import 'package:toplife/main_systems/system_relationship/domain/model/parent.dar
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
+import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 
 part 'database_provider.g.dart';
 
@@ -55,6 +57,7 @@ part 'database_provider.g.dart';
     PartnerTable,
     RelativeTable,
     SiblingTable,
+    EventTable,
   ],
   daos: [
     GameDaoImpl,
@@ -72,6 +75,7 @@ part 'database_provider.g.dart';
     PartnerDaoImpl,
     RelativeDaoImpl,
     SiblingDaoImpl,
+    EventDaoImpl,
   ],
 )
 class DatabaseProvider extends _$DatabaseProvider {

@@ -1,6 +1,7 @@
+import 'package:toplife/core/data_source/database_constants.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
 
@@ -25,12 +26,13 @@ class EventScheduler {
     );
 
     final Event birthdayParty = Event(
-      gameID: gameID,
+      id: DatabaseConstants.dummyId,
+      gameId: gameID,
       eventType: birthdayPartyEvent.name,
       eventDay: eventDay,
       startTime: startTime,
       endTime: startTime + birthdayPartyEvent.eventDuration,
-      mainPersonID: mainPersonID,
+      mainPersonId: mainPersonID,
       relationshipToMainPlayer: relationshipToMainPlayer,
       journalEntryOnly: false,
       performed: false,
@@ -55,10 +57,11 @@ class EventScheduler {
 
     if (dayOfNextBirthday != null) {
       final Event nextBirthday = Event(
-        gameID: gameID,
+        id: DatabaseConstants.dummyId,
+        gameId: gameID,
         eventType: EventType.birthday.name,
         eventDay: dayOfNextBirthday,
-        mainPersonID: mainPersonID,
+        mainPersonId: mainPersonID,
         relationshipToMainPlayer: relationshipToMainPlayer,
         journalEntryOnly: true,
         performed: false,
@@ -89,10 +92,11 @@ class EventScheduler {
     }
 
     final Event funeral = Event(
-      gameID: gameID,
+      id: DatabaseConstants.dummyId,
+      gameId: gameID,
       eventType: EventType.funeral.name,
       eventDay: currentDay + 1,
-      mainPersonID: deadPersonID,
+      mainPersonId: deadPersonID,
       relationshipToMainPlayer: relationshipToMainPlayer,
       startTime: funeralEventStartTime,
       endTime: funeralEventStartTime + EventType.funeral.eventDuration,

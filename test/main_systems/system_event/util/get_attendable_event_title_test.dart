@@ -1,15 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 void main() {
   group("getAttendableEventTitle:", () {
     const event = Event(
-      gameID: 1,
+      id: 0,
+      gameId: 1,
       eventType: "birthday",
       eventDay: 34,
-      mainPersonID: 2,
+      mainPersonId: 2,
       relationshipToMainPlayer: "friend",
       journalEntryOnly: false,
       performed: false,

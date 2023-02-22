@@ -7078,6 +7078,573 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
   }
 }
 
+class $EventTableTable extends EventTable
+    with TableInfo<$EventTableTable, Event> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EventTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _gameIdMeta = const VerificationMeta('gameId');
+  @override
+  late final GeneratedColumn<int> gameId = GeneratedColumn<int>(
+      'game_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES game (id)'));
+  static const VerificationMeta _eventTypeMeta =
+      const VerificationMeta('eventType');
+  @override
+  late final GeneratedColumn<String> eventType = GeneratedColumn<String>(
+      'event_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _eventDayMeta =
+      const VerificationMeta('eventDay');
+  @override
+  late final GeneratedColumn<int> eventDay = GeneratedColumn<int>(
+      'event_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _mainPersonIdMeta =
+      const VerificationMeta('mainPersonId');
+  @override
+  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
+      'main_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _otherPersonIdMeta =
+      const VerificationMeta('otherPersonId');
+  @override
+  late final GeneratedColumn<int> otherPersonId = GeneratedColumn<int>(
+      'other_person_id', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _relationshipToMainPlayerMeta =
+      const VerificationMeta('relationshipToMainPlayer');
+  @override
+  late final GeneratedColumn<String> relationshipToMainPlayer =
+      GeneratedColumn<String>('relationship_to_main_player', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _startTimeMeta =
+      const VerificationMeta('startTime');
+  @override
+  late final GeneratedColumn<int> startTime = GeneratedColumn<int>(
+      'start_time', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _endTimeMeta =
+      const VerificationMeta('endTime');
+  @override
+  late final GeneratedColumn<int> endTime = GeneratedColumn<int>(
+      'end_time', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _journalEntryOnlyMeta =
+      const VerificationMeta('journalEntryOnly');
+  @override
+  late final GeneratedColumn<bool> journalEntryOnly =
+      GeneratedColumn<bool>('journal_entry_only', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("journal_entry_only" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _performedMeta =
+      const VerificationMeta('performed');
+  @override
+  late final GeneratedColumn<bool> performed =
+      GeneratedColumn<bool>('performed', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("performed" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        gameId,
+        eventType,
+        eventDay,
+        mainPersonId,
+        otherPersonId,
+        relationshipToMainPlayer,
+        startTime,
+        endTime,
+        journalEntryOnly,
+        performed
+      ];
+  @override
+  String get aliasedName => _alias ?? 'event';
+  @override
+  String get actualTableName => 'event';
+  @override
+  VerificationContext validateIntegrity(Insertable<Event> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('game_id')) {
+      context.handle(_gameIdMeta,
+          gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta));
+    } else if (isInserting) {
+      context.missing(_gameIdMeta);
+    }
+    if (data.containsKey('event_type')) {
+      context.handle(_eventTypeMeta,
+          eventType.isAcceptableOrUnknown(data['event_type']!, _eventTypeMeta));
+    } else if (isInserting) {
+      context.missing(_eventTypeMeta);
+    }
+    if (data.containsKey('event_day')) {
+      context.handle(_eventDayMeta,
+          eventDay.isAcceptableOrUnknown(data['event_day']!, _eventDayMeta));
+    } else if (isInserting) {
+      context.missing(_eventDayMeta);
+    }
+    if (data.containsKey('main_person_id')) {
+      context.handle(
+          _mainPersonIdMeta,
+          mainPersonId.isAcceptableOrUnknown(
+              data['main_person_id']!, _mainPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_mainPersonIdMeta);
+    }
+    if (data.containsKey('other_person_id')) {
+      context.handle(
+          _otherPersonIdMeta,
+          otherPersonId.isAcceptableOrUnknown(
+              data['other_person_id']!, _otherPersonIdMeta));
+    }
+    if (data.containsKey('relationship_to_main_player')) {
+      context.handle(
+          _relationshipToMainPlayerMeta,
+          relationshipToMainPlayer.isAcceptableOrUnknown(
+              data['relationship_to_main_player']!,
+              _relationshipToMainPlayerMeta));
+    } else if (isInserting) {
+      context.missing(_relationshipToMainPlayerMeta);
+    }
+    if (data.containsKey('start_time')) {
+      context.handle(_startTimeMeta,
+          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
+    }
+    if (data.containsKey('end_time')) {
+      context.handle(_endTimeMeta,
+          endTime.isAcceptableOrUnknown(data['end_time']!, _endTimeMeta));
+    }
+    if (data.containsKey('journal_entry_only')) {
+      context.handle(
+          _journalEntryOnlyMeta,
+          journalEntryOnly.isAcceptableOrUnknown(
+              data['journal_entry_only']!, _journalEntryOnlyMeta));
+    } else if (isInserting) {
+      context.missing(_journalEntryOnlyMeta);
+    }
+    if (data.containsKey('performed')) {
+      context.handle(_performedMeta,
+          performed.isAcceptableOrUnknown(data['performed']!, _performedMeta));
+    } else if (isInserting) {
+      context.missing(_performedMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Event map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Event(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      gameId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}game_id'])!,
+      eventType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}event_type'])!,
+      eventDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}event_day'])!,
+      mainPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
+      otherPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}other_person_id']),
+      relationshipToMainPlayer: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}relationship_to_main_player'])!,
+      startTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}start_time']),
+      endTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}end_time']),
+      journalEntryOnly: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}journal_entry_only'])!,
+      performed: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}performed'])!,
+    );
+  }
+
+  @override
+  $EventTableTable createAlias(String alias) {
+    return $EventTableTable(attachedDatabase, alias);
+  }
+}
+
+class Event extends DataClass implements Insertable<Event> {
+  final int id;
+  final int gameId;
+  final String eventType;
+  final int eventDay;
+  final int mainPersonId;
+  final int? otherPersonId;
+  final String relationshipToMainPlayer;
+  final int? startTime;
+  final int? endTime;
+  final bool journalEntryOnly;
+  final bool performed;
+  const Event(
+      {required this.id,
+      required this.gameId,
+      required this.eventType,
+      required this.eventDay,
+      required this.mainPersonId,
+      this.otherPersonId,
+      required this.relationshipToMainPlayer,
+      this.startTime,
+      this.endTime,
+      required this.journalEntryOnly,
+      required this.performed});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['game_id'] = Variable<int>(gameId);
+    map['event_type'] = Variable<String>(eventType);
+    map['event_day'] = Variable<int>(eventDay);
+    map['main_person_id'] = Variable<int>(mainPersonId);
+    if (!nullToAbsent || otherPersonId != null) {
+      map['other_person_id'] = Variable<int>(otherPersonId);
+    }
+    map['relationship_to_main_player'] =
+        Variable<String>(relationshipToMainPlayer);
+    if (!nullToAbsent || startTime != null) {
+      map['start_time'] = Variable<int>(startTime);
+    }
+    if (!nullToAbsent || endTime != null) {
+      map['end_time'] = Variable<int>(endTime);
+    }
+    map['journal_entry_only'] = Variable<bool>(journalEntryOnly);
+    map['performed'] = Variable<bool>(performed);
+    return map;
+  }
+
+  EventTableCompanion toCompanion(bool nullToAbsent) {
+    return EventTableCompanion(
+      id: Value(id),
+      gameId: Value(gameId),
+      eventType: Value(eventType),
+      eventDay: Value(eventDay),
+      mainPersonId: Value(mainPersonId),
+      otherPersonId: otherPersonId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(otherPersonId),
+      relationshipToMainPlayer: Value(relationshipToMainPlayer),
+      startTime: startTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(startTime),
+      endTime: endTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(endTime),
+      journalEntryOnly: Value(journalEntryOnly),
+      performed: Value(performed),
+    );
+  }
+
+  factory Event.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Event(
+      id: serializer.fromJson<int>(json['id']),
+      gameId: serializer.fromJson<int>(json['gameId']),
+      eventType: serializer.fromJson<String>(json['eventType']),
+      eventDay: serializer.fromJson<int>(json['eventDay']),
+      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
+      otherPersonId: serializer.fromJson<int?>(json['otherPersonId']),
+      relationshipToMainPlayer:
+          serializer.fromJson<String>(json['relationshipToMainPlayer']),
+      startTime: serializer.fromJson<int?>(json['startTime']),
+      endTime: serializer.fromJson<int?>(json['endTime']),
+      journalEntryOnly: serializer.fromJson<bool>(json['journalEntryOnly']),
+      performed: serializer.fromJson<bool>(json['performed']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'gameId': serializer.toJson<int>(gameId),
+      'eventType': serializer.toJson<String>(eventType),
+      'eventDay': serializer.toJson<int>(eventDay),
+      'mainPersonId': serializer.toJson<int>(mainPersonId),
+      'otherPersonId': serializer.toJson<int?>(otherPersonId),
+      'relationshipToMainPlayer':
+          serializer.toJson<String>(relationshipToMainPlayer),
+      'startTime': serializer.toJson<int?>(startTime),
+      'endTime': serializer.toJson<int?>(endTime),
+      'journalEntryOnly': serializer.toJson<bool>(journalEntryOnly),
+      'performed': serializer.toJson<bool>(performed),
+    };
+  }
+
+  Event copyWith(
+          {int? id,
+          int? gameId,
+          String? eventType,
+          int? eventDay,
+          int? mainPersonId,
+          Value<int?> otherPersonId = const Value.absent(),
+          String? relationshipToMainPlayer,
+          Value<int?> startTime = const Value.absent(),
+          Value<int?> endTime = const Value.absent(),
+          bool? journalEntryOnly,
+          bool? performed}) =>
+      Event(
+        id: id ?? this.id,
+        gameId: gameId ?? this.gameId,
+        eventType: eventType ?? this.eventType,
+        eventDay: eventDay ?? this.eventDay,
+        mainPersonId: mainPersonId ?? this.mainPersonId,
+        otherPersonId:
+            otherPersonId.present ? otherPersonId.value : this.otherPersonId,
+        relationshipToMainPlayer:
+            relationshipToMainPlayer ?? this.relationshipToMainPlayer,
+        startTime: startTime.present ? startTime.value : this.startTime,
+        endTime: endTime.present ? endTime.value : this.endTime,
+        journalEntryOnly: journalEntryOnly ?? this.journalEntryOnly,
+        performed: performed ?? this.performed,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Event(')
+          ..write('id: $id, ')
+          ..write('gameId: $gameId, ')
+          ..write('eventType: $eventType, ')
+          ..write('eventDay: $eventDay, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('otherPersonId: $otherPersonId, ')
+          ..write('relationshipToMainPlayer: $relationshipToMainPlayer, ')
+          ..write('startTime: $startTime, ')
+          ..write('endTime: $endTime, ')
+          ..write('journalEntryOnly: $journalEntryOnly, ')
+          ..write('performed: $performed')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      gameId,
+      eventType,
+      eventDay,
+      mainPersonId,
+      otherPersonId,
+      relationshipToMainPlayer,
+      startTime,
+      endTime,
+      journalEntryOnly,
+      performed);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Event &&
+          other.id == this.id &&
+          other.gameId == this.gameId &&
+          other.eventType == this.eventType &&
+          other.eventDay == this.eventDay &&
+          other.mainPersonId == this.mainPersonId &&
+          other.otherPersonId == this.otherPersonId &&
+          other.relationshipToMainPlayer == this.relationshipToMainPlayer &&
+          other.startTime == this.startTime &&
+          other.endTime == this.endTime &&
+          other.journalEntryOnly == this.journalEntryOnly &&
+          other.performed == this.performed);
+}
+
+class EventTableCompanion extends UpdateCompanion<Event> {
+  final Value<int> id;
+  final Value<int> gameId;
+  final Value<String> eventType;
+  final Value<int> eventDay;
+  final Value<int> mainPersonId;
+  final Value<int?> otherPersonId;
+  final Value<String> relationshipToMainPlayer;
+  final Value<int?> startTime;
+  final Value<int?> endTime;
+  final Value<bool> journalEntryOnly;
+  final Value<bool> performed;
+  const EventTableCompanion({
+    this.id = const Value.absent(),
+    this.gameId = const Value.absent(),
+    this.eventType = const Value.absent(),
+    this.eventDay = const Value.absent(),
+    this.mainPersonId = const Value.absent(),
+    this.otherPersonId = const Value.absent(),
+    this.relationshipToMainPlayer = const Value.absent(),
+    this.startTime = const Value.absent(),
+    this.endTime = const Value.absent(),
+    this.journalEntryOnly = const Value.absent(),
+    this.performed = const Value.absent(),
+  });
+  EventTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int gameId,
+    required String eventType,
+    required int eventDay,
+    required int mainPersonId,
+    this.otherPersonId = const Value.absent(),
+    required String relationshipToMainPlayer,
+    this.startTime = const Value.absent(),
+    this.endTime = const Value.absent(),
+    required bool journalEntryOnly,
+    required bool performed,
+  })  : gameId = Value(gameId),
+        eventType = Value(eventType),
+        eventDay = Value(eventDay),
+        mainPersonId = Value(mainPersonId),
+        relationshipToMainPlayer = Value(relationshipToMainPlayer),
+        journalEntryOnly = Value(journalEntryOnly),
+        performed = Value(performed);
+  static Insertable<Event> custom({
+    Expression<int>? id,
+    Expression<int>? gameId,
+    Expression<String>? eventType,
+    Expression<int>? eventDay,
+    Expression<int>? mainPersonId,
+    Expression<int>? otherPersonId,
+    Expression<String>? relationshipToMainPlayer,
+    Expression<int>? startTime,
+    Expression<int>? endTime,
+    Expression<bool>? journalEntryOnly,
+    Expression<bool>? performed,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (gameId != null) 'game_id': gameId,
+      if (eventType != null) 'event_type': eventType,
+      if (eventDay != null) 'event_day': eventDay,
+      if (mainPersonId != null) 'main_person_id': mainPersonId,
+      if (otherPersonId != null) 'other_person_id': otherPersonId,
+      if (relationshipToMainPlayer != null)
+        'relationship_to_main_player': relationshipToMainPlayer,
+      if (startTime != null) 'start_time': startTime,
+      if (endTime != null) 'end_time': endTime,
+      if (journalEntryOnly != null) 'journal_entry_only': journalEntryOnly,
+      if (performed != null) 'performed': performed,
+    });
+  }
+
+  EventTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? gameId,
+      Value<String>? eventType,
+      Value<int>? eventDay,
+      Value<int>? mainPersonId,
+      Value<int?>? otherPersonId,
+      Value<String>? relationshipToMainPlayer,
+      Value<int?>? startTime,
+      Value<int?>? endTime,
+      Value<bool>? journalEntryOnly,
+      Value<bool>? performed}) {
+    return EventTableCompanion(
+      id: id ?? this.id,
+      gameId: gameId ?? this.gameId,
+      eventType: eventType ?? this.eventType,
+      eventDay: eventDay ?? this.eventDay,
+      mainPersonId: mainPersonId ?? this.mainPersonId,
+      otherPersonId: otherPersonId ?? this.otherPersonId,
+      relationshipToMainPlayer:
+          relationshipToMainPlayer ?? this.relationshipToMainPlayer,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      journalEntryOnly: journalEntryOnly ?? this.journalEntryOnly,
+      performed: performed ?? this.performed,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (gameId.present) {
+      map['game_id'] = Variable<int>(gameId.value);
+    }
+    if (eventType.present) {
+      map['event_type'] = Variable<String>(eventType.value);
+    }
+    if (eventDay.present) {
+      map['event_day'] = Variable<int>(eventDay.value);
+    }
+    if (mainPersonId.present) {
+      map['main_person_id'] = Variable<int>(mainPersonId.value);
+    }
+    if (otherPersonId.present) {
+      map['other_person_id'] = Variable<int>(otherPersonId.value);
+    }
+    if (relationshipToMainPlayer.present) {
+      map['relationship_to_main_player'] =
+          Variable<String>(relationshipToMainPlayer.value);
+    }
+    if (startTime.present) {
+      map['start_time'] = Variable<int>(startTime.value);
+    }
+    if (endTime.present) {
+      map['end_time'] = Variable<int>(endTime.value);
+    }
+    if (journalEntryOnly.present) {
+      map['journal_entry_only'] = Variable<bool>(journalEntryOnly.value);
+    }
+    if (performed.present) {
+      map['performed'] = Variable<bool>(performed.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EventTableCompanion(')
+          ..write('id: $id, ')
+          ..write('gameId: $gameId, ')
+          ..write('eventType: $eventType, ')
+          ..write('eventDay: $eventDay, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('otherPersonId: $otherPersonId, ')
+          ..write('relationshipToMainPlayer: $relationshipToMainPlayer, ')
+          ..write('startTime: $startTime, ')
+          ..write('endTime: $endTime, ')
+          ..write('journalEntryOnly: $journalEntryOnly, ')
+          ..write('performed: $performed')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(e);
   late final $GameTableTable gameTable = $GameTableTable(this);
@@ -7098,6 +7665,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $PartnerTableTable partnerTable = $PartnerTableTable(this);
   late final $RelativeTableTable relativeTable = $RelativeTableTable(this);
   late final $SiblingTableTable siblingTable = $SiblingTableTable(this);
+  late final $EventTableTable eventTable = $EventTableTable(this);
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
@@ -7123,6 +7691,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       RelativeDaoImpl(this as DatabaseProvider);
   late final SiblingDaoImpl siblingDaoImpl =
       SiblingDaoImpl(this as DatabaseProvider);
+  late final EventDaoImpl eventDaoImpl = EventDaoImpl(this as DatabaseProvider);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -7142,7 +7711,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         parentTable,
         partnerTable,
         relativeTable,
-        siblingTable
+        siblingTable,
+        eventTable
       ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(

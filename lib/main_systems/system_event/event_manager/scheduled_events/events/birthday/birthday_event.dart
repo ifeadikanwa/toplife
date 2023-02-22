@@ -1,6 +1,5 @@
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/npc_birthday.dart';
@@ -32,7 +31,7 @@ class BirthdayEvent {
   Future<void> execute(int mainPlayerID, Event event) async {
     //get the birthday person
     final Person? birthdayPerson = await _personUsecases.getPersonUsecase
-        .execute(personID: event.mainPersonID);
+        .execute(personID: event.mainPersonId);
 
     if (birthdayPerson != null) {
       //get journal entry
@@ -41,7 +40,7 @@ class BirthdayEvent {
 
       //add to journal
       _journalUsecases.addToJournalUsecase.execute(
-        gameID: event.gameID,
+        gameID: event.gameId,
         day: event.eventDay,
         mainPlayerID: mainPlayerID,
         entry: journalEntry,
@@ -49,8 +48,8 @@ class BirthdayEvent {
 
       //schedule next birthday
       _eventScheduler.scheduleNextBirthday(
-        gameID: event.gameID,
-        mainPersonID: event.mainPersonID,
+        gameID: event.gameId,
+        mainPersonID: event.mainPersonId,
         relationshipToMainPlayer: event.relationshipToMainPlayer,
         dayOfBirth: birthdayPerson.dayOfBirth,
         currentDay: event.eventDay,
@@ -75,7 +74,7 @@ class BirthdayEvent {
     );
 
     //if it is player
-    if (event.mainPersonID == mainPlayerID) {
+    if (event.mainPersonId == mainPlayerID) {
       return await PlayerBirthday(
         _relationshipUsecases,
         _personUsecases,

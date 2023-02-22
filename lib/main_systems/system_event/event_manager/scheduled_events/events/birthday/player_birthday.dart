@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/birthday_comments.dart';
 import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
@@ -37,7 +36,7 @@ class PlayerBirthday {
 
   Future<String> getFriendsEntry(Event event) async {
     final List<Friend> friends = await _relationshipUsecases.getFriendsUsecase
-        .execute(event.mainPersonID);
+        .execute(event.mainPersonId);
 
     if (friends.isNotEmpty) {
       final randomIndex = Random().nextInt(friends.length);
@@ -64,7 +63,7 @@ class PlayerBirthday {
   Future<String> getPartnerEntry(Event event) async {
     final Partner? currentPartner = await _relationshipUsecases
         .getCurrentPartnerUsecase
-        .execute(event.mainPersonID);
+        .execute(event.mainPersonId);
 
     if (currentPartner != null) {
       final Person? partnerPerson =

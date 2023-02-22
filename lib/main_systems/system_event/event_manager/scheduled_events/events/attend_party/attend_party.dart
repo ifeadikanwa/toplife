@@ -4,9 +4,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -55,7 +55,7 @@ class AttendParty {
     _relationshipUsecases.updateAnyRelationshipAmountUsecase.execute(
       personUsecases: _personUsecases,
       mainPersonID: mainPlayerID,
-      relationshipPersonID: event.mainPersonID,
+      relationshipPersonID: event.mainPersonId,
       relationshipToMainPerson: event.relationshipToMainPlayer,
       change: Random().nextInt(20) + 10, //10-20
     );
@@ -76,7 +76,7 @@ class AttendParty {
 
     //log in journal
     _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameID,
+      gameID: event.gameId,
       day: event.eventDay,
       mainPlayerID: mainPlayerID,
       entry: journalEntry,

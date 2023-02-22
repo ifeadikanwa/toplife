@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class EventRepository {
   Future<Event> createEvent(Event event);
@@ -24,6 +24,11 @@ abstract class EventRepository {
   });
   Future<void> deleteAllEventsInvolvingAPerson({
     required int personID,
+    required int gameID,
+  });
+
+  Stream<List<Event>> watchAttendableEventsForDay({
+    required int day,
     required int gameID,
   });
 }

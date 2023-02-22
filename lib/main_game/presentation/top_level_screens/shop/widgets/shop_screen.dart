@@ -231,12 +231,17 @@ class ShopScreen extends ConsumerWidget {
                   dead: false,
                 );
 
+                // await ref
+                //     .read(gameUsecasesProvider)
+                //     .createGameUsecase
+                //     .execute(person);
+
                 (await PersonDaoImpl(db).createPerson(person));
                 // (BabyTraitsDaoImpl(db).watchBabyTraits(1).listen((event) {
                 //   print(event);
                 // }));
 
-               
+              
               },
               child: const Text("Run"),
             ),

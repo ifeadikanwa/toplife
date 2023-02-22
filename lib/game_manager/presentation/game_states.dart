@@ -127,18 +127,21 @@ final journalUsecasesProvider = Provider<JournalUsecases>((ref) {
 });
 
 final eventManagerProvider = Provider<EventManager>((ref) {
+
   return EventManager(
     relationshipUsecases: ref.watch(relationshipUsecasesProvider),
     personUsecases: ref.watch(personUsecasesProvider),
     ageUsecases: ref.watch(ageUsecasesProvider),
     journalUsecases: ref.watch(journalUsecasesProvider),
     shopAndStorageUsecases: ref.watch(shopAndStorageUsecaseProvider),
-    eventRepository: EventRepositoryImpl(eventDao: EventDaoImpl()),
+    eventRepository: ref.watch(eventRepositoryProvider),
   );
 });
 
 final eventRepositoryProvider = Provider<EventRepository>((ref) {
-  return EventRepositoryImpl(eventDao: EventDaoImpl());
+  final db = ref.watch(databasePovider);
+
+  return EventRepositoryImpl(eventDao: EventDaoImpl(db));
 });
 
 final currentGameProvider = FutureProvider<Game?>((ref) {

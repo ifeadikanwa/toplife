@@ -9,7 +9,6 @@ import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/funeral/funeral_descriptions.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
@@ -46,7 +45,7 @@ class FuneralEvent {
         .execute(
       personUsecases: _personUsecases,
       mainPersonID: mainPlayerID,
-      relationshipPersonID: funeralEvent.mainPersonID,
+      relationshipPersonID: funeralEvent.mainPersonId,
       informalRelationshipType: funeralEvent.relationshipToMainPlayer,
     );
 
@@ -240,7 +239,7 @@ class FuneralEvent {
 
     //log in journal
     _journalUsecases.addToJournalUsecase.execute(
-      gameID: funeralEvent.gameID,
+      gameID: funeralEvent.gameId,
       day: funeralEvent.eventDay,
       mainPlayerID: mainPlayerID,
       entry: journalEntry,

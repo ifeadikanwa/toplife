@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_descriptions.dart';
@@ -46,11 +45,11 @@ class DeathEvent {
     required int mainPlayerID,
     String? causeOfDeath,
   }) async {
-    if (mainPlayerID != deathEvent.mainPersonID) {
+    if (mainPlayerID != deathEvent.mainPersonId) {
       //clean up from the event queue
       npcvEventCleanup(
-        deadPersonID: deathEvent.mainPersonID,
-        gameID: deathEvent.gameID,
+        deadPersonID: deathEvent.mainPersonId,
+        gameID: deathEvent.gameId,
       );
 
       //get people involved
@@ -64,7 +63,7 @@ class DeathEvent {
           .execute(
         personUsecases: _personUsecases,
         mainPersonID: mainPlayerID,
-        relationshipPersonID: deathEvent.mainPersonID,
+        relationshipPersonID: deathEvent.mainPersonId,
         informalRelationshipType: deathEvent.relationshipToMainPlayer,
       );
 

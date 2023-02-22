@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
@@ -117,7 +116,7 @@ class EventManager {
 
     for (var event in events) {
       final Person? mainPerson = await _personUsecases.getPersonUsecase.execute(
-        personID: event.mainPersonID,
+        personID: event.mainPersonId,
       );
 
       if (mainPerson != null) {

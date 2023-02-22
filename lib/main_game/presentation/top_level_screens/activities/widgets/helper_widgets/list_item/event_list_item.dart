@@ -4,7 +4,6 @@ import 'package:toplife/core/common_widgets/list_templates/case/general_list_ite
 import 'package:toplife/core/common_widgets/list_templates/helper_widgets/action_text.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/game_manager/presentation/game_states.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_time.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
