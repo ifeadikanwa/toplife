@@ -12,12 +12,14 @@ void main() {
       List<RelationshipPair<InLaw, Person>> givenInLawsList = [
         RelationshipPair(
           relationship: InLaw(
-              mainPersonId: 1,
-              inLawId: 2,
-              likesMainPerson: true,
-              inLawRelationshipType: InLawRelationshipType.sibling.name,
-              relationship: 89,
-              haveRomanticRelationship: false),
+            mainPersonId: 1,
+            inLawId: 2,
+            likesMainPerson: true,
+            inLawRelationshipType: InLawRelationshipType.sibling.name,
+            relationship: 89,
+            haveRomanticRelationship: false,
+            currentlyLivingTogether: false,
+          ),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -47,12 +49,14 @@ void main() {
         ),
         RelationshipPair(
           relationship: InLaw(
-              mainPersonId: 1,
-              inLawId: 2,
-              likesMainPerson: true,
-              inLawRelationshipType: InLawRelationshipType.parent.name,
-              relationship: 89,
-              haveRomanticRelationship: false),
+            mainPersonId: 1,
+            inLawId: 2,
+            likesMainPerson: true,
+            inLawRelationshipType: InLawRelationshipType.parent.name,
+            relationship: 89,
+            haveRomanticRelationship: false,
+            currentlyLivingTogether: false,
+          ),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -82,12 +86,14 @@ void main() {
         ),
         RelationshipPair(
           relationship: InLaw(
-              mainPersonId: 1,
-              inLawId: 2,
-              likesMainPerson: true,
-              inLawRelationshipType: InLawRelationshipType.child.name,
-              relationship: 89,
-              haveRomanticRelationship: false),
+            mainPersonId: 1,
+            inLawId: 2,
+            likesMainPerson: true,
+            inLawRelationshipType: InLawRelationshipType.child.name,
+            relationship: 89,
+            haveRomanticRelationship: false,
+            currentlyLivingTogether: false,
+          ),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -120,12 +126,14 @@ void main() {
       final List<RelationshipPair<InLaw, Person>> correctInLawsList = [
         RelationshipPair(
           relationship: InLaw(
-              mainPersonId: 1,
-              inLawId: 2,
-              likesMainPerson: true,
-              inLawRelationshipType: InLawRelationshipType.parent.name,
-              relationship: 89,
-              haveRomanticRelationship: false),
+            mainPersonId: 1,
+            inLawId: 2,
+            likesMainPerson: true,
+            inLawRelationshipType: InLawRelationshipType.parent.name,
+            relationship: 89,
+            haveRomanticRelationship: false,
+            currentlyLivingTogether: false,
+          ),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -155,12 +163,14 @@ void main() {
         ),
         RelationshipPair(
           relationship: InLaw(
-              mainPersonId: 1,
-              inLawId: 2,
-              likesMainPerson: true,
-              inLawRelationshipType: InLawRelationshipType.child.name,
-              relationship: 89,
-              haveRomanticRelationship: false),
+            mainPersonId: 1,
+            inLawId: 2,
+            likesMainPerson: true,
+            inLawRelationshipType: InLawRelationshipType.child.name,
+            relationship: 89,
+            haveRomanticRelationship: false,
+            currentlyLivingTogether: false,
+          ),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -190,12 +200,14 @@ void main() {
         ),
         RelationshipPair(
           relationship: InLaw(
-              mainPersonId: 1,
-              inLawId: 2,
-              likesMainPerson: true,
-              inLawRelationshipType: InLawRelationshipType.sibling.name,
-              relationship: 89,
-              haveRomanticRelationship: false),
+            mainPersonId: 1,
+            inLawId: 2,
+            likesMainPerson: true,
+            inLawRelationshipType: InLawRelationshipType.sibling.name,
+            relationship: 89,
+            haveRomanticRelationship: false,
+            currentlyLivingTogether: false,
+          ),
           person: const Person(
             id: 1,
             gameId: 2,

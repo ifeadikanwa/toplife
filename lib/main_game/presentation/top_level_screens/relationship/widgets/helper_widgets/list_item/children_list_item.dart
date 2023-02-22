@@ -11,7 +11,7 @@ class ChildrenListItem extends StatelessWidget {
   final String relationshipLabel;
   final String name;
   final int relationshipAmount;
-  final bool inYourCustody;
+  final bool currentlyLivingTogether;
   final void Function() onTap;
 
   const ChildrenListItem({
@@ -20,7 +20,7 @@ class ChildrenListItem extends StatelessWidget {
     required this.relationshipLabel,
     required this.name,
     required this.relationshipAmount,
-    required this.inYourCustody,
+    required this.currentlyLivingTogether,
     required this.onTap,
   }) : super(key: key);
 
@@ -34,7 +34,7 @@ class ChildrenListItem extends StatelessWidget {
           const AddHorizontalSpace(width: listRowItemsSpacing),
           relationshipInfo(),
           const AddHorizontalSpace(width: listRowItemsSpacing * 2),
-          inYourCustody
+          currentlyLivingTogether
               ? const Center(
                   child: Icon(
                     Icons.home_outlined,

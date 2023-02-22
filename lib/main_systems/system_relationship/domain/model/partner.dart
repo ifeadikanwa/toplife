@@ -26,6 +26,7 @@ class PartnerTable extends Table {
   BoolColumn get isCoParent => boolean()();
   TextColumn get metAt => text()();
   IntColumn get relationship => integer()();
+  BoolColumn get currentlyLivingTogether => boolean()();
 
   @override
   Set<Column<Object>>? get primaryKey => {

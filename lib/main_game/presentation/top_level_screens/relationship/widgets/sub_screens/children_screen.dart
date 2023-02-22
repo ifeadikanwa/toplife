@@ -32,8 +32,8 @@ class ChildrenScreen extends StatelessWidget {
           final relationshipAmount =
               childrenList[index].relationship.relationship;
 
-          //inYourCustody
-          final inYourCustody = childrenList[index].relationship.inYourCustody;
+          //currentlyLivingTogether(in your custody)
+          final currentlyLivingTogether = childrenList[index].relationship.currentlyLivingTogether;
 
           return ChildrenListItem(
             onTap: (){},
@@ -41,7 +41,7 @@ class ChildrenScreen extends StatelessWidget {
             relationshipLabel: relationshipLabel,
             name: name,
             relationshipAmount: relationshipAmount,
-            inYourCustody: inYourCustody,
+            currentlyLivingTogether: currentlyLivingTogether,
           );
         },
         separatorBuilder: (context, index) {

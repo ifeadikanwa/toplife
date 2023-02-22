@@ -10,17 +10,21 @@ import 'package:toplife/main_systems/system_relationship/constants/sibling_relat
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 
 class RelationshipTestLists {
+  static final childRelationship = Child(
+    hidden: false,
+    paternityFraud: false,
+    assumedRelationshipType: JournalCharacters.emptyString,
+    mainPersonId: 1,
+    childId: 2,
+    currentlyLivingTogether: true,
+    childRelationshipType: ChildRelationshipType.adopted.name,
+    relationship: 45,
+  );
   static final testChildrenList = [
     RelationshipPair(
-      relationship: Child(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          childId: 2,
-          inYourCustody: true,
-          childRelationshipType: ChildRelationshipType.adopted.name,
-          relationship: 45),
+      relationship: childRelationship.copyWith(
+        childRelationshipType: ChildRelationshipType.adopted.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -49,15 +53,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Child(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          childId: 2,
-          inYourCustody: false,
-          childRelationshipType: ChildRelationshipType.step.name,
-          relationship: 45),
+      relationship: childRelationship.copyWith(
+        childRelationshipType: ChildRelationshipType.step.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -86,15 +84,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Child(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          childId: 2,
-          inYourCustody: true,
-          childRelationshipType: ChildRelationshipType.birth.name,
-          relationship: 45),
+      relationship: childRelationship.copyWith(
+        childRelationshipType: ChildRelationshipType.birth.name,
+        currentlyLivingTogether: false,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -124,19 +117,24 @@ class RelationshipTestLists {
     ),
   ];
 
+  static final exesRelationship = Partner(
+    endDay: 0,
+    jointMoney: 0,
+    mainPersonId: 1,
+    partnerId: 2,
+    partnerRelationshipType: PartnerRelationshipType.casual.name,
+    isActive: false,
+    startDay: 34,
+    isCoParent: true,
+    metAt: "metAt",
+    relationship: 68,
+    currentlyLivingTogether: false,
+  );
+
   static final testExesList = [
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: exesRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.casual.name,
-        isActive: false,
-        startDay: 34,
-        isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -166,17 +164,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: exesRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.casual.name,
-        isActive: false,
-        startDay: 34,
-        isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -206,17 +195,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: exesRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.married.name,
-        isActive: false,
-        startDay: 34,
-        isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -246,17 +226,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: exesRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.married.name,
-        isActive: false,
-        startDay: 34,
-        isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -286,17 +257,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: exesRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.dating.name,
-        isActive: false,
-        startDay: 34,
-        isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
+        currentlyLivingTogether: true
       ),
       person: Person(
         hasDriversLicense: false,
@@ -326,17 +289,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: exesRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.dating.name,
-        isActive: false,
-        startDay: 34,
-        isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -366,17 +320,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: exesRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.engaged.name,
-        isActive: false,
-        startDay: 34,
-        isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -406,17 +351,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: exesRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.engaged.name,
-        isActive: false,
-        startDay: 34,
-        isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -447,14 +383,20 @@ class RelationshipTestLists {
     ),
   ];
 
+  static const friendRelationship = Friend(
+    mainPersonId: 1,
+    friendId: 2,
+    metAt: "metAt",
+    relationship: 66,
+    haveRomanticRelationship: false,
+    currentlyLivingTogether: false,
+  );
+
   static final testFriendsList = [
     RelationshipPair(
-      relationship: const Friend(
-          mainPersonId: 1,
-          friendId: 2,
-          metAt: "metAt",
-          relationship: 66,
-          haveRomanticRelationship: false),
+      relationship: friendRelationship.copyWith(
+        relationship: 55,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -483,12 +425,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: const Friend(
-          mainPersonId: 1,
-          friendId: 2,
-          metAt: "metAt",
-          relationship: 66,
-          haveRomanticRelationship: false),
+      relationship: friendRelationship.copyWith(
+        relationship: 89,
+        currentlyLivingTogether: true,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -517,12 +457,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: const Friend(
-          mainPersonId: 1,
-          friendId: 2,
-          metAt: "metAt",
-          relationship: 66,
-          haveRomanticRelationship: false),
+      relationship: friendRelationship.copyWith(
+        relationship: 23,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -579,15 +516,21 @@ class RelationshipTestLists {
     ),
   ];
 
+  static final inLawRelationship = InLaw(
+    haveRomanticRelationship: false,
+    mainPersonId: 1,
+    inLawId: 2,
+    likesMainPerson: true,
+    inLawRelationshipType: InLawRelationshipType.sibling.name,
+    relationship: 89,
+    currentlyLivingTogether: false,
+  );
+
   static final testInLawsList = [
     RelationshipPair(
-      relationship: InLaw(
-          haveRomanticRelationship: false,
-          mainPersonId: 1,
-          inLawId: 2,
-          likesMainPerson: true,
-          inLawRelationshipType: InLawRelationshipType.sibling.name,
-          relationship: 89),
+      relationship: inLawRelationship.copyWith(
+        inLawRelationshipType: InLawRelationshipType.sibling.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -616,13 +559,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: InLaw(
-          haveRomanticRelationship: false,
-          mainPersonId: 1,
-          inLawId: 2,
-          likesMainPerson: true,
-          inLawRelationshipType: InLawRelationshipType.child.name,
-          relationship: 89),
+      relationship: inLawRelationship.copyWith(
+        inLawRelationshipType: InLawRelationshipType.child.name,
+        currentlyLivingTogether: true,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -651,13 +591,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: InLaw(
-          haveRomanticRelationship: false,
-          mainPersonId: 1,
-          inLawId: 2,
-          likesMainPerson: true,
-          inLawRelationshipType: InLawRelationshipType.child.name,
-          relationship: 89),
+      relationship: inLawRelationship.copyWith(
+        inLawRelationshipType: InLawRelationshipType.child.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -686,13 +622,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: InLaw(
-          haveRomanticRelationship: false,
-          mainPersonId: 1,
-          inLawId: 2,
-          likesMainPerson: true,
-          inLawRelationshipType: InLawRelationshipType.child.name,
-          relationship: 89),
+      relationship: inLawRelationship.copyWith(
+        inLawRelationshipType: InLawRelationshipType.child.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -721,13 +653,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: InLaw(
-          haveRomanticRelationship: false,
-          mainPersonId: 1,
-          inLawId: 2,
-          likesMainPerson: true,
-          inLawRelationshipType: InLawRelationshipType.parent.name,
-          relationship: 89),
+      relationship: inLawRelationship.copyWith(
+        inLawRelationshipType: InLawRelationshipType.parent.name,
+        currentlyLivingTogether: true,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -756,13 +685,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: InLaw(
-          haveRomanticRelationship: false,
-          mainPersonId: 1,
-          inLawId: 2,
-          likesMainPerson: true,
-          inLawRelationshipType: InLawRelationshipType.sibling.name,
-          relationship: 89),
+      relationship: inLawRelationship.copyWith(
+        inLawRelationshipType: InLawRelationshipType.sibling.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -791,13 +716,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: InLaw(
-          haveRomanticRelationship: false,
-          mainPersonId: 1,
-          inLawId: 2,
-          likesMainPerson: true,
-          inLawRelationshipType: InLawRelationshipType.sibling.name,
-          relationship: 89),
+      relationship: inLawRelationship.copyWith(
+        inLawRelationshipType: InLawRelationshipType.sibling.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -826,13 +747,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: InLaw(
-          haveRomanticRelationship: false,
-          mainPersonId: 1,
-          inLawId: 2,
-          likesMainPerson: true,
-          inLawRelationshipType: InLawRelationshipType.parent.name,
-          relationship: 89),
+      relationship: inLawRelationship.copyWith(
+        inLawRelationshipType: InLawRelationshipType.parent.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -861,18 +778,25 @@ class RelationshipTestLists {
       ),
     ),
   ];
+
+  static final parentRelationship = Parent(
+    hidden: false,
+    paternityFraud: false,
+    assumedRelationshipType: JournalCharacters.emptyString,
+    mainPersonId: 1,
+    parentId: 2,
+    parentRelationshipType: ParentRelationshipType.grand.name,
+    relationship: 34,
+    isActive: true,
+    currentlyLivingTogether: false,
+  );
 
   static final testParentsList = [
     RelationshipPair(
-      relationship: Parent(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          parentId: 2,
-          parentRelationshipType: ParentRelationshipType.grand.name,
-          relationship: 34,
-          isActive: true),
+      relationship: parentRelationship.copyWith(
+        parentRelationshipType: ParentRelationshipType.grand.name,
+        currentlyLivingTogether: true,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -901,15 +825,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Parent(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          parentId: 2,
-          parentRelationshipType: ParentRelationshipType.main.name,
-          relationship: 34,
-          isActive: true),
+      relationship: parentRelationship.copyWith(
+        parentRelationshipType: ParentRelationshipType.main.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -938,15 +856,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Parent(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          parentId: 2,
-          parentRelationshipType: ParentRelationshipType.step.name,
-          relationship: 34,
-          isActive: true),
+      relationship: parentRelationship.copyWith(
+        parentRelationshipType: ParentRelationshipType.step.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -975,15 +887,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Parent(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          parentId: 2,
-          parentRelationshipType: ParentRelationshipType.grand.name,
-          relationship: 34,
-          isActive: true),
+      relationship: parentRelationship.copyWith(
+        parentRelationshipType: ParentRelationshipType.grand.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -1012,15 +918,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Parent(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          parentId: 2,
-          parentRelationshipType: ParentRelationshipType.main.name,
-          relationship: 34,
-          isActive: true),
+      relationship: parentRelationship.copyWith(
+        parentRelationshipType: ParentRelationshipType.main.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -1049,15 +949,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Parent(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          parentId: 2,
-          parentRelationshipType: ParentRelationshipType.step.name,
-          relationship: 34,
-          isActive: true),
+      relationship: parentRelationship.copyWith(
+        parentRelationshipType: ParentRelationshipType.step.name,
+        currentlyLivingTogether: true,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -1086,15 +981,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Parent(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          parentId: 2,
-          parentRelationshipType: ParentRelationshipType.grand.name,
-          relationship: 34,
-          isActive: true),
+      relationship: parentRelationship.copyWith(
+        parentRelationshipType: ParentRelationshipType.grand.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -1123,15 +1012,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Parent(
-          hidden: false,
-          paternityFraud: false,
-          assumedRelationshipType: JournalCharacters.emptyString,
-          mainPersonId: 1,
-          parentId: 2,
-          parentRelationshipType: ParentRelationshipType.step.name,
-          relationship: 34,
-          isActive: true),
+      relationship: parentRelationship.copyWith(
+        parentRelationshipType: ParentRelationshipType.step.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -1161,19 +1044,25 @@ class RelationshipTestLists {
     ),
   ];
 
+  static final partnerRelationship = Partner(
+    endDay: 0,
+    jointMoney: 0,
+    mainPersonId: 1,
+    partnerId: 2,
+    partnerRelationshipType: PartnerRelationshipType.casual.name,
+    isActive: false,
+    startDay: 34,
+    isCoParent: true,
+    metAt: "metAt",
+    relationship: 68,
+    currentlyLivingTogether: false,
+  );
   static final testPartnersList = [
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: partnerRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.casual.name,
-        isActive: false,
-        startDay: 34,
         isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
+        relationship: 90,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1203,17 +1092,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: partnerRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.casual.name,
-        isActive: false,
-        startDay: 34,
         isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
+        relationship: 90,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1243,17 +1125,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: partnerRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.married.name,
-        isActive: true,
-        startDay: 34,
         isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
+        relationship: 90,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1283,17 +1158,12 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: partnerRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.married.name,
-        isActive: false,
-        startDay: 34,
         isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
+        relationship: 90,
+        isActive: true,
+        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1323,17 +1193,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: partnerRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.dating.name,
-        isActive: false,
-        startDay: 34,
         isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
+        relationship: 90,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1363,17 +1226,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: partnerRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.dating.name,
-        isActive: false,
-        startDay: 34,
         isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
+        relationship: 90,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1403,17 +1259,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: partnerRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.engaged.name,
-        isActive: false,
-        startDay: 34,
         isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
+        relationship: 90,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1443,17 +1292,10 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Partner(
-        endDay: 0,
-        jointMoney: 0,
-        mainPersonId: 1,
-        partnerId: 2,
+      relationship: partnerRelationship.copyWith(
         partnerRelationshipType: PartnerRelationshipType.engaged.name,
-        isActive: false,
-        startDay: 34,
         isCoParent: true,
-        metAt: "metAt",
-        relationship: 68,
+        relationship: 90,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1483,15 +1325,19 @@ class RelationshipTestLists {
       ),
     ),
   ];
+
+  static final relativesRelationship = Relative(
+    mainPersonId: 1,
+    relativeId: 2,
+    currentlyLivingTogether: true,
+    relativeRelationshipType: RelativeRelationshipType.grandchild.name,
+    relationship: 56,
+  );
 
   static final testRelativesList = [
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
-        relationship: 56,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1521,12 +1367,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.nibling.name,
-        relationship: 56,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1556,12 +1398,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.pibling.name,
-        relationship: 56,
+        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1591,12 +1430,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
-        relationship: 56,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1626,12 +1461,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.cousin.name,
-        relationship: 56,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1661,12 +1492,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
-        relationship: 56,
+        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1696,12 +1524,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.pibling.name,
-        relationship: 56,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1731,12 +1555,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.nibling.name,
-        relationship: 56,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1766,12 +1586,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
-        relationship: 56,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1801,12 +1617,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.nibling.name,
-        relationship: 56,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1836,12 +1648,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Relative(
-        mainPersonId: 1,
-        relativeId: 2,
-        inYourCustody: true,
+      relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
-        relationship: 56,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1872,13 +1680,18 @@ class RelationshipTestLists {
     ),
   ];
 
+  static final siblingRelationship = Sibling(
+    mainPersonId: 1,
+    siblingId: 2,
+    siblingRelationshipType: SiblingRelationshipType.step.name,
+    relationship: 80,
+    currentlyLivingTogether: false,
+  );
+
   static final testSiblingList = [
     RelationshipPair(
-      relationship: Sibling(
-        mainPersonId: 1,
-        siblingId: 2,
+      relationship: siblingRelationship.copyWith(
         siblingRelationshipType: SiblingRelationshipType.step.name,
-        relationship: 80,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1908,11 +1721,9 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Sibling(
-        mainPersonId: 1,
-        siblingId: 2,
+      relationship: siblingRelationship.copyWith(
         siblingRelationshipType: SiblingRelationshipType.full.name,
-        relationship: 57,
+        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1942,11 +1753,8 @@ class RelationshipTestLists {
       ),
     ),
     RelationshipPair(
-      relationship: Sibling(
-        mainPersonId: 1,
-        siblingId: 2,
+      relationship: siblingRelationship.copyWith(
         siblingRelationshipType: SiblingRelationshipType.half.name,
-        relationship: 14,
       ),
       person: Person(
         id: 2,

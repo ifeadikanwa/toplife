@@ -58,16 +58,18 @@ void main() {
       "returns correct label if given active partner relationship pair and asked to consider only active partners",
       () {
         final partner = Partner(
-            mainPersonId: 1,
-            partnerId: 2,
-            partnerRelationshipType: PartnerRelationshipType.dating.name,
-            isActive: true,
-            startDay: 0,
-            isCoParent: false,
-            metAt: "metAt",
-            relationship: 56,
-            endDay: 0,
-            jointMoney: 0);
+          mainPersonId: 1,
+          partnerId: 2,
+          partnerRelationshipType: PartnerRelationshipType.dating.name,
+          isActive: true,
+          startDay: 0,
+          isCoParent: false,
+          metAt: "metAt",
+          relationship: 56,
+          endDay: 0,
+          jointMoney: 0,
+          currentlyLivingTogether: false,
+        );
 
         expect(
           getRelationshipLabel(
@@ -86,16 +88,18 @@ void main() {
       "returns empty string if given inactive partner relationship pair and asked to consider only active partners",
       () {
         final partner = Partner(
-            mainPersonId: 1,
-            partnerId: 2,
-            partnerRelationshipType: PartnerRelationshipType.dating.name,
-            isActive: false,
-            startDay: 0,
-            isCoParent: false,
-            metAt: "metAt",
-            relationship: 56,
-            endDay: 0,
-            jointMoney: 0);
+          mainPersonId: 1,
+          partnerId: 2,
+          partnerRelationshipType: PartnerRelationshipType.dating.name,
+          isActive: false,
+          startDay: 0,
+          isCoParent: false,
+          metAt: "metAt",
+          relationship: 56,
+          endDay: 0,
+          jointMoney: 0,
+          currentlyLivingTogether: false,
+        );
 
         expect(
           getRelationshipLabel(
@@ -114,16 +118,18 @@ void main() {
       "returns correct label if given inactive partner relationship pair and asked to consider NOT only active partners",
       () {
         final partner = Partner(
-            mainPersonId: 1,
-            partnerId: 2,
-            partnerRelationshipType: PartnerRelationshipType.dating.name,
-            isActive: false,
-            startDay: 0,
-            isCoParent: false,
-            metAt: "metAt",
-            relationship: 56,
-            endDay: 0,
-            jointMoney: 0);
+          mainPersonId: 1,
+          partnerId: 2,
+          partnerRelationshipType: PartnerRelationshipType.dating.name,
+          isActive: false,
+          startDay: 0,
+          isCoParent: false,
+          metAt: "metAt",
+          relationship: 56,
+          endDay: 0,
+          jointMoney: 0,
+          currentlyLivingTogether: false,
+        );
 
         expect(
           getRelationshipLabel(
@@ -147,7 +153,7 @@ void main() {
           assumedRelationshipType: JournalCharacters.emptyString,
           mainPersonId: 1,
           childId: 2,
-          inYourCustody: true,
+          currentlyLivingTogether: true,
           childRelationshipType: ChildRelationshipType.birth.name,
           relationship: 89,
         );
@@ -177,6 +183,7 @@ void main() {
           parentRelationshipType: ParentRelationshipType.grand.name,
           relationship: 50,
           isActive: true,
+          currentlyLivingTogether: false,
         );
 
         expect(
@@ -202,6 +209,7 @@ void main() {
           siblingId: 2,
           siblingRelationshipType: SiblingRelationshipType.full.name,
           relationship: 79,
+          currentlyLivingTogether: false,
         );
 
         expect(
@@ -223,7 +231,7 @@ void main() {
         final relative = Relative(
           mainPersonId: 1,
           relativeId: 2,
-          inYourCustody: true,
+          currentlyLivingTogether: true,
           relativeRelationshipType: RelativeRelationshipType.pibling.name,
           relationship: 29,
         );
@@ -253,6 +261,7 @@ void main() {
           inLawRelationshipType: InLawRelationshipType.child.name,
           relationship: 67,
           haveRomanticRelationship: false,
+          currentlyLivingTogether: false,
         );
 
         expect(
@@ -279,6 +288,7 @@ void main() {
           metAt: "metAt",
           relationship: 56,
           haveRomanticRelationship: false,
+          currentlyLivingTogether: false,
         );
 
         expect(

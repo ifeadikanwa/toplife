@@ -22,6 +22,7 @@ class InLawTable extends Table {
   TextColumn get inLawRelationshipType => text()();
   BoolColumn get haveRomanticRelationship => boolean()();
   IntColumn get relationship => integer()();
+  BoolColumn get currentlyLivingTogether => boolean()();
 
   @override
   Set<Column<Object>>? get primaryKey => {

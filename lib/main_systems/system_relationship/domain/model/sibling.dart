@@ -20,6 +20,7 @@ class SiblingTable extends Table {
       )();
   TextColumn get siblingRelationshipType => text()();
   IntColumn get relationship => integer()();
+  BoolColumn get currentlyLivingTogether => boolean()();
 
   @override
   Set<Column<Object>>? get primaryKey => {

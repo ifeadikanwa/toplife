@@ -18,7 +18,7 @@ class ChildTable extends Table {
         onUpdate: KeyAction.cascade,
         onDelete: KeyAction.cascade,
       )();
-  BoolColumn get inYourCustody => boolean()();
+  BoolColumn get currentlyLivingTogether => boolean()();
   TextColumn get childRelationshipType => text()();
   BoolColumn get hidden => boolean()();
   BoolColumn get paternityFraud => boolean()();
