@@ -552,8 +552,8 @@ class RelationshipTestLists {
     ),
   ];
 
-  static const testGraveyards = [
-    Graveyard(
+  static const testGraves = [
+    Grave(
       mainPersonId: 1,
       deadPersonId: 2,
       relationshipType: "Mother",
@@ -561,7 +561,7 @@ class RelationshipTestLists {
       fullName: "Fiona Merril",
       ageAtDeath: "Element",
     ),
-    Graveyard(
+    Grave(
       mainPersonId: 1,
       deadPersonId: 2,
       relationshipType: "Father",
@@ -569,7 +569,7 @@ class RelationshipTestLists {
       fullName: "Hewie Merril",
       ageAtDeath: "Element",
     ),
-    Graveyard(
+    Grave(
       mainPersonId: 1,
       deadPersonId: 2,
       relationshipType: "Son",

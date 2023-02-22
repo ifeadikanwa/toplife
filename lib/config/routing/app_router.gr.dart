@@ -32,7 +32,7 @@ import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_
     as _i34;
 import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/friends_screen.dart'
     as _i33;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/graveyard_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/graves_screen.dart'
     as _i35;
 import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/inlaws_screen.dart'
     as _i32;
@@ -430,13 +430,13 @@ class AppRouter extends _i37.RootStackRouter {
         ),
       );
     },
-    GraveyardRoute.name: (routeData) {
-      final args = routeData.argsAs<GraveyardRouteArgs>();
+    GravesRoute.name: (routeData) {
+      final args = routeData.argsAs<GravesRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i35.GraveyardScreen(
+        child: _i35.GravesScreen(
           key: args.key,
-          graveyards: args.graveyards,
+          graves: args.graves,
         ),
       );
     },
@@ -652,8 +652,8 @@ class AppRouter extends _i37.RootStackRouter {
                       parent: RelationshipRoute.name,
                     ),
                     _i37.RouteConfig(
-                      GraveyardRoute.name,
-                      path: 'graveyard',
+                      GravesRoute.name,
+                      path: 'grave',
                       parent: RelationshipRoute.name,
                     ),
                   ],
@@ -1603,36 +1603,36 @@ class ExesRouteArgs {
 }
 
 /// generated route for
-/// [_i35.GraveyardScreen]
-class GraveyardRoute extends _i37.PageRouteInfo<GraveyardRouteArgs> {
-  GraveyardRoute({
+/// [_i35.GravesScreen]
+class GravesRoute extends _i37.PageRouteInfo<GravesRouteArgs> {
+  GravesRoute({
     _i38.Key? key,
-    required List<_i46.Graveyard> graveyards,
+    required List<_i46.Grave> graves,
   }) : super(
-          GraveyardRoute.name,
-          path: 'graveyard',
-          args: GraveyardRouteArgs(
+          GravesRoute.name,
+          path: 'grave',
+          args: GravesRouteArgs(
             key: key,
-            graveyards: graveyards,
+            graves: graves,
           ),
         );
 
-  static const String name = 'GraveyardRoute';
+  static const String name = 'GravesRoute';
 }
 
-class GraveyardRouteArgs {
-  const GraveyardRouteArgs({
+class GravesRouteArgs {
+  const GravesRouteArgs({
     this.key,
-    required this.graveyards,
+    required this.graves,
   });
 
   final _i38.Key? key;
 
-  final List<_i46.Graveyard> graveyards;
+  final List<_i46.Grave> graves;
 
   @override
   String toString() {
-    return 'GraveyardRouteArgs{key: $key, graveyards: $graveyards}';
+    return 'GravesRouteArgs{key: $key, graves: $graves}';
   }
 }
 

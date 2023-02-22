@@ -20,7 +20,7 @@ import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/graveyard_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/grave_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/inlaw_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
@@ -29,13 +29,12 @@ import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_im
 import 'package:toplife/main_systems/system_relationship/domain/model/acquaintance.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/graveyard.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/grave.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
-
 
 part 'database_provider.g.dart';
 
@@ -50,7 +49,7 @@ part 'database_provider.g.dart';
     AcquaintanceTable,
     ChildTable,
     FriendTable,
-    GraveyardTable,
+    GraveTable,
     InLawTable,
     ParentTable,
     PartnerTable,
@@ -67,7 +66,7 @@ part 'database_provider.g.dart';
     AcquaintanceDaoImpl,
     ChildDaoImpl,
     FriendDaoImpl,
-    GraveyardDaoImpl,
+    GraveDaoImpl,
     InLawDaoImpl,
     ParentDaoImpl,
     PartnerDaoImpl,

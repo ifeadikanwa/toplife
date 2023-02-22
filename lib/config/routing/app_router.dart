@@ -10,7 +10,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/relationship/wi
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/children_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/exes_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/friends_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/graveyard_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/graves_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/inlaws_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/partners_screen.dart';
@@ -206,7 +206,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
                 AutoRoute(path: RouteName.inLawsPath, page: InLawsScreen),
                 AutoRoute(path: RouteName.friendsPath, page: FriendsScreen),
                 AutoRoute(path: RouteName.exesPath, page: ExesScreen),
-                AutoRoute(path: RouteName.graveyardPath, page: GraveyardScreen),
+                AutoRoute(path: RouteName.gravePath, page: GravesScreen),
               ],
             ),
           ],

@@ -4413,12 +4413,12 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
   }
 }
 
-class $GraveyardTableTable extends GraveyardTable
-    with TableInfo<$GraveyardTableTable, Graveyard> {
+class $GraveTableTable extends GraveTable
+    with TableInfo<$GraveTableTable, Grave> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $GraveyardTableTable(this.attachedDatabase, [this._alias]);
+  $GraveTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _mainPersonIdMeta =
       const VerificationMeta('mainPersonId');
   @override
@@ -4471,11 +4471,11 @@ class $GraveyardTableTable extends GraveyardTable
         ageAtDeath
       ];
   @override
-  String get aliasedName => _alias ?? 'graveyard';
+  String get aliasedName => _alias ?? 'grave';
   @override
-  String get actualTableName => 'graveyard';
+  String get actualTableName => 'grave';
   @override
-  VerificationContext validateIntegrity(Insertable<Graveyard> instance,
+  VerificationContext validateIntegrity(Insertable<Grave> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -4531,9 +4531,9 @@ class $GraveyardTableTable extends GraveyardTable
   @override
   Set<GeneratedColumn> get $primaryKey => {mainPersonId, deadPersonId};
   @override
-  Graveyard map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Grave map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Graveyard(
+    return Grave(
       mainPersonId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
       deadPersonId: attachedDatabase.typeMapping
@@ -4550,19 +4550,19 @@ class $GraveyardTableTable extends GraveyardTable
   }
 
   @override
-  $GraveyardTableTable createAlias(String alias) {
-    return $GraveyardTableTable(attachedDatabase, alias);
+  $GraveTableTable createAlias(String alias) {
+    return $GraveTableTable(attachedDatabase, alias);
   }
 }
 
-class Graveyard extends DataClass implements Insertable<Graveyard> {
+class Grave extends DataClass implements Insertable<Grave> {
   final int mainPersonId;
   final int deadPersonId;
   final String relationshipType;
   final int dayOfDeath;
   final String fullName;
   final String ageAtDeath;
-  const Graveyard(
+  const Grave(
       {required this.mainPersonId,
       required this.deadPersonId,
       required this.relationshipType,
@@ -4581,8 +4581,8 @@ class Graveyard extends DataClass implements Insertable<Graveyard> {
     return map;
   }
 
-  GraveyardTableCompanion toCompanion(bool nullToAbsent) {
-    return GraveyardTableCompanion(
+  GraveTableCompanion toCompanion(bool nullToAbsent) {
+    return GraveTableCompanion(
       mainPersonId: Value(mainPersonId),
       deadPersonId: Value(deadPersonId),
       relationshipType: Value(relationshipType),
@@ -4592,10 +4592,10 @@ class Graveyard extends DataClass implements Insertable<Graveyard> {
     );
   }
 
-  factory Graveyard.fromJson(Map<String, dynamic> json,
+  factory Grave.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Graveyard(
+    return Grave(
       mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
       deadPersonId: serializer.fromJson<int>(json['deadPersonId']),
       relationshipType: serializer.fromJson<String>(json['relationshipType']),
@@ -4617,14 +4617,14 @@ class Graveyard extends DataClass implements Insertable<Graveyard> {
     };
   }
 
-  Graveyard copyWith(
+  Grave copyWith(
           {int? mainPersonId,
           int? deadPersonId,
           String? relationshipType,
           int? dayOfDeath,
           String? fullName,
           String? ageAtDeath}) =>
-      Graveyard(
+      Grave(
         mainPersonId: mainPersonId ?? this.mainPersonId,
         deadPersonId: deadPersonId ?? this.deadPersonId,
         relationshipType: relationshipType ?? this.relationshipType,
@@ -4634,7 +4634,7 @@ class Graveyard extends DataClass implements Insertable<Graveyard> {
       );
   @override
   String toString() {
-    return (StringBuffer('Graveyard(')
+    return (StringBuffer('Grave(')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('deadPersonId: $deadPersonId, ')
           ..write('relationshipType: $relationshipType, ')
@@ -4651,7 +4651,7 @@ class Graveyard extends DataClass implements Insertable<Graveyard> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Graveyard &&
+      (other is Grave &&
           other.mainPersonId == this.mainPersonId &&
           other.deadPersonId == this.deadPersonId &&
           other.relationshipType == this.relationshipType &&
@@ -4660,14 +4660,14 @@ class Graveyard extends DataClass implements Insertable<Graveyard> {
           other.ageAtDeath == this.ageAtDeath);
 }
 
-class GraveyardTableCompanion extends UpdateCompanion<Graveyard> {
+class GraveTableCompanion extends UpdateCompanion<Grave> {
   final Value<int> mainPersonId;
   final Value<int> deadPersonId;
   final Value<String> relationshipType;
   final Value<int> dayOfDeath;
   final Value<String> fullName;
   final Value<String> ageAtDeath;
-  const GraveyardTableCompanion({
+  const GraveTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.deadPersonId = const Value.absent(),
     this.relationshipType = const Value.absent(),
@@ -4675,7 +4675,7 @@ class GraveyardTableCompanion extends UpdateCompanion<Graveyard> {
     this.fullName = const Value.absent(),
     this.ageAtDeath = const Value.absent(),
   });
-  GraveyardTableCompanion.insert({
+  GraveTableCompanion.insert({
     required int mainPersonId,
     required int deadPersonId,
     required String relationshipType,
@@ -4688,7 +4688,7 @@ class GraveyardTableCompanion extends UpdateCompanion<Graveyard> {
         dayOfDeath = Value(dayOfDeath),
         fullName = Value(fullName),
         ageAtDeath = Value(ageAtDeath);
-  static Insertable<Graveyard> custom({
+  static Insertable<Grave> custom({
     Expression<int>? mainPersonId,
     Expression<int>? deadPersonId,
     Expression<String>? relationshipType,
@@ -4706,14 +4706,14 @@ class GraveyardTableCompanion extends UpdateCompanion<Graveyard> {
     });
   }
 
-  GraveyardTableCompanion copyWith(
+  GraveTableCompanion copyWith(
       {Value<int>? mainPersonId,
       Value<int>? deadPersonId,
       Value<String>? relationshipType,
       Value<int>? dayOfDeath,
       Value<String>? fullName,
       Value<String>? ageAtDeath}) {
-    return GraveyardTableCompanion(
+    return GraveTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       deadPersonId: deadPersonId ?? this.deadPersonId,
       relationshipType: relationshipType ?? this.relationshipType,
@@ -4749,7 +4749,7 @@ class GraveyardTableCompanion extends UpdateCompanion<Graveyard> {
 
   @override
   String toString() {
-    return (StringBuffer('GraveyardTableCompanion(')
+    return (StringBuffer('GraveTableCompanion(')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('deadPersonId: $deadPersonId, ')
           ..write('relationshipType: $relationshipType, ')
@@ -6737,7 +6737,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       $AcquaintanceTableTable(this);
   late final $ChildTableTable childTable = $ChildTableTable(this);
   late final $FriendTableTable friendTable = $FriendTableTable(this);
-  late final $GraveyardTableTable graveyardTable = $GraveyardTableTable(this);
+  late final $GraveTableTable graveTable = $GraveTableTable(this);
   late final $InLawTableTable inLawTable = $InLawTableTable(this);
   late final $ParentTableTable parentTable = $ParentTableTable(this);
   late final $PartnerTableTable partnerTable = $PartnerTableTable(this);
@@ -6758,8 +6758,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final ChildDaoImpl childDaoImpl = ChildDaoImpl(this as DatabaseProvider);
   late final FriendDaoImpl friendDaoImpl =
       FriendDaoImpl(this as DatabaseProvider);
-  late final GraveyardDaoImpl graveyardDaoImpl =
-      GraveyardDaoImpl(this as DatabaseProvider);
+  late final GraveDaoImpl graveDaoImpl = GraveDaoImpl(this as DatabaseProvider);
   late final InLawDaoImpl inLawDaoImpl = InLawDaoImpl(this as DatabaseProvider);
   late final ParentDaoImpl parentDaoImpl =
       ParentDaoImpl(this as DatabaseProvider);
@@ -6783,7 +6782,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         acquaintanceTable,
         childTable,
         friendTable,
-        graveyardTable,
+        graveTable,
         inLawTable,
         parentTable,
         partnerTable,
@@ -6951,28 +6950,28 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.delete),
             result: [
-              TableUpdate('graveyard', kind: UpdateKind.delete),
+              TableUpdate('grave', kind: UpdateKind.delete),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.update),
             result: [
-              TableUpdate('graveyard', kind: UpdateKind.update),
+              TableUpdate('grave', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.delete),
             result: [
-              TableUpdate('graveyard', kind: UpdateKind.delete),
+              TableUpdate('grave', kind: UpdateKind.delete),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.update),
             result: [
-              TableUpdate('graveyard', kind: UpdateKind.update),
+              TableUpdate('grave', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(

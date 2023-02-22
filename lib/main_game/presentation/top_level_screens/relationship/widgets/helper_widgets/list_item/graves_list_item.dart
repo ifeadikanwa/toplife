@@ -5,14 +5,14 @@ import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_avatar.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_label_and_name.dart';
 
-class GraveyardListItem extends StatelessWidget {
+class GravesListItem extends StatelessWidget {
   final String avatarImagePath;
   final String relationshipLabel;
   final String name;
   final int dayOfDeath;
   final void Function() onTap;
 
-  const GraveyardListItem({
+  const GravesListItem({
     Key? key,
     required this.avatarImagePath,
     required this.relationshipLabel,

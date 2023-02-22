@@ -1,7 +1,7 @@
 import 'package:toplife/main_systems/system_relationship/data/repository/acquaintance_repository_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/child_repository_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/friend_repository_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/repository/graveyard_repository_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/repository/grave_repository_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/inlaw_repository_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/parent_repository_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/partner_repository_impl.dart';
@@ -10,7 +10,7 @@ import 'package:toplife/main_systems/system_relationship/data/repository/sibling
 import 'package:toplife/main_systems/system_relationship/domain/dao/acquaintance_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/child_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/friend_dao.dart';
-import 'package:toplife/main_systems/system_relationship/domain/dao/graveyard_dao.dart';
+import 'package:toplife/main_systems/system_relationship/domain/dao/grave_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/inlaw_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/parent_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/partner_dao.dart';
@@ -26,7 +26,7 @@ class RelationshipRepositories {
   final AcquaintanceDao _acquaintanceDao;
   final RelativeDao _relativeDao;
   final InLawDao _inLawDao;
-  final GraveyardDao _graveyardDao;
+  final GraveDao _graveDao;
 
   const RelationshipRepositories({
     required ParentDao parentDao,
@@ -37,7 +37,7 @@ class RelationshipRepositories {
     required AcquaintanceDao acquaintanceDao,
     required RelativeDao relativeDao,
     required InLawDao inLawDao,
-    required GraveyardDao graveyardDao,
+    required GraveDao graveDao,
   })  : _parentDao = parentDao,
         _childDao = childDao,
         _siblingDao = siblingDao,
@@ -46,7 +46,7 @@ class RelationshipRepositories {
         _acquaintanceDao = acquaintanceDao,
         _relativeDao = relativeDao,
         _inLawDao = inLawDao,
-        _graveyardDao = graveyardDao;
+        _graveDao = graveDao;
 
   ParentRepositoryImpl get parentRepositoryImpl =>
       ParentRepositoryImpl(parentDao: _parentDao);
@@ -72,6 +72,6 @@ class RelationshipRepositories {
   InLawRepositoryImpl get inLawRepositoryImpl =>
       InLawRepositoryImpl(inLawDao: _inLawDao);
 
-  GraveyardRepositoryImpl get graveyardRepositoryImpl =>
-      GraveyardRepositoryImpl(graveyardDao: _graveyardDao);
+  GraveRepositoryImpl get graveyardRepositoryImpl =>
+      GraveRepositoryImpl(graveDao: _graveDao);
 }

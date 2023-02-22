@@ -1,10 +1,10 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
-@DataClassName("Graveyard")
-class GraveyardTable extends Table {
+@DataClassName("Grave")
+class GraveTable extends Table {
   @override
-  String? get tableName => "graveyard";
+  String? get tableName => "grave";
 
   IntColumn get mainPersonId => integer().references(
         PersonTable,

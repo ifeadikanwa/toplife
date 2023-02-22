@@ -22,7 +22,7 @@ class RelationshipScreen extends StatelessWidget {
         InLawsRoute(inLaws: RelationshipTestLists.testInLawsList),
         FriendsRoute(friends: RelationshipTestLists.testFriendsList),
         ExesRoute(exes: RelationshipTestLists.testExesList),
-        GraveyardRoute(graveyards: RelationshipTestLists.testGraveyards),
+        GravesRoute(graves: RelationshipTestLists.testGraves),
       ],
       builder: (context, child, tabController) {
         return TopLevelScreen(

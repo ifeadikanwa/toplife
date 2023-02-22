@@ -26,7 +26,7 @@ import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/use
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/graveyard_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/grave_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/inlaw_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
@@ -113,7 +113,7 @@ final relationshipUsecasesProvider = Provider<RelationshipUsecases>((ref) {
       acquaintanceDao: AcquaintanceDaoImpl(db),
       relativeDao: RelativeDaoImpl(db),
       inLawDao: InLawDaoImpl(db),
-      graveyardDao: GraveyardDaoImpl(db),
+      graveDao: GraveDaoImpl(db),
     ),
   );
 });
@@ -170,8 +170,8 @@ final currentPlayerCountryProvider = FutureProvider<String>((ref) {
 final currentPlayerCurrencyProvider = FutureProvider<String>((ref) {
   final currentPlayer = ref.watch(currentPlayerProvider).valueOrNull;
 
-  final countryString =
-      currentPlayer?.currentCountry ?? LocationManager.getDefaultCountryString();
+  final countryString = currentPlayer?.currentCountry ??
+      LocationManager.getDefaultCountryString();
 
   return LocationManager.getCountryClass(countryName: countryString).currency;
 });

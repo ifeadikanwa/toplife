@@ -22,7 +22,7 @@ class RouteName {
   static const relationshipPath = "relationship";
   static const shopPath = "shop";
   static const activitiesPath = "activities";
-  
+
   //-relationship
   static const parentsPath = "parents";
   static const childrenPath = "children";
@@ -32,7 +32,7 @@ class RouteName {
   static const friendsPath = "friends";
   static const inLawsPath = "inlaws";
   static const exesPath = "exes";
-  static const graveyardPath = "graveyard";
+  static const gravePath = "grave";
 
   //-shop
   //--food
@@ -59,7 +59,4 @@ class RouteName {
   static const syntheticJewelryPath = "synthetic_jewelry";
   //--supplies
   static const suppliesPath = "supplies";
-
-
-  
 }
