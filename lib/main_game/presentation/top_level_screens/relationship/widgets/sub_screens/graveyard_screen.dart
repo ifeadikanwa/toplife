@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/graveyard_list_item.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/graveyard.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 class GraveyardScreen extends StatelessWidget {
   final List<Graveyard> graveyards;
@@ -35,29 +35,3 @@ class GraveyardScreen extends StatelessWidget {
   }
 }
 
-const testGraveyards = [
-  Graveyard(
-    mainPersonID: 1,
-    deadPersonID: 2,
-    relationshipType: "Mother",
-    dayOfDeath: 45,
-    fullName: "Fiona Merril",
-    ageAtDeath: "Element",
-  ),
-  Graveyard(
-    mainPersonID: 1,
-    deadPersonID: 2,
-    relationshipType: "Father",
-    dayOfDeath: 45,
-    fullName: "Hewie Merril",
-    ageAtDeath: "Element",
-  ),
-  Graveyard(
-    mainPersonID: 1,
-    deadPersonID: 2,
-    relationshipType: "Son",
-    dayOfDeath: 45,
-    fullName: "Jack Merril",
-    ageAtDeath: "Element",
-  ),
-];

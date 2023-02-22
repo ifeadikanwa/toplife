@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
 import 'package:toplife/main_systems/system_relationship/util/rearrange_relatives_list.dart';
 
 void main() {
@@ -13,8 +12,8 @@ void main() {
       List<RelationshipPair<Relative, Person>> givenRelativesList = [
         RelationshipPair(
           relationship: Relative(
-            mainPersonID: 1,
-            relativeID: 2,
+            mainPersonId: 1,
+            relativeId: 2,
             inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.nibling.name,
             relationship: 56,
@@ -48,8 +47,8 @@ void main() {
         ),
         RelationshipPair(
           relationship: Relative(
-            mainPersonID: 1,
-            relativeID: 2,
+            mainPersonId: 1,
+            relativeId: 2,
             inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.grandchild.name,
             relationship: 56,
@@ -83,8 +82,8 @@ void main() {
         ),
         RelationshipPair(
           relationship: Relative(
-            mainPersonID: 1,
-            relativeID: 2,
+            mainPersonId: 1,
+            relativeId: 2,
             inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.cousin.name,
             relationship: 56,
@@ -118,8 +117,8 @@ void main() {
         ),
         RelationshipPair(
           relationship: Relative(
-            mainPersonID: 1,
-            relativeID: 2,
+            mainPersonId: 1,
+            relativeId: 2,
             inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.pibling.name,
             relationship: 56,
@@ -156,8 +155,8 @@ void main() {
       List<RelationshipPair<Relative, Person>> correctRelativesList = [
         RelationshipPair(
           relationship: Relative(
-            mainPersonID: 1,
-            relativeID: 2,
+            mainPersonId: 1,
+            relativeId: 2,
             inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.grandchild.name,
             relationship: 56,
@@ -191,8 +190,8 @@ void main() {
         ),
         RelationshipPair(
           relationship: Relative(
-            mainPersonID: 1,
-            relativeID: 2,
+            mainPersonId: 1,
+            relativeId: 2,
             inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.nibling.name,
             relationship: 56,
@@ -226,8 +225,8 @@ void main() {
         ),
         RelationshipPair(
           relationship: Relative(
-            mainPersonID: 1,
-            relativeID: 2,
+            mainPersonId: 1,
+            relativeId: 2,
             inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.pibling.name,
             relationship: 56,
@@ -261,8 +260,8 @@ void main() {
         ),
         RelationshipPair(
           relationship: Relative(
-            mainPersonID: 1,
-            relativeID: 2,
+            mainPersonId: 1,
+            relativeId: 2,
             inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.cousin.name,
             relationship: 56,

@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_relationship/domain/dao/acquaintance_dao.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/acquaintance.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/acquaintance_repository.dart';
 
 class AcquaintanceRepositoryImpl implements AcquaintanceRepository {
@@ -32,5 +32,16 @@ class AcquaintanceRepositoryImpl implements AcquaintanceRepository {
   @override
   Future<void> updateAcquaintance(Acquaintance acquaintance) async {
     return _acquaintanceDao.updateAcquaintance(acquaintance);
+  }
+
+  @override
+  Stream<Acquaintance?> watchAcquaintance(
+      int mainPersonID, int acquaintanceID) {
+    return _acquaintanceDao.watchAcquaintance(mainPersonID, acquaintanceID);
+  }
+
+  @override
+  Stream<List<Acquaintance>> watchAllAcquaintance(int mainPersonID) {
+    return _acquaintanceDao.watchAllAcquaintance(mainPersonID);
   }
 }

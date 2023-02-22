@@ -2,15 +2,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/acquaintance.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 
 class GetRelationshipPairBasedOnTypeUsecase {
   final RelationshipRepositories _relationshipRepositories;

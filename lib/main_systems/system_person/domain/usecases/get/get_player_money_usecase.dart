@@ -1,6 +1,6 @@
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class GetPlayerMoneyUsecase {
@@ -46,7 +46,7 @@ class GetPlayerMoneyUsecase {
     );
     final partnerPerson =
         await _personRepositories.personRepositoryImpl.getPerson(
-      currentPartner.partnerID,
+      currentPartner.partnerId,
     );
 
     if (mainPlayerPerson != null && partnerPerson != null) {

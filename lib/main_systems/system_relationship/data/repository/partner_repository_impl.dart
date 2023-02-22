@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_relationship/domain/dao/partner_dao.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/partner_repository.dart';
 
 class PartnerRepositoryImpl implements PartnerRepository {
@@ -51,5 +51,30 @@ class PartnerRepositoryImpl implements PartnerRepository {
   @override
   Future<List<Partner>> getAllActivePartners(int mainPersonID) async {
     return _partnerDao.getAllActivePartners(mainPersonID);
+  }
+
+  @override
+  Stream<Partner?> watchAPartner(int mainPersonID, int partnerID) {
+    return _partnerDao.watchAPartner(mainPersonID, partnerID);
+  }
+
+  @override
+  Stream<List<Partner>> watchAllActivePartners(int mainPersonID) {
+    return _partnerDao.watchAllActivePartners(mainPersonID);
+  }
+
+  @override
+  Stream<List<Partner>> watchAllCoparents(int mainPersonID) {
+    return _partnerDao.watchAllCoparents(mainPersonID);
+  }
+
+  @override
+  Stream<List<Partner>> watchAllExes(int mainPersonID) {
+    return _partnerDao.watchAllExes(mainPersonID);
+  }
+
+  @override
+  Stream<List<Partner>> watchAllPartners(int mainPersonID) {
+    return _partnerDao.watchAllPartners(mainPersonID);
   }
 }

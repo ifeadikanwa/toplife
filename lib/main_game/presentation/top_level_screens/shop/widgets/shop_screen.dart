@@ -230,12 +230,13 @@ class ShopScreen extends ConsumerWidget {
                   rebellious: true,
                   dead: false,
                 );
-                // print(await PersonDaoImpl(db).createPerson(person));
+
+                (await PersonDaoImpl(db).createPerson(person));
                 // (BabyTraitsDaoImpl(db).watchBabyTraits(1).listen((event) {
                 //   print(event);
                 // }));
 
-                (PersonDaoImpl(db).createPerson(person));
+               
               },
               child: const Text("Run"),
             ),

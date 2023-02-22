@@ -1,7 +1,6 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
 
 //rearrange the parents list in order -> grandchildren, niblings, piblings, cousins
 List<RelationshipPair<Relative, Person>> rearrangeRelativesList(

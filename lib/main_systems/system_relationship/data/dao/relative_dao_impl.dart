@@ -1,166 +1,150 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/relative_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
 
-class RelativeDaoImpl implements RelativeDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'relative_dao_impl.g.dart';
 
-  static const relativeTable = "relative";
-
-  static const createTableQuery ="";
-//    '''
-//     CREATE TABLE $relativeTable(
-//       ${Relative.mainPersonIDColumn} $integerType,
-//       ${Relative.relativeIDColumn} $integerType,
-//       ${Relative.inYourCustodyColumn} $boolType,
-//       ${Relative.relativeRelationshipTypeColumn} $textType,
-//       ${Relative.relationshipColumn} $integerType,
-//       PRIMARY KEY (${Relative.mainPersonIDColumn}, ${Relative.relativeIDColumn}),
-//       FOREIGN KEY (${Relative.mainPersonIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE,
-//       FOREIGN KEY (${Relative.relativeIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE
-//     )
-// ''';
+@DriftAccessor(tables: [RelativeTable])
+class RelativeDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$RelativeDaoImplMixin
+    implements RelativeDao {
+  RelativeDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Relative> createRelative(Relative relative) async {
-    final db = await _databaseProvider.database;
-    await db.insert(
-      relativeTable,
-      relative.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-
+    await into(relativeTable).insertOnConflictUpdate(relative);
     return relative;
   }
 
   @override
-  Future<void> deleteRelative(int mainPersonID, int relativeID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      relativeTable,
-      where:
-          "${Relative.mainPersonIDColumn} = ? and ${Relative.relativeIDColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        relativeID,
-      ],
-    );
+  Future<void> deleteRelative(int mainPersonID, int relativeID) {
+    return (delete(relativeTable)
+          ..where(
+            (relative) =>
+                relative.mainPersonId.equals(mainPersonID) &
+                relative.relativeId.equals(relativeID),
+          ))
+        .go();
   }
 
   @override
-  Future<List<Relative>> getAllRelatives(int mainPersonID) async {
-    final db = await _databaseProvider.database;
-    final relativesMap = await db.query(
-      relativeTable,
-      columns: Relative.allColumns,
-      where: "${Relative.mainPersonIDColumn} = ?",
-      whereArgs: [mainPersonID],
-    );
-
-    return relativesMap
-        .map((relativeMap) => Relative.fromMap(relativeMap: relativeMap))
-        .toList();
+  Future<List<Relative>> getAllGrandchildren(int mainPersonID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) =>
+                relative.mainPersonId.equals(mainPersonID) &
+                relative.relativeRelationshipType
+                    .equals(RelativeRelationshipType.grandchild.name),
+          ))
+        .get();
   }
 
   @override
-  Future<Relative?> getRelative(int mainPersonID, int relativeID) async {
-    final db = await _databaseProvider.database;
-    final relativesMap = await db.query(
-      relativeTable,
-      columns: Relative.allColumns,
-      where:
-          "${Relative.mainPersonIDColumn} = ? and ${Relative.relativeIDColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        relativeID,
-      ],
-    );
-
-    if (relativesMap.isNotEmpty) {
-      return Relative.fromMap(relativeMap: relativesMap.first);
-    } else {
-      return null;
-    }
+  Future<List<Relative>> getAllNiblings(int mainPersonID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) =>
+                relative.mainPersonId.equals(mainPersonID) &
+                relative.relativeRelationshipType
+                    .equals(RelativeRelationshipType.nibling.name),
+          ))
+        .get();
   }
 
   @override
-  Future<void> updateRelative(Relative relative) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      relativeTable,
-      relative.toMap(),
-      where:
-          "${Relative.mainPersonIDColumn} = ? and ${Relative.relativeIDColumn} = ?",
-      whereArgs: [
-        relative.mainPersonID,
-        relative.relativeID,
-      ],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<List<Relative>> getAllPiblings(int mainPersonID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) =>
+                relative.mainPersonId.equals(mainPersonID) &
+                relative.relativeRelationshipType
+                    .equals(RelativeRelationshipType.pibling.name),
+          ))
+        .get();
   }
 
   @override
-  Future<List<Relative>> getAllGrandchildren(int mainPersonID) async {
-    final db = await _databaseProvider.database;
-    final relativesMap = await db.query(
-      relativeTable,
-      columns: Relative.allColumns,
-      where:
-          "${Relative.mainPersonIDColumn} = ? and ${Relative.relativeRelationshipTypeColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        RelativeRelationshipType.grandchild.name,
-      ],
-    );
-
-    return relativesMap
-        .map((relativeMap) => Relative.fromMap(relativeMap: relativeMap))
-        .toList();
+  Future<List<Relative>> getAllRelatives(int mainPersonID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) => relative.mainPersonId.equals(mainPersonID),
+          ))
+        .get();
   }
 
   @override
-  Future<List<Relative>> getAllNiblings(int mainPersonID) async {
-    final db = await _databaseProvider.database;
-    final relativesMap = await db.query(
-      relativeTable,
-      columns: Relative.allColumns,
-      where:
-          "${Relative.mainPersonIDColumn} = ? and ${Relative.relativeRelationshipTypeColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        RelativeRelationshipType.nibling.name,
-      ],
-    );
-
-    return relativesMap
-        .map((relativeMap) => Relative.fromMap(relativeMap: relativeMap))
-        .toList();
+  Future<Relative?> getRelative(int mainPersonID, int relativeID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) =>
+                relative.mainPersonId.equals(mainPersonID) &
+                relative.relativeId.equals(relativeID),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<List<Relative>> getAllPiblings(int mainPersonID) async {
-    final db = await _databaseProvider.database;
-    final relativesMap = await db.query(
-      relativeTable,
-      columns: Relative.allColumns,
-      where:
-          "${Relative.mainPersonIDColumn} = ? and ${Relative.relativeRelationshipTypeColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        RelativeRelationshipType.pibling.name,
-      ],
-    );
+  Future<void> updateRelative(Relative relative) {
+    return update(relativeTable).replace(relative);
+  }
 
-    return relativesMap
-        .map((relativeMap) => Relative.fromMap(relativeMap: relativeMap))
-        .toList();
+  @override
+  Stream<Relative?> watchRelative(int mainPersonID, int relativeID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) =>
+                relative.mainPersonId.equals(mainPersonID) &
+                relative.relativeId.equals(relativeID),
+          )
+          ..limit(1))
+        .watchSingleOrNull();
+  }
+
+  @override
+  Stream<List<Relative>> watchAllGrandchildren(int mainPersonID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) =>
+                relative.mainPersonId.equals(mainPersonID) &
+                relative.relativeRelationshipType
+                    .equals(RelativeRelationshipType.grandchild.name),
+          ))
+        .watch();
+  }
+
+  @override
+  Stream<List<Relative>> watchAllNiblings(int mainPersonID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) =>
+                relative.mainPersonId.equals(mainPersonID) &
+                relative.relativeRelationshipType
+                    .equals(RelativeRelationshipType.nibling.name),
+          ))
+        .watch();
+  }
+
+  @override
+  Stream<List<Relative>> watchAllPiblings(int mainPersonID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) =>
+                relative.mainPersonId.equals(mainPersonID) &
+                relative.relativeRelationshipType
+                    .equals(RelativeRelationshipType.pibling.name),
+          ))
+        .watch();
+  }
+
+  @override
+  Stream<List<Relative>> watchAllRelatives(int mainPersonID) {
+    return (select(relativeTable)
+          ..where(
+            (relative) => relative.mainPersonId.equals(mainPersonID),
+          ))
+        .watch();
   }
 }

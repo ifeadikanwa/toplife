@@ -19,8 +19,6 @@ import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usec
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_relative_relationship_label.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_sibling_relationship_label.dart';
@@ -243,7 +241,7 @@ class FamilyPlannedFuneral {
       )];
 
       final Person? siblingPerson = await _personUsecases.getPersonUsecase
-          .execute(personID: chosenSibling.siblingID);
+          .execute(personID: chosenSibling.siblingId);
 
       if (siblingPerson != null) {
         resultComment = "Your ${getSiblingRelationshipLabel(
@@ -274,7 +272,7 @@ class FamilyPlannedFuneral {
 
         final Person? piblingPerson =
             await _personUsecases.getPersonUsecase.execute(
-          personID: chosenPibling.relativeID,
+          personID: chosenPibling.relativeId,
         );
 
         if (piblingPerson != null) {

@@ -1,109 +1,77 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/inlaw_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
 
-class InLawDaoImpl implements InLawDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'inlaw_dao_impl.g.dart';
 
-  static const inLawTable = "in_law";
-
-  static const createTableQuery ="";
-//       '''
-//     CREATE TABLE $inLawTable(
-//       ${InLaw.mainPersonIDColumn} $integerType,
-//       ${InLaw.inLawIDColumn} $integerType,
-//       ${InLaw.likesMainPersonColumn} $boolType,
-//       ${InLaw.inLawRelationshipTypeColumn} $textType,
-//       ${InLaw.haveRomanticRelationshipColumn} $boolType,
-//       ${InLaw.relationshipColumn} $integerType,
-//       PRIMARY KEY (${InLaw.mainPersonIDColumn}, ${InLaw.inLawIDColumn}),
-//       FOREIGN KEY (${InLaw.mainPersonIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE,
-//       FOREIGN KEY (${InLaw.inLawIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE
-//     )
-// ''';
+@DriftAccessor(tables: [InLawTable])
+class InLawDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$InLawDaoImplMixin
+    implements InLawDao {
+  InLawDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<InLaw> createInLaw(InLaw inLaw) async {
-    final db = await _databaseProvider.database;
-    await db.insert(
-      inLawTable,
-      inLaw.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-
+    await into(inLawTable).insertOnConflictUpdate(inLaw);
     return inLaw;
   }
 
   @override
-  Future<void> deleteInLaw(int mainPersonID, int inLawID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      inLawTable,
-      where:
-          "${InLaw.mainPersonIDColumn} = ? and ${InLaw.inLawIDColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        inLawID,
-      ],
-    );
+  Future<void> deleteInLaw(int mainPersonID, int inLawID) {
+    return (delete(inLawTable)
+          ..where(
+            (inLaw) =>
+                inLaw.mainPersonId.equals(mainPersonID) &
+                inLaw.inLawId.equals(inLawID),
+          ))
+        .go();
   }
 
   @override
-  Future<List<InLaw>> getAllInLaws(int mainPersonID) async {
-    final db = await _databaseProvider.database;
-    final inLawsMap = await db.query(
-      inLawTable,
-      columns: InLaw.allColumns,
-      where: "${InLaw.mainPersonIDColumn} = ?",
-      whereArgs: [mainPersonID],
-    );
-
-    return inLawsMap
-        .map((inLawMap) => InLaw.fromMap(inLawMap: inLawMap))
-        .toList();
+  Future<List<InLaw>> getAllInLaws(int mainPersonID) {
+    return (select(inLawTable)
+          ..where(
+            (inLaw) => inLaw.mainPersonId.equals(mainPersonID),
+          ))
+        .get();
   }
 
   @override
-  Future<InLaw?> getInLaw(int mainPersonID, int inLawID) async {
-    final db = await _databaseProvider.database;
-    final inLawsMap = await db.query(
-      inLawTable,
-      columns: InLaw.allColumns,
-      where:
-          "${InLaw.mainPersonIDColumn} = ? and ${InLaw.inLawIDColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        inLawID,
-      ],
-    );
-
-    if (inLawsMap.isNotEmpty) {
-      return InLaw.fromMap(inLawMap: inLawsMap.first);
-    } else {
-      return null;
-    }
+  Future<InLaw?> getInLaw(int mainPersonID, int inLawID) {
+    return (select(inLawTable)
+          ..where(
+            (inLaw) =>
+                inLaw.mainPersonId.equals(mainPersonID) &
+                inLaw.inLawId.equals(inLawID),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateInLaw(InLaw inLaw) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      inLawTable,
-      inLaw.toMap(),
-      where:
-          "${InLaw.mainPersonIDColumn} = ? and ${InLaw.inLawIDColumn} = ?",
-      whereArgs: [
-        inLaw.mainPersonID,
-        inLaw.inLawID,
-      ],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<void> updateInLaw(InLaw inLaw) {
+    return update(inLawTable).replace(inLaw);
+  }
+
+  @override
+  Stream<InLaw?> watchInLaw(int mainPersonID, int inLawID) {
+    return (select(inLawTable)
+          ..where(
+            (inLaw) =>
+                inLaw.mainPersonId.equals(mainPersonID) &
+                inLaw.inLawId.equals(inLawID),
+          )
+          ..limit(1))
+        .watchSingleOrNull();
+  }
+  
+  @override
+  Stream<List<InLaw>> watchAllInLaws(int mainPersonID) {
+   return (select(inLawTable)
+          ..where(
+            (inLaw) => inLaw.mainPersonId.equals(mainPersonID),
+          ))
+        .watch();
   }
 }

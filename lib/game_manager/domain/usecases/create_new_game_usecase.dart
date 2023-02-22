@@ -27,21 +27,10 @@ class CreateNewGameUsecase {
     const newGameDay = 1;
     const newGameGenerationNumber = 1;
 
-    //edit the person passed to be a fresh young adult and attach to the game
-    final youngAdultPerson = person.copyWith(
-        dayOfBirth: _ageUsecases.getDayOfBirthFromDaysLivedUsecase.execute(
-      currentDay: newGameDay,
-      daysLived: Age.newYoungAdultDaysLived,
-    ));
-
-    //Create a new person for the new game.
-    final currentPlayer = await _personUsecases.createAdultPersonUsecase
-        .execute(person: youngAdultPerson);
-
-    //Create a new game and register the new person as the main player.
+    //Create a new game and register a dummy as the main player.
     final game = Game(
       id: DatabaseConstants.dummyId,
-      currentPlayerID: currentPlayer.id,
+      currentPlayerID: DatabaseConstants.dummyId,
       isActive: true,
       lastPlayedTime: DateTime.now().millisecondsSinceEpoch,
       currentDay: newGameDay,
@@ -51,17 +40,29 @@ class CreateNewGameUsecase {
 
     final createdGame = await _gameRepository.createGame(game);
 
-    //Now that we have a new game.
-    //update the player with the gameID so they are attached to the current game.
-    final updatedCurrentPlayer = currentPlayer.copyWith(gameId: createdGame.id);
+    //edit the person passed to be a fresh young adult and attach to the game
+    final youngAdultPerson = person.copyWith(
+        gameId: createdGame.id,
+        dayOfBirth: _ageUsecases.getDayOfBirthFromDaysLivedUsecase.execute(
+          currentDay: newGameDay,
+          daysLived: Age.newYoungAdultDaysLived,
+        ));
 
-    await _personUsecases.updatePersonUsecase
-        .execute(person: updatedCurrentPlayer);
+    //Create a new person for the new game.
+    final createdCurrentPlayer = await _personUsecases.createAdultPersonUsecase
+        .execute(person: youngAdultPerson);
+
+    //Now that we have a main player
+    //update the game with the main player ID so they are attached to the current game.
+    final updatedCreatedGame = createdGame.copyWith(
+      currentPlayerID: createdCurrentPlayer.id,
+    );
+    await _gameRepository.updateGame(updatedCreatedGame);
 
     //create players family
     await _relationshipUsecases.createNewPlayerFamilyUsecase.execute(
       _personUsecases,
-      updatedCurrentPlayer,
+      createdCurrentPlayer,
       newGameDay,
     );
 

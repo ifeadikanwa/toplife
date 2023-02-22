@@ -1,13 +1,6 @@
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_active_partner_label.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_child_relationship_label.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_ex_relationship_label.dart';

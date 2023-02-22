@@ -1,113 +1,81 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/parent_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
 
-class ParentDaoImpl implements ParentDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'parent_dao_impl.g.dart';
 
-  static const parentTable = "parent";
-
-  static const createTableQuery ="";
-//    '''
-//     CREATE TABLE $parentTable(
-//       ${Parent.mainPersonIDColumn} $integerType,
-//       ${Parent.parentIDColumn} $integerType,
-//       ${Parent.parentRelationshipTypeColumn} $textType,
-//       ${Parent.hiddenColumn} $boolType,
-//       ${Parent.paternityFraudColumn} $boolType,
-//       ${Parent.assumedRelationshipTypeColumn} $textType,
-//       ${Parent.relationshipColumn} $integerType,
-//       ${Parent.isActiveColumn} $boolType,
-//       PRIMARY KEY (${Parent.mainPersonIDColumn}, ${Parent.parentIDColumn}),
-//       FOREIGN KEY (${Parent.mainPersonIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE,
-//       FOREIGN KEY (${Parent.parentIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE
-//     )
-// ''';
+@DriftAccessor(tables: [ParentTable])
+class ParentDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$ParentDaoImplMixin
+    implements ParentDao {
+  ParentDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Parent> createParent(Parent parent) async {
-    final db = await _databaseProvider.database;
-    await db.insert(
-      parentTable,
-      parent.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-
+    await into(parentTable).insertOnConflictUpdate(parent);
     return parent;
   }
 
   @override
-  Future<void> deleteParent(int mainPersonID, int parentID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      parentTable,
-      where:
-          "${Parent.mainPersonIDColumn} = ? and ${Parent.parentIDColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        parentID,
-      ],
-    );
+  Future<void> deleteParent(int mainPersonID, int parentID) {
+    return (delete(parentTable)
+          ..where(
+            (parent) =>
+                parent.mainPersonId.equals(mainPersonID) &
+                parent.parentId.equals(parentID),
+          ))
+        .go();
   }
 
   @override
-  Future<List<Parent>> getAllActiveParents(int mainPersonID) async {
-    final db = await _databaseProvider.database;
-    final parentsMap = await db.query(
-      parentTable,
-      columns: Parent.allColumns,
-      where:
-          "${Parent.mainPersonIDColumn} = ? and ${Parent.isActiveColumn} = ?",
-      whereArgs: [mainPersonID, databaseTrueValue],
-    );
-
-    return parentsMap
-        .map((parentMap) => Parent.fromMap(parentMap: parentMap))
-        .toList();
+  Future<List<Parent>> getAllActiveParents(int mainPersonID) {
+    return (select(parentTable)
+          ..where(
+            (parent) =>
+                parent.mainPersonId.equals(mainPersonID) &
+                parent.isActive.equals(true),
+          ))
+        .get();
   }
 
   @override
-  Future<Parent?> getParent(int mainPersonID, int parentID) async {
-    final db = await _databaseProvider.database;
-    final parentsMap = await db.query(
-      parentTable,
-      columns: Parent.allColumns,
-      where:
-          "${Parent.mainPersonIDColumn} = ? and ${Parent.parentIDColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        parentID,
-      ],
-    );
-
-    if (parentsMap.isNotEmpty) {
-      return Parent.fromMap(parentMap: parentsMap.first);
-    } else {
-      return null;
-    }
+  Future<Parent?> getParent(int mainPersonID, int parentID) {
+    return (select(parentTable)
+          ..where(
+            (parent) =>
+                parent.mainPersonId.equals(mainPersonID) &
+                parent.parentId.equals(parentID),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateParent(Parent parent) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      parentTable,
-      parent.toMap(),
-      where:
-          "${Parent.mainPersonIDColumn} = ? and ${Parent.parentIDColumn} = ?",
-      whereArgs: [
-        parent.mainPersonID,
-        parent.parentID,
-      ],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<void> updateParent(Parent parent) {
+    return update(parentTable).replace(parent);
+  }
+
+  @override
+  Stream<Parent?> watchParent(int mainPersonID, int parentID) {
+    return (select(parentTable)
+          ..where(
+            (parent) =>
+                parent.mainPersonId.equals(mainPersonID) &
+                parent.parentId.equals(parentID),
+          )
+          ..limit(1))
+        .watchSingleOrNull();
+  }
+
+  @override
+  Stream<List<Parent>> watchAllActiveParents(int mainPersonID) {
+    return (select(parentTable)
+          ..where(
+            (parent) =>
+                parent.mainPersonId.equals(mainPersonID) &
+                parent.isActive.equals(true),
+          ))
+        .watch();
   }
 }

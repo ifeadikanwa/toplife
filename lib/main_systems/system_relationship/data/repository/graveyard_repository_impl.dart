@@ -1,12 +1,12 @@
-
 import 'package:toplife/main_systems/system_relationship/domain/dao/graveyard_dao.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/graveyard.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/graveyard_repository.dart';
 
 class GraveyardRepositoryImpl implements GraveyardRepository {
   final GraveyardDao _graveyardDao;
 
-  const GraveyardRepositoryImpl({required GraveyardDao graveyardDao}) : _graveyardDao = graveyardDao;
+  const GraveyardRepositoryImpl({required GraveyardDao graveyardDao})
+      : _graveyardDao = graveyardDao;
 
   @override
   Future<Graveyard> createGraveyard(Graveyard graveyard) async {
@@ -31,5 +31,15 @@ class GraveyardRepositoryImpl implements GraveyardRepository {
   @override
   Future<void> updateGraveyard(Graveyard graveyard) async {
     return _graveyardDao.updateGraveyard(graveyard);
+  }
+
+  @override
+  Stream<Graveyard?> watchGraveyard(int mainPersonID, int deadPersonID) {
+    return _graveyardDao.watchGraveyard(mainPersonID, deadPersonID);
+  }
+
+  @override
+  Stream<List<Graveyard>> watchAllGraveyards(int mainPersonID) {
+    return _graveyardDao.watchAllGraveyards(mainPersonID);
   }
 }

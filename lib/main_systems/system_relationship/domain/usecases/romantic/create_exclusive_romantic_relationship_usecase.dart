@@ -1,6 +1,6 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_all_partner_relationship_not_involving_a_certain_person_usecase.dart';
 
 class CreateExclusiveRomanticRelationshipUsecase {
@@ -74,14 +74,16 @@ class CreateExclusiveRomanticRelationshipUsecase {
     //if there isn't an existing relationship then create one.
     else {
       final Partner relationship = Partner(
-        mainPersonID: mainPersonID,
-        partnerID: partnerID,
+        mainPersonId: mainPersonID,
+        partnerId: partnerID,
         partnerRelationshipType: partnerRelationshipType.name,
         isActive: true,
         startDay: currentDay,
         isCoParent: false,
         metAt: metAt,
         relationship: 100,
+        endDay: 0,
+        jointMoney: 0,
       );
 
       await _relationshipRepositories.partnerRepositoryImpl

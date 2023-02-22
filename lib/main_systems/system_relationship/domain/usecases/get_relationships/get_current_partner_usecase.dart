@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 
 class GetCurrentPartnerUsecase {
   final RelationshipRepositories _relationshipRepositories;

@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_relationship/domain/model/acquaintance.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class AcquaintanceRepository {
   Future<Acquaintance> createAcquaintance(Acquaintance acquaintance);
@@ -6,4 +6,6 @@ abstract class AcquaintanceRepository {
   Future<List<Acquaintance>> getAllAcquaintances(int mainPersonID);
   Future<Acquaintance?> getAcquaintance(int mainPersonID, int acquaintanceID);
   Future<void> deleteAcquaintance(int mainPersonID, int acquaintanceID);
+  Stream<Acquaintance?> watchAcquaintance(int mainPersonID, int acquaintanceID);
+  Stream<List<Acquaintance>> watchAllAcquaintance(int mainPersonID);
 }

@@ -1,9 +1,9 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/get_valid_relationship_stats_value.dart';
+import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
 import 'package:toplife/main_systems/system_relationship/constants/child_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
 
 class CreateChildParentRelationshipUsecase {
   final RelationshipRepositories _relationshipRepositories;
@@ -21,46 +21,58 @@ class CreateChildParentRelationshipUsecase {
     //create child for both parents
     _relationshipRepositories.childRepositoryImpl.createChild(
       Child(
-        mainPersonID: mainParentID,
-        childID: childID,
+        mainPersonId: mainParentID,
+        childId: childID,
         inYourCustody: true,
         childRelationshipType: isAdopted
             ? ChildRelationshipType.adopted.name
             : ChildRelationshipType.birth.name,
         relationship: getValidRelationshipStatsValue(),
+        hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
       ),
     );
 
     _relationshipRepositories.childRepositoryImpl.createChild(
       Child(
-        mainPersonID: otherParentID,
-        childID: childID,
+        mainPersonId: otherParentID,
+        childId: childID,
         inYourCustody: false,
         childRelationshipType: isAdopted
             ? ChildRelationshipType.adopted.name
             : ChildRelationshipType.birth.name,
         relationship: getValidRelationshipStatsValue(),
+        hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
       ),
     );
 
     //create parent relationship for child with both parents
     _relationshipRepositories.parentRepositoryImpl.createParent(
       Parent(
-        mainPersonID: childID,
-        parentID: mainParentID,
+        mainPersonId: childID,
+        parentId: mainParentID,
         parentRelationshipType: ParentRelationshipType.main.name,
         relationship: getValidRelationshipStatsValue(),
         isActive: true,
+        hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
       ),
     );
 
-     _relationshipRepositories.parentRepositoryImpl.createParent(
+    _relationshipRepositories.parentRepositoryImpl.createParent(
       Parent(
-        mainPersonID: childID,
-        parentID: otherParentID,
+        mainPersonId: childID,
+        parentId: otherParentID,
         parentRelationshipType: ParentRelationshipType.main.name,
         relationship: getValidRelationshipStatsValue(),
         isActive: true,
+        hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
       ),
     );
   }

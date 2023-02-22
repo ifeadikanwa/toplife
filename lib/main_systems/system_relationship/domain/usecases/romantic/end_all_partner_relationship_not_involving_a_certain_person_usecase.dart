@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_partner_relationship_usecase.dart';
 
 class EndAllPartnerRelationshipsNotInvolvingACertainPersonUsecase {
@@ -27,10 +27,10 @@ class EndAllPartnerRelationshipsNotInvolvingACertainPersonUsecase {
             .getAllActivePartners(mainPersonID);
 
     for (var relationship in mainPersonActiveRelationships) {
-      if (relationship.partnerID != partnerID) {
+      if (relationship.partnerId != partnerID) {
         _endPartnerRelationshipUsecase.execute(
-          firstPartnerID: relationship.mainPersonID,
-          secondPartnerID: relationship.partnerID,
+          firstPartnerID: relationship.mainPersonId,
+          secondPartnerID: relationship.partnerId,
           currentDay: currentDay,
         );
       }
@@ -42,10 +42,10 @@ class EndAllPartnerRelationshipsNotInvolvingACertainPersonUsecase {
             .getAllActivePartners(partnerID);
 
     for (var relationship in partnerActiveRelationships) {
-      if (relationship.partnerID != mainPersonID) {
+      if (relationship.partnerId != mainPersonID) {
         _endPartnerRelationshipUsecase.execute(
-          firstPartnerID: relationship.mainPersonID,
-          secondPartnerID: relationship.partnerID,
+          firstPartnerID: relationship.mainPersonId,
+          secondPartnerID: relationship.partnerId,
           currentDay: currentDay,
         );
       }

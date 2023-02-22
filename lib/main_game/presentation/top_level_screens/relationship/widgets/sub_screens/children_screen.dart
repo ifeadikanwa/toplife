@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/children_list_item.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_child_relationship_label.dart';

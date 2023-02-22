@@ -17,7 +17,6 @@ import 'package:toplife/main_systems/system_event/event_manager/scheduled_events
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_active_partner_label.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_relationship_label.dart';
@@ -159,7 +158,7 @@ class FuneralEvent {
     if (currentPartner != null) {
       final Person? partnerPerson =
           await _personUsecases.getPersonUsecase.execute(
-        personID: currentPartner.partnerID,
+        personID: currentPartner.partnerId,
       );
 
       if (partnerPerson != null) {

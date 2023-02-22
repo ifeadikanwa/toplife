@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/inlaw_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
 import 'package:toplife/main_systems/system_relationship/util/rearrange_inlaws_list.dart';
 
 void main() {
@@ -13,11 +12,12 @@ void main() {
       List<RelationshipPair<InLaw, Person>> givenInLawsList = [
         RelationshipPair(
           relationship: InLaw(
-              mainPersonID: 1,
-              inLawID: 2,
+              mainPersonId: 1,
+              inLawId: 2,
               likesMainPerson: true,
               inLawRelationshipType: InLawRelationshipType.sibling.name,
-              relationship: 89),
+              relationship: 89,
+              haveRomanticRelationship: false),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -47,11 +47,12 @@ void main() {
         ),
         RelationshipPair(
           relationship: InLaw(
-              mainPersonID: 1,
-              inLawID: 2,
+              mainPersonId: 1,
+              inLawId: 2,
               likesMainPerson: true,
               inLawRelationshipType: InLawRelationshipType.parent.name,
-              relationship: 89),
+              relationship: 89,
+              haveRomanticRelationship: false),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -81,11 +82,12 @@ void main() {
         ),
         RelationshipPair(
           relationship: InLaw(
-              mainPersonID: 1,
-              inLawID: 2,
+              mainPersonId: 1,
+              inLawId: 2,
               likesMainPerson: true,
               inLawRelationshipType: InLawRelationshipType.child.name,
-              relationship: 89),
+              relationship: 89,
+              haveRomanticRelationship: false),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -118,11 +120,12 @@ void main() {
       final List<RelationshipPair<InLaw, Person>> correctInLawsList = [
         RelationshipPair(
           relationship: InLaw(
-              mainPersonID: 1,
-              inLawID: 2,
+              mainPersonId: 1,
+              inLawId: 2,
               likesMainPerson: true,
               inLawRelationshipType: InLawRelationshipType.parent.name,
-              relationship: 89),
+              relationship: 89,
+              haveRomanticRelationship: false),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -152,11 +155,12 @@ void main() {
         ),
         RelationshipPair(
           relationship: InLaw(
-              mainPersonID: 1,
-              inLawID: 2,
+              mainPersonId: 1,
+              inLawId: 2,
               likesMainPerson: true,
               inLawRelationshipType: InLawRelationshipType.child.name,
-              relationship: 89),
+              relationship: 89,
+              haveRomanticRelationship: false),
           person: const Person(
             id: 1,
             gameId: 2,
@@ -186,11 +190,12 @@ void main() {
         ),
         RelationshipPair(
           relationship: InLaw(
-              mainPersonID: 1,
-              inLawID: 2,
+              mainPersonId: 1,
+              inLawId: 2,
               likesMainPerson: true,
               inLawRelationshipType: InLawRelationshipType.sibling.name,
-              relationship: 89),
+              relationship: 89,
+              haveRomanticRelationship: false),
           person: const Person(
             id: 1,
             gameId: 2,

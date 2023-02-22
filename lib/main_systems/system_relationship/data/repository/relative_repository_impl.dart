@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_relationship/domain/dao/relative_dao.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/relative_repository.dart';
 
 class RelativeRepositoryImpl implements RelativeRepository {
@@ -46,5 +46,30 @@ class RelativeRepositoryImpl implements RelativeRepository {
   @override
   Future<List<Relative>> getAllPiblings(int mainPersonID) {
     return _relativeDao.getAllPiblings(mainPersonID);
+  }
+
+  @override
+  Stream<Relative?> watchRelative(int mainPersonID, int relativeID) {
+    return _relativeDao.watchRelative(mainPersonID, relativeID);
+  }
+
+  @override
+  Stream<List<Relative>> watchAllGrandchildren(int mainPersonID) {
+    return _relativeDao.watchAllGrandchildren(mainPersonID);
+  }
+
+  @override
+  Stream<List<Relative>> watchAllNiblings(int mainPersonID) {
+    return _relativeDao.watchAllNiblings(mainPersonID);
+  }
+
+  @override
+  Stream<List<Relative>> watchAllPiblings(int mainPersonID) {
+    return _relativeDao.watchAllPiblings(mainPersonID);
+  }
+
+  @override
+  Stream<List<Relative>> watchAllRelatives(int mainPersonID) {
+    return _relativeDao.watchAllRelatives(mainPersonID);
   }
 }

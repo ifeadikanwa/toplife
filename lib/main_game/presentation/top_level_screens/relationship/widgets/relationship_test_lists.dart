@@ -1,3 +1,4 @@
+import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/child_relationship_type.dart';
@@ -6,22 +7,17 @@ import 'package:toplife/main_systems/system_relationship/constants/parent_relati
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/sibling_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/graveyard.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 
 class RelationshipTestLists {
   static final testChildrenList = [
     RelationshipPair(
       relationship: Child(
-          mainPersonID: 1,
-          childID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          childId: 2,
           inYourCustody: true,
           childRelationshipType: ChildRelationshipType.adopted.name,
           relationship: 45),
@@ -54,8 +50,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Child(
-          mainPersonID: 1,
-          childID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          childId: 2,
           inYourCustody: false,
           childRelationshipType: ChildRelationshipType.step.name,
           relationship: 45),
@@ -88,8 +87,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Child(
-          mainPersonID: 1,
-          childID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          childId: 2,
           inYourCustody: true,
           childRelationshipType: ChildRelationshipType.birth.name,
           relationship: 45),
@@ -125,8 +127,10 @@ class RelationshipTestLists {
   static final testExesList = [
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.casual.name,
         isActive: false,
         startDay: 34,
@@ -163,8 +167,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.casual.name,
         isActive: false,
         startDay: 34,
@@ -201,8 +207,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.married.name,
         isActive: false,
         startDay: 34,
@@ -239,8 +247,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.married.name,
         isActive: false,
         startDay: 34,
@@ -277,8 +287,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.dating.name,
         isActive: false,
         startDay: 34,
@@ -315,8 +327,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.dating.name,
         isActive: false,
         startDay: 34,
@@ -353,8 +367,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.engaged.name,
         isActive: false,
         startDay: 34,
@@ -391,8 +407,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.engaged.name,
         isActive: false,
         startDay: 34,
@@ -432,7 +450,11 @@ class RelationshipTestLists {
   static final testFriendsList = [
     RelationshipPair(
       relationship: const Friend(
-          mainPersonID: 1, friendID: 2, metAt: "metAt", relationship: 66),
+          mainPersonId: 1,
+          friendId: 2,
+          metAt: "metAt",
+          relationship: 66,
+          haveRomanticRelationship: false),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -462,7 +484,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: const Friend(
-          mainPersonID: 1, friendID: 2, metAt: "metAt", relationship: 66),
+          mainPersonId: 1,
+          friendId: 2,
+          metAt: "metAt",
+          relationship: 66,
+          haveRomanticRelationship: false),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -492,7 +518,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: const Friend(
-          mainPersonID: 1, friendID: 2, metAt: "metAt", relationship: 66),
+          mainPersonId: 1,
+          friendId: 2,
+          metAt: "metAt",
+          relationship: 66,
+          haveRomanticRelationship: false),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -524,24 +554,24 @@ class RelationshipTestLists {
 
   static const testGraveyards = [
     Graveyard(
-      mainPersonID: 1,
-      deadPersonID: 2,
+      mainPersonId: 1,
+      deadPersonId: 2,
       relationshipType: "Mother",
       dayOfDeath: 45,
       fullName: "Fiona Merril",
       ageAtDeath: "Element",
     ),
     Graveyard(
-      mainPersonID: 1,
-      deadPersonID: 2,
+      mainPersonId: 1,
+      deadPersonId: 2,
       relationshipType: "Father",
       dayOfDeath: 45,
       fullName: "Hewie Merril",
       ageAtDeath: "Element",
     ),
     Graveyard(
-      mainPersonID: 1,
-      deadPersonID: 2,
+      mainPersonId: 1,
+      deadPersonId: 2,
       relationshipType: "Son",
       dayOfDeath: 45,
       fullName: "Jack Merril",
@@ -552,8 +582,9 @@ class RelationshipTestLists {
   static final testInLawsList = [
     RelationshipPair(
       relationship: InLaw(
-          mainPersonID: 1,
-          inLawID: 2,
+          haveRomanticRelationship: false,
+          mainPersonId: 1,
+          inLawId: 2,
           likesMainPerson: true,
           inLawRelationshipType: InLawRelationshipType.sibling.name,
           relationship: 89),
@@ -586,8 +617,9 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: InLaw(
-          mainPersonID: 1,
-          inLawID: 2,
+          haveRomanticRelationship: false,
+          mainPersonId: 1,
+          inLawId: 2,
           likesMainPerson: true,
           inLawRelationshipType: InLawRelationshipType.child.name,
           relationship: 89),
@@ -620,8 +652,9 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: InLaw(
-          mainPersonID: 1,
-          inLawID: 2,
+          haveRomanticRelationship: false,
+          mainPersonId: 1,
+          inLawId: 2,
           likesMainPerson: true,
           inLawRelationshipType: InLawRelationshipType.child.name,
           relationship: 89),
@@ -654,8 +687,9 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: InLaw(
-          mainPersonID: 1,
-          inLawID: 2,
+          haveRomanticRelationship: false,
+          mainPersonId: 1,
+          inLawId: 2,
           likesMainPerson: true,
           inLawRelationshipType: InLawRelationshipType.child.name,
           relationship: 89),
@@ -688,8 +722,9 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: InLaw(
-          mainPersonID: 1,
-          inLawID: 2,
+          haveRomanticRelationship: false,
+          mainPersonId: 1,
+          inLawId: 2,
           likesMainPerson: true,
           inLawRelationshipType: InLawRelationshipType.parent.name,
           relationship: 89),
@@ -722,8 +757,9 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: InLaw(
-          mainPersonID: 1,
-          inLawID: 2,
+          haveRomanticRelationship: false,
+          mainPersonId: 1,
+          inLawId: 2,
           likesMainPerson: true,
           inLawRelationshipType: InLawRelationshipType.sibling.name,
           relationship: 89),
@@ -756,8 +792,9 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: InLaw(
-          mainPersonID: 1,
-          inLawID: 2,
+          haveRomanticRelationship: false,
+          mainPersonId: 1,
+          inLawId: 2,
           likesMainPerson: true,
           inLawRelationshipType: InLawRelationshipType.sibling.name,
           relationship: 89),
@@ -790,8 +827,9 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: InLaw(
-          mainPersonID: 1,
-          inLawID: 2,
+          haveRomanticRelationship: false,
+          mainPersonId: 1,
+          inLawId: 2,
           likesMainPerson: true,
           inLawRelationshipType: InLawRelationshipType.parent.name,
           relationship: 89),
@@ -827,8 +865,11 @@ class RelationshipTestLists {
   static final testParentsList = [
     RelationshipPair(
       relationship: Parent(
-          mainPersonID: 1,
-          parentID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          parentId: 2,
           parentRelationshipType: ParentRelationshipType.grand.name,
           relationship: 34,
           isActive: true),
@@ -861,8 +902,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Parent(
-          mainPersonID: 1,
-          parentID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          parentId: 2,
           parentRelationshipType: ParentRelationshipType.main.name,
           relationship: 34,
           isActive: true),
@@ -895,8 +939,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Parent(
-          mainPersonID: 1,
-          parentID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          parentId: 2,
           parentRelationshipType: ParentRelationshipType.step.name,
           relationship: 34,
           isActive: true),
@@ -929,8 +976,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Parent(
-          mainPersonID: 1,
-          parentID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          parentId: 2,
           parentRelationshipType: ParentRelationshipType.grand.name,
           relationship: 34,
           isActive: true),
@@ -963,8 +1013,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Parent(
-          mainPersonID: 1,
-          parentID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          parentId: 2,
           parentRelationshipType: ParentRelationshipType.main.name,
           relationship: 34,
           isActive: true),
@@ -997,8 +1050,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Parent(
-          mainPersonID: 1,
-          parentID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          parentId: 2,
           parentRelationshipType: ParentRelationshipType.step.name,
           relationship: 34,
           isActive: true),
@@ -1031,8 +1087,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Parent(
-          mainPersonID: 1,
-          parentID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          parentId: 2,
           parentRelationshipType: ParentRelationshipType.grand.name,
           relationship: 34,
           isActive: true),
@@ -1065,8 +1124,11 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Parent(
-          mainPersonID: 1,
-          parentID: 2,
+          hidden: false,
+          paternityFraud: false,
+          assumedRelationshipType: JournalCharacters.emptyString,
+          mainPersonId: 1,
+          parentId: 2,
           parentRelationshipType: ParentRelationshipType.step.name,
           relationship: 34,
           isActive: true),
@@ -1102,8 +1164,10 @@ class RelationshipTestLists {
   static final testPartnersList = [
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.casual.name,
         isActive: false,
         startDay: 34,
@@ -1140,8 +1204,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.casual.name,
         isActive: false,
         startDay: 34,
@@ -1178,8 +1244,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.married.name,
         isActive: true,
         startDay: 34,
@@ -1216,8 +1284,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.married.name,
         isActive: false,
         startDay: 34,
@@ -1254,8 +1324,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.dating.name,
         isActive: false,
         startDay: 34,
@@ -1292,8 +1364,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.dating.name,
         isActive: false,
         startDay: 34,
@@ -1330,8 +1404,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.engaged.name,
         isActive: false,
         startDay: 34,
@@ -1368,8 +1444,10 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Partner(
-        mainPersonID: 1,
-        partnerID: 2,
+        endDay: 0,
+        jointMoney: 0,
+        mainPersonId: 1,
+        partnerId: 2,
         partnerRelationshipType: PartnerRelationshipType.engaged.name,
         isActive: false,
         startDay: 34,
@@ -1409,8 +1487,8 @@ class RelationshipTestLists {
   static final testRelativesList = [
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
         relationship: 56,
@@ -1444,8 +1522,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.nibling.name,
         relationship: 56,
@@ -1479,8 +1557,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.pibling.name,
         relationship: 56,
@@ -1514,8 +1592,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
         relationship: 56,
@@ -1549,8 +1627,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.cousin.name,
         relationship: 56,
@@ -1584,8 +1662,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
         relationship: 56,
@@ -1619,8 +1697,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.pibling.name,
         relationship: 56,
@@ -1654,8 +1732,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.nibling.name,
         relationship: 56,
@@ -1689,8 +1767,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
         relationship: 56,
@@ -1724,8 +1802,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.nibling.name,
         relationship: 56,
@@ -1759,8 +1837,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Relative(
-        mainPersonID: 1,
-        relativeID: 2,
+        mainPersonId: 1,
+        relativeId: 2,
         inYourCustody: true,
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
         relationship: 56,
@@ -1797,8 +1875,8 @@ class RelationshipTestLists {
   static final testSiblingList = [
     RelationshipPair(
       relationship: Sibling(
-        mainPersonID: 1,
-        siblingID: 2,
+        mainPersonId: 1,
+        siblingId: 2,
         siblingRelationshipType: SiblingRelationshipType.step.name,
         relationship: 80,
       ),
@@ -1831,8 +1909,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Sibling(
-        mainPersonID: 1,
-        siblingID: 2,
+        mainPersonId: 1,
+        siblingId: 2,
         siblingRelationshipType: SiblingRelationshipType.full.name,
         relationship: 57,
       ),
@@ -1865,8 +1943,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: Sibling(
-        mainPersonID: 1,
-        siblingID: 2,
+        mainPersonId: 1,
+        siblingId: 2,
         siblingRelationshipType: SiblingRelationshipType.half.name,
         relationship: 14,
       ),

@@ -1,11 +1,12 @@
 import 'package:toplife/main_systems/system_relationship/domain/dao/parent_dao.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/parent_repository.dart';
 
 class ParentRepositoryImpl implements ParentRepository {
   final ParentDao _parentDao;
 
-  const ParentRepositoryImpl({required ParentDao parentDao}) : _parentDao = parentDao;
+  const ParentRepositoryImpl({required ParentDao parentDao})
+      : _parentDao = parentDao;
 
   @override
   Future<Parent> createParent(Parent parent) async {
@@ -30,5 +31,15 @@ class ParentRepositoryImpl implements ParentRepository {
   @override
   Future<void> updateParent(Parent parent) async {
     return _parentDao.updateParent(parent);
+  }
+
+  @override
+  Stream<Parent?> watchParent(int mainPersonID, int parentID) {
+    return _parentDao.watchParent(mainPersonID, parentID);
+  }
+
+  @override
+  Stream<List<Parent>> watchAllActiveParents(int mainPersonID) {
+    return _parentDao.watchAllActiveParents(mainPersonID);
   }
 }

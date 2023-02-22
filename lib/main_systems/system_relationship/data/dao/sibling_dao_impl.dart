@@ -1,110 +1,77 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/sibling_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 
-class SiblingDaoImpl implements SiblingDao{
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'sibling_dao_impl.g.dart';
 
-  static const siblingTable = "sibling";
-
-  static const createTableQuery = "";
-//   ''
-//     CREATE TABLE $siblingTable(
-//       ${Sibling.mainPersonIDColumn} $integerType,
-//       ${Sibling.siblingIDColumn} $integerType,
-//       ${Sibling.siblingRelationshipTypeColumn} $textType,
-//       ${Sibling.relationshipColumn} $integerType,
-//       PRIMARY KEY (${Sibling.mainPersonIDColumn}, ${Sibling.siblingIDColumn}),
-//       FOREIGN KEY (${Sibling.mainPersonIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE,
-//       FOREIGN KEY (${Sibling.siblingIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE
-//     )
-// ''';
-
-
+@DriftAccessor(tables: [SiblingTable])
+class SiblingDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$SiblingDaoImplMixin
+    implements SiblingDao {
+  SiblingDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Sibling> createSibling(Sibling sibling) async {
-    final db = await _databaseProvider.database;
-    await db.insert(
-      siblingTable,
-      sibling.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-
+    await into(siblingTable).insertOnConflictUpdate(sibling);
     return sibling;
   }
 
   @override
-  Future<void> deleteSibling(int mainPersonID, int siblingID) async {
-     final db = await _databaseProvider.database;
-    await db.delete(
-      siblingTable,
-      where:
-          "${Sibling.mainPersonIDColumn} = ? and ${Sibling.siblingIDColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        siblingID,
-      ],
-    );
+  Future<void> deleteSibling(int mainPersonID, int siblingID) {
+    return (delete(siblingTable)
+          ..where(
+            (sibling) =>
+                sibling.mainPersonId.equals(mainPersonID) &
+                sibling.siblingId.equals(siblingID),
+          ))
+        .go();
   }
 
   @override
-  Future<List<Sibling>> getAllSiblings(int mainPersonID) async {
-     final db = await _databaseProvider.database;
-    final siblingsMap = await db.query(
-      siblingTable,
-      columns: Sibling.allColumns,
-      where: "${Sibling.mainPersonIDColumn} = ?",
-      whereArgs: [mainPersonID],
-    );
-
-    return siblingsMap
-        .map((siblingMap) => Sibling.fromMap(siblingMap: siblingMap))
-        .toList();
+  Future<List<Sibling>> getAllSiblings(int mainPersonID) {
+    return (select(siblingTable)
+          ..where(
+            (sibling) => sibling.mainPersonId.equals(mainPersonID),
+          ))
+        .get();
   }
 
   @override
-  Future<Sibling?> getSibling(int mainPersonID, int siblingID) async {
-    final db = await _databaseProvider.database;
-    final siblingsMap = await db.query(
-      siblingTable,
-      columns: Sibling.allColumns,
-      where:
-          "${Sibling.mainPersonIDColumn} = ? and ${Sibling.siblingIDColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        siblingID,
-      ],
-    );
-
-    if (siblingsMap.isNotEmpty) {
-      return Sibling.fromMap(siblingMap: siblingsMap.first);
-    } else {
-      return null;
-    }
+  Future<Sibling?> getSibling(int mainPersonID, int siblingID) {
+    return (select(siblingTable)
+          ..where(
+            (sibling) =>
+                sibling.mainPersonId.equals(mainPersonID) &
+                sibling.siblingId.equals(siblingID),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateSibling(Sibling sibling) async {
-   final db = await _databaseProvider.database;
-    await db.update(
-      siblingTable,
-      sibling.toMap(),
-      where:
-          "${Sibling.mainPersonIDColumn} = ? and ${Sibling.siblingIDColumn} = ?",
-      whereArgs: [
-        sibling.mainPersonID,
-        sibling.siblingID,
-      ],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<void> updateSibling(Sibling sibling) {
+    return update(siblingTable).replace(sibling);
   }
 
+  @override
+  Stream<Sibling?> watchSibling(int mainPersonID, int siblingID) {
+    return (select(siblingTable)
+          ..where(
+            (sibling) =>
+                sibling.mainPersonId.equals(mainPersonID) &
+                sibling.siblingId.equals(siblingID),
+          )
+          ..limit(1))
+        .watchSingleOrNull();
+  }
+
+  @override
+  Stream<List<Sibling>> watchAllSiblings(int mainPersonID) {
+    return (select(siblingTable)
+          ..where(
+            (sibling) => sibling.mainPersonId.equals(mainPersonID),
+          ))
+        .watch();
+  }
 }

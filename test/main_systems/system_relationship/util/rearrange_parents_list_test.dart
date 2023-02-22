@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
 import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
 import 'package:toplife/main_systems/system_relationship/util/rearrange_parents_list.dart';
 
 void main() {
@@ -12,9 +12,11 @@ void main() {
         () {
       List<RelationshipPair<Parent, Person>> givenParentList = [
         RelationshipPair(
-          relationship: Parent(
-              mainPersonID: 1,
-              parentID: 2,
+          relationship: Parent(hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
+              mainPersonId: 1,
+              parentId: 2,
               parentRelationshipType: ParentRelationshipType.grand.name,
               relationship: 34,
               isActive: true),
@@ -46,9 +48,11 @@ void main() {
           ),
         ),
         RelationshipPair(
-          relationship: Parent(
-              mainPersonID: 1,
-              parentID: 2,
+          relationship: Parent(hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
+              mainPersonId: 1,
+              parentId: 2,
               parentRelationshipType: ParentRelationshipType.main.name,
               relationship: 34,
               isActive: true),
@@ -80,9 +84,11 @@ void main() {
           ),
         ),
         RelationshipPair(
-          relationship: Parent(
-              mainPersonID: 1,
-              parentID: 2,
+          relationship: Parent(hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
+              mainPersonId: 1,
+              parentId: 2,
               parentRelationshipType: ParentRelationshipType.step.name,
               relationship: 34,
               isActive: true),
@@ -117,9 +123,11 @@ void main() {
 
       List<RelationshipPair<Parent, Person>> correctParentList = [
         RelationshipPair(
-          relationship: Parent(
-              mainPersonID: 1,
-              parentID: 2,
+          relationship: Parent(hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
+              mainPersonId: 1,
+              parentId: 2,
               parentRelationshipType: ParentRelationshipType.main.name,
               relationship: 34,
               isActive: true),
@@ -151,9 +159,11 @@ void main() {
           ),
         ),
         RelationshipPair(
-          relationship: Parent(
-              mainPersonID: 1,
-              parentID: 2,
+          relationship: Parent(hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
+              mainPersonId: 1,
+              parentId: 2,
               parentRelationshipType: ParentRelationshipType.step.name,
               relationship: 34,
               isActive: true),
@@ -185,9 +195,11 @@ void main() {
           ),
         ),
         RelationshipPair(
-          relationship: Parent(
-              mainPersonID: 1,
-              parentID: 2,
+          relationship: Parent(hidden: false,
+        paternityFraud: false,
+        assumedRelationshipType: JournalCharacters.emptyString,
+              mainPersonId: 1,
+              parentId: 2,
               parentRelationshipType: ParentRelationshipType.grand.name,
               relationship: 34,
               isActive: true),

@@ -101,17 +101,19 @@ final personUsecasesProvider = Provider<PersonUsecases>((ref) {
 });
 
 final relationshipUsecasesProvider = Provider<RelationshipUsecases>((ref) {
+  final db = ref.watch(databasePovider);
+
   return RelationshipUsecases(
     relationshipRepositories: RelationshipRepositories(
-      parentDao: ParentDaoImpl(),
-      childDao: ChildDaoImpl(),
-      siblingDao: SiblingDaoImpl(),
-      partnerDao: PartnerDaoImpl(),
-      friendDao: FriendDaoImpl(),
-      acquaintanceDao: AcquaintanceDaoImpl(),
-      relativeDao: RelativeDaoImpl(),
-      inLawDao: InLawDaoImpl(),
-      graveyardDao: GraveyardDaoImpl(),
+      parentDao: ParentDaoImpl(db),
+      childDao: ChildDaoImpl(db),
+      siblingDao: SiblingDaoImpl(db),
+      partnerDao: PartnerDaoImpl(db),
+      friendDao: FriendDaoImpl(db),
+      acquaintanceDao: AcquaintanceDaoImpl(db),
+      relativeDao: RelativeDaoImpl(db),
+      inLawDao: InLawDaoImpl(db),
+      graveyardDao: GraveyardDaoImpl(db),
     ),
   );
 });
