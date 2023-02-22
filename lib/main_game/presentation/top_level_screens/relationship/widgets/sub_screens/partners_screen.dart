@@ -61,6 +61,10 @@ class PartnersScreen extends StatelessWidget {
         final relationshipAmount =
             finalPartnersList[index].relationship.relationship;
 
+        //living together
+        final currentlyLivingTogether =
+            finalPartnersList[index].relationship.currentlyLivingTogether;
+
         //Check if it needs a header
         if (index == 0 ||
             currentPartnerIsActive !=
@@ -74,21 +78,25 @@ class PartnersScreen extends StatelessWidget {
           }
 
           return RelationshipListItemWithHeader(
-              onTap: () {},
-              sectionTitle: sectionTitle,
-              avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-              relationshipLabel: relationshipLabel,
-              name: name,
-              relationshipAmount: relationshipAmount);
+            onTap: () {},
+            sectionTitle: sectionTitle,
+            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+            relationshipLabel: relationshipLabel,
+            name: name,
+            relationshipAmount: relationshipAmount,
+            currentlyLivingTogether: currentlyLivingTogether,
+          );
         }
 
         //No header needed if you get here
         return RelationshipListItem(
-            onTap: () {},
-            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-            relationshipLabel: relationshipLabel,
-            name: name,
-            relationshipAmount: relationshipAmount);
+          onTap: () {},
+          avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+          relationshipLabel: relationshipLabel,
+          name: name,
+          relationshipAmount: relationshipAmount,
+          currentlyLivingTogether: currentlyLivingTogether,
+        );
       },
       separatorBuilder: (context, index) {
         return const ListDivider();

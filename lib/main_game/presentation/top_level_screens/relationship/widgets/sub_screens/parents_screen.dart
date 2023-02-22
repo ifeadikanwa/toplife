@@ -23,76 +23,83 @@ class ParentsScreen extends StatelessWidget {
         rearrangeParentsList(parents);
 
     return ListView.separated(
-        itemCount: parents.length,
-        itemBuilder: (context, index) {
-          // if the parent is a step or main parent they fall under the parent category
-          //if it is a grand parent they fall under the grand parents category
+      itemCount: parents.length,
+      itemBuilder: (context, index) {
+        // if the parent is a step or main parent they fall under the parent category
+        //if it is a grand parent they fall under the grand parents category
 
-          //rearrange list
+        //rearrange list
 
-          //if it is the first item in the list or if the previous item has a different type
-          //if it is greater than 0 and the type is step or main: do the regular.
-          //else we want to add a header:
-          //parent if step or main, grandparent if grand.
+        //if it is the first item in the list or if the previous item has a different type
+        //if it is greater than 0 and the type is step or main: do the regular.
+        //else we want to add a header:
+        //parent if step or main, grandparent if grand.
 
-          //relationship label
-          final relationshipType =
-              finalParentsList[index].relationship.parentRelationshipType;
-          final gender = finalParentsList[index].person.gender;
+        //relationship label
+        final relationshipType =
+            finalParentsList[index].relationship.parentRelationshipType;
+        final gender = finalParentsList[index].person.gender;
 
-          final String relationshipLabel =
-              getParentRelationshipLabel(relationshipType, gender);
+        final String relationshipLabel =
+            getParentRelationshipLabel(relationshipType, gender);
 
-          //name
-          final name =
-              "${finalParentsList[index].person.firstName} ${finalParentsList[index].person.lastName}";
+        //name
+        final name =
+            "${finalParentsList[index].person.firstName} ${finalParentsList[index].person.lastName}";
 
-          //relationship amount
-          final relationshipAmount =
-              finalParentsList[index].relationship.relationship;
+        //relationship amount
+        final relationshipAmount =
+            finalParentsList[index].relationship.relationship;
 
-          //Check if it needs a header
-          if (index == 0 ||
-              relationshipType !=
-                  finalParentsList[index - 1]
-                      .relationship
-                      .parentRelationshipType) {
-            //don't create a header for step-parents
-            if (index > 0 &&
-                relationshipType != ParentRelationshipType.grand.name) {
-              //do nothing
-            }
-            //create a header
-            else {
-              late final String sectionTitle;
+        //living together
+        final currentlyLivingTogether =
+            finalParentsList[index].relationship.currentlyLivingTogether;
 
-              if (relationshipType == ParentRelationshipType.grand.name) {
-                sectionTitle = TextConstants.grandparents;
-              } else {
-                sectionTitle = TextConstants.parents;
-              }
-              return RelationshipListItemWithHeader(
-                  onTap: () {},
-                  sectionTitle: sectionTitle,
-                  avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-                  relationshipLabel: relationshipLabel,
-                  name: name,
-                  relationshipAmount: relationshipAmount);
-            }
+        //Check if it needs a header
+        if (index == 0 ||
+            relationshipType !=
+                finalParentsList[index - 1]
+                    .relationship
+                    .parentRelationshipType) {
+          //don't create a header for step-parents
+          if (index > 0 &&
+              relationshipType != ParentRelationshipType.grand.name) {
+            //do nothing
           }
+          //create a header
+          else {
+            late final String sectionTitle;
 
-          //No header needed if you get here
-          return RelationshipListItem(
+            if (relationshipType == ParentRelationshipType.grand.name) {
+              sectionTitle = TextConstants.grandparents;
+            } else {
+              sectionTitle = TextConstants.parents;
+            }
+            return RelationshipListItemWithHeader(
               onTap: () {},
+              sectionTitle: sectionTitle,
               avatarImagePath: "assets/images/black_woman_placeholder.jpg",
               relationshipLabel: relationshipLabel,
               name: name,
-              relationshipAmount: relationshipAmount);
-        },
-        separatorBuilder: (context, index) {
-          return const ListDivider();
-        },
-      
+              relationshipAmount: relationshipAmount,
+              currentlyLivingTogether: currentlyLivingTogether,
+            );
+          }
+        }
+
+        //No header needed if you get here
+        return RelationshipListItem(
+          onTap: () {},
+          avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+          relationshipLabel: relationshipLabel,
+          name: name,
+          relationshipAmount: relationshipAmount,
+          currentlyLivingTogether: currentlyLivingTogether,
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const ListDivider();
+      },
     );
   }
 }

@@ -10,6 +10,7 @@ class RelationshipListItemWithHeader extends StatelessWidget {
   final String relationshipLabel;
   final String name;
   final int relationshipAmount;
+  final bool currentlyLivingTogether;
   final void Function() onTap;
 
   const RelationshipListItemWithHeader({
@@ -19,6 +20,7 @@ class RelationshipListItemWithHeader extends StatelessWidget {
     required this.relationshipLabel,
     required this.name,
     required this.relationshipAmount,
+    required this.currentlyLivingTogether,
     required this.onTap,
   }) : super(key: key);
 
@@ -35,6 +37,7 @@ class RelationshipListItemWithHeader extends StatelessWidget {
           relationshipLabel: relationshipLabel,
           name: name,
           relationshipAmount: relationshipAmount,
+          currentlyLivingTogether: currentlyLivingTogether,
           onTap: onTap,
         )
       ],

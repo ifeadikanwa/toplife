@@ -36,6 +36,10 @@ class InLawsScreen extends StatelessWidget {
         final relationshipAmount =
             finalInLawsList[index].relationship.relationship;
 
+        //living together
+        final currentlyLivingTogether =
+            finalInLawsList[index].relationship.currentlyLivingTogether;
+
         //divide into sections
         if (index == 0 ||
             relationshipType !=
@@ -53,20 +57,24 @@ class InLawsScreen extends StatelessWidget {
 
           //return list item with heading
           return RelationshipListItemWithHeader(
-              onTap: () {},
-              sectionTitle: sectionTitle,
-              avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-              relationshipLabel: relationshipLabel,
-              name: name,
-              relationshipAmount: relationshipAmount);
-        }
-
-        return RelationshipListItem(
             onTap: () {},
+            sectionTitle: sectionTitle,
             avatarImagePath: "assets/images/black_woman_placeholder.jpg",
             relationshipLabel: relationshipLabel,
             name: name,
-            relationshipAmount: relationshipAmount);
+            relationshipAmount: relationshipAmount,
+            currentlyLivingTogether: currentlyLivingTogether,
+          );
+        }
+
+        return RelationshipListItem(
+          onTap: () {},
+          avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+          relationshipLabel: relationshipLabel,
+          name: name,
+          relationshipAmount: relationshipAmount,
+          currentlyLivingTogether: currentlyLivingTogether,
+        );
       },
       separatorBuilder: (context, index) {
         return const ListDivider();

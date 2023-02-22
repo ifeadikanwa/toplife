@@ -38,6 +38,10 @@ class RelativesScreen extends StatelessWidget {
         final relationshipAmount =
             finalRelativesList[index].relationship.relationship;
 
+        //living together
+        final currentlyLivingTogether =
+            finalRelativesList[index].relationship.currentlyLivingTogether;
+
         if (index == 0 ||
             relationshipType !=
                 finalRelativesList[index - 1]
@@ -63,15 +67,18 @@ class RelativesScreen extends StatelessWidget {
             relationshipLabel: relationshipLabel,
             name: name,
             relationshipAmount: relationshipAmount,
+            currentlyLivingTogether: currentlyLivingTogether,
           );
         }
 
         return RelationshipListItem(
-            onTap: () {},
-            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-            relationshipLabel: relationshipLabel,
-            name: name,
-            relationshipAmount: relationshipAmount);
+          onTap: () {},
+          avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+          relationshipLabel: relationshipLabel,
+          name: name,
+          relationshipAmount: relationshipAmount,
+          currentlyLivingTogether: currentlyLivingTogether,
+        );
       },
       separatorBuilder: (context, index) {
         return const ListDivider();

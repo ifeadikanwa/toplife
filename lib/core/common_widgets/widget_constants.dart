@@ -23,7 +23,7 @@ const appBarLeadingIconAndTextSpacing = 32.0;
 //Icons
 const cardInfoButtonSize = 16.0;
 const flutterDefaultIconSize = 24.0;
-const childrenListHomeIconSize = 20.0;
+const relationshipListHomeIconSize = 20.0;
 const listClockIconSize = 15.0;
 const listArrowIconSize = 15.0;
 const shopCategoryIconSize = 40.0;

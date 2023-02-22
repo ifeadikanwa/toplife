@@ -31,12 +31,18 @@ class SiblingsScreen extends StatelessWidget {
         //relationship amount
         final relationshipAmount = siblings[index].relationship.relationship;
 
+        //living together
+        final currentlyLivingTogether =
+            siblings[index].relationship.currentlyLivingTogether;
+
         return RelationshipListItem(
-            onTap: () {},
-            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-            relationshipLabel: relationshipLabel,
-            name: name,
-            relationshipAmount: relationshipAmount);
+          onTap: () {},
+          avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+          relationshipLabel: relationshipLabel,
+          name: name,
+          relationshipAmount: relationshipAmount,
+          currentlyLivingTogether: currentlyLivingTogether,
+        );
       },
       separatorBuilder: (context, index) {
         return const ListDivider();

@@ -11,6 +11,7 @@ class RelationshipListItem extends StatelessWidget {
   final String relationshipLabel;
   final String name;
   final int relationshipAmount;
+  final bool currentlyLivingTogether;
   final void Function() onTap;
 
   const RelationshipListItem({
@@ -19,6 +20,7 @@ class RelationshipListItem extends StatelessWidget {
     required this.relationshipLabel,
     required this.name,
     required this.relationshipAmount,
+    required this.currentlyLivingTogether,
     required this.onTap,
   }) : super(key: key);
 
@@ -30,6 +32,18 @@ class RelationshipListItem extends StatelessWidget {
           RelationshipAvatar(avatarImagePath: avatarImagePath),
           const AddHorizontalSpace(width: listRowItemsSpacing),
           relationshipInfo(),
+          const AddHorizontalSpace(width: listRowItemsSpacing * 2),
+          currentlyLivingTogether
+              ? const Center(
+                  child: Icon(
+                    Icons.home_outlined,
+                    // color: Colors.grey,
+                    size: relationshipListHomeIconSize,
+                  ),
+                )
+              : const AddHorizontalSpace(
+                  width: relationshipListHomeIconSize,
+                ),
         ],
       ),
       onTap: onTap,

@@ -27,12 +27,18 @@ class FriendsScreen extends StatelessWidget {
         //relationship amount
         final relationshipAmount = friends[index].relationship.relationship;
 
+        //living together
+        final currentlyLivingTogether =
+            friends[index].relationship.currentlyLivingTogether;
+
         return RelationshipListItem(
-            onTap: () {},
-            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-            relationshipLabel: relationshipLabel,
-            name: name,
-            relationshipAmount: relationshipAmount);
+          onTap: () {},
+          avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+          relationshipLabel: relationshipLabel,
+          name: name,
+          relationshipAmount: relationshipAmount,
+          currentlyLivingTogether: currentlyLivingTogether,
+        );
       },
       separatorBuilder: (context, index) {
         return const ListDivider();

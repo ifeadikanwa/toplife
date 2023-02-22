@@ -36,12 +36,18 @@ class ExesScreen extends StatelessWidget {
         //relationship amount
         final relationshipAmount = exes[index].relationship.relationship;
 
+        //living together
+        final currentlyLivingTogether =
+            exes[index].relationship.currentlyLivingTogether;
+
         return RelationshipListItem(
-            onTap: () {},
-            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-            relationshipLabel: relationshipLabel,
-            name: name,
-            relationshipAmount: relationshipAmount);
+          onTap: () {},
+          avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+          relationshipLabel: relationshipLabel,
+          name: name,
+          relationshipAmount: relationshipAmount,
+          currentlyLivingTogether: currentlyLivingTogether,
+        );
       },
       separatorBuilder: (context, index) {
         return const ListDivider();
