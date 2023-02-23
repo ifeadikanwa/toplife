@@ -7,7 +7,6 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/jewelry_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_carat_label.dart';
@@ -57,7 +56,7 @@ class PurchaseJewelryUsecase {
     if (paymentSuccessful && currentGame != null) {
       await _jewelryRepository.createJewelry(
         jewelry.copyWith(
-          personID: personID,
+          personId: personID,
           dayOfPurchase: currentGame.currentDay,
         ),
       );

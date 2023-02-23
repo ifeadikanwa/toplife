@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/fridge_food_dao.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/fridge_food.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/fridge_food_repository.dart';
 
 class FridgeFoodRepositoryImpl implements FridgeFoodRepository {
@@ -44,5 +44,10 @@ class FridgeFoodRepositoryImpl implements FridgeFoodRepository {
       foodID: foodID,
       expiryDay: expiryDay,
     );
+  }
+
+  @override
+  Stream<List<FridgeFood>> watchAllFridgeFood(int personID) {
+    return _fridgeFoodDao.watchAllFridgeFood(personID);
   }
 }

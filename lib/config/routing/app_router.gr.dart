@@ -17,7 +17,7 @@ import 'package:drift/drift.dart' as _i39;
 import 'package:drift_db_viewer/drift_db_viewer.dart' as _i7;
 import 'package:flutter/material.dart' as _i38;
 
-import '../../core/data_source/drift_database/database_provider.dart' as _i46;
+import '../../core/data_source/drift_database/database_provider.dart' as _i40;
 import '../../game_manager/presentation/game_manager_screen.dart' as _i2;
 import '../../main_game/presentation/main_game_screen.dart' as _i1;
 import '../../main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart'
@@ -85,17 +85,7 @@ import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/
 import '../../main_game/presentation/top_level_screens/work/widgets/work_screen.dart'
     as _i5;
 import '../../main_systems/system_relationship/domain/model/info_models/relationship_pair.dart'
-    as _i45;
-import '../../main_systems/system_shop_and_storage/domain/model/car.dart'
     as _i41;
-import '../../main_systems/system_shop_and_storage/domain/model/food.dart'
-    as _i40;
-import '../../main_systems/system_shop_and_storage/domain/model/house.dart'
-    as _i43;
-import '../../main_systems/system_shop_and_storage/domain/model/item.dart'
-    as _i42;
-import '../../main_systems/system_shop_and_storage/domain/model/jewelry.dart'
-    as _i44;
 
 class AppRouter extends _i37.RootStackRouter {
   AppRouter([_i38.GlobalKey<_i38.NavigatorState>? navigatorKey])
@@ -1049,7 +1039,7 @@ class SweetsRouteArgs {
 class NewCarsRoute extends _i37.PageRouteInfo<NewCarsRouteArgs> {
   NewCarsRoute({
     _i38.Key? key,
-    required List<_i41.Car> newCars,
+    required List<_i40.Car> newCars,
   }) : super(
           NewCarsRoute.name,
           path: 'new_cars',
@@ -1070,7 +1060,7 @@ class NewCarsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.Car> newCars;
+  final List<_i40.Car> newCars;
 
   @override
   String toString() {
@@ -1083,7 +1073,7 @@ class NewCarsRouteArgs {
 class UsedCarsRoute extends _i37.PageRouteInfo<UsedCarsRouteArgs> {
   UsedCarsRoute({
     _i38.Key? key,
-    required List<_i41.Car> usedCars,
+    required List<_i40.Car> usedCars,
   }) : super(
           UsedCarsRoute.name,
           path: 'used_cars',
@@ -1104,7 +1094,7 @@ class UsedCarsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.Car> usedCars;
+  final List<_i40.Car> usedCars;
 
   @override
   String toString() {
@@ -1151,7 +1141,7 @@ class ChildrenFoodRouteArgs {
 class ChildrenItemsRoute extends _i37.PageRouteInfo<ChildrenItemsRouteArgs> {
   ChildrenItemsRoute({
     _i38.Key? key,
-    required List<_i42.Item> childrenItems,
+    required List<_i40.Item> childrenItems,
   }) : super(
           ChildrenItemsRoute.name,
           path: 'children_items',
@@ -1172,7 +1162,7 @@ class ChildrenItemsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i42.Item> childrenItems;
+  final List<_i40.Item> childrenItems;
 
   @override
   String toString() {
@@ -1185,7 +1175,7 @@ class ChildrenItemsRouteArgs {
 class RentalHousesRoute extends _i37.PageRouteInfo<RentalHousesRouteArgs> {
   RentalHousesRoute({
     _i38.Key? key,
-    required List<_i43.House> rentalHouses,
+    required List<_i40.House> rentalHouses,
   }) : super(
           RentalHousesRoute.name,
           path: 'rental_houses',
@@ -1206,7 +1196,7 @@ class RentalHousesRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i43.House> rentalHouses;
+  final List<_i40.House> rentalHouses;
 
   @override
   String toString() {
@@ -1219,7 +1209,7 @@ class RentalHousesRouteArgs {
 class PurchaseHousesRoute extends _i37.PageRouteInfo<PurchaseHousesRouteArgs> {
   PurchaseHousesRoute({
     _i38.Key? key,
-    required List<_i43.House> purchaseHouses,
+    required List<_i40.House> purchaseHouses,
   }) : super(
           PurchaseHousesRoute.name,
           path: 'purchase_houses',
@@ -1240,7 +1230,7 @@ class PurchaseHousesRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i43.House> purchaseHouses;
+  final List<_i40.House> purchaseHouses;
 
   @override
   String toString() {
@@ -1253,7 +1243,7 @@ class PurchaseHousesRouteArgs {
 class NaturalJewelryRoute extends _i37.PageRouteInfo<NaturalJewelryRouteArgs> {
   NaturalJewelryRoute({
     _i38.Key? key,
-    required List<_i44.Jewelry> naturalJewelries,
+    required List<_i40.Jewelry> naturalJewelries,
   }) : super(
           NaturalJewelryRoute.name,
           path: 'natural_jewelry',
@@ -1274,7 +1264,7 @@ class NaturalJewelryRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i44.Jewelry> naturalJewelries;
+  final List<_i40.Jewelry> naturalJewelries;
 
   @override
   String toString() {
@@ -1288,7 +1278,7 @@ class SyntheticJewelryRoute
     extends _i37.PageRouteInfo<SyntheticJewelryRouteArgs> {
   SyntheticJewelryRoute({
     _i38.Key? key,
-    required List<_i44.Jewelry> syntheticJewelries,
+    required List<_i40.Jewelry> syntheticJewelries,
   }) : super(
           SyntheticJewelryRoute.name,
           path: 'synthetic_jewelry',
@@ -1309,7 +1299,7 @@ class SyntheticJewelryRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i44.Jewelry> syntheticJewelries;
+  final List<_i40.Jewelry> syntheticJewelries;
 
   @override
   String toString() {
@@ -1335,7 +1325,7 @@ class RelationshipRoute extends _i37.PageRouteInfo<void> {
 class ParentsRoute extends _i37.PageRouteInfo<ParentsRouteArgs> {
   ParentsRoute({
     _i38.Key? key,
-    required List<_i45.RelationshipPair<_i46.Parent, _i46.Person>> parents,
+    required List<_i41.RelationshipPair<_i40.Parent, _i40.Person>> parents,
   }) : super(
           ParentsRoute.name,
           path: 'parents',
@@ -1356,7 +1346,7 @@ class ParentsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i45.RelationshipPair<_i46.Parent, _i46.Person>> parents;
+  final List<_i41.RelationshipPair<_i40.Parent, _i40.Person>> parents;
 
   @override
   String toString() {
@@ -1369,7 +1359,7 @@ class ParentsRouteArgs {
 class SiblingsRoute extends _i37.PageRouteInfo<SiblingsRouteArgs> {
   SiblingsRoute({
     _i38.Key? key,
-    required List<_i45.RelationshipPair<_i46.Sibling, _i46.Person>> siblings,
+    required List<_i41.RelationshipPair<_i40.Sibling, _i40.Person>> siblings,
   }) : super(
           SiblingsRoute.name,
           path: 'siblings',
@@ -1390,7 +1380,7 @@ class SiblingsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i45.RelationshipPair<_i46.Sibling, _i46.Person>> siblings;
+  final List<_i41.RelationshipPair<_i40.Sibling, _i40.Person>> siblings;
 
   @override
   String toString() {
@@ -1403,7 +1393,7 @@ class SiblingsRouteArgs {
 class PartnersRoute extends _i37.PageRouteInfo<PartnersRouteArgs> {
   PartnersRoute({
     _i38.Key? key,
-    required List<_i45.RelationshipPair<_i46.Partner, _i46.Person>> partners,
+    required List<_i41.RelationshipPair<_i40.Partner, _i40.Person>> partners,
   }) : super(
           PartnersRoute.name,
           path: 'partners',
@@ -1424,7 +1414,7 @@ class PartnersRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i45.RelationshipPair<_i46.Partner, _i46.Person>> partners;
+  final List<_i41.RelationshipPair<_i40.Partner, _i40.Person>> partners;
 
   @override
   String toString() {
@@ -1437,7 +1427,7 @@ class PartnersRouteArgs {
 class ChildrenRoute extends _i37.PageRouteInfo<ChildrenRouteArgs> {
   ChildrenRoute({
     _i38.Key? key,
-    required List<_i45.RelationshipPair<_i46.Child, _i46.Person>> childrenList,
+    required List<_i41.RelationshipPair<_i40.Child, _i40.Person>> childrenList,
   }) : super(
           ChildrenRoute.name,
           path: 'children',
@@ -1458,7 +1448,7 @@ class ChildrenRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i45.RelationshipPair<_i46.Child, _i46.Person>> childrenList;
+  final List<_i41.RelationshipPair<_i40.Child, _i40.Person>> childrenList;
 
   @override
   String toString() {
@@ -1471,7 +1461,7 @@ class ChildrenRouteArgs {
 class RelativesRoute extends _i37.PageRouteInfo<RelativesRouteArgs> {
   RelativesRoute({
     _i38.Key? key,
-    required List<_i45.RelationshipPair<_i46.Relative, _i46.Person>> relatives,
+    required List<_i41.RelationshipPair<_i40.Relative, _i40.Person>> relatives,
   }) : super(
           RelativesRoute.name,
           path: 'relatives',
@@ -1492,7 +1482,7 @@ class RelativesRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i45.RelationshipPair<_i46.Relative, _i46.Person>> relatives;
+  final List<_i41.RelationshipPair<_i40.Relative, _i40.Person>> relatives;
 
   @override
   String toString() {
@@ -1505,7 +1495,7 @@ class RelativesRouteArgs {
 class InLawsRoute extends _i37.PageRouteInfo<InLawsRouteArgs> {
   InLawsRoute({
     _i38.Key? key,
-    required List<_i45.RelationshipPair<_i46.InLaw, _i46.Person>> inLaws,
+    required List<_i41.RelationshipPair<_i40.InLaw, _i40.Person>> inLaws,
   }) : super(
           InLawsRoute.name,
           path: 'inlaws',
@@ -1526,7 +1516,7 @@ class InLawsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i45.RelationshipPair<_i46.InLaw, _i46.Person>> inLaws;
+  final List<_i41.RelationshipPair<_i40.InLaw, _i40.Person>> inLaws;
 
   @override
   String toString() {
@@ -1539,7 +1529,7 @@ class InLawsRouteArgs {
 class FriendsRoute extends _i37.PageRouteInfo<FriendsRouteArgs> {
   FriendsRoute({
     _i38.Key? key,
-    required List<_i45.RelationshipPair<_i46.Friend, _i46.Person>> friends,
+    required List<_i41.RelationshipPair<_i40.Friend, _i40.Person>> friends,
   }) : super(
           FriendsRoute.name,
           path: 'friends',
@@ -1560,7 +1550,7 @@ class FriendsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i45.RelationshipPair<_i46.Friend, _i46.Person>> friends;
+  final List<_i41.RelationshipPair<_i40.Friend, _i40.Person>> friends;
 
   @override
   String toString() {
@@ -1573,7 +1563,7 @@ class FriendsRouteArgs {
 class ExesRoute extends _i37.PageRouteInfo<ExesRouteArgs> {
   ExesRoute({
     _i38.Key? key,
-    required List<_i45.RelationshipPair<_i46.Partner, _i46.Person>> exes,
+    required List<_i41.RelationshipPair<_i40.Partner, _i40.Person>> exes,
   }) : super(
           ExesRoute.name,
           path: 'exes',
@@ -1594,7 +1584,7 @@ class ExesRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i45.RelationshipPair<_i46.Partner, _i46.Person>> exes;
+  final List<_i41.RelationshipPair<_i40.Partner, _i40.Person>> exes;
 
   @override
   String toString() {
@@ -1607,7 +1597,7 @@ class ExesRouteArgs {
 class GravesRoute extends _i37.PageRouteInfo<GravesRouteArgs> {
   GravesRoute({
     _i38.Key? key,
-    required List<_i46.Grave> graves,
+    required List<_i40.Grave> graves,
   }) : super(
           GravesRoute.name,
           path: 'grave',
@@ -1628,7 +1618,7 @@ class GravesRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i46.Grave> graves;
+  final List<_i40.Grave> graves;
 
   @override
   String toString() {

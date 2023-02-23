@@ -1,6 +1,5 @@
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/storeroom_item_pair.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/item_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_available_storeroom_items_usecase.dart';
 
@@ -27,7 +26,7 @@ class GetStoreroomItemPairsUsecase {
     );
 
     for (var storeroomItem in availableStoreroomItems) {
-      final Item? item = await _itemRepository.getItem(storeroomItem.itemID);
+      final Item? item = await _itemRepository.getItem(storeroomItem.itemId);
 
       if (item != null) {
         pairsList.add(

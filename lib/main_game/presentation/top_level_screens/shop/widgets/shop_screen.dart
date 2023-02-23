@@ -17,7 +17,6 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -118,6 +117,8 @@ class ShopScreen extends ConsumerWidget {
                   context: context,
                   builder: (context) => const BuyHouseDialog(
                     house: House(
+                      id: 0,
+                      personId: 1,
                       isCurrentHome: false,
                       bedrooms: 3,
                       bathrooms: 2,
@@ -134,6 +135,7 @@ class ShopScreen extends ConsumerWidget {
                       condition: 78,
                       purchasePrice: 5900,
                       fullyPaidFor: false,
+                      endOfLeaseDay: 0,
                     ),
                   ),
                 );
@@ -239,9 +241,6 @@ class ShopScreen extends ConsumerWidget {
                 (await PersonDaoImpl(db).createPerson(person));
                 // (BabyTraitsDaoImpl(db).watchBabyTraits(1).listen((event) {
                 //   print(event);
-                // }));
-
-              
               },
               child: const Text("Run"),
             ),

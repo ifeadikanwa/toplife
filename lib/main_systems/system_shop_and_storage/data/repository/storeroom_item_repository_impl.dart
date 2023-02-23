@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/storeroom_item_dao.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/storeroom_item_repository.dart';
 
 class StoreroomItemRepositoryImpl implements StoreroomItemRepository {
@@ -43,5 +43,10 @@ class StoreroomItemRepositoryImpl implements StoreroomItemRepository {
       personID: personID,
       itemID: itemID,
     );
+  }
+
+  @override
+  Stream<List<StoreroomItem>> watchAllStoreroomItems(int personID) {
+    return _storeroomItemDao.watchAllStoreroomItems(personID);
   }
 }

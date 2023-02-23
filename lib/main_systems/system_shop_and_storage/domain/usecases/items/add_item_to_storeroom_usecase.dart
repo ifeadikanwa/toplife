@@ -1,5 +1,5 @@
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
+import 'package:toplife/core/data_source/database_constants.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/storeroom_item_repository.dart';
 
 class AddItemToStoreroomUsecase {
@@ -14,37 +14,36 @@ class AddItemToStoreroomUsecase {
     required Item item,
     required int quantity,
   }) async {
-    if (item.id != null) {
-      final int totalCount = quantity * item.count;
+    final int totalCount = quantity * item.count;
 
-      final existingStoreroomItem =
-          await _storeroomItemRepository.findParticularStoreroomItem(
-        personID: personID,
-        itemID: item.id!,
+    final existingStoreroomItem =
+        await _storeroomItemRepository.findParticularStoreroomItem(
+      personID: personID,
+      itemID: item.id,
+    );
+
+    //if storeroomItem already exists, update the record
+    if (existingStoreroomItem != null) {
+      final updatedCountsLeft = existingStoreroomItem.countsLeft + totalCount;
+
+      final updatedExistingStoreroomItem = existingStoreroomItem.copyWith(
+        countsLeft: updatedCountsLeft,
       );
 
-      //if storeroomItem already exists, update the record
-      if (existingStoreroomItem != null) {
-        final updatedCountsLeft = existingStoreroomItem.countsLeft + totalCount;
+      _storeroomItemRepository.updateStoreroomItem(
+        updatedExistingStoreroomItem,
+      );
+    }
+    //else create a new record
+    else {
+      final createdStoreroomItem = StoreroomItem(
+        id: DatabaseConstants.dummyId,
+        personId: personID,
+        itemId: item.id,
+        countsLeft: totalCount,
+      );
 
-        final updatedExistingStoreroomItem = existingStoreroomItem.copyWith(
-          countsLeft: updatedCountsLeft,
-        );
-
-        _storeroomItemRepository.updateStoreroomItem(
-          updatedExistingStoreroomItem,
-        );
-      }
-      //else create a new record
-      else {
-        final createdStoreroomItem = StoreroomItem(
-          personID: personID,
-          itemID: item.id!,
-          countsLeft: totalCount,
-        );
-
-        _storeroomItemRepository.createStoreroomItem(createdStoreroomItem);
-      }
+      _storeroomItemRepository.createStoreroomItem(createdStoreroomItem);
     }
   }
 }

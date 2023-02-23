@@ -1,73 +1,14 @@
-import 'package:equatable/equatable.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
 
-class StoreroomItem extends Equatable {
-  final int? id;
-  final int personID;
-  final int itemID;
-  final int countsLeft;
-
-  const StoreroomItem({
-    this.id,
-    required this.personID,
-    required this.itemID,
-    required this.countsLeft,
-  });
-
+@DataClassName("StoreroomItem")
+class StoreroomItemTable extends Table {
   @override
-  List<Object?> get props => [
-        id,
-        personID,
-        itemID,
-        countsLeft,
-      ];
+  String? get tableName => "storeroom_item";
 
-  @override
-  bool? get stringify => true;
-
-  //helper constants
-  static const idColumn = "_id";
-  static const personIDColumn = "personID";
-  static const itemIDColumn = "itemID";
-  static const countsLeftColumn = "countsLeft";
-
-
-  static const allColumns = [
-    idColumn,
-    personIDColumn,
-    itemIDColumn,
-    countsLeftColumn,
-   
-  ];
-
-  static StoreroomItem fromMap({required Map<String, Object?> storeroomItemMap}) {
-    return StoreroomItem(
-      id: storeroomItemMap[idColumn] as int?,
-      personID: storeroomItemMap[personIDColumn] as int,
-      itemID: storeroomItemMap[itemIDColumn] as int,
-      countsLeft: storeroomItemMap[countsLeftColumn] as int,
-    );
-  }
-
-  Map<String, Object?> toMap() {
-    return {
-      idColumn: id,
-      personIDColumn: personID,
-      itemIDColumn: itemID,
-      countsLeftColumn: countsLeft,
-    };
-  }
-
-  StoreroomItem copyWith({
-    int? id,
-    int? personID,
-    int? itemID,
-    int? countsLeft,
-  }) {
-    return StoreroomItem(
-      id: id ?? this.id,
-      personID: personID ?? this.personID,
-      itemID: itemID ?? this.itemID,
-      countsLeft: countsLeft ?? this.countsLeft,
-    );
-  }
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get personId => integer().references(PersonTable, #id)();
+  IntColumn get itemId => integer().references(ItemTable, #id)();
+  IntColumn get countsLeft => integer()();
 }

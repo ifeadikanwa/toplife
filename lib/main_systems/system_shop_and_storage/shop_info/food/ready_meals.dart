@@ -1,6 +1,7 @@
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/food_lifespan.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/food_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/constants/food_names.dart';
 
 Set<Food> readyMeals = {
@@ -9,6 +10,7 @@ Set<Food> readyMeals = {
 
   //low price
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.waffles,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -18,6 +20,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.salad,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -28,6 +31,7 @@ Set<Food> readyMeals = {
   ),
 
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.hamburger,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -37,6 +41,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.veggieBurger,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -46,6 +51,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.sweetPotatoFries,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -57,6 +63,7 @@ Set<Food> readyMeals = {
 
   //mid price
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.pizza,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -66,6 +73,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.tacos,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -75,6 +83,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.veggieTacos,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -84,6 +93,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.quesadilla,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -93,6 +103,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.baugette,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -102,6 +113,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.ramen,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -111,6 +123,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.misoSoup,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -122,6 +135,7 @@ Set<Food> readyMeals = {
 
   //high price
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.spaghettiAndMeatballs,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -131,6 +145,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.ravioli,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -140,6 +155,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.fettuccineAlfredo,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -149,6 +165,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.gnocchi,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -158,6 +175,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.churrasco,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -167,6 +185,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.bibimbap,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -176,6 +195,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.padThai,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -185,6 +205,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.sushi,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -194,6 +215,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.jollofRiceAndChicken,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -203,6 +225,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.veggieFriedRice,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -212,6 +235,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.friedChicken,
     type: FoodType.readyMeal.name,
     basePrice: 0,
@@ -221,6 +245,7 @@ Set<Food> readyMeals = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: FoodNames.seafoodPlatter,
     type: FoodType.readyMeal.name,
     basePrice: 0,

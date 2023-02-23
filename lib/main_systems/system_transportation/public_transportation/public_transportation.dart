@@ -1,12 +1,15 @@
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_problem.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_transportation/constants/transport_mode.dart';
 
 class PublicTransportation {
   static Car bus = Car(
+    id: DatabaseConstants.dummyId,
+    personId: DatabaseConstants.dummyId,
     name: TransportMode.bus.presentationName,
     type: CarType.bus.name,
     percentageOfTravelTime: 100,
@@ -17,9 +20,16 @@ class PublicTransportation {
     problem: CarProblem.noProblem.name,
     useCondition: maxStatsValue,
     maxConditionAtPurchase: maxStatsValue,
+    currentlyDriving: false,
+    fullyPaidFor: true,
+    isInsured: true,
+    insuranceCost: 0,
+    insuranceType: "",
   );
 
   static Car taxi = Car(
+    id: DatabaseConstants.dummyId,
+    personId: DatabaseConstants.dummyId,
     name: TransportMode.taxi.presentationName,
     type: CarType.taxi.name,
     percentageOfTravelTime: 50,
@@ -30,9 +40,16 @@ class PublicTransportation {
     problem: CarProblem.noProblem.name,
     useCondition: maxStatsValue,
     maxConditionAtPurchase: maxStatsValue,
+    currentlyDriving: false,
+    fullyPaidFor: true,
+    isInsured: true,
+    insuranceCost: 0,
+    insuranceType: "",
   );
 
   static Car train = Car(
+    id: DatabaseConstants.dummyId,
+    personId: DatabaseConstants.dummyId,
     name: TransportMode.train.presentationName,
     type: CarType.train.name,
     percentageOfTravelTime: 80,
@@ -43,5 +60,10 @@ class PublicTransportation {
     problem: CarProblem.noProblem.name,
     useCondition: maxStatsValue,
     maxConditionAtPurchase: maxStatsValue,
+    currentlyDriving: false,
+    fullyPaidFor: true,
+    isInsured: true,
+    insuranceCost: 0,
+    insuranceType: "",
   );
 }

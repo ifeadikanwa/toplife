@@ -8,7 +8,6 @@ import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/car_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
 
@@ -98,7 +97,7 @@ class PurchaseCarWithLoanUsecase {
           //add car to storage
           final Car createdCar = await _carRepository.createCar(
             car.copyWith(
-              personID: personID,
+              personId: personID,
               dayOfPurchase: currentGame.currentDay,
               fullyPaidFor: false,
             ),
@@ -111,7 +110,7 @@ class PurchaseCarWithLoanUsecase {
           await _recurringBillsUsecases.addCarLoanToBillsUsecase.execute(
             personID: personID,
             baseLoanAmount: baseLoanAmount,
-            carID: createdCar.id!,
+            carID: createdCar.id,
             carName: createdCar.name,
           );
 

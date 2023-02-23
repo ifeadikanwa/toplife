@@ -1,80 +1,15 @@
-import 'package:equatable/equatable.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
 
-class FridgeFood extends Equatable {
-  final int? id;
-  final int personID;
-  final int foodID;
-  final int servingsLeft;
-  final int expiryDay;
-
-  const FridgeFood({
-    this.id,
-    required this.personID,
-    required this.foodID,
-    required this.servingsLeft,
-    required this.expiryDay,
-  });
-
+@DataClassName("FridgeFood")
+class FridgeFoodTable extends Table {
   @override
-  List<Object?> get props => [
-        id,
-        personID,
-        foodID,
-        servingsLeft,
-        expiryDay,
-      ];
+  String? get tableName => "fridge_food";
 
-  @override
-  bool? get stringify => true;
-
-  //helper constants
-  static const idColumn = "_id";
-  static const personIDColumn = "personID";
-  static const foodIDColumn = "foodID";
-  static const servingsLeftColumn = "servingsLeft";
-  static const expiryDayColumn = "expiryDay";
-
-  static const allColumns = [
-    idColumn,
-    personIDColumn,
-    foodIDColumn,
-    servingsLeftColumn,
-    expiryDayColumn,
-  ];
-
-  static FridgeFood fromMap({required Map<String, Object?> fridgeFoodMap}) {
-    return FridgeFood(
-      id: fridgeFoodMap[idColumn] as int?,
-      personID: fridgeFoodMap[personIDColumn] as int,
-      foodID: fridgeFoodMap[foodIDColumn] as int,
-      servingsLeft: fridgeFoodMap[servingsLeftColumn] as int,
-      expiryDay: fridgeFoodMap[expiryDayColumn] as int,
-    );
-  }
-
-  Map<String, Object?> toMap() {
-    return {
-      idColumn: id,
-      personIDColumn: personID,
-      foodIDColumn: foodID,
-      servingsLeftColumn: servingsLeft,
-      expiryDayColumn: expiryDay,
-    };
-  }
-
-  FridgeFood copyWith({
-    int? id,
-    int? personID,
-    int? foodID,
-    int? servingsLeft,
-    int? expiryDay,
-  }) {
-    return FridgeFood(
-      id: id ?? this.id,
-      personID: personID ?? this.personID,
-      foodID: foodID ?? this.foodID,
-      servingsLeft: servingsLeft ?? this.servingsLeft,
-      expiryDay: expiryDay ?? this.expiryDay,
-    );
-  }
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get personId => integer().references(PersonTable, #id)();
+  IntColumn get foodId => integer().references(FoodTable, #id)();
+  IntColumn get servingsLeft => integer()();
+  IntColumn get expiryDay => integer()();
 }

@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class ItemRepository{
   Future<Item> createItem(Item item);

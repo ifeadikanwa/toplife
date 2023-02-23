@@ -1,6 +1,6 @@
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/house_repository.dart';
 
 class EndLeaseUsecase {
@@ -40,14 +40,12 @@ class EndLeaseUsecase {
 
       //remove the rent from the bill
       //delete the house
-      if (rentalHouse.id != null) {
-        await _recurringBillsUsecases.removeRentFromBillsUsecase.execute(
-          personID: personID,
-          houseID: rentalHouse.id!,
-        );
+      await _recurringBillsUsecases.removeRentFromBillsUsecase.execute(
+        personID: personID,
+        houseID: rentalHouse.id,
+      );
 
-        _houseRepository.deleteHouse(rentalHouse.id!);
-      }
+      await _houseRepository.deleteHouse(rentalHouse.id);
     }
   }
 }

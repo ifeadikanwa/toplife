@@ -1,123 +1,75 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/fridge_food_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/fridge_food.dart';
 
-class FridgeFoodDaoImpl implements FridgeFoodDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'fridge_food_dao_impl.g.dart';
 
-  static const fridgeFoodTable = "fridge_food";
-
-  static const createTableQuery ="";
-//       '''
-//     CREATE TABLE $fridgeFoodTable(
-//       ${FridgeFood.idColumn} $idType,
-//       ${FridgeFood.personIDColumn} $integerType,
-//       ${FridgeFood.foodIDColumn} $integerType,
-//       ${FridgeFood.servingsLeftColumn} $integerType,
-//       ${FridgeFood.expiryDayColumn} $integerType,
-//       FOREIGN KEY (${FridgeFood.personIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE,
-//       FOREIGN KEY (${FridgeFood.foodIDColumn})
-//        REFERENCES ${FoodDaoImpl.foodTable} (${Food.idColumn}) 
-//        ON UPDATE CASCADE
-//        ON DELETE NO ACTION
-//     )
-// ''';
+@DriftAccessor(tables: [FridgeFoodTable])
+class FridgeFoodDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$FridgeFoodDaoImplMixin
+    implements FridgeFoodDao {
+  FridgeFoodDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<FridgeFood> createFridgeFood(FridgeFood fridgeFood) async {
-    final db = await _databaseProvider.database;
-    final int id = await db.insert(
-      fridgeFoodTable,
-      fridgeFood.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    final FridgeFoodTableCompanion fridgeFoodWithoutID =
+        fridgeFood.toCompanion(false).copyWith(id: const Value.absent());
 
-    return fridgeFood.copyWith(id: id);
+    final fridgeFoodID =
+        await into(fridgeFoodTable).insertOnConflictUpdate(fridgeFoodWithoutID);
+    return fridgeFood.copyWith(id: fridgeFoodID);
   }
 
   @override
-  Future<void> deleteFridgeFood(int fridgeFoodID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      fridgeFoodTable,
-      where: "${FridgeFood.idColumn} = ?",
-      whereArgs: [fridgeFoodID],
-    );
+  Future<void> deleteFridgeFood(int fridgeFoodID) {
+    return (delete(fridgeFoodTable)
+          ..where((fridgeFood) => fridgeFood.id.equals(fridgeFoodID)))
+        .go();
   }
 
   @override
-  Future<List<FridgeFood>> getAllFridgeFood(int personID) async {
-    final db = await _databaseProvider.database;
-    final allFridgeFoodMap = await db.query(
-      fridgeFoodTable,
-      columns: FridgeFood.allColumns,
-      where: "${FridgeFood.personIDColumn} = ?",
-      whereArgs: [personID],
-    );
-
-    return allFridgeFoodMap
-        .map((fridgeFoodMap) => FridgeFood.fromMap(
-              fridgeFoodMap: fridgeFoodMap,
-            ))
-        .toList();
+  Future<FridgeFood?> findParticularFridgeFood(
+      {required int personID, required int foodID, required int expiryDay}) {
+    return (select(fridgeFoodTable)
+          ..where(
+            (fridgeFood) =>
+                fridgeFood.personId.equals(personID) &
+                fridgeFood.foodId.equals(foodID) &
+                fridgeFood.expiryDay.equals(expiryDay),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<FridgeFood?> getFridgeFood(int fridgeFoodID) async {
-    final db = await _databaseProvider.database;
-    final fridgeFoodMaps = await db.query(
-      fridgeFoodTable,
-      columns: FridgeFood.allColumns,
-      where: "${FridgeFood.idColumn} = ?",
-      whereArgs: [fridgeFoodID],
-    );
-
-    if (fridgeFoodMaps.isNotEmpty) {
-      return FridgeFood.fromMap(fridgeFoodMap: fridgeFoodMaps.first);
-    } else {
-      return null;
-    }
+  Future<List<FridgeFood>> getAllFridgeFood(int personID) {
+    return (select(fridgeFoodTable)
+          ..where(
+            (fridgeFood) => fridgeFood.personId.equals(personID),
+          ))
+        .get();
   }
 
   @override
-  Future<void> updateFridgeFood(FridgeFood fridgeFood) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      fridgeFoodTable,
-      fridgeFood.toMap(),
-      where: "${FridgeFood.idColumn} = ?",
-      whereArgs: [fridgeFood.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<FridgeFood?> getFridgeFood(int fridgeFoodID) {
+    return (select(fridgeFoodTable)
+          ..where((fridgeFood) => fridgeFood.id.equals(fridgeFoodID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<FridgeFood?> findParticularFridgeFood({
-    required int personID,
-    required int foodID,
-    required int expiryDay,
-  }) async {
-    final db = await _databaseProvider.database;
-    final foundFridgeFoodMap = await db.query(
-      fridgeFoodTable,
-      columns: FridgeFood.allColumns,
-      where:
-          "${FridgeFood.personIDColumn} = ? and ${FridgeFood.foodIDColumn} = ? and ${FridgeFood.expiryDayColumn} = ?",
-      whereArgs: [
-        personID,
-        foodID,
-        expiryDay,
-      ],
-    );
+  Future<void> updateFridgeFood(FridgeFood fridgeFood) {
+    return update(fridgeFoodTable).replace(fridgeFood);
+  }
 
-   if (foundFridgeFoodMap.isNotEmpty) {
-      return FridgeFood.fromMap(fridgeFoodMap: foundFridgeFoodMap.first);
-    } else {
-      return null;
-    }
+  @override
+  Stream<List<FridgeFood>> watchAllFridgeFood(int personID) {
+    return (select(fridgeFoodTable)
+          ..where(
+            (fridgeFood) => fridgeFood.personId.equals(personID),
+          ))
+        .watch();
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_car_max_condition.dart';
 
 void main() {
@@ -8,6 +8,8 @@ void main() {
     const int currentDay = 54;
 
     const testCar = Car(
+      id: 0,
+      personId: 3,
       name: "name",
       type: "type",
       percentageOfTravelTime: 80,
@@ -18,6 +20,11 @@ void main() {
       problem: "problem",
       useCondition: 100,
       maxConditionAtPurchase: 100,
+      currentlyDriving: false,
+      fullyPaidFor: true,
+      isInsured: true,
+      insuranceCost: 0,
+      insuranceType: "",
     );
     test(
       "given a high quality car purchased on day 20 with max condition 100, if the current day is 54, the max condition is now 67",

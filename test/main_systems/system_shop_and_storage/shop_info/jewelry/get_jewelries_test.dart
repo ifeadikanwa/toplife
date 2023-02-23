@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/jewelry_quality.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/jewelry/get_jewelries.dart';
 
 void main() {
@@ -48,6 +48,8 @@ void main() {
         const int originalPrice = 100;
         final testList = [
           const Jewelry(
+            id: 0,
+            personId: 8,
             jewel: "jewel",
             type: "type",
             carat: 1.0,
@@ -72,6 +74,8 @@ void main() {
         const int originalPrice = 100;
         final testList = [
           const Jewelry(
+            id: 0,
+            personId: 8,
             jewel: "jewel",
             type: "type",
             carat: 1.0,

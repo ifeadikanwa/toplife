@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/numbers/fluctuate_number.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/cars/cars_list.dart';
 
 class CarGenerator {

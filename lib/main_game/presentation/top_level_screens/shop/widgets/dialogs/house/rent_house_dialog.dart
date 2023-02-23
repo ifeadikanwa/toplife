@@ -16,14 +16,14 @@ import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/di
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/static_total_row.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/helper_widgets/shop_dialog_item_info_row.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/constants/house_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_building_type_label.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_storage_change_label.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_style_label.dart';
 
 final _chosenLeaseDurationProvider = StateProvider.autoDispose<int>(
-  (ref) => House.minLeaseAgreementDuration,
+  (ref) => HouseConstants.minLeaseAgreementDuration,
 );
 
 class RentHouseDialog extends ConsumerWidget {
@@ -151,15 +151,15 @@ class RentHouseDialog extends ConsumerWidget {
         EditableQuantity(
             text: "$chosenLeaseDuration days",
             onIncrease: () {
-              if (chosenLeaseDuration < House.maxLeaseAgreementDuration) {
+              if (chosenLeaseDuration < HouseConstants.maxLeaseAgreementDuration) {
                 ref.read(_chosenLeaseDurationProvider.notifier).state =
-                    chosenLeaseDuration + House.leaseAgreementDurationIncrement;
+                    chosenLeaseDuration + HouseConstants.leaseAgreementDurationIncrement;
               }
             },
             onDecrease: () {
-              if (chosenLeaseDuration > House.minLeaseAgreementDuration) {
+              if (chosenLeaseDuration > HouseConstants.minLeaseAgreementDuration) {
                 ref.read(_chosenLeaseDurationProvider.notifier).state =
-                    chosenLeaseDuration - House.leaseAgreementDurationIncrement;
+                    chosenLeaseDuration - HouseConstants.leaseAgreementDurationIncrement;
               }
             })
       ],

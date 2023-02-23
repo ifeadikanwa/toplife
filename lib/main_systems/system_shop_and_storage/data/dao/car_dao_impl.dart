@@ -1,146 +1,89 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/car_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
 
-class CarDaoImpl implements CarDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'car_dao_impl.g.dart';
 
-  static const carTable = "car";
-
-  static const createTableQuery = "";
-//       '''
-//     CREATE TABLE $carTable(
-//       ${Car.idColumn} $idType,
-//       ${Car.personIDColumn} $integerType,
-//       ${Car.nameColumn} $textType,
-//       ${Car.typeColumn} $textType,
-//       ${Car.percentageOfTravelTimeColumn} $integerType,
-//       ${Car.qualityColumn} $textType,
-//       ${Car.basePriceColumn} $integerType,
-//       ${Car.dayOfPurchaseColumn} $integerType,
-//       ${Car.fuelTankColumn} $integerType,
-//       ${Car.problemColumn} $textType,
-//       ${Car.useConditionColumn} $integerType,
-//       ${Car.maxConditionAtPurchaseColumn} $integerType,
-//       ${Car.currentlyDrivingColumn} $boolType,
-//       ${Car.fullyPaidForColumn} $boolType,
-//       ${Car.isInsuredColumn} $boolType,
-//       ${Car.insuranceCostColumn} $integerType,
-//       ${Car.insuranceTypeColumn} $textType,
-//       FOREIGN KEY (${Car.personIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} ()
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE
-//     )
-// ''';
+@DriftAccessor(tables: [CarTable])
+class CarDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$CarDaoImplMixin
+    implements CarDao {
+  CarDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Car> createCar(Car car) async {
-    final db = await _databaseProvider.database;
-    final int id = await db.insert(
-      carTable,
-      car.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    final CarTableCompanion carWithoutID =
+        car.toCompanion(false).copyWith(id: const Value.absent());
 
-    return car.copyWith(id: id);
+    final carID = await into(carTable).insertOnConflictUpdate(carWithoutID);
+    return car.copyWith(id: carID);
   }
 
   @override
-  Future<void> deleteCar(int carID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      carTable,
-      where: "${Car.idColumn} = ?",
-      whereArgs: [carID],
-    );
+  Future<void> deleteCar(int carID) {
+    return (delete(carTable)..where((car) => car.id.equals(carID))).go();
   }
 
   @override
-  Future<List<Car>> getAllCars(int personID) async {
-    final db = await _databaseProvider.database;
-    final allCarMap = await db.query(
-      carTable,
-      columns: Car.allColumns,
-      where: "${Car.personIDColumn} = ?",
-      whereArgs: [personID],
-    );
-
-    return allCarMap
-        .map((carMap) => Car.fromMap(
-              carMap: carMap,
-            ))
-        .toList();
+  Future<List<Car>> getAllCars(int personID) {
+    return (select(carTable)
+          ..where(
+            (car) => car.personId.equals(personID),
+          ))
+        .get();
   }
 
   @override
-  Future<Car?> getCar(int carID) async {
-    final db = await _databaseProvider.database;
-    final carMaps = await db.query(
-      carTable,
-      columns: Car.allColumns,
-      where: "${Car.idColumn} = ?",
-      whereArgs: [carID],
-    );
-
-    if (carMaps.isNotEmpty) {
-      return Car.fromMap(carMap: carMaps.first);
-    } else {
-      return null;
-    }
+  Future<List<Car>> getAllCurrentlyDrivingCars(int personID) {
+    return (select(carTable)
+          ..where(
+            (car) =>
+                car.personId.equals(personID) &
+                car.currentlyDriving.equals(true),
+          ))
+        .get();
   }
 
   @override
-  Future<void> updateCar(Car car) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      carTable,
-      car.toMap(),
-      where: "${Car.idColumn} = ?",
-      whereArgs: [car.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<Car?> getCar(int carID) {
+    return (select(carTable)
+          ..where((car) => car.id.equals(carID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<Car?> getCurrentCar(int personID) async {
-    final db = await _databaseProvider.database;
-    final carMaps = await db.query(
-      carTable,
-      columns: Car.allColumns,
-      where: "${Car.personIDColumn} = ? and ${Car.currentlyDrivingColumn} = ?",
-      whereArgs: [
-        personID,
-        databaseTrueValue,
-      ],
-    );
-
-    if (carMaps.isNotEmpty) {
-      return Car.fromMap(carMap: carMaps.first);
-    } else {
-      return null;
-    }
+  Future<Car?> getCurrentCar(int personID) {
+    return (select(carTable)
+          ..where(
+            (car) =>
+                car.personId.equals(personID) &
+                car.currentlyDriving.equals(true),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<List<Car>> getAllCurrentlyDrivingCars(int personID) async {
-    final db = await _databaseProvider.database;
-    final allCarMap = await db.query(
-      carTable,
-      columns: Car.allColumns,
-      where: "${Car.personIDColumn} = ? and ${Car.currentlyDrivingColumn} = ?",
-      whereArgs: [
-        personID,
-        databaseTrueValue,
-      ],
-    );
+  Future<void> updateCar(Car car) {
+    return update(carTable).replace(car);
+  }
 
-    return allCarMap
-        .map((carMap) => Car.fromMap(
-              carMap: carMap,
-            ))
-        .toList();
+  @override
+  Stream<List<Car>> watchAllCars(int personID) {
+    return (select(carTable)
+          ..where(
+            (car) => car.personId.equals(personID),
+          ))
+        .watch();
+  }
+
+  @override
+  Stream<Car?> watchCar(int carID) {
+    return (select(carTable)
+          ..where((car) => car.id.equals(carID))
+          ..limit(1))
+        .watchSingleOrNull();
   }
 }

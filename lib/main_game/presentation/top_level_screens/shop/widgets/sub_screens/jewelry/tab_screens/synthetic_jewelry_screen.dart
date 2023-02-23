@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/jewelry/helper_widgets/jewelry_list_screen.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 class SyntheticJewelryScreen extends StatelessWidget {
   final List<Jewelry> syntheticJewelries;

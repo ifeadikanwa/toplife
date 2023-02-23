@@ -3,7 +3,7 @@ import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/buy_house_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/rent_house_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_name.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_size.dart';
 

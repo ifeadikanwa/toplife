@@ -64,15 +64,17 @@ final transportationUsecaseProvider = Provider<TransportationUsescases>((ref) {
 });
 
 final shopAndStorageUsecaseProvider = Provider<ShopAndStorageUsecases>((ref) {
+  final db = ref.watch(databasePovider);
+
   return ShopAndStorageUsecases(
     shopAndStorageRepositories: ShopAndStorageRepositories(
-      carDao: CarDaoImpl(),
-      houseDao: HouseDaoImpl(),
-      foodDao: FoodDaoImpl(),
-      fridgeFoodDao: FridgeFoodDaoImpl(),
-      itemDao: ItemDaoImpl(),
-      storeroomItemDao: StoreroomItemDaoImpl(),
-      jewelryDao: JewelryDaoImpl(),
+      carDao: CarDaoImpl(db),
+      houseDao: HouseDaoImpl(db),
+      foodDao: FoodDaoImpl(db),
+      fridgeFoodDao: FridgeFoodDaoImpl(db),
+      itemDao: ItemDaoImpl(db),
+      storeroomItemDao: StoreroomItemDaoImpl(db),
+      jewelryDao: JewelryDaoImpl(db),
     ),
     personUsecases: ref.watch(personUsecasesProvider),
     journalUsecases: ref.watch(journalUsecasesProvider),
@@ -127,7 +129,6 @@ final journalUsecasesProvider = Provider<JournalUsecases>((ref) {
 });
 
 final eventManagerProvider = Provider<EventManager>((ref) {
-
   return EventManager(
     relationshipUsecases: ref.watch(relationshipUsecasesProvider),
     personUsecases: ref.watch(personUsecasesProvider),

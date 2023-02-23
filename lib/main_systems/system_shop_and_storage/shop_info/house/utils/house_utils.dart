@@ -1,12 +1,13 @@
 import 'dart:math';
 
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/numbers/fluctuate_number.dart';
 import 'package:toplife/core/utils/numbers/get_negative_or_positive_multiplier.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/building_type.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/house_design_style.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/utils/get_random_address.dart';
 
 class HouseUtils {
@@ -204,6 +205,8 @@ class HouseUtils {
 
     //return house containing all the information
     return House(
+      id: DatabaseConstants.dummyId,
+      personId: DatabaseConstants.dummyId,
       bedrooms: bedroomCount,
       bathrooms: bathroomCount,
       storage: storageSpace,
@@ -217,6 +220,10 @@ class HouseUtils {
       dayOfPurchase: 0,
       condition: maxStatsValue,
       purchasePrice: 0,
+      isCurrentHome: false,
+      country: "",
+      endOfLeaseDay: 0,
+      fullyPaidFor: false,
     );
   }
 }

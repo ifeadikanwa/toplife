@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/building_type.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/house_design_style.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/utils/house_utils.dart';
 
 void main() {
@@ -277,6 +277,12 @@ void main() {
         "returns a list of houses sorted in descending order of price",
         () {
           const House houseTemplate = House(
+            id: 0,
+            personId: 8,
+            country: "",
+            endOfLeaseDay: 0,
+            fullyPaidFor: true,
+            isCurrentHome: true,
             bedrooms: 1,
             bathrooms: 1,
             storage: 1,

@@ -37,6 +37,20 @@ import 'package:toplife/main_systems/system_relationship/domain/model/partner.da
 import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/food_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/fridge_food_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/item_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/jewelry_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/house_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/fridge_food.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
 
 part 'database_provider.g.dart';
 
@@ -58,6 +72,13 @@ part 'database_provider.g.dart';
     RelativeTable,
     SiblingTable,
     EventTable,
+    CarTable,
+    FoodTable,
+    FridgeFoodTable,
+    HouseTable,
+    ItemTable,
+    JewelryTable,
+    StoreroomItemTable,
   ],
   daos: [
     GameDaoImpl,
@@ -76,6 +97,13 @@ part 'database_provider.g.dart';
     RelativeDaoImpl,
     SiblingDaoImpl,
     EventDaoImpl,
+    CarDaoImpl,
+    FoodDaoImpl,
+    FridgeFoodDaoImpl,
+    HouseDaoImpl,
+    ItemDaoImpl,
+    JewelryDaoImpl,
+    StoreroomItemDaoImpl,
   ],
 )
 class DatabaseProvider extends _$DatabaseProvider {

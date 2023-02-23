@@ -13,7 +13,6 @@ import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/di
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/static_total_row.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/helper_widgets/shop_dialog_item_info_row.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_quality_label.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_speed.dart';

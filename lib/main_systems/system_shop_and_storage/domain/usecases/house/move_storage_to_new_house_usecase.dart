@@ -1,6 +1,5 @@
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/fridge_food.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/storeroom_item_pair.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/fridge_food_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/use_food_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_available_storeroom_items_usecase.dart';
@@ -70,7 +69,7 @@ class MoveStorageToNewHouseUsecase {
 
           //remove unneeded food(if foodtoremove > servingsleft the entire record is deleted)
           await _useFoodUsecase.execute(
-            fridgeFoodID: currentFood.id!,
+            fridgeFoodID: currentFood.id,
             servingsToUse: foodToRemoveCount,
           );
 
@@ -104,7 +103,7 @@ class MoveStorageToNewHouseUsecase {
 
           //remove the unneeded items(if item to remove > counts left it is set to 0)
           await _useStoreroomItemUsecase.execute(
-            storeroomItemID: storeroomItem.id!,
+            storeroomItemID: storeroomItem.id,
             countsToUse: itemsToRemoveCount,
           );
 

@@ -1,7 +1,6 @@
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/fridge_food.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/fridge_food_repository.dart';
 
 class AddFoodToFridgeUsecase {
@@ -22,7 +21,7 @@ class AddFoodToFridgeUsecase {
     final Game? currentGame =
         await _gameUsecases.getLastPlayedActiveGameUsecase.execute();
 
-    if (currentGame != null && food.id != null) {
+    if (currentGame != null) {
       final int totalServings = quantity * food.servings;
 
       final int expiryDay = currentGame.currentDay + food.lifespanInDays;
@@ -30,7 +29,7 @@ class AddFoodToFridgeUsecase {
       final FridgeFood? existingFridgeFood =
           await _fridgeFoodRepository.findParticularFridgeFood(
         personID: personID,
-        foodID: food.id!,
+        foodID: food.id,
         expiryDay: expiryDay,
       );
 
@@ -49,8 +48,9 @@ class AddFoodToFridgeUsecase {
       //else create a new record
       else {
         final createdFridgeFood = FridgeFood(
-          personID: personID,
-          foodID: food.id!,
+          id: DatabaseConstants.dummyId,
+          personId: personID,
+          foodId: food.id,
           servingsLeft: totalServings,
           expiryDay: expiryDay,
         );

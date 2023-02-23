@@ -1,4 +1,5 @@
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/constants/house_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_usecase.dart';
 
 class GetCurrentHouseStorageSpaceUsecase {
@@ -18,7 +19,7 @@ class GetCurrentHouseStorageSpaceUsecase {
     if (currentHome != null) {
       return currentHome.storage;
     } else {
-      return House.homelessStorageSpace;
+      return HouseConstants.homelessStorageSpace;
     }
   }
 }

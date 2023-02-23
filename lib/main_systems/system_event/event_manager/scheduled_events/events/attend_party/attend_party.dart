@@ -61,9 +61,9 @@ class AttendParty {
     );
 
     //remove chosen gift from storage
-    if (chosenGift != null && chosenGift.storeroomItem.id != null) {
+    if (chosenGift != null) {
       _shopAndStorageUsecases.useStoreroomItemUsecase.execute(
-        storeroomItemID: chosenGift.storeroomItem.id!,
+        storeroomItemID: chosenGift.storeroomItem.id,
       );
     }
 

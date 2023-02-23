@@ -8,7 +8,6 @@ import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/house_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_name.dart';
@@ -65,7 +64,7 @@ class PurchaseHouseFullyPaidUsecase {
 
       await _houseRepository.createHouse(
         house.copyWith(
-          personID: personID,
+          personId: personID,
           isCurrentHome: false,
           dayOfPurchase: currentGame.currentDay,
           lastMaintainedDay: currentGame.currentDay,

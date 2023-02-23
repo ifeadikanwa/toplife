@@ -1,6 +1,6 @@
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/cars/car_template.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/constants/car_names.dart';
 

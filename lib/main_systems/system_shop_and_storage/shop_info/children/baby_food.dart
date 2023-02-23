@@ -1,10 +1,12 @@
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/food_lifespan.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/food_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/constants/baby_food_names.dart';
 
 Set<Food> babyFood = {
   Food(
+    id: DatabaseConstants.dummyId,
     name: BabyFoodNames.sunshineBabyFormula,
     type: FoodType.babyFood.name,
     basePrice: 0,
@@ -14,6 +16,7 @@ Set<Food> babyFood = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: BabyFoodNames.fuzziesOrganicBabyFormula,
     type: FoodType.babyFood.name,
     basePrice: 0,
@@ -23,6 +26,7 @@ Set<Food> babyFood = {
     isOrganic: true,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: BabyFoodNames.sunshineMegaBabyFormula,
     type: FoodType.babyFood.name,
     basePrice: 0,
@@ -32,6 +36,7 @@ Set<Food> babyFood = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: BabyFoodNames.fuzziesMegaOrganicBabyFormula,
     type: FoodType.babyFood.name,
     basePrice: 0,
@@ -41,6 +46,7 @@ Set<Food> babyFood = {
     isOrganic: true,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: BabyFoodNames.majesticRiceCereal,
     type: FoodType.babyFood.name,
     basePrice: 0,
@@ -50,6 +56,7 @@ Set<Food> babyFood = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: BabyFoodNames.majesticOrganicOatmealCereal,
     type: FoodType.babyFood.name,
     basePrice: 0,
@@ -59,6 +66,7 @@ Set<Food> babyFood = {
     isOrganic: true,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: BabyFoodNames.delightPumpkinPuree,
     type: FoodType.babyFood.name,
     basePrice: 0,
@@ -68,6 +76,7 @@ Set<Food> babyFood = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: BabyFoodNames.delightBananaPuree,
     type: FoodType.babyFood.name,
     basePrice: 0,
@@ -77,6 +86,7 @@ Set<Food> babyFood = {
     isOrganic: false,
   ),
   Food(
+    id: DatabaseConstants.dummyId,
     name: BabyFoodNames.delightPearPuree,
     type: FoodType.babyFood.name,
     basePrice: 0,

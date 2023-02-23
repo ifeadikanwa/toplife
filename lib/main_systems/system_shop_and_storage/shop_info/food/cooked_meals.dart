@@ -1,6 +1,7 @@
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/food_lifespan.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/food_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/cooked_meal_pair.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/constants/food_names.dart';
 
@@ -8,6 +9,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/cons
 Set<CookedMealPair> cookedMeals = {
   CookedMealPair(
     food: Food(
+      id: DatabaseConstants.dummyId,
       name: FoodNames.fruitSalad,
       type: FoodType.readyMeal.name,
       basePrice: 0,
@@ -25,6 +27,7 @@ Set<CookedMealPair> cookedMeals = {
   ),
   CookedMealPair(
     food: Food(
+      id: DatabaseConstants.dummyId,
       name: FoodNames.blueberryOatmeal,
       type: FoodType.readyMeal.name,
       basePrice: 0,
@@ -40,6 +43,7 @@ Set<CookedMealPair> cookedMeals = {
   ),
   CookedMealPair(
     food: Food(
+      id: DatabaseConstants.dummyId,
       name: FoodNames.bananaOatmeal,
       type: FoodType.readyMeal.name,
       basePrice: 0,
@@ -55,6 +59,7 @@ Set<CookedMealPair> cookedMeals = {
   ),
   CookedMealPair(
     food: Food(
+      id: DatabaseConstants.dummyId,
       name: FoodNames.pbjSandwich,
       type: FoodType.readyMeal.name,
       basePrice: 0,
@@ -71,6 +76,7 @@ Set<CookedMealPair> cookedMeals = {
   ),
   CookedMealPair(
     food: Food(
+      id: DatabaseConstants.dummyId,
       name: FoodNames.avocadoToast,
       type: FoodType.readyMeal.name,
       basePrice: 0,
@@ -86,6 +92,7 @@ Set<CookedMealPair> cookedMeals = {
   ),
   CookedMealPair(
     food: Food(
+      id: DatabaseConstants.dummyId,
       name: FoodNames.grilledCheese,
       type: FoodType.readyMeal.name,
       basePrice: 0,
@@ -101,6 +108,7 @@ Set<CookedMealPair> cookedMeals = {
   ),
   CookedMealPair(
     food: Food(
+      id: DatabaseConstants.dummyId,
       name: FoodNames.macAndCheese,
       type: FoodType.readyMeal.name,
       basePrice: 0,

@@ -1,145 +1,91 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/house_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 
-class HouseDaoImpl implements HouseDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'house_dao_impl.g.dart';
 
-  static const houseTable = "house";
-
-  static const createTableQuery ="";
-//    '''
-//     CREATE TABLE $houseTable(
-//       ${House.idColumn} $idType,
-//       ${House.personIDColumn} $integerType,
-//       ${House.isCurrentHomeColumn} $boolType,
-//       ${House.bedroomsColumn} $integerType,
-//       ${House.bathroomsColumn} $integerType,
-//       ${House.storageColumn} $integerType,
-//       ${House.addressColumn} $textType,
-//       ${House.isForRentColumn} $boolType,
-//       ${House.buildingTypeColumn} $textType,
-//       ${House.settlementColumn} $textType,
-//       ${House.countryColumn} $textType,
-//       ${House.styleColumn} $textType,
-//       ${House.lastMaintainedDayColumn} $integerType,
-//       ${House.basePriceColumn} $integerType,
-//       ${House.dayOfPurchaseColumn} $integerType,
-//       ${House.endOfLeaseDayColumn} $integerType,
-//       ${House.conditionColumn} $integerType,
-//       ${House.purchasePriceColumn} $integerType,
-//       ${House.fullyPaidForColumn} $boolType,
-//       FOREIGN KEY (${House.personIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE
-//     )
-// ''';
+@DriftAccessor(tables: [HouseTable])
+class HouseDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$HouseDaoImplMixin
+    implements HouseDao {
+  HouseDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<House> createHouse(House house) async {
-    final db = await _databaseProvider.database;
-    final int id = await db.insert(
-      houseTable,
-      house.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    final HouseTableCompanion houseWithoutID =
+        house.toCompanion(false).copyWith(id: const Value.absent());
 
-    return house.copyWith(id: id);
+    final houseID =
+        await into(houseTable).insertOnConflictUpdate(houseWithoutID);
+    return house.copyWith(id: houseID);
   }
 
   @override
-  Future<void> deleteHouse(int houseID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      houseTable,
-      where: "${House.idColumn} = ?",
-      whereArgs: [houseID],
-    );
+  Future<void> deleteHouse(int houseID) {
+    return (delete(houseTable)..where((house) => house.id.equals(houseID)))
+        .go();
   }
 
   @override
-  Future<List<House>> getAllHouses(int personID) async {
-    final db = await _databaseProvider.database;
-    final allHouseMap = await db.query(
-      houseTable,
-      columns: House.allColumns,
-      where: "${House.personIDColumn} = ?",
-      whereArgs: [personID],
-    );
-
-    return allHouseMap
-        .map((houseMap) => House.fromMap(
-              houseMap: houseMap,
-            ))
-        .toList();
+  Future<List<House>> getAllCurrentHouses(int personID) {
+    return (select(houseTable)
+          ..where(
+            (house) =>
+                house.personId.equals(personID) &
+                house.isCurrentHome.equals(true),
+          ))
+        .get();
   }
 
   @override
-  Future<House?> getHouse(int houseID) async {
-    final db = await _databaseProvider.database;
-    final houseMaps = await db.query(
-      houseTable,
-      columns: House.allColumns,
-      where: "${House.idColumn} = ?",
-      whereArgs: [houseID],
-    );
-
-    if (houseMaps.isNotEmpty) {
-      return House.fromMap(houseMap: houseMaps.first);
-    } else {
-      return null;
-    }
+  Future<List<House>> getAllHouses(int personID) {
+    return (select(houseTable)
+          ..where(
+            (house) => house.personId.equals(personID),
+          ))
+        .get();
   }
 
   @override
-  Future<void> updateHouse(House house) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      houseTable,
-      house.toMap(),
-      where: "${House.idColumn} = ?",
-      whereArgs: [house.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<House?> getCurrentHouse(int personID) {
+    return (select(houseTable)
+          ..where(
+            (house) =>
+                house.personId.equals(personID) &
+                house.isCurrentHome.equals(true),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<House?> getCurrentHouse(int personID) async {
-    final db = await _databaseProvider.database;
-    final houseMaps = await db.query(
-      houseTable,
-      columns: House.allColumns,
-      where: "${House.personIDColumn} = ? and ${House.isCurrentHomeColumn} = ?",
-      whereArgs: [
-        personID,
-        databaseTrueValue,
-      ],
-    );
-
-    if (houseMaps.isNotEmpty) {
-      return House.fromMap(houseMap: houseMaps.first);
-    } else {
-      return null;
-    }
+  Future<House?> getHouse(int houseID) {
+    return (select(houseTable)
+          ..where((house) => house.id.equals(houseID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<List<House>> getAllCurrentHouses(int personID) async {
-    final db = await _databaseProvider.database;
-    final allHouseMap = await db.query(
-      houseTable,
-      columns: House.allColumns,
-      where: "${House.personIDColumn} = ? and ${House.isCurrentHomeColumn} = ?",
-      whereArgs: [personID, databaseTrueValue],
-    );
+  Future<void> updateHouse(House house) {
+    return update(houseTable).replace(house);
+  }
 
-    return allHouseMap
-        .map((houseMap) => House.fromMap(
-              houseMap: houseMap,
-            ))
-        .toList();
+  @override
+  Stream<List<House>> watchAllHouses(int personID) {
+    return (select(houseTable)
+          ..where(
+            (house) => house.personId.equals(personID),
+          ))
+        .watch();
+  }
+
+  @override
+  Stream<House?> watchHouse(int houseID) {
+    return (select(houseTable)
+          ..where((house) => house.id.equals(houseID))
+          ..limit(1))
+        .watchSingleOrNull();
   }
 }

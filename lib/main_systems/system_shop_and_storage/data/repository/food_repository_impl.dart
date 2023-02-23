@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/food_dao.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/food_repository.dart';
 
 class FoodRepositoryImpl implements FoodRepository {

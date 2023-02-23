@@ -1,97 +1,69 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/jewelry_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
 
-class JewelryDaoImpl implements JewelryDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'jewelry_dao_impl.g.dart';
 
-  static const jewelryTable = "jewelry";
-
-  static const createTableQuery ="";
-//    '''
-//     CREATE TABLE $jewelryTable(
-//       ${Jewelry.idColumn} $idType,
-//       ${Jewelry.personIDColumn} $integerType,
-//       ${Jewelry.jewelColumn} $textType,
-//       ${Jewelry.typeColumn} $textType,
-//       ${Jewelry.caratColumn} $decimalType,
-//       ${Jewelry.qualityColumn} $textType,
-//       ${Jewelry.basePriceColumn} $integerType,
-//       ${Jewelry.dayOfPurchaseColumn} $integerType,
-//       ${Jewelry.maxConditionAtPurchaseColumn} $integerType,
-//       FOREIGN KEY (${Jewelry.personIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE
-//     )
-// ''';
+@DriftAccessor(tables: [JewelryTable])
+class JewelryDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$JewelryDaoImplMixin
+    implements JewelryDao {
+  JewelryDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Jewelry> createJewelry(Jewelry jewelry) async {
-    final db = await _databaseProvider.database;
-    final int id = await db.insert(
-      jewelryTable,
-      jewelry.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    final JewelryTableCompanion jewelryWithoutID =
+        jewelry.toCompanion(false).copyWith(id: const Value.absent());
 
-    return jewelry.copyWith(id: id);
+    final jewelryID =
+        await into(jewelryTable).insertOnConflictUpdate(jewelryWithoutID);
+    return jewelry.copyWith(id: jewelryID);
   }
 
   @override
-  Future<void> deleteJewelry(int jewelryID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      jewelryTable,
-      where: "${Jewelry.idColumn} = ?",
-      whereArgs: [jewelryID],
-    );
+  Future<void> deleteJewelry(int jewelryID) {
+    return (delete(jewelryTable)
+          ..where((jewelry) => jewelry.id.equals(jewelryID)))
+        .go();
   }
 
   @override
-  Future<List<Jewelry>> getAllJewelry(int personID) async {
-    final db = await _databaseProvider.database;
-    final allJewelryMap = await db.query(
-      jewelryTable,
-      columns: Jewelry.allColumns,
-      where: "${Jewelry.personIDColumn} = ?",
-      whereArgs: [personID],
-    );
-
-    return allJewelryMap
-        .map((jewelryMap) => Jewelry.fromMap(
-              jewelryMap: jewelryMap,
-            ))
-        .toList();
+  Future<List<Jewelry>> getAllJewelry(int personID) {
+    return (select(jewelryTable)
+          ..where(
+            (jewelry) => jewelry.personId.equals(personID),
+          ))
+        .get();
   }
 
   @override
-  Future<Jewelry?> getJewelry(int jewelryID) async {
-    final db = await _databaseProvider.database;
-    final jewelryMaps = await db.query(
-      jewelryTable,
-      columns: Jewelry.allColumns,
-      where: "${Jewelry.idColumn} = ?",
-      whereArgs: [jewelryID],
-    );
-
-    if (jewelryMaps.isNotEmpty) {
-      return Jewelry.fromMap(jewelryMap: jewelryMaps.first);
-    } else {
-      return null;
-    }
+  Future<Jewelry?> getJewelry(int jewelryID) {
+    return (select(jewelryTable)
+          ..where((jewelry) => jewelry.id.equals(jewelryID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateJewelry(Jewelry jewelry) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      jewelryTable,
-      jewelry.toMap(),
-      where: "${Jewelry.idColumn} = ?",
-      whereArgs: [jewelry.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<void> updateJewelry(Jewelry jewelry) {
+    return update(jewelryTable).replace(jewelry);
+  }
+
+  @override
+  Stream<List<Jewelry>> watchAllJewelry(int personID) {
+    return (select(jewelryTable)
+          ..where(
+            (jewelry) => jewelry.personId.equals(personID),
+          ))
+        .watch();
+  }
+
+  @override
+  Stream<Jewelry?> watchJewelry(int jewelryID) {
+    return (select(jewelryTable)
+          ..where((jewelry) => jewelry.id.equals(jewelryID))
+          ..limit(1))
+        .watchSingleOrNull();
   }
 }

@@ -1,5 +1,6 @@
+import 'package:toplife/main_systems/system_shop_and_storage/constants/car_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_quality.dart';
 
 class GetCarMaxConditionUsecase {
@@ -15,7 +16,7 @@ class GetCarMaxConditionUsecase {
     final int daysPassed = currentDay - car.dayOfPurchase;
 
     final int numberOfDepreciationCycles =
-        (daysPassed / Car.maxConditionDepreciationDaysLength).floor();
+        (daysPassed / CarConstants.maxConditionDepreciationDaysLength).floor();
 
     final CarQuality carQuality = getCarQuality(car.quality) ?? CarQuality.low;
 

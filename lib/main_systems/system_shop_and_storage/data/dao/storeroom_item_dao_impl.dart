@@ -1,120 +1,78 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/storeroom_item_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
 
-class StoreroomItemDaoImpl implements StoreroomItemDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'storeroom_item_dao_impl.g.dart';
 
-  static const storeroomItemTable = "storeroom_item";
-
-  static const createTableQuery ="";
-//       '''
-//     CREATE TABLE $storeroomItemTable(
-//       ${StoreroomItem.idColumn} $idType,
-//       ${StoreroomItem.personIDColumn} $integerType,
-//       ${StoreroomItem.itemIDColumn} $integerType,
-//       ${StoreroomItem.countsLeftColumn} $integerType,
-//       FOREIGN KEY (${StoreroomItem.personIDColumn})
-//        REFERENCES ${PersonDaoImpl.personTable} () 
-//        ON UPDATE CASCADE
-//        ON DELETE CASCADE,
-//       FOREIGN KEY (${StoreroomItem.itemIDColumn})
-//        REFERENCES ${ItemDaoImpl.itemTable} (${Item.idColumn}) 
-//        ON UPDATE CASCADE
-//        ON DELETE NO ACTION
-//     )
-// ''';
+@DriftAccessor(tables: [StoreroomItemTable])
+class StoreroomItemDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$StoreroomItemDaoImplMixin
+    implements StoreroomItemDao {
+  StoreroomItemDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<StoreroomItem> createStoreroomItem(StoreroomItem storeroomItem) async {
-    final db = await _databaseProvider.database;
-    final int id = await db.insert(
-      storeroomItemTable,
-      storeroomItem.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    final StoreroomItemTableCompanion storeroomItemWithoutID =
+        storeroomItem.toCompanion(false).copyWith(id: const Value.absent());
 
-    return storeroomItem.copyWith(id: id);
+    final storeroomItemID = await into(storeroomItemTable)
+        .insertOnConflictUpdate(storeroomItemWithoutID);
+    return storeroomItem.copyWith(id: storeroomItemID);
   }
 
   @override
-  Future<void> deleteStoreroomItem(int storeroomItemID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      storeroomItemTable,
-      where: "${StoreroomItem.idColumn} = ?",
-      whereArgs: [storeroomItemID],
-    );
+  Future<void> deleteStoreroomItem(int storeroomItemID) {
+    return (delete(storeroomItemTable)
+          ..where(
+            (storeroomItem) => storeroomItem.id.equals(storeroomItemID),
+          ))
+        .go();
   }
 
   @override
-  Future<List<StoreroomItem>> getAllStoreroomItems(int personID) async {
-    final db = await _databaseProvider.database;
-    final allStoreroomItemMap = await db.query(
-      storeroomItemTable,
-      columns: StoreroomItem.allColumns,
-      where: "${StoreroomItem.personIDColumn} = ?",
-      whereArgs: [personID],
-    );
-
-    return allStoreroomItemMap
-        .map((storeroomItemMap) => StoreroomItem.fromMap(
-              storeroomItemMap: storeroomItemMap,
-            ))
-        .toList();
+  Future<StoreroomItem?> findParticularStoreroomItem(
+      {required int personID, required int itemID}) {
+    return (select(storeroomItemTable)
+          ..where(
+            (storeroomItem) =>
+                storeroomItem.personId.equals(personID) &
+                storeroomItem.itemId.equals(itemID),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<StoreroomItem?> getStoreroomItem(int storeroomItemID) async {
-    final db = await _databaseProvider.database;
-    final storeroomItemMaps = await db.query(
-      storeroomItemTable,
-      columns: StoreroomItem.allColumns,
-      where: "${StoreroomItem.idColumn} = ?",
-      whereArgs: [storeroomItemID],
-    );
-
-    if (storeroomItemMaps.isNotEmpty) {
-      return StoreroomItem.fromMap(storeroomItemMap: storeroomItemMaps.first);
-    } else {
-      return null;
-    }
+  Future<List<StoreroomItem>> getAllStoreroomItems(int personID) {
+    return (select(storeroomItemTable)
+          ..where(
+            (storeroomItem) => storeroomItem.personId.equals(personID),
+          ))
+        .get();
   }
 
   @override
-  Future<void> updateStoreroomItem(StoreroomItem storeroomItem) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      storeroomItemTable,
-      storeroomItem.toMap(),
-      where: "${StoreroomItem.idColumn} = ?",
-      whereArgs: [storeroomItem.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<StoreroomItem?> getStoreroomItem(int storeroomItemID) {
+    return (select(storeroomItemTable)
+          ..where(
+            (storeroomItem) => storeroomItem.id.equals(storeroomItemID),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<StoreroomItem?> findParticularStoreroomItem({
-    required int personID,
-    required int itemID,
-  }) async {
-    final db = await _databaseProvider.database;
-    final storeroomItemMaps = await db.query(
-      storeroomItemTable,
-      columns: StoreroomItem.allColumns,
-      where:
-          "${StoreroomItem.personIDColumn} = ? and ${StoreroomItem.itemIDColumn} = ?",
-      whereArgs: [
-        personID,
-        itemID,
-      ],
-    );
+  Future<void> updateStoreroomItem(StoreroomItem storeroomItem) {
+    return update(storeroomItemTable).replace(storeroomItem);
+  }
 
-    if (storeroomItemMaps.isNotEmpty) {
-      return StoreroomItem.fromMap(storeroomItemMap: storeroomItemMaps.first);
-    } else {
-      return null;
-    }
+  @override
+  Stream<List<StoreroomItem>> watchAllStoreroomItems(int personID) {
+    return (select(storeroomItemTable)
+          ..where(
+            (storeroomItem) => storeroomItem.personId.equals(personID),
+          ))
+        .watch();
   }
 }

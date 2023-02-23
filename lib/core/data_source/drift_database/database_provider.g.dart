@@ -7645,6 +7645,3360 @@ class EventTableCompanion extends UpdateCompanion<Event> {
   }
 }
 
+class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CarTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _percentageOfTravelTimeMeta =
+      const VerificationMeta('percentageOfTravelTime');
+  @override
+  late final GeneratedColumn<int> percentageOfTravelTime = GeneratedColumn<int>(
+      'percentage_of_travel_time', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _qualityMeta =
+      const VerificationMeta('quality');
+  @override
+  late final GeneratedColumn<String> quality = GeneratedColumn<String>(
+      'quality', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _basePriceMeta =
+      const VerificationMeta('basePrice');
+  @override
+  late final GeneratedColumn<int> basePrice = GeneratedColumn<int>(
+      'base_price', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _dayOfPurchaseMeta =
+      const VerificationMeta('dayOfPurchase');
+  @override
+  late final GeneratedColumn<int> dayOfPurchase = GeneratedColumn<int>(
+      'day_of_purchase', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fuelTankMeta =
+      const VerificationMeta('fuelTank');
+  @override
+  late final GeneratedColumn<int> fuelTank = GeneratedColumn<int>(
+      'fuel_tank', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _problemMeta =
+      const VerificationMeta('problem');
+  @override
+  late final GeneratedColumn<String> problem = GeneratedColumn<String>(
+      'problem', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _useConditionMeta =
+      const VerificationMeta('useCondition');
+  @override
+  late final GeneratedColumn<int> useCondition = GeneratedColumn<int>(
+      'use_condition', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _maxConditionAtPurchaseMeta =
+      const VerificationMeta('maxConditionAtPurchase');
+  @override
+  late final GeneratedColumn<int> maxConditionAtPurchase = GeneratedColumn<int>(
+      'max_condition_at_purchase', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fullyPaidForMeta =
+      const VerificationMeta('fullyPaidFor');
+  @override
+  late final GeneratedColumn<bool> fullyPaidFor =
+      GeneratedColumn<bool>('fully_paid_for', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("fully_paid_for" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _currentlyDrivingMeta =
+      const VerificationMeta('currentlyDriving');
+  @override
+  late final GeneratedColumn<bool> currentlyDriving =
+      GeneratedColumn<bool>('currently_driving', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("currently_driving" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _isInsuredMeta =
+      const VerificationMeta('isInsured');
+  @override
+  late final GeneratedColumn<bool> isInsured =
+      GeneratedColumn<bool>('is_insured', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_insured" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _insuranceCostMeta =
+      const VerificationMeta('insuranceCost');
+  @override
+  late final GeneratedColumn<int> insuranceCost = GeneratedColumn<int>(
+      'insurance_cost', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _insuranceTypeMeta =
+      const VerificationMeta('insuranceType');
+  @override
+  late final GeneratedColumn<String> insuranceType = GeneratedColumn<String>(
+      'insurance_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        personId,
+        name,
+        type,
+        percentageOfTravelTime,
+        quality,
+        basePrice,
+        dayOfPurchase,
+        fuelTank,
+        problem,
+        useCondition,
+        maxConditionAtPurchase,
+        fullyPaidFor,
+        currentlyDriving,
+        isInsured,
+        insuranceCost,
+        insuranceType
+      ];
+  @override
+  String get aliasedName => _alias ?? 'car';
+  @override
+  String get actualTableName => 'car';
+  @override
+  VerificationContext validateIntegrity(Insertable<Car> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('percentage_of_travel_time')) {
+      context.handle(
+          _percentageOfTravelTimeMeta,
+          percentageOfTravelTime.isAcceptableOrUnknown(
+              data['percentage_of_travel_time']!, _percentageOfTravelTimeMeta));
+    } else if (isInserting) {
+      context.missing(_percentageOfTravelTimeMeta);
+    }
+    if (data.containsKey('quality')) {
+      context.handle(_qualityMeta,
+          quality.isAcceptableOrUnknown(data['quality']!, _qualityMeta));
+    } else if (isInserting) {
+      context.missing(_qualityMeta);
+    }
+    if (data.containsKey('base_price')) {
+      context.handle(_basePriceMeta,
+          basePrice.isAcceptableOrUnknown(data['base_price']!, _basePriceMeta));
+    } else if (isInserting) {
+      context.missing(_basePriceMeta);
+    }
+    if (data.containsKey('day_of_purchase')) {
+      context.handle(
+          _dayOfPurchaseMeta,
+          dayOfPurchase.isAcceptableOrUnknown(
+              data['day_of_purchase']!, _dayOfPurchaseMeta));
+    } else if (isInserting) {
+      context.missing(_dayOfPurchaseMeta);
+    }
+    if (data.containsKey('fuel_tank')) {
+      context.handle(_fuelTankMeta,
+          fuelTank.isAcceptableOrUnknown(data['fuel_tank']!, _fuelTankMeta));
+    } else if (isInserting) {
+      context.missing(_fuelTankMeta);
+    }
+    if (data.containsKey('problem')) {
+      context.handle(_problemMeta,
+          problem.isAcceptableOrUnknown(data['problem']!, _problemMeta));
+    } else if (isInserting) {
+      context.missing(_problemMeta);
+    }
+    if (data.containsKey('use_condition')) {
+      context.handle(
+          _useConditionMeta,
+          useCondition.isAcceptableOrUnknown(
+              data['use_condition']!, _useConditionMeta));
+    } else if (isInserting) {
+      context.missing(_useConditionMeta);
+    }
+    if (data.containsKey('max_condition_at_purchase')) {
+      context.handle(
+          _maxConditionAtPurchaseMeta,
+          maxConditionAtPurchase.isAcceptableOrUnknown(
+              data['max_condition_at_purchase']!, _maxConditionAtPurchaseMeta));
+    } else if (isInserting) {
+      context.missing(_maxConditionAtPurchaseMeta);
+    }
+    if (data.containsKey('fully_paid_for')) {
+      context.handle(
+          _fullyPaidForMeta,
+          fullyPaidFor.isAcceptableOrUnknown(
+              data['fully_paid_for']!, _fullyPaidForMeta));
+    } else if (isInserting) {
+      context.missing(_fullyPaidForMeta);
+    }
+    if (data.containsKey('currently_driving')) {
+      context.handle(
+          _currentlyDrivingMeta,
+          currentlyDriving.isAcceptableOrUnknown(
+              data['currently_driving']!, _currentlyDrivingMeta));
+    } else if (isInserting) {
+      context.missing(_currentlyDrivingMeta);
+    }
+    if (data.containsKey('is_insured')) {
+      context.handle(_isInsuredMeta,
+          isInsured.isAcceptableOrUnknown(data['is_insured']!, _isInsuredMeta));
+    } else if (isInserting) {
+      context.missing(_isInsuredMeta);
+    }
+    if (data.containsKey('insurance_cost')) {
+      context.handle(
+          _insuranceCostMeta,
+          insuranceCost.isAcceptableOrUnknown(
+              data['insurance_cost']!, _insuranceCostMeta));
+    } else if (isInserting) {
+      context.missing(_insuranceCostMeta);
+    }
+    if (data.containsKey('insurance_type')) {
+      context.handle(
+          _insuranceTypeMeta,
+          insuranceType.isAcceptableOrUnknown(
+              data['insurance_type']!, _insuranceTypeMeta));
+    } else if (isInserting) {
+      context.missing(_insuranceTypeMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Car map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Car(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      percentageOfTravelTime: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}percentage_of_travel_time'])!,
+      quality: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}quality'])!,
+      basePrice: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}base_price'])!,
+      dayOfPurchase: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}day_of_purchase'])!,
+      fuelTank: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fuel_tank'])!,
+      problem: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}problem'])!,
+      useCondition: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}use_condition'])!,
+      maxConditionAtPurchase: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}max_condition_at_purchase'])!,
+      fullyPaidFor: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}fully_paid_for'])!,
+      currentlyDriving: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}currently_driving'])!,
+      isInsured: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_insured'])!,
+      insuranceCost: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}insurance_cost'])!,
+      insuranceType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}insurance_type'])!,
+    );
+  }
+
+  @override
+  $CarTableTable createAlias(String alias) {
+    return $CarTableTable(attachedDatabase, alias);
+  }
+}
+
+class Car extends DataClass implements Insertable<Car> {
+  final int id;
+  final int personId;
+  final String name;
+  final String type;
+  final int percentageOfTravelTime;
+  final String quality;
+  final int basePrice;
+  final int dayOfPurchase;
+  final int fuelTank;
+  final String problem;
+  final int useCondition;
+  final int maxConditionAtPurchase;
+  final bool fullyPaidFor;
+  final bool currentlyDriving;
+  final bool isInsured;
+  final int insuranceCost;
+  final String insuranceType;
+  const Car(
+      {required this.id,
+      required this.personId,
+      required this.name,
+      required this.type,
+      required this.percentageOfTravelTime,
+      required this.quality,
+      required this.basePrice,
+      required this.dayOfPurchase,
+      required this.fuelTank,
+      required this.problem,
+      required this.useCondition,
+      required this.maxConditionAtPurchase,
+      required this.fullyPaidFor,
+      required this.currentlyDriving,
+      required this.isInsured,
+      required this.insuranceCost,
+      required this.insuranceType});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person_id'] = Variable<int>(personId);
+    map['name'] = Variable<String>(name);
+    map['type'] = Variable<String>(type);
+    map['percentage_of_travel_time'] = Variable<int>(percentageOfTravelTime);
+    map['quality'] = Variable<String>(quality);
+    map['base_price'] = Variable<int>(basePrice);
+    map['day_of_purchase'] = Variable<int>(dayOfPurchase);
+    map['fuel_tank'] = Variable<int>(fuelTank);
+    map['problem'] = Variable<String>(problem);
+    map['use_condition'] = Variable<int>(useCondition);
+    map['max_condition_at_purchase'] = Variable<int>(maxConditionAtPurchase);
+    map['fully_paid_for'] = Variable<bool>(fullyPaidFor);
+    map['currently_driving'] = Variable<bool>(currentlyDriving);
+    map['is_insured'] = Variable<bool>(isInsured);
+    map['insurance_cost'] = Variable<int>(insuranceCost);
+    map['insurance_type'] = Variable<String>(insuranceType);
+    return map;
+  }
+
+  CarTableCompanion toCompanion(bool nullToAbsent) {
+    return CarTableCompanion(
+      id: Value(id),
+      personId: Value(personId),
+      name: Value(name),
+      type: Value(type),
+      percentageOfTravelTime: Value(percentageOfTravelTime),
+      quality: Value(quality),
+      basePrice: Value(basePrice),
+      dayOfPurchase: Value(dayOfPurchase),
+      fuelTank: Value(fuelTank),
+      problem: Value(problem),
+      useCondition: Value(useCondition),
+      maxConditionAtPurchase: Value(maxConditionAtPurchase),
+      fullyPaidFor: Value(fullyPaidFor),
+      currentlyDriving: Value(currentlyDriving),
+      isInsured: Value(isInsured),
+      insuranceCost: Value(insuranceCost),
+      insuranceType: Value(insuranceType),
+    );
+  }
+
+  factory Car.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Car(
+      id: serializer.fromJson<int>(json['id']),
+      personId: serializer.fromJson<int>(json['personId']),
+      name: serializer.fromJson<String>(json['name']),
+      type: serializer.fromJson<String>(json['type']),
+      percentageOfTravelTime:
+          serializer.fromJson<int>(json['percentageOfTravelTime']),
+      quality: serializer.fromJson<String>(json['quality']),
+      basePrice: serializer.fromJson<int>(json['basePrice']),
+      dayOfPurchase: serializer.fromJson<int>(json['dayOfPurchase']),
+      fuelTank: serializer.fromJson<int>(json['fuelTank']),
+      problem: serializer.fromJson<String>(json['problem']),
+      useCondition: serializer.fromJson<int>(json['useCondition']),
+      maxConditionAtPurchase:
+          serializer.fromJson<int>(json['maxConditionAtPurchase']),
+      fullyPaidFor: serializer.fromJson<bool>(json['fullyPaidFor']),
+      currentlyDriving: serializer.fromJson<bool>(json['currentlyDriving']),
+      isInsured: serializer.fromJson<bool>(json['isInsured']),
+      insuranceCost: serializer.fromJson<int>(json['insuranceCost']),
+      insuranceType: serializer.fromJson<String>(json['insuranceType']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'personId': serializer.toJson<int>(personId),
+      'name': serializer.toJson<String>(name),
+      'type': serializer.toJson<String>(type),
+      'percentageOfTravelTime': serializer.toJson<int>(percentageOfTravelTime),
+      'quality': serializer.toJson<String>(quality),
+      'basePrice': serializer.toJson<int>(basePrice),
+      'dayOfPurchase': serializer.toJson<int>(dayOfPurchase),
+      'fuelTank': serializer.toJson<int>(fuelTank),
+      'problem': serializer.toJson<String>(problem),
+      'useCondition': serializer.toJson<int>(useCondition),
+      'maxConditionAtPurchase': serializer.toJson<int>(maxConditionAtPurchase),
+      'fullyPaidFor': serializer.toJson<bool>(fullyPaidFor),
+      'currentlyDriving': serializer.toJson<bool>(currentlyDriving),
+      'isInsured': serializer.toJson<bool>(isInsured),
+      'insuranceCost': serializer.toJson<int>(insuranceCost),
+      'insuranceType': serializer.toJson<String>(insuranceType),
+    };
+  }
+
+  Car copyWith(
+          {int? id,
+          int? personId,
+          String? name,
+          String? type,
+          int? percentageOfTravelTime,
+          String? quality,
+          int? basePrice,
+          int? dayOfPurchase,
+          int? fuelTank,
+          String? problem,
+          int? useCondition,
+          int? maxConditionAtPurchase,
+          bool? fullyPaidFor,
+          bool? currentlyDriving,
+          bool? isInsured,
+          int? insuranceCost,
+          String? insuranceType}) =>
+      Car(
+        id: id ?? this.id,
+        personId: personId ?? this.personId,
+        name: name ?? this.name,
+        type: type ?? this.type,
+        percentageOfTravelTime:
+            percentageOfTravelTime ?? this.percentageOfTravelTime,
+        quality: quality ?? this.quality,
+        basePrice: basePrice ?? this.basePrice,
+        dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
+        fuelTank: fuelTank ?? this.fuelTank,
+        problem: problem ?? this.problem,
+        useCondition: useCondition ?? this.useCondition,
+        maxConditionAtPurchase:
+            maxConditionAtPurchase ?? this.maxConditionAtPurchase,
+        fullyPaidFor: fullyPaidFor ?? this.fullyPaidFor,
+        currentlyDriving: currentlyDriving ?? this.currentlyDriving,
+        isInsured: isInsured ?? this.isInsured,
+        insuranceCost: insuranceCost ?? this.insuranceCost,
+        insuranceType: insuranceType ?? this.insuranceType,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Car(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('percentageOfTravelTime: $percentageOfTravelTime, ')
+          ..write('quality: $quality, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('dayOfPurchase: $dayOfPurchase, ')
+          ..write('fuelTank: $fuelTank, ')
+          ..write('problem: $problem, ')
+          ..write('useCondition: $useCondition, ')
+          ..write('maxConditionAtPurchase: $maxConditionAtPurchase, ')
+          ..write('fullyPaidFor: $fullyPaidFor, ')
+          ..write('currentlyDriving: $currentlyDriving, ')
+          ..write('isInsured: $isInsured, ')
+          ..write('insuranceCost: $insuranceCost, ')
+          ..write('insuranceType: $insuranceType')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      personId,
+      name,
+      type,
+      percentageOfTravelTime,
+      quality,
+      basePrice,
+      dayOfPurchase,
+      fuelTank,
+      problem,
+      useCondition,
+      maxConditionAtPurchase,
+      fullyPaidFor,
+      currentlyDriving,
+      isInsured,
+      insuranceCost,
+      insuranceType);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Car &&
+          other.id == this.id &&
+          other.personId == this.personId &&
+          other.name == this.name &&
+          other.type == this.type &&
+          other.percentageOfTravelTime == this.percentageOfTravelTime &&
+          other.quality == this.quality &&
+          other.basePrice == this.basePrice &&
+          other.dayOfPurchase == this.dayOfPurchase &&
+          other.fuelTank == this.fuelTank &&
+          other.problem == this.problem &&
+          other.useCondition == this.useCondition &&
+          other.maxConditionAtPurchase == this.maxConditionAtPurchase &&
+          other.fullyPaidFor == this.fullyPaidFor &&
+          other.currentlyDriving == this.currentlyDriving &&
+          other.isInsured == this.isInsured &&
+          other.insuranceCost == this.insuranceCost &&
+          other.insuranceType == this.insuranceType);
+}
+
+class CarTableCompanion extends UpdateCompanion<Car> {
+  final Value<int> id;
+  final Value<int> personId;
+  final Value<String> name;
+  final Value<String> type;
+  final Value<int> percentageOfTravelTime;
+  final Value<String> quality;
+  final Value<int> basePrice;
+  final Value<int> dayOfPurchase;
+  final Value<int> fuelTank;
+  final Value<String> problem;
+  final Value<int> useCondition;
+  final Value<int> maxConditionAtPurchase;
+  final Value<bool> fullyPaidFor;
+  final Value<bool> currentlyDriving;
+  final Value<bool> isInsured;
+  final Value<int> insuranceCost;
+  final Value<String> insuranceType;
+  const CarTableCompanion({
+    this.id = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.name = const Value.absent(),
+    this.type = const Value.absent(),
+    this.percentageOfTravelTime = const Value.absent(),
+    this.quality = const Value.absent(),
+    this.basePrice = const Value.absent(),
+    this.dayOfPurchase = const Value.absent(),
+    this.fuelTank = const Value.absent(),
+    this.problem = const Value.absent(),
+    this.useCondition = const Value.absent(),
+    this.maxConditionAtPurchase = const Value.absent(),
+    this.fullyPaidFor = const Value.absent(),
+    this.currentlyDriving = const Value.absent(),
+    this.isInsured = const Value.absent(),
+    this.insuranceCost = const Value.absent(),
+    this.insuranceType = const Value.absent(),
+  });
+  CarTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int personId,
+    required String name,
+    required String type,
+    required int percentageOfTravelTime,
+    required String quality,
+    required int basePrice,
+    required int dayOfPurchase,
+    required int fuelTank,
+    required String problem,
+    required int useCondition,
+    required int maxConditionAtPurchase,
+    required bool fullyPaidFor,
+    required bool currentlyDriving,
+    required bool isInsured,
+    required int insuranceCost,
+    required String insuranceType,
+  })  : personId = Value(personId),
+        name = Value(name),
+        type = Value(type),
+        percentageOfTravelTime = Value(percentageOfTravelTime),
+        quality = Value(quality),
+        basePrice = Value(basePrice),
+        dayOfPurchase = Value(dayOfPurchase),
+        fuelTank = Value(fuelTank),
+        problem = Value(problem),
+        useCondition = Value(useCondition),
+        maxConditionAtPurchase = Value(maxConditionAtPurchase),
+        fullyPaidFor = Value(fullyPaidFor),
+        currentlyDriving = Value(currentlyDriving),
+        isInsured = Value(isInsured),
+        insuranceCost = Value(insuranceCost),
+        insuranceType = Value(insuranceType);
+  static Insertable<Car> custom({
+    Expression<int>? id,
+    Expression<int>? personId,
+    Expression<String>? name,
+    Expression<String>? type,
+    Expression<int>? percentageOfTravelTime,
+    Expression<String>? quality,
+    Expression<int>? basePrice,
+    Expression<int>? dayOfPurchase,
+    Expression<int>? fuelTank,
+    Expression<String>? problem,
+    Expression<int>? useCondition,
+    Expression<int>? maxConditionAtPurchase,
+    Expression<bool>? fullyPaidFor,
+    Expression<bool>? currentlyDriving,
+    Expression<bool>? isInsured,
+    Expression<int>? insuranceCost,
+    Expression<String>? insuranceType,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (personId != null) 'person_id': personId,
+      if (name != null) 'name': name,
+      if (type != null) 'type': type,
+      if (percentageOfTravelTime != null)
+        'percentage_of_travel_time': percentageOfTravelTime,
+      if (quality != null) 'quality': quality,
+      if (basePrice != null) 'base_price': basePrice,
+      if (dayOfPurchase != null) 'day_of_purchase': dayOfPurchase,
+      if (fuelTank != null) 'fuel_tank': fuelTank,
+      if (problem != null) 'problem': problem,
+      if (useCondition != null) 'use_condition': useCondition,
+      if (maxConditionAtPurchase != null)
+        'max_condition_at_purchase': maxConditionAtPurchase,
+      if (fullyPaidFor != null) 'fully_paid_for': fullyPaidFor,
+      if (currentlyDriving != null) 'currently_driving': currentlyDriving,
+      if (isInsured != null) 'is_insured': isInsured,
+      if (insuranceCost != null) 'insurance_cost': insuranceCost,
+      if (insuranceType != null) 'insurance_type': insuranceType,
+    });
+  }
+
+  CarTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? personId,
+      Value<String>? name,
+      Value<String>? type,
+      Value<int>? percentageOfTravelTime,
+      Value<String>? quality,
+      Value<int>? basePrice,
+      Value<int>? dayOfPurchase,
+      Value<int>? fuelTank,
+      Value<String>? problem,
+      Value<int>? useCondition,
+      Value<int>? maxConditionAtPurchase,
+      Value<bool>? fullyPaidFor,
+      Value<bool>? currentlyDriving,
+      Value<bool>? isInsured,
+      Value<int>? insuranceCost,
+      Value<String>? insuranceType}) {
+    return CarTableCompanion(
+      id: id ?? this.id,
+      personId: personId ?? this.personId,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      percentageOfTravelTime:
+          percentageOfTravelTime ?? this.percentageOfTravelTime,
+      quality: quality ?? this.quality,
+      basePrice: basePrice ?? this.basePrice,
+      dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
+      fuelTank: fuelTank ?? this.fuelTank,
+      problem: problem ?? this.problem,
+      useCondition: useCondition ?? this.useCondition,
+      maxConditionAtPurchase:
+          maxConditionAtPurchase ?? this.maxConditionAtPurchase,
+      fullyPaidFor: fullyPaidFor ?? this.fullyPaidFor,
+      currentlyDriving: currentlyDriving ?? this.currentlyDriving,
+      isInsured: isInsured ?? this.isInsured,
+      insuranceCost: insuranceCost ?? this.insuranceCost,
+      insuranceType: insuranceType ?? this.insuranceType,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (percentageOfTravelTime.present) {
+      map['percentage_of_travel_time'] =
+          Variable<int>(percentageOfTravelTime.value);
+    }
+    if (quality.present) {
+      map['quality'] = Variable<String>(quality.value);
+    }
+    if (basePrice.present) {
+      map['base_price'] = Variable<int>(basePrice.value);
+    }
+    if (dayOfPurchase.present) {
+      map['day_of_purchase'] = Variable<int>(dayOfPurchase.value);
+    }
+    if (fuelTank.present) {
+      map['fuel_tank'] = Variable<int>(fuelTank.value);
+    }
+    if (problem.present) {
+      map['problem'] = Variable<String>(problem.value);
+    }
+    if (useCondition.present) {
+      map['use_condition'] = Variable<int>(useCondition.value);
+    }
+    if (maxConditionAtPurchase.present) {
+      map['max_condition_at_purchase'] =
+          Variable<int>(maxConditionAtPurchase.value);
+    }
+    if (fullyPaidFor.present) {
+      map['fully_paid_for'] = Variable<bool>(fullyPaidFor.value);
+    }
+    if (currentlyDriving.present) {
+      map['currently_driving'] = Variable<bool>(currentlyDriving.value);
+    }
+    if (isInsured.present) {
+      map['is_insured'] = Variable<bool>(isInsured.value);
+    }
+    if (insuranceCost.present) {
+      map['insurance_cost'] = Variable<int>(insuranceCost.value);
+    }
+    if (insuranceType.present) {
+      map['insurance_type'] = Variable<String>(insuranceType.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CarTableCompanion(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('percentageOfTravelTime: $percentageOfTravelTime, ')
+          ..write('quality: $quality, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('dayOfPurchase: $dayOfPurchase, ')
+          ..write('fuelTank: $fuelTank, ')
+          ..write('problem: $problem, ')
+          ..write('useCondition: $useCondition, ')
+          ..write('maxConditionAtPurchase: $maxConditionAtPurchase, ')
+          ..write('fullyPaidFor: $fullyPaidFor, ')
+          ..write('currentlyDriving: $currentlyDriving, ')
+          ..write('isInsured: $isInsured, ')
+          ..write('insuranceCost: $insuranceCost, ')
+          ..write('insuranceType: $insuranceType')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FoodTableTable extends FoodTable with TableInfo<$FoodTableTable, Food> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FoodTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _basePriceMeta =
+      const VerificationMeta('basePrice');
+  @override
+  late final GeneratedColumn<int> basePrice = GeneratedColumn<int>(
+      'base_price', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lifespanInDaysMeta =
+      const VerificationMeta('lifespanInDays');
+  @override
+  late final GeneratedColumn<int> lifespanInDays = GeneratedColumn<int>(
+      'lifespan_in_days', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _nutritionMeta =
+      const VerificationMeta('nutrition');
+  @override
+  late final GeneratedColumn<int> nutrition = GeneratedColumn<int>(
+      'nutrition', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _servingsMeta =
+      const VerificationMeta('servings');
+  @override
+  late final GeneratedColumn<int> servings = GeneratedColumn<int>(
+      'servings', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _isOrganicMeta =
+      const VerificationMeta('isOrganic');
+  @override
+  late final GeneratedColumn<bool> isOrganic =
+      GeneratedColumn<bool>('is_organic', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_organic" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        name,
+        type,
+        basePrice,
+        lifespanInDays,
+        nutrition,
+        servings,
+        isOrganic
+      ];
+  @override
+  String get aliasedName => _alias ?? 'food';
+  @override
+  String get actualTableName => 'food';
+  @override
+  VerificationContext validateIntegrity(Insertable<Food> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('base_price')) {
+      context.handle(_basePriceMeta,
+          basePrice.isAcceptableOrUnknown(data['base_price']!, _basePriceMeta));
+    } else if (isInserting) {
+      context.missing(_basePriceMeta);
+    }
+    if (data.containsKey('lifespan_in_days')) {
+      context.handle(
+          _lifespanInDaysMeta,
+          lifespanInDays.isAcceptableOrUnknown(
+              data['lifespan_in_days']!, _lifespanInDaysMeta));
+    } else if (isInserting) {
+      context.missing(_lifespanInDaysMeta);
+    }
+    if (data.containsKey('nutrition')) {
+      context.handle(_nutritionMeta,
+          nutrition.isAcceptableOrUnknown(data['nutrition']!, _nutritionMeta));
+    } else if (isInserting) {
+      context.missing(_nutritionMeta);
+    }
+    if (data.containsKey('servings')) {
+      context.handle(_servingsMeta,
+          servings.isAcceptableOrUnknown(data['servings']!, _servingsMeta));
+    } else if (isInserting) {
+      context.missing(_servingsMeta);
+    }
+    if (data.containsKey('is_organic')) {
+      context.handle(_isOrganicMeta,
+          isOrganic.isAcceptableOrUnknown(data['is_organic']!, _isOrganicMeta));
+    } else if (isInserting) {
+      context.missing(_isOrganicMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Food map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Food(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      basePrice: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}base_price'])!,
+      lifespanInDays: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}lifespan_in_days'])!,
+      nutrition: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}nutrition'])!,
+      servings: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}servings'])!,
+      isOrganic: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_organic'])!,
+    );
+  }
+
+  @override
+  $FoodTableTable createAlias(String alias) {
+    return $FoodTableTable(attachedDatabase, alias);
+  }
+}
+
+class Food extends DataClass implements Insertable<Food> {
+  final int id;
+  final String name;
+  final String type;
+  final int basePrice;
+  final int lifespanInDays;
+  final int nutrition;
+  final int servings;
+  final bool isOrganic;
+  const Food(
+      {required this.id,
+      required this.name,
+      required this.type,
+      required this.basePrice,
+      required this.lifespanInDays,
+      required this.nutrition,
+      required this.servings,
+      required this.isOrganic});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['type'] = Variable<String>(type);
+    map['base_price'] = Variable<int>(basePrice);
+    map['lifespan_in_days'] = Variable<int>(lifespanInDays);
+    map['nutrition'] = Variable<int>(nutrition);
+    map['servings'] = Variable<int>(servings);
+    map['is_organic'] = Variable<bool>(isOrganic);
+    return map;
+  }
+
+  FoodTableCompanion toCompanion(bool nullToAbsent) {
+    return FoodTableCompanion(
+      id: Value(id),
+      name: Value(name),
+      type: Value(type),
+      basePrice: Value(basePrice),
+      lifespanInDays: Value(lifespanInDays),
+      nutrition: Value(nutrition),
+      servings: Value(servings),
+      isOrganic: Value(isOrganic),
+    );
+  }
+
+  factory Food.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Food(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      type: serializer.fromJson<String>(json['type']),
+      basePrice: serializer.fromJson<int>(json['basePrice']),
+      lifespanInDays: serializer.fromJson<int>(json['lifespanInDays']),
+      nutrition: serializer.fromJson<int>(json['nutrition']),
+      servings: serializer.fromJson<int>(json['servings']),
+      isOrganic: serializer.fromJson<bool>(json['isOrganic']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'type': serializer.toJson<String>(type),
+      'basePrice': serializer.toJson<int>(basePrice),
+      'lifespanInDays': serializer.toJson<int>(lifespanInDays),
+      'nutrition': serializer.toJson<int>(nutrition),
+      'servings': serializer.toJson<int>(servings),
+      'isOrganic': serializer.toJson<bool>(isOrganic),
+    };
+  }
+
+  Food copyWith(
+          {int? id,
+          String? name,
+          String? type,
+          int? basePrice,
+          int? lifespanInDays,
+          int? nutrition,
+          int? servings,
+          bool? isOrganic}) =>
+      Food(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        type: type ?? this.type,
+        basePrice: basePrice ?? this.basePrice,
+        lifespanInDays: lifespanInDays ?? this.lifespanInDays,
+        nutrition: nutrition ?? this.nutrition,
+        servings: servings ?? this.servings,
+        isOrganic: isOrganic ?? this.isOrganic,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Food(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('lifespanInDays: $lifespanInDays, ')
+          ..write('nutrition: $nutrition, ')
+          ..write('servings: $servings, ')
+          ..write('isOrganic: $isOrganic')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, type, basePrice, lifespanInDays,
+      nutrition, servings, isOrganic);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Food &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.type == this.type &&
+          other.basePrice == this.basePrice &&
+          other.lifespanInDays == this.lifespanInDays &&
+          other.nutrition == this.nutrition &&
+          other.servings == this.servings &&
+          other.isOrganic == this.isOrganic);
+}
+
+class FoodTableCompanion extends UpdateCompanion<Food> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> type;
+  final Value<int> basePrice;
+  final Value<int> lifespanInDays;
+  final Value<int> nutrition;
+  final Value<int> servings;
+  final Value<bool> isOrganic;
+  const FoodTableCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.type = const Value.absent(),
+    this.basePrice = const Value.absent(),
+    this.lifespanInDays = const Value.absent(),
+    this.nutrition = const Value.absent(),
+    this.servings = const Value.absent(),
+    this.isOrganic = const Value.absent(),
+  });
+  FoodTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String type,
+    required int basePrice,
+    required int lifespanInDays,
+    required int nutrition,
+    required int servings,
+    required bool isOrganic,
+  })  : name = Value(name),
+        type = Value(type),
+        basePrice = Value(basePrice),
+        lifespanInDays = Value(lifespanInDays),
+        nutrition = Value(nutrition),
+        servings = Value(servings),
+        isOrganic = Value(isOrganic);
+  static Insertable<Food> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? type,
+    Expression<int>? basePrice,
+    Expression<int>? lifespanInDays,
+    Expression<int>? nutrition,
+    Expression<int>? servings,
+    Expression<bool>? isOrganic,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (type != null) 'type': type,
+      if (basePrice != null) 'base_price': basePrice,
+      if (lifespanInDays != null) 'lifespan_in_days': lifespanInDays,
+      if (nutrition != null) 'nutrition': nutrition,
+      if (servings != null) 'servings': servings,
+      if (isOrganic != null) 'is_organic': isOrganic,
+    });
+  }
+
+  FoodTableCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? name,
+      Value<String>? type,
+      Value<int>? basePrice,
+      Value<int>? lifespanInDays,
+      Value<int>? nutrition,
+      Value<int>? servings,
+      Value<bool>? isOrganic}) {
+    return FoodTableCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      basePrice: basePrice ?? this.basePrice,
+      lifespanInDays: lifespanInDays ?? this.lifespanInDays,
+      nutrition: nutrition ?? this.nutrition,
+      servings: servings ?? this.servings,
+      isOrganic: isOrganic ?? this.isOrganic,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (basePrice.present) {
+      map['base_price'] = Variable<int>(basePrice.value);
+    }
+    if (lifespanInDays.present) {
+      map['lifespan_in_days'] = Variable<int>(lifespanInDays.value);
+    }
+    if (nutrition.present) {
+      map['nutrition'] = Variable<int>(nutrition.value);
+    }
+    if (servings.present) {
+      map['servings'] = Variable<int>(servings.value);
+    }
+    if (isOrganic.present) {
+      map['is_organic'] = Variable<bool>(isOrganic.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FoodTableCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('lifespanInDays: $lifespanInDays, ')
+          ..write('nutrition: $nutrition, ')
+          ..write('servings: $servings, ')
+          ..write('isOrganic: $isOrganic')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FridgeFoodTableTable extends FridgeFoodTable
+    with TableInfo<$FridgeFoodTableTable, FridgeFood> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FridgeFoodTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _foodIdMeta = const VerificationMeta('foodId');
+  @override
+  late final GeneratedColumn<int> foodId = GeneratedColumn<int>(
+      'food_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _servingsLeftMeta =
+      const VerificationMeta('servingsLeft');
+  @override
+  late final GeneratedColumn<int> servingsLeft = GeneratedColumn<int>(
+      'servings_left', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _expiryDayMeta =
+      const VerificationMeta('expiryDay');
+  @override
+  late final GeneratedColumn<int> expiryDay = GeneratedColumn<int>(
+      'expiry_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, personId, foodId, servingsLeft, expiryDay];
+  @override
+  String get aliasedName => _alias ?? 'fridge_food';
+  @override
+  String get actualTableName => 'fridge_food';
+  @override
+  VerificationContext validateIntegrity(Insertable<FridgeFood> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('food_id')) {
+      context.handle(_foodIdMeta,
+          foodId.isAcceptableOrUnknown(data['food_id']!, _foodIdMeta));
+    } else if (isInserting) {
+      context.missing(_foodIdMeta);
+    }
+    if (data.containsKey('servings_left')) {
+      context.handle(
+          _servingsLeftMeta,
+          servingsLeft.isAcceptableOrUnknown(
+              data['servings_left']!, _servingsLeftMeta));
+    } else if (isInserting) {
+      context.missing(_servingsLeftMeta);
+    }
+    if (data.containsKey('expiry_day')) {
+      context.handle(_expiryDayMeta,
+          expiryDay.isAcceptableOrUnknown(data['expiry_day']!, _expiryDayMeta));
+    } else if (isInserting) {
+      context.missing(_expiryDayMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FridgeFood map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FridgeFood(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      foodId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}food_id'])!,
+      servingsLeft: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}servings_left'])!,
+      expiryDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}expiry_day'])!,
+    );
+  }
+
+  @override
+  $FridgeFoodTableTable createAlias(String alias) {
+    return $FridgeFoodTableTable(attachedDatabase, alias);
+  }
+}
+
+class FridgeFood extends DataClass implements Insertable<FridgeFood> {
+  final int id;
+  final int personId;
+  final int foodId;
+  final int servingsLeft;
+  final int expiryDay;
+  const FridgeFood(
+      {required this.id,
+      required this.personId,
+      required this.foodId,
+      required this.servingsLeft,
+      required this.expiryDay});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person_id'] = Variable<int>(personId);
+    map['food_id'] = Variable<int>(foodId);
+    map['servings_left'] = Variable<int>(servingsLeft);
+    map['expiry_day'] = Variable<int>(expiryDay);
+    return map;
+  }
+
+  FridgeFoodTableCompanion toCompanion(bool nullToAbsent) {
+    return FridgeFoodTableCompanion(
+      id: Value(id),
+      personId: Value(personId),
+      foodId: Value(foodId),
+      servingsLeft: Value(servingsLeft),
+      expiryDay: Value(expiryDay),
+    );
+  }
+
+  factory FridgeFood.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FridgeFood(
+      id: serializer.fromJson<int>(json['id']),
+      personId: serializer.fromJson<int>(json['personId']),
+      foodId: serializer.fromJson<int>(json['foodId']),
+      servingsLeft: serializer.fromJson<int>(json['servingsLeft']),
+      expiryDay: serializer.fromJson<int>(json['expiryDay']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'personId': serializer.toJson<int>(personId),
+      'foodId': serializer.toJson<int>(foodId),
+      'servingsLeft': serializer.toJson<int>(servingsLeft),
+      'expiryDay': serializer.toJson<int>(expiryDay),
+    };
+  }
+
+  FridgeFood copyWith(
+          {int? id,
+          int? personId,
+          int? foodId,
+          int? servingsLeft,
+          int? expiryDay}) =>
+      FridgeFood(
+        id: id ?? this.id,
+        personId: personId ?? this.personId,
+        foodId: foodId ?? this.foodId,
+        servingsLeft: servingsLeft ?? this.servingsLeft,
+        expiryDay: expiryDay ?? this.expiryDay,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('FridgeFood(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('foodId: $foodId, ')
+          ..write('servingsLeft: $servingsLeft, ')
+          ..write('expiryDay: $expiryDay')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, personId, foodId, servingsLeft, expiryDay);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FridgeFood &&
+          other.id == this.id &&
+          other.personId == this.personId &&
+          other.foodId == this.foodId &&
+          other.servingsLeft == this.servingsLeft &&
+          other.expiryDay == this.expiryDay);
+}
+
+class FridgeFoodTableCompanion extends UpdateCompanion<FridgeFood> {
+  final Value<int> id;
+  final Value<int> personId;
+  final Value<int> foodId;
+  final Value<int> servingsLeft;
+  final Value<int> expiryDay;
+  const FridgeFoodTableCompanion({
+    this.id = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.foodId = const Value.absent(),
+    this.servingsLeft = const Value.absent(),
+    this.expiryDay = const Value.absent(),
+  });
+  FridgeFoodTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int personId,
+    required int foodId,
+    required int servingsLeft,
+    required int expiryDay,
+  })  : personId = Value(personId),
+        foodId = Value(foodId),
+        servingsLeft = Value(servingsLeft),
+        expiryDay = Value(expiryDay);
+  static Insertable<FridgeFood> custom({
+    Expression<int>? id,
+    Expression<int>? personId,
+    Expression<int>? foodId,
+    Expression<int>? servingsLeft,
+    Expression<int>? expiryDay,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (personId != null) 'person_id': personId,
+      if (foodId != null) 'food_id': foodId,
+      if (servingsLeft != null) 'servings_left': servingsLeft,
+      if (expiryDay != null) 'expiry_day': expiryDay,
+    });
+  }
+
+  FridgeFoodTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? personId,
+      Value<int>? foodId,
+      Value<int>? servingsLeft,
+      Value<int>? expiryDay}) {
+    return FridgeFoodTableCompanion(
+      id: id ?? this.id,
+      personId: personId ?? this.personId,
+      foodId: foodId ?? this.foodId,
+      servingsLeft: servingsLeft ?? this.servingsLeft,
+      expiryDay: expiryDay ?? this.expiryDay,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (foodId.present) {
+      map['food_id'] = Variable<int>(foodId.value);
+    }
+    if (servingsLeft.present) {
+      map['servings_left'] = Variable<int>(servingsLeft.value);
+    }
+    if (expiryDay.present) {
+      map['expiry_day'] = Variable<int>(expiryDay.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FridgeFoodTableCompanion(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('foodId: $foodId, ')
+          ..write('servingsLeft: $servingsLeft, ')
+          ..write('expiryDay: $expiryDay')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $HouseTableTable extends HouseTable
+    with TableInfo<$HouseTableTable, House> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $HouseTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _isCurrentHomeMeta =
+      const VerificationMeta('isCurrentHome');
+  @override
+  late final GeneratedColumn<bool> isCurrentHome =
+      GeneratedColumn<bool>('is_current_home', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_current_home" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _bedroomsMeta =
+      const VerificationMeta('bedrooms');
+  @override
+  late final GeneratedColumn<int> bedrooms = GeneratedColumn<int>(
+      'bedrooms', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _bathroomsMeta =
+      const VerificationMeta('bathrooms');
+  @override
+  late final GeneratedColumn<int> bathrooms = GeneratedColumn<int>(
+      'bathrooms', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _storageMeta =
+      const VerificationMeta('storage');
+  @override
+  late final GeneratedColumn<int> storage = GeneratedColumn<int>(
+      'storage', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _addressMeta =
+      const VerificationMeta('address');
+  @override
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+      'address', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _isForRentMeta =
+      const VerificationMeta('isForRent');
+  @override
+  late final GeneratedColumn<bool> isForRent =
+      GeneratedColumn<bool>('is_for_rent', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_for_rent" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _buildingTypeMeta =
+      const VerificationMeta('buildingType');
+  @override
+  late final GeneratedColumn<String> buildingType = GeneratedColumn<String>(
+      'building_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _settlementMeta =
+      const VerificationMeta('settlement');
+  @override
+  late final GeneratedColumn<String> settlement = GeneratedColumn<String>(
+      'settlement', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _countryMeta =
+      const VerificationMeta('country');
+  @override
+  late final GeneratedColumn<String> country = GeneratedColumn<String>(
+      'country', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _styleMeta = const VerificationMeta('style');
+  @override
+  late final GeneratedColumn<String> style = GeneratedColumn<String>(
+      'style', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _lastMaintainedDayMeta =
+      const VerificationMeta('lastMaintainedDay');
+  @override
+  late final GeneratedColumn<int> lastMaintainedDay = GeneratedColumn<int>(
+      'last_maintained_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _basePriceMeta =
+      const VerificationMeta('basePrice');
+  @override
+  late final GeneratedColumn<int> basePrice = GeneratedColumn<int>(
+      'base_price', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _dayOfPurchaseMeta =
+      const VerificationMeta('dayOfPurchase');
+  @override
+  late final GeneratedColumn<int> dayOfPurchase = GeneratedColumn<int>(
+      'day_of_purchase', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _endOfLeaseDayMeta =
+      const VerificationMeta('endOfLeaseDay');
+  @override
+  late final GeneratedColumn<int> endOfLeaseDay = GeneratedColumn<int>(
+      'end_of_lease_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _conditionMeta =
+      const VerificationMeta('condition');
+  @override
+  late final GeneratedColumn<int> condition = GeneratedColumn<int>(
+      'condition', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _purchasePriceMeta =
+      const VerificationMeta('purchasePrice');
+  @override
+  late final GeneratedColumn<int> purchasePrice = GeneratedColumn<int>(
+      'purchase_price', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fullyPaidForMeta =
+      const VerificationMeta('fullyPaidFor');
+  @override
+  late final GeneratedColumn<bool> fullyPaidFor =
+      GeneratedColumn<bool>('fully_paid_for', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("fully_paid_for" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        personId,
+        isCurrentHome,
+        bedrooms,
+        bathrooms,
+        storage,
+        address,
+        isForRent,
+        buildingType,
+        settlement,
+        country,
+        style,
+        lastMaintainedDay,
+        basePrice,
+        dayOfPurchase,
+        endOfLeaseDay,
+        condition,
+        purchasePrice,
+        fullyPaidFor
+      ];
+  @override
+  String get aliasedName => _alias ?? 'house';
+  @override
+  String get actualTableName => 'house';
+  @override
+  VerificationContext validateIntegrity(Insertable<House> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('is_current_home')) {
+      context.handle(
+          _isCurrentHomeMeta,
+          isCurrentHome.isAcceptableOrUnknown(
+              data['is_current_home']!, _isCurrentHomeMeta));
+    } else if (isInserting) {
+      context.missing(_isCurrentHomeMeta);
+    }
+    if (data.containsKey('bedrooms')) {
+      context.handle(_bedroomsMeta,
+          bedrooms.isAcceptableOrUnknown(data['bedrooms']!, _bedroomsMeta));
+    } else if (isInserting) {
+      context.missing(_bedroomsMeta);
+    }
+    if (data.containsKey('bathrooms')) {
+      context.handle(_bathroomsMeta,
+          bathrooms.isAcceptableOrUnknown(data['bathrooms']!, _bathroomsMeta));
+    } else if (isInserting) {
+      context.missing(_bathroomsMeta);
+    }
+    if (data.containsKey('storage')) {
+      context.handle(_storageMeta,
+          storage.isAcceptableOrUnknown(data['storage']!, _storageMeta));
+    } else if (isInserting) {
+      context.missing(_storageMeta);
+    }
+    if (data.containsKey('address')) {
+      context.handle(_addressMeta,
+          address.isAcceptableOrUnknown(data['address']!, _addressMeta));
+    } else if (isInserting) {
+      context.missing(_addressMeta);
+    }
+    if (data.containsKey('is_for_rent')) {
+      context.handle(
+          _isForRentMeta,
+          isForRent.isAcceptableOrUnknown(
+              data['is_for_rent']!, _isForRentMeta));
+    } else if (isInserting) {
+      context.missing(_isForRentMeta);
+    }
+    if (data.containsKey('building_type')) {
+      context.handle(
+          _buildingTypeMeta,
+          buildingType.isAcceptableOrUnknown(
+              data['building_type']!, _buildingTypeMeta));
+    } else if (isInserting) {
+      context.missing(_buildingTypeMeta);
+    }
+    if (data.containsKey('settlement')) {
+      context.handle(
+          _settlementMeta,
+          settlement.isAcceptableOrUnknown(
+              data['settlement']!, _settlementMeta));
+    } else if (isInserting) {
+      context.missing(_settlementMeta);
+    }
+    if (data.containsKey('country')) {
+      context.handle(_countryMeta,
+          country.isAcceptableOrUnknown(data['country']!, _countryMeta));
+    } else if (isInserting) {
+      context.missing(_countryMeta);
+    }
+    if (data.containsKey('style')) {
+      context.handle(
+          _styleMeta, style.isAcceptableOrUnknown(data['style']!, _styleMeta));
+    } else if (isInserting) {
+      context.missing(_styleMeta);
+    }
+    if (data.containsKey('last_maintained_day')) {
+      context.handle(
+          _lastMaintainedDayMeta,
+          lastMaintainedDay.isAcceptableOrUnknown(
+              data['last_maintained_day']!, _lastMaintainedDayMeta));
+    } else if (isInserting) {
+      context.missing(_lastMaintainedDayMeta);
+    }
+    if (data.containsKey('base_price')) {
+      context.handle(_basePriceMeta,
+          basePrice.isAcceptableOrUnknown(data['base_price']!, _basePriceMeta));
+    } else if (isInserting) {
+      context.missing(_basePriceMeta);
+    }
+    if (data.containsKey('day_of_purchase')) {
+      context.handle(
+          _dayOfPurchaseMeta,
+          dayOfPurchase.isAcceptableOrUnknown(
+              data['day_of_purchase']!, _dayOfPurchaseMeta));
+    } else if (isInserting) {
+      context.missing(_dayOfPurchaseMeta);
+    }
+    if (data.containsKey('end_of_lease_day')) {
+      context.handle(
+          _endOfLeaseDayMeta,
+          endOfLeaseDay.isAcceptableOrUnknown(
+              data['end_of_lease_day']!, _endOfLeaseDayMeta));
+    } else if (isInserting) {
+      context.missing(_endOfLeaseDayMeta);
+    }
+    if (data.containsKey('condition')) {
+      context.handle(_conditionMeta,
+          condition.isAcceptableOrUnknown(data['condition']!, _conditionMeta));
+    } else if (isInserting) {
+      context.missing(_conditionMeta);
+    }
+    if (data.containsKey('purchase_price')) {
+      context.handle(
+          _purchasePriceMeta,
+          purchasePrice.isAcceptableOrUnknown(
+              data['purchase_price']!, _purchasePriceMeta));
+    } else if (isInserting) {
+      context.missing(_purchasePriceMeta);
+    }
+    if (data.containsKey('fully_paid_for')) {
+      context.handle(
+          _fullyPaidForMeta,
+          fullyPaidFor.isAcceptableOrUnknown(
+              data['fully_paid_for']!, _fullyPaidForMeta));
+    } else if (isInserting) {
+      context.missing(_fullyPaidForMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  House map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return House(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      isCurrentHome: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_current_home'])!,
+      bedrooms: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}bedrooms'])!,
+      bathrooms: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}bathrooms'])!,
+      storage: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}storage'])!,
+      address: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}address'])!,
+      isForRent: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_for_rent'])!,
+      buildingType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}building_type'])!,
+      settlement: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}settlement'])!,
+      country: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}country'])!,
+      style: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}style'])!,
+      lastMaintainedDay: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}last_maintained_day'])!,
+      basePrice: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}base_price'])!,
+      dayOfPurchase: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}day_of_purchase'])!,
+      endOfLeaseDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}end_of_lease_day'])!,
+      condition: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}condition'])!,
+      purchasePrice: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}purchase_price'])!,
+      fullyPaidFor: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}fully_paid_for'])!,
+    );
+  }
+
+  @override
+  $HouseTableTable createAlias(String alias) {
+    return $HouseTableTable(attachedDatabase, alias);
+  }
+}
+
+class House extends DataClass implements Insertable<House> {
+  final int id;
+  final int personId;
+  final bool isCurrentHome;
+  final int bedrooms;
+  final int bathrooms;
+  final int storage;
+  final String address;
+  final bool isForRent;
+  final String buildingType;
+  final String settlement;
+  final String country;
+  final String style;
+  final int lastMaintainedDay;
+  final int basePrice;
+  final int dayOfPurchase;
+  final int endOfLeaseDay;
+  final int condition;
+  final int purchasePrice;
+  final bool fullyPaidFor;
+  const House(
+      {required this.id,
+      required this.personId,
+      required this.isCurrentHome,
+      required this.bedrooms,
+      required this.bathrooms,
+      required this.storage,
+      required this.address,
+      required this.isForRent,
+      required this.buildingType,
+      required this.settlement,
+      required this.country,
+      required this.style,
+      required this.lastMaintainedDay,
+      required this.basePrice,
+      required this.dayOfPurchase,
+      required this.endOfLeaseDay,
+      required this.condition,
+      required this.purchasePrice,
+      required this.fullyPaidFor});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person_id'] = Variable<int>(personId);
+    map['is_current_home'] = Variable<bool>(isCurrentHome);
+    map['bedrooms'] = Variable<int>(bedrooms);
+    map['bathrooms'] = Variable<int>(bathrooms);
+    map['storage'] = Variable<int>(storage);
+    map['address'] = Variable<String>(address);
+    map['is_for_rent'] = Variable<bool>(isForRent);
+    map['building_type'] = Variable<String>(buildingType);
+    map['settlement'] = Variable<String>(settlement);
+    map['country'] = Variable<String>(country);
+    map['style'] = Variable<String>(style);
+    map['last_maintained_day'] = Variable<int>(lastMaintainedDay);
+    map['base_price'] = Variable<int>(basePrice);
+    map['day_of_purchase'] = Variable<int>(dayOfPurchase);
+    map['end_of_lease_day'] = Variable<int>(endOfLeaseDay);
+    map['condition'] = Variable<int>(condition);
+    map['purchase_price'] = Variable<int>(purchasePrice);
+    map['fully_paid_for'] = Variable<bool>(fullyPaidFor);
+    return map;
+  }
+
+  HouseTableCompanion toCompanion(bool nullToAbsent) {
+    return HouseTableCompanion(
+      id: Value(id),
+      personId: Value(personId),
+      isCurrentHome: Value(isCurrentHome),
+      bedrooms: Value(bedrooms),
+      bathrooms: Value(bathrooms),
+      storage: Value(storage),
+      address: Value(address),
+      isForRent: Value(isForRent),
+      buildingType: Value(buildingType),
+      settlement: Value(settlement),
+      country: Value(country),
+      style: Value(style),
+      lastMaintainedDay: Value(lastMaintainedDay),
+      basePrice: Value(basePrice),
+      dayOfPurchase: Value(dayOfPurchase),
+      endOfLeaseDay: Value(endOfLeaseDay),
+      condition: Value(condition),
+      purchasePrice: Value(purchasePrice),
+      fullyPaidFor: Value(fullyPaidFor),
+    );
+  }
+
+  factory House.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return House(
+      id: serializer.fromJson<int>(json['id']),
+      personId: serializer.fromJson<int>(json['personId']),
+      isCurrentHome: serializer.fromJson<bool>(json['isCurrentHome']),
+      bedrooms: serializer.fromJson<int>(json['bedrooms']),
+      bathrooms: serializer.fromJson<int>(json['bathrooms']),
+      storage: serializer.fromJson<int>(json['storage']),
+      address: serializer.fromJson<String>(json['address']),
+      isForRent: serializer.fromJson<bool>(json['isForRent']),
+      buildingType: serializer.fromJson<String>(json['buildingType']),
+      settlement: serializer.fromJson<String>(json['settlement']),
+      country: serializer.fromJson<String>(json['country']),
+      style: serializer.fromJson<String>(json['style']),
+      lastMaintainedDay: serializer.fromJson<int>(json['lastMaintainedDay']),
+      basePrice: serializer.fromJson<int>(json['basePrice']),
+      dayOfPurchase: serializer.fromJson<int>(json['dayOfPurchase']),
+      endOfLeaseDay: serializer.fromJson<int>(json['endOfLeaseDay']),
+      condition: serializer.fromJson<int>(json['condition']),
+      purchasePrice: serializer.fromJson<int>(json['purchasePrice']),
+      fullyPaidFor: serializer.fromJson<bool>(json['fullyPaidFor']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'personId': serializer.toJson<int>(personId),
+      'isCurrentHome': serializer.toJson<bool>(isCurrentHome),
+      'bedrooms': serializer.toJson<int>(bedrooms),
+      'bathrooms': serializer.toJson<int>(bathrooms),
+      'storage': serializer.toJson<int>(storage),
+      'address': serializer.toJson<String>(address),
+      'isForRent': serializer.toJson<bool>(isForRent),
+      'buildingType': serializer.toJson<String>(buildingType),
+      'settlement': serializer.toJson<String>(settlement),
+      'country': serializer.toJson<String>(country),
+      'style': serializer.toJson<String>(style),
+      'lastMaintainedDay': serializer.toJson<int>(lastMaintainedDay),
+      'basePrice': serializer.toJson<int>(basePrice),
+      'dayOfPurchase': serializer.toJson<int>(dayOfPurchase),
+      'endOfLeaseDay': serializer.toJson<int>(endOfLeaseDay),
+      'condition': serializer.toJson<int>(condition),
+      'purchasePrice': serializer.toJson<int>(purchasePrice),
+      'fullyPaidFor': serializer.toJson<bool>(fullyPaidFor),
+    };
+  }
+
+  House copyWith(
+          {int? id,
+          int? personId,
+          bool? isCurrentHome,
+          int? bedrooms,
+          int? bathrooms,
+          int? storage,
+          String? address,
+          bool? isForRent,
+          String? buildingType,
+          String? settlement,
+          String? country,
+          String? style,
+          int? lastMaintainedDay,
+          int? basePrice,
+          int? dayOfPurchase,
+          int? endOfLeaseDay,
+          int? condition,
+          int? purchasePrice,
+          bool? fullyPaidFor}) =>
+      House(
+        id: id ?? this.id,
+        personId: personId ?? this.personId,
+        isCurrentHome: isCurrentHome ?? this.isCurrentHome,
+        bedrooms: bedrooms ?? this.bedrooms,
+        bathrooms: bathrooms ?? this.bathrooms,
+        storage: storage ?? this.storage,
+        address: address ?? this.address,
+        isForRent: isForRent ?? this.isForRent,
+        buildingType: buildingType ?? this.buildingType,
+        settlement: settlement ?? this.settlement,
+        country: country ?? this.country,
+        style: style ?? this.style,
+        lastMaintainedDay: lastMaintainedDay ?? this.lastMaintainedDay,
+        basePrice: basePrice ?? this.basePrice,
+        dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
+        endOfLeaseDay: endOfLeaseDay ?? this.endOfLeaseDay,
+        condition: condition ?? this.condition,
+        purchasePrice: purchasePrice ?? this.purchasePrice,
+        fullyPaidFor: fullyPaidFor ?? this.fullyPaidFor,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('House(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('isCurrentHome: $isCurrentHome, ')
+          ..write('bedrooms: $bedrooms, ')
+          ..write('bathrooms: $bathrooms, ')
+          ..write('storage: $storage, ')
+          ..write('address: $address, ')
+          ..write('isForRent: $isForRent, ')
+          ..write('buildingType: $buildingType, ')
+          ..write('settlement: $settlement, ')
+          ..write('country: $country, ')
+          ..write('style: $style, ')
+          ..write('lastMaintainedDay: $lastMaintainedDay, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('dayOfPurchase: $dayOfPurchase, ')
+          ..write('endOfLeaseDay: $endOfLeaseDay, ')
+          ..write('condition: $condition, ')
+          ..write('purchasePrice: $purchasePrice, ')
+          ..write('fullyPaidFor: $fullyPaidFor')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      personId,
+      isCurrentHome,
+      bedrooms,
+      bathrooms,
+      storage,
+      address,
+      isForRent,
+      buildingType,
+      settlement,
+      country,
+      style,
+      lastMaintainedDay,
+      basePrice,
+      dayOfPurchase,
+      endOfLeaseDay,
+      condition,
+      purchasePrice,
+      fullyPaidFor);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is House &&
+          other.id == this.id &&
+          other.personId == this.personId &&
+          other.isCurrentHome == this.isCurrentHome &&
+          other.bedrooms == this.bedrooms &&
+          other.bathrooms == this.bathrooms &&
+          other.storage == this.storage &&
+          other.address == this.address &&
+          other.isForRent == this.isForRent &&
+          other.buildingType == this.buildingType &&
+          other.settlement == this.settlement &&
+          other.country == this.country &&
+          other.style == this.style &&
+          other.lastMaintainedDay == this.lastMaintainedDay &&
+          other.basePrice == this.basePrice &&
+          other.dayOfPurchase == this.dayOfPurchase &&
+          other.endOfLeaseDay == this.endOfLeaseDay &&
+          other.condition == this.condition &&
+          other.purchasePrice == this.purchasePrice &&
+          other.fullyPaidFor == this.fullyPaidFor);
+}
+
+class HouseTableCompanion extends UpdateCompanion<House> {
+  final Value<int> id;
+  final Value<int> personId;
+  final Value<bool> isCurrentHome;
+  final Value<int> bedrooms;
+  final Value<int> bathrooms;
+  final Value<int> storage;
+  final Value<String> address;
+  final Value<bool> isForRent;
+  final Value<String> buildingType;
+  final Value<String> settlement;
+  final Value<String> country;
+  final Value<String> style;
+  final Value<int> lastMaintainedDay;
+  final Value<int> basePrice;
+  final Value<int> dayOfPurchase;
+  final Value<int> endOfLeaseDay;
+  final Value<int> condition;
+  final Value<int> purchasePrice;
+  final Value<bool> fullyPaidFor;
+  const HouseTableCompanion({
+    this.id = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.isCurrentHome = const Value.absent(),
+    this.bedrooms = const Value.absent(),
+    this.bathrooms = const Value.absent(),
+    this.storage = const Value.absent(),
+    this.address = const Value.absent(),
+    this.isForRent = const Value.absent(),
+    this.buildingType = const Value.absent(),
+    this.settlement = const Value.absent(),
+    this.country = const Value.absent(),
+    this.style = const Value.absent(),
+    this.lastMaintainedDay = const Value.absent(),
+    this.basePrice = const Value.absent(),
+    this.dayOfPurchase = const Value.absent(),
+    this.endOfLeaseDay = const Value.absent(),
+    this.condition = const Value.absent(),
+    this.purchasePrice = const Value.absent(),
+    this.fullyPaidFor = const Value.absent(),
+  });
+  HouseTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int personId,
+    required bool isCurrentHome,
+    required int bedrooms,
+    required int bathrooms,
+    required int storage,
+    required String address,
+    required bool isForRent,
+    required String buildingType,
+    required String settlement,
+    required String country,
+    required String style,
+    required int lastMaintainedDay,
+    required int basePrice,
+    required int dayOfPurchase,
+    required int endOfLeaseDay,
+    required int condition,
+    required int purchasePrice,
+    required bool fullyPaidFor,
+  })  : personId = Value(personId),
+        isCurrentHome = Value(isCurrentHome),
+        bedrooms = Value(bedrooms),
+        bathrooms = Value(bathrooms),
+        storage = Value(storage),
+        address = Value(address),
+        isForRent = Value(isForRent),
+        buildingType = Value(buildingType),
+        settlement = Value(settlement),
+        country = Value(country),
+        style = Value(style),
+        lastMaintainedDay = Value(lastMaintainedDay),
+        basePrice = Value(basePrice),
+        dayOfPurchase = Value(dayOfPurchase),
+        endOfLeaseDay = Value(endOfLeaseDay),
+        condition = Value(condition),
+        purchasePrice = Value(purchasePrice),
+        fullyPaidFor = Value(fullyPaidFor);
+  static Insertable<House> custom({
+    Expression<int>? id,
+    Expression<int>? personId,
+    Expression<bool>? isCurrentHome,
+    Expression<int>? bedrooms,
+    Expression<int>? bathrooms,
+    Expression<int>? storage,
+    Expression<String>? address,
+    Expression<bool>? isForRent,
+    Expression<String>? buildingType,
+    Expression<String>? settlement,
+    Expression<String>? country,
+    Expression<String>? style,
+    Expression<int>? lastMaintainedDay,
+    Expression<int>? basePrice,
+    Expression<int>? dayOfPurchase,
+    Expression<int>? endOfLeaseDay,
+    Expression<int>? condition,
+    Expression<int>? purchasePrice,
+    Expression<bool>? fullyPaidFor,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (personId != null) 'person_id': personId,
+      if (isCurrentHome != null) 'is_current_home': isCurrentHome,
+      if (bedrooms != null) 'bedrooms': bedrooms,
+      if (bathrooms != null) 'bathrooms': bathrooms,
+      if (storage != null) 'storage': storage,
+      if (address != null) 'address': address,
+      if (isForRent != null) 'is_for_rent': isForRent,
+      if (buildingType != null) 'building_type': buildingType,
+      if (settlement != null) 'settlement': settlement,
+      if (country != null) 'country': country,
+      if (style != null) 'style': style,
+      if (lastMaintainedDay != null) 'last_maintained_day': lastMaintainedDay,
+      if (basePrice != null) 'base_price': basePrice,
+      if (dayOfPurchase != null) 'day_of_purchase': dayOfPurchase,
+      if (endOfLeaseDay != null) 'end_of_lease_day': endOfLeaseDay,
+      if (condition != null) 'condition': condition,
+      if (purchasePrice != null) 'purchase_price': purchasePrice,
+      if (fullyPaidFor != null) 'fully_paid_for': fullyPaidFor,
+    });
+  }
+
+  HouseTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? personId,
+      Value<bool>? isCurrentHome,
+      Value<int>? bedrooms,
+      Value<int>? bathrooms,
+      Value<int>? storage,
+      Value<String>? address,
+      Value<bool>? isForRent,
+      Value<String>? buildingType,
+      Value<String>? settlement,
+      Value<String>? country,
+      Value<String>? style,
+      Value<int>? lastMaintainedDay,
+      Value<int>? basePrice,
+      Value<int>? dayOfPurchase,
+      Value<int>? endOfLeaseDay,
+      Value<int>? condition,
+      Value<int>? purchasePrice,
+      Value<bool>? fullyPaidFor}) {
+    return HouseTableCompanion(
+      id: id ?? this.id,
+      personId: personId ?? this.personId,
+      isCurrentHome: isCurrentHome ?? this.isCurrentHome,
+      bedrooms: bedrooms ?? this.bedrooms,
+      bathrooms: bathrooms ?? this.bathrooms,
+      storage: storage ?? this.storage,
+      address: address ?? this.address,
+      isForRent: isForRent ?? this.isForRent,
+      buildingType: buildingType ?? this.buildingType,
+      settlement: settlement ?? this.settlement,
+      country: country ?? this.country,
+      style: style ?? this.style,
+      lastMaintainedDay: lastMaintainedDay ?? this.lastMaintainedDay,
+      basePrice: basePrice ?? this.basePrice,
+      dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
+      endOfLeaseDay: endOfLeaseDay ?? this.endOfLeaseDay,
+      condition: condition ?? this.condition,
+      purchasePrice: purchasePrice ?? this.purchasePrice,
+      fullyPaidFor: fullyPaidFor ?? this.fullyPaidFor,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (isCurrentHome.present) {
+      map['is_current_home'] = Variable<bool>(isCurrentHome.value);
+    }
+    if (bedrooms.present) {
+      map['bedrooms'] = Variable<int>(bedrooms.value);
+    }
+    if (bathrooms.present) {
+      map['bathrooms'] = Variable<int>(bathrooms.value);
+    }
+    if (storage.present) {
+      map['storage'] = Variable<int>(storage.value);
+    }
+    if (address.present) {
+      map['address'] = Variable<String>(address.value);
+    }
+    if (isForRent.present) {
+      map['is_for_rent'] = Variable<bool>(isForRent.value);
+    }
+    if (buildingType.present) {
+      map['building_type'] = Variable<String>(buildingType.value);
+    }
+    if (settlement.present) {
+      map['settlement'] = Variable<String>(settlement.value);
+    }
+    if (country.present) {
+      map['country'] = Variable<String>(country.value);
+    }
+    if (style.present) {
+      map['style'] = Variable<String>(style.value);
+    }
+    if (lastMaintainedDay.present) {
+      map['last_maintained_day'] = Variable<int>(lastMaintainedDay.value);
+    }
+    if (basePrice.present) {
+      map['base_price'] = Variable<int>(basePrice.value);
+    }
+    if (dayOfPurchase.present) {
+      map['day_of_purchase'] = Variable<int>(dayOfPurchase.value);
+    }
+    if (endOfLeaseDay.present) {
+      map['end_of_lease_day'] = Variable<int>(endOfLeaseDay.value);
+    }
+    if (condition.present) {
+      map['condition'] = Variable<int>(condition.value);
+    }
+    if (purchasePrice.present) {
+      map['purchase_price'] = Variable<int>(purchasePrice.value);
+    }
+    if (fullyPaidFor.present) {
+      map['fully_paid_for'] = Variable<bool>(fullyPaidFor.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('HouseTableCompanion(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('isCurrentHome: $isCurrentHome, ')
+          ..write('bedrooms: $bedrooms, ')
+          ..write('bathrooms: $bathrooms, ')
+          ..write('storage: $storage, ')
+          ..write('address: $address, ')
+          ..write('isForRent: $isForRent, ')
+          ..write('buildingType: $buildingType, ')
+          ..write('settlement: $settlement, ')
+          ..write('country: $country, ')
+          ..write('style: $style, ')
+          ..write('lastMaintainedDay: $lastMaintainedDay, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('dayOfPurchase: $dayOfPurchase, ')
+          ..write('endOfLeaseDay: $endOfLeaseDay, ')
+          ..write('condition: $condition, ')
+          ..write('purchasePrice: $purchasePrice, ')
+          ..write('fullyPaidFor: $fullyPaidFor')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ItemTableTable extends ItemTable with TableInfo<$ItemTableTable, Item> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ItemTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _basePriceMeta =
+      const VerificationMeta('basePrice');
+  @override
+  late final GeneratedColumn<int> basePrice = GeneratedColumn<int>(
+      'base_price', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _countMeta = const VerificationMeta('count');
+  @override
+  late final GeneratedColumn<int> count = GeneratedColumn<int>(
+      'count', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, name, type, basePrice, count];
+  @override
+  String get aliasedName => _alias ?? 'item';
+  @override
+  String get actualTableName => 'item';
+  @override
+  VerificationContext validateIntegrity(Insertable<Item> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('base_price')) {
+      context.handle(_basePriceMeta,
+          basePrice.isAcceptableOrUnknown(data['base_price']!, _basePriceMeta));
+    } else if (isInserting) {
+      context.missing(_basePriceMeta);
+    }
+    if (data.containsKey('count')) {
+      context.handle(
+          _countMeta, count.isAcceptableOrUnknown(data['count']!, _countMeta));
+    } else if (isInserting) {
+      context.missing(_countMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Item map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Item(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      basePrice: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}base_price'])!,
+      count: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}count'])!,
+    );
+  }
+
+  @override
+  $ItemTableTable createAlias(String alias) {
+    return $ItemTableTable(attachedDatabase, alias);
+  }
+}
+
+class Item extends DataClass implements Insertable<Item> {
+  final int id;
+  final String name;
+  final String type;
+  final int basePrice;
+  final int count;
+  const Item(
+      {required this.id,
+      required this.name,
+      required this.type,
+      required this.basePrice,
+      required this.count});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['type'] = Variable<String>(type);
+    map['base_price'] = Variable<int>(basePrice);
+    map['count'] = Variable<int>(count);
+    return map;
+  }
+
+  ItemTableCompanion toCompanion(bool nullToAbsent) {
+    return ItemTableCompanion(
+      id: Value(id),
+      name: Value(name),
+      type: Value(type),
+      basePrice: Value(basePrice),
+      count: Value(count),
+    );
+  }
+
+  factory Item.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Item(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      type: serializer.fromJson<String>(json['type']),
+      basePrice: serializer.fromJson<int>(json['basePrice']),
+      count: serializer.fromJson<int>(json['count']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'type': serializer.toJson<String>(type),
+      'basePrice': serializer.toJson<int>(basePrice),
+      'count': serializer.toJson<int>(count),
+    };
+  }
+
+  Item copyWith(
+          {int? id, String? name, String? type, int? basePrice, int? count}) =>
+      Item(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        type: type ?? this.type,
+        basePrice: basePrice ?? this.basePrice,
+        count: count ?? this.count,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Item(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('count: $count')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, type, basePrice, count);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Item &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.type == this.type &&
+          other.basePrice == this.basePrice &&
+          other.count == this.count);
+}
+
+class ItemTableCompanion extends UpdateCompanion<Item> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> type;
+  final Value<int> basePrice;
+  final Value<int> count;
+  const ItemTableCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.type = const Value.absent(),
+    this.basePrice = const Value.absent(),
+    this.count = const Value.absent(),
+  });
+  ItemTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String type,
+    required int basePrice,
+    required int count,
+  })  : name = Value(name),
+        type = Value(type),
+        basePrice = Value(basePrice),
+        count = Value(count);
+  static Insertable<Item> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? type,
+    Expression<int>? basePrice,
+    Expression<int>? count,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (type != null) 'type': type,
+      if (basePrice != null) 'base_price': basePrice,
+      if (count != null) 'count': count,
+    });
+  }
+
+  ItemTableCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? name,
+      Value<String>? type,
+      Value<int>? basePrice,
+      Value<int>? count}) {
+    return ItemTableCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      basePrice: basePrice ?? this.basePrice,
+      count: count ?? this.count,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (basePrice.present) {
+      map['base_price'] = Variable<int>(basePrice.value);
+    }
+    if (count.present) {
+      map['count'] = Variable<int>(count.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ItemTableCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('count: $count')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $JewelryTableTable extends JewelryTable
+    with TableInfo<$JewelryTableTable, Jewelry> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $JewelryTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _jewelMeta = const VerificationMeta('jewel');
+  @override
+  late final GeneratedColumn<String> jewel = GeneratedColumn<String>(
+      'jewel', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _caratMeta = const VerificationMeta('carat');
+  @override
+  late final GeneratedColumn<double> carat = GeneratedColumn<double>(
+      'carat', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _qualityMeta =
+      const VerificationMeta('quality');
+  @override
+  late final GeneratedColumn<String> quality = GeneratedColumn<String>(
+      'quality', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _basePriceMeta =
+      const VerificationMeta('basePrice');
+  @override
+  late final GeneratedColumn<int> basePrice = GeneratedColumn<int>(
+      'base_price', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _dayOfPurchaseMeta =
+      const VerificationMeta('dayOfPurchase');
+  @override
+  late final GeneratedColumn<int> dayOfPurchase = GeneratedColumn<int>(
+      'day_of_purchase', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _maxConditionAtPurchaseMeta =
+      const VerificationMeta('maxConditionAtPurchase');
+  @override
+  late final GeneratedColumn<int> maxConditionAtPurchase = GeneratedColumn<int>(
+      'max_condition_at_purchase', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        personId,
+        jewel,
+        type,
+        carat,
+        quality,
+        basePrice,
+        dayOfPurchase,
+        maxConditionAtPurchase
+      ];
+  @override
+  String get aliasedName => _alias ?? 'jewelry';
+  @override
+  String get actualTableName => 'jewelry';
+  @override
+  VerificationContext validateIntegrity(Insertable<Jewelry> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('jewel')) {
+      context.handle(
+          _jewelMeta, jewel.isAcceptableOrUnknown(data['jewel']!, _jewelMeta));
+    } else if (isInserting) {
+      context.missing(_jewelMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('carat')) {
+      context.handle(
+          _caratMeta, carat.isAcceptableOrUnknown(data['carat']!, _caratMeta));
+    } else if (isInserting) {
+      context.missing(_caratMeta);
+    }
+    if (data.containsKey('quality')) {
+      context.handle(_qualityMeta,
+          quality.isAcceptableOrUnknown(data['quality']!, _qualityMeta));
+    } else if (isInserting) {
+      context.missing(_qualityMeta);
+    }
+    if (data.containsKey('base_price')) {
+      context.handle(_basePriceMeta,
+          basePrice.isAcceptableOrUnknown(data['base_price']!, _basePriceMeta));
+    } else if (isInserting) {
+      context.missing(_basePriceMeta);
+    }
+    if (data.containsKey('day_of_purchase')) {
+      context.handle(
+          _dayOfPurchaseMeta,
+          dayOfPurchase.isAcceptableOrUnknown(
+              data['day_of_purchase']!, _dayOfPurchaseMeta));
+    } else if (isInserting) {
+      context.missing(_dayOfPurchaseMeta);
+    }
+    if (data.containsKey('max_condition_at_purchase')) {
+      context.handle(
+          _maxConditionAtPurchaseMeta,
+          maxConditionAtPurchase.isAcceptableOrUnknown(
+              data['max_condition_at_purchase']!, _maxConditionAtPurchaseMeta));
+    } else if (isInserting) {
+      context.missing(_maxConditionAtPurchaseMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Jewelry map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Jewelry(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      jewel: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}jewel'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      carat: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}carat'])!,
+      quality: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}quality'])!,
+      basePrice: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}base_price'])!,
+      dayOfPurchase: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}day_of_purchase'])!,
+      maxConditionAtPurchase: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}max_condition_at_purchase'])!,
+    );
+  }
+
+  @override
+  $JewelryTableTable createAlias(String alias) {
+    return $JewelryTableTable(attachedDatabase, alias);
+  }
+}
+
+class Jewelry extends DataClass implements Insertable<Jewelry> {
+  final int id;
+  final int personId;
+  final String jewel;
+  final String type;
+  final double carat;
+  final String quality;
+  final int basePrice;
+  final int dayOfPurchase;
+  final int maxConditionAtPurchase;
+  const Jewelry(
+      {required this.id,
+      required this.personId,
+      required this.jewel,
+      required this.type,
+      required this.carat,
+      required this.quality,
+      required this.basePrice,
+      required this.dayOfPurchase,
+      required this.maxConditionAtPurchase});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person_id'] = Variable<int>(personId);
+    map['jewel'] = Variable<String>(jewel);
+    map['type'] = Variable<String>(type);
+    map['carat'] = Variable<double>(carat);
+    map['quality'] = Variable<String>(quality);
+    map['base_price'] = Variable<int>(basePrice);
+    map['day_of_purchase'] = Variable<int>(dayOfPurchase);
+    map['max_condition_at_purchase'] = Variable<int>(maxConditionAtPurchase);
+    return map;
+  }
+
+  JewelryTableCompanion toCompanion(bool nullToAbsent) {
+    return JewelryTableCompanion(
+      id: Value(id),
+      personId: Value(personId),
+      jewel: Value(jewel),
+      type: Value(type),
+      carat: Value(carat),
+      quality: Value(quality),
+      basePrice: Value(basePrice),
+      dayOfPurchase: Value(dayOfPurchase),
+      maxConditionAtPurchase: Value(maxConditionAtPurchase),
+    );
+  }
+
+  factory Jewelry.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Jewelry(
+      id: serializer.fromJson<int>(json['id']),
+      personId: serializer.fromJson<int>(json['personId']),
+      jewel: serializer.fromJson<String>(json['jewel']),
+      type: serializer.fromJson<String>(json['type']),
+      carat: serializer.fromJson<double>(json['carat']),
+      quality: serializer.fromJson<String>(json['quality']),
+      basePrice: serializer.fromJson<int>(json['basePrice']),
+      dayOfPurchase: serializer.fromJson<int>(json['dayOfPurchase']),
+      maxConditionAtPurchase:
+          serializer.fromJson<int>(json['maxConditionAtPurchase']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'personId': serializer.toJson<int>(personId),
+      'jewel': serializer.toJson<String>(jewel),
+      'type': serializer.toJson<String>(type),
+      'carat': serializer.toJson<double>(carat),
+      'quality': serializer.toJson<String>(quality),
+      'basePrice': serializer.toJson<int>(basePrice),
+      'dayOfPurchase': serializer.toJson<int>(dayOfPurchase),
+      'maxConditionAtPurchase': serializer.toJson<int>(maxConditionAtPurchase),
+    };
+  }
+
+  Jewelry copyWith(
+          {int? id,
+          int? personId,
+          String? jewel,
+          String? type,
+          double? carat,
+          String? quality,
+          int? basePrice,
+          int? dayOfPurchase,
+          int? maxConditionAtPurchase}) =>
+      Jewelry(
+        id: id ?? this.id,
+        personId: personId ?? this.personId,
+        jewel: jewel ?? this.jewel,
+        type: type ?? this.type,
+        carat: carat ?? this.carat,
+        quality: quality ?? this.quality,
+        basePrice: basePrice ?? this.basePrice,
+        dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
+        maxConditionAtPurchase:
+            maxConditionAtPurchase ?? this.maxConditionAtPurchase,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Jewelry(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('jewel: $jewel, ')
+          ..write('type: $type, ')
+          ..write('carat: $carat, ')
+          ..write('quality: $quality, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('dayOfPurchase: $dayOfPurchase, ')
+          ..write('maxConditionAtPurchase: $maxConditionAtPurchase')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, personId, jewel, type, carat, quality,
+      basePrice, dayOfPurchase, maxConditionAtPurchase);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Jewelry &&
+          other.id == this.id &&
+          other.personId == this.personId &&
+          other.jewel == this.jewel &&
+          other.type == this.type &&
+          other.carat == this.carat &&
+          other.quality == this.quality &&
+          other.basePrice == this.basePrice &&
+          other.dayOfPurchase == this.dayOfPurchase &&
+          other.maxConditionAtPurchase == this.maxConditionAtPurchase);
+}
+
+class JewelryTableCompanion extends UpdateCompanion<Jewelry> {
+  final Value<int> id;
+  final Value<int> personId;
+  final Value<String> jewel;
+  final Value<String> type;
+  final Value<double> carat;
+  final Value<String> quality;
+  final Value<int> basePrice;
+  final Value<int> dayOfPurchase;
+  final Value<int> maxConditionAtPurchase;
+  const JewelryTableCompanion({
+    this.id = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.jewel = const Value.absent(),
+    this.type = const Value.absent(),
+    this.carat = const Value.absent(),
+    this.quality = const Value.absent(),
+    this.basePrice = const Value.absent(),
+    this.dayOfPurchase = const Value.absent(),
+    this.maxConditionAtPurchase = const Value.absent(),
+  });
+  JewelryTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int personId,
+    required String jewel,
+    required String type,
+    required double carat,
+    required String quality,
+    required int basePrice,
+    required int dayOfPurchase,
+    required int maxConditionAtPurchase,
+  })  : personId = Value(personId),
+        jewel = Value(jewel),
+        type = Value(type),
+        carat = Value(carat),
+        quality = Value(quality),
+        basePrice = Value(basePrice),
+        dayOfPurchase = Value(dayOfPurchase),
+        maxConditionAtPurchase = Value(maxConditionAtPurchase);
+  static Insertable<Jewelry> custom({
+    Expression<int>? id,
+    Expression<int>? personId,
+    Expression<String>? jewel,
+    Expression<String>? type,
+    Expression<double>? carat,
+    Expression<String>? quality,
+    Expression<int>? basePrice,
+    Expression<int>? dayOfPurchase,
+    Expression<int>? maxConditionAtPurchase,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (personId != null) 'person_id': personId,
+      if (jewel != null) 'jewel': jewel,
+      if (type != null) 'type': type,
+      if (carat != null) 'carat': carat,
+      if (quality != null) 'quality': quality,
+      if (basePrice != null) 'base_price': basePrice,
+      if (dayOfPurchase != null) 'day_of_purchase': dayOfPurchase,
+      if (maxConditionAtPurchase != null)
+        'max_condition_at_purchase': maxConditionAtPurchase,
+    });
+  }
+
+  JewelryTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? personId,
+      Value<String>? jewel,
+      Value<String>? type,
+      Value<double>? carat,
+      Value<String>? quality,
+      Value<int>? basePrice,
+      Value<int>? dayOfPurchase,
+      Value<int>? maxConditionAtPurchase}) {
+    return JewelryTableCompanion(
+      id: id ?? this.id,
+      personId: personId ?? this.personId,
+      jewel: jewel ?? this.jewel,
+      type: type ?? this.type,
+      carat: carat ?? this.carat,
+      quality: quality ?? this.quality,
+      basePrice: basePrice ?? this.basePrice,
+      dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
+      maxConditionAtPurchase:
+          maxConditionAtPurchase ?? this.maxConditionAtPurchase,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (jewel.present) {
+      map['jewel'] = Variable<String>(jewel.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (carat.present) {
+      map['carat'] = Variable<double>(carat.value);
+    }
+    if (quality.present) {
+      map['quality'] = Variable<String>(quality.value);
+    }
+    if (basePrice.present) {
+      map['base_price'] = Variable<int>(basePrice.value);
+    }
+    if (dayOfPurchase.present) {
+      map['day_of_purchase'] = Variable<int>(dayOfPurchase.value);
+    }
+    if (maxConditionAtPurchase.present) {
+      map['max_condition_at_purchase'] =
+          Variable<int>(maxConditionAtPurchase.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('JewelryTableCompanion(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('jewel: $jewel, ')
+          ..write('type: $type, ')
+          ..write('carat: $carat, ')
+          ..write('quality: $quality, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('dayOfPurchase: $dayOfPurchase, ')
+          ..write('maxConditionAtPurchase: $maxConditionAtPurchase')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $StoreroomItemTableTable extends StoreroomItemTable
+    with TableInfo<$StoreroomItemTableTable, StoreroomItem> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $StoreroomItemTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _itemIdMeta = const VerificationMeta('itemId');
+  @override
+  late final GeneratedColumn<int> itemId = GeneratedColumn<int>(
+      'item_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _countsLeftMeta =
+      const VerificationMeta('countsLeft');
+  @override
+  late final GeneratedColumn<int> countsLeft = GeneratedColumn<int>(
+      'counts_left', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, personId, itemId, countsLeft];
+  @override
+  String get aliasedName => _alias ?? 'storeroom_item';
+  @override
+  String get actualTableName => 'storeroom_item';
+  @override
+  VerificationContext validateIntegrity(Insertable<StoreroomItem> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('item_id')) {
+      context.handle(_itemIdMeta,
+          itemId.isAcceptableOrUnknown(data['item_id']!, _itemIdMeta));
+    } else if (isInserting) {
+      context.missing(_itemIdMeta);
+    }
+    if (data.containsKey('counts_left')) {
+      context.handle(
+          _countsLeftMeta,
+          countsLeft.isAcceptableOrUnknown(
+              data['counts_left']!, _countsLeftMeta));
+    } else if (isInserting) {
+      context.missing(_countsLeftMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  StoreroomItem map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return StoreroomItem(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      itemId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}item_id'])!,
+      countsLeft: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}counts_left'])!,
+    );
+  }
+
+  @override
+  $StoreroomItemTableTable createAlias(String alias) {
+    return $StoreroomItemTableTable(attachedDatabase, alias);
+  }
+}
+
+class StoreroomItem extends DataClass implements Insertable<StoreroomItem> {
+  final int id;
+  final int personId;
+  final int itemId;
+  final int countsLeft;
+  const StoreroomItem(
+      {required this.id,
+      required this.personId,
+      required this.itemId,
+      required this.countsLeft});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person_id'] = Variable<int>(personId);
+    map['item_id'] = Variable<int>(itemId);
+    map['counts_left'] = Variable<int>(countsLeft);
+    return map;
+  }
+
+  StoreroomItemTableCompanion toCompanion(bool nullToAbsent) {
+    return StoreroomItemTableCompanion(
+      id: Value(id),
+      personId: Value(personId),
+      itemId: Value(itemId),
+      countsLeft: Value(countsLeft),
+    );
+  }
+
+  factory StoreroomItem.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return StoreroomItem(
+      id: serializer.fromJson<int>(json['id']),
+      personId: serializer.fromJson<int>(json['personId']),
+      itemId: serializer.fromJson<int>(json['itemId']),
+      countsLeft: serializer.fromJson<int>(json['countsLeft']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'personId': serializer.toJson<int>(personId),
+      'itemId': serializer.toJson<int>(itemId),
+      'countsLeft': serializer.toJson<int>(countsLeft),
+    };
+  }
+
+  StoreroomItem copyWith(
+          {int? id, int? personId, int? itemId, int? countsLeft}) =>
+      StoreroomItem(
+        id: id ?? this.id,
+        personId: personId ?? this.personId,
+        itemId: itemId ?? this.itemId,
+        countsLeft: countsLeft ?? this.countsLeft,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('StoreroomItem(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('itemId: $itemId, ')
+          ..write('countsLeft: $countsLeft')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, personId, itemId, countsLeft);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is StoreroomItem &&
+          other.id == this.id &&
+          other.personId == this.personId &&
+          other.itemId == this.itemId &&
+          other.countsLeft == this.countsLeft);
+}
+
+class StoreroomItemTableCompanion extends UpdateCompanion<StoreroomItem> {
+  final Value<int> id;
+  final Value<int> personId;
+  final Value<int> itemId;
+  final Value<int> countsLeft;
+  const StoreroomItemTableCompanion({
+    this.id = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.itemId = const Value.absent(),
+    this.countsLeft = const Value.absent(),
+  });
+  StoreroomItemTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int personId,
+    required int itemId,
+    required int countsLeft,
+  })  : personId = Value(personId),
+        itemId = Value(itemId),
+        countsLeft = Value(countsLeft);
+  static Insertable<StoreroomItem> custom({
+    Expression<int>? id,
+    Expression<int>? personId,
+    Expression<int>? itemId,
+    Expression<int>? countsLeft,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (personId != null) 'person_id': personId,
+      if (itemId != null) 'item_id': itemId,
+      if (countsLeft != null) 'counts_left': countsLeft,
+    });
+  }
+
+  StoreroomItemTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? personId,
+      Value<int>? itemId,
+      Value<int>? countsLeft}) {
+    return StoreroomItemTableCompanion(
+      id: id ?? this.id,
+      personId: personId ?? this.personId,
+      itemId: itemId ?? this.itemId,
+      countsLeft: countsLeft ?? this.countsLeft,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (itemId.present) {
+      map['item_id'] = Variable<int>(itemId.value);
+    }
+    if (countsLeft.present) {
+      map['counts_left'] = Variable<int>(countsLeft.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StoreroomItemTableCompanion(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('itemId: $itemId, ')
+          ..write('countsLeft: $countsLeft')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(e);
   late final $GameTableTable gameTable = $GameTableTable(this);
@@ -7666,6 +11020,15 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $RelativeTableTable relativeTable = $RelativeTableTable(this);
   late final $SiblingTableTable siblingTable = $SiblingTableTable(this);
   late final $EventTableTable eventTable = $EventTableTable(this);
+  late final $CarTableTable carTable = $CarTableTable(this);
+  late final $FoodTableTable foodTable = $FoodTableTable(this);
+  late final $FridgeFoodTableTable fridgeFoodTable =
+      $FridgeFoodTableTable(this);
+  late final $HouseTableTable houseTable = $HouseTableTable(this);
+  late final $ItemTableTable itemTable = $ItemTableTable(this);
+  late final $JewelryTableTable jewelryTable = $JewelryTableTable(this);
+  late final $StoreroomItemTableTable storeroomItemTable =
+      $StoreroomItemTableTable(this);
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
@@ -7692,6 +11055,16 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final SiblingDaoImpl siblingDaoImpl =
       SiblingDaoImpl(this as DatabaseProvider);
   late final EventDaoImpl eventDaoImpl = EventDaoImpl(this as DatabaseProvider);
+  late final CarDaoImpl carDaoImpl = CarDaoImpl(this as DatabaseProvider);
+  late final FoodDaoImpl foodDaoImpl = FoodDaoImpl(this as DatabaseProvider);
+  late final FridgeFoodDaoImpl fridgeFoodDaoImpl =
+      FridgeFoodDaoImpl(this as DatabaseProvider);
+  late final HouseDaoImpl houseDaoImpl = HouseDaoImpl(this as DatabaseProvider);
+  late final ItemDaoImpl itemDaoImpl = ItemDaoImpl(this as DatabaseProvider);
+  late final JewelryDaoImpl jewelryDaoImpl =
+      JewelryDaoImpl(this as DatabaseProvider);
+  late final StoreroomItemDaoImpl storeroomItemDaoImpl =
+      StoreroomItemDaoImpl(this as DatabaseProvider);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -7712,7 +11085,14 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         partnerTable,
         relativeTable,
         siblingTable,
-        eventTable
+        eventTable,
+        carTable,
+        foodTable,
+        fridgeFoodTable,
+        houseTable,
+        itemTable,
+        jewelryTable,
+        storeroomItemTable
       ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
