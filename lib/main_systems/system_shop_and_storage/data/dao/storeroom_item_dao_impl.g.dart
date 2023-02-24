@@ -6,6 +6,7 @@ part of 'storeroom_item_dao_impl.dart';
 mixin _$StoreroomItemDaoImplMixin on DatabaseAccessor<DatabaseProvider> {
   $GameTableTable get gameTable => attachedDatabase.gameTable;
   $PersonTableTable get personTable => attachedDatabase.personTable;
+  $ItemTableTable get itemTable => attachedDatabase.itemTable;
   $StoreroomItemTableTable get storeroomItemTable =>
       attachedDatabase.storeroomItemTable;
 }

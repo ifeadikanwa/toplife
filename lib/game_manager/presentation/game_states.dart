@@ -121,9 +121,11 @@ final relationshipUsecasesProvider = Provider<RelationshipUsecases>((ref) {
 });
 
 final journalUsecasesProvider = Provider<JournalUsecases>((ref) {
+  final db = ref.watch(databasePovider);
+
   return JournalUsecases(
     journalRepository: JournalRepositoryImpl(
-      journalDao: JournalDaoImpl(),
+      journalDao: JournalDaoImpl(db),
     ),
   );
 });

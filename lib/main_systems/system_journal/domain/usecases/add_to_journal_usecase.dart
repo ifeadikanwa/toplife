@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/domain/repository/journal_repository.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/prepare_journal_entry_usecase.dart';
 
@@ -39,9 +39,9 @@ class AddToJournalUsecase {
     //if it doesnt exist create a new journal
     if (existingJournal == null) {
       journal = Journal(
-        gameID: gameID,
+        gameId: gameID,
         day: day,
-        mainPlayerID: mainPlayerID,
+        mainPlayerId: mainPlayerID,
         entry: preparedJournalEntry,
       );
 

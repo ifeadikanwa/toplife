@@ -8883,7 +8883,10 @@ class $FridgeFoodTableTable extends FridgeFoodTable
   @override
   late final GeneratedColumn<int> foodId = GeneratedColumn<int>(
       'food_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES food (id)'));
   static const VerificationMeta _servingsLeftMeta =
       const VerificationMeta('servingsLeft');
   @override
@@ -10775,7 +10778,10 @@ class $StoreroomItemTableTable extends StoreroomItemTable
   @override
   late final GeneratedColumn<int> itemId = GeneratedColumn<int>(
       'item_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES item (id)'));
   static const VerificationMeta _countsLeftMeta =
       const VerificationMeta('countsLeft');
   @override
@@ -10999,6 +11005,259 @@ class StoreroomItemTableCompanion extends UpdateCompanion<StoreroomItem> {
   }
 }
 
+class $JournalTableTable extends JournalTable
+    with TableInfo<$JournalTableTable, Journal> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $JournalTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _gameIdMeta = const VerificationMeta('gameId');
+  @override
+  late final GeneratedColumn<int> gameId = GeneratedColumn<int>(
+      'game_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES game (id)'));
+  static const VerificationMeta _dayMeta = const VerificationMeta('day');
+  @override
+  late final GeneratedColumn<int> day = GeneratedColumn<int>(
+      'day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _mainPlayerIdMeta =
+      const VerificationMeta('mainPlayerId');
+  @override
+  late final GeneratedColumn<int> mainPlayerId = GeneratedColumn<int>(
+      'main_player_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _entryMeta = const VerificationMeta('entry');
+  @override
+  late final GeneratedColumn<String> entry = GeneratedColumn<String>(
+      'entry', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [gameId, day, mainPlayerId, entry];
+  @override
+  String get aliasedName => _alias ?? 'journal';
+  @override
+  String get actualTableName => 'journal';
+  @override
+  VerificationContext validateIntegrity(Insertable<Journal> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('game_id')) {
+      context.handle(_gameIdMeta,
+          gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta));
+    } else if (isInserting) {
+      context.missing(_gameIdMeta);
+    }
+    if (data.containsKey('day')) {
+      context.handle(
+          _dayMeta, day.isAcceptableOrUnknown(data['day']!, _dayMeta));
+    } else if (isInserting) {
+      context.missing(_dayMeta);
+    }
+    if (data.containsKey('main_player_id')) {
+      context.handle(
+          _mainPlayerIdMeta,
+          mainPlayerId.isAcceptableOrUnknown(
+              data['main_player_id']!, _mainPlayerIdMeta));
+    } else if (isInserting) {
+      context.missing(_mainPlayerIdMeta);
+    }
+    if (data.containsKey('entry')) {
+      context.handle(
+          _entryMeta, entry.isAcceptableOrUnknown(data['entry']!, _entryMeta));
+    } else if (isInserting) {
+      context.missing(_entryMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {gameId, day};
+  @override
+  Journal map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Journal(
+      gameId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}game_id'])!,
+      day: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}day'])!,
+      mainPlayerId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}main_player_id'])!,
+      entry: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}entry'])!,
+    );
+  }
+
+  @override
+  $JournalTableTable createAlias(String alias) {
+    return $JournalTableTable(attachedDatabase, alias);
+  }
+}
+
+class Journal extends DataClass implements Insertable<Journal> {
+  final int gameId;
+  final int day;
+  final int mainPlayerId;
+  final String entry;
+  const Journal(
+      {required this.gameId,
+      required this.day,
+      required this.mainPlayerId,
+      required this.entry});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['game_id'] = Variable<int>(gameId);
+    map['day'] = Variable<int>(day);
+    map['main_player_id'] = Variable<int>(mainPlayerId);
+    map['entry'] = Variable<String>(entry);
+    return map;
+  }
+
+  JournalTableCompanion toCompanion(bool nullToAbsent) {
+    return JournalTableCompanion(
+      gameId: Value(gameId),
+      day: Value(day),
+      mainPlayerId: Value(mainPlayerId),
+      entry: Value(entry),
+    );
+  }
+
+  factory Journal.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Journal(
+      gameId: serializer.fromJson<int>(json['gameId']),
+      day: serializer.fromJson<int>(json['day']),
+      mainPlayerId: serializer.fromJson<int>(json['mainPlayerId']),
+      entry: serializer.fromJson<String>(json['entry']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'gameId': serializer.toJson<int>(gameId),
+      'day': serializer.toJson<int>(day),
+      'mainPlayerId': serializer.toJson<int>(mainPlayerId),
+      'entry': serializer.toJson<String>(entry),
+    };
+  }
+
+  Journal copyWith({int? gameId, int? day, int? mainPlayerId, String? entry}) =>
+      Journal(
+        gameId: gameId ?? this.gameId,
+        day: day ?? this.day,
+        mainPlayerId: mainPlayerId ?? this.mainPlayerId,
+        entry: entry ?? this.entry,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Journal(')
+          ..write('gameId: $gameId, ')
+          ..write('day: $day, ')
+          ..write('mainPlayerId: $mainPlayerId, ')
+          ..write('entry: $entry')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(gameId, day, mainPlayerId, entry);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Journal &&
+          other.gameId == this.gameId &&
+          other.day == this.day &&
+          other.mainPlayerId == this.mainPlayerId &&
+          other.entry == this.entry);
+}
+
+class JournalTableCompanion extends UpdateCompanion<Journal> {
+  final Value<int> gameId;
+  final Value<int> day;
+  final Value<int> mainPlayerId;
+  final Value<String> entry;
+  const JournalTableCompanion({
+    this.gameId = const Value.absent(),
+    this.day = const Value.absent(),
+    this.mainPlayerId = const Value.absent(),
+    this.entry = const Value.absent(),
+  });
+  JournalTableCompanion.insert({
+    required int gameId,
+    required int day,
+    required int mainPlayerId,
+    required String entry,
+  })  : gameId = Value(gameId),
+        day = Value(day),
+        mainPlayerId = Value(mainPlayerId),
+        entry = Value(entry);
+  static Insertable<Journal> custom({
+    Expression<int>? gameId,
+    Expression<int>? day,
+    Expression<int>? mainPlayerId,
+    Expression<String>? entry,
+  }) {
+    return RawValuesInsertable({
+      if (gameId != null) 'game_id': gameId,
+      if (day != null) 'day': day,
+      if (mainPlayerId != null) 'main_player_id': mainPlayerId,
+      if (entry != null) 'entry': entry,
+    });
+  }
+
+  JournalTableCompanion copyWith(
+      {Value<int>? gameId,
+      Value<int>? day,
+      Value<int>? mainPlayerId,
+      Value<String>? entry}) {
+    return JournalTableCompanion(
+      gameId: gameId ?? this.gameId,
+      day: day ?? this.day,
+      mainPlayerId: mainPlayerId ?? this.mainPlayerId,
+      entry: entry ?? this.entry,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (gameId.present) {
+      map['game_id'] = Variable<int>(gameId.value);
+    }
+    if (day.present) {
+      map['day'] = Variable<int>(day.value);
+    }
+    if (mainPlayerId.present) {
+      map['main_player_id'] = Variable<int>(mainPlayerId.value);
+    }
+    if (entry.present) {
+      map['entry'] = Variable<String>(entry.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('JournalTableCompanion(')
+          ..write('gameId: $gameId, ')
+          ..write('day: $day, ')
+          ..write('mainPlayerId: $mainPlayerId, ')
+          ..write('entry: $entry')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(e);
   late final $GameTableTable gameTable = $GameTableTable(this);
@@ -11029,6 +11288,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $JewelryTableTable jewelryTable = $JewelryTableTable(this);
   late final $StoreroomItemTableTable storeroomItemTable =
       $StoreroomItemTableTable(this);
+  late final $JournalTableTable journalTable = $JournalTableTable(this);
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
@@ -11065,6 +11325,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       JewelryDaoImpl(this as DatabaseProvider);
   late final StoreroomItemDaoImpl storeroomItemDaoImpl =
       StoreroomItemDaoImpl(this as DatabaseProvider);
+  late final JournalDaoImpl journalDaoImpl =
+      JournalDaoImpl(this as DatabaseProvider);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -11092,7 +11354,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         houseTable,
         itemTable,
         jewelryTable,
-        storeroomItemTable
+        storeroomItemTable,
+        journalTable
       ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(

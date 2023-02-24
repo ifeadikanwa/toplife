@@ -51,6 +51,8 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/model/fridge
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
+import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
+import 'package:toplife/main_systems/system_journal/data/dao/journal_dao_impl.dart';
 
 part 'database_provider.g.dart';
 
@@ -79,6 +81,7 @@ part 'database_provider.g.dart';
     ItemTable,
     JewelryTable,
     StoreroomItemTable,
+    JournalTable,
   ],
   daos: [
     GameDaoImpl,
@@ -104,6 +107,7 @@ part 'database_provider.g.dart';
     ItemDaoImpl,
     JewelryDaoImpl,
     StoreroomItemDaoImpl,
+    JournalDaoImpl,
   ],
 )
 class DatabaseProvider extends _$DatabaseProvider {

@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class JournalDao {
   Future<Journal> createJournal(Journal journal);
@@ -12,6 +12,11 @@ abstract class JournalDao {
     int day,
   );
   Future<List<Journal>> getMainPlayerJournals(
+    int gameID,
+    int mainPlayerID,
+  );
+
+  Stream<List<Journal>> watchMainPlayerJournals(
     int gameID,
     int mainPlayerID,
   );

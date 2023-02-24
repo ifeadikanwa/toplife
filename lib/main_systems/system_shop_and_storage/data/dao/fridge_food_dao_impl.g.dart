@@ -6,5 +6,6 @@ part of 'fridge_food_dao_impl.dart';
 mixin _$FridgeFoodDaoImplMixin on DatabaseAccessor<DatabaseProvider> {
   $GameTableTable get gameTable => attachedDatabase.gameTable;
   $PersonTableTable get personTable => attachedDatabase.personTable;
+  $FoodTableTable get foodTable => attachedDatabase.foodTable;
   $FridgeFoodTableTable get fridgeFoodTable => attachedDatabase.fridgeFoodTable;
 }
