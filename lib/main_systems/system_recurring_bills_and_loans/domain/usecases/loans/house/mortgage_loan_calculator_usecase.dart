@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
 
 class MortgageLoanCalculatorUsecase {
   int execute({
@@ -16,7 +16,7 @@ class MortgageLoanCalculatorUsecase {
     );
 
     final int loanInterest =
-        ((RecurringBill.mortgageLoanInterest / 100) * economyAdjustedLoanAmount)
+        ((RecurringBillConstants.mortgageLoanInterest / 100) * economyAdjustedLoanAmount)
             .ceil();
 
     final int totalLoan = economyAdjustedLoanAmount + loanInterest;

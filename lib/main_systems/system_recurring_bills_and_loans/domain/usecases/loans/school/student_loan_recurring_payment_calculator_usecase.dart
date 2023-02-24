@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/school/student_loan_calculator_usecase.dart';
 
 class StudentLoanRecurringPaymentCalculatorUsecase {
@@ -20,7 +20,7 @@ class StudentLoanRecurringPaymentCalculatorUsecase {
     );
 
     final int recurringPayment =
-        (totalLoan / RecurringBill.studentLoanNumOfPayments).ceil();
+        (totalLoan / RecurringBillConstants.studentLoanNumOfPayments).ceil();
 
     return recurringPayment;
   }

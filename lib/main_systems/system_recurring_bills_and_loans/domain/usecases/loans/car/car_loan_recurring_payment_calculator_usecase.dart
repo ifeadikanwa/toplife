@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/car_loan_calculator_usecase.dart';
 
 class CarLoanRecurringPaymentCalculatorUsecase {
@@ -19,7 +19,7 @@ class CarLoanRecurringPaymentCalculatorUsecase {
     );
 
     final int recurringPayment =
-        (totalLoan / RecurringBill.carLoanNumOfPayments).ceil();
+        (totalLoan / RecurringBillConstants.carLoanNumOfPayments).ceil();
 
     return recurringPayment;
   }

@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class RecurringBillRepository {
   Future<RecurringBill> createRecurringBill(RecurringBill recurringBill);
@@ -19,4 +19,5 @@ abstract class RecurringBillRepository {
   Future<void> updateRecurringBill(RecurringBill recurringBill);
   Future<void> deleteRecurringBill(int recurringBillID);
   Future<List<RecurringBill>> getAllRecurringBill(int personID);
+  Stream<List<RecurringBill>> watchAllRecurringBill(int personID);
 }

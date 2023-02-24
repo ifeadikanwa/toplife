@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/bill_type.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/repository/recurring_bill_repository.dart';
 
 class RemoveRentFromBillsUsecase {
@@ -22,8 +22,8 @@ class RemoveRentFromBillsUsecase {
     );
 
     //delete it if it exists
-    if (rent != null && rent.id != null) {
-      _recurringBillRepository.deleteRecurringBill(rent.id!);
+    if (rent != null) {
+      _recurringBillRepository.deleteRecurringBill(rent.id);
     }
   }
 }

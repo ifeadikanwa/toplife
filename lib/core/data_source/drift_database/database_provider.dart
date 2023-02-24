@@ -18,6 +18,8 @@ import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/model/relationship_traits.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stance.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
@@ -54,6 +56,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelr
 import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
 import 'package:toplife/main_systems/system_journal/data/dao/journal_dao_impl.dart';
 
+
 part 'database_provider.g.dart';
 
 @DriftDatabase(
@@ -82,6 +85,7 @@ part 'database_provider.g.dart';
     JewelryTable,
     StoreroomItemTable,
     JournalTable,
+    RecurringBillTable,
   ],
   daos: [
     GameDaoImpl,
@@ -108,6 +112,7 @@ part 'database_provider.g.dart';
     JewelryDaoImpl,
     StoreroomItemDaoImpl,
     JournalDaoImpl,
+    RecurringBillDaoImpl,
   ],
 )
 class DatabaseProvider extends _$DatabaseProvider {

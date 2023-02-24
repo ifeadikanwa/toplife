@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
 
 class ShopResultConstants {
   static const String checkoutSuccessTitle = "Order Delivered";
@@ -92,7 +92,7 @@ class ShopResultConstants {
   static String houseRentedResultEntry({
     required int leaseDuration,
   }) =>
-      "You have signed a $leaseDuration day lease and moved into your new place, your landlord will collect rent every ${RecurringBill.recurringPaymentDuration} days.";
+      "You have signed a $leaseDuration day lease and moved into your new place, your landlord will collect rent every ${RecurringBillConstants.recurringPaymentDuration} days.";
 
   static String endLeaseAndRentJournalEntry({
     required String oldHouseName,
@@ -144,13 +144,13 @@ class ShopResultConstants {
   static String recurringPaymentResultEntry({
     required int recurringPayment,
   }) =>
-      "You are expected to pay $recurringPayment every ${RecurringBill.recurringPaymentDuration} days until the entire loan is paid off.";
+      "You are expected to pay $recurringPayment every ${RecurringBillConstants.recurringPaymentDuration} days until the entire loan is paid off.";
 
   static String loanSuccesfulJournalEntry({
     required String itemName,
     required int recurringPayment,
   }) =>
-      "I bought a $itemName with a loan. I agreed to pay $recurringPayment every ${RecurringBill.recurringPaymentDuration} days until the entire loan is paid off.";
+      "I bought a $itemName with a loan. I agreed to pay $recurringPayment every ${RecurringBillConstants.recurringPaymentDuration} days until the entire loan is paid off.";
 
   //Car Loan
   static const existingCarLoanRejectionResultEntry =

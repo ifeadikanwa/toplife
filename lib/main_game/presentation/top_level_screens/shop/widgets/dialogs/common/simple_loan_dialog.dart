@@ -14,7 +14,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/di
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/bill_type.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 
 class SimpleLoanDialog extends ConsumerWidget {
@@ -37,9 +37,9 @@ class SimpleLoanDialog extends ConsumerWidget {
     required this.onApply,
   })  : _downPaymentPercentageProvider = StateProvider.autoDispose<double>(
             (ref) => useMultipleLoanDownPaymentRange
-                ? RecurringBill.multipleLoansDownPaymentPercentageLowerLimit
+                ? RecurringBillConstants.multipleLoansDownPaymentPercentageLowerLimit
                     .toDouble()
-                : RecurringBill.firstLoanDownPaymentPercentageLowerLimit
+                : RecurringBillConstants.firstLoanDownPaymentPercentageLowerLimit
                     .toDouble()),
         super(key: key);
 
@@ -69,11 +69,11 @@ class SimpleLoanDialog extends ConsumerWidget {
     late int min;
     late int max;
     if (useMultipleLoanDownPaymentRange) {
-      min = RecurringBill.multipleLoansDownPaymentPercentageLowerLimit;
-      max = RecurringBill.multipleLoansDownPaymentPercentageUpperLimit;
+      min = RecurringBillConstants.multipleLoansDownPaymentPercentageLowerLimit;
+      max = RecurringBillConstants.multipleLoansDownPaymentPercentageUpperLimit;
     } else {
-      min = RecurringBill.firstLoanDownPaymentPercentageLowerLimit;
-      max = RecurringBill.firstLoanDownPaymentPercentageUpperLimit;
+      min = RecurringBillConstants.firstLoanDownPaymentPercentageLowerLimit;
+      max = RecurringBillConstants.firstLoanDownPaymentPercentageUpperLimit;
     }
 
     return (currentPlayerCountry != null)

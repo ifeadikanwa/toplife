@@ -11258,6 +11258,503 @@ class JournalTableCompanion extends UpdateCompanion<Journal> {
   }
 }
 
+class $RecurringBillTableTable extends RecurringBillTable
+    with TableInfo<$RecurringBillTableTable, RecurringBill> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RecurringBillTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _billTypeMeta =
+      const VerificationMeta('billType');
+  @override
+  late final GeneratedColumn<String> billType = GeneratedColumn<String>(
+      'bill_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _billDescriptionMeta =
+      const VerificationMeta('billDescription');
+  @override
+  late final GeneratedColumn<String> billDescription = GeneratedColumn<String>(
+      'bill_description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _billAmountMeta =
+      const VerificationMeta('billAmount');
+  @override
+  late final GeneratedColumn<int> billAmount = GeneratedColumn<int>(
+      'bill_amount', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _paymentsLeftMeta =
+      const VerificationMeta('paymentsLeft');
+  @override
+  late final GeneratedColumn<int> paymentsLeft = GeneratedColumn<int>(
+      'payments_left', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _dueDayMeta = const VerificationMeta('dueDay');
+  @override
+  late final GeneratedColumn<int> dueDay = GeneratedColumn<int>(
+      'due_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _purchaseIdMeta =
+      const VerificationMeta('purchaseId');
+  @override
+  late final GeneratedColumn<int> purchaseId = GeneratedColumn<int>(
+      'purchase_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _missedPaymentsMeta =
+      const VerificationMeta('missedPayments');
+  @override
+  late final GeneratedColumn<int> missedPayments = GeneratedColumn<int>(
+      'missed_payments', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _isUrgentMeta =
+      const VerificationMeta('isUrgent');
+  @override
+  late final GeneratedColumn<bool> isUrgent =
+      GeneratedColumn<bool>('is_urgent', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_urgent" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        personId,
+        billType,
+        billDescription,
+        billAmount,
+        paymentsLeft,
+        dueDay,
+        purchaseId,
+        missedPayments,
+        isUrgent
+      ];
+  @override
+  String get aliasedName => _alias ?? 'recurring_bill';
+  @override
+  String get actualTableName => 'recurring_bill';
+  @override
+  VerificationContext validateIntegrity(Insertable<RecurringBill> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('bill_type')) {
+      context.handle(_billTypeMeta,
+          billType.isAcceptableOrUnknown(data['bill_type']!, _billTypeMeta));
+    } else if (isInserting) {
+      context.missing(_billTypeMeta);
+    }
+    if (data.containsKey('bill_description')) {
+      context.handle(
+          _billDescriptionMeta,
+          billDescription.isAcceptableOrUnknown(
+              data['bill_description']!, _billDescriptionMeta));
+    } else if (isInserting) {
+      context.missing(_billDescriptionMeta);
+    }
+    if (data.containsKey('bill_amount')) {
+      context.handle(
+          _billAmountMeta,
+          billAmount.isAcceptableOrUnknown(
+              data['bill_amount']!, _billAmountMeta));
+    } else if (isInserting) {
+      context.missing(_billAmountMeta);
+    }
+    if (data.containsKey('payments_left')) {
+      context.handle(
+          _paymentsLeftMeta,
+          paymentsLeft.isAcceptableOrUnknown(
+              data['payments_left']!, _paymentsLeftMeta));
+    } else if (isInserting) {
+      context.missing(_paymentsLeftMeta);
+    }
+    if (data.containsKey('due_day')) {
+      context.handle(_dueDayMeta,
+          dueDay.isAcceptableOrUnknown(data['due_day']!, _dueDayMeta));
+    } else if (isInserting) {
+      context.missing(_dueDayMeta);
+    }
+    if (data.containsKey('purchase_id')) {
+      context.handle(
+          _purchaseIdMeta,
+          purchaseId.isAcceptableOrUnknown(
+              data['purchase_id']!, _purchaseIdMeta));
+    } else if (isInserting) {
+      context.missing(_purchaseIdMeta);
+    }
+    if (data.containsKey('missed_payments')) {
+      context.handle(
+          _missedPaymentsMeta,
+          missedPayments.isAcceptableOrUnknown(
+              data['missed_payments']!, _missedPaymentsMeta));
+    } else if (isInserting) {
+      context.missing(_missedPaymentsMeta);
+    }
+    if (data.containsKey('is_urgent')) {
+      context.handle(_isUrgentMeta,
+          isUrgent.isAcceptableOrUnknown(data['is_urgent']!, _isUrgentMeta));
+    } else if (isInserting) {
+      context.missing(_isUrgentMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RecurringBill map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RecurringBill(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      billType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bill_type'])!,
+      billDescription: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}bill_description'])!,
+      billAmount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}bill_amount'])!,
+      paymentsLeft: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}payments_left'])!,
+      dueDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}due_day'])!,
+      purchaseId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}purchase_id'])!,
+      missedPayments: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}missed_payments'])!,
+      isUrgent: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_urgent'])!,
+    );
+  }
+
+  @override
+  $RecurringBillTableTable createAlias(String alias) {
+    return $RecurringBillTableTable(attachedDatabase, alias);
+  }
+}
+
+class RecurringBill extends DataClass implements Insertable<RecurringBill> {
+  final int id;
+  final int personId;
+  final String billType;
+  final String billDescription;
+  final int billAmount;
+  final int paymentsLeft;
+  final int dueDay;
+  final int purchaseId;
+  final int missedPayments;
+  final bool isUrgent;
+  const RecurringBill(
+      {required this.id,
+      required this.personId,
+      required this.billType,
+      required this.billDescription,
+      required this.billAmount,
+      required this.paymentsLeft,
+      required this.dueDay,
+      required this.purchaseId,
+      required this.missedPayments,
+      required this.isUrgent});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person_id'] = Variable<int>(personId);
+    map['bill_type'] = Variable<String>(billType);
+    map['bill_description'] = Variable<String>(billDescription);
+    map['bill_amount'] = Variable<int>(billAmount);
+    map['payments_left'] = Variable<int>(paymentsLeft);
+    map['due_day'] = Variable<int>(dueDay);
+    map['purchase_id'] = Variable<int>(purchaseId);
+    map['missed_payments'] = Variable<int>(missedPayments);
+    map['is_urgent'] = Variable<bool>(isUrgent);
+    return map;
+  }
+
+  RecurringBillTableCompanion toCompanion(bool nullToAbsent) {
+    return RecurringBillTableCompanion(
+      id: Value(id),
+      personId: Value(personId),
+      billType: Value(billType),
+      billDescription: Value(billDescription),
+      billAmount: Value(billAmount),
+      paymentsLeft: Value(paymentsLeft),
+      dueDay: Value(dueDay),
+      purchaseId: Value(purchaseId),
+      missedPayments: Value(missedPayments),
+      isUrgent: Value(isUrgent),
+    );
+  }
+
+  factory RecurringBill.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RecurringBill(
+      id: serializer.fromJson<int>(json['id']),
+      personId: serializer.fromJson<int>(json['personId']),
+      billType: serializer.fromJson<String>(json['billType']),
+      billDescription: serializer.fromJson<String>(json['billDescription']),
+      billAmount: serializer.fromJson<int>(json['billAmount']),
+      paymentsLeft: serializer.fromJson<int>(json['paymentsLeft']),
+      dueDay: serializer.fromJson<int>(json['dueDay']),
+      purchaseId: serializer.fromJson<int>(json['purchaseId']),
+      missedPayments: serializer.fromJson<int>(json['missedPayments']),
+      isUrgent: serializer.fromJson<bool>(json['isUrgent']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'personId': serializer.toJson<int>(personId),
+      'billType': serializer.toJson<String>(billType),
+      'billDescription': serializer.toJson<String>(billDescription),
+      'billAmount': serializer.toJson<int>(billAmount),
+      'paymentsLeft': serializer.toJson<int>(paymentsLeft),
+      'dueDay': serializer.toJson<int>(dueDay),
+      'purchaseId': serializer.toJson<int>(purchaseId),
+      'missedPayments': serializer.toJson<int>(missedPayments),
+      'isUrgent': serializer.toJson<bool>(isUrgent),
+    };
+  }
+
+  RecurringBill copyWith(
+          {int? id,
+          int? personId,
+          String? billType,
+          String? billDescription,
+          int? billAmount,
+          int? paymentsLeft,
+          int? dueDay,
+          int? purchaseId,
+          int? missedPayments,
+          bool? isUrgent}) =>
+      RecurringBill(
+        id: id ?? this.id,
+        personId: personId ?? this.personId,
+        billType: billType ?? this.billType,
+        billDescription: billDescription ?? this.billDescription,
+        billAmount: billAmount ?? this.billAmount,
+        paymentsLeft: paymentsLeft ?? this.paymentsLeft,
+        dueDay: dueDay ?? this.dueDay,
+        purchaseId: purchaseId ?? this.purchaseId,
+        missedPayments: missedPayments ?? this.missedPayments,
+        isUrgent: isUrgent ?? this.isUrgent,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('RecurringBill(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('billType: $billType, ')
+          ..write('billDescription: $billDescription, ')
+          ..write('billAmount: $billAmount, ')
+          ..write('paymentsLeft: $paymentsLeft, ')
+          ..write('dueDay: $dueDay, ')
+          ..write('purchaseId: $purchaseId, ')
+          ..write('missedPayments: $missedPayments, ')
+          ..write('isUrgent: $isUrgent')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, personId, billType, billDescription,
+      billAmount, paymentsLeft, dueDay, purchaseId, missedPayments, isUrgent);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RecurringBill &&
+          other.id == this.id &&
+          other.personId == this.personId &&
+          other.billType == this.billType &&
+          other.billDescription == this.billDescription &&
+          other.billAmount == this.billAmount &&
+          other.paymentsLeft == this.paymentsLeft &&
+          other.dueDay == this.dueDay &&
+          other.purchaseId == this.purchaseId &&
+          other.missedPayments == this.missedPayments &&
+          other.isUrgent == this.isUrgent);
+}
+
+class RecurringBillTableCompanion extends UpdateCompanion<RecurringBill> {
+  final Value<int> id;
+  final Value<int> personId;
+  final Value<String> billType;
+  final Value<String> billDescription;
+  final Value<int> billAmount;
+  final Value<int> paymentsLeft;
+  final Value<int> dueDay;
+  final Value<int> purchaseId;
+  final Value<int> missedPayments;
+  final Value<bool> isUrgent;
+  const RecurringBillTableCompanion({
+    this.id = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.billType = const Value.absent(),
+    this.billDescription = const Value.absent(),
+    this.billAmount = const Value.absent(),
+    this.paymentsLeft = const Value.absent(),
+    this.dueDay = const Value.absent(),
+    this.purchaseId = const Value.absent(),
+    this.missedPayments = const Value.absent(),
+    this.isUrgent = const Value.absent(),
+  });
+  RecurringBillTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int personId,
+    required String billType,
+    required String billDescription,
+    required int billAmount,
+    required int paymentsLeft,
+    required int dueDay,
+    required int purchaseId,
+    required int missedPayments,
+    required bool isUrgent,
+  })  : personId = Value(personId),
+        billType = Value(billType),
+        billDescription = Value(billDescription),
+        billAmount = Value(billAmount),
+        paymentsLeft = Value(paymentsLeft),
+        dueDay = Value(dueDay),
+        purchaseId = Value(purchaseId),
+        missedPayments = Value(missedPayments),
+        isUrgent = Value(isUrgent);
+  static Insertable<RecurringBill> custom({
+    Expression<int>? id,
+    Expression<int>? personId,
+    Expression<String>? billType,
+    Expression<String>? billDescription,
+    Expression<int>? billAmount,
+    Expression<int>? paymentsLeft,
+    Expression<int>? dueDay,
+    Expression<int>? purchaseId,
+    Expression<int>? missedPayments,
+    Expression<bool>? isUrgent,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (personId != null) 'person_id': personId,
+      if (billType != null) 'bill_type': billType,
+      if (billDescription != null) 'bill_description': billDescription,
+      if (billAmount != null) 'bill_amount': billAmount,
+      if (paymentsLeft != null) 'payments_left': paymentsLeft,
+      if (dueDay != null) 'due_day': dueDay,
+      if (purchaseId != null) 'purchase_id': purchaseId,
+      if (missedPayments != null) 'missed_payments': missedPayments,
+      if (isUrgent != null) 'is_urgent': isUrgent,
+    });
+  }
+
+  RecurringBillTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? personId,
+      Value<String>? billType,
+      Value<String>? billDescription,
+      Value<int>? billAmount,
+      Value<int>? paymentsLeft,
+      Value<int>? dueDay,
+      Value<int>? purchaseId,
+      Value<int>? missedPayments,
+      Value<bool>? isUrgent}) {
+    return RecurringBillTableCompanion(
+      id: id ?? this.id,
+      personId: personId ?? this.personId,
+      billType: billType ?? this.billType,
+      billDescription: billDescription ?? this.billDescription,
+      billAmount: billAmount ?? this.billAmount,
+      paymentsLeft: paymentsLeft ?? this.paymentsLeft,
+      dueDay: dueDay ?? this.dueDay,
+      purchaseId: purchaseId ?? this.purchaseId,
+      missedPayments: missedPayments ?? this.missedPayments,
+      isUrgent: isUrgent ?? this.isUrgent,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (billType.present) {
+      map['bill_type'] = Variable<String>(billType.value);
+    }
+    if (billDescription.present) {
+      map['bill_description'] = Variable<String>(billDescription.value);
+    }
+    if (billAmount.present) {
+      map['bill_amount'] = Variable<int>(billAmount.value);
+    }
+    if (paymentsLeft.present) {
+      map['payments_left'] = Variable<int>(paymentsLeft.value);
+    }
+    if (dueDay.present) {
+      map['due_day'] = Variable<int>(dueDay.value);
+    }
+    if (purchaseId.present) {
+      map['purchase_id'] = Variable<int>(purchaseId.value);
+    }
+    if (missedPayments.present) {
+      map['missed_payments'] = Variable<int>(missedPayments.value);
+    }
+    if (isUrgent.present) {
+      map['is_urgent'] = Variable<bool>(isUrgent.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecurringBillTableCompanion(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('billType: $billType, ')
+          ..write('billDescription: $billDescription, ')
+          ..write('billAmount: $billAmount, ')
+          ..write('paymentsLeft: $paymentsLeft, ')
+          ..write('dueDay: $dueDay, ')
+          ..write('purchaseId: $purchaseId, ')
+          ..write('missedPayments: $missedPayments, ')
+          ..write('isUrgent: $isUrgent')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(e);
   late final $GameTableTable gameTable = $GameTableTable(this);
@@ -11289,6 +11786,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $StoreroomItemTableTable storeroomItemTable =
       $StoreroomItemTableTable(this);
   late final $JournalTableTable journalTable = $JournalTableTable(this);
+  late final $RecurringBillTableTable recurringBillTable =
+      $RecurringBillTableTable(this);
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
@@ -11327,6 +11826,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       StoreroomItemDaoImpl(this as DatabaseProvider);
   late final JournalDaoImpl journalDaoImpl =
       JournalDaoImpl(this as DatabaseProvider);
+  late final RecurringBillDaoImpl recurringBillDaoImpl =
+      RecurringBillDaoImpl(this as DatabaseProvider);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -11355,7 +11856,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         itemTable,
         jewelryTable,
         storeroomItemTable,
-        journalTable
+        journalTable,
+        recurringBillTable
       ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(

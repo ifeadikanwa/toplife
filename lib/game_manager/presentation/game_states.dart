@@ -48,7 +48,7 @@ import 'package:toplife/main_systems/system_transportation/domain/usecases/trans
 final recurringBillUsecaseProvider = Provider<RecurringBillsUsecases>(
   (ref) => RecurringBillsUsecases(
     recurringBillRepository: RecurringBillRepositoryImpl(
-      recurringBillDao: RecurringBillDaoImpl(),
+      recurringBillDao: RecurringBillDaoImpl(ref.watch(databasePovider)),
     ),
     gameUsecases: ref.watch(gameUsecasesProvider),
     personUsecases: ref.watch(personUsecasesProvider),

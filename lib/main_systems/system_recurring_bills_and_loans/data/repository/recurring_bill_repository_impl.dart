@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/dao/recurring_bill_dao.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/repository/recurring_bill_repository.dart';
 
 class RecurringBillRepositoryImpl implements RecurringBillRepository {
@@ -62,5 +62,10 @@ class RecurringBillRepositoryImpl implements RecurringBillRepository {
   Future<List<RecurringBill>> findRecurringBillsWithType(
       {required int personID, required String billType}) {
     return _recurringBillDao.findRecurringBillsWithType(personID, billType);
+  }
+
+  @override
+  Stream<List<RecurringBill>> watchAllRecurringBill(int personID) {
+    return _recurringBillDao.watchAllRecurringBill(personID);
   }
 }

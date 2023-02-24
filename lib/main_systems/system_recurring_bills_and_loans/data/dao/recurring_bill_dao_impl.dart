@@ -1,166 +1,99 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/dao/recurring_bill_dao.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
 
-class RecurringBillDaoImpl implements RecurringBillDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'recurring_bill_dao_impl.g.dart';
 
-  static const recurringBillTable = "recurring_bill";
-
-  static const createTableQuery = "";
-  // '''
-  //   CREATE TABLE $recurringBillTable(
-  //     ${RecurringBill.idColumn} $idType,
-  //     ${RecurringBill.personIDColumn} $integerType,
-  //     ${RecurringBill.billTypeColumn} $textType,
-  //     ${RecurringBill.billDescriptionColumn} $textType,
-  //     ${RecurringBill.billAmountColumn} $integerType,
-  //     ${RecurringBill.paymentsLeftColumn} $integerType,
-  //     ${RecurringBill.dueDayColumn} $integerType,
-  //     ${RecurringBill.purchaseIDColumn} $integerType,
-  //     ${RecurringBill.missedPaymentsColumn} $integerType,
-  //     ${RecurringBill.isUrgentColumn} $boolType,
-  //     FOREIGN KEY (${RecurringBill.personIDColumn})
-  //      REFERENCES ${PersonDaoImpl.personTable} () 
-  //      ON UPDATE CASCADE
-  //      ON DELETE CASCADE
-  //   )
-  // ''';
+@DriftAccessor(tables: [RecurringBillTable])
+class RecurringBillDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$RecurringBillDaoImplMixin
+    implements RecurringBillDao {
+  RecurringBillDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<RecurringBill> createRecurringBill(RecurringBill recurringBill) async {
-    final db = await _databaseProvider.database;
-    final id = await db.insert(
-      recurringBillTable,
-      recurringBill.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    final RecurringBillTableCompanion recurringBillWithoutID =
+        recurringBill.toCompanion(false).copyWith(id: const Value.absent());
 
-    return recurringBill.copyWith(id: id);
+    final recurringBillID = await into(recurringBillTable)
+        .insertOnConflictUpdate(recurringBillWithoutID);
+    return recurringBill.copyWith(id: recurringBillID);
   }
 
   @override
-  Future<void> deleteRecurringBill(int recurringBillID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      recurringBillTable,
-      where: "${RecurringBill.idColumn} = ?",
-      whereArgs: [recurringBillID],
-    );
-  }
-
-  @override
-  Future<RecurringBill?> getRecurringBill(int recurringBillID) async {
-    final db = await _databaseProvider.database;
-    final recurringBillMaps = await db.query(
-      recurringBillTable,
-      columns: RecurringBill.allColumns,
-      where: "${RecurringBill.idColumn} = ?",
-      whereArgs: [recurringBillID],
-    );
-
-    if (recurringBillMaps.isNotEmpty) {
-      return RecurringBill.fromMap(recurringBillMap: recurringBillMaps.first);
-    } else {
-      return null;
-    }
-  }
-
-  @override
-  Future<void> updateRecurringBill(RecurringBill recurringBill) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      recurringBillTable,
-      recurringBill.toMap(),
-      where: "${RecurringBill.idColumn} = ?",
-      whereArgs: [recurringBill.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  @override
-  Future<List<RecurringBill>> getAllRecurringBill(int personID) async {
-    final db = await _databaseProvider.database;
-    final allRecurringBillsMap = await db.query(
-      recurringBillTable,
-      columns: RecurringBill.allColumns,
-      where: "${RecurringBill.personIDColumn} = ?",
-      whereArgs: [personID],
-    );
-
-    return allRecurringBillsMap
-        .map((recurringBillMap) => RecurringBill.fromMap(
-              recurringBillMap: recurringBillMap,
-            ))
-        .toList();
-  }
-
-  @override
-  Future<List<RecurringBill>> getTheDaysRecurringBills(
-    int personID,
-    int dueDay,
-  ) async {
-    final db = await _databaseProvider.database;
-    final allRecurringBillsMap = await db.query(
-      recurringBillTable,
-      columns: RecurringBill.allColumns,
-      where:
-          "${RecurringBill.personIDColumn} = ? and ${RecurringBill.dueDayColumn} = ?",
-      whereArgs: [personID, dueDay],
-    );
-
-    return allRecurringBillsMap
-        .map((recurringBillMap) => RecurringBill.fromMap(
-              recurringBillMap: recurringBillMap,
-            ))
-        .toList();
+  Future<void> deleteRecurringBill(int recurringBillID) {
+    return (delete(recurringBillTable)
+          ..where((recurringBill) => recurringBill.id.equals(recurringBillID)))
+        .go();
   }
 
   @override
   Future<RecurringBill?> findPurchaseRecurringBill(
-    int personID,
-    int purchaseID,
-    String billType,
-  ) async {
-    final db = await _databaseProvider.database;
-    final recurringBillMaps = await db.query(
-      recurringBillTable,
-      columns: RecurringBill.allColumns,
-      where:
-          "${RecurringBill.personIDColumn} = ? and ${RecurringBill.purchaseIDColumn} = ? and ${RecurringBill.billTypeColumn} = ?",
-      whereArgs: [
-        personID,
-        purchaseID,
-        billType,
-      ],
-    );
-
-    if (recurringBillMaps.isNotEmpty) {
-      return RecurringBill.fromMap(recurringBillMap: recurringBillMaps.first);
-    } else {
-      return null;
-    }
+      int personID, int purchaseID, String billType) {
+    return (select(recurringBillTable)
+          ..where(
+            (recurringBill) =>
+                recurringBill.personId.equals(personID) &
+                recurringBill.purchaseId.equals(purchaseID) &
+                recurringBill.billType.equals(billType),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
   Future<List<RecurringBill>> findRecurringBillsWithType(
-    int personID,
-    String billType,
-  ) async {
-    final db = await _databaseProvider.database;
-    final allRecurringBillsMap = await db.query(
-      recurringBillTable,
-      columns: RecurringBill.allColumns,
-      where:
-          "${RecurringBill.personIDColumn} = ? and ${RecurringBill.billTypeColumn} = ?",
-      whereArgs: [personID, billType],
-    );
+      int personID, String billType) {
+    return (select(recurringBillTable)
+          ..where(
+            (recurringBill) =>
+                recurringBill.personId.equals(personID) &
+                recurringBill.billType.equals(billType),
+          ))
+        .get();
+  }
 
-    return allRecurringBillsMap
-        .map((recurringBillMap) => RecurringBill.fromMap(
-              recurringBillMap: recurringBillMap,
-            ))
-        .toList();
+  @override
+  Future<List<RecurringBill>> getAllRecurringBill(int personID) {
+    return (select(recurringBillTable)
+          ..where(
+            (recurringBill) => recurringBill.personId.equals(personID),
+          ))
+        .get();
+  }
+
+  @override
+  Future<RecurringBill?> getRecurringBill(int recurringBillID) {
+    return (select(recurringBillTable)
+          ..where((recurringBill) => recurringBill.id.equals(recurringBillID))
+          ..limit(1))
+        .getSingleOrNull();
+  }
+
+  @override
+  Future<List<RecurringBill>> getTheDaysRecurringBills(
+      int personID, int dueDay) {
+    return (select(recurringBillTable)
+          ..where(
+            (recurringBill) =>
+                recurringBill.personId.equals(personID) &
+                recurringBill.dueDay.equals(dueDay),
+          ))
+        .get();
+  }
+
+  @override
+  Future<void> updateRecurringBill(RecurringBill recurringBill) {
+    return update(recurringBillTable).replace(recurringBill);
+  }
+
+  @override
+  Stream<List<RecurringBill>> watchAllRecurringBill(int personID) {
+    return (select(recurringBillTable)
+          ..where(
+            (recurringBill) => recurringBill.personId.equals(personID),
+          ))
+        .watch();
   }
 }

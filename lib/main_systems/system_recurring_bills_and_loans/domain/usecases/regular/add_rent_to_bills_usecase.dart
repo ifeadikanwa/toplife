@@ -1,9 +1,9 @@
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/day_of_week/day_of_week.dart';
 import 'package:toplife/core/utils/day_of_week/get_day_of_the_week.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/bill_type.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/repository/recurring_bill_repository.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/utils/get_address_description.dart';
 
@@ -30,13 +30,14 @@ class AddRentToBillsUsecase {
 
       //create recurring bills object
       final RecurringBill rent = RecurringBill(
-        personID: personID,
+        id: DatabaseConstants.dummyId,
+        personId: personID,
         billType: BillType.rent.name,
         billDescription: getAddressDescription(address),
         billAmount: billAmount,
         paymentsLeft: 0,
         dueDay: dueDayOfWeek.index,
-        purchaseID: houseID,
+        purchaseId: houseID,
         missedPayments: 0,
         isUrgent: false,
       );

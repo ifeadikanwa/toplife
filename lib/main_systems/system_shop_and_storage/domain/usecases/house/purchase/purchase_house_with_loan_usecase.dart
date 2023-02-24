@@ -7,7 +7,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/sign_mortgage_loan_contract.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
@@ -100,7 +100,7 @@ class PurchaseHouseWithLoanUsecase {
         //if yes: check if they have expected reserve in the bank, in addition to the down payment
         else {
           final int baseExpectedReserveAmount =
-              ((RecurringBill.multipleLoansExpectedBankReservePercentage /
+              ((RecurringBillConstants.multipleLoansExpectedBankReservePercentage /
                           100) *
                       house.basePrice)
                   .ceil();
