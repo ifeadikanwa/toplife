@@ -1,12 +1,11 @@
 import 'dart:math';
 
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/constants/grade.dart';
 import 'package:toplife/main_systems/system_school/constants/school_info.dart';
 import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/model/info_models/school_application_response.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_highest_grade_for_any_completed_school_in_a_discipline_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_or_create_degree_usecase.dart';
 
@@ -47,11 +46,11 @@ class ApplyToNursingSchoolUsecase {
 
     List<School> completedNursingSchool = await _schoolRepositories
         .schoolRepositoryImpl
-        .getAllCompletedSchoolForADegree(mainPersonID, degreeRecord.id!);
+        .getAllCompletedSchoolForADegree(mainPersonID, degreeRecord.id);
 
     if (completedNursingSchool.isNotEmpty) {
       return SchoolApplicationResponse(
-        degreeID: degreeRecord.id!,
+        degreeID: degreeRecord.id,
         accepted: false,
         reason: "You have already earned this degree",
       );
@@ -65,7 +64,7 @@ class ApplyToNursingSchoolUsecase {
 
     if (grade < Grade.b.lowerBound) {
       return SchoolApplicationResponse(
-        degreeID: degreeRecord.id!,
+        degreeID: degreeRecord.id,
         accepted: false,
         reason: "Your application was rejected. You need to have at least a B in any natural science degree.",
       );
@@ -79,7 +78,7 @@ class ApplyToNursingSchoolUsecase {
       }
 
       return SchoolApplicationResponse(
-        degreeID: degreeRecord.id!,
+        degreeID: degreeRecord.id,
         accepted: true,
         //amount = base cost * game economy + (1-5% of base cost for variability)
         schoolFeesPerSemesterAmount:

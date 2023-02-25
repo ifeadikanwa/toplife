@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_job/domain/model/job_pay.dart';
+import 'package:toplife/main_systems/system_job/domain/model/info_models/job_pay.dart';
 
 class GameJobPay {
   //pay structure:

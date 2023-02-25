@@ -6,7 +6,6 @@ import 'package:toplife/main_systems/system_job/data/repository/job_repositories
 import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/school_usecases.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
@@ -160,7 +159,7 @@ class CheckIfQualifiedForFullTimeJobUsecase {
           //check the degree level so you can give them an appropriate position
           final DegreeLevel? degreeLevel = await _schoolUsecases
               .getHighestAttainedDegreeLevelForACompletedDegree
-              .execute(personID, degree.id!);
+              .execute(personID, degree.id);
 
           //use the degree level to determine the job level
           late final int jobLevel;

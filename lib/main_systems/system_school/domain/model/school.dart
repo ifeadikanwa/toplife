@@ -1,265 +1,35 @@
-import 'package:equatable/equatable.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 
-class School extends Equatable {
-  final int? id;
-  final int mainPersonID;
-  final String name;
-  final int grades;
-  final int attendance;
-  final int project;
-  final int exam;
-  final int classStartTime;
-  final int classEndTime;
-  final int totalSemesterNumber;
-  final int currentSemesterNumber;
-  final String schoolType;
-  final int semesterStartDay;
-  final int currentDayInSemester;
-  final int degreeID;
-  final String degreeLevel;
-  final int schoolFeesPerSemester;
-  final int scholarshipPercentage;
-  final int totalLoanAmount;
-  final bool loanProcessed;
-  final bool
-      hasTakenLeave; // sets next semester start date to apprpriate date after 4 days.
-  final bool isActive;
-  final bool isCompleted;
-  final bool wasExpelled;
-
-  const School({
-    this.id,
-    required this.mainPersonID,
-    required this.name,
-    required this.grades,
-    required this.attendance,
-    required this.project,
-    required this.exam,
-    required this.classStartTime,
-    required this.classEndTime,
-    required this.totalSemesterNumber,
-    required this.currentSemesterNumber,
-    required this.schoolType,
-    required this.currentDayInSemester,
-    required this.semesterStartDay,
-    required this.degreeID,
-    required this.degreeLevel,
-    required this.schoolFeesPerSemester,
-    required this.scholarshipPercentage,
-    this.totalLoanAmount = 0,
-    this.loanProcessed = false,
-    required this.hasTakenLeave,
-    required this.isActive,
-    required this.isCompleted,
-    required this.wasExpelled,
-  });
-
+@DataClassName("School")
+class SchoolTable extends Table {
   @override
-  List<Object?> get props => [
-        id,
-        mainPersonID,
-        name,
-        grades,
-        attendance,
-        project,
-        exam,
-        classStartTime,
-        classEndTime,
-        totalSemesterNumber,
-        currentSemesterNumber,
-        schoolType,
-        currentDayInSemester,
-        semesterStartDay,
-        degreeID,
-        degreeLevel,
-        schoolFeesPerSemester,
-        scholarshipPercentage,
-        totalLoanAmount,
-        loanProcessed,
-        hasTakenLeave,
-        isActive,
-        isCompleted,
-        wasExpelled,
-      ];
+  String? get tableName => "school";
 
-  @override
-  bool? get stringify => true;
-
-  //Helper constants
-  static const university = "University";
-  static const medicalSchool = "Medical School";
-  static const lawSchool = "Law School";
-  static const nursingSchool = "Nursing School";
-  static const pharmacySchool = "Pharmacy School";
-  static const teachersAcademy = "Teachers Academy";
-
-  static const idColumn = "_id";
-  static const mainPersonIDColumn = "mainPersonID";
-  static const nameColumn = "name";
-  static const gradesColumn = "grades";
-  static const attendanceColumn = "attendance";
-  static const projectColumn = "project";
-  static const examColumn = "exam";
-  static const classStartTimeColumn = "classStartTime";
-  static const classEndTimeColumn = "classEndTime";
-  static const totalSemesterNumberColumn = "totalSemesterNumber";
-  static const currentSemesterNumberColumn = "currentSemesterNumber";
-  static const schoolTypeColumn = "schoolType";
-  static const currentDayInSemesterColumn = "currentDayInSemester";
-  static const semesterStartDayColumn = "semesterStartDay";
-  static const degreeIDColumn = "degreeID";
-  static const degreeLevelColumn = "degreeLevel";
-  static const schoolFeesPerSemesterColumn = "schoolFeesPerSemester";
-  static const scholarshipPercentageColumn = "scholarshipPercentage";
-  static const totalLoanAmountColumn = "totalLoanAmount";
-  static const loanProcessedColumn = "loanProcessed";
-  static const hasTakenLeaveColumn = "hasTakenLeave";
-  static const isActiveColumn = "isActive";
-  static const isCompletedColumn = "isCompleted";
-  static const wasExpelledColumn = "wasExpelled";
-
-  static const allColumns = [
-    idColumn,
-    mainPersonIDColumn,
-    nameColumn,
-    gradesColumn,
-    attendanceColumn,
-    projectColumn,
-    examColumn,
-    classStartTimeColumn,
-    classEndTimeColumn,
-    totalSemesterNumberColumn,
-    currentSemesterNumberColumn,
-    schoolTypeColumn,
-    currentDayInSemesterColumn,
-    semesterStartDayColumn,
-    degreeIDColumn,
-    degreeLevelColumn,
-    schoolFeesPerSemesterColumn,
-    scholarshipPercentageColumn,
-    totalLoanAmountColumn,
-    loanProcessedColumn,
-    hasTakenLeaveColumn,
-    isActiveColumn,
-    isCompletedColumn,
-    wasExpelledColumn,
-  ];
-
-  static School fromMap({required Map<String, Object?> schoolMap}) {
-    return School(
-      id: schoolMap[idColumn] as int?,
-      mainPersonID: schoolMap[mainPersonIDColumn] as int,
-      name: schoolMap[nameColumn] as String,
-      grades: schoolMap[gradesColumn] as int,
-      attendance: schoolMap[attendanceColumn] as int,
-      project: schoolMap[projectColumn] as int,
-      exam: schoolMap[examColumn] as int,
-      classStartTime: schoolMap[classStartTimeColumn] as int,
-      classEndTime: schoolMap[classEndTimeColumn] as int,
-      totalSemesterNumber: schoolMap[totalSemesterNumberColumn] as int,
-      currentSemesterNumber: schoolMap[currentSemesterNumberColumn] as int,
-      schoolType: schoolMap[schoolTypeColumn] as String,
-      currentDayInSemester: schoolMap[currentDayInSemesterColumn] as int,
-      semesterStartDay: schoolMap[semesterStartDayColumn] as int,
-      degreeID: schoolMap[degreeIDColumn] as int,
-      degreeLevel: schoolMap[degreeLevelColumn] as String,
-      schoolFeesPerSemester: schoolMap[schoolFeesPerSemesterColumn] as int,
-      scholarshipPercentage: schoolMap[scholarshipPercentageColumn] as int,
-      totalLoanAmount: schoolMap[totalLoanAmountColumn] as int,
-      loanProcessed: schoolMap[loanProcessedColumn] == databaseTrueValue,
-      hasTakenLeave: schoolMap[hasTakenLeaveColumn] == databaseTrueValue,
-      isActive: schoolMap[isActiveColumn] == databaseTrueValue,
-      isCompleted: schoolMap[isCompletedColumn] == databaseTrueValue,
-      wasExpelled: schoolMap[wasExpelledColumn] == databaseTrueValue,
-    );
-  }
-
-  Map<String, Object?> toMap() {
-    return {
-      idColumn: id,
-      mainPersonIDColumn: mainPersonID,
-      nameColumn: name,
-      gradesColumn: grades,
-      attendanceColumn: attendance,
-      projectColumn: project,
-      examColumn: exam,
-      classStartTimeColumn: classStartTime,
-      classEndTimeColumn: classEndTime,
-      totalSemesterNumberColumn: totalSemesterNumber,
-      currentSemesterNumberColumn: currentSemesterNumber,
-      schoolTypeColumn: schoolType,
-      currentDayInSemesterColumn: currentDayInSemester,
-      semesterStartDayColumn: semesterStartDay,
-      degreeIDColumn: degreeID,
-      degreeLevelColumn: degreeLevel,
-      schoolFeesPerSemesterColumn: schoolFeesPerSemester,
-      scholarshipPercentageColumn: scholarshipPercentage,
-      totalLoanAmountColumn: totalLoanAmount,
-      loanProcessedColumn:
-          loanProcessed ? databaseTrueValue : databaseFalseValue,
-      hasTakenLeaveColumn:
-          hasTakenLeave ? databaseTrueValue : databaseFalseValue,
-      isActiveColumn: isActive ? databaseTrueValue : databaseFalseValue,
-      isCompletedColumn: isCompleted ? databaseTrueValue : databaseFalseValue,
-      wasExpelledColumn: wasExpelled ? databaseTrueValue : databaseFalseValue,
-    };
-  }
-
-  School copyWith({
-    int? id,
-    int? mainPersonID,
-    String? name,
-    int? grades,
-    int? attendance,
-    int? project,
-    int? exam,
-    int? classStartTime,
-    int? classEndTime,
-    int? totalSemesterNumber,
-    int? currentSemesterNumber,
-    String? schoolType,
-    int? currentDayInSemester,
-    int? semesterStartDay,
-    int? degreeID,
-    String? degreeLevel,
-    int? schoolFeesPerSemester,
-    int? scholarshipPercentage,
-    int? totalLoanAmount,
-    bool? loanProcessed,
-    bool? hasTakenLeave,
-    bool? isActive,
-    bool? isCompleted,
-    bool? wasExpelled,
-  }) {
-    return School(
-      id: id ?? this.id,
-      mainPersonID: mainPersonID ?? this.mainPersonID,
-      name: name ?? this.name,
-      grades: grades ?? this.grades,
-      attendance: attendance ?? this.attendance,
-      project: project ?? this.project,
-      exam: exam ?? this.exam,
-      classStartTime: classStartTime ?? this.classStartTime,
-      classEndTime: classEndTime ?? this.classEndTime,
-      totalSemesterNumber: totalSemesterNumber ?? this.totalSemesterNumber,
-      currentSemesterNumber:
-          currentSemesterNumber ?? this.currentSemesterNumber,
-      schoolType: schoolType ?? this.schoolType,
-      currentDayInSemester: currentDayInSemester ?? this.currentDayInSemester,
-      semesterStartDay: semesterStartDay ?? this.semesterStartDay,
-      degreeID: degreeID ?? this.degreeID,
-      degreeLevel: degreeLevel ?? this.degreeLevel,
-      schoolFeesPerSemester:
-          schoolFeesPerSemester ?? this.schoolFeesPerSemester,
-      scholarshipPercentage:
-          scholarshipPercentage ?? this.scholarshipPercentage,
-      totalLoanAmount: totalLoanAmount ?? this.totalLoanAmount,
-      loanProcessed: loanProcessed ?? this.loanProcessed,
-      hasTakenLeave: hasTakenLeave ?? this.hasTakenLeave,
-      isActive: isActive ?? this.isActive,
-      isCompleted: isCompleted ?? this.isCompleted,
-      wasExpelled: wasExpelled ?? this.wasExpelled,
-    );
-  }
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get mainPersonId => integer().references(PersonTable, #id)();
+  IntColumn get degreeId => integer().references(DegreeTable, #id)();
+  TextColumn get name => text()();
+  IntColumn get grades => integer()();
+  IntColumn get attendance => integer()();
+  IntColumn get project => integer()();
+  IntColumn get exam => integer()();
+  IntColumn get classStartTime => integer()();
+  IntColumn get classEndTime => integer()();
+  IntColumn get totalSemesterNumber => integer()();
+  IntColumn get currentSemesterNumber => integer()();
+  TextColumn get schoolType => text()();
+  IntColumn get semesterStartDay => integer()();
+  IntColumn get currentDayInSemester => integer()();
+  TextColumn get degreeLevel => text()();
+  IntColumn get schoolFeesPerSemester => integer()();
+  IntColumn get scholarshipPercentage => integer()();
+  IntColumn get totalLoanAmount => integer()();
+  BoolColumn get loanProcessed => boolean()();
+  // sets next semester start date to apprpriate date after 4 days.
+  BoolColumn get hasTakenLeave => boolean()();
+  BoolColumn get isActive => boolean()();
+  BoolColumn get isCompleted => boolean()();
+  BoolColumn get wasExpelled => boolean()();
 }

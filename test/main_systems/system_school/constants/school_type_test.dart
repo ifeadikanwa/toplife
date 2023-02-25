@@ -5,36 +5,37 @@ import 'package:toplife/main_systems/system_school/constants/school_type.dart';
 
 void main() {
   group("SchoolType:", () {
-    test("undergraduateSchool is a school type", () {
-      assert(SchoolType.undergraduateSchool is SchoolType);
+    test("undergraduateSchool school name suffix is University", () {
+      expect(SchoolType.undergraduateSchool.schoolNameSuffix, "University");
     });
 
-    test("graduateSchool is a school type", () {
-      assert(SchoolType.graduateSchool is SchoolType);
+    test("graduateSchool school name suffix is University", () {
+      expect(SchoolType.graduateSchool.schoolNameSuffix, "University");
     });
 
-    test("doctorateSchool is a school type", () {
-      assert(SchoolType.doctorateSchool is SchoolType);
+    test("doctorateSchool school name suffix is University", () {
+      expect(SchoolType.doctorateSchool.schoolNameSuffix, "University");
     });
 
-    test("medicalSchool is a school type", () {
-      assert(SchoolType.medicalSchool is SchoolType);
+    test("medicalSchool school name suffix is Medical School", () {
+      expect(SchoolType.medicalSchool.schoolNameSuffix, "Medical School");
     });
 
-    test("lawSchool is a school type", () {
-      assert(SchoolType.lawSchool is SchoolType);
+    test("lawSchool school name suffix is Law School", () {
+      expect(SchoolType.lawSchool.schoolNameSuffix, "Law School");
     });
 
-    test("pharmacySchool is a school type", () {
-      assert(SchoolType.pharmacySchool is SchoolType);
+    test("nursingSchool school name suffix is Nursing School", () {
+      expect(SchoolType.nursingSchool.schoolNameSuffix, "Nursing School");
     });
 
-    test("nursingSchool is a school type", () {
-      assert(SchoolType.nursingSchool is SchoolType);
+    test("pharmacySchool school name suffix is Pharmacy School", () {
+      expect(SchoolType.pharmacySchool.schoolNameSuffix, "Pharmacy School");
     });
 
-    test("teacherEducationProgram is a school type", () {
-      assert(SchoolType.teacherEducationProgram is SchoolType);
+    test("teacherEducationProgram school name suffix is Teachers Academy", () {
+      expect(SchoolType.teacherEducationProgram.schoolNameSuffix,
+          "Teachers Academy");
     });
   });
 }

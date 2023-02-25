@@ -1,8 +1,7 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/constants/grade.dart';
 import 'package:toplife/main_systems/system_school/constants/school_type.dart';
 import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 class GraduateUsecase {
   final SchoolRepositories _schoolRepositories;
@@ -16,7 +15,7 @@ class GraduateUsecase {
     //If the grade is less than C, They are not awarded a degree.
 
     final Degree? degree = await _schoolRepositories.degreeRepositoryImpl
-        .getDegree(school.degreeID);
+        .getDegree(school.degreeId);
 
     if (degree != null) {
       late final String degreeType;

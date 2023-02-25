@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
 import 'package:toplife/main_systems/system_school/constants/grade.dart';
 import 'package:toplife/main_systems/system_school/constants/school_info.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/model/info_models/school_application_response.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_completed_degrees_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_grade_for_completed_school_usecase.dart';
@@ -57,7 +57,7 @@ class ApplyToTeacherEducationProgramUsecase {
             completedDegree.branch == degree.branch)
         .isNotEmpty) {
       return SchoolApplicationResponse(
-        degreeID: degreeRecord.id!,
+        degreeID: degreeRecord.id,
         accepted: false,
         reason: "You have already earned this degree",
       );
@@ -72,7 +72,7 @@ class ApplyToTeacherEducationProgramUsecase {
 
     if (bachelorEquivalentForEducationDegreeList.isEmpty) {
       return SchoolApplicationResponse(
-        degreeID: degreeRecord.id!,
+        degreeID: degreeRecord.id,
         accepted: false,
         reason:
             "You need to have at least a bachelor's degree in ${degree.branch} to enroll in this program",
@@ -83,13 +83,13 @@ class ApplyToTeacherEducationProgramUsecase {
 
     final int grade = await _getGradeForCompletedSchoolUsecase.execute(
       mainPersonID,
-      bachelorsDegree.id!,
+      bachelorsDegree.id,
       DegreeLevel.bachelor,
     );
 
     if (grade < Grade.b.lowerBound) {
       return SchoolApplicationResponse(
-        degreeID: degreeRecord.id!,
+        degreeID: degreeRecord.id,
         accepted: false,
       );
     } else {
@@ -102,7 +102,7 @@ class ApplyToTeacherEducationProgramUsecase {
       }
 
       return SchoolApplicationResponse(
-        degreeID: degreeRecord.id!,
+        degreeID: degreeRecord.id,
         accepted: true,
         //amount = base cost * game economy + (1-5% of base cost for variability)
         schoolFeesPerSemesterAmount:

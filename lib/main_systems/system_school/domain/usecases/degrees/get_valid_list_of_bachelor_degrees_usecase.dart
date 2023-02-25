@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/degree_info/game_degrees.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_completed_degrees_usecase.dart';
 
 class GetValidListOfBachelorDegreesUsecase {

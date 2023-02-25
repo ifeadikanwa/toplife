@@ -1,7 +1,6 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
 import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 class GetHighestAttainedDegreeLevelForACompletedDegreeUsecase {
   final SchoolRepositories _schoolRepositories;

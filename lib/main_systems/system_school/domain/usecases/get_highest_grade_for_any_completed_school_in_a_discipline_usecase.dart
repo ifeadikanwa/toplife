@@ -1,6 +1,6 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
 import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 class GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase {
   final SchoolRepositories _schoolRepositories;
@@ -30,7 +30,7 @@ class GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase {
 
     for (var completedSchool in completedSchools) {
       final degreeRecord = await _schoolRepositories.degreeRepositoryImpl
-          .getDegree(completedSchool.degreeID);
+          .getDegree(completedSchool.degreeId);
       if (degreeRecord != null) {
         if (degreeRecord.discipline == degreeDiscipline.name &&
             completedSchool.grades > grade) {

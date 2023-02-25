@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class DegreeRepository {
   Future<Degree> createDegree(Degree degree);

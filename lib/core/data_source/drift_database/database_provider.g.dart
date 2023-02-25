@@ -11755,6 +11755,2396 @@ class RecurringBillTableCompanion extends UpdateCompanion<RecurringBill> {
   }
 }
 
+class $DegreeTableTable extends DegreeTable
+    with TableInfo<$DegreeTableTable, Degree> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DegreeTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _disciplineMeta =
+      const VerificationMeta('discipline');
+  @override
+  late final GeneratedColumn<String> discipline = GeneratedColumn<String>(
+      'discipline', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _branchMeta = const VerificationMeta('branch');
+  @override
+  late final GeneratedColumn<String> branch = GeneratedColumn<String>(
+      'branch', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _isSpecialDegreeMeta =
+      const VerificationMeta('isSpecialDegree');
+  @override
+  late final GeneratedColumn<bool> isSpecialDegree =
+      GeneratedColumn<bool>('is_special_degree', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_special_degree" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, discipline, branch, isSpecialDegree];
+  @override
+  String get aliasedName => _alias ?? 'degree';
+  @override
+  String get actualTableName => 'degree';
+  @override
+  VerificationContext validateIntegrity(Insertable<Degree> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('discipline')) {
+      context.handle(
+          _disciplineMeta,
+          discipline.isAcceptableOrUnknown(
+              data['discipline']!, _disciplineMeta));
+    } else if (isInserting) {
+      context.missing(_disciplineMeta);
+    }
+    if (data.containsKey('branch')) {
+      context.handle(_branchMeta,
+          branch.isAcceptableOrUnknown(data['branch']!, _branchMeta));
+    } else if (isInserting) {
+      context.missing(_branchMeta);
+    }
+    if (data.containsKey('is_special_degree')) {
+      context.handle(
+          _isSpecialDegreeMeta,
+          isSpecialDegree.isAcceptableOrUnknown(
+              data['is_special_degree']!, _isSpecialDegreeMeta));
+    } else if (isInserting) {
+      context.missing(_isSpecialDegreeMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Degree map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Degree(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      discipline: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}discipline'])!,
+      branch: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}branch'])!,
+      isSpecialDegree: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}is_special_degree'])!,
+    );
+  }
+
+  @override
+  $DegreeTableTable createAlias(String alias) {
+    return $DegreeTableTable(attachedDatabase, alias);
+  }
+}
+
+class Degree extends DataClass implements Insertable<Degree> {
+  final int id;
+  final String discipline;
+  final String branch;
+  final bool isSpecialDegree;
+  const Degree(
+      {required this.id,
+      required this.discipline,
+      required this.branch,
+      required this.isSpecialDegree});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['discipline'] = Variable<String>(discipline);
+    map['branch'] = Variable<String>(branch);
+    map['is_special_degree'] = Variable<bool>(isSpecialDegree);
+    return map;
+  }
+
+  DegreeTableCompanion toCompanion(bool nullToAbsent) {
+    return DegreeTableCompanion(
+      id: Value(id),
+      discipline: Value(discipline),
+      branch: Value(branch),
+      isSpecialDegree: Value(isSpecialDegree),
+    );
+  }
+
+  factory Degree.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Degree(
+      id: serializer.fromJson<int>(json['id']),
+      discipline: serializer.fromJson<String>(json['discipline']),
+      branch: serializer.fromJson<String>(json['branch']),
+      isSpecialDegree: serializer.fromJson<bool>(json['isSpecialDegree']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'discipline': serializer.toJson<String>(discipline),
+      'branch': serializer.toJson<String>(branch),
+      'isSpecialDegree': serializer.toJson<bool>(isSpecialDegree),
+    };
+  }
+
+  Degree copyWith(
+          {int? id,
+          String? discipline,
+          String? branch,
+          bool? isSpecialDegree}) =>
+      Degree(
+        id: id ?? this.id,
+        discipline: discipline ?? this.discipline,
+        branch: branch ?? this.branch,
+        isSpecialDegree: isSpecialDegree ?? this.isSpecialDegree,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Degree(')
+          ..write('id: $id, ')
+          ..write('discipline: $discipline, ')
+          ..write('branch: $branch, ')
+          ..write('isSpecialDegree: $isSpecialDegree')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, discipline, branch, isSpecialDegree);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Degree &&
+          other.id == this.id &&
+          other.discipline == this.discipline &&
+          other.branch == this.branch &&
+          other.isSpecialDegree == this.isSpecialDegree);
+}
+
+class DegreeTableCompanion extends UpdateCompanion<Degree> {
+  final Value<int> id;
+  final Value<String> discipline;
+  final Value<String> branch;
+  final Value<bool> isSpecialDegree;
+  const DegreeTableCompanion({
+    this.id = const Value.absent(),
+    this.discipline = const Value.absent(),
+    this.branch = const Value.absent(),
+    this.isSpecialDegree = const Value.absent(),
+  });
+  DegreeTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String discipline,
+    required String branch,
+    required bool isSpecialDegree,
+  })  : discipline = Value(discipline),
+        branch = Value(branch),
+        isSpecialDegree = Value(isSpecialDegree);
+  static Insertable<Degree> custom({
+    Expression<int>? id,
+    Expression<String>? discipline,
+    Expression<String>? branch,
+    Expression<bool>? isSpecialDegree,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (discipline != null) 'discipline': discipline,
+      if (branch != null) 'branch': branch,
+      if (isSpecialDegree != null) 'is_special_degree': isSpecialDegree,
+    });
+  }
+
+  DegreeTableCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? discipline,
+      Value<String>? branch,
+      Value<bool>? isSpecialDegree}) {
+    return DegreeTableCompanion(
+      id: id ?? this.id,
+      discipline: discipline ?? this.discipline,
+      branch: branch ?? this.branch,
+      isSpecialDegree: isSpecialDegree ?? this.isSpecialDegree,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (discipline.present) {
+      map['discipline'] = Variable<String>(discipline.value);
+    }
+    if (branch.present) {
+      map['branch'] = Variable<String>(branch.value);
+    }
+    if (isSpecialDegree.present) {
+      map['is_special_degree'] = Variable<bool>(isSpecialDegree.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DegreeTableCompanion(')
+          ..write('id: $id, ')
+          ..write('discipline: $discipline, ')
+          ..write('branch: $branch, ')
+          ..write('isSpecialDegree: $isSpecialDegree')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SchoolTableTable extends SchoolTable
+    with TableInfo<$SchoolTableTable, School> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SchoolTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _mainPersonIdMeta =
+      const VerificationMeta('mainPersonId');
+  @override
+  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
+      'main_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _degreeIdMeta =
+      const VerificationMeta('degreeId');
+  @override
+  late final GeneratedColumn<int> degreeId = GeneratedColumn<int>(
+      'degree_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES degree (id)'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _gradesMeta = const VerificationMeta('grades');
+  @override
+  late final GeneratedColumn<int> grades = GeneratedColumn<int>(
+      'grades', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _attendanceMeta =
+      const VerificationMeta('attendance');
+  @override
+  late final GeneratedColumn<int> attendance = GeneratedColumn<int>(
+      'attendance', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _projectMeta =
+      const VerificationMeta('project');
+  @override
+  late final GeneratedColumn<int> project = GeneratedColumn<int>(
+      'project', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _examMeta = const VerificationMeta('exam');
+  @override
+  late final GeneratedColumn<int> exam = GeneratedColumn<int>(
+      'exam', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _classStartTimeMeta =
+      const VerificationMeta('classStartTime');
+  @override
+  late final GeneratedColumn<int> classStartTime = GeneratedColumn<int>(
+      'class_start_time', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _classEndTimeMeta =
+      const VerificationMeta('classEndTime');
+  @override
+  late final GeneratedColumn<int> classEndTime = GeneratedColumn<int>(
+      'class_end_time', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _totalSemesterNumberMeta =
+      const VerificationMeta('totalSemesterNumber');
+  @override
+  late final GeneratedColumn<int> totalSemesterNumber = GeneratedColumn<int>(
+      'total_semester_number', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _currentSemesterNumberMeta =
+      const VerificationMeta('currentSemesterNumber');
+  @override
+  late final GeneratedColumn<int> currentSemesterNumber = GeneratedColumn<int>(
+      'current_semester_number', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _schoolTypeMeta =
+      const VerificationMeta('schoolType');
+  @override
+  late final GeneratedColumn<String> schoolType = GeneratedColumn<String>(
+      'school_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _semesterStartDayMeta =
+      const VerificationMeta('semesterStartDay');
+  @override
+  late final GeneratedColumn<int> semesterStartDay = GeneratedColumn<int>(
+      'semester_start_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _currentDayInSemesterMeta =
+      const VerificationMeta('currentDayInSemester');
+  @override
+  late final GeneratedColumn<int> currentDayInSemester = GeneratedColumn<int>(
+      'current_day_in_semester', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _degreeLevelMeta =
+      const VerificationMeta('degreeLevel');
+  @override
+  late final GeneratedColumn<String> degreeLevel = GeneratedColumn<String>(
+      'degree_level', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _schoolFeesPerSemesterMeta =
+      const VerificationMeta('schoolFeesPerSemester');
+  @override
+  late final GeneratedColumn<int> schoolFeesPerSemester = GeneratedColumn<int>(
+      'school_fees_per_semester', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _scholarshipPercentageMeta =
+      const VerificationMeta('scholarshipPercentage');
+  @override
+  late final GeneratedColumn<int> scholarshipPercentage = GeneratedColumn<int>(
+      'scholarship_percentage', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _totalLoanAmountMeta =
+      const VerificationMeta('totalLoanAmount');
+  @override
+  late final GeneratedColumn<int> totalLoanAmount = GeneratedColumn<int>(
+      'total_loan_amount', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _loanProcessedMeta =
+      const VerificationMeta('loanProcessed');
+  @override
+  late final GeneratedColumn<bool> loanProcessed =
+      GeneratedColumn<bool>('loan_processed', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("loan_processed" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _hasTakenLeaveMeta =
+      const VerificationMeta('hasTakenLeave');
+  @override
+  late final GeneratedColumn<bool> hasTakenLeave =
+      GeneratedColumn<bool>('has_taken_leave', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("has_taken_leave" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  @override
+  late final GeneratedColumn<bool> isActive =
+      GeneratedColumn<bool>('is_active', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_active" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _isCompletedMeta =
+      const VerificationMeta('isCompleted');
+  @override
+  late final GeneratedColumn<bool> isCompleted =
+      GeneratedColumn<bool>('is_completed', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_completed" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _wasExpelledMeta =
+      const VerificationMeta('wasExpelled');
+  @override
+  late final GeneratedColumn<bool> wasExpelled =
+      GeneratedColumn<bool>('was_expelled', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("was_expelled" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        mainPersonId,
+        degreeId,
+        name,
+        grades,
+        attendance,
+        project,
+        exam,
+        classStartTime,
+        classEndTime,
+        totalSemesterNumber,
+        currentSemesterNumber,
+        schoolType,
+        semesterStartDay,
+        currentDayInSemester,
+        degreeLevel,
+        schoolFeesPerSemester,
+        scholarshipPercentage,
+        totalLoanAmount,
+        loanProcessed,
+        hasTakenLeave,
+        isActive,
+        isCompleted,
+        wasExpelled
+      ];
+  @override
+  String get aliasedName => _alias ?? 'school';
+  @override
+  String get actualTableName => 'school';
+  @override
+  VerificationContext validateIntegrity(Insertable<School> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('main_person_id')) {
+      context.handle(
+          _mainPersonIdMeta,
+          mainPersonId.isAcceptableOrUnknown(
+              data['main_person_id']!, _mainPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_mainPersonIdMeta);
+    }
+    if (data.containsKey('degree_id')) {
+      context.handle(_degreeIdMeta,
+          degreeId.isAcceptableOrUnknown(data['degree_id']!, _degreeIdMeta));
+    } else if (isInserting) {
+      context.missing(_degreeIdMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('grades')) {
+      context.handle(_gradesMeta,
+          grades.isAcceptableOrUnknown(data['grades']!, _gradesMeta));
+    } else if (isInserting) {
+      context.missing(_gradesMeta);
+    }
+    if (data.containsKey('attendance')) {
+      context.handle(
+          _attendanceMeta,
+          attendance.isAcceptableOrUnknown(
+              data['attendance']!, _attendanceMeta));
+    } else if (isInserting) {
+      context.missing(_attendanceMeta);
+    }
+    if (data.containsKey('project')) {
+      context.handle(_projectMeta,
+          project.isAcceptableOrUnknown(data['project']!, _projectMeta));
+    } else if (isInserting) {
+      context.missing(_projectMeta);
+    }
+    if (data.containsKey('exam')) {
+      context.handle(
+          _examMeta, exam.isAcceptableOrUnknown(data['exam']!, _examMeta));
+    } else if (isInserting) {
+      context.missing(_examMeta);
+    }
+    if (data.containsKey('class_start_time')) {
+      context.handle(
+          _classStartTimeMeta,
+          classStartTime.isAcceptableOrUnknown(
+              data['class_start_time']!, _classStartTimeMeta));
+    } else if (isInserting) {
+      context.missing(_classStartTimeMeta);
+    }
+    if (data.containsKey('class_end_time')) {
+      context.handle(
+          _classEndTimeMeta,
+          classEndTime.isAcceptableOrUnknown(
+              data['class_end_time']!, _classEndTimeMeta));
+    } else if (isInserting) {
+      context.missing(_classEndTimeMeta);
+    }
+    if (data.containsKey('total_semester_number')) {
+      context.handle(
+          _totalSemesterNumberMeta,
+          totalSemesterNumber.isAcceptableOrUnknown(
+              data['total_semester_number']!, _totalSemesterNumberMeta));
+    } else if (isInserting) {
+      context.missing(_totalSemesterNumberMeta);
+    }
+    if (data.containsKey('current_semester_number')) {
+      context.handle(
+          _currentSemesterNumberMeta,
+          currentSemesterNumber.isAcceptableOrUnknown(
+              data['current_semester_number']!, _currentSemesterNumberMeta));
+    } else if (isInserting) {
+      context.missing(_currentSemesterNumberMeta);
+    }
+    if (data.containsKey('school_type')) {
+      context.handle(
+          _schoolTypeMeta,
+          schoolType.isAcceptableOrUnknown(
+              data['school_type']!, _schoolTypeMeta));
+    } else if (isInserting) {
+      context.missing(_schoolTypeMeta);
+    }
+    if (data.containsKey('semester_start_day')) {
+      context.handle(
+          _semesterStartDayMeta,
+          semesterStartDay.isAcceptableOrUnknown(
+              data['semester_start_day']!, _semesterStartDayMeta));
+    } else if (isInserting) {
+      context.missing(_semesterStartDayMeta);
+    }
+    if (data.containsKey('current_day_in_semester')) {
+      context.handle(
+          _currentDayInSemesterMeta,
+          currentDayInSemester.isAcceptableOrUnknown(
+              data['current_day_in_semester']!, _currentDayInSemesterMeta));
+    } else if (isInserting) {
+      context.missing(_currentDayInSemesterMeta);
+    }
+    if (data.containsKey('degree_level')) {
+      context.handle(
+          _degreeLevelMeta,
+          degreeLevel.isAcceptableOrUnknown(
+              data['degree_level']!, _degreeLevelMeta));
+    } else if (isInserting) {
+      context.missing(_degreeLevelMeta);
+    }
+    if (data.containsKey('school_fees_per_semester')) {
+      context.handle(
+          _schoolFeesPerSemesterMeta,
+          schoolFeesPerSemester.isAcceptableOrUnknown(
+              data['school_fees_per_semester']!, _schoolFeesPerSemesterMeta));
+    } else if (isInserting) {
+      context.missing(_schoolFeesPerSemesterMeta);
+    }
+    if (data.containsKey('scholarship_percentage')) {
+      context.handle(
+          _scholarshipPercentageMeta,
+          scholarshipPercentage.isAcceptableOrUnknown(
+              data['scholarship_percentage']!, _scholarshipPercentageMeta));
+    } else if (isInserting) {
+      context.missing(_scholarshipPercentageMeta);
+    }
+    if (data.containsKey('total_loan_amount')) {
+      context.handle(
+          _totalLoanAmountMeta,
+          totalLoanAmount.isAcceptableOrUnknown(
+              data['total_loan_amount']!, _totalLoanAmountMeta));
+    } else if (isInserting) {
+      context.missing(_totalLoanAmountMeta);
+    }
+    if (data.containsKey('loan_processed')) {
+      context.handle(
+          _loanProcessedMeta,
+          loanProcessed.isAcceptableOrUnknown(
+              data['loan_processed']!, _loanProcessedMeta));
+    } else if (isInserting) {
+      context.missing(_loanProcessedMeta);
+    }
+    if (data.containsKey('has_taken_leave')) {
+      context.handle(
+          _hasTakenLeaveMeta,
+          hasTakenLeave.isAcceptableOrUnknown(
+              data['has_taken_leave']!, _hasTakenLeaveMeta));
+    } else if (isInserting) {
+      context.missing(_hasTakenLeaveMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    } else if (isInserting) {
+      context.missing(_isActiveMeta);
+    }
+    if (data.containsKey('is_completed')) {
+      context.handle(
+          _isCompletedMeta,
+          isCompleted.isAcceptableOrUnknown(
+              data['is_completed']!, _isCompletedMeta));
+    } else if (isInserting) {
+      context.missing(_isCompletedMeta);
+    }
+    if (data.containsKey('was_expelled')) {
+      context.handle(
+          _wasExpelledMeta,
+          wasExpelled.isAcceptableOrUnknown(
+              data['was_expelled']!, _wasExpelledMeta));
+    } else if (isInserting) {
+      context.missing(_wasExpelledMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  School map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return School(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      mainPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
+      degreeId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}degree_id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      grades: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}grades'])!,
+      attendance: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}attendance'])!,
+      project: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}project'])!,
+      exam: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}exam'])!,
+      classStartTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}class_start_time'])!,
+      classEndTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}class_end_time'])!,
+      totalSemesterNumber: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}total_semester_number'])!,
+      currentSemesterNumber: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}current_semester_number'])!,
+      schoolType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}school_type'])!,
+      semesterStartDay: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}semester_start_day'])!,
+      currentDayInSemester: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}current_day_in_semester'])!,
+      degreeLevel: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}degree_level'])!,
+      schoolFeesPerSemester: attachedDatabase.typeMapping.read(DriftSqlType.int,
+          data['${effectivePrefix}school_fees_per_semester'])!,
+      scholarshipPercentage: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}scholarship_percentage'])!,
+      totalLoanAmount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}total_loan_amount'])!,
+      loanProcessed: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}loan_processed'])!,
+      hasTakenLeave: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}has_taken_leave'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+      isCompleted: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_completed'])!,
+      wasExpelled: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}was_expelled'])!,
+    );
+  }
+
+  @override
+  $SchoolTableTable createAlias(String alias) {
+    return $SchoolTableTable(attachedDatabase, alias);
+  }
+}
+
+class School extends DataClass implements Insertable<School> {
+  final int id;
+  final int mainPersonId;
+  final int degreeId;
+  final String name;
+  final int grades;
+  final int attendance;
+  final int project;
+  final int exam;
+  final int classStartTime;
+  final int classEndTime;
+  final int totalSemesterNumber;
+  final int currentSemesterNumber;
+  final String schoolType;
+  final int semesterStartDay;
+  final int currentDayInSemester;
+  final String degreeLevel;
+  final int schoolFeesPerSemester;
+  final int scholarshipPercentage;
+  final int totalLoanAmount;
+  final bool loanProcessed;
+  final bool hasTakenLeave;
+  final bool isActive;
+  final bool isCompleted;
+  final bool wasExpelled;
+  const School(
+      {required this.id,
+      required this.mainPersonId,
+      required this.degreeId,
+      required this.name,
+      required this.grades,
+      required this.attendance,
+      required this.project,
+      required this.exam,
+      required this.classStartTime,
+      required this.classEndTime,
+      required this.totalSemesterNumber,
+      required this.currentSemesterNumber,
+      required this.schoolType,
+      required this.semesterStartDay,
+      required this.currentDayInSemester,
+      required this.degreeLevel,
+      required this.schoolFeesPerSemester,
+      required this.scholarshipPercentage,
+      required this.totalLoanAmount,
+      required this.loanProcessed,
+      required this.hasTakenLeave,
+      required this.isActive,
+      required this.isCompleted,
+      required this.wasExpelled});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['main_person_id'] = Variable<int>(mainPersonId);
+    map['degree_id'] = Variable<int>(degreeId);
+    map['name'] = Variable<String>(name);
+    map['grades'] = Variable<int>(grades);
+    map['attendance'] = Variable<int>(attendance);
+    map['project'] = Variable<int>(project);
+    map['exam'] = Variable<int>(exam);
+    map['class_start_time'] = Variable<int>(classStartTime);
+    map['class_end_time'] = Variable<int>(classEndTime);
+    map['total_semester_number'] = Variable<int>(totalSemesterNumber);
+    map['current_semester_number'] = Variable<int>(currentSemesterNumber);
+    map['school_type'] = Variable<String>(schoolType);
+    map['semester_start_day'] = Variable<int>(semesterStartDay);
+    map['current_day_in_semester'] = Variable<int>(currentDayInSemester);
+    map['degree_level'] = Variable<String>(degreeLevel);
+    map['school_fees_per_semester'] = Variable<int>(schoolFeesPerSemester);
+    map['scholarship_percentage'] = Variable<int>(scholarshipPercentage);
+    map['total_loan_amount'] = Variable<int>(totalLoanAmount);
+    map['loan_processed'] = Variable<bool>(loanProcessed);
+    map['has_taken_leave'] = Variable<bool>(hasTakenLeave);
+    map['is_active'] = Variable<bool>(isActive);
+    map['is_completed'] = Variable<bool>(isCompleted);
+    map['was_expelled'] = Variable<bool>(wasExpelled);
+    return map;
+  }
+
+  SchoolTableCompanion toCompanion(bool nullToAbsent) {
+    return SchoolTableCompanion(
+      id: Value(id),
+      mainPersonId: Value(mainPersonId),
+      degreeId: Value(degreeId),
+      name: Value(name),
+      grades: Value(grades),
+      attendance: Value(attendance),
+      project: Value(project),
+      exam: Value(exam),
+      classStartTime: Value(classStartTime),
+      classEndTime: Value(classEndTime),
+      totalSemesterNumber: Value(totalSemesterNumber),
+      currentSemesterNumber: Value(currentSemesterNumber),
+      schoolType: Value(schoolType),
+      semesterStartDay: Value(semesterStartDay),
+      currentDayInSemester: Value(currentDayInSemester),
+      degreeLevel: Value(degreeLevel),
+      schoolFeesPerSemester: Value(schoolFeesPerSemester),
+      scholarshipPercentage: Value(scholarshipPercentage),
+      totalLoanAmount: Value(totalLoanAmount),
+      loanProcessed: Value(loanProcessed),
+      hasTakenLeave: Value(hasTakenLeave),
+      isActive: Value(isActive),
+      isCompleted: Value(isCompleted),
+      wasExpelled: Value(wasExpelled),
+    );
+  }
+
+  factory School.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return School(
+      id: serializer.fromJson<int>(json['id']),
+      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
+      degreeId: serializer.fromJson<int>(json['degreeId']),
+      name: serializer.fromJson<String>(json['name']),
+      grades: serializer.fromJson<int>(json['grades']),
+      attendance: serializer.fromJson<int>(json['attendance']),
+      project: serializer.fromJson<int>(json['project']),
+      exam: serializer.fromJson<int>(json['exam']),
+      classStartTime: serializer.fromJson<int>(json['classStartTime']),
+      classEndTime: serializer.fromJson<int>(json['classEndTime']),
+      totalSemesterNumber:
+          serializer.fromJson<int>(json['totalSemesterNumber']),
+      currentSemesterNumber:
+          serializer.fromJson<int>(json['currentSemesterNumber']),
+      schoolType: serializer.fromJson<String>(json['schoolType']),
+      semesterStartDay: serializer.fromJson<int>(json['semesterStartDay']),
+      currentDayInSemester:
+          serializer.fromJson<int>(json['currentDayInSemester']),
+      degreeLevel: serializer.fromJson<String>(json['degreeLevel']),
+      schoolFeesPerSemester:
+          serializer.fromJson<int>(json['schoolFeesPerSemester']),
+      scholarshipPercentage:
+          serializer.fromJson<int>(json['scholarshipPercentage']),
+      totalLoanAmount: serializer.fromJson<int>(json['totalLoanAmount']),
+      loanProcessed: serializer.fromJson<bool>(json['loanProcessed']),
+      hasTakenLeave: serializer.fromJson<bool>(json['hasTakenLeave']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+      isCompleted: serializer.fromJson<bool>(json['isCompleted']),
+      wasExpelled: serializer.fromJson<bool>(json['wasExpelled']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'mainPersonId': serializer.toJson<int>(mainPersonId),
+      'degreeId': serializer.toJson<int>(degreeId),
+      'name': serializer.toJson<String>(name),
+      'grades': serializer.toJson<int>(grades),
+      'attendance': serializer.toJson<int>(attendance),
+      'project': serializer.toJson<int>(project),
+      'exam': serializer.toJson<int>(exam),
+      'classStartTime': serializer.toJson<int>(classStartTime),
+      'classEndTime': serializer.toJson<int>(classEndTime),
+      'totalSemesterNumber': serializer.toJson<int>(totalSemesterNumber),
+      'currentSemesterNumber': serializer.toJson<int>(currentSemesterNumber),
+      'schoolType': serializer.toJson<String>(schoolType),
+      'semesterStartDay': serializer.toJson<int>(semesterStartDay),
+      'currentDayInSemester': serializer.toJson<int>(currentDayInSemester),
+      'degreeLevel': serializer.toJson<String>(degreeLevel),
+      'schoolFeesPerSemester': serializer.toJson<int>(schoolFeesPerSemester),
+      'scholarshipPercentage': serializer.toJson<int>(scholarshipPercentage),
+      'totalLoanAmount': serializer.toJson<int>(totalLoanAmount),
+      'loanProcessed': serializer.toJson<bool>(loanProcessed),
+      'hasTakenLeave': serializer.toJson<bool>(hasTakenLeave),
+      'isActive': serializer.toJson<bool>(isActive),
+      'isCompleted': serializer.toJson<bool>(isCompleted),
+      'wasExpelled': serializer.toJson<bool>(wasExpelled),
+    };
+  }
+
+  School copyWith(
+          {int? id,
+          int? mainPersonId,
+          int? degreeId,
+          String? name,
+          int? grades,
+          int? attendance,
+          int? project,
+          int? exam,
+          int? classStartTime,
+          int? classEndTime,
+          int? totalSemesterNumber,
+          int? currentSemesterNumber,
+          String? schoolType,
+          int? semesterStartDay,
+          int? currentDayInSemester,
+          String? degreeLevel,
+          int? schoolFeesPerSemester,
+          int? scholarshipPercentage,
+          int? totalLoanAmount,
+          bool? loanProcessed,
+          bool? hasTakenLeave,
+          bool? isActive,
+          bool? isCompleted,
+          bool? wasExpelled}) =>
+      School(
+        id: id ?? this.id,
+        mainPersonId: mainPersonId ?? this.mainPersonId,
+        degreeId: degreeId ?? this.degreeId,
+        name: name ?? this.name,
+        grades: grades ?? this.grades,
+        attendance: attendance ?? this.attendance,
+        project: project ?? this.project,
+        exam: exam ?? this.exam,
+        classStartTime: classStartTime ?? this.classStartTime,
+        classEndTime: classEndTime ?? this.classEndTime,
+        totalSemesterNumber: totalSemesterNumber ?? this.totalSemesterNumber,
+        currentSemesterNumber:
+            currentSemesterNumber ?? this.currentSemesterNumber,
+        schoolType: schoolType ?? this.schoolType,
+        semesterStartDay: semesterStartDay ?? this.semesterStartDay,
+        currentDayInSemester: currentDayInSemester ?? this.currentDayInSemester,
+        degreeLevel: degreeLevel ?? this.degreeLevel,
+        schoolFeesPerSemester:
+            schoolFeesPerSemester ?? this.schoolFeesPerSemester,
+        scholarshipPercentage:
+            scholarshipPercentage ?? this.scholarshipPercentage,
+        totalLoanAmount: totalLoanAmount ?? this.totalLoanAmount,
+        loanProcessed: loanProcessed ?? this.loanProcessed,
+        hasTakenLeave: hasTakenLeave ?? this.hasTakenLeave,
+        isActive: isActive ?? this.isActive,
+        isCompleted: isCompleted ?? this.isCompleted,
+        wasExpelled: wasExpelled ?? this.wasExpelled,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('School(')
+          ..write('id: $id, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('degreeId: $degreeId, ')
+          ..write('name: $name, ')
+          ..write('grades: $grades, ')
+          ..write('attendance: $attendance, ')
+          ..write('project: $project, ')
+          ..write('exam: $exam, ')
+          ..write('classStartTime: $classStartTime, ')
+          ..write('classEndTime: $classEndTime, ')
+          ..write('totalSemesterNumber: $totalSemesterNumber, ')
+          ..write('currentSemesterNumber: $currentSemesterNumber, ')
+          ..write('schoolType: $schoolType, ')
+          ..write('semesterStartDay: $semesterStartDay, ')
+          ..write('currentDayInSemester: $currentDayInSemester, ')
+          ..write('degreeLevel: $degreeLevel, ')
+          ..write('schoolFeesPerSemester: $schoolFeesPerSemester, ')
+          ..write('scholarshipPercentage: $scholarshipPercentage, ')
+          ..write('totalLoanAmount: $totalLoanAmount, ')
+          ..write('loanProcessed: $loanProcessed, ')
+          ..write('hasTakenLeave: $hasTakenLeave, ')
+          ..write('isActive: $isActive, ')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('wasExpelled: $wasExpelled')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+        id,
+        mainPersonId,
+        degreeId,
+        name,
+        grades,
+        attendance,
+        project,
+        exam,
+        classStartTime,
+        classEndTime,
+        totalSemesterNumber,
+        currentSemesterNumber,
+        schoolType,
+        semesterStartDay,
+        currentDayInSemester,
+        degreeLevel,
+        schoolFeesPerSemester,
+        scholarshipPercentage,
+        totalLoanAmount,
+        loanProcessed,
+        hasTakenLeave,
+        isActive,
+        isCompleted,
+        wasExpelled
+      ]);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is School &&
+          other.id == this.id &&
+          other.mainPersonId == this.mainPersonId &&
+          other.degreeId == this.degreeId &&
+          other.name == this.name &&
+          other.grades == this.grades &&
+          other.attendance == this.attendance &&
+          other.project == this.project &&
+          other.exam == this.exam &&
+          other.classStartTime == this.classStartTime &&
+          other.classEndTime == this.classEndTime &&
+          other.totalSemesterNumber == this.totalSemesterNumber &&
+          other.currentSemesterNumber == this.currentSemesterNumber &&
+          other.schoolType == this.schoolType &&
+          other.semesterStartDay == this.semesterStartDay &&
+          other.currentDayInSemester == this.currentDayInSemester &&
+          other.degreeLevel == this.degreeLevel &&
+          other.schoolFeesPerSemester == this.schoolFeesPerSemester &&
+          other.scholarshipPercentage == this.scholarshipPercentage &&
+          other.totalLoanAmount == this.totalLoanAmount &&
+          other.loanProcessed == this.loanProcessed &&
+          other.hasTakenLeave == this.hasTakenLeave &&
+          other.isActive == this.isActive &&
+          other.isCompleted == this.isCompleted &&
+          other.wasExpelled == this.wasExpelled);
+}
+
+class SchoolTableCompanion extends UpdateCompanion<School> {
+  final Value<int> id;
+  final Value<int> mainPersonId;
+  final Value<int> degreeId;
+  final Value<String> name;
+  final Value<int> grades;
+  final Value<int> attendance;
+  final Value<int> project;
+  final Value<int> exam;
+  final Value<int> classStartTime;
+  final Value<int> classEndTime;
+  final Value<int> totalSemesterNumber;
+  final Value<int> currentSemesterNumber;
+  final Value<String> schoolType;
+  final Value<int> semesterStartDay;
+  final Value<int> currentDayInSemester;
+  final Value<String> degreeLevel;
+  final Value<int> schoolFeesPerSemester;
+  final Value<int> scholarshipPercentage;
+  final Value<int> totalLoanAmount;
+  final Value<bool> loanProcessed;
+  final Value<bool> hasTakenLeave;
+  final Value<bool> isActive;
+  final Value<bool> isCompleted;
+  final Value<bool> wasExpelled;
+  const SchoolTableCompanion({
+    this.id = const Value.absent(),
+    this.mainPersonId = const Value.absent(),
+    this.degreeId = const Value.absent(),
+    this.name = const Value.absent(),
+    this.grades = const Value.absent(),
+    this.attendance = const Value.absent(),
+    this.project = const Value.absent(),
+    this.exam = const Value.absent(),
+    this.classStartTime = const Value.absent(),
+    this.classEndTime = const Value.absent(),
+    this.totalSemesterNumber = const Value.absent(),
+    this.currentSemesterNumber = const Value.absent(),
+    this.schoolType = const Value.absent(),
+    this.semesterStartDay = const Value.absent(),
+    this.currentDayInSemester = const Value.absent(),
+    this.degreeLevel = const Value.absent(),
+    this.schoolFeesPerSemester = const Value.absent(),
+    this.scholarshipPercentage = const Value.absent(),
+    this.totalLoanAmount = const Value.absent(),
+    this.loanProcessed = const Value.absent(),
+    this.hasTakenLeave = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.isCompleted = const Value.absent(),
+    this.wasExpelled = const Value.absent(),
+  });
+  SchoolTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int mainPersonId,
+    required int degreeId,
+    required String name,
+    required int grades,
+    required int attendance,
+    required int project,
+    required int exam,
+    required int classStartTime,
+    required int classEndTime,
+    required int totalSemesterNumber,
+    required int currentSemesterNumber,
+    required String schoolType,
+    required int semesterStartDay,
+    required int currentDayInSemester,
+    required String degreeLevel,
+    required int schoolFeesPerSemester,
+    required int scholarshipPercentage,
+    required int totalLoanAmount,
+    required bool loanProcessed,
+    required bool hasTakenLeave,
+    required bool isActive,
+    required bool isCompleted,
+    required bool wasExpelled,
+  })  : mainPersonId = Value(mainPersonId),
+        degreeId = Value(degreeId),
+        name = Value(name),
+        grades = Value(grades),
+        attendance = Value(attendance),
+        project = Value(project),
+        exam = Value(exam),
+        classStartTime = Value(classStartTime),
+        classEndTime = Value(classEndTime),
+        totalSemesterNumber = Value(totalSemesterNumber),
+        currentSemesterNumber = Value(currentSemesterNumber),
+        schoolType = Value(schoolType),
+        semesterStartDay = Value(semesterStartDay),
+        currentDayInSemester = Value(currentDayInSemester),
+        degreeLevel = Value(degreeLevel),
+        schoolFeesPerSemester = Value(schoolFeesPerSemester),
+        scholarshipPercentage = Value(scholarshipPercentage),
+        totalLoanAmount = Value(totalLoanAmount),
+        loanProcessed = Value(loanProcessed),
+        hasTakenLeave = Value(hasTakenLeave),
+        isActive = Value(isActive),
+        isCompleted = Value(isCompleted),
+        wasExpelled = Value(wasExpelled);
+  static Insertable<School> custom({
+    Expression<int>? id,
+    Expression<int>? mainPersonId,
+    Expression<int>? degreeId,
+    Expression<String>? name,
+    Expression<int>? grades,
+    Expression<int>? attendance,
+    Expression<int>? project,
+    Expression<int>? exam,
+    Expression<int>? classStartTime,
+    Expression<int>? classEndTime,
+    Expression<int>? totalSemesterNumber,
+    Expression<int>? currentSemesterNumber,
+    Expression<String>? schoolType,
+    Expression<int>? semesterStartDay,
+    Expression<int>? currentDayInSemester,
+    Expression<String>? degreeLevel,
+    Expression<int>? schoolFeesPerSemester,
+    Expression<int>? scholarshipPercentage,
+    Expression<int>? totalLoanAmount,
+    Expression<bool>? loanProcessed,
+    Expression<bool>? hasTakenLeave,
+    Expression<bool>? isActive,
+    Expression<bool>? isCompleted,
+    Expression<bool>? wasExpelled,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (mainPersonId != null) 'main_person_id': mainPersonId,
+      if (degreeId != null) 'degree_id': degreeId,
+      if (name != null) 'name': name,
+      if (grades != null) 'grades': grades,
+      if (attendance != null) 'attendance': attendance,
+      if (project != null) 'project': project,
+      if (exam != null) 'exam': exam,
+      if (classStartTime != null) 'class_start_time': classStartTime,
+      if (classEndTime != null) 'class_end_time': classEndTime,
+      if (totalSemesterNumber != null)
+        'total_semester_number': totalSemesterNumber,
+      if (currentSemesterNumber != null)
+        'current_semester_number': currentSemesterNumber,
+      if (schoolType != null) 'school_type': schoolType,
+      if (semesterStartDay != null) 'semester_start_day': semesterStartDay,
+      if (currentDayInSemester != null)
+        'current_day_in_semester': currentDayInSemester,
+      if (degreeLevel != null) 'degree_level': degreeLevel,
+      if (schoolFeesPerSemester != null)
+        'school_fees_per_semester': schoolFeesPerSemester,
+      if (scholarshipPercentage != null)
+        'scholarship_percentage': scholarshipPercentage,
+      if (totalLoanAmount != null) 'total_loan_amount': totalLoanAmount,
+      if (loanProcessed != null) 'loan_processed': loanProcessed,
+      if (hasTakenLeave != null) 'has_taken_leave': hasTakenLeave,
+      if (isActive != null) 'is_active': isActive,
+      if (isCompleted != null) 'is_completed': isCompleted,
+      if (wasExpelled != null) 'was_expelled': wasExpelled,
+    });
+  }
+
+  SchoolTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? mainPersonId,
+      Value<int>? degreeId,
+      Value<String>? name,
+      Value<int>? grades,
+      Value<int>? attendance,
+      Value<int>? project,
+      Value<int>? exam,
+      Value<int>? classStartTime,
+      Value<int>? classEndTime,
+      Value<int>? totalSemesterNumber,
+      Value<int>? currentSemesterNumber,
+      Value<String>? schoolType,
+      Value<int>? semesterStartDay,
+      Value<int>? currentDayInSemester,
+      Value<String>? degreeLevel,
+      Value<int>? schoolFeesPerSemester,
+      Value<int>? scholarshipPercentage,
+      Value<int>? totalLoanAmount,
+      Value<bool>? loanProcessed,
+      Value<bool>? hasTakenLeave,
+      Value<bool>? isActive,
+      Value<bool>? isCompleted,
+      Value<bool>? wasExpelled}) {
+    return SchoolTableCompanion(
+      id: id ?? this.id,
+      mainPersonId: mainPersonId ?? this.mainPersonId,
+      degreeId: degreeId ?? this.degreeId,
+      name: name ?? this.name,
+      grades: grades ?? this.grades,
+      attendance: attendance ?? this.attendance,
+      project: project ?? this.project,
+      exam: exam ?? this.exam,
+      classStartTime: classStartTime ?? this.classStartTime,
+      classEndTime: classEndTime ?? this.classEndTime,
+      totalSemesterNumber: totalSemesterNumber ?? this.totalSemesterNumber,
+      currentSemesterNumber:
+          currentSemesterNumber ?? this.currentSemesterNumber,
+      schoolType: schoolType ?? this.schoolType,
+      semesterStartDay: semesterStartDay ?? this.semesterStartDay,
+      currentDayInSemester: currentDayInSemester ?? this.currentDayInSemester,
+      degreeLevel: degreeLevel ?? this.degreeLevel,
+      schoolFeesPerSemester:
+          schoolFeesPerSemester ?? this.schoolFeesPerSemester,
+      scholarshipPercentage:
+          scholarshipPercentage ?? this.scholarshipPercentage,
+      totalLoanAmount: totalLoanAmount ?? this.totalLoanAmount,
+      loanProcessed: loanProcessed ?? this.loanProcessed,
+      hasTakenLeave: hasTakenLeave ?? this.hasTakenLeave,
+      isActive: isActive ?? this.isActive,
+      isCompleted: isCompleted ?? this.isCompleted,
+      wasExpelled: wasExpelled ?? this.wasExpelled,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (mainPersonId.present) {
+      map['main_person_id'] = Variable<int>(mainPersonId.value);
+    }
+    if (degreeId.present) {
+      map['degree_id'] = Variable<int>(degreeId.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (grades.present) {
+      map['grades'] = Variable<int>(grades.value);
+    }
+    if (attendance.present) {
+      map['attendance'] = Variable<int>(attendance.value);
+    }
+    if (project.present) {
+      map['project'] = Variable<int>(project.value);
+    }
+    if (exam.present) {
+      map['exam'] = Variable<int>(exam.value);
+    }
+    if (classStartTime.present) {
+      map['class_start_time'] = Variable<int>(classStartTime.value);
+    }
+    if (classEndTime.present) {
+      map['class_end_time'] = Variable<int>(classEndTime.value);
+    }
+    if (totalSemesterNumber.present) {
+      map['total_semester_number'] = Variable<int>(totalSemesterNumber.value);
+    }
+    if (currentSemesterNumber.present) {
+      map['current_semester_number'] =
+          Variable<int>(currentSemesterNumber.value);
+    }
+    if (schoolType.present) {
+      map['school_type'] = Variable<String>(schoolType.value);
+    }
+    if (semesterStartDay.present) {
+      map['semester_start_day'] = Variable<int>(semesterStartDay.value);
+    }
+    if (currentDayInSemester.present) {
+      map['current_day_in_semester'] =
+          Variable<int>(currentDayInSemester.value);
+    }
+    if (degreeLevel.present) {
+      map['degree_level'] = Variable<String>(degreeLevel.value);
+    }
+    if (schoolFeesPerSemester.present) {
+      map['school_fees_per_semester'] =
+          Variable<int>(schoolFeesPerSemester.value);
+    }
+    if (scholarshipPercentage.present) {
+      map['scholarship_percentage'] =
+          Variable<int>(scholarshipPercentage.value);
+    }
+    if (totalLoanAmount.present) {
+      map['total_loan_amount'] = Variable<int>(totalLoanAmount.value);
+    }
+    if (loanProcessed.present) {
+      map['loan_processed'] = Variable<bool>(loanProcessed.value);
+    }
+    if (hasTakenLeave.present) {
+      map['has_taken_leave'] = Variable<bool>(hasTakenLeave.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (isCompleted.present) {
+      map['is_completed'] = Variable<bool>(isCompleted.value);
+    }
+    if (wasExpelled.present) {
+      map['was_expelled'] = Variable<bool>(wasExpelled.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SchoolTableCompanion(')
+          ..write('id: $id, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('degreeId: $degreeId, ')
+          ..write('name: $name, ')
+          ..write('grades: $grades, ')
+          ..write('attendance: $attendance, ')
+          ..write('project: $project, ')
+          ..write('exam: $exam, ')
+          ..write('classStartTime: $classStartTime, ')
+          ..write('classEndTime: $classEndTime, ')
+          ..write('totalSemesterNumber: $totalSemesterNumber, ')
+          ..write('currentSemesterNumber: $currentSemesterNumber, ')
+          ..write('schoolType: $schoolType, ')
+          ..write('semesterStartDay: $semesterStartDay, ')
+          ..write('currentDayInSemester: $currentDayInSemester, ')
+          ..write('degreeLevel: $degreeLevel, ')
+          ..write('schoolFeesPerSemester: $schoolFeesPerSemester, ')
+          ..write('scholarshipPercentage: $scholarshipPercentage, ')
+          ..write('totalLoanAmount: $totalLoanAmount, ')
+          ..write('loanProcessed: $loanProcessed, ')
+          ..write('hasTakenLeave: $hasTakenLeave, ')
+          ..write('isActive: $isActive, ')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('wasExpelled: $wasExpelled')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SchoolProjectTableTable extends SchoolProjectTable
+    with TableInfo<$SchoolProjectTableTable, SchoolProject> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SchoolProjectTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _schoolIdMeta =
+      const VerificationMeta('schoolId');
+  @override
+  late final GeneratedColumn<int> schoolId = GeneratedColumn<int>(
+      'school_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES school (id)'));
+  static const VerificationMeta _mainPersonIdMeta =
+      const VerificationMeta('mainPersonId');
+  @override
+  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
+      'main_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _projectPartnerSchoolRelationshipIdMeta =
+      const VerificationMeta('projectPartnerSchoolRelationshipId');
+  @override
+  late final GeneratedColumn<int> projectPartnerSchoolRelationshipId =
+      GeneratedColumn<int>(
+          'project_partner_school_relationship_id', aliasedName, false,
+          type: DriftSqlType.int,
+          requiredDuringInsert: true,
+          defaultConstraints:
+              GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _semesterNumberMeta =
+      const VerificationMeta('semesterNumber');
+  @override
+  late final GeneratedColumn<int> semesterNumber = GeneratedColumn<int>(
+      'semester_number', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _mainPersonContributionMeta =
+      const VerificationMeta('mainPersonContribution');
+  @override
+  late final GeneratedColumn<int> mainPersonContribution = GeneratedColumn<int>(
+      'main_person_contribution', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _projectPartnerContributionMeta =
+      const VerificationMeta('projectPartnerContribution');
+  @override
+  late final GeneratedColumn<int> projectPartnerContribution =
+      GeneratedColumn<int>('project_partner_contribution', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _projectPartnerWillContributeMeta =
+      const VerificationMeta('projectPartnerWillContribute');
+  @override
+  late final GeneratedColumn<bool> projectPartnerWillContribute =
+      GeneratedColumn<bool>(
+          'project_partner_will_contribute', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite:
+                'CHECK ("project_partner_will_contribute" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        schoolId,
+        mainPersonId,
+        projectPartnerSchoolRelationshipId,
+        semesterNumber,
+        mainPersonContribution,
+        projectPartnerContribution,
+        projectPartnerWillContribute
+      ];
+  @override
+  String get aliasedName => _alias ?? 'school_project';
+  @override
+  String get actualTableName => 'school_project';
+  @override
+  VerificationContext validateIntegrity(Insertable<SchoolProject> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('school_id')) {
+      context.handle(_schoolIdMeta,
+          schoolId.isAcceptableOrUnknown(data['school_id']!, _schoolIdMeta));
+    } else if (isInserting) {
+      context.missing(_schoolIdMeta);
+    }
+    if (data.containsKey('main_person_id')) {
+      context.handle(
+          _mainPersonIdMeta,
+          mainPersonId.isAcceptableOrUnknown(
+              data['main_person_id']!, _mainPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_mainPersonIdMeta);
+    }
+    if (data.containsKey('project_partner_school_relationship_id')) {
+      context.handle(
+          _projectPartnerSchoolRelationshipIdMeta,
+          projectPartnerSchoolRelationshipId.isAcceptableOrUnknown(
+              data['project_partner_school_relationship_id']!,
+              _projectPartnerSchoolRelationshipIdMeta));
+    } else if (isInserting) {
+      context.missing(_projectPartnerSchoolRelationshipIdMeta);
+    }
+    if (data.containsKey('semester_number')) {
+      context.handle(
+          _semesterNumberMeta,
+          semesterNumber.isAcceptableOrUnknown(
+              data['semester_number']!, _semesterNumberMeta));
+    } else if (isInserting) {
+      context.missing(_semesterNumberMeta);
+    }
+    if (data.containsKey('main_person_contribution')) {
+      context.handle(
+          _mainPersonContributionMeta,
+          mainPersonContribution.isAcceptableOrUnknown(
+              data['main_person_contribution']!, _mainPersonContributionMeta));
+    } else if (isInserting) {
+      context.missing(_mainPersonContributionMeta);
+    }
+    if (data.containsKey('project_partner_contribution')) {
+      context.handle(
+          _projectPartnerContributionMeta,
+          projectPartnerContribution.isAcceptableOrUnknown(
+              data['project_partner_contribution']!,
+              _projectPartnerContributionMeta));
+    } else if (isInserting) {
+      context.missing(_projectPartnerContributionMeta);
+    }
+    if (data.containsKey('project_partner_will_contribute')) {
+      context.handle(
+          _projectPartnerWillContributeMeta,
+          projectPartnerWillContribute.isAcceptableOrUnknown(
+              data['project_partner_will_contribute']!,
+              _projectPartnerWillContributeMeta));
+    } else if (isInserting) {
+      context.missing(_projectPartnerWillContributeMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SchoolProject map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SchoolProject(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      schoolId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}school_id'])!,
+      mainPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
+      projectPartnerSchoolRelationshipId: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}project_partner_school_relationship_id'])!,
+      semesterNumber: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}semester_number'])!,
+      mainPersonContribution: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}main_person_contribution'])!,
+      projectPartnerContribution: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}project_partner_contribution'])!,
+      projectPartnerWillContribute: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data['${effectivePrefix}project_partner_will_contribute'])!,
+    );
+  }
+
+  @override
+  $SchoolProjectTableTable createAlias(String alias) {
+    return $SchoolProjectTableTable(attachedDatabase, alias);
+  }
+}
+
+class SchoolProject extends DataClass implements Insertable<SchoolProject> {
+  final int id;
+  final int schoolId;
+  final int mainPersonId;
+  final int projectPartnerSchoolRelationshipId;
+  final int semesterNumber;
+  final int mainPersonContribution;
+  final int projectPartnerContribution;
+  final bool projectPartnerWillContribute;
+  const SchoolProject(
+      {required this.id,
+      required this.schoolId,
+      required this.mainPersonId,
+      required this.projectPartnerSchoolRelationshipId,
+      required this.semesterNumber,
+      required this.mainPersonContribution,
+      required this.projectPartnerContribution,
+      required this.projectPartnerWillContribute});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['school_id'] = Variable<int>(schoolId);
+    map['main_person_id'] = Variable<int>(mainPersonId);
+    map['project_partner_school_relationship_id'] =
+        Variable<int>(projectPartnerSchoolRelationshipId);
+    map['semester_number'] = Variable<int>(semesterNumber);
+    map['main_person_contribution'] = Variable<int>(mainPersonContribution);
+    map['project_partner_contribution'] =
+        Variable<int>(projectPartnerContribution);
+    map['project_partner_will_contribute'] =
+        Variable<bool>(projectPartnerWillContribute);
+    return map;
+  }
+
+  SchoolProjectTableCompanion toCompanion(bool nullToAbsent) {
+    return SchoolProjectTableCompanion(
+      id: Value(id),
+      schoolId: Value(schoolId),
+      mainPersonId: Value(mainPersonId),
+      projectPartnerSchoolRelationshipId:
+          Value(projectPartnerSchoolRelationshipId),
+      semesterNumber: Value(semesterNumber),
+      mainPersonContribution: Value(mainPersonContribution),
+      projectPartnerContribution: Value(projectPartnerContribution),
+      projectPartnerWillContribute: Value(projectPartnerWillContribute),
+    );
+  }
+
+  factory SchoolProject.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SchoolProject(
+      id: serializer.fromJson<int>(json['id']),
+      schoolId: serializer.fromJson<int>(json['schoolId']),
+      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
+      projectPartnerSchoolRelationshipId:
+          serializer.fromJson<int>(json['projectPartnerSchoolRelationshipId']),
+      semesterNumber: serializer.fromJson<int>(json['semesterNumber']),
+      mainPersonContribution:
+          serializer.fromJson<int>(json['mainPersonContribution']),
+      projectPartnerContribution:
+          serializer.fromJson<int>(json['projectPartnerContribution']),
+      projectPartnerWillContribute:
+          serializer.fromJson<bool>(json['projectPartnerWillContribute']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'schoolId': serializer.toJson<int>(schoolId),
+      'mainPersonId': serializer.toJson<int>(mainPersonId),
+      'projectPartnerSchoolRelationshipId':
+          serializer.toJson<int>(projectPartnerSchoolRelationshipId),
+      'semesterNumber': serializer.toJson<int>(semesterNumber),
+      'mainPersonContribution': serializer.toJson<int>(mainPersonContribution),
+      'projectPartnerContribution':
+          serializer.toJson<int>(projectPartnerContribution),
+      'projectPartnerWillContribute':
+          serializer.toJson<bool>(projectPartnerWillContribute),
+    };
+  }
+
+  SchoolProject copyWith(
+          {int? id,
+          int? schoolId,
+          int? mainPersonId,
+          int? projectPartnerSchoolRelationshipId,
+          int? semesterNumber,
+          int? mainPersonContribution,
+          int? projectPartnerContribution,
+          bool? projectPartnerWillContribute}) =>
+      SchoolProject(
+        id: id ?? this.id,
+        schoolId: schoolId ?? this.schoolId,
+        mainPersonId: mainPersonId ?? this.mainPersonId,
+        projectPartnerSchoolRelationshipId:
+            projectPartnerSchoolRelationshipId ??
+                this.projectPartnerSchoolRelationshipId,
+        semesterNumber: semesterNumber ?? this.semesterNumber,
+        mainPersonContribution:
+            mainPersonContribution ?? this.mainPersonContribution,
+        projectPartnerContribution:
+            projectPartnerContribution ?? this.projectPartnerContribution,
+        projectPartnerWillContribute:
+            projectPartnerWillContribute ?? this.projectPartnerWillContribute,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('SchoolProject(')
+          ..write('id: $id, ')
+          ..write('schoolId: $schoolId, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write(
+              'projectPartnerSchoolRelationshipId: $projectPartnerSchoolRelationshipId, ')
+          ..write('semesterNumber: $semesterNumber, ')
+          ..write('mainPersonContribution: $mainPersonContribution, ')
+          ..write('projectPartnerContribution: $projectPartnerContribution, ')
+          ..write('projectPartnerWillContribute: $projectPartnerWillContribute')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      schoolId,
+      mainPersonId,
+      projectPartnerSchoolRelationshipId,
+      semesterNumber,
+      mainPersonContribution,
+      projectPartnerContribution,
+      projectPartnerWillContribute);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SchoolProject &&
+          other.id == this.id &&
+          other.schoolId == this.schoolId &&
+          other.mainPersonId == this.mainPersonId &&
+          other.projectPartnerSchoolRelationshipId ==
+              this.projectPartnerSchoolRelationshipId &&
+          other.semesterNumber == this.semesterNumber &&
+          other.mainPersonContribution == this.mainPersonContribution &&
+          other.projectPartnerContribution == this.projectPartnerContribution &&
+          other.projectPartnerWillContribute ==
+              this.projectPartnerWillContribute);
+}
+
+class SchoolProjectTableCompanion extends UpdateCompanion<SchoolProject> {
+  final Value<int> id;
+  final Value<int> schoolId;
+  final Value<int> mainPersonId;
+  final Value<int> projectPartnerSchoolRelationshipId;
+  final Value<int> semesterNumber;
+  final Value<int> mainPersonContribution;
+  final Value<int> projectPartnerContribution;
+  final Value<bool> projectPartnerWillContribute;
+  const SchoolProjectTableCompanion({
+    this.id = const Value.absent(),
+    this.schoolId = const Value.absent(),
+    this.mainPersonId = const Value.absent(),
+    this.projectPartnerSchoolRelationshipId = const Value.absent(),
+    this.semesterNumber = const Value.absent(),
+    this.mainPersonContribution = const Value.absent(),
+    this.projectPartnerContribution = const Value.absent(),
+    this.projectPartnerWillContribute = const Value.absent(),
+  });
+  SchoolProjectTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int schoolId,
+    required int mainPersonId,
+    required int projectPartnerSchoolRelationshipId,
+    required int semesterNumber,
+    required int mainPersonContribution,
+    required int projectPartnerContribution,
+    required bool projectPartnerWillContribute,
+  })  : schoolId = Value(schoolId),
+        mainPersonId = Value(mainPersonId),
+        projectPartnerSchoolRelationshipId =
+            Value(projectPartnerSchoolRelationshipId),
+        semesterNumber = Value(semesterNumber),
+        mainPersonContribution = Value(mainPersonContribution),
+        projectPartnerContribution = Value(projectPartnerContribution),
+        projectPartnerWillContribute = Value(projectPartnerWillContribute);
+  static Insertable<SchoolProject> custom({
+    Expression<int>? id,
+    Expression<int>? schoolId,
+    Expression<int>? mainPersonId,
+    Expression<int>? projectPartnerSchoolRelationshipId,
+    Expression<int>? semesterNumber,
+    Expression<int>? mainPersonContribution,
+    Expression<int>? projectPartnerContribution,
+    Expression<bool>? projectPartnerWillContribute,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (schoolId != null) 'school_id': schoolId,
+      if (mainPersonId != null) 'main_person_id': mainPersonId,
+      if (projectPartnerSchoolRelationshipId != null)
+        'project_partner_school_relationship_id':
+            projectPartnerSchoolRelationshipId,
+      if (semesterNumber != null) 'semester_number': semesterNumber,
+      if (mainPersonContribution != null)
+        'main_person_contribution': mainPersonContribution,
+      if (projectPartnerContribution != null)
+        'project_partner_contribution': projectPartnerContribution,
+      if (projectPartnerWillContribute != null)
+        'project_partner_will_contribute': projectPartnerWillContribute,
+    });
+  }
+
+  SchoolProjectTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? schoolId,
+      Value<int>? mainPersonId,
+      Value<int>? projectPartnerSchoolRelationshipId,
+      Value<int>? semesterNumber,
+      Value<int>? mainPersonContribution,
+      Value<int>? projectPartnerContribution,
+      Value<bool>? projectPartnerWillContribute}) {
+    return SchoolProjectTableCompanion(
+      id: id ?? this.id,
+      schoolId: schoolId ?? this.schoolId,
+      mainPersonId: mainPersonId ?? this.mainPersonId,
+      projectPartnerSchoolRelationshipId: projectPartnerSchoolRelationshipId ??
+          this.projectPartnerSchoolRelationshipId,
+      semesterNumber: semesterNumber ?? this.semesterNumber,
+      mainPersonContribution:
+          mainPersonContribution ?? this.mainPersonContribution,
+      projectPartnerContribution:
+          projectPartnerContribution ?? this.projectPartnerContribution,
+      projectPartnerWillContribute:
+          projectPartnerWillContribute ?? this.projectPartnerWillContribute,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (schoolId.present) {
+      map['school_id'] = Variable<int>(schoolId.value);
+    }
+    if (mainPersonId.present) {
+      map['main_person_id'] = Variable<int>(mainPersonId.value);
+    }
+    if (projectPartnerSchoolRelationshipId.present) {
+      map['project_partner_school_relationship_id'] =
+          Variable<int>(projectPartnerSchoolRelationshipId.value);
+    }
+    if (semesterNumber.present) {
+      map['semester_number'] = Variable<int>(semesterNumber.value);
+    }
+    if (mainPersonContribution.present) {
+      map['main_person_contribution'] =
+          Variable<int>(mainPersonContribution.value);
+    }
+    if (projectPartnerContribution.present) {
+      map['project_partner_contribution'] =
+          Variable<int>(projectPartnerContribution.value);
+    }
+    if (projectPartnerWillContribute.present) {
+      map['project_partner_will_contribute'] =
+          Variable<bool>(projectPartnerWillContribute.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SchoolProjectTableCompanion(')
+          ..write('id: $id, ')
+          ..write('schoolId: $schoolId, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write(
+              'projectPartnerSchoolRelationshipId: $projectPartnerSchoolRelationshipId, ')
+          ..write('semesterNumber: $semesterNumber, ')
+          ..write('mainPersonContribution: $mainPersonContribution, ')
+          ..write('projectPartnerContribution: $projectPartnerContribution, ')
+          ..write('projectPartnerWillContribute: $projectPartnerWillContribute')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SchoolRelationshipTableTable extends SchoolRelationshipTable
+    with TableInfo<$SchoolRelationshipTableTable, SchoolRelationship> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SchoolRelationshipTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _schoolIdMeta =
+      const VerificationMeta('schoolId');
+  @override
+  late final GeneratedColumn<int> schoolId = GeneratedColumn<int>(
+      'school_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES school (id)'));
+  static const VerificationMeta _mainPersonIdMeta =
+      const VerificationMeta('mainPersonId');
+  @override
+  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
+      'main_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _otherPersonIdMeta =
+      const VerificationMeta('otherPersonId');
+  @override
+  late final GeneratedColumn<int> otherPersonId = GeneratedColumn<int>(
+      'other_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _schoolRelationshipTypeMeta =
+      const VerificationMeta('schoolRelationshipType');
+  @override
+  late final GeneratedColumn<String> schoolRelationshipType =
+      GeneratedColumn<String>('school_relationship_type', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _informalRelationshipTypeMeta =
+      const VerificationMeta('informalRelationshipType');
+  @override
+  late final GeneratedColumn<String> informalRelationshipType =
+      GeneratedColumn<String>('informal_relationship_type', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _gradesMeta = const VerificationMeta('grades');
+  @override
+  late final GeneratedColumn<int> grades = GeneratedColumn<int>(
+      'grades', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _professionalMeta =
+      const VerificationMeta('professional');
+  @override
+  late final GeneratedColumn<bool> professional =
+      GeneratedColumn<bool>('professional', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("professional" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _helpfulMeta =
+      const VerificationMeta('helpful');
+  @override
+  late final GeneratedColumn<bool> helpful =
+      GeneratedColumn<bool>('helpful', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("helpful" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _personalityTypeMeta =
+      const VerificationMeta('personalityType');
+  @override
+  late final GeneratedColumn<String> personalityType = GeneratedColumn<String>(
+      'personality_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        schoolId,
+        mainPersonId,
+        otherPersonId,
+        schoolRelationshipType,
+        informalRelationshipType,
+        grades,
+        professional,
+        helpful,
+        personalityType
+      ];
+  @override
+  String get aliasedName => _alias ?? 'school_relationship';
+  @override
+  String get actualTableName => 'school_relationship';
+  @override
+  VerificationContext validateIntegrity(Insertable<SchoolRelationship> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('school_id')) {
+      context.handle(_schoolIdMeta,
+          schoolId.isAcceptableOrUnknown(data['school_id']!, _schoolIdMeta));
+    } else if (isInserting) {
+      context.missing(_schoolIdMeta);
+    }
+    if (data.containsKey('main_person_id')) {
+      context.handle(
+          _mainPersonIdMeta,
+          mainPersonId.isAcceptableOrUnknown(
+              data['main_person_id']!, _mainPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_mainPersonIdMeta);
+    }
+    if (data.containsKey('other_person_id')) {
+      context.handle(
+          _otherPersonIdMeta,
+          otherPersonId.isAcceptableOrUnknown(
+              data['other_person_id']!, _otherPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_otherPersonIdMeta);
+    }
+    if (data.containsKey('school_relationship_type')) {
+      context.handle(
+          _schoolRelationshipTypeMeta,
+          schoolRelationshipType.isAcceptableOrUnknown(
+              data['school_relationship_type']!, _schoolRelationshipTypeMeta));
+    } else if (isInserting) {
+      context.missing(_schoolRelationshipTypeMeta);
+    }
+    if (data.containsKey('informal_relationship_type')) {
+      context.handle(
+          _informalRelationshipTypeMeta,
+          informalRelationshipType.isAcceptableOrUnknown(
+              data['informal_relationship_type']!,
+              _informalRelationshipTypeMeta));
+    } else if (isInserting) {
+      context.missing(_informalRelationshipTypeMeta);
+    }
+    if (data.containsKey('grades')) {
+      context.handle(_gradesMeta,
+          grades.isAcceptableOrUnknown(data['grades']!, _gradesMeta));
+    } else if (isInserting) {
+      context.missing(_gradesMeta);
+    }
+    if (data.containsKey('professional')) {
+      context.handle(
+          _professionalMeta,
+          professional.isAcceptableOrUnknown(
+              data['professional']!, _professionalMeta));
+    } else if (isInserting) {
+      context.missing(_professionalMeta);
+    }
+    if (data.containsKey('helpful')) {
+      context.handle(_helpfulMeta,
+          helpful.isAcceptableOrUnknown(data['helpful']!, _helpfulMeta));
+    } else if (isInserting) {
+      context.missing(_helpfulMeta);
+    }
+    if (data.containsKey('personality_type')) {
+      context.handle(
+          _personalityTypeMeta,
+          personalityType.isAcceptableOrUnknown(
+              data['personality_type']!, _personalityTypeMeta));
+    } else if (isInserting) {
+      context.missing(_personalityTypeMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SchoolRelationship map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SchoolRelationship(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      schoolId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}school_id'])!,
+      mainPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
+      otherPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}other_person_id'])!,
+      schoolRelationshipType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}school_relationship_type'])!,
+      informalRelationshipType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}informal_relationship_type'])!,
+      grades: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}grades'])!,
+      professional: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}professional'])!,
+      helpful: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}helpful'])!,
+      personalityType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}personality_type'])!,
+    );
+  }
+
+  @override
+  $SchoolRelationshipTableTable createAlias(String alias) {
+    return $SchoolRelationshipTableTable(attachedDatabase, alias);
+  }
+}
+
+class SchoolRelationship extends DataClass
+    implements Insertable<SchoolRelationship> {
+  final int id;
+  final int schoolId;
+  final int mainPersonId;
+  final int otherPersonId;
+  final String schoolRelationshipType;
+  final String informalRelationshipType;
+  final int grades;
+  final bool professional;
+  final bool helpful;
+  final String personalityType;
+  const SchoolRelationship(
+      {required this.id,
+      required this.schoolId,
+      required this.mainPersonId,
+      required this.otherPersonId,
+      required this.schoolRelationshipType,
+      required this.informalRelationshipType,
+      required this.grades,
+      required this.professional,
+      required this.helpful,
+      required this.personalityType});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['school_id'] = Variable<int>(schoolId);
+    map['main_person_id'] = Variable<int>(mainPersonId);
+    map['other_person_id'] = Variable<int>(otherPersonId);
+    map['school_relationship_type'] = Variable<String>(schoolRelationshipType);
+    map['informal_relationship_type'] =
+        Variable<String>(informalRelationshipType);
+    map['grades'] = Variable<int>(grades);
+    map['professional'] = Variable<bool>(professional);
+    map['helpful'] = Variable<bool>(helpful);
+    map['personality_type'] = Variable<String>(personalityType);
+    return map;
+  }
+
+  SchoolRelationshipTableCompanion toCompanion(bool nullToAbsent) {
+    return SchoolRelationshipTableCompanion(
+      id: Value(id),
+      schoolId: Value(schoolId),
+      mainPersonId: Value(mainPersonId),
+      otherPersonId: Value(otherPersonId),
+      schoolRelationshipType: Value(schoolRelationshipType),
+      informalRelationshipType: Value(informalRelationshipType),
+      grades: Value(grades),
+      professional: Value(professional),
+      helpful: Value(helpful),
+      personalityType: Value(personalityType),
+    );
+  }
+
+  factory SchoolRelationship.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SchoolRelationship(
+      id: serializer.fromJson<int>(json['id']),
+      schoolId: serializer.fromJson<int>(json['schoolId']),
+      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
+      otherPersonId: serializer.fromJson<int>(json['otherPersonId']),
+      schoolRelationshipType:
+          serializer.fromJson<String>(json['schoolRelationshipType']),
+      informalRelationshipType:
+          serializer.fromJson<String>(json['informalRelationshipType']),
+      grades: serializer.fromJson<int>(json['grades']),
+      professional: serializer.fromJson<bool>(json['professional']),
+      helpful: serializer.fromJson<bool>(json['helpful']),
+      personalityType: serializer.fromJson<String>(json['personalityType']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'schoolId': serializer.toJson<int>(schoolId),
+      'mainPersonId': serializer.toJson<int>(mainPersonId),
+      'otherPersonId': serializer.toJson<int>(otherPersonId),
+      'schoolRelationshipType':
+          serializer.toJson<String>(schoolRelationshipType),
+      'informalRelationshipType':
+          serializer.toJson<String>(informalRelationshipType),
+      'grades': serializer.toJson<int>(grades),
+      'professional': serializer.toJson<bool>(professional),
+      'helpful': serializer.toJson<bool>(helpful),
+      'personalityType': serializer.toJson<String>(personalityType),
+    };
+  }
+
+  SchoolRelationship copyWith(
+          {int? id,
+          int? schoolId,
+          int? mainPersonId,
+          int? otherPersonId,
+          String? schoolRelationshipType,
+          String? informalRelationshipType,
+          int? grades,
+          bool? professional,
+          bool? helpful,
+          String? personalityType}) =>
+      SchoolRelationship(
+        id: id ?? this.id,
+        schoolId: schoolId ?? this.schoolId,
+        mainPersonId: mainPersonId ?? this.mainPersonId,
+        otherPersonId: otherPersonId ?? this.otherPersonId,
+        schoolRelationshipType:
+            schoolRelationshipType ?? this.schoolRelationshipType,
+        informalRelationshipType:
+            informalRelationshipType ?? this.informalRelationshipType,
+        grades: grades ?? this.grades,
+        professional: professional ?? this.professional,
+        helpful: helpful ?? this.helpful,
+        personalityType: personalityType ?? this.personalityType,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('SchoolRelationship(')
+          ..write('id: $id, ')
+          ..write('schoolId: $schoolId, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('otherPersonId: $otherPersonId, ')
+          ..write('schoolRelationshipType: $schoolRelationshipType, ')
+          ..write('informalRelationshipType: $informalRelationshipType, ')
+          ..write('grades: $grades, ')
+          ..write('professional: $professional, ')
+          ..write('helpful: $helpful, ')
+          ..write('personalityType: $personalityType')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      schoolId,
+      mainPersonId,
+      otherPersonId,
+      schoolRelationshipType,
+      informalRelationshipType,
+      grades,
+      professional,
+      helpful,
+      personalityType);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SchoolRelationship &&
+          other.id == this.id &&
+          other.schoolId == this.schoolId &&
+          other.mainPersonId == this.mainPersonId &&
+          other.otherPersonId == this.otherPersonId &&
+          other.schoolRelationshipType == this.schoolRelationshipType &&
+          other.informalRelationshipType == this.informalRelationshipType &&
+          other.grades == this.grades &&
+          other.professional == this.professional &&
+          other.helpful == this.helpful &&
+          other.personalityType == this.personalityType);
+}
+
+class SchoolRelationshipTableCompanion
+    extends UpdateCompanion<SchoolRelationship> {
+  final Value<int> id;
+  final Value<int> schoolId;
+  final Value<int> mainPersonId;
+  final Value<int> otherPersonId;
+  final Value<String> schoolRelationshipType;
+  final Value<String> informalRelationshipType;
+  final Value<int> grades;
+  final Value<bool> professional;
+  final Value<bool> helpful;
+  final Value<String> personalityType;
+  const SchoolRelationshipTableCompanion({
+    this.id = const Value.absent(),
+    this.schoolId = const Value.absent(),
+    this.mainPersonId = const Value.absent(),
+    this.otherPersonId = const Value.absent(),
+    this.schoolRelationshipType = const Value.absent(),
+    this.informalRelationshipType = const Value.absent(),
+    this.grades = const Value.absent(),
+    this.professional = const Value.absent(),
+    this.helpful = const Value.absent(),
+    this.personalityType = const Value.absent(),
+  });
+  SchoolRelationshipTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int schoolId,
+    required int mainPersonId,
+    required int otherPersonId,
+    required String schoolRelationshipType,
+    required String informalRelationshipType,
+    required int grades,
+    required bool professional,
+    required bool helpful,
+    required String personalityType,
+  })  : schoolId = Value(schoolId),
+        mainPersonId = Value(mainPersonId),
+        otherPersonId = Value(otherPersonId),
+        schoolRelationshipType = Value(schoolRelationshipType),
+        informalRelationshipType = Value(informalRelationshipType),
+        grades = Value(grades),
+        professional = Value(professional),
+        helpful = Value(helpful),
+        personalityType = Value(personalityType);
+  static Insertable<SchoolRelationship> custom({
+    Expression<int>? id,
+    Expression<int>? schoolId,
+    Expression<int>? mainPersonId,
+    Expression<int>? otherPersonId,
+    Expression<String>? schoolRelationshipType,
+    Expression<String>? informalRelationshipType,
+    Expression<int>? grades,
+    Expression<bool>? professional,
+    Expression<bool>? helpful,
+    Expression<String>? personalityType,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (schoolId != null) 'school_id': schoolId,
+      if (mainPersonId != null) 'main_person_id': mainPersonId,
+      if (otherPersonId != null) 'other_person_id': otherPersonId,
+      if (schoolRelationshipType != null)
+        'school_relationship_type': schoolRelationshipType,
+      if (informalRelationshipType != null)
+        'informal_relationship_type': informalRelationshipType,
+      if (grades != null) 'grades': grades,
+      if (professional != null) 'professional': professional,
+      if (helpful != null) 'helpful': helpful,
+      if (personalityType != null) 'personality_type': personalityType,
+    });
+  }
+
+  SchoolRelationshipTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? schoolId,
+      Value<int>? mainPersonId,
+      Value<int>? otherPersonId,
+      Value<String>? schoolRelationshipType,
+      Value<String>? informalRelationshipType,
+      Value<int>? grades,
+      Value<bool>? professional,
+      Value<bool>? helpful,
+      Value<String>? personalityType}) {
+    return SchoolRelationshipTableCompanion(
+      id: id ?? this.id,
+      schoolId: schoolId ?? this.schoolId,
+      mainPersonId: mainPersonId ?? this.mainPersonId,
+      otherPersonId: otherPersonId ?? this.otherPersonId,
+      schoolRelationshipType:
+          schoolRelationshipType ?? this.schoolRelationshipType,
+      informalRelationshipType:
+          informalRelationshipType ?? this.informalRelationshipType,
+      grades: grades ?? this.grades,
+      professional: professional ?? this.professional,
+      helpful: helpful ?? this.helpful,
+      personalityType: personalityType ?? this.personalityType,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (schoolId.present) {
+      map['school_id'] = Variable<int>(schoolId.value);
+    }
+    if (mainPersonId.present) {
+      map['main_person_id'] = Variable<int>(mainPersonId.value);
+    }
+    if (otherPersonId.present) {
+      map['other_person_id'] = Variable<int>(otherPersonId.value);
+    }
+    if (schoolRelationshipType.present) {
+      map['school_relationship_type'] =
+          Variable<String>(schoolRelationshipType.value);
+    }
+    if (informalRelationshipType.present) {
+      map['informal_relationship_type'] =
+          Variable<String>(informalRelationshipType.value);
+    }
+    if (grades.present) {
+      map['grades'] = Variable<int>(grades.value);
+    }
+    if (professional.present) {
+      map['professional'] = Variable<bool>(professional.value);
+    }
+    if (helpful.present) {
+      map['helpful'] = Variable<bool>(helpful.value);
+    }
+    if (personalityType.present) {
+      map['personality_type'] = Variable<String>(personalityType.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SchoolRelationshipTableCompanion(')
+          ..write('id: $id, ')
+          ..write('schoolId: $schoolId, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('otherPersonId: $otherPersonId, ')
+          ..write('schoolRelationshipType: $schoolRelationshipType, ')
+          ..write('informalRelationshipType: $informalRelationshipType, ')
+          ..write('grades: $grades, ')
+          ..write('professional: $professional, ')
+          ..write('helpful: $helpful, ')
+          ..write('personalityType: $personalityType')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(e);
   late final $GameTableTable gameTable = $GameTableTable(this);
@@ -11788,6 +14178,12 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $JournalTableTable journalTable = $JournalTableTable(this);
   late final $RecurringBillTableTable recurringBillTable =
       $RecurringBillTableTable(this);
+  late final $DegreeTableTable degreeTable = $DegreeTableTable(this);
+  late final $SchoolTableTable schoolTable = $SchoolTableTable(this);
+  late final $SchoolProjectTableTable schoolProjectTable =
+      $SchoolProjectTableTable(this);
+  late final $SchoolRelationshipTableTable schoolRelationshipTable =
+      $SchoolRelationshipTableTable(this);
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
@@ -11828,6 +14224,14 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       JournalDaoImpl(this as DatabaseProvider);
   late final RecurringBillDaoImpl recurringBillDaoImpl =
       RecurringBillDaoImpl(this as DatabaseProvider);
+  late final DegreeDaoImpl degreeDaoImpl =
+      DegreeDaoImpl(this as DatabaseProvider);
+  late final SchoolDaoImpl schoolDaoImpl =
+      SchoolDaoImpl(this as DatabaseProvider);
+  late final SchoolProjectDaoImpl schoolProjectDaoImpl =
+      SchoolProjectDaoImpl(this as DatabaseProvider);
+  late final SchoolRelationshipDaoImpl schoolRelationshipDaoImpl =
+      SchoolRelationshipDaoImpl(this as DatabaseProvider);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -11857,7 +14261,11 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         jewelryTable,
         storeroomItemTable,
         journalTable,
-        recurringBillTable
+        recurringBillTable,
+        degreeTable,
+        schoolTable,
+        schoolProjectTable,
+        schoolRelationshipTable
       ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(

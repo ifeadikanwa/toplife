@@ -250,6 +250,34 @@ class ShopScreen extends ConsumerWidget {
     );
   }
 }
+  // await SchoolDaoImpl(db).createSchool(
+                //   const School(
+                //     id: 0,
+                //     mainPersonId: 1,
+                //     name: "Sunshine University",
+                //     grades: 89,
+                //     attendance: 78,
+                //     project: 56,
+                //     exam: 90,
+                //     classStartTime: 340,
+                //     classEndTime: 680,
+                //     totalSemesterNumber: 8,
+                //     currentSemesterNumber: 4,
+                //     schoolType: "University",
+                //     currentDayInSemester: 2,
+                //     semesterStartDay: 45,
+                //     degreeId: 2,
+                //     degreeLevel: "master",
+                //     schoolFeesPerSemester: 200,
+                //     scholarshipPercentage: 20,
+                //     totalLoanAmount: 5000,
+                //     loanProcessed: true,
+                //     hasTakenLeave: true,
+                //     isActive: true,
+                //     isCompleted: false,
+                //     wasExpelled: false,
+                //   ),
+                // );
 
 
 //  [

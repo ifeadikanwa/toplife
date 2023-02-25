@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 class EndAllActiveSchoolProgramsUsecase {
   final SchoolRepositories _schoolRepositories;

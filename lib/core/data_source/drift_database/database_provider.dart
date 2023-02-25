@@ -39,6 +39,14 @@ import 'package:toplife/main_systems/system_relationship/domain/model/partner.da
 import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
+import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/data/dao/school_project_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/data/dao/school_relationship_dao_impl.dart';
+import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
+import 'package:toplife/main_systems/system_school/domain/model/school.dart';
+import 'package:toplife/main_systems/system_school/domain/model/school_project.dart';
+import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
@@ -86,6 +94,10 @@ part 'database_provider.g.dart';
     StoreroomItemTable,
     JournalTable,
     RecurringBillTable,
+    DegreeTable,
+    SchoolProjectTable,
+    SchoolRelationshipTable,
+    SchoolTable,
   ],
   daos: [
     GameDaoImpl,
@@ -113,6 +125,10 @@ part 'database_provider.g.dart';
     StoreroomItemDaoImpl,
     JournalDaoImpl,
     RecurringBillDaoImpl,
+    DegreeDaoImpl,
+    SchoolDaoImpl,
+    SchoolProjectDaoImpl,
+    SchoolRelationshipDaoImpl,
   ],
 )
 class DatabaseProvider extends _$DatabaseProvider {

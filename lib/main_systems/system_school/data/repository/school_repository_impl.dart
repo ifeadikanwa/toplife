@@ -1,6 +1,6 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_dao.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/repository/school_repository.dart';
 
 class SchoolRepositoryImpl implements SchoolRepository {
@@ -61,7 +61,8 @@ class SchoolRepositoryImpl implements SchoolRepository {
   }
 
   @override
-  Future<List<School>> getAllCompletedUndergraduateSchool(int mainPersonID) async {
+  Future<List<School>> getAllCompletedUndergraduateSchool(
+      int mainPersonID) async {
     return _schoolDao.getAllCompletedUndergraduateSchool(mainPersonID);
   }
 
@@ -85,6 +86,11 @@ class SchoolRepositoryImpl implements SchoolRepository {
 
   @override
   Future<List<School>> getAllCompletedSpecialSchool(int mainPersonID) async {
-   return  _schoolDao.getAllCompletedSpecialSchool(mainPersonID);
+    return _schoolDao.getAllCompletedSpecialSchool(mainPersonID);
+  }
+
+  @override
+  Stream<School?> watchSchool(int schoolID) {
+    return _schoolDao.watchSchool(schoolID);
   }
 }

@@ -1,6 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 class GetValidListOfDoctorateDegreesUsecase {
   final SchoolRepositories _schoolRepositories;
@@ -28,14 +27,14 @@ class GetValidListOfDoctorateDegreesUsecase {
 
     for (var completedDoctorateSchool in completedDoctorateSchools) {
       availableDoctorateSchools.removeWhere(
-          (school) => school.degreeID == completedDoctorateSchool.degreeID);
+          (school) => school.degreeId == completedDoctorateSchool.degreeId);
     }
 
     List<Degree> availableDoctorateDegrees = [];
 
     for (var availableDoctorateSchool in availableDoctorateSchools) {
       Degree? degree = await _schoolRepositories.degreeRepositoryImpl
-          .getDegree(availableDoctorateSchool.degreeID);
+          .getDegree(availableDoctorateSchool.degreeId);
 
       if (degree != null) {
         availableDoctorateDegrees.add(degree);

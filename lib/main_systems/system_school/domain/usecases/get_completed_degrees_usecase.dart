@@ -1,6 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 class GetCompletedDegreesUsecase {
   final SchoolRepositories _schoolRepositories;
@@ -24,7 +23,7 @@ class GetCompletedDegreesUsecase {
       Set<int> degreeIDs = {};
 
       for (School school in completedSchool) {
-        degreeIDs.add(school.degreeID);
+        degreeIDs.add(school.degreeId);
       }
 
       for (int degreeID in degreeIDs) {

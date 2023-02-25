@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
 abstract class SchoolDao {
   Future<School> createSchool(School school);
@@ -17,5 +17,6 @@ abstract class SchoolDao {
       int mainPersonID, int degreeID);
   Future<List<School>> getAllSchools(int mainPersonID);
   Future<School?> getSchool(int schoolID);
+  Stream<School?> watchSchool(int schoolID);
   Future<void> deleteSchool(int schoolID);
 }
