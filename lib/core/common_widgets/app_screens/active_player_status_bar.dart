@@ -14,7 +14,7 @@ class ActivePlayerStatusBar extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    const avatarImagePath = "assets/images/black_woman_placeholder.jpg";
+    const avatarImagePath = "assets/images/indian_woman_face.png";
     const flagImagePath = "assets/images/france_flag.jpg";
 
     final activePlayerStatusBarInfo = ref.watch(activePlayerStatusBarProvider);

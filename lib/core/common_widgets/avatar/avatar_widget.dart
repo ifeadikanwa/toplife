@@ -11,8 +11,9 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //images have transparent background so a border radius is unnecessary
     return ClipRRect(
-      borderRadius: BorderRadius.circular(avatarSize / 2),
+      // borderRadius: BorderRadius.circular(avatarSize / 2),
       child: Image.asset(
         imagePath,
         height: avatarSize,

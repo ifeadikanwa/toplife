@@ -33,7 +33,7 @@ class FriendsScreen extends StatelessWidget {
 
         return RelationshipListItem(
           onTap: () {},
-          avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+          avatarImagePath: "assets/images/indian_woman_face.png",
           relationshipLabel: relationshipLabel,
           name: name,
           relationshipAmount: relationshipAmount,

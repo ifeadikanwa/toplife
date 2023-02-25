@@ -13,7 +13,7 @@ class PlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const avatarImagePath = "assets/images/black_woman_placeholder.jpg";
+    const avatarImagePath = "assets/images/indian_woman_face.png";
     const flagImagePath = "assets/images/france_flag.jpg";
 
     return Column(

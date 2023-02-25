@@ -15,40 +15,39 @@ class ChildrenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        itemCount: childrenList.length,
-        itemBuilder: (context, index) {
-          //relationship label
-          final relationshipType =
-              childrenList[index].relationship.childRelationshipType;
-          final gender = childrenList[index].person.gender;
-          final String relationshipLabel =
-              getChildRelationshipLabel(relationshipType, gender);
+      itemCount: childrenList.length,
+      itemBuilder: (context, index) {
+        //relationship label
+        final relationshipType =
+            childrenList[index].relationship.childRelationshipType;
+        final gender = childrenList[index].person.gender;
+        final String relationshipLabel =
+            getChildRelationshipLabel(relationshipType, gender);
 
-          //name
-          final name =
-              "${childrenList[index].person.firstName} ${childrenList[index].person.lastName}";
+        //name
+        final name =
+            "${childrenList[index].person.firstName} ${childrenList[index].person.lastName}";
 
-          //relationship amount
-          final relationshipAmount =
-              childrenList[index].relationship.relationship;
+        //relationship amount
+        final relationshipAmount =
+            childrenList[index].relationship.relationship;
 
-          //currentlyLivingTogether(in your custody)
-          final currentlyLivingTogether = childrenList[index].relationship.currentlyLivingTogether;
+        //currentlyLivingTogether(in your custody)
+        final currentlyLivingTogether =
+            childrenList[index].relationship.currentlyLivingTogether;
 
-          return RelationshipListItem(
-            onTap: (){},
-            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
-            relationshipLabel: relationshipLabel,
-            name: name,
-            relationshipAmount: relationshipAmount,
-            currentlyLivingTogether: currentlyLivingTogether,
-          );
-        },
-        separatorBuilder: (context, index) {
-          return const ListDivider();
-        },
-      
+        return RelationshipListItem(
+          onTap: () {},
+          avatarImagePath: "assets/images/indian_woman_face.png",
+          relationshipLabel: relationshipLabel,
+          name: name,
+          relationshipAmount: relationshipAmount,
+          currentlyLivingTogether: currentlyLivingTogether,
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const ListDivider();
+      },
     );
   }
 }
-

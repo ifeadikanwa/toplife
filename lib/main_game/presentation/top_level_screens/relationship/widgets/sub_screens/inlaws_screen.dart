@@ -59,7 +59,7 @@ class InLawsScreen extends StatelessWidget {
           return RelationshipListItemWithHeader(
             onTap: () {},
             sectionTitle: sectionTitle,
-            avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+            avatarImagePath: "assets/images/indian_woman_face.png",
             relationshipLabel: relationshipLabel,
             name: name,
             relationshipAmount: relationshipAmount,
@@ -69,7 +69,7 @@ class InLawsScreen extends StatelessWidget {
 
         return RelationshipListItem(
           onTap: () {},
-          avatarImagePath: "assets/images/black_woman_placeholder.jpg",
+          avatarImagePath: "assets/images/indian_woman_face.png",
           relationshipLabel: relationshipLabel,
           name: name,
           relationshipAmount: relationshipAmount,
