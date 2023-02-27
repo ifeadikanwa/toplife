@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/job_dao.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/domain/repository/job_repository.dart';
 
 class JobRepositoryImpl implements JobRepository {

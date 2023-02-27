@@ -14145,6 +14145,2015 @@ class SchoolRelationshipTableCompanion
   }
 }
 
+class $JobTableTable extends JobTable with TableInfo<$JobTableTable, Job> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $JobTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _jobTitleMeta =
+      const VerificationMeta('jobTitle');
+  @override
+  late final GeneratedColumn<String> jobTitle = GeneratedColumn<String>(
+      'job_title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _jobTypeMeta =
+      const VerificationMeta('jobType');
+  @override
+  late final GeneratedColumn<String> jobType = GeneratedColumn<String>(
+      'job_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _companySuffixMeta =
+      const VerificationMeta('companySuffix');
+  @override
+  late final GeneratedColumn<String> companySuffix = GeneratedColumn<String>(
+      'company_suffix', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _employmentTypeMeta =
+      const VerificationMeta('employmentType');
+  @override
+  late final GeneratedColumn<String> employmentType = GeneratedColumn<String>(
+      'employment_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _getsTipsMeta =
+      const VerificationMeta('getsTips');
+  @override
+  late final GeneratedColumn<bool> getsTips =
+      GeneratedColumn<bool>('gets_tips', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("gets_tips" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _levelOneTitleMeta =
+      const VerificationMeta('levelOneTitle');
+  @override
+  late final GeneratedColumn<String> levelOneTitle = GeneratedColumn<String>(
+      'level_one_title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _levelOneBasePayMeta =
+      const VerificationMeta('levelOneBasePay');
+  @override
+  late final GeneratedColumn<int> levelOneBasePay = GeneratedColumn<int>(
+      'level_one_base_pay', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _levelTwoTitleMeta =
+      const VerificationMeta('levelTwoTitle');
+  @override
+  late final GeneratedColumn<String> levelTwoTitle = GeneratedColumn<String>(
+      'level_two_title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _levelTwoBasePayMeta =
+      const VerificationMeta('levelTwoBasePay');
+  @override
+  late final GeneratedColumn<int> levelTwoBasePay = GeneratedColumn<int>(
+      'level_two_base_pay', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _levelThreeTitleMeta =
+      const VerificationMeta('levelThreeTitle');
+  @override
+  late final GeneratedColumn<String> levelThreeTitle = GeneratedColumn<String>(
+      'level_three_title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _levelThreeBasePayMeta =
+      const VerificationMeta('levelThreeBasePay');
+  @override
+  late final GeneratedColumn<int> levelThreeBasePay = GeneratedColumn<int>(
+      'level_three_base_pay', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _qualifiedDisciplinesMeta =
+      const VerificationMeta('qualifiedDisciplines');
+  @override
+  late final GeneratedColumn<String> qualifiedDisciplines =
+      GeneratedColumn<String>('qualified_disciplines', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _qualifiedBranchesMeta =
+      const VerificationMeta('qualifiedBranches');
+  @override
+  late final GeneratedColumn<String> qualifiedBranches =
+      GeneratedColumn<String>('qualified_branches', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _healthInsuranceCoverageMeta =
+      const VerificationMeta('healthInsuranceCoverage');
+  @override
+  late final GeneratedColumn<int> healthInsuranceCoverage =
+      GeneratedColumn<int>('health_insurance_coverage', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        jobTitle,
+        jobType,
+        companySuffix,
+        employmentType,
+        getsTips,
+        levelOneTitle,
+        levelOneBasePay,
+        levelTwoTitle,
+        levelTwoBasePay,
+        levelThreeTitle,
+        levelThreeBasePay,
+        qualifiedDisciplines,
+        qualifiedBranches,
+        healthInsuranceCoverage
+      ];
+  @override
+  String get aliasedName => _alias ?? 'job';
+  @override
+  String get actualTableName => 'job';
+  @override
+  VerificationContext validateIntegrity(Insertable<Job> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('job_title')) {
+      context.handle(_jobTitleMeta,
+          jobTitle.isAcceptableOrUnknown(data['job_title']!, _jobTitleMeta));
+    } else if (isInserting) {
+      context.missing(_jobTitleMeta);
+    }
+    if (data.containsKey('job_type')) {
+      context.handle(_jobTypeMeta,
+          jobType.isAcceptableOrUnknown(data['job_type']!, _jobTypeMeta));
+    } else if (isInserting) {
+      context.missing(_jobTypeMeta);
+    }
+    if (data.containsKey('company_suffix')) {
+      context.handle(
+          _companySuffixMeta,
+          companySuffix.isAcceptableOrUnknown(
+              data['company_suffix']!, _companySuffixMeta));
+    } else if (isInserting) {
+      context.missing(_companySuffixMeta);
+    }
+    if (data.containsKey('employment_type')) {
+      context.handle(
+          _employmentTypeMeta,
+          employmentType.isAcceptableOrUnknown(
+              data['employment_type']!, _employmentTypeMeta));
+    } else if (isInserting) {
+      context.missing(_employmentTypeMeta);
+    }
+    if (data.containsKey('gets_tips')) {
+      context.handle(_getsTipsMeta,
+          getsTips.isAcceptableOrUnknown(data['gets_tips']!, _getsTipsMeta));
+    } else if (isInserting) {
+      context.missing(_getsTipsMeta);
+    }
+    if (data.containsKey('level_one_title')) {
+      context.handle(
+          _levelOneTitleMeta,
+          levelOneTitle.isAcceptableOrUnknown(
+              data['level_one_title']!, _levelOneTitleMeta));
+    } else if (isInserting) {
+      context.missing(_levelOneTitleMeta);
+    }
+    if (data.containsKey('level_one_base_pay')) {
+      context.handle(
+          _levelOneBasePayMeta,
+          levelOneBasePay.isAcceptableOrUnknown(
+              data['level_one_base_pay']!, _levelOneBasePayMeta));
+    } else if (isInserting) {
+      context.missing(_levelOneBasePayMeta);
+    }
+    if (data.containsKey('level_two_title')) {
+      context.handle(
+          _levelTwoTitleMeta,
+          levelTwoTitle.isAcceptableOrUnknown(
+              data['level_two_title']!, _levelTwoTitleMeta));
+    } else if (isInserting) {
+      context.missing(_levelTwoTitleMeta);
+    }
+    if (data.containsKey('level_two_base_pay')) {
+      context.handle(
+          _levelTwoBasePayMeta,
+          levelTwoBasePay.isAcceptableOrUnknown(
+              data['level_two_base_pay']!, _levelTwoBasePayMeta));
+    } else if (isInserting) {
+      context.missing(_levelTwoBasePayMeta);
+    }
+    if (data.containsKey('level_three_title')) {
+      context.handle(
+          _levelThreeTitleMeta,
+          levelThreeTitle.isAcceptableOrUnknown(
+              data['level_three_title']!, _levelThreeTitleMeta));
+    } else if (isInserting) {
+      context.missing(_levelThreeTitleMeta);
+    }
+    if (data.containsKey('level_three_base_pay')) {
+      context.handle(
+          _levelThreeBasePayMeta,
+          levelThreeBasePay.isAcceptableOrUnknown(
+              data['level_three_base_pay']!, _levelThreeBasePayMeta));
+    } else if (isInserting) {
+      context.missing(_levelThreeBasePayMeta);
+    }
+    if (data.containsKey('qualified_disciplines')) {
+      context.handle(
+          _qualifiedDisciplinesMeta,
+          qualifiedDisciplines.isAcceptableOrUnknown(
+              data['qualified_disciplines']!, _qualifiedDisciplinesMeta));
+    } else if (isInserting) {
+      context.missing(_qualifiedDisciplinesMeta);
+    }
+    if (data.containsKey('qualified_branches')) {
+      context.handle(
+          _qualifiedBranchesMeta,
+          qualifiedBranches.isAcceptableOrUnknown(
+              data['qualified_branches']!, _qualifiedBranchesMeta));
+    } else if (isInserting) {
+      context.missing(_qualifiedBranchesMeta);
+    }
+    if (data.containsKey('health_insurance_coverage')) {
+      context.handle(
+          _healthInsuranceCoverageMeta,
+          healthInsuranceCoverage.isAcceptableOrUnknown(
+              data['health_insurance_coverage']!,
+              _healthInsuranceCoverageMeta));
+    } else if (isInserting) {
+      context.missing(_healthInsuranceCoverageMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Job map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Job(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      jobTitle: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}job_title'])!,
+      jobType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}job_type'])!,
+      companySuffix: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}company_suffix'])!,
+      employmentType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}employment_type'])!,
+      getsTips: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}gets_tips'])!,
+      levelOneTitle: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}level_one_title'])!,
+      levelOneBasePay: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}level_one_base_pay'])!,
+      levelTwoTitle: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}level_two_title'])!,
+      levelTwoBasePay: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}level_two_base_pay'])!,
+      levelThreeTitle: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}level_three_title'])!,
+      levelThreeBasePay: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}level_three_base_pay'])!,
+      qualifiedDisciplines: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}qualified_disciplines'])!,
+      qualifiedBranches: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}qualified_branches'])!,
+      healthInsuranceCoverage: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}health_insurance_coverage'])!,
+    );
+  }
+
+  @override
+  $JobTableTable createAlias(String alias) {
+    return $JobTableTable(attachedDatabase, alias);
+  }
+}
+
+class Job extends DataClass implements Insertable<Job> {
+  final int id;
+  final String jobTitle;
+  final String jobType;
+  final String companySuffix;
+  final String employmentType;
+  final bool getsTips;
+  final String levelOneTitle;
+  final int levelOneBasePay;
+  final String levelTwoTitle;
+  final int levelTwoBasePay;
+  final String levelThreeTitle;
+  final int levelThreeBasePay;
+  final String qualifiedDisciplines;
+  final String qualifiedBranches;
+  final int healthInsuranceCoverage;
+  const Job(
+      {required this.id,
+      required this.jobTitle,
+      required this.jobType,
+      required this.companySuffix,
+      required this.employmentType,
+      required this.getsTips,
+      required this.levelOneTitle,
+      required this.levelOneBasePay,
+      required this.levelTwoTitle,
+      required this.levelTwoBasePay,
+      required this.levelThreeTitle,
+      required this.levelThreeBasePay,
+      required this.qualifiedDisciplines,
+      required this.qualifiedBranches,
+      required this.healthInsuranceCoverage});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['job_title'] = Variable<String>(jobTitle);
+    map['job_type'] = Variable<String>(jobType);
+    map['company_suffix'] = Variable<String>(companySuffix);
+    map['employment_type'] = Variable<String>(employmentType);
+    map['gets_tips'] = Variable<bool>(getsTips);
+    map['level_one_title'] = Variable<String>(levelOneTitle);
+    map['level_one_base_pay'] = Variable<int>(levelOneBasePay);
+    map['level_two_title'] = Variable<String>(levelTwoTitle);
+    map['level_two_base_pay'] = Variable<int>(levelTwoBasePay);
+    map['level_three_title'] = Variable<String>(levelThreeTitle);
+    map['level_three_base_pay'] = Variable<int>(levelThreeBasePay);
+    map['qualified_disciplines'] = Variable<String>(qualifiedDisciplines);
+    map['qualified_branches'] = Variable<String>(qualifiedBranches);
+    map['health_insurance_coverage'] = Variable<int>(healthInsuranceCoverage);
+    return map;
+  }
+
+  JobTableCompanion toCompanion(bool nullToAbsent) {
+    return JobTableCompanion(
+      id: Value(id),
+      jobTitle: Value(jobTitle),
+      jobType: Value(jobType),
+      companySuffix: Value(companySuffix),
+      employmentType: Value(employmentType),
+      getsTips: Value(getsTips),
+      levelOneTitle: Value(levelOneTitle),
+      levelOneBasePay: Value(levelOneBasePay),
+      levelTwoTitle: Value(levelTwoTitle),
+      levelTwoBasePay: Value(levelTwoBasePay),
+      levelThreeTitle: Value(levelThreeTitle),
+      levelThreeBasePay: Value(levelThreeBasePay),
+      qualifiedDisciplines: Value(qualifiedDisciplines),
+      qualifiedBranches: Value(qualifiedBranches),
+      healthInsuranceCoverage: Value(healthInsuranceCoverage),
+    );
+  }
+
+  factory Job.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Job(
+      id: serializer.fromJson<int>(json['id']),
+      jobTitle: serializer.fromJson<String>(json['jobTitle']),
+      jobType: serializer.fromJson<String>(json['jobType']),
+      companySuffix: serializer.fromJson<String>(json['companySuffix']),
+      employmentType: serializer.fromJson<String>(json['employmentType']),
+      getsTips: serializer.fromJson<bool>(json['getsTips']),
+      levelOneTitle: serializer.fromJson<String>(json['levelOneTitle']),
+      levelOneBasePay: serializer.fromJson<int>(json['levelOneBasePay']),
+      levelTwoTitle: serializer.fromJson<String>(json['levelTwoTitle']),
+      levelTwoBasePay: serializer.fromJson<int>(json['levelTwoBasePay']),
+      levelThreeTitle: serializer.fromJson<String>(json['levelThreeTitle']),
+      levelThreeBasePay: serializer.fromJson<int>(json['levelThreeBasePay']),
+      qualifiedDisciplines:
+          serializer.fromJson<String>(json['qualifiedDisciplines']),
+      qualifiedBranches: serializer.fromJson<String>(json['qualifiedBranches']),
+      healthInsuranceCoverage:
+          serializer.fromJson<int>(json['healthInsuranceCoverage']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'jobTitle': serializer.toJson<String>(jobTitle),
+      'jobType': serializer.toJson<String>(jobType),
+      'companySuffix': serializer.toJson<String>(companySuffix),
+      'employmentType': serializer.toJson<String>(employmentType),
+      'getsTips': serializer.toJson<bool>(getsTips),
+      'levelOneTitle': serializer.toJson<String>(levelOneTitle),
+      'levelOneBasePay': serializer.toJson<int>(levelOneBasePay),
+      'levelTwoTitle': serializer.toJson<String>(levelTwoTitle),
+      'levelTwoBasePay': serializer.toJson<int>(levelTwoBasePay),
+      'levelThreeTitle': serializer.toJson<String>(levelThreeTitle),
+      'levelThreeBasePay': serializer.toJson<int>(levelThreeBasePay),
+      'qualifiedDisciplines': serializer.toJson<String>(qualifiedDisciplines),
+      'qualifiedBranches': serializer.toJson<String>(qualifiedBranches),
+      'healthInsuranceCoverage':
+          serializer.toJson<int>(healthInsuranceCoverage),
+    };
+  }
+
+  Job copyWith(
+          {int? id,
+          String? jobTitle,
+          String? jobType,
+          String? companySuffix,
+          String? employmentType,
+          bool? getsTips,
+          String? levelOneTitle,
+          int? levelOneBasePay,
+          String? levelTwoTitle,
+          int? levelTwoBasePay,
+          String? levelThreeTitle,
+          int? levelThreeBasePay,
+          String? qualifiedDisciplines,
+          String? qualifiedBranches,
+          int? healthInsuranceCoverage}) =>
+      Job(
+        id: id ?? this.id,
+        jobTitle: jobTitle ?? this.jobTitle,
+        jobType: jobType ?? this.jobType,
+        companySuffix: companySuffix ?? this.companySuffix,
+        employmentType: employmentType ?? this.employmentType,
+        getsTips: getsTips ?? this.getsTips,
+        levelOneTitle: levelOneTitle ?? this.levelOneTitle,
+        levelOneBasePay: levelOneBasePay ?? this.levelOneBasePay,
+        levelTwoTitle: levelTwoTitle ?? this.levelTwoTitle,
+        levelTwoBasePay: levelTwoBasePay ?? this.levelTwoBasePay,
+        levelThreeTitle: levelThreeTitle ?? this.levelThreeTitle,
+        levelThreeBasePay: levelThreeBasePay ?? this.levelThreeBasePay,
+        qualifiedDisciplines: qualifiedDisciplines ?? this.qualifiedDisciplines,
+        qualifiedBranches: qualifiedBranches ?? this.qualifiedBranches,
+        healthInsuranceCoverage:
+            healthInsuranceCoverage ?? this.healthInsuranceCoverage,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Job(')
+          ..write('id: $id, ')
+          ..write('jobTitle: $jobTitle, ')
+          ..write('jobType: $jobType, ')
+          ..write('companySuffix: $companySuffix, ')
+          ..write('employmentType: $employmentType, ')
+          ..write('getsTips: $getsTips, ')
+          ..write('levelOneTitle: $levelOneTitle, ')
+          ..write('levelOneBasePay: $levelOneBasePay, ')
+          ..write('levelTwoTitle: $levelTwoTitle, ')
+          ..write('levelTwoBasePay: $levelTwoBasePay, ')
+          ..write('levelThreeTitle: $levelThreeTitle, ')
+          ..write('levelThreeBasePay: $levelThreeBasePay, ')
+          ..write('qualifiedDisciplines: $qualifiedDisciplines, ')
+          ..write('qualifiedBranches: $qualifiedBranches, ')
+          ..write('healthInsuranceCoverage: $healthInsuranceCoverage')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      jobTitle,
+      jobType,
+      companySuffix,
+      employmentType,
+      getsTips,
+      levelOneTitle,
+      levelOneBasePay,
+      levelTwoTitle,
+      levelTwoBasePay,
+      levelThreeTitle,
+      levelThreeBasePay,
+      qualifiedDisciplines,
+      qualifiedBranches,
+      healthInsuranceCoverage);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Job &&
+          other.id == this.id &&
+          other.jobTitle == this.jobTitle &&
+          other.jobType == this.jobType &&
+          other.companySuffix == this.companySuffix &&
+          other.employmentType == this.employmentType &&
+          other.getsTips == this.getsTips &&
+          other.levelOneTitle == this.levelOneTitle &&
+          other.levelOneBasePay == this.levelOneBasePay &&
+          other.levelTwoTitle == this.levelTwoTitle &&
+          other.levelTwoBasePay == this.levelTwoBasePay &&
+          other.levelThreeTitle == this.levelThreeTitle &&
+          other.levelThreeBasePay == this.levelThreeBasePay &&
+          other.qualifiedDisciplines == this.qualifiedDisciplines &&
+          other.qualifiedBranches == this.qualifiedBranches &&
+          other.healthInsuranceCoverage == this.healthInsuranceCoverage);
+}
+
+class JobTableCompanion extends UpdateCompanion<Job> {
+  final Value<int> id;
+  final Value<String> jobTitle;
+  final Value<String> jobType;
+  final Value<String> companySuffix;
+  final Value<String> employmentType;
+  final Value<bool> getsTips;
+  final Value<String> levelOneTitle;
+  final Value<int> levelOneBasePay;
+  final Value<String> levelTwoTitle;
+  final Value<int> levelTwoBasePay;
+  final Value<String> levelThreeTitle;
+  final Value<int> levelThreeBasePay;
+  final Value<String> qualifiedDisciplines;
+  final Value<String> qualifiedBranches;
+  final Value<int> healthInsuranceCoverage;
+  const JobTableCompanion({
+    this.id = const Value.absent(),
+    this.jobTitle = const Value.absent(),
+    this.jobType = const Value.absent(),
+    this.companySuffix = const Value.absent(),
+    this.employmentType = const Value.absent(),
+    this.getsTips = const Value.absent(),
+    this.levelOneTitle = const Value.absent(),
+    this.levelOneBasePay = const Value.absent(),
+    this.levelTwoTitle = const Value.absent(),
+    this.levelTwoBasePay = const Value.absent(),
+    this.levelThreeTitle = const Value.absent(),
+    this.levelThreeBasePay = const Value.absent(),
+    this.qualifiedDisciplines = const Value.absent(),
+    this.qualifiedBranches = const Value.absent(),
+    this.healthInsuranceCoverage = const Value.absent(),
+  });
+  JobTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String jobTitle,
+    required String jobType,
+    required String companySuffix,
+    required String employmentType,
+    required bool getsTips,
+    required String levelOneTitle,
+    required int levelOneBasePay,
+    required String levelTwoTitle,
+    required int levelTwoBasePay,
+    required String levelThreeTitle,
+    required int levelThreeBasePay,
+    required String qualifiedDisciplines,
+    required String qualifiedBranches,
+    required int healthInsuranceCoverage,
+  })  : jobTitle = Value(jobTitle),
+        jobType = Value(jobType),
+        companySuffix = Value(companySuffix),
+        employmentType = Value(employmentType),
+        getsTips = Value(getsTips),
+        levelOneTitle = Value(levelOneTitle),
+        levelOneBasePay = Value(levelOneBasePay),
+        levelTwoTitle = Value(levelTwoTitle),
+        levelTwoBasePay = Value(levelTwoBasePay),
+        levelThreeTitle = Value(levelThreeTitle),
+        levelThreeBasePay = Value(levelThreeBasePay),
+        qualifiedDisciplines = Value(qualifiedDisciplines),
+        qualifiedBranches = Value(qualifiedBranches),
+        healthInsuranceCoverage = Value(healthInsuranceCoverage);
+  static Insertable<Job> custom({
+    Expression<int>? id,
+    Expression<String>? jobTitle,
+    Expression<String>? jobType,
+    Expression<String>? companySuffix,
+    Expression<String>? employmentType,
+    Expression<bool>? getsTips,
+    Expression<String>? levelOneTitle,
+    Expression<int>? levelOneBasePay,
+    Expression<String>? levelTwoTitle,
+    Expression<int>? levelTwoBasePay,
+    Expression<String>? levelThreeTitle,
+    Expression<int>? levelThreeBasePay,
+    Expression<String>? qualifiedDisciplines,
+    Expression<String>? qualifiedBranches,
+    Expression<int>? healthInsuranceCoverage,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (jobTitle != null) 'job_title': jobTitle,
+      if (jobType != null) 'job_type': jobType,
+      if (companySuffix != null) 'company_suffix': companySuffix,
+      if (employmentType != null) 'employment_type': employmentType,
+      if (getsTips != null) 'gets_tips': getsTips,
+      if (levelOneTitle != null) 'level_one_title': levelOneTitle,
+      if (levelOneBasePay != null) 'level_one_base_pay': levelOneBasePay,
+      if (levelTwoTitle != null) 'level_two_title': levelTwoTitle,
+      if (levelTwoBasePay != null) 'level_two_base_pay': levelTwoBasePay,
+      if (levelThreeTitle != null) 'level_three_title': levelThreeTitle,
+      if (levelThreeBasePay != null) 'level_three_base_pay': levelThreeBasePay,
+      if (qualifiedDisciplines != null)
+        'qualified_disciplines': qualifiedDisciplines,
+      if (qualifiedBranches != null) 'qualified_branches': qualifiedBranches,
+      if (healthInsuranceCoverage != null)
+        'health_insurance_coverage': healthInsuranceCoverage,
+    });
+  }
+
+  JobTableCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? jobTitle,
+      Value<String>? jobType,
+      Value<String>? companySuffix,
+      Value<String>? employmentType,
+      Value<bool>? getsTips,
+      Value<String>? levelOneTitle,
+      Value<int>? levelOneBasePay,
+      Value<String>? levelTwoTitle,
+      Value<int>? levelTwoBasePay,
+      Value<String>? levelThreeTitle,
+      Value<int>? levelThreeBasePay,
+      Value<String>? qualifiedDisciplines,
+      Value<String>? qualifiedBranches,
+      Value<int>? healthInsuranceCoverage}) {
+    return JobTableCompanion(
+      id: id ?? this.id,
+      jobTitle: jobTitle ?? this.jobTitle,
+      jobType: jobType ?? this.jobType,
+      companySuffix: companySuffix ?? this.companySuffix,
+      employmentType: employmentType ?? this.employmentType,
+      getsTips: getsTips ?? this.getsTips,
+      levelOneTitle: levelOneTitle ?? this.levelOneTitle,
+      levelOneBasePay: levelOneBasePay ?? this.levelOneBasePay,
+      levelTwoTitle: levelTwoTitle ?? this.levelTwoTitle,
+      levelTwoBasePay: levelTwoBasePay ?? this.levelTwoBasePay,
+      levelThreeTitle: levelThreeTitle ?? this.levelThreeTitle,
+      levelThreeBasePay: levelThreeBasePay ?? this.levelThreeBasePay,
+      qualifiedDisciplines: qualifiedDisciplines ?? this.qualifiedDisciplines,
+      qualifiedBranches: qualifiedBranches ?? this.qualifiedBranches,
+      healthInsuranceCoverage:
+          healthInsuranceCoverage ?? this.healthInsuranceCoverage,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (jobTitle.present) {
+      map['job_title'] = Variable<String>(jobTitle.value);
+    }
+    if (jobType.present) {
+      map['job_type'] = Variable<String>(jobType.value);
+    }
+    if (companySuffix.present) {
+      map['company_suffix'] = Variable<String>(companySuffix.value);
+    }
+    if (employmentType.present) {
+      map['employment_type'] = Variable<String>(employmentType.value);
+    }
+    if (getsTips.present) {
+      map['gets_tips'] = Variable<bool>(getsTips.value);
+    }
+    if (levelOneTitle.present) {
+      map['level_one_title'] = Variable<String>(levelOneTitle.value);
+    }
+    if (levelOneBasePay.present) {
+      map['level_one_base_pay'] = Variable<int>(levelOneBasePay.value);
+    }
+    if (levelTwoTitle.present) {
+      map['level_two_title'] = Variable<String>(levelTwoTitle.value);
+    }
+    if (levelTwoBasePay.present) {
+      map['level_two_base_pay'] = Variable<int>(levelTwoBasePay.value);
+    }
+    if (levelThreeTitle.present) {
+      map['level_three_title'] = Variable<String>(levelThreeTitle.value);
+    }
+    if (levelThreeBasePay.present) {
+      map['level_three_base_pay'] = Variable<int>(levelThreeBasePay.value);
+    }
+    if (qualifiedDisciplines.present) {
+      map['qualified_disciplines'] =
+          Variable<String>(qualifiedDisciplines.value);
+    }
+    if (qualifiedBranches.present) {
+      map['qualified_branches'] = Variable<String>(qualifiedBranches.value);
+    }
+    if (healthInsuranceCoverage.present) {
+      map['health_insurance_coverage'] =
+          Variable<int>(healthInsuranceCoverage.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('JobTableCompanion(')
+          ..write('id: $id, ')
+          ..write('jobTitle: $jobTitle, ')
+          ..write('jobType: $jobType, ')
+          ..write('companySuffix: $companySuffix, ')
+          ..write('employmentType: $employmentType, ')
+          ..write('getsTips: $getsTips, ')
+          ..write('levelOneTitle: $levelOneTitle, ')
+          ..write('levelOneBasePay: $levelOneBasePay, ')
+          ..write('levelTwoTitle: $levelTwoTitle, ')
+          ..write('levelTwoBasePay: $levelTwoBasePay, ')
+          ..write('levelThreeTitle: $levelThreeTitle, ')
+          ..write('levelThreeBasePay: $levelThreeBasePay, ')
+          ..write('qualifiedDisciplines: $qualifiedDisciplines, ')
+          ..write('qualifiedBranches: $qualifiedBranches, ')
+          ..write('healthInsuranceCoverage: $healthInsuranceCoverage')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EmploymentTableTable extends EmploymentTable
+    with TableInfo<$EmploymentTableTable, Employment> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EmploymentTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _jobIdMeta = const VerificationMeta('jobId');
+  @override
+  late final GeneratedColumn<int> jobId = GeneratedColumn<int>(
+      'job_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES job (id)'));
+  static const VerificationMeta _mainPersonIdMeta =
+      const VerificationMeta('mainPersonId');
+  @override
+  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
+      'main_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _companyNameMeta =
+      const VerificationMeta('companyName');
+  @override
+  late final GeneratedColumn<String> companyName = GeneratedColumn<String>(
+      'company_name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _startTimeMeta =
+      const VerificationMeta('startTime');
+  @override
+  late final GeneratedColumn<int> startTime = GeneratedColumn<int>(
+      'start_time', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _shiftLengthMeta =
+      const VerificationMeta('shiftLength');
+  @override
+  late final GeneratedColumn<int> shiftLength = GeneratedColumn<int>(
+      'shift_length', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _dayOffMeta = const VerificationMeta('dayOff');
+  @override
+  late final GeneratedColumn<int> dayOff = GeneratedColumn<int>(
+      'day_off', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _isDayShiftMeta =
+      const VerificationMeta('isDayShift');
+  @override
+  late final GeneratedColumn<bool> isDayShift =
+      GeneratedColumn<bool>('is_day_shift', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_day_shift" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _currentLevelMeta =
+      const VerificationMeta('currentLevel');
+  @override
+  late final GeneratedColumn<int> currentLevel = GeneratedColumn<int>(
+      'current_level', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _currentPayMeta =
+      const VerificationMeta('currentPay');
+  @override
+  late final GeneratedColumn<int> currentPay = GeneratedColumn<int>(
+      'current_pay', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _raisesGivenMeta =
+      const VerificationMeta('raisesGiven');
+  @override
+  late final GeneratedColumn<int> raisesGiven = GeneratedColumn<int>(
+      'raises_given', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _jobPerformanceMeta =
+      const VerificationMeta('jobPerformance');
+  @override
+  late final GeneratedColumn<int> jobPerformance = GeneratedColumn<int>(
+      'job_performance', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _daysOfConsistentGoodPerformanceMeta =
+      const VerificationMeta('daysOfConsistentGoodPerformance');
+  @override
+  late final GeneratedColumn<int> daysOfConsistentGoodPerformance =
+      GeneratedColumn<int>(
+          'days_of_consistent_good_performance', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _vacationDaysLeftMeta =
+      const VerificationMeta('vacationDaysLeft');
+  @override
+  late final GeneratedColumn<int> vacationDaysLeft = GeneratedColumn<int>(
+      'vacation_days_left', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _onLeaveMeta =
+      const VerificationMeta('onLeave');
+  @override
+  late final GeneratedColumn<bool> onLeave =
+      GeneratedColumn<bool>('on_leave', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("on_leave" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _firstDayMeta =
+      const VerificationMeta('firstDay');
+  @override
+  late final GeneratedColumn<int> firstDay = GeneratedColumn<int>(
+      'first_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lastDayMeta =
+      const VerificationMeta('lastDay');
+  @override
+  late final GeneratedColumn<int> lastDay = GeneratedColumn<int>(
+      'last_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _wasFiredMeta =
+      const VerificationMeta('wasFired');
+  @override
+  late final GeneratedColumn<bool> wasFired =
+      GeneratedColumn<bool>('was_fired', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("was_fired" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  @override
+  late final GeneratedColumn<bool> isActive =
+      GeneratedColumn<bool>('is_active', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_active" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        jobId,
+        mainPersonId,
+        companyName,
+        startTime,
+        shiftLength,
+        dayOff,
+        isDayShift,
+        currentLevel,
+        currentPay,
+        raisesGiven,
+        jobPerformance,
+        daysOfConsistentGoodPerformance,
+        vacationDaysLeft,
+        onLeave,
+        firstDay,
+        lastDay,
+        wasFired,
+        isActive
+      ];
+  @override
+  String get aliasedName => _alias ?? 'employment';
+  @override
+  String get actualTableName => 'employment';
+  @override
+  VerificationContext validateIntegrity(Insertable<Employment> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('job_id')) {
+      context.handle(
+          _jobIdMeta, jobId.isAcceptableOrUnknown(data['job_id']!, _jobIdMeta));
+    } else if (isInserting) {
+      context.missing(_jobIdMeta);
+    }
+    if (data.containsKey('main_person_id')) {
+      context.handle(
+          _mainPersonIdMeta,
+          mainPersonId.isAcceptableOrUnknown(
+              data['main_person_id']!, _mainPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_mainPersonIdMeta);
+    }
+    if (data.containsKey('company_name')) {
+      context.handle(
+          _companyNameMeta,
+          companyName.isAcceptableOrUnknown(
+              data['company_name']!, _companyNameMeta));
+    } else if (isInserting) {
+      context.missing(_companyNameMeta);
+    }
+    if (data.containsKey('start_time')) {
+      context.handle(_startTimeMeta,
+          startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
+    } else if (isInserting) {
+      context.missing(_startTimeMeta);
+    }
+    if (data.containsKey('shift_length')) {
+      context.handle(
+          _shiftLengthMeta,
+          shiftLength.isAcceptableOrUnknown(
+              data['shift_length']!, _shiftLengthMeta));
+    } else if (isInserting) {
+      context.missing(_shiftLengthMeta);
+    }
+    if (data.containsKey('day_off')) {
+      context.handle(_dayOffMeta,
+          dayOff.isAcceptableOrUnknown(data['day_off']!, _dayOffMeta));
+    } else if (isInserting) {
+      context.missing(_dayOffMeta);
+    }
+    if (data.containsKey('is_day_shift')) {
+      context.handle(
+          _isDayShiftMeta,
+          isDayShift.isAcceptableOrUnknown(
+              data['is_day_shift']!, _isDayShiftMeta));
+    } else if (isInserting) {
+      context.missing(_isDayShiftMeta);
+    }
+    if (data.containsKey('current_level')) {
+      context.handle(
+          _currentLevelMeta,
+          currentLevel.isAcceptableOrUnknown(
+              data['current_level']!, _currentLevelMeta));
+    } else if (isInserting) {
+      context.missing(_currentLevelMeta);
+    }
+    if (data.containsKey('current_pay')) {
+      context.handle(
+          _currentPayMeta,
+          currentPay.isAcceptableOrUnknown(
+              data['current_pay']!, _currentPayMeta));
+    } else if (isInserting) {
+      context.missing(_currentPayMeta);
+    }
+    if (data.containsKey('raises_given')) {
+      context.handle(
+          _raisesGivenMeta,
+          raisesGiven.isAcceptableOrUnknown(
+              data['raises_given']!, _raisesGivenMeta));
+    } else if (isInserting) {
+      context.missing(_raisesGivenMeta);
+    }
+    if (data.containsKey('job_performance')) {
+      context.handle(
+          _jobPerformanceMeta,
+          jobPerformance.isAcceptableOrUnknown(
+              data['job_performance']!, _jobPerformanceMeta));
+    } else if (isInserting) {
+      context.missing(_jobPerformanceMeta);
+    }
+    if (data.containsKey('days_of_consistent_good_performance')) {
+      context.handle(
+          _daysOfConsistentGoodPerformanceMeta,
+          daysOfConsistentGoodPerformance.isAcceptableOrUnknown(
+              data['days_of_consistent_good_performance']!,
+              _daysOfConsistentGoodPerformanceMeta));
+    } else if (isInserting) {
+      context.missing(_daysOfConsistentGoodPerformanceMeta);
+    }
+    if (data.containsKey('vacation_days_left')) {
+      context.handle(
+          _vacationDaysLeftMeta,
+          vacationDaysLeft.isAcceptableOrUnknown(
+              data['vacation_days_left']!, _vacationDaysLeftMeta));
+    } else if (isInserting) {
+      context.missing(_vacationDaysLeftMeta);
+    }
+    if (data.containsKey('on_leave')) {
+      context.handle(_onLeaveMeta,
+          onLeave.isAcceptableOrUnknown(data['on_leave']!, _onLeaveMeta));
+    } else if (isInserting) {
+      context.missing(_onLeaveMeta);
+    }
+    if (data.containsKey('first_day')) {
+      context.handle(_firstDayMeta,
+          firstDay.isAcceptableOrUnknown(data['first_day']!, _firstDayMeta));
+    } else if (isInserting) {
+      context.missing(_firstDayMeta);
+    }
+    if (data.containsKey('last_day')) {
+      context.handle(_lastDayMeta,
+          lastDay.isAcceptableOrUnknown(data['last_day']!, _lastDayMeta));
+    } else if (isInserting) {
+      context.missing(_lastDayMeta);
+    }
+    if (data.containsKey('was_fired')) {
+      context.handle(_wasFiredMeta,
+          wasFired.isAcceptableOrUnknown(data['was_fired']!, _wasFiredMeta));
+    } else if (isInserting) {
+      context.missing(_wasFiredMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    } else if (isInserting) {
+      context.missing(_isActiveMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Employment map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Employment(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      jobId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}job_id'])!,
+      mainPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
+      companyName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}company_name'])!,
+      startTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}start_time'])!,
+      shiftLength: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}shift_length'])!,
+      dayOff: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}day_off'])!,
+      isDayShift: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_day_shift'])!,
+      currentLevel: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}current_level'])!,
+      currentPay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}current_pay'])!,
+      raisesGiven: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}raises_given'])!,
+      jobPerformance: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}job_performance'])!,
+      daysOfConsistentGoodPerformance: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}days_of_consistent_good_performance'])!,
+      vacationDaysLeft: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}vacation_days_left'])!,
+      onLeave: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}on_leave'])!,
+      firstDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}first_day'])!,
+      lastDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}last_day'])!,
+      wasFired: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}was_fired'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  $EmploymentTableTable createAlias(String alias) {
+    return $EmploymentTableTable(attachedDatabase, alias);
+  }
+}
+
+class Employment extends DataClass implements Insertable<Employment> {
+  final int id;
+  final int jobId;
+  final int mainPersonId;
+  final String companyName;
+  final int startTime;
+  final int shiftLength;
+  final int dayOff;
+  final bool isDayShift;
+  final int currentLevel;
+  final int currentPay;
+  final int raisesGiven;
+  final int jobPerformance;
+  final int daysOfConsistentGoodPerformance;
+  final int vacationDaysLeft;
+  final bool onLeave;
+  final int firstDay;
+  final int lastDay;
+  final bool wasFired;
+  final bool isActive;
+  const Employment(
+      {required this.id,
+      required this.jobId,
+      required this.mainPersonId,
+      required this.companyName,
+      required this.startTime,
+      required this.shiftLength,
+      required this.dayOff,
+      required this.isDayShift,
+      required this.currentLevel,
+      required this.currentPay,
+      required this.raisesGiven,
+      required this.jobPerformance,
+      required this.daysOfConsistentGoodPerformance,
+      required this.vacationDaysLeft,
+      required this.onLeave,
+      required this.firstDay,
+      required this.lastDay,
+      required this.wasFired,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['job_id'] = Variable<int>(jobId);
+    map['main_person_id'] = Variable<int>(mainPersonId);
+    map['company_name'] = Variable<String>(companyName);
+    map['start_time'] = Variable<int>(startTime);
+    map['shift_length'] = Variable<int>(shiftLength);
+    map['day_off'] = Variable<int>(dayOff);
+    map['is_day_shift'] = Variable<bool>(isDayShift);
+    map['current_level'] = Variable<int>(currentLevel);
+    map['current_pay'] = Variable<int>(currentPay);
+    map['raises_given'] = Variable<int>(raisesGiven);
+    map['job_performance'] = Variable<int>(jobPerformance);
+    map['days_of_consistent_good_performance'] =
+        Variable<int>(daysOfConsistentGoodPerformance);
+    map['vacation_days_left'] = Variable<int>(vacationDaysLeft);
+    map['on_leave'] = Variable<bool>(onLeave);
+    map['first_day'] = Variable<int>(firstDay);
+    map['last_day'] = Variable<int>(lastDay);
+    map['was_fired'] = Variable<bool>(wasFired);
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  EmploymentTableCompanion toCompanion(bool nullToAbsent) {
+    return EmploymentTableCompanion(
+      id: Value(id),
+      jobId: Value(jobId),
+      mainPersonId: Value(mainPersonId),
+      companyName: Value(companyName),
+      startTime: Value(startTime),
+      shiftLength: Value(shiftLength),
+      dayOff: Value(dayOff),
+      isDayShift: Value(isDayShift),
+      currentLevel: Value(currentLevel),
+      currentPay: Value(currentPay),
+      raisesGiven: Value(raisesGiven),
+      jobPerformance: Value(jobPerformance),
+      daysOfConsistentGoodPerformance: Value(daysOfConsistentGoodPerformance),
+      vacationDaysLeft: Value(vacationDaysLeft),
+      onLeave: Value(onLeave),
+      firstDay: Value(firstDay),
+      lastDay: Value(lastDay),
+      wasFired: Value(wasFired),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory Employment.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Employment(
+      id: serializer.fromJson<int>(json['id']),
+      jobId: serializer.fromJson<int>(json['jobId']),
+      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
+      companyName: serializer.fromJson<String>(json['companyName']),
+      startTime: serializer.fromJson<int>(json['startTime']),
+      shiftLength: serializer.fromJson<int>(json['shiftLength']),
+      dayOff: serializer.fromJson<int>(json['dayOff']),
+      isDayShift: serializer.fromJson<bool>(json['isDayShift']),
+      currentLevel: serializer.fromJson<int>(json['currentLevel']),
+      currentPay: serializer.fromJson<int>(json['currentPay']),
+      raisesGiven: serializer.fromJson<int>(json['raisesGiven']),
+      jobPerformance: serializer.fromJson<int>(json['jobPerformance']),
+      daysOfConsistentGoodPerformance:
+          serializer.fromJson<int>(json['daysOfConsistentGoodPerformance']),
+      vacationDaysLeft: serializer.fromJson<int>(json['vacationDaysLeft']),
+      onLeave: serializer.fromJson<bool>(json['onLeave']),
+      firstDay: serializer.fromJson<int>(json['firstDay']),
+      lastDay: serializer.fromJson<int>(json['lastDay']),
+      wasFired: serializer.fromJson<bool>(json['wasFired']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'jobId': serializer.toJson<int>(jobId),
+      'mainPersonId': serializer.toJson<int>(mainPersonId),
+      'companyName': serializer.toJson<String>(companyName),
+      'startTime': serializer.toJson<int>(startTime),
+      'shiftLength': serializer.toJson<int>(shiftLength),
+      'dayOff': serializer.toJson<int>(dayOff),
+      'isDayShift': serializer.toJson<bool>(isDayShift),
+      'currentLevel': serializer.toJson<int>(currentLevel),
+      'currentPay': serializer.toJson<int>(currentPay),
+      'raisesGiven': serializer.toJson<int>(raisesGiven),
+      'jobPerformance': serializer.toJson<int>(jobPerformance),
+      'daysOfConsistentGoodPerformance':
+          serializer.toJson<int>(daysOfConsistentGoodPerformance),
+      'vacationDaysLeft': serializer.toJson<int>(vacationDaysLeft),
+      'onLeave': serializer.toJson<bool>(onLeave),
+      'firstDay': serializer.toJson<int>(firstDay),
+      'lastDay': serializer.toJson<int>(lastDay),
+      'wasFired': serializer.toJson<bool>(wasFired),
+      'isActive': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  Employment copyWith(
+          {int? id,
+          int? jobId,
+          int? mainPersonId,
+          String? companyName,
+          int? startTime,
+          int? shiftLength,
+          int? dayOff,
+          bool? isDayShift,
+          int? currentLevel,
+          int? currentPay,
+          int? raisesGiven,
+          int? jobPerformance,
+          int? daysOfConsistentGoodPerformance,
+          int? vacationDaysLeft,
+          bool? onLeave,
+          int? firstDay,
+          int? lastDay,
+          bool? wasFired,
+          bool? isActive}) =>
+      Employment(
+        id: id ?? this.id,
+        jobId: jobId ?? this.jobId,
+        mainPersonId: mainPersonId ?? this.mainPersonId,
+        companyName: companyName ?? this.companyName,
+        startTime: startTime ?? this.startTime,
+        shiftLength: shiftLength ?? this.shiftLength,
+        dayOff: dayOff ?? this.dayOff,
+        isDayShift: isDayShift ?? this.isDayShift,
+        currentLevel: currentLevel ?? this.currentLevel,
+        currentPay: currentPay ?? this.currentPay,
+        raisesGiven: raisesGiven ?? this.raisesGiven,
+        jobPerformance: jobPerformance ?? this.jobPerformance,
+        daysOfConsistentGoodPerformance: daysOfConsistentGoodPerformance ??
+            this.daysOfConsistentGoodPerformance,
+        vacationDaysLeft: vacationDaysLeft ?? this.vacationDaysLeft,
+        onLeave: onLeave ?? this.onLeave,
+        firstDay: firstDay ?? this.firstDay,
+        lastDay: lastDay ?? this.lastDay,
+        wasFired: wasFired ?? this.wasFired,
+        isActive: isActive ?? this.isActive,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Employment(')
+          ..write('id: $id, ')
+          ..write('jobId: $jobId, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('companyName: $companyName, ')
+          ..write('startTime: $startTime, ')
+          ..write('shiftLength: $shiftLength, ')
+          ..write('dayOff: $dayOff, ')
+          ..write('isDayShift: $isDayShift, ')
+          ..write('currentLevel: $currentLevel, ')
+          ..write('currentPay: $currentPay, ')
+          ..write('raisesGiven: $raisesGiven, ')
+          ..write('jobPerformance: $jobPerformance, ')
+          ..write(
+              'daysOfConsistentGoodPerformance: $daysOfConsistentGoodPerformance, ')
+          ..write('vacationDaysLeft: $vacationDaysLeft, ')
+          ..write('onLeave: $onLeave, ')
+          ..write('firstDay: $firstDay, ')
+          ..write('lastDay: $lastDay, ')
+          ..write('wasFired: $wasFired, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      jobId,
+      mainPersonId,
+      companyName,
+      startTime,
+      shiftLength,
+      dayOff,
+      isDayShift,
+      currentLevel,
+      currentPay,
+      raisesGiven,
+      jobPerformance,
+      daysOfConsistentGoodPerformance,
+      vacationDaysLeft,
+      onLeave,
+      firstDay,
+      lastDay,
+      wasFired,
+      isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Employment &&
+          other.id == this.id &&
+          other.jobId == this.jobId &&
+          other.mainPersonId == this.mainPersonId &&
+          other.companyName == this.companyName &&
+          other.startTime == this.startTime &&
+          other.shiftLength == this.shiftLength &&
+          other.dayOff == this.dayOff &&
+          other.isDayShift == this.isDayShift &&
+          other.currentLevel == this.currentLevel &&
+          other.currentPay == this.currentPay &&
+          other.raisesGiven == this.raisesGiven &&
+          other.jobPerformance == this.jobPerformance &&
+          other.daysOfConsistentGoodPerformance ==
+              this.daysOfConsistentGoodPerformance &&
+          other.vacationDaysLeft == this.vacationDaysLeft &&
+          other.onLeave == this.onLeave &&
+          other.firstDay == this.firstDay &&
+          other.lastDay == this.lastDay &&
+          other.wasFired == this.wasFired &&
+          other.isActive == this.isActive);
+}
+
+class EmploymentTableCompanion extends UpdateCompanion<Employment> {
+  final Value<int> id;
+  final Value<int> jobId;
+  final Value<int> mainPersonId;
+  final Value<String> companyName;
+  final Value<int> startTime;
+  final Value<int> shiftLength;
+  final Value<int> dayOff;
+  final Value<bool> isDayShift;
+  final Value<int> currentLevel;
+  final Value<int> currentPay;
+  final Value<int> raisesGiven;
+  final Value<int> jobPerformance;
+  final Value<int> daysOfConsistentGoodPerformance;
+  final Value<int> vacationDaysLeft;
+  final Value<bool> onLeave;
+  final Value<int> firstDay;
+  final Value<int> lastDay;
+  final Value<bool> wasFired;
+  final Value<bool> isActive;
+  const EmploymentTableCompanion({
+    this.id = const Value.absent(),
+    this.jobId = const Value.absent(),
+    this.mainPersonId = const Value.absent(),
+    this.companyName = const Value.absent(),
+    this.startTime = const Value.absent(),
+    this.shiftLength = const Value.absent(),
+    this.dayOff = const Value.absent(),
+    this.isDayShift = const Value.absent(),
+    this.currentLevel = const Value.absent(),
+    this.currentPay = const Value.absent(),
+    this.raisesGiven = const Value.absent(),
+    this.jobPerformance = const Value.absent(),
+    this.daysOfConsistentGoodPerformance = const Value.absent(),
+    this.vacationDaysLeft = const Value.absent(),
+    this.onLeave = const Value.absent(),
+    this.firstDay = const Value.absent(),
+    this.lastDay = const Value.absent(),
+    this.wasFired = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  EmploymentTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int jobId,
+    required int mainPersonId,
+    required String companyName,
+    required int startTime,
+    required int shiftLength,
+    required int dayOff,
+    required bool isDayShift,
+    required int currentLevel,
+    required int currentPay,
+    required int raisesGiven,
+    required int jobPerformance,
+    required int daysOfConsistentGoodPerformance,
+    required int vacationDaysLeft,
+    required bool onLeave,
+    required int firstDay,
+    required int lastDay,
+    required bool wasFired,
+    required bool isActive,
+  })  : jobId = Value(jobId),
+        mainPersonId = Value(mainPersonId),
+        companyName = Value(companyName),
+        startTime = Value(startTime),
+        shiftLength = Value(shiftLength),
+        dayOff = Value(dayOff),
+        isDayShift = Value(isDayShift),
+        currentLevel = Value(currentLevel),
+        currentPay = Value(currentPay),
+        raisesGiven = Value(raisesGiven),
+        jobPerformance = Value(jobPerformance),
+        daysOfConsistentGoodPerformance =
+            Value(daysOfConsistentGoodPerformance),
+        vacationDaysLeft = Value(vacationDaysLeft),
+        onLeave = Value(onLeave),
+        firstDay = Value(firstDay),
+        lastDay = Value(lastDay),
+        wasFired = Value(wasFired),
+        isActive = Value(isActive);
+  static Insertable<Employment> custom({
+    Expression<int>? id,
+    Expression<int>? jobId,
+    Expression<int>? mainPersonId,
+    Expression<String>? companyName,
+    Expression<int>? startTime,
+    Expression<int>? shiftLength,
+    Expression<int>? dayOff,
+    Expression<bool>? isDayShift,
+    Expression<int>? currentLevel,
+    Expression<int>? currentPay,
+    Expression<int>? raisesGiven,
+    Expression<int>? jobPerformance,
+    Expression<int>? daysOfConsistentGoodPerformance,
+    Expression<int>? vacationDaysLeft,
+    Expression<bool>? onLeave,
+    Expression<int>? firstDay,
+    Expression<int>? lastDay,
+    Expression<bool>? wasFired,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (jobId != null) 'job_id': jobId,
+      if (mainPersonId != null) 'main_person_id': mainPersonId,
+      if (companyName != null) 'company_name': companyName,
+      if (startTime != null) 'start_time': startTime,
+      if (shiftLength != null) 'shift_length': shiftLength,
+      if (dayOff != null) 'day_off': dayOff,
+      if (isDayShift != null) 'is_day_shift': isDayShift,
+      if (currentLevel != null) 'current_level': currentLevel,
+      if (currentPay != null) 'current_pay': currentPay,
+      if (raisesGiven != null) 'raises_given': raisesGiven,
+      if (jobPerformance != null) 'job_performance': jobPerformance,
+      if (daysOfConsistentGoodPerformance != null)
+        'days_of_consistent_good_performance': daysOfConsistentGoodPerformance,
+      if (vacationDaysLeft != null) 'vacation_days_left': vacationDaysLeft,
+      if (onLeave != null) 'on_leave': onLeave,
+      if (firstDay != null) 'first_day': firstDay,
+      if (lastDay != null) 'last_day': lastDay,
+      if (wasFired != null) 'was_fired': wasFired,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  EmploymentTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? jobId,
+      Value<int>? mainPersonId,
+      Value<String>? companyName,
+      Value<int>? startTime,
+      Value<int>? shiftLength,
+      Value<int>? dayOff,
+      Value<bool>? isDayShift,
+      Value<int>? currentLevel,
+      Value<int>? currentPay,
+      Value<int>? raisesGiven,
+      Value<int>? jobPerformance,
+      Value<int>? daysOfConsistentGoodPerformance,
+      Value<int>? vacationDaysLeft,
+      Value<bool>? onLeave,
+      Value<int>? firstDay,
+      Value<int>? lastDay,
+      Value<bool>? wasFired,
+      Value<bool>? isActive}) {
+    return EmploymentTableCompanion(
+      id: id ?? this.id,
+      jobId: jobId ?? this.jobId,
+      mainPersonId: mainPersonId ?? this.mainPersonId,
+      companyName: companyName ?? this.companyName,
+      startTime: startTime ?? this.startTime,
+      shiftLength: shiftLength ?? this.shiftLength,
+      dayOff: dayOff ?? this.dayOff,
+      isDayShift: isDayShift ?? this.isDayShift,
+      currentLevel: currentLevel ?? this.currentLevel,
+      currentPay: currentPay ?? this.currentPay,
+      raisesGiven: raisesGiven ?? this.raisesGiven,
+      jobPerformance: jobPerformance ?? this.jobPerformance,
+      daysOfConsistentGoodPerformance: daysOfConsistentGoodPerformance ??
+          this.daysOfConsistentGoodPerformance,
+      vacationDaysLeft: vacationDaysLeft ?? this.vacationDaysLeft,
+      onLeave: onLeave ?? this.onLeave,
+      firstDay: firstDay ?? this.firstDay,
+      lastDay: lastDay ?? this.lastDay,
+      wasFired: wasFired ?? this.wasFired,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (jobId.present) {
+      map['job_id'] = Variable<int>(jobId.value);
+    }
+    if (mainPersonId.present) {
+      map['main_person_id'] = Variable<int>(mainPersonId.value);
+    }
+    if (companyName.present) {
+      map['company_name'] = Variable<String>(companyName.value);
+    }
+    if (startTime.present) {
+      map['start_time'] = Variable<int>(startTime.value);
+    }
+    if (shiftLength.present) {
+      map['shift_length'] = Variable<int>(shiftLength.value);
+    }
+    if (dayOff.present) {
+      map['day_off'] = Variable<int>(dayOff.value);
+    }
+    if (isDayShift.present) {
+      map['is_day_shift'] = Variable<bool>(isDayShift.value);
+    }
+    if (currentLevel.present) {
+      map['current_level'] = Variable<int>(currentLevel.value);
+    }
+    if (currentPay.present) {
+      map['current_pay'] = Variable<int>(currentPay.value);
+    }
+    if (raisesGiven.present) {
+      map['raises_given'] = Variable<int>(raisesGiven.value);
+    }
+    if (jobPerformance.present) {
+      map['job_performance'] = Variable<int>(jobPerformance.value);
+    }
+    if (daysOfConsistentGoodPerformance.present) {
+      map['days_of_consistent_good_performance'] =
+          Variable<int>(daysOfConsistentGoodPerformance.value);
+    }
+    if (vacationDaysLeft.present) {
+      map['vacation_days_left'] = Variable<int>(vacationDaysLeft.value);
+    }
+    if (onLeave.present) {
+      map['on_leave'] = Variable<bool>(onLeave.value);
+    }
+    if (firstDay.present) {
+      map['first_day'] = Variable<int>(firstDay.value);
+    }
+    if (lastDay.present) {
+      map['last_day'] = Variable<int>(lastDay.value);
+    }
+    if (wasFired.present) {
+      map['was_fired'] = Variable<bool>(wasFired.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EmploymentTableCompanion(')
+          ..write('id: $id, ')
+          ..write('jobId: $jobId, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('companyName: $companyName, ')
+          ..write('startTime: $startTime, ')
+          ..write('shiftLength: $shiftLength, ')
+          ..write('dayOff: $dayOff, ')
+          ..write('isDayShift: $isDayShift, ')
+          ..write('currentLevel: $currentLevel, ')
+          ..write('currentPay: $currentPay, ')
+          ..write('raisesGiven: $raisesGiven, ')
+          ..write('jobPerformance: $jobPerformance, ')
+          ..write(
+              'daysOfConsistentGoodPerformance: $daysOfConsistentGoodPerformance, ')
+          ..write('vacationDaysLeft: $vacationDaysLeft, ')
+          ..write('onLeave: $onLeave, ')
+          ..write('firstDay: $firstDay, ')
+          ..write('lastDay: $lastDay, ')
+          ..write('wasFired: $wasFired, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $JobRelationshipTableTable extends JobRelationshipTable
+    with TableInfo<$JobRelationshipTableTable, JobRelationship> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $JobRelationshipTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _employmentIdMeta =
+      const VerificationMeta('employmentId');
+  @override
+  late final GeneratedColumn<int> employmentId = GeneratedColumn<int>(
+      'employment_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES employment (id)'));
+  static const VerificationMeta _mainPersonIdMeta =
+      const VerificationMeta('mainPersonId');
+  @override
+  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
+      'main_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _otherPersonIdMeta =
+      const VerificationMeta('otherPersonId');
+  @override
+  late final GeneratedColumn<int> otherPersonId = GeneratedColumn<int>(
+      'other_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+  static const VerificationMeta _jobRelationshipTypeMeta =
+      const VerificationMeta('jobRelationshipType');
+  @override
+  late final GeneratedColumn<String> jobRelationshipType =
+      GeneratedColumn<String>('job_relationship_type', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _informalRelationshipTypeMeta =
+      const VerificationMeta('informalRelationshipType');
+  @override
+  late final GeneratedColumn<String> informalRelationshipType =
+      GeneratedColumn<String>('informal_relationship_type', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _jobLevelMeta =
+      const VerificationMeta('jobLevel');
+  @override
+  late final GeneratedColumn<int> jobLevel = GeneratedColumn<int>(
+      'job_level', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        employmentId,
+        mainPersonId,
+        otherPersonId,
+        jobRelationshipType,
+        informalRelationshipType,
+        jobLevel
+      ];
+  @override
+  String get aliasedName => _alias ?? 'job_relationship';
+  @override
+  String get actualTableName => 'job_relationship';
+  @override
+  VerificationContext validateIntegrity(Insertable<JobRelationship> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('employment_id')) {
+      context.handle(
+          _employmentIdMeta,
+          employmentId.isAcceptableOrUnknown(
+              data['employment_id']!, _employmentIdMeta));
+    } else if (isInserting) {
+      context.missing(_employmentIdMeta);
+    }
+    if (data.containsKey('main_person_id')) {
+      context.handle(
+          _mainPersonIdMeta,
+          mainPersonId.isAcceptableOrUnknown(
+              data['main_person_id']!, _mainPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_mainPersonIdMeta);
+    }
+    if (data.containsKey('other_person_id')) {
+      context.handle(
+          _otherPersonIdMeta,
+          otherPersonId.isAcceptableOrUnknown(
+              data['other_person_id']!, _otherPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_otherPersonIdMeta);
+    }
+    if (data.containsKey('job_relationship_type')) {
+      context.handle(
+          _jobRelationshipTypeMeta,
+          jobRelationshipType.isAcceptableOrUnknown(
+              data['job_relationship_type']!, _jobRelationshipTypeMeta));
+    } else if (isInserting) {
+      context.missing(_jobRelationshipTypeMeta);
+    }
+    if (data.containsKey('informal_relationship_type')) {
+      context.handle(
+          _informalRelationshipTypeMeta,
+          informalRelationshipType.isAcceptableOrUnknown(
+              data['informal_relationship_type']!,
+              _informalRelationshipTypeMeta));
+    } else if (isInserting) {
+      context.missing(_informalRelationshipTypeMeta);
+    }
+    if (data.containsKey('job_level')) {
+      context.handle(_jobLevelMeta,
+          jobLevel.isAcceptableOrUnknown(data['job_level']!, _jobLevelMeta));
+    } else if (isInserting) {
+      context.missing(_jobLevelMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  JobRelationship map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return JobRelationship(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      employmentId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}employment_id'])!,
+      mainPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
+      otherPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}other_person_id'])!,
+      jobRelationshipType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}job_relationship_type'])!,
+      informalRelationshipType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}informal_relationship_type'])!,
+      jobLevel: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}job_level'])!,
+    );
+  }
+
+  @override
+  $JobRelationshipTableTable createAlias(String alias) {
+    return $JobRelationshipTableTable(attachedDatabase, alias);
+  }
+}
+
+class JobRelationship extends DataClass implements Insertable<JobRelationship> {
+  final int id;
+  final int employmentId;
+  final int mainPersonId;
+  final int otherPersonId;
+  final String jobRelationshipType;
+  final String informalRelationshipType;
+  final int jobLevel;
+  const JobRelationship(
+      {required this.id,
+      required this.employmentId,
+      required this.mainPersonId,
+      required this.otherPersonId,
+      required this.jobRelationshipType,
+      required this.informalRelationshipType,
+      required this.jobLevel});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['employment_id'] = Variable<int>(employmentId);
+    map['main_person_id'] = Variable<int>(mainPersonId);
+    map['other_person_id'] = Variable<int>(otherPersonId);
+    map['job_relationship_type'] = Variable<String>(jobRelationshipType);
+    map['informal_relationship_type'] =
+        Variable<String>(informalRelationshipType);
+    map['job_level'] = Variable<int>(jobLevel);
+    return map;
+  }
+
+  JobRelationshipTableCompanion toCompanion(bool nullToAbsent) {
+    return JobRelationshipTableCompanion(
+      id: Value(id),
+      employmentId: Value(employmentId),
+      mainPersonId: Value(mainPersonId),
+      otherPersonId: Value(otherPersonId),
+      jobRelationshipType: Value(jobRelationshipType),
+      informalRelationshipType: Value(informalRelationshipType),
+      jobLevel: Value(jobLevel),
+    );
+  }
+
+  factory JobRelationship.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return JobRelationship(
+      id: serializer.fromJson<int>(json['id']),
+      employmentId: serializer.fromJson<int>(json['employmentId']),
+      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
+      otherPersonId: serializer.fromJson<int>(json['otherPersonId']),
+      jobRelationshipType:
+          serializer.fromJson<String>(json['jobRelationshipType']),
+      informalRelationshipType:
+          serializer.fromJson<String>(json['informalRelationshipType']),
+      jobLevel: serializer.fromJson<int>(json['jobLevel']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'employmentId': serializer.toJson<int>(employmentId),
+      'mainPersonId': serializer.toJson<int>(mainPersonId),
+      'otherPersonId': serializer.toJson<int>(otherPersonId),
+      'jobRelationshipType': serializer.toJson<String>(jobRelationshipType),
+      'informalRelationshipType':
+          serializer.toJson<String>(informalRelationshipType),
+      'jobLevel': serializer.toJson<int>(jobLevel),
+    };
+  }
+
+  JobRelationship copyWith(
+          {int? id,
+          int? employmentId,
+          int? mainPersonId,
+          int? otherPersonId,
+          String? jobRelationshipType,
+          String? informalRelationshipType,
+          int? jobLevel}) =>
+      JobRelationship(
+        id: id ?? this.id,
+        employmentId: employmentId ?? this.employmentId,
+        mainPersonId: mainPersonId ?? this.mainPersonId,
+        otherPersonId: otherPersonId ?? this.otherPersonId,
+        jobRelationshipType: jobRelationshipType ?? this.jobRelationshipType,
+        informalRelationshipType:
+            informalRelationshipType ?? this.informalRelationshipType,
+        jobLevel: jobLevel ?? this.jobLevel,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('JobRelationship(')
+          ..write('id: $id, ')
+          ..write('employmentId: $employmentId, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('otherPersonId: $otherPersonId, ')
+          ..write('jobRelationshipType: $jobRelationshipType, ')
+          ..write('informalRelationshipType: $informalRelationshipType, ')
+          ..write('jobLevel: $jobLevel')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, employmentId, mainPersonId, otherPersonId,
+      jobRelationshipType, informalRelationshipType, jobLevel);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is JobRelationship &&
+          other.id == this.id &&
+          other.employmentId == this.employmentId &&
+          other.mainPersonId == this.mainPersonId &&
+          other.otherPersonId == this.otherPersonId &&
+          other.jobRelationshipType == this.jobRelationshipType &&
+          other.informalRelationshipType == this.informalRelationshipType &&
+          other.jobLevel == this.jobLevel);
+}
+
+class JobRelationshipTableCompanion extends UpdateCompanion<JobRelationship> {
+  final Value<int> id;
+  final Value<int> employmentId;
+  final Value<int> mainPersonId;
+  final Value<int> otherPersonId;
+  final Value<String> jobRelationshipType;
+  final Value<String> informalRelationshipType;
+  final Value<int> jobLevel;
+  const JobRelationshipTableCompanion({
+    this.id = const Value.absent(),
+    this.employmentId = const Value.absent(),
+    this.mainPersonId = const Value.absent(),
+    this.otherPersonId = const Value.absent(),
+    this.jobRelationshipType = const Value.absent(),
+    this.informalRelationshipType = const Value.absent(),
+    this.jobLevel = const Value.absent(),
+  });
+  JobRelationshipTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int employmentId,
+    required int mainPersonId,
+    required int otherPersonId,
+    required String jobRelationshipType,
+    required String informalRelationshipType,
+    required int jobLevel,
+  })  : employmentId = Value(employmentId),
+        mainPersonId = Value(mainPersonId),
+        otherPersonId = Value(otherPersonId),
+        jobRelationshipType = Value(jobRelationshipType),
+        informalRelationshipType = Value(informalRelationshipType),
+        jobLevel = Value(jobLevel);
+  static Insertable<JobRelationship> custom({
+    Expression<int>? id,
+    Expression<int>? employmentId,
+    Expression<int>? mainPersonId,
+    Expression<int>? otherPersonId,
+    Expression<String>? jobRelationshipType,
+    Expression<String>? informalRelationshipType,
+    Expression<int>? jobLevel,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (employmentId != null) 'employment_id': employmentId,
+      if (mainPersonId != null) 'main_person_id': mainPersonId,
+      if (otherPersonId != null) 'other_person_id': otherPersonId,
+      if (jobRelationshipType != null)
+        'job_relationship_type': jobRelationshipType,
+      if (informalRelationshipType != null)
+        'informal_relationship_type': informalRelationshipType,
+      if (jobLevel != null) 'job_level': jobLevel,
+    });
+  }
+
+  JobRelationshipTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? employmentId,
+      Value<int>? mainPersonId,
+      Value<int>? otherPersonId,
+      Value<String>? jobRelationshipType,
+      Value<String>? informalRelationshipType,
+      Value<int>? jobLevel}) {
+    return JobRelationshipTableCompanion(
+      id: id ?? this.id,
+      employmentId: employmentId ?? this.employmentId,
+      mainPersonId: mainPersonId ?? this.mainPersonId,
+      otherPersonId: otherPersonId ?? this.otherPersonId,
+      jobRelationshipType: jobRelationshipType ?? this.jobRelationshipType,
+      informalRelationshipType:
+          informalRelationshipType ?? this.informalRelationshipType,
+      jobLevel: jobLevel ?? this.jobLevel,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (employmentId.present) {
+      map['employment_id'] = Variable<int>(employmentId.value);
+    }
+    if (mainPersonId.present) {
+      map['main_person_id'] = Variable<int>(mainPersonId.value);
+    }
+    if (otherPersonId.present) {
+      map['other_person_id'] = Variable<int>(otherPersonId.value);
+    }
+    if (jobRelationshipType.present) {
+      map['job_relationship_type'] =
+          Variable<String>(jobRelationshipType.value);
+    }
+    if (informalRelationshipType.present) {
+      map['informal_relationship_type'] =
+          Variable<String>(informalRelationshipType.value);
+    }
+    if (jobLevel.present) {
+      map['job_level'] = Variable<int>(jobLevel.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('JobRelationshipTableCompanion(')
+          ..write('id: $id, ')
+          ..write('employmentId: $employmentId, ')
+          ..write('mainPersonId: $mainPersonId, ')
+          ..write('otherPersonId: $otherPersonId, ')
+          ..write('jobRelationshipType: $jobRelationshipType, ')
+          ..write('informalRelationshipType: $informalRelationshipType, ')
+          ..write('jobLevel: $jobLevel')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(e);
   late final $GameTableTable gameTable = $GameTableTable(this);
@@ -14184,6 +16193,11 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       $SchoolProjectTableTable(this);
   late final $SchoolRelationshipTableTable schoolRelationshipTable =
       $SchoolRelationshipTableTable(this);
+  late final $JobTableTable jobTable = $JobTableTable(this);
+  late final $EmploymentTableTable employmentTable =
+      $EmploymentTableTable(this);
+  late final $JobRelationshipTableTable jobRelationshipTable =
+      $JobRelationshipTableTable(this);
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
@@ -14232,6 +16246,11 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       SchoolProjectDaoImpl(this as DatabaseProvider);
   late final SchoolRelationshipDaoImpl schoolRelationshipDaoImpl =
       SchoolRelationshipDaoImpl(this as DatabaseProvider);
+  late final JobDaoImpl jobDaoImpl = JobDaoImpl(this as DatabaseProvider);
+  late final EmploymentDaoImpl employmentDaoImpl =
+      EmploymentDaoImpl(this as DatabaseProvider);
+  late final JobRelationshipDaoImpl jobRelationshipDaoImpl =
+      JobRelationshipDaoImpl(this as DatabaseProvider);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -14265,7 +16284,10 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         degreeTable,
         schoolTable,
         schoolProjectTable,
-        schoolRelationshipTable
+        schoolRelationshipTable,
+        jobTable,
+        employmentTable,
+        jobRelationshipTable
       ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(

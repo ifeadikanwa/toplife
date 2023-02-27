@@ -1,11 +1,11 @@
-
 import 'dart:collection';
 
+import 'package:toplife/core/data_source/database_constants.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/health_insurance_coverage.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/level_titles.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/specific_company_suffix.dart';
@@ -25,6 +25,7 @@ class FullTimeGeneralJobs {
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.carpenter,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.carpenters,
@@ -41,10 +42,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.firefighter,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.fireStation,
@@ -61,10 +64,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.plumber,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.plumbing,
@@ -81,10 +86,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.electrician,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.electricians,
@@ -101,10 +108,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.makeupArtist,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.cosmetics,
@@ -121,10 +130,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.constructionWorker,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.construction,
@@ -141,10 +152,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.mechanic,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.auto,
@@ -161,10 +174,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.busDriver,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.motors,
@@ -181,10 +196,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.welder,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.welding,
@@ -201,10 +218,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.high.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.chef,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.restaurant,
@@ -221,10 +240,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.photographer,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.studio,
@@ -241,9 +262,11 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.hairStylist,
       jobType: JobType.blueCollar.name,
       companySuffix: SpecificCompanySuffix.salon,
@@ -260,12 +283,14 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //White Collar
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.assistant,
       jobType: JobType.whiteCollar.name,
       companySuffix: getRandomCorporateCompanySuffix(),
@@ -282,10 +307,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.customerSupportRepresentative,
       jobType: JobType.whiteCollar.name,
       companySuffix: getRandomCorporateCompanySuffix(),
@@ -302,10 +329,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.salesRepresentative,
       jobType: JobType.whiteCollar.name,
       companySuffix: getRandomCorporateCompanySuffix(),
@@ -322,10 +351,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.graphicDesigner,
       jobType: JobType.whiteCollar.name,
       companySuffix: getRandomCorporateCompanySuffix(),
@@ -342,10 +373,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.receptionist,
       jobType: JobType.whiteCollar.name,
       companySuffix: getRandomCorporateCompanySuffix(),
@@ -362,6 +395,7 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //Sex work
@@ -369,6 +403,7 @@ class FullTimeGeneralJobs {
     //or your children discovering you are a sex worker and how you would handle it
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.exoticDancer,
       jobType: JobType.sexWork.name,
       companySuffix: SpecificCompanySuffix.club,
@@ -385,10 +420,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.none.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.pornModel,
       jobType: JobType.sexWork.name,
       companySuffix: SpecificCompanySuffix.studio,
@@ -405,10 +442,12 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.none.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.pornActor,
       jobType: JobType.sexWork.name,
       companySuffix: SpecificCompanySuffix.production,
@@ -425,6 +464,7 @@ class FullTimeGeneralJobs {
       qualifiedDisciplines: [].toString(),
       qualifiedBranches: [].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.none.percentage,
+      getsTips: false,
     ),
   });
 }

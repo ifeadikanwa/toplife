@@ -1,7 +1,5 @@
 import 'package:toplife/core/utils/chance.dart';
-import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
 import 'package:toplife/main_systems/system_job/domain/model/info_models/job_interview_response.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/data/repository/job_repositories.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -54,10 +52,10 @@ class CheckIfQualifiedForFullTimeJobUsecase {
     final jobRecord = await _jobRepositories.jobRepositoryImpl
         .findFullTimeJobWithJobTitle(job.jobTitle);
 
-    if (jobRecord != null && jobRecord.id != null) {
+    if (jobRecord != null) {
       List<Employment> employments = await _jobRepositories
           .employmentRepositoryImpl
-          .getAllEmploymentsForAJob(personID, jobRecord.id!);
+          .getAllEmploymentsForAJob(personID, jobRecord.id);
 
       //if the list is not empty then the player has worked this job before and therefore qualifies for another employment.
       if (employments.isNotEmpty) {

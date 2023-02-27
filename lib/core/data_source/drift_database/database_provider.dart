@@ -8,6 +8,12 @@ import 'package:path/path.dart' as path;
 import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
 import 'package:toplife/game_manager/domain/model/game.dart';
 import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
+import 'package:toplife/main_systems/system_job/data/dao/job_dao_impl.dart';
+import 'package:toplife/main_systems/system_job/data/dao/employment_dao_impl.dart';
+import 'package:toplife/main_systems/system_job/data/dao/job_relationship_dao_impl.dart';
+import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
+import 'package:toplife/main_systems/system_job/domain/model/job_relationship.dart';
+import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
@@ -98,6 +104,9 @@ part 'database_provider.g.dart';
     SchoolProjectTable,
     SchoolRelationshipTable,
     SchoolTable,
+    JobTable,
+    EmploymentTable,
+    JobRelationshipTable,
   ],
   daos: [
     GameDaoImpl,
@@ -129,6 +138,9 @@ part 'database_provider.g.dart';
     SchoolDaoImpl,
     SchoolProjectDaoImpl,
     SchoolRelationshipDaoImpl,
+    JobDaoImpl,
+    EmploymentDaoImpl,
+    JobRelationshipDaoImpl,
   ],
 )
 class DatabaseProvider extends _$DatabaseProvider {

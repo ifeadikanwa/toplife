@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/employment_dao.dart';
-import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
 import 'package:toplife/main_systems/system_job/domain/repository/employment_repository.dart';
 
 class EmploymentRepositoryImpl implements EmploymentRepository {
@@ -42,5 +42,15 @@ class EmploymentRepositoryImpl implements EmploymentRepository {
   Future<List<Employment>> getAllEmploymentsForAJob(
       int mainPersonID, int jobID) {
     return _employmentDao.getAllEmploymentsForAJob(mainPersonID, jobID);
+  }
+
+  @override
+  Stream<List<Employment>> watchAllActiveEmployments(int mainPersonID) {
+    return _employmentDao.watchAllActiveEmployments(mainPersonID);
+  }
+
+  @override
+  Stream<Employment?> watchEmployment(int employmentID) {
+    return _employmentDao.watchEmployment(employmentID);
   }
 }
