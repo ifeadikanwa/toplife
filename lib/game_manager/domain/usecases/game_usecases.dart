@@ -10,6 +10,9 @@ import 'package:toplife/game_manager/domain/usecases/get_player_bar_info_usecase
 import 'package:toplife/game_manager/domain/usecases/move_time_forward_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/set_last_played_active_game_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/update_game_usecase.dart';
+import 'package:toplife/game_manager/domain/usecases/watch_current_game_and_player_usecase.dart';
+import 'package:toplife/game_manager/domain/usecases/watch_last_played_active_game_usecase.dart';
+import 'package:toplife/game_manager/domain/usecases/watch_player_bar_info_usecase.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
@@ -70,6 +73,23 @@ class GameUsecases {
   GetPlayerBarInfoUsecase get getPlayerBarInfoUsecase =>
       GetPlayerBarInfoUsecase(
         getCurrentGameAndPlayerUsecase,
+        _personUsecases,
+      );
+
+  WatchCurrentGameAndPlayerUsecase get watchCurrentGameAndPlayerUsecase =>
+      WatchCurrentGameAndPlayerUsecase(
+        _gameRepository,
+        _personUsecases,
+      );
+
+  WatchLastPlayedActiveGameUsecase get watchLastPlayedActiveGameUsecase =>
+      WatchLastPlayedActiveGameUsecase(
+        gameRepository: _gameRepository,
+      );
+
+  WatchPlayerBarInfoUsecase get watchPlayerBarInfoUsecase =>
+      WatchPlayerBarInfoUsecase(
+        watchCurrentGameAndPlayerUsecase,
         _personUsecases,
       );
 }

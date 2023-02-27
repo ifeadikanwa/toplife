@@ -9,7 +9,7 @@ part 'game_dao_impl.g.dart';
 class GameDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$GameDaoImplMixin
     implements GameDao {
-  GameDaoImpl( DatabaseProvider database) : super(database);
+  GameDaoImpl(DatabaseProvider database) : super(database);
 
 //Game in dao and repo should point to new game data class
 
@@ -63,8 +63,24 @@ class GameDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Stream<Game?> watchGame(int gameID) {
-     return (select(gameTable)
+    return (select(gameTable)
           ..where((game) => game.id.equals(gameID))
+          ..limit(1))
+        .watchSingleOrNull();
+  }
+
+  @override
+  Stream<Game?> watchLastPlayedActiveGame() {
+    return (select(gameTable)
+          ..where((game) => game.isActive.equals(true))
+          ..orderBy(
+            [
+              (game) => OrderingTerm(
+                    expression: game.lastPlayedTime,
+                    mode: OrderingMode.desc,
+                  )
+            ],
+          )
           ..limit(1))
         .watchSingleOrNull();
   }

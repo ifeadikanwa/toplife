@@ -7,5 +7,6 @@ abstract class GameRepository {
   Future<void> deleteGame(int gameID);
   Future<List<Game>> getAllActiveGames();
   Future<Game?> getLastPlayedActiveGame();
+  Stream<Game?> watchLastPlayedActiveGame();
   Stream<Game?> watchGame(int gameID);
 }

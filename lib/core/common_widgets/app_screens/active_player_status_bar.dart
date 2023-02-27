@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_states/active_player_status_bar_provider.dart';
+import 'package:toplife/core/common_viewmodels/app_screens/active_player_status_bar_view_model.dart';
 import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
 import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.dart';
 

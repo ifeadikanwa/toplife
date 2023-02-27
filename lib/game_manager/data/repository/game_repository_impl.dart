@@ -41,4 +41,9 @@ class GameRepositoryImpl implements GameRepository {
   Stream<Game?> watchGame(int gameID) {
     return _gameDao.watchGame(gameID);
   }
+
+  @override
+  Stream<Game?> watchLastPlayedActiveGame() {
+    return _gameDao.watchLastPlayedActiveGame();
+  }
 }
