@@ -8,8 +8,18 @@ class FridgeFoodTable extends Table {
   String? get tableName => "fridge_food";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get personId => integer().references(PersonTable, #id)();
-  IntColumn get foodId => integer().references(FoodTable, #id)();
+  IntColumn get personId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get foodId => integer().references(
+        FoodTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   IntColumn get servingsLeft => integer()();
   IntColumn get expiryDay => integer()();
 }

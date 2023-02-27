@@ -7,7 +7,12 @@ class JewelryTable extends Table {
   String? get tableName => "jewelry";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get personId => integer().references(PersonTable, #id)();
+  IntColumn get personId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   TextColumn get jewel => text()();
   TextColumn get type => text()();
   RealColumn get carat => real()();

@@ -8,9 +8,24 @@ class JobRelationshipTable extends Table {
   String? get tableName => "job_relationship";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get employmentId => integer().references(EmploymentTable, #id)();
-  IntColumn get mainPersonId => integer().references(PersonTable, #id)();
-  IntColumn get otherPersonId => integer().references(PersonTable, #id)();
+  IntColumn get employmentId => integer().references(
+        EmploymentTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get mainPersonId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get otherPersonId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   TextColumn get jobRelationshipType => text()();
   TextColumn get informalRelationshipType => text()();
   IntColumn get jobLevel => integer()();

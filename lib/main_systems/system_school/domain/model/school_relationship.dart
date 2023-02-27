@@ -8,9 +8,24 @@ class SchoolRelationshipTable extends Table {
   String? get tableName => "school_relationship";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get schoolId => integer().references(SchoolTable, #id)();
-  IntColumn get mainPersonId => integer().references(PersonTable, #id)();
-  IntColumn get otherPersonId => integer().references(PersonTable, #id)();
+  IntColumn get schoolId => integer().references(
+        SchoolTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get mainPersonId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get otherPersonId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   TextColumn get schoolRelationshipType => text()();
   TextColumn get informalRelationshipType => text()();
   IntColumn get grades => integer()();

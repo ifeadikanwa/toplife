@@ -8,12 +8,26 @@ class EventTable extends Table {
   String? get tableName => "event";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get gameId => integer().references(GameTable, #id)();
+  IntColumn get gameId => integer().references(
+        GameTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   TextColumn get eventType => text()();
   IntColumn get eventDay => integer()();
-  IntColumn get mainPersonId => integer().references(PersonTable, #id)();
-  IntColumn get otherPersonId =>
-      integer().nullable().references(PersonTable, #id)();
+  IntColumn get mainPersonId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get otherPersonId => integer().nullable().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   TextColumn get relationshipToMainPlayer => text()();
   IntColumn get startTime => integer().nullable()();
   IntColumn get endTime => integer().nullable()();

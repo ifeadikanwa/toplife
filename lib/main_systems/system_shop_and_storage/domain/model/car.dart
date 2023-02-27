@@ -7,7 +7,12 @@ class CarTable extends Table {
   String? get tableName => "car";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get personId => integer().references(PersonTable, #id)();
+  IntColumn get personId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   TextColumn get name => text()();
   TextColumn get type => text()();
   IntColumn get percentageOfTravelTime => integer()();

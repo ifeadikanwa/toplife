@@ -7,7 +7,12 @@ class RecurringBillTable extends Table {
   String? get tableName => "recurring_bill";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get personId => integer().references(PersonTable, #id)();
+  IntColumn get personId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   TextColumn get billType => text()();
   TextColumn get billDescription => text()();
   IntColumn get billAmount => integer()();

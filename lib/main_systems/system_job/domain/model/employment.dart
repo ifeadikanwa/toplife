@@ -8,8 +8,18 @@ class EmploymentTable extends Table {
   String? get tableName => "employment";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get jobId => integer().references(JobTable, #id)();
-  IntColumn get mainPersonId => integer().references(PersonTable, #id)();
+  IntColumn get jobId => integer().references(
+        JobTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get mainPersonId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   TextColumn get companyName => text()();
   IntColumn get startTime => integer()();
   //2-6 for parttime, 8 for fulltime, 10 - 12 for fulltime medical,

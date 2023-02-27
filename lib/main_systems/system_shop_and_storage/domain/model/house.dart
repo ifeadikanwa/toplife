@@ -7,7 +7,12 @@ class HouseTable extends Table {
   String? get tableName => "house";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get personId => integer().references(PersonTable, #id)();
+  IntColumn get personId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   BoolColumn get isCurrentHome => boolean()();
   IntColumn get bedrooms => integer()();
   IntColumn get bathrooms => integer()();

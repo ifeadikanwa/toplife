@@ -8,7 +8,17 @@ class StoreroomItemTable extends Table {
   String? get tableName => "storeroom_item";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get personId => integer().references(PersonTable, #id)();
-  IntColumn get itemId => integer().references(ItemTable, #id)();
+  IntColumn get personId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get itemId => integer().references(
+        ItemTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   IntColumn get countsLeft => integer()();
 }

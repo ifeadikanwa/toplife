@@ -8,8 +8,18 @@ class SchoolTable extends Table {
   String? get tableName => "school";
 
   IntColumn get id => integer().autoIncrement()();
-  IntColumn get mainPersonId => integer().references(PersonTable, #id)();
-  IntColumn get degreeId => integer().references(DegreeTable, #id)();
+  IntColumn get mainPersonId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get degreeId => integer().references(
+        DegreeTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
   TextColumn get name => text()();
   IntColumn get grades => integer()();
   IntColumn get attendance => integer()();
