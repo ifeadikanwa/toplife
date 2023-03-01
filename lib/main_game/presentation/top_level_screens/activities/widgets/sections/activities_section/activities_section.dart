@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/list_templates/action_list_item.dart';
 import 'package:toplife/core/common_widgets/list_templates/section.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/activities/constants/activities_screen_text.dart';
 
-class ActivitiesSection extends StatelessWidget {
+class ActivitiesSection extends ConsumerWidget {
   const ActivitiesSection({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final activitiesSectionViewModel =
+    //     ref.watch(activitiesSectionViewModelProvider);
+        
     return Section(
       sectionTitle: TextConstants.activities,
       sectionItems: [

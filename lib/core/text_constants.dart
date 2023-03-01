@@ -45,6 +45,8 @@ class TextConstants {
   static const activities = "Activities";
   static const quickActions = "Quick Actions";
   static const attend = "Attend";
+  static const noEventTitle = "No Events";
+  static const noEventDesc = "You have no event invitations";
 
   //shop
   static const shop = "Shop";

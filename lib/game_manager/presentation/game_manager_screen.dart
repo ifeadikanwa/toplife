@@ -12,7 +12,7 @@ class GameManagerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentGame = ref.watch(currentGameProvider);
+    final currentGame = ref.watch(fetchCurrentGameProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

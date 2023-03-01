@@ -60,7 +60,11 @@ class EventDaoImpl extends DatabaseAccessor<DatabaseProvider>
                 event.eventDay.equals(day) &
                 event.startTime.isNotNull() &
                 event.endTime.isNotNull(),
-          ))
+          )
+          ..orderBy([
+            (event) => OrderingTerm(
+                expression: event.startTime, mode: OrderingMode.asc),
+          ]))
         .get();
   }
 
@@ -107,7 +111,11 @@ class EventDaoImpl extends DatabaseAccessor<DatabaseProvider>
                 event.eventDay.equals(day) &
                 event.startTime.isNotNull() &
                 event.endTime.isNotNull(),
-          ))
+          )
+          ..orderBy([
+            (event) => OrderingTerm(
+                expression: event.startTime, mode: OrderingMode.asc),
+          ]))
         .watch();
   }
 }

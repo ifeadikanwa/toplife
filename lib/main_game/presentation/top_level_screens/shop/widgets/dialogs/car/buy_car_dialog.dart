@@ -29,7 +29,7 @@ class BuyCarDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ShopAndStorageUsecases shopAndStorageUsecases =
         ref.watch(shopAndStorageUsecaseProvider);
-    final Game? currentGame = ref.watch(currentGameProvider).valueOrNull;
+    final Game? currentGame = ref.watch(fetchCurrentGameProvider).valueOrNull;
 
     return (currentGame != null)
         ? DialogContainer(

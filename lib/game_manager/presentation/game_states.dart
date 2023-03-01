@@ -48,7 +48,7 @@ import 'package:toplife/main_systems/system_transportation/domain/usecases/trans
 final recurringBillUsecaseProvider = Provider<RecurringBillsUsecases>(
   (ref) => RecurringBillsUsecases(
     recurringBillRepository: RecurringBillRepositoryImpl(
-      recurringBillDao: RecurringBillDaoImpl(ref.watch(databasePovider)),
+      recurringBillDao: RecurringBillDaoImpl(ref.watch(databaseProvider)),
     ),
     gameUsecases: ref.watch(gameUsecasesProvider),
     personUsecases: ref.watch(personUsecasesProvider),
@@ -64,7 +64,7 @@ final transportationUsecaseProvider = Provider<TransportationUsescases>((ref) {
 });
 
 final shopAndStorageUsecaseProvider = Provider<ShopAndStorageUsecases>((ref) {
-  final db = ref.watch(databasePovider);
+  final db = ref.watch(databaseProvider);
 
   return ShopAndStorageUsecases(
     shopAndStorageRepositories: ShopAndStorageRepositories(
@@ -88,7 +88,7 @@ final ageUsecasesProvider = Provider<AgeUsecases>((ref) {
 });
 
 final personUsecasesProvider = Provider<PersonUsecases>((ref) {
-  final db = ref.watch(databasePovider);
+  final db = ref.watch(databaseProvider);
   return PersonUsecases(
     personRepositories: PersonRepositories(
       personDao: PersonDaoImpl(db),
@@ -103,7 +103,7 @@ final personUsecasesProvider = Provider<PersonUsecases>((ref) {
 });
 
 final relationshipUsecasesProvider = Provider<RelationshipUsecases>((ref) {
-  final db = ref.watch(databasePovider);
+  final db = ref.watch(databaseProvider);
 
   return RelationshipUsecases(
     relationshipRepositories: RelationshipRepositories(
@@ -121,7 +121,7 @@ final relationshipUsecasesProvider = Provider<RelationshipUsecases>((ref) {
 });
 
 final journalUsecasesProvider = Provider<JournalUsecases>((ref) {
-  final db = ref.watch(databasePovider);
+  final db = ref.watch(databaseProvider);
 
   return JournalUsecases(
     journalRepository: JournalRepositoryImpl(
@@ -142,18 +142,18 @@ final eventManagerProvider = Provider<EventManager>((ref) {
 });
 
 final eventRepositoryProvider = Provider<EventRepository>((ref) {
-  final db = ref.watch(databasePovider);
+  final db = ref.watch(databaseProvider);
 
   return EventRepositoryImpl(eventDao: EventDaoImpl(db));
 });
 
-final currentGameProvider = FutureProvider<Game?>((ref) {
+final fetchCurrentGameProvider = FutureProvider<Game?>((ref) {
   final game = ref.watch(gameManagerProvider);
   return game.valueOrNull;
 });
 
-final currentPlayerProvider = FutureProvider<Person?>((ref) {
-  final currentGame = ref.watch(currentGameProvider).valueOrNull;
+final fetchCurrentPlayerProvider = FutureProvider<Person?>((ref) {
+  final currentGame = ref.watch(fetchCurrentGameProvider).valueOrNull;
 
   if (currentGame?.currentPlayerID != null) {
     return ref
@@ -166,7 +166,7 @@ final currentPlayerProvider = FutureProvider<Person?>((ref) {
 });
 
 final currentPlayerCountryProvider = FutureProvider<String>((ref) {
-  final currentPlayer = ref.watch(currentPlayerProvider).valueOrNull;
+  final currentPlayer = ref.watch(fetchCurrentPlayerProvider).valueOrNull;
 
   return currentPlayer != null
       ? currentPlayer.currentCountry
@@ -174,7 +174,7 @@ final currentPlayerCountryProvider = FutureProvider<String>((ref) {
 });
 
 final currentPlayerCurrencyProvider = FutureProvider<String>((ref) {
-  final currentPlayer = ref.watch(currentPlayerProvider).valueOrNull;
+  final currentPlayer = ref.watch(fetchCurrentPlayerProvider).valueOrNull;
 
   final countryString = currentPlayer?.currentCountry ??
       LocationManager.getDefaultCountryString();
@@ -183,7 +183,7 @@ final currentPlayerCurrencyProvider = FutureProvider<String>((ref) {
 });
 
 final travelTimeProvider = FutureProvider<int>((ref) async {
-  final currentGame = ref.watch(currentGameProvider).valueOrNull;
+  final currentGame = ref.watch(fetchCurrentGameProvider).valueOrNull;
 
   final int? mainPlayerID = currentGame?.currentPlayerID;
 
@@ -201,7 +201,7 @@ final travelTimeProvider = FutureProvider<int>((ref) async {
 
 final currentHouseStorageProvider =
     FutureProvider.autoDispose<int?>((ref) async {
-  final Game? currentGame = ref.watch(currentGameProvider).valueOrNull;
+  final Game? currentGame = ref.watch(fetchCurrentGameProvider).valueOrNull;
   return (currentGame != null)
       ? await ref
           .watch(shopAndStorageUsecaseProvider)
@@ -225,6 +225,7 @@ final gameRepositoryImplProvider = Provider<GameRepositoryImpl>(
     (ref) => GameRepositoryImpl(ref.watch(gameDaoImplProvider)));
 
 final gameDaoImplProvider =
-    Provider<GameDaoImpl>(((ref) => GameDaoImpl(ref.watch(databasePovider))));
+    Provider<GameDaoImpl>(((ref) => GameDaoImpl(ref.watch(databaseProvider))));
 
-final databasePovider = Provider<DatabaseProvider>((ref) => DatabaseProvider());
+final databaseProvider =
+    Provider<DatabaseProvider>((ref) => DatabaseProvider());

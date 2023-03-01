@@ -23,7 +23,7 @@ class ShopScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final db = ref.watch(databasePovider);
+    final db = ref.watch(databaseProvider);
     return TopLevelScreen(
       title: TextConstants.shop,
       child: ScrollableScreenContent(
@@ -106,7 +106,7 @@ class ShopScreen extends ConsumerWidget {
             const AddVerticalSpace(height: 16.0),
             ElevatedButton(
               onPressed: () => AutoRouter.of(context).push(
-                DriftDbViewer(db: ref.read(databasePovider)),
+                DriftDbViewer(db: ref.read(databaseProvider)),
               ),
               child: const Text("Database Viewer"),
             ),
@@ -241,6 +241,17 @@ class ShopScreen extends ConsumerWidget {
                 (await PersonDaoImpl(db).createPerson(person));
                 // (BabyTraitsDaoImpl(db).watchBabyTraits(1).listen((event) {
                 //   print(event);
+
+                // final p = await PersonDaoImpl(db).getPerson(1);
+                // if (p != null) {
+                //   await PersonDaoImpl(db)
+                //       .updatePerson(p.copyWith(firstName: "Nick"));
+                // }
+
+                // final g = await GameDaoImpl(db).getGame(1);
+                // if (g != null) {
+                //   await GameDaoImpl(db).updateGame(g.copyWith(currentDay: 1));
+                // }
               },
               child: const Text("Run"),
             ),

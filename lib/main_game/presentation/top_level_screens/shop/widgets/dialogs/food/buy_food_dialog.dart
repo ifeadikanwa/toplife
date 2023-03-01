@@ -18,7 +18,7 @@ class BuyFoodDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ShopAndStorageUsecases shopAndStorageUsecases =
         ref.watch(shopAndStorageUsecaseProvider);
-    final currentGame = ref.watch(currentGameProvider).valueOrNull;
+    final currentGame = ref.watch(fetchCurrentGameProvider).valueOrNull;
 
     return (currentGame != null)
         ? SimpleBuyDialog(

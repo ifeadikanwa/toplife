@@ -31,7 +31,6 @@ class EventManager {
     required JournalUsecases journalUsecases,
     required ShopAndStorageUsecases shopAndStorageUsecases,
     required EventRepository eventRepository,
- 
   })  : _relationshipUsecases = relationshipUsecases,
         _personUsecases = personUsecases,
         _ageUsecases = ageUsecases,
@@ -132,6 +131,38 @@ class EventManager {
     return todaysAttendableEvents;
   }
 
+  Stream<List<EventPersonPair>> watchTodaysAttendableEvents({
+    required int currentDay,
+    required int gameID,
+  }) async* {
+    final eventsStream = _eventRepository.watchAttendableEventsForDay(
+      day: currentDay,
+      gameID: gameID,
+    );
+
+    await for (final events in eventsStream) {
+      List<EventPersonPair> todaysAttendableEvents = [];
+
+      for (var event in events) {
+        final Person? mainPerson =
+            await _personUsecases.getPersonUsecase.execute(
+          personID: event.mainPersonId,
+        );
+
+        if (mainPerson != null) {
+          todaysAttendableEvents.add(
+            EventPersonPair(
+              event: event,
+              person: mainPerson,
+            ),
+          );
+        }
+      }
+
+      yield todaysAttendableEvents;
+    }
+  }
+
   //this is checking if access to travelling to the event is available so we can communicate that specific situation through the UI
   //for example we disable only the attend button until the event is open
   static bool checkIfEventIsOpen({
@@ -140,15 +171,14 @@ class EventManager {
     required int travelTime,
     required int currentTime,
   }) {
-
-    //check if the player can start making the journey to attend the event. 
+    //check if the player can start making the journey to attend the event.
     //this way we always account for the players actual travel time, even when it changes
     return currentTime >=
         (startTime - travelTime - eventAttendanceAllowanceTime);
   }
 
 //this is checking if the event has passed so we can communicate that specific situation through the UI
- static bool checkIfEventCanStillBeAttended({
+  static bool checkIfEventCanStillBeAttended({
     required int startTime,
     required int endTime,
     required int travelTime,

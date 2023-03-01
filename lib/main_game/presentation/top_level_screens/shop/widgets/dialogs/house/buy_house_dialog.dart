@@ -18,8 +18,6 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_building_t
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_storage_change_label.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_style_label.dart';
 
-
-
 class BuyHouseDialog extends ConsumerWidget {
   final House house;
 
@@ -32,7 +30,7 @@ class BuyHouseDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ShopAndStorageUsecases shopAndStorageUsecases =
         ref.watch(shopAndStorageUsecaseProvider);
-    final Game? currentGame = ref.watch(currentGameProvider).valueOrNull;
+    final Game? currentGame = ref.watch(fetchCurrentGameProvider).valueOrNull;
     final int? currentHouseStorage =
         ref.watch(currentHouseStorageProvider).valueOrNull;
 

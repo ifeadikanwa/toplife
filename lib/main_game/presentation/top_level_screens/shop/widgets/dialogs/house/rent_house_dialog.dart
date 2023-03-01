@@ -37,7 +37,7 @@ class RentHouseDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ShopAndStorageUsecases shopAndStorageUsecases =
         ref.watch(shopAndStorageUsecaseProvider);
-    final Game? currentGame = ref.watch(currentGameProvider).valueOrNull;
+    final Game? currentGame = ref.watch(fetchCurrentGameProvider).valueOrNull;
     final int? currentHouseStorage =
         ref.watch(currentHouseStorageProvider).valueOrNull;
 
@@ -151,15 +151,19 @@ class RentHouseDialog extends ConsumerWidget {
         EditableQuantity(
             text: "$chosenLeaseDuration days",
             onIncrease: () {
-              if (chosenLeaseDuration < HouseConstants.maxLeaseAgreementDuration) {
+              if (chosenLeaseDuration <
+                  HouseConstants.maxLeaseAgreementDuration) {
                 ref.read(_chosenLeaseDurationProvider.notifier).state =
-                    chosenLeaseDuration + HouseConstants.leaseAgreementDurationIncrement;
+                    chosenLeaseDuration +
+                        HouseConstants.leaseAgreementDurationIncrement;
               }
             },
             onDecrease: () {
-              if (chosenLeaseDuration > HouseConstants.minLeaseAgreementDuration) {
+              if (chosenLeaseDuration >
+                  HouseConstants.minLeaseAgreementDuration) {
                 ref.read(_chosenLeaseDurationProvider.notifier).state =
-                    chosenLeaseDuration - HouseConstants.leaseAgreementDurationIncrement;
+                    chosenLeaseDuration -
+                        HouseConstants.leaseAgreementDurationIncrement;
               }
             })
       ],

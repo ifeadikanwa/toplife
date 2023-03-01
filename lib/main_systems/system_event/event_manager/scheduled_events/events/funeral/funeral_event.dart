@@ -69,7 +69,7 @@ class FuneralEvent {
         );
 
         final secondPersonEventDesc =
-            "Your $relationshipLabel, ${deadPerson.firstName}'s funeral is happening right now.";
+            "Your $relationshipLabel, ${deadPerson.firstName}'s funeral is happening today.";
 
         final Partner? currentPartner = await _relationshipUsecases
             .getCurrentPartnerUsecase

@@ -10,7 +10,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_name
 
 final _hasExistingMortgageProvider =
     FutureProvider.autoDispose<bool?>((ref) async {
-  final Game? currentGame = ref.watch(currentGameProvider).valueOrNull;
+  final Game? currentGame = ref.watch(fetchCurrentGameProvider).valueOrNull;
   return (currentGame != null)
       ? await ref
           .watch(recurringBillUsecaseProvider)

@@ -3,9 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/list_templates/case/general_list_item_case.dart';
 import 'package:toplife/core/common_widgets/list_templates/helper_widgets/action_text.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
-import 'package:toplife/main_systems/system_event/util/get_attendable_event_time.dart';
-import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/activities/widgets/helper_widgets/list_item/event_list_item/event_list_item_view_model.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 class EventListItem extends ConsumerWidget {
@@ -24,7 +22,7 @@ class EventListItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentGame = ref.watch(currentGameProvider).valueOrNull;
+    final eventListItemViewModel = ref.watch(eventListItemViewModelProvider);
 
     return GeneralListItemCase(
       hasDivider: true,
@@ -35,28 +33,26 @@ class EventListItem extends ConsumerWidget {
           children: [
             Expanded(
               child: ActionText(
-                actionTitle: getAttendableEventTitle(
+                actionTitle: eventListItemViewModel.getEventTitle(
                   eventMainPerson: eventMainPerson,
                   event: event,
                 ),
-                actionDescription: getAttendableEventTime(
+                actionDescription: eventListItemViewModel.getEventDesc(
                   event: event,
                 ),
                 disabled: (eventCanStillBeAttended) ? false : true,
               ),
             ),
             OutlinedButton(
-              onPressed: (!eventIsOpen || !eventCanStillBeAttended)
+              onPressed: eventListItemViewModel.checkIfEventButtonIsUnavailable(
+                eventIsOpen: eventIsOpen,
+                eventCanStillBeAttended: eventCanStillBeAttended,
+              )
                   ? null //disable button
-                  : () async {
-                      if (currentGame != null) {
-                        ref.read(eventManagerProvider).runEvent(
-                              currentGame.currentPlayerID,
-                              event,
-                              context,
-                            );
-                      }
-                    },
+                  : () => eventListItemViewModel.attendEvent(
+                        event,
+                        context,
+                      ),
               child: const Text(TextConstants.attend),
             ),
           ],
