@@ -9,6 +9,20 @@ class TextConstants {
   static const finances = "Finances";
   static const journal = "Journal";
   static const events = "Events";
+  static const day = "Day";
+
+  //player
+  static const babyMonitor = "Baby Monitor";
+  static const bankBalance = "Bank Balance";
+  static const upNext = "Up Next";
+  static const todaysJournal = "Today's Journal";
+  static const energy = "Energy";
+  static const wellbeing = "Wellbeing";
+  static const hunger = "Hunger";
+  static const looks = "Looks";
+  static const intellect = "Intellect";
+  static const athleticism = "Athleticism";
+
   //relationship
   static const relationship = "Relationship";
   static const relationships = "Relationships";
@@ -40,6 +54,7 @@ class TextConstants {
   static const opportunities = "Opportunities";
   static const history = "History";
   static const current = "Current";
+  static const unemployed = "Unemployed";
 
   //activities
   static const activities = "Activities";

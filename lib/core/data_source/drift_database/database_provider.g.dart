@@ -7099,8 +7099,8 @@ class $EventTableTable extends EventTable
       'game_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES game (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES game (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _eventTypeMeta =
       const VerificationMeta('eventType');
   @override
@@ -7120,8 +7120,8 @@ class $EventTableTable extends EventTable
       'main_person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _otherPersonIdMeta =
       const VerificationMeta('otherPersonId');
   @override
@@ -7129,8 +7129,8 @@ class $EventTableTable extends EventTable
       'other_person_id', aliasedName, true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _relationshipToMainPlayerMeta =
       const VerificationMeta('relationshipToMainPlayer');
   @override
@@ -7666,8 +7666,8 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
       'person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
@@ -8877,16 +8877,16 @@ class $FridgeFoodTableTable extends FridgeFoodTable
       'person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _foodIdMeta = const VerificationMeta('foodId');
   @override
   late final GeneratedColumn<int> foodId = GeneratedColumn<int>(
       'food_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES food (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES food (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _servingsLeftMeta =
       const VerificationMeta('servingsLeft');
   @override
@@ -9173,8 +9173,8 @@ class $HouseTableTable extends HouseTable
       'person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _isCurrentHomeMeta =
       const VerificationMeta('isCurrentHome');
   @override
@@ -10320,8 +10320,8 @@ class $JewelryTableTable extends JewelryTable
       'person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _jewelMeta = const VerificationMeta('jewel');
   @override
   late final GeneratedColumn<String> jewel = GeneratedColumn<String>(
@@ -10772,16 +10772,16 @@ class $StoreroomItemTableTable extends StoreroomItemTable
       'person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _itemIdMeta = const VerificationMeta('itemId');
   @override
   late final GeneratedColumn<int> itemId = GeneratedColumn<int>(
       'item_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES item (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES item (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _countsLeftMeta =
       const VerificationMeta('countsLeft');
   @override
@@ -11280,8 +11280,8 @@ class $RecurringBillTableTable extends RecurringBillTable
       'person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _billTypeMeta =
       const VerificationMeta('billType');
   @override
@@ -12038,8 +12038,8 @@ class $SchoolTableTable extends SchoolTable
       'main_person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _degreeIdMeta =
       const VerificationMeta('degreeId');
   @override
@@ -12047,8 +12047,8 @@ class $SchoolTableTable extends SchoolTable
       'degree_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES degree (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES degree (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
@@ -13146,8 +13146,8 @@ class $SchoolProjectTableTable extends SchoolProjectTable
       'school_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES school (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES school (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _mainPersonIdMeta =
       const VerificationMeta('mainPersonId');
   @override
@@ -13155,8 +13155,8 @@ class $SchoolProjectTableTable extends SchoolProjectTable
       'main_person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _projectPartnerSchoolRelationshipIdMeta =
       const VerificationMeta('projectPartnerSchoolRelationshipId');
   @override
@@ -13165,8 +13165,8 @@ class $SchoolProjectTableTable extends SchoolProjectTable
           'project_partner_school_relationship_id', aliasedName, false,
           type: DriftSqlType.int,
           requiredDuringInsert: true,
-          defaultConstraints:
-              GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _semesterNumberMeta =
       const VerificationMeta('semesterNumber');
   @override
@@ -13629,8 +13629,8 @@ class $SchoolRelationshipTableTable extends SchoolRelationshipTable
       'school_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES school (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES school (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _mainPersonIdMeta =
       const VerificationMeta('mainPersonId');
   @override
@@ -13638,8 +13638,8 @@ class $SchoolRelationshipTableTable extends SchoolRelationshipTable
       'main_person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _otherPersonIdMeta =
       const VerificationMeta('otherPersonId');
   @override
@@ -13647,8 +13647,8 @@ class $SchoolRelationshipTableTable extends SchoolRelationshipTable
       'other_person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _schoolRelationshipTypeMeta =
       const VerificationMeta('schoolRelationshipType');
   @override
@@ -14883,8 +14883,8 @@ class $EmploymentTableTable extends EmploymentTable
       'job_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES job (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES job (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _mainPersonIdMeta =
       const VerificationMeta('mainPersonId');
   @override
@@ -14892,8 +14892,8 @@ class $EmploymentTableTable extends EmploymentTable
       'main_person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _companyNameMeta =
       const VerificationMeta('companyName');
   @override
@@ -15776,8 +15776,8 @@ class $JobRelationshipTableTable extends JobRelationshipTable
       'employment_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES employment (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES employment (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _mainPersonIdMeta =
       const VerificationMeta('mainPersonId');
   @override
@@ -15785,8 +15785,8 @@ class $JobRelationshipTableTable extends JobRelationshipTable
       'main_person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _otherPersonIdMeta =
       const VerificationMeta('otherPersonId');
   @override
@@ -15794,8 +15794,8 @@ class $JobRelationshipTableTable extends JobRelationshipTable
       'other_person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES person (id)'));
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _jobRelationshipTypeMeta =
       const VerificationMeta('jobRelationshipType');
   @override
@@ -16612,6 +16612,342 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('sibling', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('game',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('event', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('game',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('event', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('event', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('event', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('event', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('event', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('car', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('car', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('fridge_food', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('fridge_food', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('food',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('fridge_food', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('food',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('fridge_food', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('house', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('house', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('jewelry', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('jewelry', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('storeroom_item', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('storeroom_item', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('item',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('storeroom_item', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('item',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('storeroom_item', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('recurring_bill', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('recurring_bill', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('degree',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('degree',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('job',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('employment', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('job',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('employment', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('employment', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('employment', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('employment',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('job_relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('employment',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('job_relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('job_relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('job_relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('job_relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('job_relationship', kind: UpdateKind.update),
             ],
           ),
         ],

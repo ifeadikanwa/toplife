@@ -1,5 +1,6 @@
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_player_information_from_data_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/add_money_to_player_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/check_if_player_can_afford_it_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_adult_person_usecase.dart';
@@ -26,6 +27,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/update_specif
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_looks_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_sober_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_wellbeing_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/watch/watch_person_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/watch/watch_person_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
@@ -175,5 +177,15 @@ class PersonUsecases {
 
   WatchPersonUsecase get watchPersonUsecase => WatchPersonUsecase(
         personRepository: _personRepositories.personRepositoryImpl,
+      );
+
+  WatchPersonStatsUsecase get watchPersonStatsUsecase =>
+      WatchPersonStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+      );
+
+  GetPlayerInformationFromDataUsecase get getPlayerInformationFromDataUsecase =>
+      GetPlayerInformationFromDataUsecase(
+        _ageUsecases,
       );
 }

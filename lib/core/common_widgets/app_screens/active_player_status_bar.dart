@@ -7,8 +7,6 @@ import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.da
 class ActivePlayerStatusBar extends ConsumerWidget {
   const ActivePlayerStatusBar({Key? key}) : super(key: key);
 
-  //this will watch a provider that it gets all its information from
-
   @override
   Widget build(
     BuildContext context,

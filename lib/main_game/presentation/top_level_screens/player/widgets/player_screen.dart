@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/baby_monitor_card.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/home_options.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/money_and_time_card.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/player_information_card_widget.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/todays_journal.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/baby_monitor/baby_monitor_card.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/home_options/home_options.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/money_and_time/money_and_time_card.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/player_information/player_information_card_widget.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/todays_journal/todays_journal.dart';
 
 class PlayerScreen extends StatelessWidget {
   const PlayerScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const avatarImagePath = "assets/images/indian_woman_face.png";
-    const flagImagePath = "assets/images/france_flag.jpg";
-
     return Column(
       children: [
         const TopLevelAppBar(
@@ -34,19 +31,8 @@ class PlayerScreen extends StatelessWidget {
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                MoneyAndTimeCard(
-                    currency: "\$",
-                    bankBalance: "65,000,000,000",
-                    time: "08:45  AM",
-                    dayNumber: "34"),
-                PlayerInformationCard(
-                  firstName: "Janet",
-                  lastName: "Jackson",
-                  age: "Young Adult",
-                  jobTitle: "Singer",
-                  avatarImagePath: avatarImagePath,
-                  flagImagePath: flagImagePath,
-                ),
+                MoneyAndTimeCard(),
+                PlayerInformationCard(),
                 HomeOptions(),
                 BabyMonitorCard(
                   babies: [

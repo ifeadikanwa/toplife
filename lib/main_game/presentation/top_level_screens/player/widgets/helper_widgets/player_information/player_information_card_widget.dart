@@ -1,39 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
 import 'package:toplife/core/common_widgets/avatar/avatar_with_flag.dart';
 import 'package:toplife/core/common_widgets/card_templates/border_card.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/stats/multiple_stats_widget.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/player_information/player_information_card_view_model.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/player_information.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/stats_item.dart';
 import 'package:toplife/core/utils/extensions/string_extensions.dart';
 
-class PlayerInformationCard extends StatelessWidget {
-  final String firstName;
-  final String lastName;
-  final String age;
-  final String jobTitle;
-  final String avatarImagePath;
-  final String flagImagePath;
+class PlayerInformationCard extends ConsumerWidget {
   const PlayerInformationCard({
     Key? key,
-    required this.firstName,
-    required this.lastName,
-    required this.age,
-    required this.jobTitle,
-    required this.avatarImagePath,
-    required this.flagImagePath,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
+    final playerInformationCarViewModel =
+        ref.watch(playerInformationCardViewModelProvider);
 
+    return playerInformationCarViewModel.when(
+      data: (playerInformation) {
+        return playerInformationCardWidget(
+          playerInformation,
+          appTheme,
+        );
+      },
+      error: (error, stackTrace) => Container(),
+      loading: () => playerInformationCardWidget(
+        PlayerInformation.blankPlayerInformation,
+        appTheme,
+      ),
+    );
+  }
+
+  Widget playerInformationCardWidget(
+    PlayerInformation playerInformation,
+    ThemeData appTheme,
+  ) {
     return Stack(
       children: [
         BorderCard(
           children: [
-            playerInfo(),
+            playerInfo(
+              firstName: playerInformation.firstName,
+              lastName: playerInformation.lastName,
+              age: playerInformation.age,
+              jobTitles: playerInformation.jobTitles,
+              currentCountry: playerInformation.country,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Divider(
@@ -43,7 +63,7 @@ class PlayerInformationCard extends StatelessWidget {
                     : Colors.white,
               ),
             ),
-            allStats(),
+            allStats(playerInformation.stats),
           ],
         ),
         Positioned(
@@ -55,25 +75,43 @@ class PlayerInformationCard extends StatelessWidget {
     );
   }
 
-  Widget playerInfo() {
+  Widget playerInfo({
+    required String firstName,
+    required String lastName,
+    required String age,
+    required String jobTitles,
+    required String currentCountry,
+  }) {
     return Row(
       children: [
-        faceAndFlag(),
-        basicInfo(),
+        faceAndFlag(currentCountry: currentCountry),
+        basicInfo(
+            firstName: firstName,
+            lastName: lastName,
+            age: age,
+            jobTitles: jobTitles),
         const AddHorizontalSpace(width: horizontalWidgetSpacing),
       ],
     );
   }
 
-  Widget faceAndFlag() {
-    return AvatarWithFlag(
+  Widget faceAndFlag({required String currentCountry}) {
+    const avatarImagePath = "assets/images/indian_woman_face.png";
+    const flagImagePath = "assets/images/france_flag.jpg";
+
+    return const AvatarWithFlag(
       avatarSize: 50,
       avatarImagePath: avatarImagePath,
       flagImagePath: flagImagePath,
     );
   }
 
-  Widget basicInfo() {
+  Widget basicInfo({
+    required String firstName,
+    required String lastName,
+    required String age,
+    required String jobTitles,
+  }) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0),
@@ -91,7 +129,7 @@ class PlayerInformationCard extends StatelessWidget {
               style: cardSecondaryTextStyle,
             ),
             Text(
-              jobTitle,
+              jobTitles,
               style: cardSecondaryTextStyle,
             ),
           ],
@@ -110,12 +148,21 @@ class PlayerInformationCard extends StatelessWidget {
     );
   }
 
-  Widget allStats() {
-    return const MultipleStatsWidget(
+  Widget allStats(Stats playerStats) {
+    return MultipleStatsWidget(
       statsList: [
-        StatsItem(statsName: "ENERGY", statsLevel: 10),
-        StatsItem(statsName: "HUNGER", statsLevel: 40),
-        StatsItem(statsName: "WELLBEING", statsLevel: 99),
+        StatsItem(
+          statsName: TextConstants.energy.toUpperCase(),
+          statsLevel: playerStats.energy,
+        ),
+        StatsItem(
+          statsName: TextConstants.hunger.toUpperCase(),
+          statsLevel: playerStats.hunger,
+        ),
+        StatsItem(
+          statsName: TextConstants.wellbeing.toUpperCase(),
+          statsLevel: playerStats.wellbeing,
+        ),
       ],
     );
   }
