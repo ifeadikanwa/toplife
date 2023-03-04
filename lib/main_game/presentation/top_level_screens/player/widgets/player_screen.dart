@@ -6,7 +6,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/home_options/home_options.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/money_and_time/money_and_time_card.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/player_information/player_information_card_widget.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/todays_journal/todays_journal.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/todays_journal/todays_journal_card.dart';
 
 class PlayerScreen extends StatelessWidget {
   const PlayerScreen({Key? key}) : super(key: key);
@@ -41,9 +41,7 @@ class PlayerScreen extends StatelessWidget {
                     ["Jason", "Happy"],
                   ],
                 ),
-                TodaysJournalCard(
-                    todaysJournalEntry:
-                        "Normally, Both your asses would be dead as fucking fried chicken, but you happen to pull this shit while I'm in a transitional period so I don't wanna kill you, I wanna help you. But I can't give you this case, it don't belong to me. Besides, I've already been through too much shit this morning over this case to hand it over to your dumb ass."),
+                TodaysJournalCard(),
               ],
             ),
           ),

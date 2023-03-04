@@ -39,4 +39,9 @@ class JournalRepositoryImpl implements JournalRepository {
   Stream<List<Journal>> watchMainPlayerJournals(int gameID, int mainPlayerID) {
     return _journalDao.watchMainPlayerJournals(gameID, mainPlayerID);
   }
+
+  @override
+  Stream<Journal?> watchJournal(int gameID, int day) {
+    return _journalDao.watchJournal(gameID, day);
+  }
 }

@@ -6,6 +6,10 @@ abstract class JournalRepository {
     required int gameID,
     required int day,
   });
+  Stream<Journal?> watchJournal(
+    int gameID,
+    int day,
+  );
   Future<void> updateJournal(Journal journal);
   Future<void> deleteJournal({
     required int gameID,

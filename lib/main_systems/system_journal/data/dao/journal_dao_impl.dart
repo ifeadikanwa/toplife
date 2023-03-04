@@ -64,4 +64,15 @@ class JournalDaoImpl extends DatabaseAccessor<DatabaseProvider>
           ))
         .watch();
   }
+
+  @override
+  Stream<Journal?> watchJournal(int gameID, int day) {
+    return (select(journalTable)
+          ..where(
+            (journal) =>
+                journal.gameId.equals(gameID) & journal.day.equals(day),
+          )
+          ..limit(1))
+        .watchSingleOrNull();
+  }
 }

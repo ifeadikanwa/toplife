@@ -6,6 +6,10 @@ abstract class JournalDao {
     int gameID,
     int day,
   );
+  Stream<Journal?> watchJournal(
+    int gameID,
+    int day,
+  );
   Future<void> updateJournal(Journal journal);
   Future<void> deleteJournal(
     int gameID,
