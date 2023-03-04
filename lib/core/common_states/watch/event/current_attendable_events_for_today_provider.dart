@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 
 final currentAttendableEventsForTodayProvider =

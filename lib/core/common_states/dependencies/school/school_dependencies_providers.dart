@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
+import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/data/dao/school_project_dao_impl.dart';

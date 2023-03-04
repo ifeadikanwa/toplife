@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
@@ -12,7 +13,6 @@ class GameManagerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentGame = ref.watch(fetchCurrentGameProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -162,10 +162,7 @@ class GameManagerScreen extends ConsumerWidget {
               // await GameDaoImpl().deleteGame(2);
             },
             child: const Text("Delete")),
-        Text(
-          "$currentGame",
-          style: const TextStyle(fontSize: 24),
-        ),
+  
       ],
     );
   }

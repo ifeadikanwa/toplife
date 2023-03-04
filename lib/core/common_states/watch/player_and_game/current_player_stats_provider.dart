@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
 
 final currentPlayerStatsProvider = StreamProvider<Stats?>((ref) async* {
   //watch for change in player ID only

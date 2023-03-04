@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/transportation/transportation_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/event/current_attendable_events_for_today_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_travel_time_usecase.dart';
@@ -21,7 +21,7 @@ final eventSectionViewModelProvider = StateNotifierProvider.autoDispose<
     currentGameFuture: currentGameFuture,
     attendableEventsForTodayFuture: attendableEventsForTodayFuture,
     getTravelTimeUsecase:
-        ref.watch(transportationUsecaseProvider).getTravelTimeUsecase,
+        ref.watch(transportationUsecasesProvider).getTravelTimeUsecase,
   );
 });
 

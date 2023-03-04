@@ -1,14 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_widgets/divider/list_divider.dart';
-import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/utils/money/get_currency_label_from_currency_string.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/editable_quantity_widget.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/helper_widgets/shop_dialog_item_info_row.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 
 class SimpleBuyDialog extends ConsumerStatefulWidget {
@@ -36,45 +30,46 @@ class _SimpleBuyDialogState extends ConsumerState<SimpleBuyDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final String? currentCurrency =
-        ref.watch(currentPlayerCurrencyProvider).valueOrNull;
-    final String? currentPlayerCountry =
-        ref.watch(currentPlayerCountryProvider).valueOrNull;
+    return Container();
+    // final String? currentCurrency =
+    //     ref.watch(currentPlayerCurrencyProvider).valueOrNull;
+    // final String? currentPlayerCountry =
+    //     ref.watch(currentPlayerCountryProvider).valueOrNull;
 
-    return DialogContainer(
-      children: [
-        ShopDialogItemInfoRow(
-          title: widget.title,
-          subtitle1: widget.subtitle1,
-          subtitle2: widget.subtitle2,
-        ),
-        const AddVerticalSpace(
-          height: ShopDialogConstants.sectionVerticalSpacing,
-        ),
-        quantityRow(),
-        const AddVerticalSpace(
-          height: ShopDialogConstants.sectionVerticalSpacing,
-        ),
-        const ListDivider(),
-        const AddVerticalSpace(
-          height: ShopDialogConstants.sectionVerticalSpacing,
-        ),
-        totalRow(
-          basePrice: widget.basePrice,
-          playerCountry: currentPlayerCountry,
-          playerCurrency: currentCurrency,
-        ),
-        const AddVerticalSpace(
-            height: ShopDialogConstants.sectionVerticalSpacing),
-        ElevatedButton(
-          onPressed: () {
-            AutoRouter.of(context).popForced();
-            widget.onCheckout(quantity);
-          },
-          child: const Text(ShopDialogConstants.checkout),
-        ),
-      ],
-    );
+    // return DialogContainer(
+    //   children: [
+    //     ShopDialogItemInfoRow(
+    //       title: widget.title,
+    //       subtitle1: widget.subtitle1,
+    //       subtitle2: widget.subtitle2,
+    //     ),
+    //     const AddVerticalSpace(
+    //       height: ShopDialogConstants.sectionVerticalSpacing,
+    //     ),
+    //     quantityRow(),
+    //     const AddVerticalSpace(
+    //       height: ShopDialogConstants.sectionVerticalSpacing,
+    //     ),
+    //     const ListDivider(),
+    //     const AddVerticalSpace(
+    //       height: ShopDialogConstants.sectionVerticalSpacing,
+    //     ),
+    //     totalRow(
+    //       basePrice: widget.basePrice,
+    //       playerCountry: currentPlayerCountry,
+    //       playerCurrency: currentCurrency,
+    //     ),
+    //     const AddVerticalSpace(
+    //         height: ShopDialogConstants.sectionVerticalSpacing),
+    //     ElevatedButton(
+    //       onPressed: () {
+    //         AutoRouter.of(context).popForced();
+    //         widget.onCheckout(quantity);
+    //       },
+    //       child: const Text(ShopDialogConstants.checkout),
+    //     ),
+    //   ],
+    // );
   }
 
   Widget quantityRow() {

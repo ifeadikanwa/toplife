@@ -1,8 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/get_last_played_active_game_usecase.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_time.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';

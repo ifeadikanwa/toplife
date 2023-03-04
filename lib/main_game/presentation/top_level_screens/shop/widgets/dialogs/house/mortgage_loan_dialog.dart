@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/recurring_bill/recurring_bill_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
+import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/game_manager/presentation/game_states.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/simple_loan_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/bill_type.dart';
@@ -10,10 +12,10 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_name
 
 final _hasExistingMortgageProvider =
     FutureProvider.autoDispose<bool?>((ref) async {
-  final Game? currentGame = ref.watch(fetchCurrentGameProvider).valueOrNull;
+  final Game? currentGame = ref.watch(currentGameProvider).valueOrNull;
   return (currentGame != null)
       ? await ref
-          .watch(recurringBillUsecaseProvider)
+          .watch(recurringBillUsecasesProvider)
           .checkIfThereIsAnExistingMortgageLoanUsecase
           .execute(
             personID: currentGame.currentPlayerID,
@@ -34,7 +36,7 @@ class MortgageLoanDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ShopAndStorageUsecases shopAndStorageUsecases =
-        ref.watch(shopAndStorageUsecaseProvider);
+        ref.watch(shopAndStorageUsecasesProvider);
 
     final hasExistingMortgage =
         ref.watch(_hasExistingMortgageProvider).valueOrNull;
