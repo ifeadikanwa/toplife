@@ -6,7 +6,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_child_relationship_label.dart';
 
 class ChildrenScreen extends StatelessWidget {
-  final List<RelationshipPair<Child, Person>> childrenList;
+  final List<RelationshipPair<Child>> childrenList;
   const ChildrenScreen({
     Key? key,
     required this.childrenList,

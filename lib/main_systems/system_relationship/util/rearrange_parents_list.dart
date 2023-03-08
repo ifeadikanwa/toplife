@@ -3,10 +3,10 @@ import 'package:toplife/main_systems/system_relationship/constants/parent_relati
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 
 //rearrange the parents list in order -> main, step and grand
-List<RelationshipPair<Parent, Person>> rearrangeParentsList(
-    List<RelationshipPair<Parent, Person>> parents) {
+List<RelationshipPair<Parent>> rearrangeParentsList(
+    List<RelationshipPair<Parent>> parents) {
 
-  final List<RelationshipPair<Parent, Person>> finalParentsList = [];
+  final List<RelationshipPair<Parent>> finalParentsList = [];
 
   finalParentsList.addAll(parents.where((parent) =>
       parent.relationship.parentRelationshipType ==

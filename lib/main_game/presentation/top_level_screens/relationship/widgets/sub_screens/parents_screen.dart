@@ -10,7 +10,7 @@ import 'package:toplife/main_systems/system_relationship/util/get_parent_relatio
 import 'package:toplife/main_systems/system_relationship/util/rearrange_parents_list.dart';
 
 class ParentsScreen extends StatelessWidget {
-  final List<RelationshipPair<Parent, Person>> parents;
+  final List<RelationshipPair<Parent>> parents;
   const ParentsScreen({
     Key? key,
     required this.parents,
@@ -19,7 +19,7 @@ class ParentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //rearrange the parents list in order -> main, step and grand
-    final List<RelationshipPair<Parent, Person>> finalParentsList =
+    final List<RelationshipPair<Parent>> finalParentsList =
         rearrangeParentsList(parents);
 
     return ListView.separated(

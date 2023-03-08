@@ -9,7 +9,7 @@ void main() {
     test(
         "given a list of in laws in order sibling -> parent -> child they will be rearranged in the order parent -> child -> sibling",
         () {
-      List<RelationshipPair<InLaw, Person>> givenInLawsList = [
+      List<RelationshipPair<InLaw>> givenInLawsList = [
         RelationshipPair(
           relationship: InLaw(
             mainPersonId: 1,
@@ -123,7 +123,7 @@ void main() {
         ),
       ];
 
-      final List<RelationshipPair<InLaw, Person>> correctInLawsList = [
+      final List<RelationshipPair<InLaw>> correctInLawsList = [
         RelationshipPair(
           relationship: InLaw(
             mainPersonId: 1,
@@ -237,7 +237,7 @@ void main() {
         ),
       ];
 
-      final List<RelationshipPair<InLaw, Person>> resultInLawsList =
+      final List<RelationshipPair<InLaw>> resultInLawsList =
           rearrangeInLawsList(givenInLawsList);
 
       expect(resultInLawsList[0], correctInLawsList[0],

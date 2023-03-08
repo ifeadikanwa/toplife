@@ -10,12 +10,12 @@ import 'package:toplife/main_systems/system_relationship/util/get_inlaw_relation
 import 'package:toplife/main_systems/system_relationship/util/rearrange_inlaws_list.dart';
 
 class InLawsScreen extends StatelessWidget {
-  final List<RelationshipPair<InLaw, Person>> inLaws;
+  final List<RelationshipPair<InLaw>> inLaws;
   const InLawsScreen({Key? key, required this.inLaws}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<RelationshipPair<InLaw, Person>> finalInLawsList =
+    final List<RelationshipPair<InLaw>> finalInLawsList =
         rearrangeInLawsList(inLaws);
 
     return ListView.separated(

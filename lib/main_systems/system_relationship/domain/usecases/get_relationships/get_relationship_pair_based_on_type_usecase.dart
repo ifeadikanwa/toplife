@@ -106,7 +106,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
       );
 
       if (person != null) {
-        return RelationshipPair<Acquaintance, Person>(
+        return RelationshipPair<Acquaintance>(
           relationship: acquaintance,
           person: person,
         );
@@ -133,7 +133,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
       );
 
       if (person != null) {
-        return RelationshipPair<Friend, Person>(
+        return RelationshipPair<Friend>(
           relationship: friend,
           person: person,
         );
@@ -160,7 +160,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
       );
 
       if (person != null) {
-        return RelationshipPair<Parent, Person>(
+        return RelationshipPair<Parent>(
           relationship: parent,
           person: person,
         );
@@ -187,7 +187,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
       );
 
       if (person != null) {
-        return RelationshipPair<Partner, Person>(
+        return RelationshipPair<Partner>(
           relationship: partner,
           person: person,
         );
@@ -214,7 +214,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
       );
 
       if (person != null) {
-        return RelationshipPair<Child, Person>(
+        return RelationshipPair<Child>(
           relationship: child,
           person: person,
         );
@@ -241,7 +241,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
       );
 
       if (person != null) {
-        return RelationshipPair<Sibling, Person>(
+        return RelationshipPair<Sibling>(
           relationship: sibling,
           person: person,
         );
@@ -268,7 +268,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
       );
 
       if (person != null) {
-        return RelationshipPair<Relative, Person>(
+        return RelationshipPair<Relative>(
           relationship: relative,
           person: person,
         );
@@ -295,7 +295,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
       );
 
       if (person != null) {
-        return RelationshipPair<InLaw, Person>(
+        return RelationshipPair<InLaw>(
           relationship: inLaw,
           person: person,
         );

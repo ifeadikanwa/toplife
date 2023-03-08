@@ -3,9 +3,9 @@ import 'package:toplife/main_systems/system_relationship/constants/relative_rela
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 
 //rearrange the parents list in order -> grandchildren, niblings, piblings, cousins
-List<RelationshipPair<Relative, Person>> rearrangeRelativesList(
-    List<RelationshipPair<Relative, Person>> relatives) {
-  final List<RelationshipPair<Relative, Person>> finalRelativesList = [];
+List<RelationshipPair<Relative>> rearrangeRelativesList(
+    List<RelationshipPair<Relative>> relatives) {
+  final List<RelationshipPair<Relative>> finalRelativesList = [];
 
   finalRelativesList.addAll(relatives.where((relative) =>
       relative.relationship.relativeRelationshipType ==

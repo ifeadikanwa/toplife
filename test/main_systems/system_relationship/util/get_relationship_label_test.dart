@@ -45,9 +45,9 @@ void main() {
       () {
         expect(
             getRelationshipLabel(
-                relationshipPair: const RelationshipPair(
+                relationshipPair: RelationshipPair(
                   relationship: "relationship",
-                  person: "person",
+                  person: testPerson,
                 ),
                 onlyActivePartnerWanted: false),
             "");

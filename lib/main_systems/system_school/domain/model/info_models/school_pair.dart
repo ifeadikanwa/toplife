@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
-class SchoolPair<A, B> extends Equatable {
-  final A school;
-  final B degree;
+class SchoolPair extends Equatable {
+  final School school;
+  final Degree degree;
 
   const SchoolPair({required this.school, required this.degree});
 

@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_relationship/util/get_partner_and_co
 import 'package:toplife/main_systems/system_relationship/util/get_partner_relationship_type_enum.dart';
 
 class PartnersScreen extends StatelessWidget {
-  final List<RelationshipPair<Partner, Person>> partners;
+  final List<RelationshipPair<Partner>> partners;
   const PartnersScreen({
     Key? key,
     required this.partners,
@@ -18,7 +18,7 @@ class PartnersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //rearrange the parents list in order -> active partner, inactive partner
-    final List<RelationshipPair<Partner, Person>> finalPartnersList = [];
+    final List<RelationshipPair<Partner>> finalPartnersList = [];
 
     finalPartnersList.addAll(
         partners.where((partner) => partner.relationship.isActive == true));

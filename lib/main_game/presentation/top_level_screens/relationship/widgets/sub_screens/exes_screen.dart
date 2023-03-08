@@ -7,7 +7,7 @@ import 'package:toplife/main_systems/system_relationship/util/get_ex_relationshi
 import 'package:toplife/main_systems/system_relationship/util/get_partner_relationship_type_enum.dart';
 
 class ExesScreen extends StatelessWidget {
-  final List<RelationshipPair<Partner, Person>> exes;
+  final List<RelationshipPair<Partner>> exes;
   const ExesScreen({
     Key? key,
     required this.exes,

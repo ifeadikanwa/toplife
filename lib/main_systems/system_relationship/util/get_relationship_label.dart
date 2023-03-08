@@ -20,7 +20,7 @@ String getRelationshipLabel({
 
   //if relationshipPair.person is not a Person object. stop the function.
   try {
-    person = relationshipPair.person as Person;
+    person = relationshipPair.person;
   } on TypeError {
     return relationshipLabel;
   }

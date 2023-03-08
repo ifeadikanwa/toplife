@@ -4,10 +4,10 @@ import 'package:toplife/main_systems/system_relationship/domain/model/info_model
 
 
 //rearrange the parents list in order -> main, step and grand
-List<RelationshipPair<InLaw, Person>> rearrangeInLawsList(
-    List<RelationshipPair<InLaw, Person>> inLaws) {
+List<RelationshipPair<InLaw>> rearrangeInLawsList(
+    List<RelationshipPair<InLaw>> inLaws) {
 
-  final List<RelationshipPair<InLaw, Person>> finalInLawsList = [];
+  final List<RelationshipPair<InLaw>> finalInLawsList = [];
 
   finalInLawsList.addAll(inLaws.where((inLaw) =>
       inLaw.relationship.inLawRelationshipType ==

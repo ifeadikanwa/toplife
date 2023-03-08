@@ -55,7 +55,7 @@ class FuneralEvent {
     );
 
     if (relationshipPair != null && mainPlayerPerson != null) {
-      final Person deadPerson = relationshipPair.person as Person;
+      final Person deadPerson = relationshipPair.person;
 
       final playerCanAttendFuneral = EventUtil.checkIfPlayerCanAttendEvent(
         mainPlayerPerson: mainPlayerPerson,

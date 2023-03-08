@@ -76,7 +76,7 @@ class BirthdayPartyEvent {
     );
 
     if (relationshipPair != null && mainPlayerPerson != null) {
-      final Person birthdayPerson = relationshipPair.person as Person;
+      final Person birthdayPerson = relationshipPair.person;
 
       bool playerCanAttendBirthdayPerty = EventUtil.checkIfPlayerCanAttendEvent(
         mainPlayerPerson: mainPlayerPerson,

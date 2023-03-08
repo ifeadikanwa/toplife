@@ -10,14 +10,14 @@ import 'package:toplife/main_systems/system_relationship/util/get_relative_relat
 import 'package:toplife/main_systems/system_relationship/util/rearrange_relatives_list.dart';
 
 class RelativesScreen extends StatelessWidget {
-  final List<RelationshipPair<Relative, Person>> relatives;
+  final List<RelationshipPair<Relative>> relatives;
 
   const RelativesScreen({Key? key, required this.relatives}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     //re-arrange to children then niblings
-    final List<RelationshipPair<Relative, Person>> finalRelativesList =
+    final List<RelationshipPair<Relative>> finalRelativesList =
         rearrangeRelativesList(relatives);
 
     return ListView.separated(

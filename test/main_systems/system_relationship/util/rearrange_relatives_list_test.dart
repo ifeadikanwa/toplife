@@ -9,7 +9,7 @@ void main() {
     test(
         "given a relatives list in the order nibling -> grandchild -> cousin -> pibling rearrange list in the order granchild -> nibling -> pibling -> cousin",
         () {
-      List<RelationshipPair<Relative, Person>> givenRelativesList = [
+      List<RelationshipPair<Relative>> givenRelativesList = [
         RelationshipPair(
           relationship: Relative(
             mainPersonId: 1,
@@ -152,7 +152,7 @@ void main() {
         ),
       ];
 
-      List<RelationshipPair<Relative, Person>> correctRelativesList = [
+      List<RelationshipPair<Relative>> correctRelativesList = [
         RelationshipPair(
           relationship: Relative(
             mainPersonId: 1,

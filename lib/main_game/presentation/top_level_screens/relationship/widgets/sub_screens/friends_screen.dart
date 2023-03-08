@@ -6,7 +6,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 
 class FriendsScreen extends StatelessWidget {
-  final List<RelationshipPair<Friend, Person>> friends;
+  final List<RelationshipPair<Friend>> friends;
   const FriendsScreen({
     Key? key,
     required this.friends,

@@ -10,7 +10,7 @@ void main() {
     test(
         "given a parents list in the order grand -> main -> step rearrange list in the order main -> step -> grand",
         () {
-      List<RelationshipPair<Parent, Person>> givenParentList = [
+      List<RelationshipPair<Parent>> givenParentList = [
         RelationshipPair(
           relationship: Parent(
             hidden: false,
@@ -130,7 +130,7 @@ void main() {
         ),
       ];
 
-      List<RelationshipPair<Parent, Person>> correctParentList = [
+      List<RelationshipPair<Parent>> correctParentList = [
         RelationshipPair(
           relationship: Parent(
             hidden: false,

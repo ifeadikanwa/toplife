@@ -69,7 +69,7 @@ class DeathEvent {
 
       //if all people involved are valid
       if (mainPlayerPerson != null && relationshipPair != null) {
-        final Person deadPerson = relationshipPair.person as Person;
+        final Person deadPerson = relationshipPair.person;
 
         //update as dead
         _personUsecases.updatePersonUsecase.execute(
