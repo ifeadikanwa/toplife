@@ -15,16 +15,19 @@ import 'package:toplife/main_systems/system_event/event_manager/scheduled_events
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class PlayerPlannedFuneral {
   final PersonUsecases _personUsecases;
   final EventScheduler _eventScheduler;
   final JournalUsecases _journalUsecases;
+  final RelationshipUsecases _relationshipUsecases;
 
   const PlayerPlannedFuneral(
     this._personUsecases,
     this._eventScheduler,
     this._journalUsecases,
+    this._relationshipUsecases,
   );
 
   Future<void> run({
@@ -60,6 +63,7 @@ class PlayerPlannedFuneral {
 
     final playerCanAffordFuneralPlan =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
+      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: mainPlayerID,
       baseAmountToTake: cost * playerCountry.economy,
       adjustToEconomy: false,

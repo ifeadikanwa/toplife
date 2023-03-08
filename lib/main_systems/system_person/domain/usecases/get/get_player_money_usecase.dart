@@ -5,18 +5,16 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/relatio
 
 class GetPlayerMoneyUsecase {
   final PersonRepositories _personRepositories;
-  final RelationshipUsecases _relationshipUsecases;
 
-  const GetPlayerMoneyUsecase(
-      {required PersonRepositories personRepositories,
-      required RelationshipUsecases relationshipUsecases})
-      : _personRepositories = personRepositories,
-        _relationshipUsecases = relationshipUsecases;
+  const GetPlayerMoneyUsecase({
+    required PersonRepositories personRepositories,
+  }) : _personRepositories = personRepositories;
 
   Future<int> execute({
     required int mainPlayerID,
+    required RelationshipUsecases relationshipUsecases,
   }) async {
-    final currentPartner = await _relationshipUsecases.getCurrentPartnerUsecase
+    final currentPartner = await relationshipUsecases.getCurrentPartnerUsecase
         .execute(mainPlayerID);
 
     //player is married

@@ -7,6 +7,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/car_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
 
@@ -15,12 +16,14 @@ class PurchaseCarFullyPaidUsecase {
   final PersonUsecases _personUsecases;
   final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
+  final RelationshipUsecases _relationshipUsecases;
 
   const PurchaseCarFullyPaidUsecase(
     this._carRepository,
     this._personUsecases,
     this._journalUsecases,
     this._gameUsecases,
+    this._relationshipUsecases,
   );
 
   Future<void> execute({
@@ -40,6 +43,7 @@ class PurchaseCarFullyPaidUsecase {
 
     final bool paymentSuccessful =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
+      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: personID,
       baseAmountToTake: car.basePrice,
       adjustToEconomy: true,
@@ -74,7 +78,6 @@ class PurchaseCarFullyPaidUsecase {
       secondPersonResult = ShopResultConstants.noFundsResultEntry;
 
       resultTitle = ShopResultConstants.checkoutFailedTitle;
-
     }
 
     //log in journal

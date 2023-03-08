@@ -4,12 +4,15 @@ import 'package:toplife/core/utils/money/format_money_to_string.dart';
 import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class GetPlayerBarInfoFromDataUsecase {
   final PersonUsecases _personUsecases;
+  final RelationshipUsecases _relationshipUsecases;
 
   const GetPlayerBarInfoFromDataUsecase(
     this._personUsecases,
+    this._relationshipUsecases,
   );
 
   Future<PlayerBarInfo> execute({
@@ -28,6 +31,7 @@ class GetPlayerBarInfoFromDataUsecase {
     } else {
       final int currentBankBalance =
           await _personUsecases.getPlayerMoneyUsecase.execute(
+        relationshipUsecases: _relationshipUsecases,
         mainPlayerID: currentGame.currentPlayerID,
       );
 

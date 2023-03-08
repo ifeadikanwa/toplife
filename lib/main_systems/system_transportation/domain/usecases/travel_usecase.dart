@@ -1,6 +1,7 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_problem.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
@@ -20,6 +21,7 @@ class TravelUsecase {
   final GetTransportSettlement _getTransportSettlement;
   final GameUsecases _gameUsecases;
   final ShopAndStorageUsecases _shopAndStorageUsecases;
+  final RelationshipUsecases _relationshipUsecases;
 
   const TravelUsecase(
     this._personUsecases,
@@ -29,6 +31,7 @@ class TravelUsecase {
     this._getCurrentTransportationUsecase,
     this._gameUsecases,
     this._shopAndStorageUsecases,
+    this._relationshipUsecases,
   );
 
   Future<TravelResponse> executeDurationTravel({
@@ -145,6 +148,7 @@ class TravelUsecase {
   }) async {
     final bool paymentSuccessful =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
+      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: person.id,
       baseAmountToTake: currentTransportation.basePrice,
       adjustToEconomy: true,

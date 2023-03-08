@@ -17,7 +17,6 @@ import 'package:drift/drift.dart' as _i39;
 import 'package:drift_db_viewer/drift_db_viewer.dart' as _i7;
 import 'package:flutter/material.dart' as _i38;
 
-import '../../core/data_source/drift_database/database_provider.dart' as _i41;
 import '../../game_manager/presentation/game_manager_screen.dart' as _i2;
 import '../../main_game/presentation/main_game_screen.dart' as _i1;
 import '../../main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart'
@@ -26,23 +25,23 @@ import '../../main_game/presentation/top_level_screens/player/widgets/player_scr
     as _i4;
 import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_screen.dart'
     as _i26;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/children_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/children_screen/children_screen.dart'
     as _i30;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/exes_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/exes_screen/exes_screen.dart'
     as _i34;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/friends_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/friends_screen/friends_screen.dart'
     as _i33;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/graves_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/graves_screen/graves_screen.dart'
     as _i35;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/inlaws_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/inlaws_screen/inlaws_screen.dart'
     as _i32;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen/parents_screen.dart'
     as _i27;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/partners_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/partners_screen/partners_screen.dart'
     as _i29;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/relatives_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/relatives_screen/relatives_screen.dart'
     as _i31;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/siblings_screen.dart'
+import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/siblings_screen/siblings_screen.dart'
     as _i28;
 import '../../main_game/presentation/top_level_screens/shop/widgets/shop_screen.dart'
     as _i6;
@@ -84,8 +83,6 @@ import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/
     as _i13;
 import '../../main_game/presentation/top_level_screens/work/widgets/work_screen.dart'
     as _i5;
-import '../../main_systems/system_relationship/domain/model/info_models/relationship_pair.dart'
-    as _i40;
 
 class AppRouter extends _i37.RootStackRouter {
   AppRouter([_i38.GlobalKey<_i38.NavigatorState>? navigatorKey])
@@ -293,93 +290,57 @@ class AppRouter extends _i37.RootStackRouter {
       );
     },
     ParentsRoute.name: (routeData) {
-      final args = routeData.argsAs<ParentsRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i27.ParentsScreen(
-          key: args.key,
-          parents: args.parents,
-        ),
+        child: const _i27.ParentsScreen(),
       );
     },
     SiblingsRoute.name: (routeData) {
-      final args = routeData.argsAs<SiblingsRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i28.SiblingsScreen(
-          key: args.key,
-          siblings: args.siblings,
-        ),
+        child: const _i28.SiblingsScreen(),
       );
     },
     PartnersRoute.name: (routeData) {
-      final args = routeData.argsAs<PartnersRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i29.PartnersScreen(
-          key: args.key,
-          partners: args.partners,
-        ),
+        child: const _i29.PartnersScreen(),
       );
     },
     ChildrenRoute.name: (routeData) {
-      final args = routeData.argsAs<ChildrenRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i30.ChildrenScreen(
-          key: args.key,
-          childrenList: args.childrenList,
-        ),
+        child: const _i30.ChildrenScreen(),
       );
     },
     RelativesRoute.name: (routeData) {
-      final args = routeData.argsAs<RelativesRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i31.RelativesScreen(
-          key: args.key,
-          relatives: args.relatives,
-        ),
+        child: const _i31.RelativesScreen(),
       );
     },
     InLawsRoute.name: (routeData) {
-      final args = routeData.argsAs<InLawsRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i32.InLawsScreen(
-          key: args.key,
-          inLaws: args.inLaws,
-        ),
+        child: const _i32.InLawsScreen(),
       );
     },
     FriendsRoute.name: (routeData) {
-      final args = routeData.argsAs<FriendsRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i33.FriendsScreen(
-          key: args.key,
-          friends: args.friends,
-        ),
+        child: const _i33.FriendsScreen(),
       );
     },
     ExesRoute.name: (routeData) {
-      final args = routeData.argsAs<ExesRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i34.ExesScreen(
-          key: args.key,
-          exes: args.exes,
-        ),
+        child: const _i34.ExesScreen(),
       );
     },
     GravesRoute.name: (routeData) {
-      final args = routeData.argsAs<GravesRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i35.GravesScreen(
-          key: args.key,
-          graves: args.graves,
-        ),
+        child: const _i35.GravesScreen(),
       );
     },
     ActivitiesRoute.name: (routeData) {
@@ -1009,308 +970,110 @@ class RelationshipRoute extends _i37.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i27.ParentsScreen]
-class ParentsRoute extends _i37.PageRouteInfo<ParentsRouteArgs> {
-  ParentsRoute({
-    _i38.Key? key,
-    required List<_i40.RelationshipPair<_i41.Parent>> parents,
-  }) : super(
+class ParentsRoute extends _i37.PageRouteInfo<void> {
+  const ParentsRoute()
+      : super(
           ParentsRoute.name,
           path: 'parents',
-          args: ParentsRouteArgs(
-            key: key,
-            parents: parents,
-          ),
         );
 
   static const String name = 'ParentsRoute';
 }
 
-class ParentsRouteArgs {
-  const ParentsRouteArgs({
-    this.key,
-    required this.parents,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.RelationshipPair<_i41.Parent>> parents;
-
-  @override
-  String toString() {
-    return 'ParentsRouteArgs{key: $key, parents: $parents}';
-  }
-}
-
 /// generated route for
 /// [_i28.SiblingsScreen]
-class SiblingsRoute extends _i37.PageRouteInfo<SiblingsRouteArgs> {
-  SiblingsRoute({
-    _i38.Key? key,
-    required List<_i40.RelationshipPair<_i41.Sibling>> siblings,
-  }) : super(
+class SiblingsRoute extends _i37.PageRouteInfo<void> {
+  const SiblingsRoute()
+      : super(
           SiblingsRoute.name,
           path: 'siblings',
-          args: SiblingsRouteArgs(
-            key: key,
-            siblings: siblings,
-          ),
         );
 
   static const String name = 'SiblingsRoute';
 }
 
-class SiblingsRouteArgs {
-  const SiblingsRouteArgs({
-    this.key,
-    required this.siblings,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.RelationshipPair<_i41.Sibling>> siblings;
-
-  @override
-  String toString() {
-    return 'SiblingsRouteArgs{key: $key, siblings: $siblings}';
-  }
-}
-
 /// generated route for
 /// [_i29.PartnersScreen]
-class PartnersRoute extends _i37.PageRouteInfo<PartnersRouteArgs> {
-  PartnersRoute({
-    _i38.Key? key,
-    required List<_i40.RelationshipPair<_i41.Partner>> partners,
-  }) : super(
+class PartnersRoute extends _i37.PageRouteInfo<void> {
+  const PartnersRoute()
+      : super(
           PartnersRoute.name,
           path: 'partners',
-          args: PartnersRouteArgs(
-            key: key,
-            partners: partners,
-          ),
         );
 
   static const String name = 'PartnersRoute';
 }
 
-class PartnersRouteArgs {
-  const PartnersRouteArgs({
-    this.key,
-    required this.partners,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.RelationshipPair<_i41.Partner>> partners;
-
-  @override
-  String toString() {
-    return 'PartnersRouteArgs{key: $key, partners: $partners}';
-  }
-}
-
 /// generated route for
 /// [_i30.ChildrenScreen]
-class ChildrenRoute extends _i37.PageRouteInfo<ChildrenRouteArgs> {
-  ChildrenRoute({
-    _i38.Key? key,
-    required List<_i40.RelationshipPair<_i41.Child>> childrenList,
-  }) : super(
+class ChildrenRoute extends _i37.PageRouteInfo<void> {
+  const ChildrenRoute()
+      : super(
           ChildrenRoute.name,
           path: 'children',
-          args: ChildrenRouteArgs(
-            key: key,
-            childrenList: childrenList,
-          ),
         );
 
   static const String name = 'ChildrenRoute';
 }
 
-class ChildrenRouteArgs {
-  const ChildrenRouteArgs({
-    this.key,
-    required this.childrenList,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.RelationshipPair<_i41.Child>> childrenList;
-
-  @override
-  String toString() {
-    return 'ChildrenRouteArgs{key: $key, childrenList: $childrenList}';
-  }
-}
-
 /// generated route for
 /// [_i31.RelativesScreen]
-class RelativesRoute extends _i37.PageRouteInfo<RelativesRouteArgs> {
-  RelativesRoute({
-    _i38.Key? key,
-    required List<_i40.RelationshipPair<_i41.Relative>> relatives,
-  }) : super(
+class RelativesRoute extends _i37.PageRouteInfo<void> {
+  const RelativesRoute()
+      : super(
           RelativesRoute.name,
           path: 'relatives',
-          args: RelativesRouteArgs(
-            key: key,
-            relatives: relatives,
-          ),
         );
 
   static const String name = 'RelativesRoute';
 }
 
-class RelativesRouteArgs {
-  const RelativesRouteArgs({
-    this.key,
-    required this.relatives,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.RelationshipPair<_i41.Relative>> relatives;
-
-  @override
-  String toString() {
-    return 'RelativesRouteArgs{key: $key, relatives: $relatives}';
-  }
-}
-
 /// generated route for
 /// [_i32.InLawsScreen]
-class InLawsRoute extends _i37.PageRouteInfo<InLawsRouteArgs> {
-  InLawsRoute({
-    _i38.Key? key,
-    required List<_i40.RelationshipPair<_i41.InLaw>> inLaws,
-  }) : super(
+class InLawsRoute extends _i37.PageRouteInfo<void> {
+  const InLawsRoute()
+      : super(
           InLawsRoute.name,
           path: 'inlaws',
-          args: InLawsRouteArgs(
-            key: key,
-            inLaws: inLaws,
-          ),
         );
 
   static const String name = 'InLawsRoute';
 }
 
-class InLawsRouteArgs {
-  const InLawsRouteArgs({
-    this.key,
-    required this.inLaws,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.RelationshipPair<_i41.InLaw>> inLaws;
-
-  @override
-  String toString() {
-    return 'InLawsRouteArgs{key: $key, inLaws: $inLaws}';
-  }
-}
-
 /// generated route for
 /// [_i33.FriendsScreen]
-class FriendsRoute extends _i37.PageRouteInfo<FriendsRouteArgs> {
-  FriendsRoute({
-    _i38.Key? key,
-    required List<_i40.RelationshipPair<_i41.Friend>> friends,
-  }) : super(
+class FriendsRoute extends _i37.PageRouteInfo<void> {
+  const FriendsRoute()
+      : super(
           FriendsRoute.name,
           path: 'friends',
-          args: FriendsRouteArgs(
-            key: key,
-            friends: friends,
-          ),
         );
 
   static const String name = 'FriendsRoute';
 }
 
-class FriendsRouteArgs {
-  const FriendsRouteArgs({
-    this.key,
-    required this.friends,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.RelationshipPair<_i41.Friend>> friends;
-
-  @override
-  String toString() {
-    return 'FriendsRouteArgs{key: $key, friends: $friends}';
-  }
-}
-
 /// generated route for
 /// [_i34.ExesScreen]
-class ExesRoute extends _i37.PageRouteInfo<ExesRouteArgs> {
-  ExesRoute({
-    _i38.Key? key,
-    required List<_i40.RelationshipPair<_i41.Partner>> exes,
-  }) : super(
+class ExesRoute extends _i37.PageRouteInfo<void> {
+  const ExesRoute()
+      : super(
           ExesRoute.name,
           path: 'exes',
-          args: ExesRouteArgs(
-            key: key,
-            exes: exes,
-          ),
         );
 
   static const String name = 'ExesRoute';
 }
 
-class ExesRouteArgs {
-  const ExesRouteArgs({
-    this.key,
-    required this.exes,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.RelationshipPair<_i41.Partner>> exes;
-
-  @override
-  String toString() {
-    return 'ExesRouteArgs{key: $key, exes: $exes}';
-  }
-}
-
 /// generated route for
 /// [_i35.GravesScreen]
-class GravesRoute extends _i37.PageRouteInfo<GravesRouteArgs> {
-  GravesRoute({
-    _i38.Key? key,
-    required List<_i41.Grave> graves,
-  }) : super(
+class GravesRoute extends _i37.PageRouteInfo<void> {
+  const GravesRoute()
+      : super(
           GravesRoute.name,
           path: 'grave',
-          args: GravesRouteArgs(
-            key: key,
-            graves: graves,
-          ),
         );
 
   static const String name = 'GravesRoute';
-}
-
-class GravesRouteArgs {
-  const GravesRouteArgs({
-    this.key,
-    required this.graves,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i41.Grave> graves;
-
-  @override
-  String toString() {
-    return 'GravesRouteArgs{key: $key, graves: $graves}';
-  }
 }
 
 /// generated route for

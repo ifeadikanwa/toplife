@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
@@ -23,8 +22,7 @@ final personRepositoriesProvider = Provider<PersonRepositories>((ref) {
 
 final personUsecasesProvider = Provider<PersonUsecases>((ref) {
   return PersonUsecases(
-    personRepositories: ref.watch(personRepositoriesProvider),
-    relationshipUsecases: ref.watch(relationshipUsecasesProvider),
+    personRepositories: ref.watch(personRepositoriesProvider), 
     ageUsecases: ref.watch(ageUsecasesProvider),
   );
 });

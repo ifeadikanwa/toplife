@@ -106,6 +106,7 @@ class BirthdayPartyEvent {
         //get player money
         final playerMaxMoney =
             await _personUsecases.getPlayerMoneyUsecase.execute(
+          relationshipUsecases: _relationshipUsecases,
           mainPlayerID: mainPlayerID,
         );
 

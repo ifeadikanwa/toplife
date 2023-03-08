@@ -7,15 +7,13 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/relatio
 
 class AddMoneyToPlayerUsecase {
   final PersonRepositories _personRepositories;
-  final RelationshipUsecases _relationshipUsecases;
 
-  const AddMoneyToPlayerUsecase(
-      {required PersonRepositories personRepositories,
-      required RelationshipUsecases relationshipUsecases})
-      : _personRepositories = personRepositories,
-        _relationshipUsecases = relationshipUsecases;
+  const AddMoneyToPlayerUsecase({
+    required PersonRepositories personRepositories,
+  }) : _personRepositories = personRepositories;
 
   Future<void> execute({
+    required RelationshipUsecases relationshipUsecases,
     required int mainPlayerID,
     required int baseAmountToAdd,
     required bool adjustToEconomy,
@@ -26,16 +24,15 @@ class AddMoneyToPlayerUsecase {
       mainPlayerID,
     );
     //get partner
-    final currentPartner = await _relationshipUsecases.getCurrentPartnerUsecase
+    final currentPartner = await relationshipUsecases.getCurrentPartnerUsecase
         .execute(mainPlayerID);
 
     //if player is valid
     if (mainPlayerPerson != null) {
-      
       //get player economy and adjust amount to add
       final Country playerCountry = LocationManager.getCountryClass(
         countryName: mainPlayerPerson.currentCountry,
-      ); 
+      );
 
       late final int finalAmountToAdd;
       if (adjustToEconomy) {
@@ -49,6 +46,7 @@ class AddMoneyToPlayerUsecase {
           currentPartner.partnerRelationshipType ==
               PartnerRelationshipType.married.name) {
         return addMoneyToMarriedPlayer(
+          relationshipUsecases: relationshipUsecases,
           amountToAdd: finalAmountToAdd,
           currentPartner: currentPartner,
         );
@@ -64,6 +62,7 @@ class AddMoneyToPlayerUsecase {
   }
 
   Future<void> addMoneyToMarriedPlayer({
+    required RelationshipUsecases relationshipUsecases,
     required int amountToAdd,
     required Partner currentPartner,
   }) async {
@@ -71,7 +70,7 @@ class AddMoneyToPlayerUsecase {
 
     final int oldJointMoney = currentPartner.jointMoney;
 
-    _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
+    relationshipUsecases.updatePartnerRelationshipUsecase.execute(
       currentPartner.copyWith(
         jointMoney: (oldJointMoney + amountToAdd),
       ),

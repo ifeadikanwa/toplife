@@ -2,6 +2,7 @@ import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/shop_and_storage_repositories.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_is_not_dead_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/drive_car_usecase.dart';
@@ -42,6 +43,7 @@ class ShopAndStorageUsecases {
   final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
   final RecurringBillsUsecases _recurringBillsUsecases;
+  final RelationshipUsecases _relationshipUsecases;
 
   const ShopAndStorageUsecases({
     required ShopAndStorageRepositories shopAndStorageRepositories,
@@ -49,11 +51,13 @@ class ShopAndStorageUsecases {
     required JournalUsecases journalUsecases,
     required GameUsecases gameUsecases,
     required RecurringBillsUsecases recurringBillsUsecases,
+    required RelationshipUsecases relationshipUsecases,
   })  : _shopAndStorageRepositories = shopAndStorageRepositories,
         _personUsecases = personUsecases,
         _journalUsecases = journalUsecases,
         _gameUsecases = gameUsecases,
-        _recurringBillsUsecases = recurringBillsUsecases;
+        _recurringBillsUsecases = recurringBillsUsecases,
+        _relationshipUsecases = relationshipUsecases;
 
   GetStoreroomItemPairsUsecase get getStoreroomItemPairsUsecase =>
       GetStoreroomItemPairsUsecase(
@@ -108,6 +112,7 @@ class ShopAndStorageUsecases {
         _personUsecases,
         _journalUsecases,
         _gameUsecases,
+        _relationshipUsecases,
       );
 
   AddFoodToFridgeUsecase get addFoodToFridgeUsecase => AddFoodToFridgeUsecase(
@@ -129,6 +134,7 @@ class ShopAndStorageUsecases {
         _personUsecases,
         _journalUsecases,
         _gameUsecases,
+        _relationshipUsecases,
       );
 
   GetCurrentHouseStorageSpaceUsecase get getCurrentHouseStorageSpaceUsecase =>
@@ -142,6 +148,7 @@ class ShopAndStorageUsecases {
         _personUsecases,
         _journalUsecases,
         _gameUsecases,
+        _relationshipUsecases,
       );
 
   AddItemToStoreroomUsecase get addItemToStoreroomUsecase =>
@@ -165,6 +172,7 @@ class ShopAndStorageUsecases {
         addItemToStoreroomUsecase,
         _gameUsecases,
         _journalUsecases,
+        _relationshipUsecases,
       );
 
   PurchaseJewelryUsecase get purchaseJewelryUsecase => PurchaseJewelryUsecase(
@@ -172,6 +180,7 @@ class ShopAndStorageUsecases {
         _personUsecases,
         _journalUsecases,
         _gameUsecases,
+        _relationshipUsecases,
       );
 
   RentHouseUsecase get rentHouseUsecase => RentHouseUsecase(
@@ -182,6 +191,7 @@ class ShopAndStorageUsecases {
         signLeaseForRentalUsecase,
         _journalUsecases,
         breakOldLeaseSignNewLease,
+        _relationshipUsecases,
       );
 
   BreakOldLeaseSignNewLease get breakOldLeaseSignNewLease =>
@@ -195,6 +205,7 @@ class ShopAndStorageUsecases {
         _shopAndStorageRepositories.houseRepositoryImpl,
         _personUsecases,
         _recurringBillsUsecases,
+        _relationshipUsecases,
       );
 
   SignLeaseForRentalUsecase get signLeaseForRentalUsecase =>
@@ -204,6 +215,7 @@ class ShopAndStorageUsecases {
         unsetAllCurrentHomesUsecase,
         moveStorageToNewHouseUsecase,
         _personUsecases,
+        _relationshipUsecases,
       );
 
   MoveStorageToNewHouseUsecase get moveStorageToNewHouseUsecase =>
@@ -231,6 +243,7 @@ class ShopAndStorageUsecases {
         _journalUsecases,
         _gameUsecases,
         _recurringBillsUsecases,
+        _relationshipUsecases,
       );
 
   PurchaseHouseWithLoanUsecase get purchaseHouseWithLoanUsecase =>
@@ -240,6 +253,7 @@ class ShopAndStorageUsecases {
         _gameUsecases,
         _recurringBillsUsecases,
         signMortgageLoanContract,
+        _relationshipUsecases,
       );
 
   SignMortgageLoanContract get signMortgageLoanContract =>
@@ -248,5 +262,6 @@ class ShopAndStorageUsecases {
         _personUsecases,
         _journalUsecases,
         _recurringBillsUsecases,
+        _relationshipUsecases,
       );
 }

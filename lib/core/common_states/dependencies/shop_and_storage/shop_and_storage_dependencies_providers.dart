@@ -4,6 +4,7 @@ import 'package:toplife/core/common_states/dependencies/game/game_dependencies_p
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/recurring_bill/recurring_bill_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/food_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/fridge_food_dao_impl.dart';
@@ -35,5 +36,6 @@ final shopAndStorageUsecasesProvider = Provider<ShopAndStorageUsecases>((ref) {
     journalUsecases: ref.watch(journalUsecasesProvider),
     gameUsecases: ref.watch(gameUsecasesProvider),
     recurringBillsUsecases: ref.watch(recurringBillUsecasesProvider),
+    relationshipUsecases: ref.watch(relationshipUsecasesProvider),
   );
 });

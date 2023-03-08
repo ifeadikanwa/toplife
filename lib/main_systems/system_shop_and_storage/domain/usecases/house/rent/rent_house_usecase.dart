@@ -11,6 +11,7 @@ import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/house_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/break_old_lease_sign_new_lease_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/end_lease_usecase.dart';
@@ -26,6 +27,7 @@ class RentHouseUsecase {
   final SignLeaseForRentalUsecase _signLeaseForRentalUsecase;
   final JournalUsecases _journalUsecases;
   final BreakOldLeaseSignNewLease _breakOldLeaseSignNewLease;
+  final RelationshipUsecases _relationshipUsecases;
 
   const RentHouseUsecase(
     this._houseRepository,
@@ -35,6 +37,7 @@ class RentHouseUsecase {
     this._signLeaseForRentalUsecase,
     this._journalUsecases,
     this._breakOldLeaseSignNewLease,
+    this._relationshipUsecases,
   );
 
   Future<void> execute({
@@ -68,6 +71,7 @@ class RentHouseUsecase {
       //check if player has enough money
       final bool playerCanAffordIt =
           await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
+        relationshipUsecases: _relationshipUsecases,
         personID: personID,
         basePrice: baseHouseRentPrice,
         country: person.currentCountry,

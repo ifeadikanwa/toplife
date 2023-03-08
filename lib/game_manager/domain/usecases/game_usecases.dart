@@ -78,14 +78,11 @@ class GameUsecases {
   GetPlayerBarInfoFromDataUsecase get getPlayerBarInfoFromDataUsecase =>
       GetPlayerBarInfoFromDataUsecase(
         _personUsecases,
+        _relationshipUsecases,
       );
-
-  
 
   WatchLastPlayedActiveGameUsecase get watchLastPlayedActiveGameUsecase =>
       WatchLastPlayedActiveGameUsecase(
         gameRepository: _gameRepository,
       );
-
- 
 }

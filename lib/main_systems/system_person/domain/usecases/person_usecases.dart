@@ -29,19 +29,15 @@ import 'package:toplife/main_systems/system_person/domain/usecases/update_specif
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_wellbeing_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/watch/watch_person_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/watch/watch_person_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class PersonUsecases {
   final PersonRepositories _personRepositories;
-  final RelationshipUsecases _relationshipUsecases;
   final AgeUsecases _ageUsecases;
 
   const PersonUsecases({
     required PersonRepositories personRepositories,
-    required RelationshipUsecases relationshipUsecases,
     required AgeUsecases ageUsecases,
   })  : _personRepositories = personRepositories,
-        _relationshipUsecases = relationshipUsecases,
         _ageUsecases = ageUsecases;
 
   GenerateAPersonUsecase get generateAPersonUsecase =>
@@ -126,19 +122,16 @@ class PersonUsecases {
 
   GetPlayerMoneyUsecase get getPlayerMoneyUsecase => GetPlayerMoneyUsecase(
         personRepositories: _personRepositories,
-        relationshipUsecases: _relationshipUsecases,
       );
 
   TakeMoneyFromPlayerUsecase get takeMoneyFromPlayerUsecase =>
       TakeMoneyFromPlayerUsecase(
         personRepositories: _personRepositories,
-        relationshipUsecases: _relationshipUsecases,
       );
 
   AddMoneyToPlayerUsecase get addMoneyToPlayerUsecase =>
       AddMoneyToPlayerUsecase(
         personRepositories: _personRepositories,
-        relationshipUsecases: _relationshipUsecases,
       );
 
   UpdateStatsUsecase get updateStatsUsecase => UpdateStatsUsecase(

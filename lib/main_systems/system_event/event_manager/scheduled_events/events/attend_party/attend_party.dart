@@ -69,6 +69,7 @@ class AttendParty {
 
     //remove chosen money gift from account
     _personUsecases.takeMoneyFromPlayerUsecase.execute(
+      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: mainPlayerID,
       baseAmountToTake: chosenMoneyGiftAmount.toInt(),
       adjustToEconomy: false,

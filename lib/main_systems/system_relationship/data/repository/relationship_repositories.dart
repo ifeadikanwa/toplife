@@ -72,6 +72,6 @@ class RelationshipRepositories {
   InLawRepositoryImpl get inLawRepositoryImpl =>
       InLawRepositoryImpl(inLawDao: _inLawDao);
 
-  GraveRepositoryImpl get graveyardRepositoryImpl =>
+  GraveRepositoryImpl get graveRepositoryImpl =>
       GraveRepositoryImpl(graveDao: _graveDao);
 }

@@ -7,6 +7,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/add_food_to_fridge_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_food_record_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_fridge_food_count_usecase.dart';
@@ -21,6 +22,7 @@ class PurchaseFoodUsecase {
   final PersonUsecases _personUsecases;
   final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
+  final RelationshipUsecases _relationshipUsecases;
 
   const PurchaseFoodUsecase(
     this._addFoodToFridgeUsecase,
@@ -30,6 +32,7 @@ class PurchaseFoodUsecase {
     this._personUsecases,
     this._journalUsecases,
     this._gameUsecases,
+    this._relationshipUsecases,
   );
 
   Future<void> execute({
@@ -61,6 +64,7 @@ class PurchaseFoodUsecase {
       //try to buy the food
       final bool paymentSuccessful =
           await _personUsecases.takeMoneyFromPlayerUsecase.execute(
+        relationshipUsecases: _relationshipUsecases,
         mainPlayerID: personID,
         baseAmountToTake: food.basePrice,
         adjustToEconomy: true,

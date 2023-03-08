@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
@@ -31,5 +32,6 @@ final relationshipRepositoriesProvider =
 final relationshipUsecasesProvider = Provider<RelationshipUsecases>((ref) {
   return RelationshipUsecases(
     relationshipRepositories: ref.watch(relationshipRepositoriesProvider),
+    personUsecases:  ref.watch(personUsecasesProvider),
   );
 });

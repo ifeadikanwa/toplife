@@ -7,6 +7,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_storage_space_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/add_item_to_storeroom_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_item_record_usecase.dart';
@@ -21,6 +22,7 @@ class PurchaseItemUsecase {
   final AddItemToStoreroomUsecase _addItemToStoreroomUsecase;
   final GameUsecases _gameUsecases;
   final JournalUsecases _journalUsecases;
+  final RelationshipUsecases _relationshipUsecases;
 
   const PurchaseItemUsecase(
     this._getItemRecordUsecase,
@@ -30,6 +32,7 @@ class PurchaseItemUsecase {
     this._addItemToStoreroomUsecase,
     this._gameUsecases,
     this._journalUsecases,
+    this._relationshipUsecases,
   );
 
   Future<void> execute({
@@ -64,6 +67,7 @@ class PurchaseItemUsecase {
       //try to buy the item
       final bool paymentSuccessful =
           await _personUsecases.takeMoneyFromPlayerUsecase.execute(
+        relationshipUsecases: _relationshipUsecases,
         mainPlayerID: personID,
         baseAmountToTake: item.basePrice,
         adjustToEconomy: true,
@@ -105,7 +109,8 @@ class PurchaseItemUsecase {
         quantity.toString(),
       );
 
-      secondPersonResult = ShopResultConstants.noStoreroomStorageSpaceResultEntry;
+      secondPersonResult =
+          ShopResultConstants.noStoreroomStorageSpaceResultEntry;
 
       resultTitle = ShopResultConstants.checkoutFailedTitle;
     }
