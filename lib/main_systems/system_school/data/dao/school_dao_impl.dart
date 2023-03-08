@@ -257,4 +257,24 @@ class SchoolDaoImpl extends DatabaseAccessor<DatabaseProvider>
           ..limit(1))
         .watchSingleOrNull();
   }
+
+  @override
+  Stream<School?> watchActiveSchool(int mainPersonID) {
+    return (select(schoolTable)
+          ..where(
+            (school) =>
+                school.mainPersonId.equals(mainPersonID) &
+                school.isActive.equals(true),
+          )
+          ..orderBy(
+            [
+              (school) => OrderingTerm(
+                    expression: school.id,
+                    mode: OrderingMode.desc,
+                  )
+            ],
+          )
+          ..limit(1))
+        .watchSingleOrNull();
+  }
 }

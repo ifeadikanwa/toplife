@@ -24,12 +24,15 @@ import 'package:toplife/main_systems/system_school/domain/usecases/degrees/get_v
 import 'package:toplife/main_systems/system_school/domain/usecases/degrees/get_valid_list_of_nursing_degrees_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/degrees/get_valid_list_of_pharmacy_degrees_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/end_all_active_school_programs_usecase.dart';
+import 'package:toplife/main_systems/system_school/domain/usecases/get_a_school_pair_from_school_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_completed_degrees_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_grade_for_completed_school_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_highest_attained_degree_level_for_a_completed_degree_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_highest_grade_for_any_completed_school_in_a_discipline_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/get_or_create_degree_usecase.dart';
+import 'package:toplife/main_systems/system_school/domain/usecases/get_school_pairs_from_schools_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/graduation/graduate_usecase.dart';
+import 'package:toplife/main_systems/system_school/domain/usecases/watch/watch_active_school_usecase.dart';
 
 class SchoolUsecases {
   final SchoolRepositories _schoolRepositories;
@@ -60,6 +63,21 @@ class SchoolUsecases {
 
   GetOrCreateDegreeUsecase get getOrCreateDegreeUsecase =>
       GetOrCreateDegreeUsecase(schoolRepositories: _schoolRepositories);
+
+  WatchActiveSchoolUsecase get watchActiveSchoolUsecase =>
+      WatchActiveSchoolUsecase(
+        schoolRepository: _schoolRepositories.schoolRepositoryImpl,
+      );
+
+  GetSchoolPairsFromSchoolsUsecase get getSchoolPairsFromSchoolsUsecase =>
+      GetSchoolPairsFromSchoolsUsecase(
+        schoolRepositories: _schoolRepositories,
+      );
+
+  GetASchoolPairFromSchoolUsecase get getASchoolPairFromSchoolUsecase =>
+      GetASchoolPairFromSchoolUsecase(
+        schoolRepositories: _schoolRepositories,
+      );
 
   //degrees
   GetValidListOfBachelorDegreesUsecase

@@ -2,6 +2,7 @@ import 'package:toplife/main_systems/system_job/data/repository/job_repositories
 import 'package:toplife/main_systems/system_job/domain/usecases/check_if_qualified_for_job_usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/employ_person_for_fulltime_job_usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/end_all_active_fulltime_employment_usecase.dart';
+import 'package:toplife/main_systems/system_job/domain/usecases/get/get_employment_pairs_from_employment_usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/get/get_job_titles_from_employments_usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/get_a_valid_list_of_fulltime_jobs_usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/watch/watch_active_employments_usecase.dart';
@@ -54,4 +55,10 @@ class JobUsecases {
       GetJobTitlesFromEmploymentsUsecase(
         jobRepository: _jobRepositories.jobRepositoryImpl,
       );
+
+  GetEmploymentPairsFromEmploymentsUsecase
+      get getEmploymentPairsFromEmploymentsUsecase =>
+          GetEmploymentPairsFromEmploymentsUsecase(
+            jobRepository: _jobRepositories.jobRepositoryImpl,
+          );
 }

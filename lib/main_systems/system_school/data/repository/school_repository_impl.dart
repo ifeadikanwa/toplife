@@ -93,4 +93,9 @@ class SchoolRepositoryImpl implements SchoolRepository {
   Stream<School?> watchSchool(int schoolID) {
     return _schoolDao.watchSchool(schoolID);
   }
+
+  @override
+  Stream<School?> watchActiveSchool(int mainPersonID) {
+    return _schoolDao.watchActiveSchool(mainPersonID);
+  }
 }

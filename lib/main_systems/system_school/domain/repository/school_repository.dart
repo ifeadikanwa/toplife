@@ -18,5 +18,6 @@ abstract class SchoolRepository {
   Future<List<School>> getAllSchools(int mainPersonID);
   Future<School?> getSchool(int schoolID);
   Stream<School?> watchSchool(int schoolID);
+  Stream<School?> watchActiveSchool(int mainPersonID);
   Future<void> deleteSchool(int schoolID);
 }
