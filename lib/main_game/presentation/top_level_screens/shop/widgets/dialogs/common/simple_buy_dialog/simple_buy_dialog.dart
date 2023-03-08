@@ -1,0 +1,71 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/divider/list_divider.dart';
+import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/editable_quantity_descriptor_row.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/simple_buy_dialog/simple_buy_dialog_view_model.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/total_price_row.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/shop_dialog_item_info_row.dart';
+
+class SimpleBuyDialog extends ConsumerWidget {
+  final String title;
+  final String subtitle1;
+  final String? subtitle2;
+  final int basePrice;
+  final void Function(int quantity) onCheckout;
+
+  const SimpleBuyDialog({
+    Key? key,
+    required this.title,
+    required this.subtitle1,
+    this.subtitle2,
+    required this.basePrice,
+    required this.onCheckout,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final quantity = ref.watch(simpleBuyDialogViewModelProvider);
+    final simpleBuyDialogViewModel =
+        ref.watch(simpleBuyDialogViewModelProvider.notifier);
+
+    return DialogContainer(
+      children: [
+        ShopDialogItemInfoRow(
+          title: title,
+          subtitle1: subtitle1,
+          subtitle2: subtitle2,
+        ),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        EditableQuantityDescriptorRow(
+          descriptor: ShopDialogConstants.quantity,
+          quantity: "$quantity",
+          onIncrease: simpleBuyDialogViewModel.increaseQuantity,
+          onDecrease: simpleBuyDialogViewModel.decreaseQuantity,
+        ),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        const ListDivider(),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        TotalPriceRow(basePrice: quantity * basePrice),
+        const AddVerticalSpace(
+            height: ShopDialogConstants.sectionVerticalSpacing),
+        ElevatedButton(
+          onPressed: () {
+            AutoRouter.of(context).popForced();
+            onCheckout(quantity);
+          },
+          child: const Text(ShopDialogConstants.checkout),
+        ),
+      ],
+    );
+  }
+}

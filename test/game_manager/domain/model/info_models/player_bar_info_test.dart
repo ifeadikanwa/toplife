@@ -8,12 +8,13 @@ void main() {
       () => expect(
         PlayerBarInfo.blankPlayerBarInfo,
         const PlayerBarInfo(
-          firstName: "",
-          lastName: "",
-          currency: "",
-          bankBalance: "",
-          time: "",
-          day: "",
+          firstName: "-",
+          lastName: "-",
+          country: "-",
+          currency: "-",
+          bankBalance: "-",
+          time: "-",
+          day: "-",
         ),
       ),
     );

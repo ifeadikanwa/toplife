@@ -5,7 +5,6 @@ import 'package:toplife/core/common_widgets/app_screen_content_templates/tab_scr
 import 'package:toplife/core/common_widgets/app_screens/inner_level_screen.dart';
 import 'package:toplife/core/common_widgets/tab/app_tab.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/shop.dart';
 
 class FoodShopScreen extends StatelessWidget {
   const FoodShopScreen({Key? key}) : super(key: key);
@@ -13,11 +12,11 @@ class FoodShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter.tabBar(
-      routes: [
-        ReadyMealRoute(readyMeals: Shop.readyMealsList),
-        IngredientsRoute(ingredients: Shop.ingredientsList),
-        DrinksRoute(drinks: Shop.drinksList),
-        SweetsRoute(sweets: Shop.sweetsList),
+      routes: const [
+        ReadyMealRoute(),
+        IngredientsRoute(),
+        DrinksRoute(),
+        SweetsRoute(),
       ],
       builder: (context, child, tabController) {
         return InnerLevelScreen(

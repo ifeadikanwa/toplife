@@ -1,5 +1,4 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/core/utils/money/format_money_to_string.dart';
 import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.dart';
@@ -22,14 +21,8 @@ class GetPlayerBarInfoFromDataUsecase {
     //we'll use helper functions to deduce some information
 
     if (currentGame == null || currentPlayer == null) {
-      const PlayerBarInfo noGameAndPlayerInfo = PlayerBarInfo(
-        firstName: TextConstants.dash,
-        lastName: TextConstants.dash,
-        currency: TextConstants.dash,
-        bankBalance: TextConstants.dash,
-        time: TextConstants.dash,
-        day: TextConstants.dash,
-      );
+      const PlayerBarInfo noGameAndPlayerInfo =
+          PlayerBarInfo.blankPlayerBarInfo;
 
       return noGameAndPlayerInfo;
     } else {
@@ -41,6 +34,7 @@ class GetPlayerBarInfoFromDataUsecase {
       final PlayerBarInfo currentGameAndPlayerInfo = PlayerBarInfo(
         firstName: currentPlayer.firstName,
         lastName: currentPlayer.lastName,
+        country: currentPlayer.currentCountry,
         currency: LocationManager.getCountryCurrency(
           currentPlayer.currentCountry,
         ),

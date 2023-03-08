@@ -21,7 +21,9 @@ class TodaysJournalCard extends ConsumerWidget {
     final ScrollController scrollController = ScrollController();
     //schedules the scrolling to the bottom of the SingleChildScrollView
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      if (scrollController.hasClients) {
+        scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      }
     });
 
     return todaysJournalCardViewModel.when(

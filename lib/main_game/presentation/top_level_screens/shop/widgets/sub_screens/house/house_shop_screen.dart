@@ -5,8 +5,6 @@ import 'package:toplife/core/common_widgets/app_screen_content_templates/tab_scr
 import 'package:toplife/core/common_widgets/app_screens/inner_level_screen.dart';
 import 'package:toplife/core/common_widgets/tab/app_tab.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/purchase_buildings_generator.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/rent_buildings_generator.dart';
 
 class HouseShopScreen extends StatelessWidget {
   const HouseShopScreen({Key? key}) : super(key: key);
@@ -14,13 +12,9 @@ class HouseShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter.tabBar(
-      routes: [
-        RentalHousesRoute(
-          rentalHouses: RentBuildingsGenerator.generate(),
-        ),
-        PurchaseHousesRoute(
-          purchaseHouses: PurchaseBuildingsGenerator.generate(),
-        ),
+      routes: const [
+        RentalHousesRoute(),
+        PurchaseHousesRoute(),
       ],
       builder: (context, child, tabController) {
         return InnerLevelScreen(

@@ -10,6 +10,7 @@ class TextConstants {
   static const journal = "Journal";
   static const events = "Events";
   static const day = "Day";
+  static const days = "Days";
 
   //player
   static const babyMonitor = "Baby Monitor";

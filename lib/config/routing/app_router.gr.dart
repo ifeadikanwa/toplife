@@ -17,7 +17,7 @@ import 'package:drift/drift.dart' as _i39;
 import 'package:drift_db_viewer/drift_db_viewer.dart' as _i7;
 import 'package:flutter/material.dart' as _i38;
 
-import '../../core/data_source/drift_database/database_provider.dart' as _i40;
+import '../../core/data_source/drift_database/database_provider.dart' as _i41;
 import '../../game_manager/presentation/game_manager_screen.dart' as _i2;
 import '../../main_game/presentation/main_game_screen.dart' as _i1;
 import '../../main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart'
@@ -48,44 +48,44 @@ import '../../main_game/presentation/top_level_screens/shop/widgets/shop_screen.
     as _i6;
 import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/car_shop_screen.dart'
     as _i9;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/tab_screens/new_cars_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/tab_screens/new_cars_screen/new_cars_screen.dart'
     as _i18;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/tab_screens/used_cars_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/tab_screens/used_cars_screen/used_cars_screen.dart'
     as _i19;
 import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/children/children_shop_screen.dart'
     as _i10;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/children/tab_screens/children_food_screen.dart'
-    as _i20;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/children/tab_screens/children_items_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/children/tab_screens/chidren_items_screen/children_items_screen.dart'
     as _i21;
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/children/tab_screens/children_food_screen/children_food_screen.dart'
+    as _i20;
 import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/food_shop_screen.dart'
     as _i8;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/drinks_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/drink_screen/drinks_screen.dart'
     as _i16;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/ingredients_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/ingredients_screen/ingredients_screen.dart'
     as _i15;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/ready_meals_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/ready_meals_screen/ready_meals_screen.dart'
     as _i14;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/sweets_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/sweets_screen/sweets_screen.dart'
     as _i17;
 import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/house/house_shop_screen.dart'
     as _i11;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/house/tab_screens/purchase_houses_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/house/tab_screens/purchase_houses_screen/purchase_houses_screen.dart'
     as _i23;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/house/tab_screens/rental_houses_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/house/tab_screens/rental_houses_screen/rental_houses_screen.dart'
     as _i22;
 import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/jewelry/jewelry_shop_screen.dart'
     as _i12;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/jewelry/tab_screens/natural_jewelry_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/jewelry/tab_screens/natural_jewelry_screen/natural_jewelry_screen.dart'
     as _i24;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/jewelry/tab_screens/synthetic_jewelry_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/jewelry/tab_screens/synthetic_jewelry_screen/synthetic_jewelry_screen.dart'
     as _i25;
 import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/supplies/supplies_shop_screen.dart'
     as _i13;
 import '../../main_game/presentation/top_level_screens/work/widgets/work_screen.dart'
     as _i5;
 import '../../main_systems/system_relationship/domain/model/info_models/relationship_pair.dart'
-    as _i41;
+    as _i40;
 
 class AppRouter extends _i37.RootStackRouter {
   AppRouter([_i38.GlobalKey<_i38.NavigatorState>? navigatorKey])
@@ -215,123 +215,75 @@ class AppRouter extends _i37.RootStackRouter {
       );
     },
     ReadyMealRoute.name: (routeData) {
-      final args = routeData.argsAs<ReadyMealRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i14.ReadyMealScreen(
-          key: args.key,
-          readyMeals: args.readyMeals,
-        ),
+        child: const _i14.ReadyMealScreen(),
       );
     },
     IngredientsRoute.name: (routeData) {
-      final args = routeData.argsAs<IngredientsRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i15.IngredientsScreen(
-          key: args.key,
-          ingredients: args.ingredients,
-        ),
+        child: const _i15.IngredientsScreen(),
       );
     },
     DrinksRoute.name: (routeData) {
-      final args = routeData.argsAs<DrinksRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i16.DrinksScreen(
-          key: args.key,
-          drinks: args.drinks,
-        ),
+        child: const _i16.DrinksScreen(),
       );
     },
     SweetsRoute.name: (routeData) {
-      final args = routeData.argsAs<SweetsRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i17.SweetsScreen(
-          key: args.key,
-          sweets: args.sweets,
-        ),
+        child: const _i17.SweetsScreen(),
       );
     },
     NewCarsRoute.name: (routeData) {
-      final args = routeData.argsAs<NewCarsRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i18.NewCarsScreen(
-          key: args.key,
-          newCars: args.newCars,
-        ),
+        child: const _i18.NewCarsScreen(),
       );
     },
     UsedCarsRoute.name: (routeData) {
-      final args = routeData.argsAs<UsedCarsRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i19.UsedCarsScreen(
-          key: args.key,
-          usedCars: args.usedCars,
-        ),
+        child: const _i19.UsedCarsScreen(),
       );
     },
     ChildrenFoodRoute.name: (routeData) {
-      final args = routeData.argsAs<ChildrenFoodRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i20.ChildrenFoodScreen(
-          key: args.key,
-          childrenFood: args.childrenFood,
-        ),
+        child: const _i20.ChildrenFoodScreen(),
       );
     },
     ChildrenItemsRoute.name: (routeData) {
-      final args = routeData.argsAs<ChildrenItemsRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i21.ChildrenItemsScreen(
-          key: args.key,
-          childrenItems: args.childrenItems,
-        ),
+        child: const _i21.ChildrenItemsScreen(),
       );
     },
     RentalHousesRoute.name: (routeData) {
-      final args = routeData.argsAs<RentalHousesRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i22.RentalHousesScreen(
-          key: args.key,
-          rentalHouses: args.rentalHouses,
-        ),
+        child: const _i22.RentalHousesScreen(),
       );
     },
     PurchaseHousesRoute.name: (routeData) {
-      final args = routeData.argsAs<PurchaseHousesRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i23.PurchaseHousesScreen(
-          key: args.key,
-          purchaseHouses: args.purchaseHouses,
-        ),
+        child: const _i23.PurchaseHousesScreen(),
       );
     },
     NaturalJewelryRoute.name: (routeData) {
-      final args = routeData.argsAs<NaturalJewelryRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i24.NaturalJewelryScreen(
-          key: args.key,
-          naturalJewelries: args.naturalJewelries,
-        ),
+        child: const _i24.NaturalJewelryScreen(),
       );
     },
     SyntheticJewelryRoute.name: (routeData) {
-      final args = routeData.argsAs<SyntheticJewelryRouteArgs>();
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i25.SyntheticJewelryScreen(
-          key: args.key,
-          syntheticJewelries: args.syntheticJewelries,
-        ),
+        child: const _i25.SyntheticJewelryScreen(),
       );
     },
     RelationshipRoute.name: (routeData) {
@@ -900,411 +852,146 @@ class SuppliesShopRoute extends _i37.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i14.ReadyMealScreen]
-class ReadyMealRoute extends _i37.PageRouteInfo<ReadyMealRouteArgs> {
-  ReadyMealRoute({
-    _i38.Key? key,
-    required List<_i40.Food> readyMeals,
-  }) : super(
+class ReadyMealRoute extends _i37.PageRouteInfo<void> {
+  const ReadyMealRoute()
+      : super(
           ReadyMealRoute.name,
           path: 'ready_meals',
-          args: ReadyMealRouteArgs(
-            key: key,
-            readyMeals: readyMeals,
-          ),
         );
 
   static const String name = 'ReadyMealRoute';
 }
 
-class ReadyMealRouteArgs {
-  const ReadyMealRouteArgs({
-    this.key,
-    required this.readyMeals,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Food> readyMeals;
-
-  @override
-  String toString() {
-    return 'ReadyMealRouteArgs{key: $key, readyMeals: $readyMeals}';
-  }
-}
-
 /// generated route for
 /// [_i15.IngredientsScreen]
-class IngredientsRoute extends _i37.PageRouteInfo<IngredientsRouteArgs> {
-  IngredientsRoute({
-    _i38.Key? key,
-    required List<_i40.Food> ingredients,
-  }) : super(
+class IngredientsRoute extends _i37.PageRouteInfo<void> {
+  const IngredientsRoute()
+      : super(
           IngredientsRoute.name,
           path: 'ingredients',
-          args: IngredientsRouteArgs(
-            key: key,
-            ingredients: ingredients,
-          ),
         );
 
   static const String name = 'IngredientsRoute';
 }
 
-class IngredientsRouteArgs {
-  const IngredientsRouteArgs({
-    this.key,
-    required this.ingredients,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Food> ingredients;
-
-  @override
-  String toString() {
-    return 'IngredientsRouteArgs{key: $key, ingredients: $ingredients}';
-  }
-}
-
 /// generated route for
 /// [_i16.DrinksScreen]
-class DrinksRoute extends _i37.PageRouteInfo<DrinksRouteArgs> {
-  DrinksRoute({
-    _i38.Key? key,
-    required List<_i40.Food> drinks,
-  }) : super(
+class DrinksRoute extends _i37.PageRouteInfo<void> {
+  const DrinksRoute()
+      : super(
           DrinksRoute.name,
           path: 'drinks',
-          args: DrinksRouteArgs(
-            key: key,
-            drinks: drinks,
-          ),
         );
 
   static const String name = 'DrinksRoute';
 }
 
-class DrinksRouteArgs {
-  const DrinksRouteArgs({
-    this.key,
-    required this.drinks,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Food> drinks;
-
-  @override
-  String toString() {
-    return 'DrinksRouteArgs{key: $key, drinks: $drinks}';
-  }
-}
-
 /// generated route for
 /// [_i17.SweetsScreen]
-class SweetsRoute extends _i37.PageRouteInfo<SweetsRouteArgs> {
-  SweetsRoute({
-    _i38.Key? key,
-    required List<_i40.Food> sweets,
-  }) : super(
+class SweetsRoute extends _i37.PageRouteInfo<void> {
+  const SweetsRoute()
+      : super(
           SweetsRoute.name,
           path: 'sweets',
-          args: SweetsRouteArgs(
-            key: key,
-            sweets: sweets,
-          ),
         );
 
   static const String name = 'SweetsRoute';
 }
 
-class SweetsRouteArgs {
-  const SweetsRouteArgs({
-    this.key,
-    required this.sweets,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Food> sweets;
-
-  @override
-  String toString() {
-    return 'SweetsRouteArgs{key: $key, sweets: $sweets}';
-  }
-}
-
 /// generated route for
 /// [_i18.NewCarsScreen]
-class NewCarsRoute extends _i37.PageRouteInfo<NewCarsRouteArgs> {
-  NewCarsRoute({
-    _i38.Key? key,
-    required List<_i40.Car> newCars,
-  }) : super(
+class NewCarsRoute extends _i37.PageRouteInfo<void> {
+  const NewCarsRoute()
+      : super(
           NewCarsRoute.name,
           path: 'new_cars',
-          args: NewCarsRouteArgs(
-            key: key,
-            newCars: newCars,
-          ),
         );
 
   static const String name = 'NewCarsRoute';
 }
 
-class NewCarsRouteArgs {
-  const NewCarsRouteArgs({
-    this.key,
-    required this.newCars,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Car> newCars;
-
-  @override
-  String toString() {
-    return 'NewCarsRouteArgs{key: $key, newCars: $newCars}';
-  }
-}
-
 /// generated route for
 /// [_i19.UsedCarsScreen]
-class UsedCarsRoute extends _i37.PageRouteInfo<UsedCarsRouteArgs> {
-  UsedCarsRoute({
-    _i38.Key? key,
-    required List<_i40.Car> usedCars,
-  }) : super(
+class UsedCarsRoute extends _i37.PageRouteInfo<void> {
+  const UsedCarsRoute()
+      : super(
           UsedCarsRoute.name,
           path: 'used_cars',
-          args: UsedCarsRouteArgs(
-            key: key,
-            usedCars: usedCars,
-          ),
         );
 
   static const String name = 'UsedCarsRoute';
 }
 
-class UsedCarsRouteArgs {
-  const UsedCarsRouteArgs({
-    this.key,
-    required this.usedCars,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Car> usedCars;
-
-  @override
-  String toString() {
-    return 'UsedCarsRouteArgs{key: $key, usedCars: $usedCars}';
-  }
-}
-
 /// generated route for
 /// [_i20.ChildrenFoodScreen]
-class ChildrenFoodRoute extends _i37.PageRouteInfo<ChildrenFoodRouteArgs> {
-  ChildrenFoodRoute({
-    _i38.Key? key,
-    required List<_i40.Food> childrenFood,
-  }) : super(
+class ChildrenFoodRoute extends _i37.PageRouteInfo<void> {
+  const ChildrenFoodRoute()
+      : super(
           ChildrenFoodRoute.name,
           path: 'children_food',
-          args: ChildrenFoodRouteArgs(
-            key: key,
-            childrenFood: childrenFood,
-          ),
         );
 
   static const String name = 'ChildrenFoodRoute';
 }
 
-class ChildrenFoodRouteArgs {
-  const ChildrenFoodRouteArgs({
-    this.key,
-    required this.childrenFood,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Food> childrenFood;
-
-  @override
-  String toString() {
-    return 'ChildrenFoodRouteArgs{key: $key, childrenFood: $childrenFood}';
-  }
-}
-
 /// generated route for
 /// [_i21.ChildrenItemsScreen]
-class ChildrenItemsRoute extends _i37.PageRouteInfo<ChildrenItemsRouteArgs> {
-  ChildrenItemsRoute({
-    _i38.Key? key,
-    required List<_i40.Item> childrenItems,
-  }) : super(
+class ChildrenItemsRoute extends _i37.PageRouteInfo<void> {
+  const ChildrenItemsRoute()
+      : super(
           ChildrenItemsRoute.name,
           path: 'children_items',
-          args: ChildrenItemsRouteArgs(
-            key: key,
-            childrenItems: childrenItems,
-          ),
         );
 
   static const String name = 'ChildrenItemsRoute';
 }
 
-class ChildrenItemsRouteArgs {
-  const ChildrenItemsRouteArgs({
-    this.key,
-    required this.childrenItems,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Item> childrenItems;
-
-  @override
-  String toString() {
-    return 'ChildrenItemsRouteArgs{key: $key, childrenItems: $childrenItems}';
-  }
-}
-
 /// generated route for
 /// [_i22.RentalHousesScreen]
-class RentalHousesRoute extends _i37.PageRouteInfo<RentalHousesRouteArgs> {
-  RentalHousesRoute({
-    _i38.Key? key,
-    required List<_i40.House> rentalHouses,
-  }) : super(
+class RentalHousesRoute extends _i37.PageRouteInfo<void> {
+  const RentalHousesRoute()
+      : super(
           RentalHousesRoute.name,
           path: 'rental_houses',
-          args: RentalHousesRouteArgs(
-            key: key,
-            rentalHouses: rentalHouses,
-          ),
         );
 
   static const String name = 'RentalHousesRoute';
 }
 
-class RentalHousesRouteArgs {
-  const RentalHousesRouteArgs({
-    this.key,
-    required this.rentalHouses,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.House> rentalHouses;
-
-  @override
-  String toString() {
-    return 'RentalHousesRouteArgs{key: $key, rentalHouses: $rentalHouses}';
-  }
-}
-
 /// generated route for
 /// [_i23.PurchaseHousesScreen]
-class PurchaseHousesRoute extends _i37.PageRouteInfo<PurchaseHousesRouteArgs> {
-  PurchaseHousesRoute({
-    _i38.Key? key,
-    required List<_i40.House> purchaseHouses,
-  }) : super(
+class PurchaseHousesRoute extends _i37.PageRouteInfo<void> {
+  const PurchaseHousesRoute()
+      : super(
           PurchaseHousesRoute.name,
           path: 'purchase_houses',
-          args: PurchaseHousesRouteArgs(
-            key: key,
-            purchaseHouses: purchaseHouses,
-          ),
         );
 
   static const String name = 'PurchaseHousesRoute';
 }
 
-class PurchaseHousesRouteArgs {
-  const PurchaseHousesRouteArgs({
-    this.key,
-    required this.purchaseHouses,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.House> purchaseHouses;
-
-  @override
-  String toString() {
-    return 'PurchaseHousesRouteArgs{key: $key, purchaseHouses: $purchaseHouses}';
-  }
-}
-
 /// generated route for
 /// [_i24.NaturalJewelryScreen]
-class NaturalJewelryRoute extends _i37.PageRouteInfo<NaturalJewelryRouteArgs> {
-  NaturalJewelryRoute({
-    _i38.Key? key,
-    required List<_i40.Jewelry> naturalJewelries,
-  }) : super(
+class NaturalJewelryRoute extends _i37.PageRouteInfo<void> {
+  const NaturalJewelryRoute()
+      : super(
           NaturalJewelryRoute.name,
           path: 'natural_jewelry',
-          args: NaturalJewelryRouteArgs(
-            key: key,
-            naturalJewelries: naturalJewelries,
-          ),
         );
 
   static const String name = 'NaturalJewelryRoute';
 }
 
-class NaturalJewelryRouteArgs {
-  const NaturalJewelryRouteArgs({
-    this.key,
-    required this.naturalJewelries,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Jewelry> naturalJewelries;
-
-  @override
-  String toString() {
-    return 'NaturalJewelryRouteArgs{key: $key, naturalJewelries: $naturalJewelries}';
-  }
-}
-
 /// generated route for
 /// [_i25.SyntheticJewelryScreen]
-class SyntheticJewelryRoute
-    extends _i37.PageRouteInfo<SyntheticJewelryRouteArgs> {
-  SyntheticJewelryRoute({
-    _i38.Key? key,
-    required List<_i40.Jewelry> syntheticJewelries,
-  }) : super(
+class SyntheticJewelryRoute extends _i37.PageRouteInfo<void> {
+  const SyntheticJewelryRoute()
+      : super(
           SyntheticJewelryRoute.name,
           path: 'synthetic_jewelry',
-          args: SyntheticJewelryRouteArgs(
-            key: key,
-            syntheticJewelries: syntheticJewelries,
-          ),
         );
 
   static const String name = 'SyntheticJewelryRoute';
-}
-
-class SyntheticJewelryRouteArgs {
-  const SyntheticJewelryRouteArgs({
-    this.key,
-    required this.syntheticJewelries,
-  });
-
-  final _i38.Key? key;
-
-  final List<_i40.Jewelry> syntheticJewelries;
-
-  @override
-  String toString() {
-    return 'SyntheticJewelryRouteArgs{key: $key, syntheticJewelries: $syntheticJewelries}';
-  }
 }
 
 /// generated route for
@@ -1325,7 +1012,7 @@ class RelationshipRoute extends _i37.PageRouteInfo<void> {
 class ParentsRoute extends _i37.PageRouteInfo<ParentsRouteArgs> {
   ParentsRoute({
     _i38.Key? key,
-    required List<_i41.RelationshipPair<_i40.Parent, _i40.Person>> parents,
+    required List<_i40.RelationshipPair<_i41.Parent, _i41.Person>> parents,
   }) : super(
           ParentsRoute.name,
           path: 'parents',
@@ -1346,7 +1033,7 @@ class ParentsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.RelationshipPair<_i40.Parent, _i40.Person>> parents;
+  final List<_i40.RelationshipPair<_i41.Parent, _i41.Person>> parents;
 
   @override
   String toString() {
@@ -1359,7 +1046,7 @@ class ParentsRouteArgs {
 class SiblingsRoute extends _i37.PageRouteInfo<SiblingsRouteArgs> {
   SiblingsRoute({
     _i38.Key? key,
-    required List<_i41.RelationshipPair<_i40.Sibling, _i40.Person>> siblings,
+    required List<_i40.RelationshipPair<_i41.Sibling, _i41.Person>> siblings,
   }) : super(
           SiblingsRoute.name,
           path: 'siblings',
@@ -1380,7 +1067,7 @@ class SiblingsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.RelationshipPair<_i40.Sibling, _i40.Person>> siblings;
+  final List<_i40.RelationshipPair<_i41.Sibling, _i41.Person>> siblings;
 
   @override
   String toString() {
@@ -1393,7 +1080,7 @@ class SiblingsRouteArgs {
 class PartnersRoute extends _i37.PageRouteInfo<PartnersRouteArgs> {
   PartnersRoute({
     _i38.Key? key,
-    required List<_i41.RelationshipPair<_i40.Partner, _i40.Person>> partners,
+    required List<_i40.RelationshipPair<_i41.Partner, _i41.Person>> partners,
   }) : super(
           PartnersRoute.name,
           path: 'partners',
@@ -1414,7 +1101,7 @@ class PartnersRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.RelationshipPair<_i40.Partner, _i40.Person>> partners;
+  final List<_i40.RelationshipPair<_i41.Partner, _i41.Person>> partners;
 
   @override
   String toString() {
@@ -1427,7 +1114,7 @@ class PartnersRouteArgs {
 class ChildrenRoute extends _i37.PageRouteInfo<ChildrenRouteArgs> {
   ChildrenRoute({
     _i38.Key? key,
-    required List<_i41.RelationshipPair<_i40.Child, _i40.Person>> childrenList,
+    required List<_i40.RelationshipPair<_i41.Child, _i41.Person>> childrenList,
   }) : super(
           ChildrenRoute.name,
           path: 'children',
@@ -1448,7 +1135,7 @@ class ChildrenRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.RelationshipPair<_i40.Child, _i40.Person>> childrenList;
+  final List<_i40.RelationshipPair<_i41.Child, _i41.Person>> childrenList;
 
   @override
   String toString() {
@@ -1461,7 +1148,7 @@ class ChildrenRouteArgs {
 class RelativesRoute extends _i37.PageRouteInfo<RelativesRouteArgs> {
   RelativesRoute({
     _i38.Key? key,
-    required List<_i41.RelationshipPair<_i40.Relative, _i40.Person>> relatives,
+    required List<_i40.RelationshipPair<_i41.Relative, _i41.Person>> relatives,
   }) : super(
           RelativesRoute.name,
           path: 'relatives',
@@ -1482,7 +1169,7 @@ class RelativesRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.RelationshipPair<_i40.Relative, _i40.Person>> relatives;
+  final List<_i40.RelationshipPair<_i41.Relative, _i41.Person>> relatives;
 
   @override
   String toString() {
@@ -1495,7 +1182,7 @@ class RelativesRouteArgs {
 class InLawsRoute extends _i37.PageRouteInfo<InLawsRouteArgs> {
   InLawsRoute({
     _i38.Key? key,
-    required List<_i41.RelationshipPair<_i40.InLaw, _i40.Person>> inLaws,
+    required List<_i40.RelationshipPair<_i41.InLaw, _i41.Person>> inLaws,
   }) : super(
           InLawsRoute.name,
           path: 'inlaws',
@@ -1516,7 +1203,7 @@ class InLawsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.RelationshipPair<_i40.InLaw, _i40.Person>> inLaws;
+  final List<_i40.RelationshipPair<_i41.InLaw, _i41.Person>> inLaws;
 
   @override
   String toString() {
@@ -1529,7 +1216,7 @@ class InLawsRouteArgs {
 class FriendsRoute extends _i37.PageRouteInfo<FriendsRouteArgs> {
   FriendsRoute({
     _i38.Key? key,
-    required List<_i41.RelationshipPair<_i40.Friend, _i40.Person>> friends,
+    required List<_i40.RelationshipPair<_i41.Friend, _i41.Person>> friends,
   }) : super(
           FriendsRoute.name,
           path: 'friends',
@@ -1550,7 +1237,7 @@ class FriendsRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.RelationshipPair<_i40.Friend, _i40.Person>> friends;
+  final List<_i40.RelationshipPair<_i41.Friend, _i41.Person>> friends;
 
   @override
   String toString() {
@@ -1563,7 +1250,7 @@ class FriendsRouteArgs {
 class ExesRoute extends _i37.PageRouteInfo<ExesRouteArgs> {
   ExesRoute({
     _i38.Key? key,
-    required List<_i41.RelationshipPair<_i40.Partner, _i40.Person>> exes,
+    required List<_i40.RelationshipPair<_i41.Partner, _i41.Person>> exes,
   }) : super(
           ExesRoute.name,
           path: 'exes',
@@ -1584,7 +1271,7 @@ class ExesRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i41.RelationshipPair<_i40.Partner, _i40.Person>> exes;
+  final List<_i40.RelationshipPair<_i41.Partner, _i41.Person>> exes;
 
   @override
   String toString() {
@@ -1597,7 +1284,7 @@ class ExesRouteArgs {
 class GravesRoute extends _i37.PageRouteInfo<GravesRouteArgs> {
   GravesRoute({
     _i38.Key? key,
-    required List<_i40.Grave> graves,
+    required List<_i41.Grave> graves,
   }) : super(
           GravesRoute.name,
           path: 'grave',
@@ -1618,7 +1305,7 @@ class GravesRouteArgs {
 
   final _i38.Key? key;
 
-  final List<_i40.Grave> graves;
+  final List<_i41.Grave> graves;
 
   @override
   String toString() {

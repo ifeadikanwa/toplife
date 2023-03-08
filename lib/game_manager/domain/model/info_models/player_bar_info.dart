@@ -4,6 +4,7 @@ import 'package:toplife/core/text_constants.dart';
 class PlayerBarInfo extends Equatable {
   final String firstName;
   final String lastName;
+  final String country;
   final String currency;
   final String bankBalance;
   final String time;
@@ -12,6 +13,7 @@ class PlayerBarInfo extends Equatable {
   const PlayerBarInfo({
     required this.firstName,
     required this.lastName,
+    required this.country,
     required this.currency,
     required this.bankBalance,
     required this.time,
@@ -19,18 +21,20 @@ class PlayerBarInfo extends Equatable {
   });
 
   static const blankPlayerBarInfo = PlayerBarInfo(
-    firstName: TextConstants.emptyString,
-    lastName: TextConstants.emptyString,
-    currency: TextConstants.emptyString,
-    bankBalance: TextConstants.emptyString,
-    time: TextConstants.emptyString,
-    day: TextConstants.emptyString,
+    firstName: TextConstants.dash,
+    lastName: TextConstants.dash,
+    country: TextConstants.dash,
+    currency: TextConstants.dash,
+    bankBalance: TextConstants.dash,
+    time: TextConstants.dash,
+    day: TextConstants.dash,
   );
 
   @override
   List<Object?> get props => [
         firstName,
         lastName,
+        country,
         currency,
         bankBalance,
         time,
