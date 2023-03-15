@@ -74,6 +74,17 @@ void main() {
 
       const int minExpectedAmount = 1;
 
+      test(
+        "the list of jewelries are sorted from cheapest to lowest",
+        () {
+          final sortedList = result;
+          sortedList.sort(
+            (a, b) => a.basePrice.compareTo(b.basePrice),
+          );
+          expect(result, sortedList);
+        },
+      );
+
       test("gold rings, chain and earrings are generated", () {
         expect(
           result
