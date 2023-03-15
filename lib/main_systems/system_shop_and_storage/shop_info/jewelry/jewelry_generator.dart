@@ -42,6 +42,9 @@ class JewelryGenerator {
     allJewelriesList.addAll(diamondJewelries());
     allJewelriesList.addAll(allOtherJewelries());
 
+    //sort from cheap to expensive
+    allJewelriesList.sort((a, b) => a.basePrice.compareTo(b.basePrice));
+    
     return allJewelriesList;
   }
 
