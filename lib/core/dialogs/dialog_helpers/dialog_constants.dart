@@ -22,9 +22,15 @@ class DialogConstants {
   //general
   static const none = "None";
   static const close = "Close";
+  static const attend = "Attend";
+  static const attendAlone = "Attend alone";
+  static const attendWithPartner = "Attend with partner";
 
   //invite events
   static const stayDurationPrompt = "How long do you want to stay?";
+  static const partyActivityPrompt = "What do you want to do at the event?";
+  static const giftItemPrompt = "Bring a gift:";
+  static const moneyGiftPrompt = "Give money:";
 
   //funeral
   static const funeralPlanPrompt = "What is your plan for the funeral?";

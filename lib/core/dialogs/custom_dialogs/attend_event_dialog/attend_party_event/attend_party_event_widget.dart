@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event/attend_party_event_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
@@ -11,22 +12,10 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_slider.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
 import 'package:toplife/main_systems/system_event/constants/party_event_activity.dart';
+import 'package:toplife/main_systems/system_event/domain/model/info_models/attend_party_detail.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/storeroom_item_pair.dart';
-
-final giftProvider =
-    StateProvider.autoDispose<StoreroomItemPair?>(
-  (ref) => null,
-);
-
-final partyStayDurationProvider =
-    StateProvider.autoDispose<EventStayDuration>((ref) => EventStayDuration.tillTheEnd);
-
-final partyActivityProvider =
-    StateProvider.autoDispose<PartyEventActivity>((ref) => PartyEventActivity.socialize);
-
-final moneyGiftProvider = StateProvider.autoDispose<double>((ref) => 0);
 
 class AttendPartyEventWidget extends ConsumerWidget {
   final Event event;
@@ -80,12 +69,10 @@ class AttendPartyEventWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final EventStayDuration chosenEventStayDuration =
-        ref.watch(partyStayDurationProvider);
-    final StoreroomItemPair? chosenGift = ref.watch(giftProvider);
-    final double chosenMoneyGiftAmount = ref.watch(moneyGiftProvider);
-    final PartyEventActivity chosenPartyEventActivity =
-        ref.watch(partyActivityProvider);
+    final AttendPartyDetail partyDetails =
+        ref.watch(attendPartyEventDialogViewModelProvider);
+    final AttendPartyEventDialogViewModel attendPartyEventDialogViewModel =
+        ref.watch(attendPartyEventDialogViewModelProvider.notifier);
 
     return DialogContainer(
       closeable: true,
@@ -99,19 +86,28 @@ class AttendPartyEventWidget extends ConsumerWidget {
         const AddVerticalSpace(
           height: DialogConstants.verticalDropdownSpacing,
         ),
+
+        //stay duration
         const DialogDropdownLabelText(text: DialogConstants.stayDurationPrompt),
-        stayDurationDropdown(ref),
+        stayDurationDropdown(
+          attendPartyEventDialogViewModel,
+          partyDetails.partyStayDuration,
+        ),
         const AddVerticalSpace(
           height: DialogConstants.verticalDropdownSpacing,
         ),
-        partyWidgets(ref),
+
+        //party activity
+        partyWidgets(attendPartyEventDialogViewModel, partyDetails),
         const AddVerticalSpace(
             height: DialogConstants.verticalDescriptionButtonSpacing),
+
+        //buttons
         (hasActivePartner)
             ? DialogEventChoicesToWidgets(
                 eventChoices: [
                   EventChoice(
-                    choiceDescription: "Attend alone",
+                    choiceDescription: DialogConstants.attendAlone,
                     choiceAction: (BuildContext context) async {
                       attendPartyAlone(
                         context: context,
@@ -119,15 +115,16 @@ class AttendPartyEventWidget extends ConsumerWidget {
                         mainPlayerID: mainPlayerID,
                         eventMainPerson: eventMainPerson,
                         relationshipLabel: relationshipLabel,
-                        chosenEventStayDuration: chosenEventStayDuration,
-                        chosenGift: chosenGift,
-                        chosenMoneyGiftAmount: chosenMoneyGiftAmount,
-                        chosenPartyEventActivity: chosenPartyEventActivity,
+                        chosenEventStayDuration: partyDetails.partyStayDuration,
+                        chosenGift: partyDetails.itemGift,
+                        chosenMoneyGiftAmount: partyDetails.moneyGift,
+                        chosenPartyEventActivity:
+                            partyDetails.partyEventActivity,
                       );
                     },
                   ),
                   EventChoice(
-                    choiceDescription: "Attend with partner",
+                    choiceDescription: DialogConstants.attendWithPartner,
                     choiceAction: (BuildContext context) {
                       attendPartyWithPartner(
                         context: context,
@@ -135,10 +132,11 @@ class AttendPartyEventWidget extends ConsumerWidget {
                         mainPlayerID: mainPlayerID,
                         eventMainPerson: eventMainPerson,
                         relationshipLabel: relationshipLabel,
-                        chosenEventStayDuration: chosenEventStayDuration,
-                        chosenGift: chosenGift,
-                        chosenMoneyGiftAmount: chosenMoneyGiftAmount,
-                        chosenPartyEventActivity: chosenPartyEventActivity,
+                        chosenEventStayDuration: partyDetails.partyStayDuration,
+                        chosenGift: partyDetails.itemGift,
+                        chosenMoneyGiftAmount: partyDetails.moneyGift,
+                        chosenPartyEventActivity:
+                            partyDetails.partyEventActivity,
                       );
                     },
                   ),
@@ -147,7 +145,7 @@ class AttendPartyEventWidget extends ConsumerWidget {
             : DialogEventChoicesToWidgets(
                 eventChoices: [
                   EventChoice(
-                    choiceDescription: "Attend",
+                    choiceDescription: DialogConstants.attend,
                     choiceAction: (BuildContext context) {
                       attendPartyAlone(
                         context: context,
@@ -155,10 +153,11 @@ class AttendPartyEventWidget extends ConsumerWidget {
                         mainPlayerID: mainPlayerID,
                         eventMainPerson: eventMainPerson,
                         relationshipLabel: relationshipLabel,
-                        chosenEventStayDuration: chosenEventStayDuration,
-                        chosenGift: chosenGift,
-                        chosenMoneyGiftAmount: chosenMoneyGiftAmount,
-                        chosenPartyEventActivity: chosenPartyEventActivity,
+                        chosenEventStayDuration: partyDetails.partyStayDuration,
+                        chosenGift: partyDetails.itemGift,
+                        chosenMoneyGiftAmount: partyDetails.moneyGift,
+                        chosenPartyEventActivity:
+                            partyDetails.partyEventActivity,
                       );
                     },
                   ),
@@ -168,29 +167,39 @@ class AttendPartyEventWidget extends ConsumerWidget {
     );
   }
 
-  Widget partyWidgets(WidgetRef ref) {
+  Widget partyWidgets(
+    AttendPartyEventDialogViewModel attendPartyEventDialogViewModel,
+    AttendPartyDetail partyDetails,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         //activity
         const DialogDropdownLabelText(
-            text: "What do you want to do at the event?"),
-        partyActivityDropdown(ref),
+          text: DialogConstants.partyActivityPrompt,
+        ),
+        partyActivityDropdown(
+          attendPartyEventDialogViewModel,
+          partyDetails.partyEventActivity,
+        ),
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
 
         //gift
-        const DialogDropdownLabelText(text: "Bring a gift:"),
+        const DialogDropdownLabelText(text: DialogConstants.giftItemPrompt),
         bringGiftDropDown(
-          ref,
+          attendPartyEventDialogViewModel,
           giftOptionsInStorage,
+          partyDetails.itemGift,
         ),
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
 
         //money gift
         DialogDropdownLabelText(
-            text: "Give money: $currency${ref.watch(moneyGiftProvider)}"),
+            text:
+                "${DialogConstants.moneyGiftPrompt} $currency${partyDetails.moneyGift}"),
         moneyGiftSlider(
-          ref,
+          attendPartyEventDialogViewModel,
+          partyDetails.moneyGift,
           maxPlayerMoney,
         ),
       ],
@@ -198,15 +207,19 @@ class AttendPartyEventWidget extends ConsumerWidget {
   }
 
   DialogDropdown bringGiftDropDown(
-    WidgetRef ref,
+    AttendPartyEventDialogViewModel attendPartyEventDialogViewModel,
     List<StoreroomItemPair> giftOptionsInStorage,
+    StoreroomItemPair? chosenItemGift,
   ) {
+    //add null to the list of gift options
     List<StoreroomItemPair?> giftOptions = [
       null,
       ...giftOptionsInStorage,
     ];
+
+    //dropdown
     return DialogDropdown<StoreroomItemPair?>(
-      value: ref.watch(giftProvider),
+      value: chosenItemGift,
       items: giftOptions
           .map(
             (giftOption) => DropdownMenuItem(
@@ -217,13 +230,17 @@ class AttendPartyEventWidget extends ConsumerWidget {
             ),
           )
           .toList(),
-      onChanged: (value) => ref.read(giftProvider.notifier).state = value,
+      onChanged: (value) =>
+          attendPartyEventDialogViewModel.updateItemGift(value),
     );
   }
 
-  DialogDropdown stayDurationDropdown(WidgetRef ref) {
+  DialogDropdown stayDurationDropdown(
+    AttendPartyEventDialogViewModel attendPartyEventDialogViewModel,
+    EventStayDuration chosenPartyStayDuration,
+  ) {
     return DialogDropdown<EventStayDuration>(
-      value: ref.watch(partyStayDurationProvider),
+      value: chosenPartyStayDuration,
       items: EventStayDuration.values
           .map(
             (stayDuration) => DropdownMenuItem(
@@ -235,13 +252,16 @@ class AttendPartyEventWidget extends ConsumerWidget {
           )
           .toList(),
       onChanged: (value) =>
-          ref.read(partyStayDurationProvider.notifier).state = value!,
+          attendPartyEventDialogViewModel.updatePartyStayDuration(value!),
     );
   }
 
-  DialogDropdown partyActivityDropdown(WidgetRef ref) {
+  DialogDropdown partyActivityDropdown(
+    AttendPartyEventDialogViewModel attendPartyEventDialogViewModel,
+    PartyEventActivity chosenPartyActivity,
+  ) {
     return DialogDropdown<PartyEventActivity>(
-      value: ref.watch(partyActivityProvider),
+      value: chosenPartyActivity,
       items: PartyEventActivity.values
           .map(
             (partyActivity) => DropdownMenuItem(
@@ -253,16 +273,20 @@ class AttendPartyEventWidget extends ConsumerWidget {
           )
           .toList(),
       onChanged: (value) =>
-          ref.read(partyActivityProvider.notifier).state = value!,
+          attendPartyEventDialogViewModel.updatePartyEventActivity(value!),
     );
   }
 
-  DialogSlider moneyGiftSlider(WidgetRef ref, int maxPlayerMoney) {
+  DialogSlider moneyGiftSlider(
+      AttendPartyEventDialogViewModel attendPartyEventDialogViewModel,
+      double chosenMoneyGift,
+      int maxPlayerMoney) {
     return DialogSlider(
-      value: ref.watch(moneyGiftProvider),
+      value: chosenMoneyGift,
       max: maxPlayerMoney.toDouble(),
-      onChanged: (value) =>
-          ref.read(moneyGiftProvider.notifier).state = value.roundToDouble(),
+      onChanged: (value) => attendPartyEventDialogViewModel.updateMoneyGift(
+        value.roundToDouble(),
+      ),
     );
   }
 }

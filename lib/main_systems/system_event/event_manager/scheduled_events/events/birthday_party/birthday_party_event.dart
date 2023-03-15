@@ -6,7 +6,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event_dialog.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event/attend_party_event_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_age/age.dart';

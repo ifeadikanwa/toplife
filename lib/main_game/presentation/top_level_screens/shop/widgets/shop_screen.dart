@@ -252,6 +252,21 @@ class ShopScreen extends ConsumerWidget {
                 // if (g != null) {
                 //   await GameDaoImpl(db).updateGame(g.copyWith(currentDay: 1));
                 // }
+
+                // EventDaoImpl(db).updateEvent(
+                //   const Event(
+                //     id: 0,
+                //     gameId: 1,
+                //     eventType: "funeral",
+                //     eventDay: 1,
+                //     mainPersonId: 3,
+                //     relationshipToMainPlayer: "parent",
+                //     journalEntryOnly: false,
+                //     performed: false,
+                //     startTime: 600,
+                //     endTime: 720,
+                //   ),
+                // );
               },
               child: const Text("Run"),
             ),

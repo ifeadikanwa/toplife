@@ -5,7 +5,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/family_planned_funeral_dialog.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/family_planned_funeral/family_planned_funeral_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';

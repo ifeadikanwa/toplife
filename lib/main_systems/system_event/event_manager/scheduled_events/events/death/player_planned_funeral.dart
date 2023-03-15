@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/choice_dialog.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral_dialog.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral/player_planned_funeral_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';

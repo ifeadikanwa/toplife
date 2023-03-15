@@ -47,7 +47,7 @@ class DeathEvent {
   }) async {
     if (mainPlayerID != deathEvent.mainPersonId) {
       //clean up from the event queue
-      npcvEventCleanup(
+      npcEventCleanup(
         deadPersonID: deathEvent.mainPersonId,
         gameID: deathEvent.gameId,
       );
@@ -224,7 +224,7 @@ class DeathEvent {
     }
   }
 
-  Future<void> npcvEventCleanup({
+  Future<void> npcEventCleanup({
     required int deadPersonID,
     required int gameID,
   }) async {

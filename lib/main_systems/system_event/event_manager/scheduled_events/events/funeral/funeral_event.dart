@@ -4,7 +4,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_regular_event_dialog.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_regular_event/attend_regular_event_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';

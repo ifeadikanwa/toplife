@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral/player_planned_funeral_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
@@ -12,21 +13,9 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
+import 'package:toplife/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
-
-final funeralTypeProvider = StateProvider.autoDispose<FuneralType>(
-  (ref) => FuneralType.Burial,
-);
-
-final eventStartTimeProvider = StateProvider.autoDispose<int>(
-  (ref) => _possibleFuneralStartTimes.first,
-);
-
-final List<int> _possibleFuneralStartTimes = [
-  ...EventUtil.morningEventStartTimes,
-  ...EventUtil.afternoonEventStartTimes,
-];
+import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 
 class PlayerPlannedFuneralWidget extends ConsumerWidget {
   final int mainPlayerID;
@@ -56,9 +45,10 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final FuneralType funeralType = ref.watch(funeralTypeProvider);
-    final int cost = ref.watch(funeralTypeProvider).basePrice;
-    final int eventStartTime = ref.watch(eventStartTimeProvider);
+    final FuneralEventDetail funeralEventDetail =
+        ref.watch(playerPlannedFuneralDialogViewModelProvider);
+    final PlayerPlannedFuneralDialogViewModel plannedFuneralDialogViewModel =
+        ref.watch(playerPlannedFuneralDialogViewModelProvider.notifier);
 
     return DialogContainer(
       title: const DialogTitleText(text: DialogConstants.funeralPlanEventTitle),
@@ -72,19 +62,25 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
         //plan
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
         const DialogDropdownLabelText(text: DialogConstants.funeralPlanPrompt),
-        funeralTypeDropDown(ref),
+        funeralTypeDropDown(
+          plannedFuneralDialogViewModel,
+          funeralEventDetail.funeralType,
+        ),
 
         //event start time
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
         const DialogDropdownLabelText(
             text: DialogConstants.funeralStartTimePrompt),
-        eventStartTimeDropDown(ref),
+        eventStartTimeDropDown(
+          plannedFuneralDialogViewModel,
+          funeralEventDetail.funeralStartTime,
+        ),
 
         //cost
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
         DialogBodyText(
           text:
-              "Total Cost: ${playerCountry.currency}${ref.watch(funeralTypeProvider).basePrice * playerCountry.economy}",
+              "Total Cost: ${playerCountry.currency}${getCountryEconomyAdjustedPrice(country: playerCountry.name, basePrice: funeralEventDetail.funeralType.basePrice)}",
         ),
 
         //call to action
@@ -100,9 +96,9 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
                 deathEvent: deathEvent,
                 firstPersonEventDescription: firstPersonEventDescription,
                 playerCountry: playerCountry,
-                funeralType: funeralType,
-                cost: cost,
-                eventStartTime: eventStartTime,
+                funeralType: funeralEventDetail.funeralType,
+                cost: funeralEventDetail.funeralType.basePrice,
+                eventStartTime: funeralEventDetail.funeralStartTime,
               );
             },
             child: const Text(DialogConstants.funeralPlanCallToAction)),
@@ -110,9 +106,12 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
     );
   }
 
-  DialogDropdown funeralTypeDropDown(WidgetRef ref) {
+  DialogDropdown funeralTypeDropDown(
+    PlayerPlannedFuneralDialogViewModel playerPlannedFuneralDialogViewModel,
+    FuneralType chosenFuneralType,
+  ) {
     return DialogDropdown<FuneralType>(
-      value: ref.watch(funeralTypeProvider),
+      value: chosenFuneralType,
       items: FuneralType.values
           .map((funeralTypeEnum) => DropdownMenuItem<FuneralType>(
                 value: funeralTypeEnum,
@@ -120,15 +119,18 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
               ))
           .toList(),
       onChanged: (value) {
-        ref.read(funeralTypeProvider.notifier).state = value!;
+        playerPlannedFuneralDialogViewModel.updateFuneralType(value!);
       },
     );
   }
 
-  DialogDropdown eventStartTimeDropDown(WidgetRef ref) {
+  DialogDropdown eventStartTimeDropDown(
+    PlayerPlannedFuneralDialogViewModel playerPlannedFuneralDialogViewModel,
+    int chosenStartTime,
+  ) {
     return DialogDropdown<int>(
-      value: ref.watch(eventStartTimeProvider),
-      items: _possibleFuneralStartTimes
+      value: chosenStartTime,
+      items: FuneralEventDetail.possibleFuneralStartTimes
           .map((startTimeInMinutes) => DropdownMenuItem<int>(
                 value: startTimeInMinutes,
                 child: DialogBodyText(
@@ -136,7 +138,7 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
               ))
           .toList(),
       onChanged: (value) {
-        ref.read(eventStartTimeProvider.notifier).state = value!;
+        playerPlannedFuneralDialogViewModel.updateFuneralStartTime(value!);
       },
     );
   }

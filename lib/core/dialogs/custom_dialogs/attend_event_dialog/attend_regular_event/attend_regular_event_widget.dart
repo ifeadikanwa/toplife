@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_regular_event/attend_regular_event_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
@@ -11,10 +12,6 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-
-final regularEventStayDurationProvider =
-    StateProvider.autoDispose<EventStayDuration>(
-        (ref) => EventStayDuration.tillTheEnd);
 
 class AttendRegularEventWidget extends ConsumerWidget {
   final int mainPlayerID;
@@ -57,7 +54,9 @@ class AttendRegularEventWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final EventStayDuration eventStayDuration =
-        ref.watch(regularEventStayDurationProvider);
+        ref.watch(attendRegularEventDialogViewModelProvider);
+    final AttendRegularEventDialogViewModel attendRegularEventDialogViewModel =
+        ref.watch(attendRegularEventDialogViewModelProvider.notifier);
 
     return DialogContainer(
       closeable: true,
@@ -72,7 +71,10 @@ class AttendRegularEventWidget extends ConsumerWidget {
           height: DialogConstants.verticalDropdownSpacing,
         ),
         const DialogDropdownLabelText(text: DialogConstants.stayDurationPrompt),
-        stayDurationDropdown(ref),
+        stayDurationDropdown(
+          attendRegularEventDialogViewModel,
+          eventStayDuration,
+        ),
         const AddVerticalSpace(
           height: DialogConstants.verticalDescriptionButtonSpacing,
         ),
@@ -80,7 +82,7 @@ class AttendRegularEventWidget extends ConsumerWidget {
             ? DialogEventChoicesToWidgets(
                 eventChoices: [
                   EventChoice(
-                    choiceDescription: "Attend alone",
+                    choiceDescription: DialogConstants.attendAlone,
                     choiceAction: (BuildContext context) async {
                       attendAlone(
                         context: context,
@@ -93,7 +95,7 @@ class AttendRegularEventWidget extends ConsumerWidget {
                     },
                   ),
                   EventChoice(
-                    choiceDescription: "Attend with partner",
+                    choiceDescription: DialogConstants.attendWithPartner,
                     choiceAction: (BuildContext context) async {
                       attendWithPartner(
                         context: context,
@@ -110,7 +112,7 @@ class AttendRegularEventWidget extends ConsumerWidget {
             : DialogEventChoicesToWidgets(
                 eventChoices: [
                   EventChoice(
-                    choiceDescription: "Attend",
+                    choiceDescription: DialogConstants.attend,
                     choiceAction: (BuildContext context) async {
                       attendAlone(
                         context: context,
@@ -128,9 +130,12 @@ class AttendRegularEventWidget extends ConsumerWidget {
     );
   }
 
-  DialogDropdown stayDurationDropdown(WidgetRef ref) {
+  DialogDropdown stayDurationDropdown(
+    AttendRegularEventDialogViewModel attendRegularEventDialogViewModel,
+    EventStayDuration chosenEventStayDuration,
+  ) {
     return DialogDropdown<EventStayDuration>(
-      value: ref.watch(regularEventStayDurationProvider),
+      value: chosenEventStayDuration,
       items: EventStayDuration.values
           .map(
             (stayDuration) => DropdownMenuItem(
@@ -142,7 +147,7 @@ class AttendRegularEventWidget extends ConsumerWidget {
           )
           .toList(),
       onChanged: (value) =>
-          ref.read(regularEventStayDurationProvider.notifier).state = value!,
+          attendRegularEventDialogViewModel.updateStayDuration(value!),
     );
   }
 }

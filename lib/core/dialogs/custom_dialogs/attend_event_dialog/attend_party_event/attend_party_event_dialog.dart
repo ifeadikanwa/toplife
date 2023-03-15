@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event_widget.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event/attend_party_event_widget.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/show_persistent_dialog.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
 import 'package:toplife/main_systems/system_event/constants/party_event_activity.dart';
