@@ -50,4 +50,13 @@ class UnitedStates implements Country {
 
   @override
   bool get requiresCarInsurance => true;
+
+  @override
+  bool get abortionLaw => true;
+
+  @override
+  bool get hasFreeEducation => false;
+
+  @override
+  int get taxPercentage => 15;
 }
