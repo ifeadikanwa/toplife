@@ -11,6 +11,13 @@ Set<Item> supplies = {
     basePrice: 0,
     count: 4,
   ),
+   Item(
+    id: DatabaseConstants.dummyId,
+    name: SuppliesNames.knowNowPregnancyTest,
+    type: ItemType.pregnancyTest.name,
+    basePrice: 0,
+    count: 1,
+  ),
   Item(
     id: DatabaseConstants.dummyId,
     name: SuppliesNames.flipPhone,

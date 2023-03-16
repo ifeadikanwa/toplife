@@ -3,6 +3,7 @@ enum ItemType{
   babyDiaper,
   breastPump,
   condom,
+  pregnancyTest,
   toy,
   phone,
   book,

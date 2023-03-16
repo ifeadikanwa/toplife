@@ -21,6 +21,10 @@ void main() {
       assert(ItemType.condom is ItemType);
     });
 
+     test("pregnancy test is a item type", () {
+      assert(ItemType.pregnancyTest is ItemType);
+    });
+
     test("toy is a item type", () {
       assert(ItemType.toy is ItemType);
     });
