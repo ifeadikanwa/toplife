@@ -2106,6 +2106,82 @@ class $StanceTableTable extends StanceTable
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
+  static const VerificationMeta _openToWorkingAJobMeta =
+      const VerificationMeta('openToWorkingAJob');
+  @override
+  late final GeneratedColumn<bool> openToWorkingAJob =
+      GeneratedColumn<bool>('open_to_working_a_job', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("open_to_working_a_job" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _openToBeingPregnantMeta =
+      const VerificationMeta('openToBeingPregnant');
+  @override
+  late final GeneratedColumn<bool> openToBeingPregnant =
+      GeneratedColumn<bool>('open_to_being_pregnant', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("open_to_being_pregnant" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _openToHavingChildrenMeta =
+      const VerificationMeta('openToHavingChildren');
+  @override
+  late final GeneratedColumn<bool> openToHavingChildren =
+      GeneratedColumn<bool>('open_to_having_children', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("open_to_having_children" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _openToHavingChildrenOutsideAMarriageMeta =
+      const VerificationMeta('openToHavingChildrenOutsideAMarriage');
+  @override
+  late final GeneratedColumn<bool> openToHavingChildrenOutsideAMarriage =
+      GeneratedColumn<bool>(
+          'open_to_having_children_outside_a_marriage', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite:
+                'CHECK ("open_to_having_children_outside_a_marriage" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _openToHavingMultipleCoparentsMeta =
+      const VerificationMeta('openToHavingMultipleCoparents');
+  @override
+  late final GeneratedColumn<bool> openToHavingMultipleCoparents =
+      GeneratedColumn<bool>(
+          'open_to_having_multiple_coparents', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite:
+                'CHECK ("open_to_having_multiple_coparents" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _openToCheatingMeta =
+      const VerificationMeta('openToCheating');
+  @override
+  late final GeneratedColumn<bool> openToCheating =
+      GeneratedColumn<bool>('open_to_cheating', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("open_to_cheating" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -2119,7 +2195,13 @@ class $StanceTableTable extends StanceTable
         wantsPartnerToSignPrenup,
         openToCrimes,
         openToStayAtHomeParenting,
-        openToPremaritalSex
+        openToPremaritalSex,
+        openToWorkingAJob,
+        openToBeingPregnant,
+        openToHavingChildren,
+        openToHavingChildrenOutsideAMarriage,
+        openToHavingMultipleCoparents,
+        openToCheating
       ];
   @override
   String get aliasedName => _alias ?? 'stance';
@@ -2223,6 +2305,56 @@ class $StanceTableTable extends StanceTable
     } else if (isInserting) {
       context.missing(_openToPremaritalSexMeta);
     }
+    if (data.containsKey('open_to_working_a_job')) {
+      context.handle(
+          _openToWorkingAJobMeta,
+          openToWorkingAJob.isAcceptableOrUnknown(
+              data['open_to_working_a_job']!, _openToWorkingAJobMeta));
+    } else if (isInserting) {
+      context.missing(_openToWorkingAJobMeta);
+    }
+    if (data.containsKey('open_to_being_pregnant')) {
+      context.handle(
+          _openToBeingPregnantMeta,
+          openToBeingPregnant.isAcceptableOrUnknown(
+              data['open_to_being_pregnant']!, _openToBeingPregnantMeta));
+    } else if (isInserting) {
+      context.missing(_openToBeingPregnantMeta);
+    }
+    if (data.containsKey('open_to_having_children')) {
+      context.handle(
+          _openToHavingChildrenMeta,
+          openToHavingChildren.isAcceptableOrUnknown(
+              data['open_to_having_children']!, _openToHavingChildrenMeta));
+    } else if (isInserting) {
+      context.missing(_openToHavingChildrenMeta);
+    }
+    if (data.containsKey('open_to_having_children_outside_a_marriage')) {
+      context.handle(
+          _openToHavingChildrenOutsideAMarriageMeta,
+          openToHavingChildrenOutsideAMarriage.isAcceptableOrUnknown(
+              data['open_to_having_children_outside_a_marriage']!,
+              _openToHavingChildrenOutsideAMarriageMeta));
+    } else if (isInserting) {
+      context.missing(_openToHavingChildrenOutsideAMarriageMeta);
+    }
+    if (data.containsKey('open_to_having_multiple_coparents')) {
+      context.handle(
+          _openToHavingMultipleCoparentsMeta,
+          openToHavingMultipleCoparents.isAcceptableOrUnknown(
+              data['open_to_having_multiple_coparents']!,
+              _openToHavingMultipleCoparentsMeta));
+    } else if (isInserting) {
+      context.missing(_openToHavingMultipleCoparentsMeta);
+    }
+    if (data.containsKey('open_to_cheating')) {
+      context.handle(
+          _openToCheatingMeta,
+          openToCheating.isAcceptableOrUnknown(
+              data['open_to_cheating']!, _openToCheatingMeta));
+    } else if (isInserting) {
+      context.missing(_openToCheatingMeta);
+    }
     return context;
   }
 
@@ -2260,6 +2392,21 @@ class $StanceTableTable extends StanceTable
           data['${effectivePrefix}open_to_stay_at_home_parenting'])!,
       openToPremaritalSex: attachedDatabase.typeMapping.read(
           DriftSqlType.bool, data['${effectivePrefix}open_to_premarital_sex'])!,
+      openToWorkingAJob: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}open_to_working_a_job'])!,
+      openToBeingPregnant: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}open_to_being_pregnant'])!,
+      openToHavingChildren: attachedDatabase.typeMapping.read(DriftSqlType.bool,
+          data['${effectivePrefix}open_to_having_children'])!,
+      openToHavingChildrenOutsideAMarriage: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data[
+              '${effectivePrefix}open_to_having_children_outside_a_marriage'])!,
+      openToHavingMultipleCoparents: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data['${effectivePrefix}open_to_having_multiple_coparents'])!,
+      openToCheating: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}open_to_cheating'])!,
     );
   }
 
@@ -2282,6 +2429,12 @@ class Stance extends DataClass implements Insertable<Stance> {
   final bool openToCrimes;
   final bool openToStayAtHomeParenting;
   final bool openToPremaritalSex;
+  final bool openToWorkingAJob;
+  final bool openToBeingPregnant;
+  final bool openToHavingChildren;
+  final bool openToHavingChildrenOutsideAMarriage;
+  final bool openToHavingMultipleCoparents;
+  final bool openToCheating;
   const Stance(
       {required this.id,
       required this.personId,
@@ -2294,7 +2447,13 @@ class Stance extends DataClass implements Insertable<Stance> {
       required this.wantsPartnerToSignPrenup,
       required this.openToCrimes,
       required this.openToStayAtHomeParenting,
-      required this.openToPremaritalSex});
+      required this.openToPremaritalSex,
+      required this.openToWorkingAJob,
+      required this.openToBeingPregnant,
+      required this.openToHavingChildren,
+      required this.openToHavingChildrenOutsideAMarriage,
+      required this.openToHavingMultipleCoparents,
+      required this.openToCheating});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2313,6 +2472,14 @@ class Stance extends DataClass implements Insertable<Stance> {
     map['open_to_stay_at_home_parenting'] =
         Variable<bool>(openToStayAtHomeParenting);
     map['open_to_premarital_sex'] = Variable<bool>(openToPremaritalSex);
+    map['open_to_working_a_job'] = Variable<bool>(openToWorkingAJob);
+    map['open_to_being_pregnant'] = Variable<bool>(openToBeingPregnant);
+    map['open_to_having_children'] = Variable<bool>(openToHavingChildren);
+    map['open_to_having_children_outside_a_marriage'] =
+        Variable<bool>(openToHavingChildrenOutsideAMarriage);
+    map['open_to_having_multiple_coparents'] =
+        Variable<bool>(openToHavingMultipleCoparents);
+    map['open_to_cheating'] = Variable<bool>(openToCheating);
     return map;
   }
 
@@ -2331,6 +2498,13 @@ class Stance extends DataClass implements Insertable<Stance> {
       openToCrimes: Value(openToCrimes),
       openToStayAtHomeParenting: Value(openToStayAtHomeParenting),
       openToPremaritalSex: Value(openToPremaritalSex),
+      openToWorkingAJob: Value(openToWorkingAJob),
+      openToBeingPregnant: Value(openToBeingPregnant),
+      openToHavingChildren: Value(openToHavingChildren),
+      openToHavingChildrenOutsideAMarriage:
+          Value(openToHavingChildrenOutsideAMarriage),
+      openToHavingMultipleCoparents: Value(openToHavingMultipleCoparents),
+      openToCheating: Value(openToCheating),
     );
   }
 
@@ -2356,6 +2530,16 @@ class Stance extends DataClass implements Insertable<Stance> {
           serializer.fromJson<bool>(json['openToStayAtHomeParenting']),
       openToPremaritalSex:
           serializer.fromJson<bool>(json['openToPremaritalSex']),
+      openToWorkingAJob: serializer.fromJson<bool>(json['openToWorkingAJob']),
+      openToBeingPregnant:
+          serializer.fromJson<bool>(json['openToBeingPregnant']),
+      openToHavingChildren:
+          serializer.fromJson<bool>(json['openToHavingChildren']),
+      openToHavingChildrenOutsideAMarriage: serializer
+          .fromJson<bool>(json['openToHavingChildrenOutsideAMarriage']),
+      openToHavingMultipleCoparents:
+          serializer.fromJson<bool>(json['openToHavingMultipleCoparents']),
+      openToCheating: serializer.fromJson<bool>(json['openToCheating']),
     );
   }
   @override
@@ -2377,6 +2561,14 @@ class Stance extends DataClass implements Insertable<Stance> {
       'openToStayAtHomeParenting':
           serializer.toJson<bool>(openToStayAtHomeParenting),
       'openToPremaritalSex': serializer.toJson<bool>(openToPremaritalSex),
+      'openToWorkingAJob': serializer.toJson<bool>(openToWorkingAJob),
+      'openToBeingPregnant': serializer.toJson<bool>(openToBeingPregnant),
+      'openToHavingChildren': serializer.toJson<bool>(openToHavingChildren),
+      'openToHavingChildrenOutsideAMarriage':
+          serializer.toJson<bool>(openToHavingChildrenOutsideAMarriage),
+      'openToHavingMultipleCoparents':
+          serializer.toJson<bool>(openToHavingMultipleCoparents),
+      'openToCheating': serializer.toJson<bool>(openToCheating),
     };
   }
 
@@ -2392,7 +2584,13 @@ class Stance extends DataClass implements Insertable<Stance> {
           bool? wantsPartnerToSignPrenup,
           bool? openToCrimes,
           bool? openToStayAtHomeParenting,
-          bool? openToPremaritalSex}) =>
+          bool? openToPremaritalSex,
+          bool? openToWorkingAJob,
+          bool? openToBeingPregnant,
+          bool? openToHavingChildren,
+          bool? openToHavingChildrenOutsideAMarriage,
+          bool? openToHavingMultipleCoparents,
+          bool? openToCheating}) =>
       Stance(
         id: id ?? this.id,
         personId: personId ?? this.personId,
@@ -2410,6 +2608,15 @@ class Stance extends DataClass implements Insertable<Stance> {
         openToStayAtHomeParenting:
             openToStayAtHomeParenting ?? this.openToStayAtHomeParenting,
         openToPremaritalSex: openToPremaritalSex ?? this.openToPremaritalSex,
+        openToWorkingAJob: openToWorkingAJob ?? this.openToWorkingAJob,
+        openToBeingPregnant: openToBeingPregnant ?? this.openToBeingPregnant,
+        openToHavingChildren: openToHavingChildren ?? this.openToHavingChildren,
+        openToHavingChildrenOutsideAMarriage:
+            openToHavingChildrenOutsideAMarriage ??
+                this.openToHavingChildrenOutsideAMarriage,
+        openToHavingMultipleCoparents:
+            openToHavingMultipleCoparents ?? this.openToHavingMultipleCoparents,
+        openToCheating: openToCheating ?? this.openToCheating,
       );
   @override
   String toString() {
@@ -2426,7 +2633,15 @@ class Stance extends DataClass implements Insertable<Stance> {
           ..write('wantsPartnerToSignPrenup: $wantsPartnerToSignPrenup, ')
           ..write('openToCrimes: $openToCrimes, ')
           ..write('openToStayAtHomeParenting: $openToStayAtHomeParenting, ')
-          ..write('openToPremaritalSex: $openToPremaritalSex')
+          ..write('openToPremaritalSex: $openToPremaritalSex, ')
+          ..write('openToWorkingAJob: $openToWorkingAJob, ')
+          ..write('openToBeingPregnant: $openToBeingPregnant, ')
+          ..write('openToHavingChildren: $openToHavingChildren, ')
+          ..write(
+              'openToHavingChildrenOutsideAMarriage: $openToHavingChildrenOutsideAMarriage, ')
+          ..write(
+              'openToHavingMultipleCoparents: $openToHavingMultipleCoparents, ')
+          ..write('openToCheating: $openToCheating')
           ..write(')'))
         .toString();
   }
@@ -2444,7 +2659,13 @@ class Stance extends DataClass implements Insertable<Stance> {
       wantsPartnerToSignPrenup,
       openToCrimes,
       openToStayAtHomeParenting,
-      openToPremaritalSex);
+      openToPremaritalSex,
+      openToWorkingAJob,
+      openToBeingPregnant,
+      openToHavingChildren,
+      openToHavingChildrenOutsideAMarriage,
+      openToHavingMultipleCoparents,
+      openToCheating);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2461,7 +2682,15 @@ class Stance extends DataClass implements Insertable<Stance> {
           other.wantsPartnerToSignPrenup == this.wantsPartnerToSignPrenup &&
           other.openToCrimes == this.openToCrimes &&
           other.openToStayAtHomeParenting == this.openToStayAtHomeParenting &&
-          other.openToPremaritalSex == this.openToPremaritalSex);
+          other.openToPremaritalSex == this.openToPremaritalSex &&
+          other.openToWorkingAJob == this.openToWorkingAJob &&
+          other.openToBeingPregnant == this.openToBeingPregnant &&
+          other.openToHavingChildren == this.openToHavingChildren &&
+          other.openToHavingChildrenOutsideAMarriage ==
+              this.openToHavingChildrenOutsideAMarriage &&
+          other.openToHavingMultipleCoparents ==
+              this.openToHavingMultipleCoparents &&
+          other.openToCheating == this.openToCheating);
 }
 
 class StanceTableCompanion extends UpdateCompanion<Stance> {
@@ -2477,6 +2706,12 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
   final Value<bool> openToCrimes;
   final Value<bool> openToStayAtHomeParenting;
   final Value<bool> openToPremaritalSex;
+  final Value<bool> openToWorkingAJob;
+  final Value<bool> openToBeingPregnant;
+  final Value<bool> openToHavingChildren;
+  final Value<bool> openToHavingChildrenOutsideAMarriage;
+  final Value<bool> openToHavingMultipleCoparents;
+  final Value<bool> openToCheating;
   const StanceTableCompanion({
     this.id = const Value.absent(),
     this.personId = const Value.absent(),
@@ -2490,6 +2725,12 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     this.openToCrimes = const Value.absent(),
     this.openToStayAtHomeParenting = const Value.absent(),
     this.openToPremaritalSex = const Value.absent(),
+    this.openToWorkingAJob = const Value.absent(),
+    this.openToBeingPregnant = const Value.absent(),
+    this.openToHavingChildren = const Value.absent(),
+    this.openToHavingChildrenOutsideAMarriage = const Value.absent(),
+    this.openToHavingMultipleCoparents = const Value.absent(),
+    this.openToCheating = const Value.absent(),
   });
   StanceTableCompanion.insert({
     this.id = const Value.absent(),
@@ -2504,6 +2745,12 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     required bool openToCrimes,
     required bool openToStayAtHomeParenting,
     required bool openToPremaritalSex,
+    required bool openToWorkingAJob,
+    required bool openToBeingPregnant,
+    required bool openToHavingChildren,
+    required bool openToHavingChildrenOutsideAMarriage,
+    required bool openToHavingMultipleCoparents,
+    required bool openToCheating,
   })  : personId = Value(personId),
         openToAdoption = Value(openToAdoption),
         openToSexWorkerPartner = Value(openToSexWorkerPartner),
@@ -2515,7 +2762,14 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
         wantsPartnerToSignPrenup = Value(wantsPartnerToSignPrenup),
         openToCrimes = Value(openToCrimes),
         openToStayAtHomeParenting = Value(openToStayAtHomeParenting),
-        openToPremaritalSex = Value(openToPremaritalSex);
+        openToPremaritalSex = Value(openToPremaritalSex),
+        openToWorkingAJob = Value(openToWorkingAJob),
+        openToBeingPregnant = Value(openToBeingPregnant),
+        openToHavingChildren = Value(openToHavingChildren),
+        openToHavingChildrenOutsideAMarriage =
+            Value(openToHavingChildrenOutsideAMarriage),
+        openToHavingMultipleCoparents = Value(openToHavingMultipleCoparents),
+        openToCheating = Value(openToCheating);
   static Insertable<Stance> custom({
     Expression<int>? id,
     Expression<int>? personId,
@@ -2529,6 +2783,12 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     Expression<bool>? openToCrimes,
     Expression<bool>? openToStayAtHomeParenting,
     Expression<bool>? openToPremaritalSex,
+    Expression<bool>? openToWorkingAJob,
+    Expression<bool>? openToBeingPregnant,
+    Expression<bool>? openToHavingChildren,
+    Expression<bool>? openToHavingChildrenOutsideAMarriage,
+    Expression<bool>? openToHavingMultipleCoparents,
+    Expression<bool>? openToCheating,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2550,6 +2810,17 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
         'open_to_stay_at_home_parenting': openToStayAtHomeParenting,
       if (openToPremaritalSex != null)
         'open_to_premarital_sex': openToPremaritalSex,
+      if (openToWorkingAJob != null) 'open_to_working_a_job': openToWorkingAJob,
+      if (openToBeingPregnant != null)
+        'open_to_being_pregnant': openToBeingPregnant,
+      if (openToHavingChildren != null)
+        'open_to_having_children': openToHavingChildren,
+      if (openToHavingChildrenOutsideAMarriage != null)
+        'open_to_having_children_outside_a_marriage':
+            openToHavingChildrenOutsideAMarriage,
+      if (openToHavingMultipleCoparents != null)
+        'open_to_having_multiple_coparents': openToHavingMultipleCoparents,
+      if (openToCheating != null) 'open_to_cheating': openToCheating,
     });
   }
 
@@ -2565,7 +2836,13 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
       Value<bool>? wantsPartnerToSignPrenup,
       Value<bool>? openToCrimes,
       Value<bool>? openToStayAtHomeParenting,
-      Value<bool>? openToPremaritalSex}) {
+      Value<bool>? openToPremaritalSex,
+      Value<bool>? openToWorkingAJob,
+      Value<bool>? openToBeingPregnant,
+      Value<bool>? openToHavingChildren,
+      Value<bool>? openToHavingChildrenOutsideAMarriage,
+      Value<bool>? openToHavingMultipleCoparents,
+      Value<bool>? openToCheating}) {
     return StanceTableCompanion(
       id: id ?? this.id,
       personId: personId ?? this.personId,
@@ -2583,6 +2860,15 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
       openToStayAtHomeParenting:
           openToStayAtHomeParenting ?? this.openToStayAtHomeParenting,
       openToPremaritalSex: openToPremaritalSex ?? this.openToPremaritalSex,
+      openToWorkingAJob: openToWorkingAJob ?? this.openToWorkingAJob,
+      openToBeingPregnant: openToBeingPregnant ?? this.openToBeingPregnant,
+      openToHavingChildren: openToHavingChildren ?? this.openToHavingChildren,
+      openToHavingChildrenOutsideAMarriage:
+          openToHavingChildrenOutsideAMarriage ??
+              this.openToHavingChildrenOutsideAMarriage,
+      openToHavingMultipleCoparents:
+          openToHavingMultipleCoparents ?? this.openToHavingMultipleCoparents,
+      openToCheating: openToCheating ?? this.openToCheating,
     );
   }
 
@@ -2629,6 +2915,27 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     if (openToPremaritalSex.present) {
       map['open_to_premarital_sex'] = Variable<bool>(openToPremaritalSex.value);
     }
+    if (openToWorkingAJob.present) {
+      map['open_to_working_a_job'] = Variable<bool>(openToWorkingAJob.value);
+    }
+    if (openToBeingPregnant.present) {
+      map['open_to_being_pregnant'] = Variable<bool>(openToBeingPregnant.value);
+    }
+    if (openToHavingChildren.present) {
+      map['open_to_having_children'] =
+          Variable<bool>(openToHavingChildren.value);
+    }
+    if (openToHavingChildrenOutsideAMarriage.present) {
+      map['open_to_having_children_outside_a_marriage'] =
+          Variable<bool>(openToHavingChildrenOutsideAMarriage.value);
+    }
+    if (openToHavingMultipleCoparents.present) {
+      map['open_to_having_multiple_coparents'] =
+          Variable<bool>(openToHavingMultipleCoparents.value);
+    }
+    if (openToCheating.present) {
+      map['open_to_cheating'] = Variable<bool>(openToCheating.value);
+    }
     return map;
   }
 
@@ -2647,7 +2954,15 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
           ..write('wantsPartnerToSignPrenup: $wantsPartnerToSignPrenup, ')
           ..write('openToCrimes: $openToCrimes, ')
           ..write('openToStayAtHomeParenting: $openToStayAtHomeParenting, ')
-          ..write('openToPremaritalSex: $openToPremaritalSex')
+          ..write('openToPremaritalSex: $openToPremaritalSex, ')
+          ..write('openToWorkingAJob: $openToWorkingAJob, ')
+          ..write('openToBeingPregnant: $openToBeingPregnant, ')
+          ..write('openToHavingChildren: $openToHavingChildren, ')
+          ..write(
+              'openToHavingChildrenOutsideAMarriage: $openToHavingChildrenOutsideAMarriage, ')
+          ..write(
+              'openToHavingMultipleCoparents: $openToHavingMultipleCoparents, ')
+          ..write('openToCheating: $openToCheating')
           ..write(')'))
         .toString();
   }

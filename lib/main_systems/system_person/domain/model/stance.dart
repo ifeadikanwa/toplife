@@ -23,4 +23,11 @@ class StanceTable extends Table {
   BoolColumn get openToCrimes => boolean()();
   BoolColumn get openToStayAtHomeParenting => boolean()();
   BoolColumn get openToPremaritalSex => boolean()();
+  BoolColumn get openToWorkingAJob => boolean()();
+  BoolColumn get openToBeingPregnant => boolean()();
+  BoolColumn get openToHavingChildren => boolean()();
+  BoolColumn get openToHavingChildrenOutsideAMarriage => boolean()();
+  BoolColumn get openToHavingMultipleCoparents => boolean()();
+  BoolColumn get openToCheating => boolean()();
+  BoolColumn get openToGayPeople => boolean()();
 }

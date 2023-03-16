@@ -87,6 +87,12 @@ class CreateChildPersonUsecase {
       openToCrimes: StanceConstants.getValidStanceValue(),
       openToStayAtHomeParenting: StanceConstants.getValidStanceValue(),
       openToPremaritalSex: StanceConstants.getValidStanceValue(),
+       openToBeingPregnant: StanceConstants.getValidStanceValue(),
+      openToCheating: StanceConstants.getValidStanceValue(),
+      openToHavingChildren: StanceConstants.getValidStanceValue(),
+      openToHavingChildrenOutsideAMarriage: StanceConstants.getValidStanceValue(),
+      openToHavingMultipleCoparents: StanceConstants.getValidStanceValue(),
+      openToWorkingAJob: StanceConstants.getValidStanceValue(),
     );
 
     await _stanceRepositoryImpl.createStance(createdPersonStance);
