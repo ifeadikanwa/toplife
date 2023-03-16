@@ -47,7 +47,7 @@ class AttendParty {
       food: (Random().nextInt(30)), //1-30
     );
 
-    _personUsecases.updateWellbeingStatsUsecase.execute(
+    _personUsecases.updateMoodStatsUsecase.execute(
       mainPersonID: mainPlayerID,
       change: Random().nextInt(20), //1-20
     );

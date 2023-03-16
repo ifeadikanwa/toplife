@@ -39,7 +39,7 @@ class CreateChildPersonUsecase {
       personId: createdPerson.id,
       energy: StatsConstants.getValidEnergyorHungerStatsValue(),
       hunger: StatsConstants.getValidEnergyorHungerStatsValue(),
-      wellbeing: getValidRandomStatsValue(),
+      mood: getValidRandomStatsValue(),
       health: maxStatsValue,
       sober: maxStatsValue,
       looks: getValidRandomStatsValue(),

@@ -30,7 +30,7 @@ class PerformPartyActivity {
       case PartyEventActivity.danceDanceDance:
         firstPersonPartyActivityDesc =
             "I let the music take control and just danced away.";
-        await _personUsecases.updateWellbeingStatsUsecase.execute(
+        await _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: Random().nextInt(10), //1-10
         );
@@ -46,7 +46,7 @@ class PerformPartyActivity {
       case PartyEventActivity.socialize:
         firstPersonPartyActivityDesc =
             "I mingled and had fun speaking to a bunch of people.";
-        await _personUsecases.updateWellbeingStatsUsecase.execute(
+        await _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: Random().nextInt(10), //1-10
         );

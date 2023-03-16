@@ -18,7 +18,8 @@ class TextConstants {
   static const upNext = "Up Next";
   static const todaysJournal = "Today's Journal";
   static const energy = "Energy";
-  static const wellbeing = "Wellbeing";
+  static const mood = "Mood";
+  static const health = "Health";
   static const hunger = "Hunger";
   static const looks = "Looks";
   static const intellect = "Intellect";

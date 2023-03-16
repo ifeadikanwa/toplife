@@ -209,7 +209,7 @@ class ShopScreen extends ConsumerWidget {
                 final person = Person(
                   id: DatabaseConstants.dummyId,
                   gameId: 0,
-                  firstName: "David",
+                  firstName: "Jason",
                   lastName: "Smith",
                   dayOfBirth: 21,
                   gender: Gender.Male.name,

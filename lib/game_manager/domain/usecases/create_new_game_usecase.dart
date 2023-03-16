@@ -66,6 +66,6 @@ class CreateNewGameUsecase {
       newGameDay,
     );
 
-    return createdGame;
+    return updatedCreatedGame;
   }
 }

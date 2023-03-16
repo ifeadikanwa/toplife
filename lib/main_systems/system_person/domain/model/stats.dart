@@ -15,7 +15,7 @@ class StatsTable extends Table {
       )();
   IntColumn get energy => integer()();
   IntColumn get hunger => integer()();
-  IntColumn get wellbeing => integer()();
+  IntColumn get mood => integer()();
   IntColumn get health => integer()();
   IntColumn get sober => integer()();
   IntColumn get looks => integer()();

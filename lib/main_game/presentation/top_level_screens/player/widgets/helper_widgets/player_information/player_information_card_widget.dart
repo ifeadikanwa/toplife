@@ -160,8 +160,12 @@ class PlayerInformationCard extends ConsumerWidget {
           statsLevel: playerStats.hunger,
         ),
         StatsItem(
-          statsName: TextConstants.wellbeing.toUpperCase(),
-          statsLevel: playerStats.wellbeing,
+          statsName: TextConstants.mood.toUpperCase(),
+          statsLevel: playerStats.mood,
+        ),
+        StatsItem(
+          statsName: TextConstants.health.toUpperCase(),
+          statsLevel: playerStats.health,
         ),
       ],
     );

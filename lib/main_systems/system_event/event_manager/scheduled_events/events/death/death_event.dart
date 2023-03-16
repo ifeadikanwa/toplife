@@ -79,7 +79,7 @@ class DeathEvent {
         );
 
         //reduce player wellbeing
-        reducePlayerWellbeingForMourning(
+        reducePlayerMoodForMourning(
           mainPlayerID: mainPlayerID,
           relationshipPair: relationshipPair,
         );
@@ -237,20 +237,20 @@ class DeathEvent {
     );
   }
 
-  Future<void> reducePlayerWellbeingForMourning({
+  Future<void> reducePlayerMoodForMourning({
     required int mainPlayerID,
     required RelationshipPair relationshipPair,
   }) async {
     //parent
     if (relationshipPair.relationship is Parent) {
-      _personUsecases.updateWellbeingStatsUsecase.execute(
+      _personUsecases.updateMoodStatsUsecase.execute(
         mainPersonID: mainPlayerID,
         change: -60,
       );
     }
     //child
     else if (relationshipPair.relationship is Child) {
-      _personUsecases.updateWellbeingStatsUsecase.execute(
+      _personUsecases.updateMoodStatsUsecase.execute(
         mainPersonID: mainPlayerID,
         change: -70,
       );
@@ -260,12 +260,12 @@ class DeathEvent {
       final Partner partner = relationshipPair.relationship as Partner;
 
       if (partner.isActive) {
-        _personUsecases.updateWellbeingStatsUsecase.execute(
+        _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: -60,
         );
       } else {
-        _personUsecases.updateWellbeingStatsUsecase.execute(
+        _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: -30,
         );
@@ -273,7 +273,7 @@ class DeathEvent {
     }
     //others
     else {
-      _personUsecases.updateWellbeingStatsUsecase.execute(
+      _personUsecases.updateMoodStatsUsecase.execute(
         mainPersonID: mainPlayerID,
         change: -30,
       );

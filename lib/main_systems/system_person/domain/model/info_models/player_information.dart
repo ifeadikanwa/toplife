@@ -39,7 +39,7 @@ class PlayerInformation extends Equatable {
       personId: 0,
       energy: 0,
       hunger: 0,
-      wellbeing: 0,
+      mood: 0,
       health: 0,
       sober: 0,
       looks: 0,

@@ -26,7 +26,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/update_specif
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_intellect_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_looks_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_sober_stats_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_wellbeing_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_mood_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/watch/watch_person_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/watch/watch_person_usecase.dart';
 
@@ -138,8 +138,8 @@ class PersonUsecases {
         statsRepository: _personRepositories.statsRepositoryImpl,
       );
 
-  UpdateWellbeingStatsUsecase get updateWellbeingStatsUsecase =>
-      UpdateWellbeingStatsUsecase(
+  UpdateMoodStatsUsecase get updateMoodStatsUsecase =>
+      UpdateMoodStatsUsecase(
         statsRepository: _personRepositories.statsRepositoryImpl,
       );
 

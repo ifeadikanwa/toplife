@@ -232,7 +232,7 @@ class FuneralEvent {
     required String secondPersonResultDesc,
   }) async {
     //increase wellbeing
-    _personUsecases.updateWellbeingStatsUsecase.execute(
+    _personUsecases.updateMoodStatsUsecase.execute(
       mainPersonID: mainPlayerID,
       change: Random().nextInt(10) + 20, //10-30
     );
