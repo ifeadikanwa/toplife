@@ -40,6 +40,7 @@ class CreateChildPersonUsecase {
       energy: StatsConstants.getValidEnergyorHungerStatsValue(),
       hunger: StatsConstants.getValidEnergyorHungerStatsValue(),
       wellbeing: getValidRandomStatsValue(),
+      health: maxStatsValue,
       sober: maxStatsValue,
       looks: getValidRandomStatsValue(),
       intellect: getValidRandomStatsValue(),
@@ -80,8 +81,7 @@ class CreateChildPersonUsecase {
       openToSexWorkerPartner: StanceConstants.getValidStanceValue(),
       openToAbortion: StanceConstants.getValidStanceValue(),
       openToSurrogacy: StanceConstants.getValidStanceValue(),
-      openToAlternativeFertilityMethods:
-          StanceConstants.getValidStanceValue(),
+      openToAlternativeFertilityMethods: StanceConstants.getValidStanceValue(),
       openToSigningPrenup: StanceConstants.getValidStanceValue(),
       wantsPartnerToSignPrenup: StanceConstants.getValidStanceValue(),
       openToCrimes: StanceConstants.getValidStanceValue(),

@@ -35,6 +35,7 @@ class CreateAdultPersonUsecase {
       energy: StatsConstants.getValidEnergyorHungerStatsValue(),
       hunger: StatsConstants.getValidEnergyorHungerStatsValue(),
       wellbeing: getValidRandomStatsValue(),
+      health: maxStatsValue,
       sober: maxStatsValue,
       looks: getValidRandomStatsValue(),
       intellect: getValidRandomStatsValue(),

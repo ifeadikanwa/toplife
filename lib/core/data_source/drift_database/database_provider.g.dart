@@ -1519,6 +1519,11 @@ class $StatsTableTable extends StatsTable
   late final GeneratedColumn<int> wellbeing = GeneratedColumn<int>(
       'wellbeing', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _healthMeta = const VerificationMeta('health');
+  @override
+  late final GeneratedColumn<int> health = GeneratedColumn<int>(
+      'health', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _soberMeta = const VerificationMeta('sober');
   @override
   late final GeneratedColumn<int> sober = GeneratedColumn<int>(
@@ -1548,6 +1553,7 @@ class $StatsTableTable extends StatsTable
         energy,
         hunger,
         wellbeing,
+        health,
         sober,
         looks,
         athleticism,
@@ -1588,6 +1594,12 @@ class $StatsTableTable extends StatsTable
           wellbeing.isAcceptableOrUnknown(data['wellbeing']!, _wellbeingMeta));
     } else if (isInserting) {
       context.missing(_wellbeingMeta);
+    }
+    if (data.containsKey('health')) {
+      context.handle(_healthMeta,
+          health.isAcceptableOrUnknown(data['health']!, _healthMeta));
+    } else if (isInserting) {
+      context.missing(_healthMeta);
     }
     if (data.containsKey('sober')) {
       context.handle(
@@ -1634,6 +1646,8 @@ class $StatsTableTable extends StatsTable
           .read(DriftSqlType.int, data['${effectivePrefix}hunger'])!,
       wellbeing: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}wellbeing'])!,
+      health: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}health'])!,
       sober: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}sober'])!,
       looks: attachedDatabase.typeMapping
@@ -1657,6 +1671,7 @@ class Stats extends DataClass implements Insertable<Stats> {
   final int energy;
   final int hunger;
   final int wellbeing;
+  final int health;
   final int sober;
   final int looks;
   final int athleticism;
@@ -1667,6 +1682,7 @@ class Stats extends DataClass implements Insertable<Stats> {
       required this.energy,
       required this.hunger,
       required this.wellbeing,
+      required this.health,
       required this.sober,
       required this.looks,
       required this.athleticism,
@@ -1679,6 +1695,7 @@ class Stats extends DataClass implements Insertable<Stats> {
     map['energy'] = Variable<int>(energy);
     map['hunger'] = Variable<int>(hunger);
     map['wellbeing'] = Variable<int>(wellbeing);
+    map['health'] = Variable<int>(health);
     map['sober'] = Variable<int>(sober);
     map['looks'] = Variable<int>(looks);
     map['athleticism'] = Variable<int>(athleticism);
@@ -1693,6 +1710,7 @@ class Stats extends DataClass implements Insertable<Stats> {
       energy: Value(energy),
       hunger: Value(hunger),
       wellbeing: Value(wellbeing),
+      health: Value(health),
       sober: Value(sober),
       looks: Value(looks),
       athleticism: Value(athleticism),
@@ -1709,6 +1727,7 @@ class Stats extends DataClass implements Insertable<Stats> {
       energy: serializer.fromJson<int>(json['energy']),
       hunger: serializer.fromJson<int>(json['hunger']),
       wellbeing: serializer.fromJson<int>(json['wellbeing']),
+      health: serializer.fromJson<int>(json['health']),
       sober: serializer.fromJson<int>(json['sober']),
       looks: serializer.fromJson<int>(json['looks']),
       athleticism: serializer.fromJson<int>(json['athleticism']),
@@ -1724,6 +1743,7 @@ class Stats extends DataClass implements Insertable<Stats> {
       'energy': serializer.toJson<int>(energy),
       'hunger': serializer.toJson<int>(hunger),
       'wellbeing': serializer.toJson<int>(wellbeing),
+      'health': serializer.toJson<int>(health),
       'sober': serializer.toJson<int>(sober),
       'looks': serializer.toJson<int>(looks),
       'athleticism': serializer.toJson<int>(athleticism),
@@ -1737,6 +1757,7 @@ class Stats extends DataClass implements Insertable<Stats> {
           int? energy,
           int? hunger,
           int? wellbeing,
+          int? health,
           int? sober,
           int? looks,
           int? athleticism,
@@ -1747,6 +1768,7 @@ class Stats extends DataClass implements Insertable<Stats> {
         energy: energy ?? this.energy,
         hunger: hunger ?? this.hunger,
         wellbeing: wellbeing ?? this.wellbeing,
+        health: health ?? this.health,
         sober: sober ?? this.sober,
         looks: looks ?? this.looks,
         athleticism: athleticism ?? this.athleticism,
@@ -1760,6 +1782,7 @@ class Stats extends DataClass implements Insertable<Stats> {
           ..write('energy: $energy, ')
           ..write('hunger: $hunger, ')
           ..write('wellbeing: $wellbeing, ')
+          ..write('health: $health, ')
           ..write('sober: $sober, ')
           ..write('looks: $looks, ')
           ..write('athleticism: $athleticism, ')
@@ -1770,7 +1793,7 @@ class Stats extends DataClass implements Insertable<Stats> {
 
   @override
   int get hashCode => Object.hash(id, personId, energy, hunger, wellbeing,
-      sober, looks, athleticism, intellect);
+      health, sober, looks, athleticism, intellect);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1780,6 +1803,7 @@ class Stats extends DataClass implements Insertable<Stats> {
           other.energy == this.energy &&
           other.hunger == this.hunger &&
           other.wellbeing == this.wellbeing &&
+          other.health == this.health &&
           other.sober == this.sober &&
           other.looks == this.looks &&
           other.athleticism == this.athleticism &&
@@ -1792,6 +1816,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
   final Value<int> energy;
   final Value<int> hunger;
   final Value<int> wellbeing;
+  final Value<int> health;
   final Value<int> sober;
   final Value<int> looks;
   final Value<int> athleticism;
@@ -1802,6 +1827,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
     this.energy = const Value.absent(),
     this.hunger = const Value.absent(),
     this.wellbeing = const Value.absent(),
+    this.health = const Value.absent(),
     this.sober = const Value.absent(),
     this.looks = const Value.absent(),
     this.athleticism = const Value.absent(),
@@ -1813,6 +1839,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
     required int energy,
     required int hunger,
     required int wellbeing,
+    required int health,
     required int sober,
     required int looks,
     required int athleticism,
@@ -1821,6 +1848,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
         energy = Value(energy),
         hunger = Value(hunger),
         wellbeing = Value(wellbeing),
+        health = Value(health),
         sober = Value(sober),
         looks = Value(looks),
         athleticism = Value(athleticism),
@@ -1831,6 +1859,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
     Expression<int>? energy,
     Expression<int>? hunger,
     Expression<int>? wellbeing,
+    Expression<int>? health,
     Expression<int>? sober,
     Expression<int>? looks,
     Expression<int>? athleticism,
@@ -1842,6 +1871,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
       if (energy != null) 'energy': energy,
       if (hunger != null) 'hunger': hunger,
       if (wellbeing != null) 'wellbeing': wellbeing,
+      if (health != null) 'health': health,
       if (sober != null) 'sober': sober,
       if (looks != null) 'looks': looks,
       if (athleticism != null) 'athleticism': athleticism,
@@ -1855,6 +1885,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
       Value<int>? energy,
       Value<int>? hunger,
       Value<int>? wellbeing,
+      Value<int>? health,
       Value<int>? sober,
       Value<int>? looks,
       Value<int>? athleticism,
@@ -1865,6 +1896,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
       energy: energy ?? this.energy,
       hunger: hunger ?? this.hunger,
       wellbeing: wellbeing ?? this.wellbeing,
+      health: health ?? this.health,
       sober: sober ?? this.sober,
       looks: looks ?? this.looks,
       athleticism: athleticism ?? this.athleticism,
@@ -1890,6 +1922,9 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
     if (wellbeing.present) {
       map['wellbeing'] = Variable<int>(wellbeing.value);
     }
+    if (health.present) {
+      map['health'] = Variable<int>(health.value);
+    }
     if (sober.present) {
       map['sober'] = Variable<int>(sober.value);
     }
@@ -1913,6 +1948,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
           ..write('energy: $energy, ')
           ..write('hunger: $hunger, ')
           ..write('wellbeing: $wellbeing, ')
+          ..write('health: $health, ')
           ..write('sober: $sober, ')
           ..write('looks: $looks, ')
           ..write('athleticism: $athleticism, ')
