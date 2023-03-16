@@ -21,6 +21,7 @@ class RelativeTable extends Table {
   BoolColumn get currentlyLivingTogether => boolean()();
   TextColumn get relativeRelationshipType => text()();
   IntColumn get relationship => integer()();
+  BoolColumn get interestedInRelationship => boolean()();
 
   @override
   Set<Column<Object>>? get primaryKey => {

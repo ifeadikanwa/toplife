@@ -23,6 +23,7 @@ class CreateChildParentRelationshipUsecase {
       Child(
         mainPersonId: mainParentID,
         childId: childID,
+        interestedInRelationship: true,
         currentlyLivingTogether: false,
         childRelationshipType: isAdopted
             ? ChildRelationshipType.adopted.name
@@ -39,6 +40,7 @@ class CreateChildParentRelationshipUsecase {
         mainPersonId: otherParentID,
         childId: childID,
         currentlyLivingTogether: false,
+        interestedInRelationship: true,
         childRelationshipType: isAdopted
             ? ChildRelationshipType.adopted.name
             : ChildRelationshipType.birth.name,
@@ -60,6 +62,7 @@ class CreateChildParentRelationshipUsecase {
         hidden: false,
         paternityFraud: false,
         assumedRelationshipType: JournalCharacters.emptyString,
+        interestedInRelationship: true,
         currentlyLivingTogether: false,
       ),
     );
@@ -74,6 +77,7 @@ class CreateChildParentRelationshipUsecase {
         hidden: false,
         paternityFraud: false,
         assumedRelationshipType: JournalCharacters.emptyString,
+        interestedInRelationship: true,
         currentlyLivingTogether: false,
       ),
     );

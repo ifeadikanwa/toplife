@@ -22,6 +22,7 @@ class FriendTable extends Table {
   BoolColumn get haveRomanticRelationship => boolean()();
   IntColumn get relationship => integer()();
   BoolColumn get currentlyLivingTogether => boolean()();
+  BoolColumn get interestedInRelationship => boolean()();
 
   @override
   Set<Column<Object>>? get primaryKey => {

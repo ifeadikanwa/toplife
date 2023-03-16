@@ -16,6 +16,7 @@ class RelationshipTestLists {
     assumedRelationshipType: JournalCharacters.emptyString,
     mainPersonId: 1,
     childId: 2,
+    interestedInRelationship: true,
     currentlyLivingTogether: true,
     childRelationshipType: ChildRelationshipType.adopted.name,
     relationship: 45,
@@ -129,6 +130,7 @@ class RelationshipTestLists {
     metAt: "metAt",
     relationship: 68,
     currentlyLivingTogether: false,
+    interestedInRelationship: true,
   );
 
   static final testExesList = [
@@ -258,9 +260,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: exesRelationship.copyWith(
-        partnerRelationshipType: PartnerRelationshipType.dating.name,
-        currentlyLivingTogether: true
-      ),
+          partnerRelationshipType: PartnerRelationshipType.dating.name,
+          currentlyLivingTogether: true),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -390,6 +391,7 @@ class RelationshipTestLists {
     relationship: 66,
     haveRomanticRelationship: false,
     currentlyLivingTogether: false,
+    interestedInRelationship: true,
   );
 
   static final testFriendsList = [
@@ -524,6 +526,7 @@ class RelationshipTestLists {
     inLawRelationshipType: InLawRelationshipType.sibling.name,
     relationship: 89,
     currentlyLivingTogether: false,
+    interestedInRelationship: true,
   );
 
   static final testInLawsList = [
@@ -789,6 +792,7 @@ class RelationshipTestLists {
     relationship: 34,
     isActive: true,
     currentlyLivingTogether: false,
+    interestedInRelationship: true,
   );
 
   static final testParentsList = [
@@ -1056,6 +1060,7 @@ class RelationshipTestLists {
     metAt: "metAt",
     relationship: 68,
     currentlyLivingTogether: false,
+    interestedInRelationship: true,
   );
   static final testPartnersList = [
     RelationshipPair(
@@ -1332,6 +1337,7 @@ class RelationshipTestLists {
     currentlyLivingTogether: true,
     relativeRelationshipType: RelativeRelationshipType.grandchild.name,
     relationship: 56,
+    interestedInRelationship: true,
   );
 
   static final testRelativesList = [
@@ -1686,6 +1692,7 @@ class RelationshipTestLists {
     siblingRelationshipType: SiblingRelationshipType.step.name,
     relationship: 80,
     currentlyLivingTogether: false,
+    interestedInRelationship: true,
   );
 
   static final testSiblingList = [

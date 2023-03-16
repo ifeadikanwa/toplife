@@ -85,6 +85,7 @@ class CreateExclusiveRomanticRelationshipUsecase {
         endDay: 0,
         jointMoney: 0,
         currentlyLivingTogether: false,
+        interestedInRelationship: true,
       );
 
       await _relationshipRepositories.partnerRepositoryImpl

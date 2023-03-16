@@ -17,6 +17,7 @@ void main() {
             currentlyLivingTogether: true,
             relativeRelationshipType: RelativeRelationshipType.nibling.name,
             relationship: 56,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -52,6 +53,7 @@ void main() {
             currentlyLivingTogether: true,
             relativeRelationshipType: RelativeRelationshipType.grandchild.name,
             relationship: 56,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -87,6 +89,7 @@ void main() {
             currentlyLivingTogether: true,
             relativeRelationshipType: RelativeRelationshipType.cousin.name,
             relationship: 56,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -122,6 +125,7 @@ void main() {
             currentlyLivingTogether: true,
             relativeRelationshipType: RelativeRelationshipType.pibling.name,
             relationship: 56,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -160,6 +164,7 @@ void main() {
             currentlyLivingTogether: true,
             relativeRelationshipType: RelativeRelationshipType.grandchild.name,
             relationship: 56,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -195,6 +200,7 @@ void main() {
             currentlyLivingTogether: true,
             relativeRelationshipType: RelativeRelationshipType.nibling.name,
             relationship: 56,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -230,6 +236,7 @@ void main() {
             currentlyLivingTogether: true,
             relativeRelationshipType: RelativeRelationshipType.pibling.name,
             relationship: 56,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -265,6 +272,7 @@ void main() {
             currentlyLivingTogether: true,
             relativeRelationshipType: RelativeRelationshipType.cousin.name,
             relationship: 56,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,

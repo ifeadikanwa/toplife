@@ -22,6 +22,7 @@ class CreateSiblingRelationshipUsecase {
         siblingRelationshipType: siblingRelationshipType.name,
         relationship: getValidRandomStatsValue(minValue: 40),
         currentlyLivingTogether: false,
+        interestedInRelationship: true,
       ),
     );
   }

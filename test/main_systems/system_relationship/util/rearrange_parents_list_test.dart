@@ -22,6 +22,7 @@ void main() {
             relationship: 34,
             isActive: true,
             currentlyLivingTogether: false,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -61,6 +62,7 @@ void main() {
             relationship: 34,
             isActive: true,
             currentlyLivingTogether: false,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -100,6 +102,7 @@ void main() {
             relationship: 34,
             isActive: true,
             currentlyLivingTogether: false,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -142,6 +145,7 @@ void main() {
             relationship: 34,
             isActive: true,
             currentlyLivingTogether: false,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -181,6 +185,7 @@ void main() {
             relationship: 34,
             isActive: true,
             currentlyLivingTogether: false,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,
@@ -220,6 +225,7 @@ void main() {
             relationship: 34,
             isActive: true,
             currentlyLivingTogether: false,
+            interestedInRelationship: true,
           ),
           person: const Person(
             id: 1,

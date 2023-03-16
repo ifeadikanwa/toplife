@@ -24,6 +24,7 @@ class ChildTable extends Table {
   BoolColumn get paternityFraud => boolean()();
   TextColumn get assumedRelationshipType => text()();
   IntColumn get relationship => integer()();
+  BoolColumn get interestedInRelationship => boolean()();
 
   @override
   Set<Column<Object>>? get primaryKey => {

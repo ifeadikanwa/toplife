@@ -69,6 +69,7 @@ void main() {
           endDay: 0,
           jointMoney: 0,
           currentlyLivingTogether: false,
+          interestedInRelationship: true,
         );
 
         expect(
@@ -99,6 +100,7 @@ void main() {
           endDay: 0,
           jointMoney: 0,
           currentlyLivingTogether: false,
+          interestedInRelationship: true,
         );
 
         expect(
@@ -129,6 +131,7 @@ void main() {
           endDay: 0,
           jointMoney: 0,
           currentlyLivingTogether: false,
+          interestedInRelationship: true,
         );
 
         expect(
@@ -156,6 +159,7 @@ void main() {
           currentlyLivingTogether: true,
           childRelationshipType: ChildRelationshipType.birth.name,
           relationship: 89,
+          interestedInRelationship: true,
         );
 
         expect(
@@ -184,6 +188,7 @@ void main() {
           relationship: 50,
           isActive: true,
           currentlyLivingTogether: false,
+          interestedInRelationship: true,
         );
 
         expect(
@@ -210,6 +215,7 @@ void main() {
           siblingRelationshipType: SiblingRelationshipType.full.name,
           relationship: 79,
           currentlyLivingTogether: false,
+          interestedInRelationship: true,
         );
 
         expect(
@@ -234,6 +240,7 @@ void main() {
           currentlyLivingTogether: true,
           relativeRelationshipType: RelativeRelationshipType.pibling.name,
           relationship: 29,
+          interestedInRelationship: true,
         );
 
         expect(
@@ -262,6 +269,7 @@ void main() {
           relationship: 67,
           haveRomanticRelationship: false,
           currentlyLivingTogether: false,
+          interestedInRelationship: true,
         );
 
         expect(
@@ -289,6 +297,7 @@ void main() {
           relationship: 56,
           haveRomanticRelationship: false,
           currentlyLivingTogether: false,
+          interestedInRelationship: true,
         );
 
         expect(
