@@ -19,4 +19,15 @@ class NewCarsScreenViewModel extends StateNotifier<List<Car>> {
   void regenerateCars() {
     _fetch();
   }
+
+  void removePurchasedCarFromShop(Car car) {
+    if (state.isNotEmpty) {
+      //remove the purchased car this way so the ui reacts immediately
+      state = state
+          .where(
+            (carElement) => carElement != car,
+          )
+          .toList();
+    }
+  }
 }

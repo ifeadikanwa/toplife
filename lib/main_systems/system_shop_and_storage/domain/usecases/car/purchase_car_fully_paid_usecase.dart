@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -26,7 +27,7 @@ class PurchaseCarFullyPaidUsecase {
     this._relationshipUsecases,
   );
 
-  Future<void> execute({
+  Future<bool> execute({
     required BuildContext context,
     required Car car,
     required int personID,
@@ -38,8 +39,13 @@ class PurchaseCarFullyPaidUsecase {
     late final String journalEntry;
     late final String secondPersonResult;
     late final String resultTitle;
+    late final bool purchaseSuccessful;
 
-    const carQuantifier = "a";
+    //if max condition is not 100, the car is used
+    String carQuantifier = "a ";
+    (car.maxConditionAtPurchase == maxStatsValue)
+        ? carQuantifier += "brand new"
+        : carQuantifier += "used";
 
     final bool paymentSuccessful =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
@@ -60,13 +66,15 @@ class PurchaseCarFullyPaidUsecase {
       );
 
       journalEntry = ShopResultConstants.purchaseSuccessfulJournalEntry(
-        car.name,
+        "${car.name} car",
         carQuantifier,
       );
 
       secondPersonResult = ShopResultConstants.carDeliveredResultEntry;
 
       resultTitle = ShopResultConstants.checkoutSuccessTitle;
+
+      purchaseSuccessful = true;
     }
     //cant afford to pay
     else {
@@ -78,6 +86,8 @@ class PurchaseCarFullyPaidUsecase {
       secondPersonResult = ShopResultConstants.noFundsResultEntry;
 
       resultTitle = ShopResultConstants.checkoutFailedTitle;
+
+      purchaseSuccessful = false;
     }
 
     //log in journal
@@ -96,5 +106,7 @@ class PurchaseCarFullyPaidUsecase {
       title: resultTitle,
       result: secondPersonResult,
     );
+
+    return purchaseSuccessful;
   }
 }
