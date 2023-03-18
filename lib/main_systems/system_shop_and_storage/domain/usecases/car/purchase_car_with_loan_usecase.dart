@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -29,7 +30,7 @@ class PurchaseCarWithLoanUsecase {
     this._relationshipUsecases,
   );
 
-  Future<void> execute({
+  Future<bool> execute({
     required BuildContext context,
     required Car car,
     required int personID,
@@ -38,6 +39,13 @@ class PurchaseCarWithLoanUsecase {
     late final String journalEntry;
     late final String secondPersonResult;
     late final String resultTitle;
+    //I made it false since there is only one instance where the loan app is successful. we can override to true there.
+    bool purchaseSuccessful = false;
+
+    final String carState =
+        (car.maxConditionAtPurchase == maxStatsValue) ? "brand new" : "used";
+
+    final String carNameAndState = "$carState ${car.name} car";
 
     final Person? person = await _personUsecases.getPersonUsecase.execute(
       personID: personID,
@@ -61,7 +69,7 @@ class PurchaseCarWithLoanUsecase {
         secondPersonResult =
             ShopResultConstants.existingCarLoanRejectionResultEntry;
         journalEntry = ShopResultConstants.existingCarLoanRejectionJournalEntry(
-          carName: car.name,
+          carName: carNameAndState,
         );
       }
       //if no: check if they can afford the down payment
@@ -85,7 +93,7 @@ class PurchaseCarWithLoanUsecase {
               ShopResultConstants.notEnoughFundsForDownPaymentResultEntry;
           journalEntry =
               ShopResultConstants.notEnoughFundsForDownPaymentJournalEntry(
-            itemName: car.name,
+            itemName: carNameAndState,
           );
         }
 
@@ -133,9 +141,11 @@ class PurchaseCarWithLoanUsecase {
             recurringPayment: recurringPayment,
           );
           journalEntry = ShopResultConstants.loanSuccesfulJournalEntry(
-            itemName: createdCar.name,
+            itemName: carNameAndState,
             recurringPayment: recurringPayment,
           );
+          //set purchase successful to true
+          purchaseSuccessful = true;
         }
       }
 
@@ -163,5 +173,7 @@ class PurchaseCarWithLoanUsecase {
         result: ShopResultConstants.loanInvalidIDsResultEntry,
       );
     }
+
+    return purchaseSuccessful;
   }
 }
