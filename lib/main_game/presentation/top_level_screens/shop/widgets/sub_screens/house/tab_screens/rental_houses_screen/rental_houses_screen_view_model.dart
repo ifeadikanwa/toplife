@@ -19,4 +19,15 @@ class RentalHousesScreenViewModel extends StateNotifier<List<House>> {
   void regenerateHouses() {
     _fetch();
   }
+
+  void removeRentedHouseFromShop(House house) {
+    if (state.isNotEmpty) {
+      //remove the rented house this way so the ui reacts immediately
+      state = state
+          .where(
+            (houseElement) => houseElement != house,
+          )
+          .toList();
+    }
+  }
 }

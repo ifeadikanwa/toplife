@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/house/tab_screens/rental_houses_screen/rental_houses_screen_view_model.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/house_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_storage_space_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/rent_house_usecase.dart';
@@ -14,10 +15,13 @@ final rentHouseDialogViewModelProvider = StateNotifierProvider.autoDispose<
   final Future<int?> currentPlayerIDFuture = ref.watch(
     currentPlayerProvider.selectAsync((currentPlayer) => currentPlayer?.id),
   );
+  final RentalHousesScreenViewModel rentalHousesScreenViewModel =
+      ref.watch(rentalHousesScreenViewModelProvider.notifier);
 
   return RentHouseDialogViewModel(
     rentHouseUsecase:
         ref.watch(shopAndStorageUsecasesProvider).rentHouseUsecase,
+    rentalHousesScreenViewModel: rentalHousesScreenViewModel,
     currentPlayerIDFuture: currentPlayerIDFuture,
     getCurrentHouseStorageSpaceUsecase: ref
         .watch(shopAndStorageUsecasesProvider)
@@ -27,16 +31,19 @@ final rentHouseDialogViewModelProvider = StateNotifierProvider.autoDispose<
 
 class RentHouseDialogViewModel extends StateNotifier<AsyncValue<int>> {
   final RentHouseUsecase _rentHouseUsecase;
+  final RentalHousesScreenViewModel _rentalHousesScreenViewModel;
   late final int? _currentPlayerID;
   late final int _currentHouseStorage;
 
   //state = lease duration
   RentHouseDialogViewModel({
     required RentHouseUsecase rentHouseUsecase,
+    required RentalHousesScreenViewModel rentalHousesScreenViewModel,
     required Future<int?> currentPlayerIDFuture,
     required GetCurrentHouseStorageSpaceUsecase
         getCurrentHouseStorageSpaceUsecase,
   })  : _rentHouseUsecase = rentHouseUsecase,
+        _rentalHousesScreenViewModel = rentalHousesScreenViewModel,
         super(const AsyncLoading()) {
     _setup(
       currentPlayerIDFuture: currentPlayerIDFuture,
@@ -63,14 +70,18 @@ class RentHouseDialogViewModel extends StateNotifier<AsyncValue<int>> {
   void rentHouse(
     BuildContext context,
     House house,
-  ) {
+  ) async {
     if (_currentPlayerID != null && state.valueOrNull != null) {
-      _rentHouseUsecase.execute(
+      final bool rentSuccessful = await _rentHouseUsecase.execute(
         context: context,
         house: house,
         personID: _currentPlayerID!,
         leaseDuration: state.valueOrNull!,
       );
+
+      if (rentSuccessful) {
+        _rentalHousesScreenViewModel.removeRentedHouseFromShop(house);
+      }
     }
   }
 

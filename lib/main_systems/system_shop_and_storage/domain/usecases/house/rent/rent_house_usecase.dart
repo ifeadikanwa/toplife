@@ -40,7 +40,7 @@ class RentHouseUsecase {
     this._relationshipUsecases,
   );
 
-  Future<void> execute({
+  Future<bool> execute({
     required BuildContext context,
     required int personID,
     required House house,
@@ -49,6 +49,7 @@ class RentHouseUsecase {
     late final String journalEntry;
     late final String secondPersonResult;
     late final String resultTitle;
+    bool purchaseSuccessful = false;
 
     final houseName = getHouseName(
       buildingType: house.buildingType,
@@ -113,7 +114,7 @@ class RentHouseUsecase {
             )
             .toList();
 
-        //no rentals so rent
+        //no rentals so rent (approved)
         if (rentals.isEmpty) {
           //rent the house
           final firstPersonMoveStatus =
@@ -144,9 +145,11 @@ class RentHouseUsecase {
               "${ShopResultConstants.houseRentedResultEntry(leaseDuration: leaseDuration)} \n${SentenceUtil.convertFromFirstPersonToSecondPerson(firstPersonSentence: firstPersonMoveStatus)}";
 
           resultTitle = ShopResultConstants.houseRentCheckoutSuccessTitle;
+
+          purchaseSuccessful = true;
         }
 
-        //lease is expired so rent
+        //lease is expired so rent (approved)
         else if (rentals.first.endOfLeaseDay == currentGame.currentDay) {
           //end expired lease
           await _endLeaseUsecase.execute(
@@ -187,7 +190,10 @@ class RentHouseUsecase {
               "${ShopResultConstants.houseRentedResultEntry(leaseDuration: leaseDuration)} \n${SentenceUtil.convertFromFirstPersonToSecondPerson(firstPersonSentence: firstPersonMoveStatus)} \n${ShopResultConstants.houseReturnedDepositResultEntry}";
 
           resultTitle = ShopResultConstants.houseRentCheckoutSuccessTitle;
+
+          purchaseSuccessful = true;
         }
+
         //currently renting a house, so DONT rent
         else {
           //tell the player that they are currently renting a house
@@ -218,7 +224,7 @@ class RentHouseUsecase {
             },
           );
 
-          return ChoiceDialog.show(
+          ChoiceDialog.show(
             context: context,
             categoryTitle: ShopResultConstants.breakLeaseTitle,
             eventDescription: ShopResultConstants.breakLeaseDescription,
@@ -227,11 +233,14 @@ class RentHouseUsecase {
               nevermindChoice,
             ],
           );
+
+          //return result because we don't want to execute anything outside this block
+          return purchaseSuccessful;
         }
       }
 
       //show result dialog
-      return ResultDialog.show(
+      ResultDialog.show(
         context: context,
         title: resultTitle,
         result: secondPersonResult,
@@ -246,5 +255,7 @@ class RentHouseUsecase {
         result: ShopResultConstants.houseInvalidIDsResultEntry,
       );
     }
+
+    return purchaseSuccessful;
   }
 }

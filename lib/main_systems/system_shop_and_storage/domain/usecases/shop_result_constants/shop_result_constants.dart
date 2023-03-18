@@ -112,7 +112,7 @@ class ShopResultConstants {
     required String newHouseAddress,
     required int newHouseStorage,
   }) =>
-      "I moved out of my $oldHouseName before my lease was over and my landlord did not return my security deposit. ${newRentJournalEntry(
+      "I moved out of my $oldHouseName before my lease was over and my landlord did not return my security deposit. \n${newRentJournalEntry(
         newHouseName: newHouseName,
         newHouseAddress: newHouseAddress,
         newHouseStorage: newHouseStorage,
