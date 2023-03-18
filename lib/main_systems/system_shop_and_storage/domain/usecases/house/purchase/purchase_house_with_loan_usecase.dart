@@ -31,7 +31,7 @@ class PurchaseHouseWithLoanUsecase {
     this._relationshipUsecases,
   );
 
-  Future<void> execute({
+  Future<bool> execute({
     required BuildContext context,
     required House house,
     required int downPaymentPercentage,
@@ -42,6 +42,9 @@ class PurchaseHouseWithLoanUsecase {
     late final String journalEntry;
     late final String secondPersonResult;
     late final String resultTitle;
+
+    //we override and return at the points where loan is approved
+    bool purchaseSuccessful = false;
 
     final Person? person = await _personUsecases.getPersonUsecase.execute(
       personID: personID,
@@ -88,16 +91,20 @@ class PurchaseHouseWithLoanUsecase {
           personID: personID,
         );
 
-        //if no: purchase house and add loan to bills
+        //if no: purchase house and add loan to bills (approved)
         if (!hasExistingMortgageLoan) {
-          //return is used because we don't need to come back here.
-          return _signMortgageLoanContract.execute(
+          //return is used because we don't need to run anything else outside this block.
+          _signMortgageLoanContract.execute(
             context: context,
             person: person,
             currentGame: currentGame,
             house: house,
             baseDownPayment: baseDownPayment,
           );
+
+          purchaseSuccessful = true;
+
+          return purchaseSuccessful;
         }
 
         //if yes: check if they have expected reserve in the bank, in addition to the down payment
@@ -131,16 +138,20 @@ class PurchaseHouseWithLoanUsecase {
               houseName: houseName,
             );
           }
-          //if yes: purchase house and add loans to bills
+          //if yes: purchase house and add loans to bills (approved)
           else {
-            //return is used because we don't need to come back here.
-            return _signMortgageLoanContract.execute(
+            //return is used because we don't need to run anything else outside this block.
+            _signMortgageLoanContract.execute(
               context: context,
               person: person,
               currentGame: currentGame,
               house: house,
               baseDownPayment: baseDownPayment,
             );
+
+            purchaseSuccessful = true;
+
+            return purchaseSuccessful;
           }
         }
       }
@@ -170,5 +181,7 @@ class PurchaseHouseWithLoanUsecase {
         result: ShopResultConstants.loanInvalidIDsResultEntry,
       );
     }
+
+    return purchaseSuccessful;
   }
 }

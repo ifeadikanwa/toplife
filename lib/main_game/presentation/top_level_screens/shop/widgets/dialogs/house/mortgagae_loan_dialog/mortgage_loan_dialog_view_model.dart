@@ -4,6 +4,7 @@ import 'package:toplife/core/common_states/dependencies/recurring_bill/recurring
 import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/house/tab_screens/purchase_houses_screen/purchase_houses_screen_view_model.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 
 final mortgageLoanDialogViewModelProvider =
@@ -20,22 +21,28 @@ final mortgageLoanDialogViewModelProvider =
       : true;
 
   final shopAndStorageUsecases = ref.watch(shopAndStorageUsecasesProvider);
+  final PurchaseHousesScreenViewModel purchaseHousesScreenViewModel =
+      ref.watch(purchaseHousesScreenViewModelProvider.notifier);
 
   return MortgageLoanDialogViewModel(
     shopAndStorageUsecases: shopAndStorageUsecases,
     hasExistingMortgage: hasExistingMortgage,
+    purchaseHousesScreenViewModel: purchaseHousesScreenViewModel,
   );
 });
 
 class MortgageLoanDialogViewModel {
   final ShopAndStorageUsecases _shopAndStorageUsecases;
   final bool _hasExistingMortgage;
+  final PurchaseHousesScreenViewModel _purchaseHousesScreenViewModel;
 
   MortgageLoanDialogViewModel({
     required ShopAndStorageUsecases shopAndStorageUsecases,
     required bool hasExistingMortgage,
+    required PurchaseHousesScreenViewModel purchaseHousesScreenViewModel,
   })  : _shopAndStorageUsecases = shopAndStorageUsecases,
-        _hasExistingMortgage = hasExistingMortgage;
+        _hasExistingMortgage = hasExistingMortgage,
+        _purchaseHousesScreenViewModel = purchaseHousesScreenViewModel;
 
   bool getHasExistingMortgage() {
     return _hasExistingMortgage;
@@ -46,12 +53,17 @@ class MortgageLoanDialogViewModel {
     int personID,
     House house,
     int downPaymentPercentage,
-  ) {
-    _shopAndStorageUsecases.purchaseHouseWithLoanUsecase.execute(
+  ) async {
+    final bool purchaseSuccessful =
+        await _shopAndStorageUsecases.purchaseHouseWithLoanUsecase.execute(
       context: context,
       house: house,
       downPaymentPercentage: downPaymentPercentage,
       personID: personID,
     );
+
+    if (purchaseSuccessful) {
+      _purchaseHousesScreenViewModel.removePurchasedHouseFromShop(house);
+    }
   }
 }

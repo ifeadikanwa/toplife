@@ -24,10 +24,11 @@ class PurchaseHouseFullyPaidUsecase {
     this._houseRepository,
     this._personUsecases,
     this._journalUsecases,
-    this._gameUsecases, this._relationshipUsecases,
+    this._gameUsecases,
+    this._relationshipUsecases,
   );
 
-  Future<void> execute({
+  Future<bool> execute({
     required BuildContext context,
     required House house,
     required int personID,
@@ -43,6 +44,7 @@ class PurchaseHouseFullyPaidUsecase {
     late final String journalEntry;
     late final String secondPersonResult;
     late final String resultTitle;
+    late final bool purchaseSuccessful;
 
     final houseName = getHouseName(
       buildingType: house.buildingType,
@@ -52,7 +54,7 @@ class PurchaseHouseFullyPaidUsecase {
 
     final bool paymentSuccessful =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
-          relationshipUsecases: _relationshipUsecases,
+      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: personID,
       baseAmountToTake: house.basePrice,
       adjustToEconomy: true,
@@ -85,6 +87,8 @@ class PurchaseHouseFullyPaidUsecase {
       secondPersonResult = ShopResultConstants.housePurchasedResultEntry;
 
       resultTitle = ShopResultConstants.housePurchaseCheckoutSuccessTitle;
+
+      purchaseSuccessful = true;
     }
 
     //cant afford to pay
@@ -97,6 +101,8 @@ class PurchaseHouseFullyPaidUsecase {
       secondPersonResult = ShopResultConstants.noFundsResultEntry;
 
       resultTitle = ShopResultConstants.houseCheckoutFailedTitle;
+
+      purchaseSuccessful = false;
     }
 
     //log in journal
@@ -115,5 +121,7 @@ class PurchaseHouseFullyPaidUsecase {
       title: resultTitle,
       result: secondPersonResult,
     );
+
+    return purchaseSuccessful;
   }
 }
