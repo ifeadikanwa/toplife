@@ -28,7 +28,7 @@ class PurchaseJewelryUsecase {
     this._relationshipUsecases,
   );
 
-  Future<void> execute({
+  Future<bool> execute({
     required BuildContext context,
     required Jewelry jewelry,
     required int personID,
@@ -40,6 +40,7 @@ class PurchaseJewelryUsecase {
     late final String journalEntry;
     late final String secondPersonResult;
     late final String resultTitle;
+    late final bool purchaseSuccessful;
 
     final String jewelryName = getJewelryName(
       jewel: jewelry.jewel,
@@ -73,6 +74,8 @@ class PurchaseJewelryUsecase {
       secondPersonResult = ShopResultConstants.jewelryDeliveredResultEntry;
 
       resultTitle = ShopResultConstants.checkoutSuccessTitle;
+
+      purchaseSuccessful = true;
     }
     //cant afford to pay
     else {
@@ -84,6 +87,8 @@ class PurchaseJewelryUsecase {
       secondPersonResult = ShopResultConstants.noFundsResultEntry;
 
       resultTitle = ShopResultConstants.checkoutFailedTitle;
+
+      purchaseSuccessful = false;
     }
 
     //log in journal
@@ -102,5 +107,7 @@ class PurchaseJewelryUsecase {
       title: resultTitle,
       result: secondPersonResult,
     );
+
+    return purchaseSuccessful;
   }
 }

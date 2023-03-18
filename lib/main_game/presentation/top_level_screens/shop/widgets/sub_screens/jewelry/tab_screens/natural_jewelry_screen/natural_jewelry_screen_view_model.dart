@@ -19,4 +19,15 @@ class NaturalJewelryScreenViewModel extends StateNotifier<List<Jewelry>> {
   void regenerateJewelries() {
     _fetch();
   }
+
+  void removePurchasedJewelryFromShop(Jewelry jewelry) {
+    if (state.isNotEmpty) {
+      //remove the purchased jewelry this way so the ui reacts immediately
+      state = state
+          .where(
+            (jewelryElement) => jewelryElement != jewelry,
+          )
+          .toList();
+    }
+  }
 }
