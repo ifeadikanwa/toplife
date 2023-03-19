@@ -22,7 +22,7 @@ class BreakOldLeaseSignNewLease {
     this._journalUsecases,
   );
 
-  Future<void> execute({
+  Future<bool> execute({
     required BuildContext context,
     required int personID,
     required House newHouse,
@@ -81,5 +81,7 @@ class BreakOldLeaseSignNewLease {
       title: resultTitle,
       result: secondPersonResult,
     );
+
+    return true;
   }
 }

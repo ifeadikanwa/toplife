@@ -1,14 +1,12 @@
 //the called dialogs already check for context mount status
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/choice_dialog.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/break_old_rent_lease_dialog_widget.dart/break_old_rent_lease_dialog.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
@@ -201,11 +199,11 @@ class RentHouseUsecase {
           //they have the options to
           //break active lease and rent the house
           //or nevermind
-
-          final EventChoice breakLeaseChoice = EventChoice(
-            choiceDescription: ShopResultConstants.breakLeaseOption,
-            choiceAction: (context) {
-              _breakOldLeaseSignNewLease.execute(
+          BreakOldRentLeaseDialog.show(
+            context: context,
+            house: house,
+            breakLeaseChoiceAction: (context) {
+              return _breakOldLeaseSignNewLease.execute(
                 context: context,
                 personID: personID,
                 newHouse: house,
@@ -215,23 +213,6 @@ class RentHouseUsecase {
                 country: person.currentCountry,
               );
             },
-          );
-
-          final EventChoice nevermindChoice = EventChoice(
-            choiceDescription: ShopResultConstants.nevermindOption,
-            choiceAction: (context) {
-              AutoRouter.of(context).pop();
-            },
-          );
-
-          ChoiceDialog.show(
-            context: context,
-            categoryTitle: ShopResultConstants.breakLeaseTitle,
-            eventDescription: ShopResultConstants.breakLeaseDescription,
-            choices: [
-              breakLeaseChoice,
-              nevermindChoice,
-            ],
           );
 
           //return result because we don't want to execute anything outside this block
