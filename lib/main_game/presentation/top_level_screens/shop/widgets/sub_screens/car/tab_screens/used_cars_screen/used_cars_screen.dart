@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/empty/empty_shop_list_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/helper_widgets/car_list_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/tab_screens/used_cars_screen/used_cars_screen_view_model.dart';
 
@@ -11,6 +12,8 @@ class UsedCarsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final usedCarsList = ref.watch(usedCarsScreenViewModelProvider);
-    return CarListScreen(carsList: usedCarsList);
+   return (usedCarsList.isEmpty)
+        ? const EmptyShopListScreen()
+        : CarListScreen(carsList: usedCarsList);
   }
 }

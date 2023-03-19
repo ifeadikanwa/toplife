@@ -59,7 +59,7 @@ import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/
     as _i20;
 import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/food_shop_screen.dart'
     as _i8;
-import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/drink_screen/drinks_screen.dart'
+import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/drinks_screen/drinks_screen.dart'
     as _i16;
 import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/food/tab_screens/ingredients_screen/ingredients_screen.dart'
     as _i15;
