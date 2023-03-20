@@ -28,8 +28,8 @@ class ActivitiesScreenText {
   static const funWithFamily = "Fun with Family";
   static const funWithFamilyDesc = "Spend some time with the people you love";
 
-  static const emigrate = "Emigrate";
-  static const emigrateDesc = "A new beginning in a new country";
+  static const relocate = "Relocate";
+  static const relocateDesc = "A new beginning in a new place";
 
   static const vacation = "Take a vacation";
   static const vacationDesc = "Escape to paradise for a few days";
@@ -52,8 +52,8 @@ class ActivitiesScreenText {
   static const commitACrime = "Commit a Crime";
   static const commitAcrimeDesc = "It feels so good to be bad";
 
-    static const learnALanguage = "Learn a Language";
-  static const learnALanguageDesc = "Experience the joys of communication";
+  static const learnALanguage = "Learn a Language";
+  static const learnALanguageDesc = "There are many ways to say the same thing";
 
   static const readYourHoroscope = "Read your Horoscope";
   static const readYourHoroscopeDesc = "See what the stars say";
@@ -63,4 +63,10 @@ class ActivitiesScreenText {
 
   static const transportation = "Transportation";
   static const transportationDesc = "Get from one place to the other";
+
+  static const charity = "Charity";
+  static const charityDesc = "Give and it shall be given unto you";
+
+  static const photoAlbums = "Photo Albums";
+  static const photoAlbumsDesc = "Life is an adventure";
 }

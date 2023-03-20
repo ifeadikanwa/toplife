@@ -12,7 +12,7 @@ class ActivitiesSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final activitiesSectionViewModel =
     //     ref.watch(activitiesSectionViewModelProvider);
-        
+
     return Section(
       sectionTitle: TextConstants.activities,
       sectionItems: [
@@ -59,7 +59,7 @@ class ActivitiesSection extends ConsumerWidget {
           onTap: () {},
         ),
         ActionListItem(
-          icon: Icons.sports_kabaddi,
+          icon: Icons.diversity_1_outlined,
           actionTitle: ActivitiesScreenText.funWithFamily,
           actionDescription: ActivitiesScreenText.funWithFamilyDesc,
           onTap: () {},
@@ -71,7 +71,7 @@ class ActivitiesSection extends ConsumerWidget {
           onTap: () {},
         ),
         ActionListItem(
-          icon: Icons.local_hospital,
+          icon: Icons.sports_martial_arts_outlined,
           actionTitle: ActivitiesScreenText.commitACrime,
           actionDescription: ActivitiesScreenText.commitAcrimeDesc,
           onTap: () {},
@@ -108,8 +108,8 @@ class ActivitiesSection extends ConsumerWidget {
         ),
         ActionListItem(
           icon: Icons.travel_explore,
-          actionTitle: ActivitiesScreenText.emigrate,
-          actionDescription: ActivitiesScreenText.emigrateDesc,
+          actionTitle: ActivitiesScreenText.relocate,
+          actionDescription: ActivitiesScreenText.relocateDesc,
           onTap: () {},
         ),
         ActionListItem(
@@ -128,6 +128,18 @@ class ActivitiesSection extends ConsumerWidget {
           icon: Icons.summarize_outlined,
           actionTitle: ActivitiesScreenText.willAndTestament,
           actionDescription: ActivitiesScreenText.willAndTestamentDesc,
+          onTap: () {},
+        ),
+        ActionListItem(
+          icon: Icons.volunteer_activism_outlined,
+          actionTitle: ActivitiesScreenText.charity,
+          actionDescription: ActivitiesScreenText.charityDesc,
+          onTap: () {},
+        ),
+        ActionListItem(
+          icon: Icons.photo_camera_outlined,
+          actionTitle: ActivitiesScreenText.photoAlbums,
+          actionDescription: ActivitiesScreenText.photoAlbumsDesc,
           onTap: () {},
         ),
         ActionListItem(

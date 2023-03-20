@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
-import 'package:toplife/core/common_widgets/empty/empty_relationship_list_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/empty_relationship_list_screen.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item_with_header.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen/parents_screen_view_model.dart';
