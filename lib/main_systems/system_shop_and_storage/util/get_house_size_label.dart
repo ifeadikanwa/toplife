@@ -1,6 +1,6 @@
 import 'package:toplife/core/text_constants.dart';
 
-String getHouseSize({
+String getHouseSizeLabel({
   required int bedroomCount,
   required int bathroomCount,
 }) {

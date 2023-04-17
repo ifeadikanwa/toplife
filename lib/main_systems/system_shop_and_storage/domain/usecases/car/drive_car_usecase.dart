@@ -8,7 +8,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quali
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/car_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_car_max_condition.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_quality.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_quality_enum.dart';
 
 class DriveCarUsecase {
   final CarRepository _carRepository;
@@ -28,7 +28,8 @@ class DriveCarUsecase {
     //reduce condition
     //spin the wheel on generating a problem
 
-    final CarQuality carQuality = getCarQuality(car.quality) ?? CarQuality.low;
+    final CarQuality carQuality =
+        getCarQualityEnum(car.quality) ?? CarQuality.low;
 
     //maxDep + or - (0->4)
     final int newUseCondition = car.useCondition -
