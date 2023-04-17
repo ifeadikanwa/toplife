@@ -8,5 +8,7 @@ class TransportationDefault {
 
   static const TransportMode transportMode = TransportMode.bus;
 
-  static const Settlement settlement = Settlement.Village;
+  static const Settlement travellerSettlement = Settlement.City;
+
+  static const Settlement destinationSettlement = Settlement.City;
 }

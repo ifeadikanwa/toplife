@@ -3,11 +3,14 @@ import 'package:toplife/main_systems/system_person/domain/usecases/person_usecas
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/change_transport_mode_usecase.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/get_car_fuel_consumption_usecase.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/get_commute_fuel_consumption_between_two_settlements_usecase.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_current_transportation_usecase.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/get_land_travel_time_usecase.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_transport_mode_usecase.dart';
-import 'package:toplife/main_systems/system_transportation/domain/usecases/get_transport_settlement.dart';
-import 'package:toplife/main_systems/system_transportation/domain/usecases/get_travel_time_usecase.dart';
-import 'package:toplife/main_systems/system_transportation/domain/usecases/travel_usecase.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/get_travel_time_between_two_settlements_usecase.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/get_traveller_settlement.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/land_travel_usecase.dart';
 
 class TransportationUsescases {
   final PersonUsecases _personUsecases;
@@ -38,22 +41,41 @@ class TransportationUsescases {
   GetTransportModeUsecase get getTransportModeUsecase =>
       GetTransportModeUsecase(_personUsecases);
 
-  GetTransportSettlement get getTransportSettlement =>
-      GetTransportSettlement(_shopAndStorageUsecases);
+  GetTravellerSettlement get getTravellerSettlement =>
+      GetTravellerSettlement(_shopAndStorageUsecases);
 
-  GetTravelTimeUsecase get getTravelTimeUsecase => GetTravelTimeUsecase(
-        getCurrentTransportationUsecase,
-        getTransportSettlement,
-      );
-
-  TravelUsecase get travelUsecase => TravelUsecase(
+  LandTravelUsecase get landTravelUsecase => LandTravelUsecase(
         _personUsecases,
-        getTravelTimeUsecase,
-        getTransportSettlement,
+        getLandTravelTimeUsecase,
+        getTravellerSettlement,
         getTransportModeUsecase,
         getCurrentTransportationUsecase,
         _gameUsecases,
         _shopAndStorageUsecases,
         _relationshipUsecases,
+        getCarFuelConsumptionUsecase,
       );
+
+  GetCarFuelConsumptionUsecase get getCarFuelConsumptionUsecase =>
+      GetCarFuelConsumptionUsecase(
+        getTravellerSettlement,
+        _personUsecases,
+        getCommuteFuelConsumptionBetweenTwoSettlementsUsecase,
+      );
+
+  GetCommuteFuelConsumptionBetweenTwoSettlementsUsecase
+      get getCommuteFuelConsumptionBetweenTwoSettlementsUsecase =>
+          const GetCommuteFuelConsumptionBetweenTwoSettlementsUsecase();
+
+  GetLandTravelTimeUsecase get getLandTravelTimeUsecase =>
+      GetLandTravelTimeUsecase(
+        getCurrentTransportationUsecase,
+        getTravellerSettlement,
+        _personUsecases,
+        getTravelTimeBetweenTwoSettlementsUsecase,
+      );
+
+  GetTravelTimeBetweenTwoSettlementsUsecase
+      get getTravelTimeBetweenTwoSettlementsUsecase =>
+          const GetTravelTimeBetweenTwoSettlementsUsecase();
 }

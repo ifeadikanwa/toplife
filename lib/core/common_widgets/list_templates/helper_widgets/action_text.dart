@@ -5,12 +5,14 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 class ActionText extends StatelessWidget {
   final String actionTitle;
   final String actionDescription;
+  final String? anotherActionDescription;
   final bool disabled;
 
   const ActionText({
     Key? key,
     required this.actionTitle,
     required this.actionDescription,
+    this.anotherActionDescription,
     this.disabled = false,
   }) : super(key: key);
 
@@ -52,6 +54,27 @@ class ActionText extends StatelessWidget {
             ),
           ),
         ),
+        (anotherActionDescription != null)
+            ? Column(
+                children: [
+                  const AddVerticalSpace(height: 6.0),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      anotherActionDescription!,
+                      style: secondaryTextStyle.copyWith(
+                        color: (disabled)
+                            ? textColor.withOpacity(
+                                0.5,
+                              )
+                            : null,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : const SizedBox(),
       ],
     );
   }

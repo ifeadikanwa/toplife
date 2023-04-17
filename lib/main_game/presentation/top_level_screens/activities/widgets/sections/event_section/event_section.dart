@@ -13,29 +13,25 @@ class EventSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eventSectionViewModel =
-        ref.watch(eventSectionViewModelProvider.notifier);
-    final eventPersonPairsProvider = ref.watch(eventSectionViewModelProvider);
+    final eventItemsProvider = ref.watch(eventSectionViewModelProvider);
 
-    return eventPersonPairsProvider.when(
-      data: (eventPersonPairs) {
+    return eventItemsProvider.when(
+      data: (eventItems) {
         return Section(
           sectionTitle: TextConstants.events,
-          sectionItems: (eventPersonPairs.isEmpty)
+          sectionItems: (eventItems.isEmpty)
               ? [
                   const NoEventListItem(),
                 ]
               : [
-                  ...eventPersonPairs
+                  ...eventItems
                       .map(
-                        (eventPersonPair) => EventListItem(
-                          eventMainPerson: eventPersonPair.person,
-                          event: eventPersonPair.event,
-                          eventIsOpen: eventSectionViewModel
-                              .checkIfEventIsOpen(eventPersonPair.event),
-                          eventCanStillBeAttended: eventSectionViewModel
-                              .checkIfEventCanStillBeAttended(
-                                  eventPersonPair.event),
+                        (eventItem) => EventListItem(
+                          eventMainPerson: eventItem.eventPersonPair.person,
+                          event: eventItem.eventPersonPair.event,
+                          eventIsOpen: eventItem.eventIsOpen,
+                          eventCanStillBeAttended:
+                              eventItem.eventCanStillBeAttended,
                         ),
                       )
                       .toList(),

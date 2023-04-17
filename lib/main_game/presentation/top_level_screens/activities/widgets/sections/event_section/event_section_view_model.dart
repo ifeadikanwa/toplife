@@ -5,13 +5,14 @@ import 'package:toplife/core/common_states/dependencies/transportation/transport
 import 'package:toplife/core/common_states/watch/event/current_attendable_events_for_today_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_event/domain/model/info_models/event_item.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart';
-import 'package:toplife/main_systems/system_transportation/domain/usecases/get_travel_time_usecase.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/get_land_travel_time_usecase.dart';
 
 //provider
 final eventSectionViewModelProvider = StateNotifierProvider.autoDispose<
-    EventSectionViewModel, AsyncValue<List<EventPersonPair>>>((ref) {
+    EventSectionViewModel, AsyncValue<List<EventItem>>>((ref) {
   //get recent
   final Future<Game?> currentGameFuture = ref.watch(currentGameProvider.future);
   final Future<List<EventPersonPair>> attendableEventsForTodayFuture =
@@ -20,76 +21,92 @@ final eventSectionViewModelProvider = StateNotifierProvider.autoDispose<
   return EventSectionViewModel(
     currentGameFuture: currentGameFuture,
     attendableEventsForTodayFuture: attendableEventsForTodayFuture,
-    getTravelTimeUsecase:
-        ref.watch(transportationUsecasesProvider).getTravelTimeUsecase,
+    getLandTravelTimeUsecase:
+        ref.watch(transportationUsecasesProvider).getLandTravelTimeUsecase,
   );
 });
 
 //view model
-class EventSectionViewModel
-    extends StateNotifier<AsyncValue<List<EventPersonPair>>> {
-  final GetTravelTimeUsecase _getTravelTimeUsecase;
-
-  late final Game? _currentGame;
-  late final int? _travelTime;
-
+class EventSectionViewModel extends StateNotifier<AsyncValue<List<EventItem>>> {
   EventSectionViewModel({
     required Future<Game?> currentGameFuture,
     required Future<List<EventPersonPair>> attendableEventsForTodayFuture,
-    required GetTravelTimeUsecase getTravelTimeUsecase,
-  })  : _getTravelTimeUsecase = getTravelTimeUsecase,
-        super(const AsyncLoading()) {
+    required GetLandTravelTimeUsecase getLandTravelTimeUsecase,
+  }) : super(const AsyncLoading()) {
     _fetch(
-        currentGameFuture: currentGameFuture,
-        attendableEventsForTodayFuture: attendableEventsForTodayFuture);
+      currentGameFuture: currentGameFuture,
+      attendableEventsForTodayFuture: attendableEventsForTodayFuture,
+      getLandTravelTimeUsecase: getLandTravelTimeUsecase,
+    );
   }
 
   Future<void> _fetch({
     required Future<Game?> currentGameFuture,
     required Future<List<EventPersonPair>> attendableEventsForTodayFuture,
+    required GetLandTravelTimeUsecase getLandTravelTimeUsecase,
   }) async {
-    //set all values
-    _currentGame = await currentGameFuture;
-
-    _travelTime = (_currentGame == null)
-        ? null
-        : await _getTravelTimeUsecase.execute(
-            personID: _currentGame!.currentPlayerID,
-          );
+    //await game
+    //if game = null
+    //set data to empty list
+    //else
+    //create an empty eventItem list
+    //await the list of attendable events
+    //for each
+    //await the travel time
+    //create an event item obj
+    //add the object to the list
 
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() async => attendableEventsForTodayFuture);
-  }
 
-  bool checkIfEventIsOpen(Event event) {
-    if (_currentGame != null &&
-        _travelTime != null &&
-        event.startTime != null &&
-        event.endTime != null) {
-      return EventManager.checkIfEventIsOpen(
-        startTime: event.startTime!,
-        endTime: event.endTime!,
-        travelTime: _travelTime!,
-        currentTime: _currentGame!.currentTimeInMinutes,
-      );
+    final Game? currentGame = await currentGameFuture;
+
+    //if game is null, say there are no events
+    if (currentGame == null) {
+      state = await AsyncValue.guard(() async => []);
     }
+    //else, get all the information the ui needs
+    else {
+      final List<EventPersonPair> attendableEventsForToday =
+          await attendableEventsForTodayFuture;
 
-    return false;
-  }
+      List<EventItem> eventItems = [];
 
-  bool checkIfEventCanStillBeAttended(Event event) {
-    if (_currentGame != null &&
-        _travelTime != null &&
-        event.startTime != null &&
-        event.endTime != null) {
-      return EventManager.checkIfEventCanStillBeAttended(
-        startTime: event.startTime!,
-        endTime: event.endTime!,
-        travelTime: _travelTime!,
-        currentTime: _currentGame!.currentTimeInMinutes,
-      );
+      for (var attendableEvent in attendableEventsForToday) {
+        //check that start and end time are not null so we can promise that it's not inside the loop.
+        if (attendableEvent.event.startTime != null &&
+            attendableEvent.event.endTime != null) {
+
+          //get the travel time for this specific event
+          final int travelTime = await getLandTravelTimeUsecase.execute(
+            travellerPersonID: currentGame.currentPlayerID,
+            destinationCountryString: attendableEvent.person.currentCountry,
+            destinationStateString: attendableEvent.person.currentState,
+            destinationSettlementString: null,
+          );
+
+          //add the event item to list
+          eventItems.add(
+            EventItem(
+              eventPersonPair: attendableEvent,
+              eventIsOpen: EventManager.checkIfEventIsOpen(
+                startTime: attendableEvent.event.startTime!,
+                endTime: attendableEvent.event.endTime!,
+                travelTime: travelTime,
+                currentTime: currentGame.currentTimeInMinutes,
+              ),
+              eventCanStillBeAttended:
+                  EventManager.checkIfEventCanStillBeAttended(
+                startTime: attendableEvent.event.startTime!,
+                endTime: attendableEvent.event.endTime!,
+                travelTime: travelTime,
+                currentTime: currentGame.currentTimeInMinutes,
+              ),
+            ),
+          );
+        }
+      }
+      //update the state with new list
+      state = await AsyncValue.guard(() async => eventItems);
     }
-
-    return false;
   }
 }

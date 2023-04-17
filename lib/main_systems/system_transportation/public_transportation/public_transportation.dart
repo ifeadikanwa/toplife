@@ -52,7 +52,7 @@ class PublicTransportation {
     personId: DatabaseConstants.dummyId,
     name: TransportMode.train.presentationName,
     type: CarType.train.name,
-    percentageOfTravelTime: 80,
+    percentageOfTravelTime: 70,
     quality: CarQuality.high.name,
     basePrice: 10,
     dayOfPurchase: 1,

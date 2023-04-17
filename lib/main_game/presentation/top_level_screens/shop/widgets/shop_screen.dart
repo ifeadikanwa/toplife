@@ -169,15 +169,18 @@ class ShopScreen extends ConsumerWidget {
                 //     ));
 
                 // const house = House(
-                //   isCurrentHome: false,
+                //   id: 0,
+                //   personId: 1,
+                //   endOfLeaseDay: 5,
+                //   isCurrentHome: true,
                 //   bedrooms: 3,
                 //   bathrooms: 2,
                 //   storage: 8,
-                //   address: "1234 Daisy Road",
+                //   address: "1234 TreeTop Road",
                 //   isForRent: true,
-                //   buildingType: "Home14",
-                //   settlement: "City",
-                //   country: "country",
+                //   buildingType: "Home78",
+                //   settlement: "Village",
+                //   country: "Canada",
                 //   style: "style",
                 //   lastMaintainedDay: 24,
                 //   basePrice: 2000,
@@ -187,7 +190,11 @@ class ShopScreen extends ConsumerWidget {
                 //   fullyPaidFor: false,
                 // );
 
-                // HouseDaoImpl().createHouse(house);
+                // await HouseDaoImpl(db).deleteHouse(2);
+                // await HouseDaoImpl(db).createHouse(house);
+
+                // await CarDaoImpl(db)
+                //     .createCar(trucks.first.copyWith(personId: 1));
 
                 // final result = await ref
                 //     .read(shopAndStorageUsecaseProvider)
@@ -208,9 +215,9 @@ class ShopScreen extends ConsumerWidget {
                 // print(await ref.watch(currentGameProvider).value);
                 final person = Person(
                   id: DatabaseConstants.dummyId,
-                  gameId: 0,
-                  firstName: "Jason",
-                  lastName: "Smith",
+                  gameId: 1,
+                  firstName: "Hansolo",
+                  lastName: "Goeri",
                   dayOfBirth: 21,
                   gender: Gender.Male.name,
                   subjectPronoun: Gender.Male.subjectPronoun,
@@ -219,8 +226,8 @@ class ShopScreen extends ConsumerWidget {
                   sexuality: Sexuality.Straight.name,
                   birthState: "Ontario",
                   birthCountry: "Canada",
-                  currentState: "Ontario",
-                  currentCountry: "Canada",
+                  currentState: "Michigan",
+                  currentCountry: "United States",
                   money: 12000,
                   zodiacSign: ZodiacSign.Libra.name,
                   transportMode: "bus",
@@ -242,10 +249,10 @@ class ShopScreen extends ConsumerWidget {
                 // (BabyTraitsDaoImpl(db).watchBabyTraits(1).listen((event) {
                 //   print(event);
 
-                // final p = await PersonDaoImpl(db).getPerson(1);
+                // final p = await PersonDaoImpl(db).getPerson(5);
                 // if (p != null) {
                 //   await PersonDaoImpl(db)
-                //       .updatePerson(p.copyWith(firstName: "Nick"));
+                //       .updatePerson(p.copyWith(currentState: "Toronto"));
                 // }
 
                 // final g = await GameDaoImpl(db).getGame(1);
@@ -253,20 +260,41 @@ class ShopScreen extends ConsumerWidget {
                 //   await GameDaoImpl(db).updateGame(g.copyWith(currentDay: 1));
                 // }
 
-                // EventDaoImpl(db).updateEvent(
+                // EventDaoImpl(db).createEvent(
                 //   const Event(
                 //     id: 0,
                 //     gameId: 1,
-                //     eventType: "funeral",
+                //     eventType: "birthdayParty",
                 //     eventDay: 1,
-                //     mainPersonId: 3,
-                //     relationshipToMainPlayer: "parent",
+                //     mainPersonId: 8,
+                //     relationshipToMainPlayer: "sibling",
                 //     journalEntryOnly: false,
                 //     performed: false,
                 //     startTime: 600,
                 //     endTime: 720,
                 //   ),
                 // );
+
+                // print(
+                //   await ref
+                //       .watch(transportationUsecasesProvider)
+                //       .landTravelUsecase
+                //       .executeTimedEventTravel(
+                //           travellerPersonID: 1,
+                //           eventStartTime: 930,
+                //           eventEndTime: 990,
+                //           destinationCountryString: "United States",
+                //           destinationStateString: "Michigan",
+                //           destinationSettlementString: "City"),
+                // );
+
+                // ref
+                //     .watch(transportationUsecasesProvider)
+                //     .changeTransportModeUsecase
+                //     .execute(
+                //         transportMode: TransportMode.private,
+                //         car: trucks.first.copyWith(id: 1, personId: 1),
+                //         personID: 1);
               },
               child: const Text("Run"),
             ),

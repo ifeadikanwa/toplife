@@ -53,8 +53,16 @@ class EventListItemViewModel {
         event: event,
       );
 
-  String getEventDesc({required Event event}) =>
+  String getEventTime({
+    required Event event,
+  }) =>
       getAttendableEventTime(event: event);
+
+  String getEventLocation({
+    required Person eventMainPerson,
+  }) {
+    return "Location: ${eventMainPerson.currentState}, ${eventMainPerson.currentCountry}";
+  }
 
   bool checkIfEventButtonIsUnavailable({
     required bool eventIsOpen,

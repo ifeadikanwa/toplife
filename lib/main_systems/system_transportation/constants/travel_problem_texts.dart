@@ -2,6 +2,7 @@ import 'package:toplife/main_systems/system_transportation/constants/transport_m
 
 class TravelProblemTexts {
   static const noProblem = "";
+  static const differentCountries = "The location you are trying to get to is in another country.";
   static const unknownReason = "Looks like you can't make the trip";
   static const noFuel = "There is currently not enough fuel in your car";
   static const carProblem =

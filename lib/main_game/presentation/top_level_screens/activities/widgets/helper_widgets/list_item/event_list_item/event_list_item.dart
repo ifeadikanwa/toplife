@@ -37,8 +37,12 @@ class EventListItem extends ConsumerWidget {
                   eventMainPerson: eventMainPerson,
                   event: event,
                 ),
-                actionDescription: eventListItemViewModel.getEventDesc(
+                actionDescription: eventListItemViewModel.getEventTime(
                   event: event,
+                ),
+                anotherActionDescription:
+                    eventListItemViewModel.getEventLocation(
+                  eventMainPerson: eventMainPerson,
                 ),
                 disabled: (eventCanStillBeAttended) ? false : true,
               ),

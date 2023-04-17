@@ -17,7 +17,7 @@ void main() {
     );
 
     test(
-      "bus is the default transport mode" ,
+      "bus is the default transport mode",
       () {
         expect(
           TransportationDefault.transportMode,
@@ -27,11 +27,21 @@ void main() {
     );
 
     test(
-      "village is the default settlement",
+      "city is the default traveller settlement",
       () {
         expect(
-          TransportationDefault.settlement,
-          Settlement.Village,
+          TransportationDefault.travellerSettlement,
+          Settlement.City,
+        );
+      },
+    );
+
+     test(
+      "city is the default destination settlement",
+      () {
+        expect(
+          TransportationDefault.destinationSettlement,
+          Settlement.City,
         );
       },
     );
