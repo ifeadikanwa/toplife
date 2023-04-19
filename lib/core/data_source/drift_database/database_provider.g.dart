@@ -10083,6 +10083,11 @@ class $HouseTableTable extends HouseTable
   late final GeneratedColumn<String> settlement = GeneratedColumn<String>(
       'settlement', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _stateMeta = const VerificationMeta('state');
+  @override
+  late final GeneratedColumn<String> state = GeneratedColumn<String>(
+      'state', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _countryMeta =
       const VerificationMeta('country');
   @override
@@ -10154,6 +10159,7 @@ class $HouseTableTable extends HouseTable
         isForRent,
         buildingType,
         settlement,
+        state,
         country,
         style,
         lastMaintainedDay,
@@ -10237,6 +10243,12 @@ class $HouseTableTable extends HouseTable
               data['settlement']!, _settlementMeta));
     } else if (isInserting) {
       context.missing(_settlementMeta);
+    }
+    if (data.containsKey('state')) {
+      context.handle(
+          _stateMeta, state.isAcceptableOrUnknown(data['state']!, _stateMeta));
+    } else if (isInserting) {
+      context.missing(_stateMeta);
     }
     if (data.containsKey('country')) {
       context.handle(_countryMeta,
@@ -10331,6 +10343,8 @@ class $HouseTableTable extends HouseTable
           .read(DriftSqlType.string, data['${effectivePrefix}building_type'])!,
       settlement: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}settlement'])!,
+      state: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}state'])!,
       country: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}country'])!,
       style: attachedDatabase.typeMapping
@@ -10369,6 +10383,7 @@ class House extends DataClass implements Insertable<House> {
   final bool isForRent;
   final String buildingType;
   final String settlement;
+  final String state;
   final String country;
   final String style;
   final int lastMaintainedDay;
@@ -10389,6 +10404,7 @@ class House extends DataClass implements Insertable<House> {
       required this.isForRent,
       required this.buildingType,
       required this.settlement,
+      required this.state,
       required this.country,
       required this.style,
       required this.lastMaintainedDay,
@@ -10411,6 +10427,7 @@ class House extends DataClass implements Insertable<House> {
     map['is_for_rent'] = Variable<bool>(isForRent);
     map['building_type'] = Variable<String>(buildingType);
     map['settlement'] = Variable<String>(settlement);
+    map['state'] = Variable<String>(state);
     map['country'] = Variable<String>(country);
     map['style'] = Variable<String>(style);
     map['last_maintained_day'] = Variable<int>(lastMaintainedDay);
@@ -10435,6 +10452,7 @@ class House extends DataClass implements Insertable<House> {
       isForRent: Value(isForRent),
       buildingType: Value(buildingType),
       settlement: Value(settlement),
+      state: Value(state),
       country: Value(country),
       style: Value(style),
       lastMaintainedDay: Value(lastMaintainedDay),
@@ -10461,6 +10479,7 @@ class House extends DataClass implements Insertable<House> {
       isForRent: serializer.fromJson<bool>(json['isForRent']),
       buildingType: serializer.fromJson<String>(json['buildingType']),
       settlement: serializer.fromJson<String>(json['settlement']),
+      state: serializer.fromJson<String>(json['state']),
       country: serializer.fromJson<String>(json['country']),
       style: serializer.fromJson<String>(json['style']),
       lastMaintainedDay: serializer.fromJson<int>(json['lastMaintainedDay']),
@@ -10486,6 +10505,7 @@ class House extends DataClass implements Insertable<House> {
       'isForRent': serializer.toJson<bool>(isForRent),
       'buildingType': serializer.toJson<String>(buildingType),
       'settlement': serializer.toJson<String>(settlement),
+      'state': serializer.toJson<String>(state),
       'country': serializer.toJson<String>(country),
       'style': serializer.toJson<String>(style),
       'lastMaintainedDay': serializer.toJson<int>(lastMaintainedDay),
@@ -10509,6 +10529,7 @@ class House extends DataClass implements Insertable<House> {
           bool? isForRent,
           String? buildingType,
           String? settlement,
+          String? state,
           String? country,
           String? style,
           int? lastMaintainedDay,
@@ -10529,6 +10550,7 @@ class House extends DataClass implements Insertable<House> {
         isForRent: isForRent ?? this.isForRent,
         buildingType: buildingType ?? this.buildingType,
         settlement: settlement ?? this.settlement,
+        state: state ?? this.state,
         country: country ?? this.country,
         style: style ?? this.style,
         lastMaintainedDay: lastMaintainedDay ?? this.lastMaintainedDay,
@@ -10552,6 +10574,7 @@ class House extends DataClass implements Insertable<House> {
           ..write('isForRent: $isForRent, ')
           ..write('buildingType: $buildingType, ')
           ..write('settlement: $settlement, ')
+          ..write('state: $state, ')
           ..write('country: $country, ')
           ..write('style: $style, ')
           ..write('lastMaintainedDay: $lastMaintainedDay, ')
@@ -10577,6 +10600,7 @@ class House extends DataClass implements Insertable<House> {
       isForRent,
       buildingType,
       settlement,
+      state,
       country,
       style,
       lastMaintainedDay,
@@ -10600,6 +10624,7 @@ class House extends DataClass implements Insertable<House> {
           other.isForRent == this.isForRent &&
           other.buildingType == this.buildingType &&
           other.settlement == this.settlement &&
+          other.state == this.state &&
           other.country == this.country &&
           other.style == this.style &&
           other.lastMaintainedDay == this.lastMaintainedDay &&
@@ -10622,6 +10647,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
   final Value<bool> isForRent;
   final Value<String> buildingType;
   final Value<String> settlement;
+  final Value<String> state;
   final Value<String> country;
   final Value<String> style;
   final Value<int> lastMaintainedDay;
@@ -10642,6 +10668,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
     this.isForRent = const Value.absent(),
     this.buildingType = const Value.absent(),
     this.settlement = const Value.absent(),
+    this.state = const Value.absent(),
     this.country = const Value.absent(),
     this.style = const Value.absent(),
     this.lastMaintainedDay = const Value.absent(),
@@ -10663,6 +10690,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
     required bool isForRent,
     required String buildingType,
     required String settlement,
+    required String state,
     required String country,
     required String style,
     required int lastMaintainedDay,
@@ -10681,6 +10709,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
         isForRent = Value(isForRent),
         buildingType = Value(buildingType),
         settlement = Value(settlement),
+        state = Value(state),
         country = Value(country),
         style = Value(style),
         lastMaintainedDay = Value(lastMaintainedDay),
@@ -10701,6 +10730,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
     Expression<bool>? isForRent,
     Expression<String>? buildingType,
     Expression<String>? settlement,
+    Expression<String>? state,
     Expression<String>? country,
     Expression<String>? style,
     Expression<int>? lastMaintainedDay,
@@ -10722,6 +10752,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
       if (isForRent != null) 'is_for_rent': isForRent,
       if (buildingType != null) 'building_type': buildingType,
       if (settlement != null) 'settlement': settlement,
+      if (state != null) 'state': state,
       if (country != null) 'country': country,
       if (style != null) 'style': style,
       if (lastMaintainedDay != null) 'last_maintained_day': lastMaintainedDay,
@@ -10745,6 +10776,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
       Value<bool>? isForRent,
       Value<String>? buildingType,
       Value<String>? settlement,
+      Value<String>? state,
       Value<String>? country,
       Value<String>? style,
       Value<int>? lastMaintainedDay,
@@ -10765,6 +10797,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
       isForRent: isForRent ?? this.isForRent,
       buildingType: buildingType ?? this.buildingType,
       settlement: settlement ?? this.settlement,
+      state: state ?? this.state,
       country: country ?? this.country,
       style: style ?? this.style,
       lastMaintainedDay: lastMaintainedDay ?? this.lastMaintainedDay,
@@ -10810,6 +10843,9 @@ class HouseTableCompanion extends UpdateCompanion<House> {
     if (settlement.present) {
       map['settlement'] = Variable<String>(settlement.value);
     }
+    if (state.present) {
+      map['state'] = Variable<String>(state.value);
+    }
     if (country.present) {
       map['country'] = Variable<String>(country.value);
     }
@@ -10853,6 +10889,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
           ..write('isForRent: $isForRent, ')
           ..write('buildingType: $buildingType, ')
           ..write('settlement: $settlement, ')
+          ..write('state: $state, ')
           ..write('country: $country, ')
           ..write('style: $style, ')
           ..write('lastMaintainedDay: $lastMaintainedDay, ')

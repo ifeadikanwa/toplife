@@ -128,6 +128,7 @@ class ShopScreen extends ConsumerWidget {
                       buildingType: "townhouse",
                       settlement: "City",
                       country: "country",
+                      state: "state",
                       style: "Rustic",
                       lastMaintainedDay: 24,
                       basePrice: 2000,
@@ -295,7 +296,7 @@ class ShopScreen extends ConsumerWidget {
                 //       GameDegrees.allDegrees.take(4).toList(),
                 //       10,
                 //     );
-             
+
                 // for (var element in result) {
                 //   print(element);
                 //   print("\n");

@@ -11,10 +11,15 @@ class PurchaseHousesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final purchaseHousesList = ref.watch(purchaseHousesScreenViewModelProvider);
+    final purchaseHousesListProvider =
+        ref.watch(purchaseHousesScreenViewModelProvider);
 
-    return (purchaseHousesList.isEmpty)
-        ? const EmptyShopListScreen()
-        : HouseListScreen(houseList: purchaseHousesList);
+    return purchaseHousesListProvider.when(
+      data: (purchaseHousesList) => (purchaseHousesList.isEmpty)
+          ? const EmptyShopListScreen()
+          : HouseListScreen(houseList: purchaseHousesList),
+      error: (error, stackTrace) => Container(),
+      loading: () => Container(),
+    );
   }
 }

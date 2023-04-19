@@ -280,6 +280,7 @@ void main() {
             id: 0,
             personId: 8,
             country: "",
+            state: "",
             endOfLeaseDay: 0,
             fullyPaidFor: true,
             isCurrentHome: true,

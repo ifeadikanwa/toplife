@@ -103,6 +103,13 @@ class BuyHouseDialog extends ConsumerWidget {
           height: ShopDialogConstants.sectionVerticalSpacing,
         ),
         DescriptorRow(
+          descriptor: TextConstants.state,
+          value: house.state,
+        ),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        DescriptorRow(
           descriptor: TextConstants.settlement,
           value: house.settlement,
         ),

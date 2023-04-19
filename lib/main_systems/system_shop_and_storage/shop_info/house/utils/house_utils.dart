@@ -222,6 +222,7 @@ class HouseUtils {
       purchasePrice: 0,
       isCurrentHome: false,
       country: "",
+      state: "",
       endOfLeaseDay: 0,
       fullyPaidFor: false,
     );

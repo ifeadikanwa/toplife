@@ -17,8 +17,12 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/foo
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_fridge_food_count_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/purchase_food_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/use_food_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/add_location_to_building_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_purchase_houses_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_rental_houses_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_storage_space_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_into_new_house_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_storage_to_new_house_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_fully_paid_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_with_loan_usecase.dart';
@@ -213,7 +217,7 @@ class ShopAndStorageUsecases {
         _shopAndStorageRepositories.houseRepositoryImpl,
         _recurringBillsUsecases,
         unsetAllCurrentHomesUsecase,
-        moveStorageToNewHouseUsecase,
+        moveIntoNewHouseUsecase,
         _personUsecases,
         _relationshipUsecases,
       );
@@ -263,5 +267,20 @@ class ShopAndStorageUsecases {
         _journalUsecases,
         _recurringBillsUsecases,
         _relationshipUsecases,
+      );
+
+  AddLocationToBuildingsUsecase get addLocationToBuildingsUsecase =>
+      AddLocationToBuildingsUsecase(_personUsecases);
+
+  GetPurchaseHousesUsecase get getPurchaseHousesUsecase =>
+      GetPurchaseHousesUsecase(addLocationToBuildingsUsecase);
+
+  GetRentalHousesUsecase get getRentalHousesUsecase =>
+      GetRentalHousesUsecase(addLocationToBuildingsUsecase);
+
+  MoveIntoNewHouseUsecase get moveIntoNewHouseUsecase =>
+      MoveIntoNewHouseUsecase(
+        _personUsecases,
+        moveStorageToNewHouseUsecase,
       );
 }

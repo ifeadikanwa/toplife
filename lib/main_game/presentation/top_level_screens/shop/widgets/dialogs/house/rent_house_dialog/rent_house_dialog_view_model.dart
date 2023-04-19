@@ -56,6 +56,8 @@ class RentHouseDialogViewModel extends StateNotifier<AsyncValue<int>> {
     required GetCurrentHouseStorageSpaceUsecase
         getCurrentHouseStorageSpaceUsecase,
   }) async {
+    state = const AsyncLoading();
+
     _currentPlayerID = await currentPlayerIDFuture;
     _currentHouseStorage = (_currentPlayerID != null)
         ? await getCurrentHouseStorageSpaceUsecase.execute(

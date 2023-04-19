@@ -101,6 +101,7 @@ class TextConstants {
   static const bathrooms = "Bathrooms";
   static const storage = "Storage";
   static const settlement = "Settlement";
+  static const state = "State";
   static const speed = "Speed";
   static const style = "Style";
   static const leaseTerm = "Lease Term";

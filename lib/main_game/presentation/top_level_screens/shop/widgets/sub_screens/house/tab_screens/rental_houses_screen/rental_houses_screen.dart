@@ -11,10 +11,15 @@ class RentalHousesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final rentalHousesList = ref.watch(rentalHousesScreenViewModelProvider);
-    
-    return (rentalHousesList.isEmpty)
-        ? const EmptyShopListScreen()
-        : HouseListScreen(houseList: rentalHousesList);
+    final rentalHousesListProvider =
+        ref.watch(rentalHousesScreenViewModelProvider);
+
+    return rentalHousesListProvider.when(
+      data: (rentalHousesList) => (rentalHousesList.isEmpty)
+          ? const EmptyShopListScreen()
+          : HouseListScreen(houseList: rentalHousesList),
+      error: (error, stackTrace) => Container(),
+      loading: () => Container(),
+    );
   }
 }

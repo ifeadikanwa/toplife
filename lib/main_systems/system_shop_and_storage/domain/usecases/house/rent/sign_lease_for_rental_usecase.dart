@@ -4,14 +4,14 @@ import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/use
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/house_repository.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_storage_to_new_house_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_into_new_house_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/unset_all_current_homes_usecase.dart';
 
 class SignLeaseForRentalUsecase {
   final HouseRepository _houseRepository;
   final RecurringBillsUsecases _recurringBillsUsecases;
   final UnsetAllCurrentHomesUsecase _unsetAllCurrentHomesUsecase;
-  final MoveStorageToNewHouseUsecase _moveStorageToNewHouseUsecase;
+  final MoveIntoNewHouseUsecase _moveIntoNewHouseUsecase;
   final PersonUsecases _personUsecases;
   final RelationshipUsecases _relationshipUsecases;
 
@@ -19,7 +19,7 @@ class SignLeaseForRentalUsecase {
     this._houseRepository,
     this._recurringBillsUsecases,
     this._unsetAllCurrentHomesUsecase,
-    this._moveStorageToNewHouseUsecase,
+    this._moveIntoNewHouseUsecase,
     this._personUsecases,
     this._relationshipUsecases,
   );
@@ -76,9 +76,9 @@ class SignLeaseForRentalUsecase {
     );
 
     //move the user to house(returns a string describing the move(if items were left behind, if all your items were successfully moved.))
-    final String moveStatus = await _moveStorageToNewHouseUsecase.execute(
+    final String moveStatus = await _moveIntoNewHouseUsecase.execute(
       personID: personID,
-      newHouseStorageSize: house.storage,
+      newHouse: house,
     );
 
     //return string of the move status

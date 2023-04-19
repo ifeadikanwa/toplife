@@ -21,6 +21,7 @@ class HouseTable extends Table {
   BoolColumn get isForRent => boolean()();
   TextColumn get buildingType => text()();
   TextColumn get settlement => text()();
+  TextColumn get state => text()();
   TextColumn get country => text()();
   TextColumn get style => text()();
   IntColumn get lastMaintainedDay => integer()();
