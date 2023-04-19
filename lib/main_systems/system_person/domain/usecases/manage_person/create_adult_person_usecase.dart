@@ -75,9 +75,11 @@ class CreateAdultPersonUsecase {
       openToBeingPregnant: StanceConstants.getValidStanceValue(),
       openToCheating: StanceConstants.getValidStanceValue(),
       openToHavingChildren: StanceConstants.getValidStanceValue(),
-      openToHavingChildrenOutsideAMarriage: StanceConstants.getValidStanceValue(),
+      openToHavingChildrenOutsideAMarriage:
+          StanceConstants.getValidStanceValue(),
       openToHavingMultipleCoparents: StanceConstants.getValidStanceValue(),
       openToWorkingAJob: StanceConstants.getValidStanceValue(),
+      openToGayPeople: StanceConstants.getValidStanceValue(),
     );
 
     await _stanceRepositoryImpl.createStance(createdPersonStance);

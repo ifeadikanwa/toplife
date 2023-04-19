@@ -1,4 +1,5 @@
 import 'package:toplife/main_systems/system_job/data/repository/job_repositories.dart';
+import 'package:toplife/main_systems/system_job/domain/usecases/add_location_to_jobs_list._usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/check_if_qualified_for_job_usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/employ_person_for_fulltime_job_usecase.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/end_all_active_fulltime_employment_usecase.dart';
@@ -44,7 +45,7 @@ class JobUsecases {
       );
 
   GetAValidListOfFullTimeJobsUsecase get getAValidListOfFullTimeJobsUsecase =>
-      GetAValidListOfFullTimeJobsUsecase();
+      GetAValidListOfFullTimeJobsUsecase(addLocationToJobsListUsecase);
 
   WatchActiveEmploymentsUsecase get watchActiveEmploymentsUsecase =>
       WatchActiveEmploymentsUsecase(
@@ -61,4 +62,7 @@ class JobUsecases {
           GetEmploymentPairsFromEmploymentsUsecase(
             jobRepository: _jobRepositories.jobRepositoryImpl,
           );
+
+  AddLocationToJobsListUsecase get addLocationToJobsListUsecase =>
+      AddLocationToJobsListUsecase(_personUsecases);
 }

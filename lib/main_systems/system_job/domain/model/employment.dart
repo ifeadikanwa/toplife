@@ -21,6 +21,9 @@ class EmploymentTable extends Table {
         onDelete: KeyAction.cascade,
       )();
   TextColumn get companyName => text()();
+  TextColumn get companyCountry => text()();
+  TextColumn get companyState => text()();
+  TextColumn get companySettlement => text()();
   IntColumn get startTime => integer()();
   //2-6 for parttime, 8 for fulltime, 10 - 12 for fulltime medical,
   IntColumn get shiftLength => integer()();

@@ -6,6 +6,7 @@ import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/main_systems/system_job/constants/full_time_job_info.dart';
 import 'package:toplife/main_systems/system_job/data/repository/job_repositories.dart';
 import 'package:toplife/main_systems/system_job/domain/model/info_models/job_interview_response.dart';
+import 'package:toplife/main_systems/system_job/domain/model/info_models/job_location_pair.dart';
 import 'package:toplife/main_systems/system_job/domain/usecases/end_all_active_fulltime_employment_usecase.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
 import 'package:toplife/main_systems/system_job/util/get_random_company_name.dart';
@@ -28,9 +29,12 @@ class EmployPersonForFullTimeJobUsecase {
     required int mainPersonID,
     required int gameEconomy,
     required int currentDay,
-    required Job job,
+    required JobLocationPair jobLocationPair,
     required JobInterviewResponse jobInterviewResponse,
   }) async {
+    //get job from the pair
+    final Job job = jobLocationPair.job;
+
     //end any active fulltime employment
     await _endAllActiveFullTimeEmploymentUsecase.execute(
       mainPersonID: mainPersonID,
@@ -91,6 +95,9 @@ class EmployPersonForFullTimeJobUsecase {
         jobId: jobID,
         mainPersonId: mainPersonID,
         companyName: getRandomCompanyName(job.jobType),
+        companyCountry: jobLocationPair.country,
+        companyState: jobLocationPair.state,
+        companySettlement: jobLocationPair.settlement,
         startTime: isDayShiftEmployment
             ? FullTimeJobInfo.medicalFullTimeJobDayShiftStartTimeInMinutes
             : FullTimeJobInfo.medicalFullTimeJobNightShiftStartTimeInMinutes,
@@ -118,6 +125,9 @@ class EmployPersonForFullTimeJobUsecase {
         jobId: jobID,
         mainPersonId: mainPersonID,
         companyName: getRandomCompanyName(job.jobType),
+        companyCountry: jobLocationPair.country,
+        companyState: jobLocationPair.state,
+        companySettlement: jobLocationPair.settlement,
         startTime: FullTimeJobInfo.blueCollarFullTimeJobStartTimeInMinutes,
         shiftLength: FullTimeJobInfo.defaultFullTimeJobShiftLength,
         dayOff: FullTimeJobInfo.noDayOff,
@@ -143,6 +153,9 @@ class EmployPersonForFullTimeJobUsecase {
         jobId: jobID,
         mainPersonId: mainPersonID,
         companyName: getRandomCompanyName(job.jobType),
+        companyCountry: jobLocationPair.country,
+        companyState: jobLocationPair.state,
+        companySettlement: jobLocationPair.settlement,
         startTime: FullTimeJobInfo.sexWorkFullTimeJobStartTimeInMinutes,
         shiftLength: FullTimeJobInfo.defaultFullTimeJobShiftLength,
         dayOff: FullTimeJobInfo.noDayOff,
@@ -164,10 +177,13 @@ class EmployPersonForFullTimeJobUsecase {
     //it's a standard 9-5
     else {
       employment = Employment(
-        id:  DatabaseConstants.dummyId,
+        id: DatabaseConstants.dummyId,
         jobId: jobID,
         mainPersonId: mainPersonID,
         companyName: getRandomCompanyName(job.jobType),
+        companyCountry: jobLocationPair.country,
+        companyState: jobLocationPair.state,
+        companySettlement: jobLocationPair.settlement,
         startTime: FullTimeJobInfo.defaultFullTimeJobStartTimeInMinutes,
         shiftLength: FullTimeJobInfo.defaultFullTimeJobShiftLength,
         dayOff: FullTimeJobInfo.noDayOff,

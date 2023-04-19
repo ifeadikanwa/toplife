@@ -288,13 +288,18 @@ class ShopScreen extends ConsumerWidget {
                 //           destinationSettlementString: "City"),
                 // );
 
-                // ref
-                //     .watch(transportationUsecasesProvider)
-                //     .changeTransportModeUsecase
+                // final result = await ref
+                //     .watch(jobUsecasesProvider)
+                //     .getAValidListOfFullTimeJobsUsecase
                 //     .execute(
-                //         transportMode: TransportMode.private,
-                //         car: trucks.first.copyWith(id: 1, personId: 1),
-                //         personID: 1);
+                //       GameDegrees.allDegrees.take(4).toList(),
+                //       10,
+                //     );
+             
+                // for (var element in result) {
+                //   print(element);
+                //   print("\n");
+                // }
               },
               child: const Text("Run"),
             ),

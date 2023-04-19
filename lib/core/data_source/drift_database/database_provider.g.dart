@@ -2182,6 +2182,18 @@ class $StanceTableTable extends StanceTable
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
+  static const VerificationMeta _openToGayPeopleMeta =
+      const VerificationMeta('openToGayPeople');
+  @override
+  late final GeneratedColumn<bool> openToGayPeople =
+      GeneratedColumn<bool>('open_to_gay_people', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("open_to_gay_people" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -2201,7 +2213,8 @@ class $StanceTableTable extends StanceTable
         openToHavingChildren,
         openToHavingChildrenOutsideAMarriage,
         openToHavingMultipleCoparents,
-        openToCheating
+        openToCheating,
+        openToGayPeople
       ];
   @override
   String get aliasedName => _alias ?? 'stance';
@@ -2355,6 +2368,14 @@ class $StanceTableTable extends StanceTable
     } else if (isInserting) {
       context.missing(_openToCheatingMeta);
     }
+    if (data.containsKey('open_to_gay_people')) {
+      context.handle(
+          _openToGayPeopleMeta,
+          openToGayPeople.isAcceptableOrUnknown(
+              data['open_to_gay_people']!, _openToGayPeopleMeta));
+    } else if (isInserting) {
+      context.missing(_openToGayPeopleMeta);
+    }
     return context;
   }
 
@@ -2407,6 +2428,8 @@ class $StanceTableTable extends StanceTable
           data['${effectivePrefix}open_to_having_multiple_coparents'])!,
       openToCheating: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}open_to_cheating'])!,
+      openToGayPeople: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}open_to_gay_people'])!,
     );
   }
 
@@ -2435,6 +2458,7 @@ class Stance extends DataClass implements Insertable<Stance> {
   final bool openToHavingChildrenOutsideAMarriage;
   final bool openToHavingMultipleCoparents;
   final bool openToCheating;
+  final bool openToGayPeople;
   const Stance(
       {required this.id,
       required this.personId,
@@ -2453,7 +2477,8 @@ class Stance extends DataClass implements Insertable<Stance> {
       required this.openToHavingChildren,
       required this.openToHavingChildrenOutsideAMarriage,
       required this.openToHavingMultipleCoparents,
-      required this.openToCheating});
+      required this.openToCheating,
+      required this.openToGayPeople});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2480,6 +2505,7 @@ class Stance extends DataClass implements Insertable<Stance> {
     map['open_to_having_multiple_coparents'] =
         Variable<bool>(openToHavingMultipleCoparents);
     map['open_to_cheating'] = Variable<bool>(openToCheating);
+    map['open_to_gay_people'] = Variable<bool>(openToGayPeople);
     return map;
   }
 
@@ -2505,6 +2531,7 @@ class Stance extends DataClass implements Insertable<Stance> {
           Value(openToHavingChildrenOutsideAMarriage),
       openToHavingMultipleCoparents: Value(openToHavingMultipleCoparents),
       openToCheating: Value(openToCheating),
+      openToGayPeople: Value(openToGayPeople),
     );
   }
 
@@ -2540,6 +2567,7 @@ class Stance extends DataClass implements Insertable<Stance> {
       openToHavingMultipleCoparents:
           serializer.fromJson<bool>(json['openToHavingMultipleCoparents']),
       openToCheating: serializer.fromJson<bool>(json['openToCheating']),
+      openToGayPeople: serializer.fromJson<bool>(json['openToGayPeople']),
     );
   }
   @override
@@ -2569,6 +2597,7 @@ class Stance extends DataClass implements Insertable<Stance> {
       'openToHavingMultipleCoparents':
           serializer.toJson<bool>(openToHavingMultipleCoparents),
       'openToCheating': serializer.toJson<bool>(openToCheating),
+      'openToGayPeople': serializer.toJson<bool>(openToGayPeople),
     };
   }
 
@@ -2590,7 +2619,8 @@ class Stance extends DataClass implements Insertable<Stance> {
           bool? openToHavingChildren,
           bool? openToHavingChildrenOutsideAMarriage,
           bool? openToHavingMultipleCoparents,
-          bool? openToCheating}) =>
+          bool? openToCheating,
+          bool? openToGayPeople}) =>
       Stance(
         id: id ?? this.id,
         personId: personId ?? this.personId,
@@ -2617,6 +2647,7 @@ class Stance extends DataClass implements Insertable<Stance> {
         openToHavingMultipleCoparents:
             openToHavingMultipleCoparents ?? this.openToHavingMultipleCoparents,
         openToCheating: openToCheating ?? this.openToCheating,
+        openToGayPeople: openToGayPeople ?? this.openToGayPeople,
       );
   @override
   String toString() {
@@ -2641,7 +2672,8 @@ class Stance extends DataClass implements Insertable<Stance> {
               'openToHavingChildrenOutsideAMarriage: $openToHavingChildrenOutsideAMarriage, ')
           ..write(
               'openToHavingMultipleCoparents: $openToHavingMultipleCoparents, ')
-          ..write('openToCheating: $openToCheating')
+          ..write('openToCheating: $openToCheating, ')
+          ..write('openToGayPeople: $openToGayPeople')
           ..write(')'))
         .toString();
   }
@@ -2665,7 +2697,8 @@ class Stance extends DataClass implements Insertable<Stance> {
       openToHavingChildren,
       openToHavingChildrenOutsideAMarriage,
       openToHavingMultipleCoparents,
-      openToCheating);
+      openToCheating,
+      openToGayPeople);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2690,7 +2723,8 @@ class Stance extends DataClass implements Insertable<Stance> {
               this.openToHavingChildrenOutsideAMarriage &&
           other.openToHavingMultipleCoparents ==
               this.openToHavingMultipleCoparents &&
-          other.openToCheating == this.openToCheating);
+          other.openToCheating == this.openToCheating &&
+          other.openToGayPeople == this.openToGayPeople);
 }
 
 class StanceTableCompanion extends UpdateCompanion<Stance> {
@@ -2712,6 +2746,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
   final Value<bool> openToHavingChildrenOutsideAMarriage;
   final Value<bool> openToHavingMultipleCoparents;
   final Value<bool> openToCheating;
+  final Value<bool> openToGayPeople;
   const StanceTableCompanion({
     this.id = const Value.absent(),
     this.personId = const Value.absent(),
@@ -2731,6 +2766,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     this.openToHavingChildrenOutsideAMarriage = const Value.absent(),
     this.openToHavingMultipleCoparents = const Value.absent(),
     this.openToCheating = const Value.absent(),
+    this.openToGayPeople = const Value.absent(),
   });
   StanceTableCompanion.insert({
     this.id = const Value.absent(),
@@ -2751,6 +2787,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     required bool openToHavingChildrenOutsideAMarriage,
     required bool openToHavingMultipleCoparents,
     required bool openToCheating,
+    required bool openToGayPeople,
   })  : personId = Value(personId),
         openToAdoption = Value(openToAdoption),
         openToSexWorkerPartner = Value(openToSexWorkerPartner),
@@ -2769,7 +2806,8 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
         openToHavingChildrenOutsideAMarriage =
             Value(openToHavingChildrenOutsideAMarriage),
         openToHavingMultipleCoparents = Value(openToHavingMultipleCoparents),
-        openToCheating = Value(openToCheating);
+        openToCheating = Value(openToCheating),
+        openToGayPeople = Value(openToGayPeople);
   static Insertable<Stance> custom({
     Expression<int>? id,
     Expression<int>? personId,
@@ -2789,6 +2827,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     Expression<bool>? openToHavingChildrenOutsideAMarriage,
     Expression<bool>? openToHavingMultipleCoparents,
     Expression<bool>? openToCheating,
+    Expression<bool>? openToGayPeople,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2821,6 +2860,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
       if (openToHavingMultipleCoparents != null)
         'open_to_having_multiple_coparents': openToHavingMultipleCoparents,
       if (openToCheating != null) 'open_to_cheating': openToCheating,
+      if (openToGayPeople != null) 'open_to_gay_people': openToGayPeople,
     });
   }
 
@@ -2842,7 +2882,8 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
       Value<bool>? openToHavingChildren,
       Value<bool>? openToHavingChildrenOutsideAMarriage,
       Value<bool>? openToHavingMultipleCoparents,
-      Value<bool>? openToCheating}) {
+      Value<bool>? openToCheating,
+      Value<bool>? openToGayPeople}) {
     return StanceTableCompanion(
       id: id ?? this.id,
       personId: personId ?? this.personId,
@@ -2869,6 +2910,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
       openToHavingMultipleCoparents:
           openToHavingMultipleCoparents ?? this.openToHavingMultipleCoparents,
       openToCheating: openToCheating ?? this.openToCheating,
+      openToGayPeople: openToGayPeople ?? this.openToGayPeople,
     );
   }
 
@@ -2936,6 +2978,9 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     if (openToCheating.present) {
       map['open_to_cheating'] = Variable<bool>(openToCheating.value);
     }
+    if (openToGayPeople.present) {
+      map['open_to_gay_people'] = Variable<bool>(openToGayPeople.value);
+    }
     return map;
   }
 
@@ -2962,7 +3007,8 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
               'openToHavingChildrenOutsideAMarriage: $openToHavingChildrenOutsideAMarriage, ')
           ..write(
               'openToHavingMultipleCoparents: $openToHavingMultipleCoparents, ')
-          ..write('openToCheating: $openToCheating')
+          ..write('openToCheating: $openToCheating, ')
+          ..write('openToGayPeople: $openToGayPeople')
           ..write(')'))
         .toString();
   }
@@ -15702,6 +15748,24 @@ class $EmploymentTableTable extends EmploymentTable
   late final GeneratedColumn<String> companyName = GeneratedColumn<String>(
       'company_name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _companyCountryMeta =
+      const VerificationMeta('companyCountry');
+  @override
+  late final GeneratedColumn<String> companyCountry = GeneratedColumn<String>(
+      'company_country', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _companyStateMeta =
+      const VerificationMeta('companyState');
+  @override
+  late final GeneratedColumn<String> companyState = GeneratedColumn<String>(
+      'company_state', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _companySettlementMeta =
+      const VerificationMeta('companySettlement');
+  @override
+  late final GeneratedColumn<String> companySettlement =
+      GeneratedColumn<String>('company_settlement', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _startTimeMeta =
       const VerificationMeta('startTime');
   @override
@@ -15822,6 +15886,9 @@ class $EmploymentTableTable extends EmploymentTable
         jobId,
         mainPersonId,
         companyName,
+        companyCountry,
+        companyState,
+        companySettlement,
         startTime,
         shiftLength,
         dayOff,
@@ -15871,6 +15938,30 @@ class $EmploymentTableTable extends EmploymentTable
               data['company_name']!, _companyNameMeta));
     } else if (isInserting) {
       context.missing(_companyNameMeta);
+    }
+    if (data.containsKey('company_country')) {
+      context.handle(
+          _companyCountryMeta,
+          companyCountry.isAcceptableOrUnknown(
+              data['company_country']!, _companyCountryMeta));
+    } else if (isInserting) {
+      context.missing(_companyCountryMeta);
+    }
+    if (data.containsKey('company_state')) {
+      context.handle(
+          _companyStateMeta,
+          companyState.isAcceptableOrUnknown(
+              data['company_state']!, _companyStateMeta));
+    } else if (isInserting) {
+      context.missing(_companyStateMeta);
+    }
+    if (data.containsKey('company_settlement')) {
+      context.handle(
+          _companySettlementMeta,
+          companySettlement.isAcceptableOrUnknown(
+              data['company_settlement']!, _companySettlementMeta));
+    } else if (isInserting) {
+      context.missing(_companySettlementMeta);
     }
     if (data.containsKey('start_time')) {
       context.handle(_startTimeMeta,
@@ -15996,6 +16087,12 @@ class $EmploymentTableTable extends EmploymentTable
           .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
       companyName: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}company_name'])!,
+      companyCountry: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}company_country'])!,
+      companyState: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}company_state'])!,
+      companySettlement: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}company_settlement'])!,
       startTime: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}start_time'])!,
       shiftLength: attachedDatabase.typeMapping
@@ -16041,6 +16138,9 @@ class Employment extends DataClass implements Insertable<Employment> {
   final int jobId;
   final int mainPersonId;
   final String companyName;
+  final String companyCountry;
+  final String companyState;
+  final String companySettlement;
   final int startTime;
   final int shiftLength;
   final int dayOff;
@@ -16061,6 +16161,9 @@ class Employment extends DataClass implements Insertable<Employment> {
       required this.jobId,
       required this.mainPersonId,
       required this.companyName,
+      required this.companyCountry,
+      required this.companyState,
+      required this.companySettlement,
       required this.startTime,
       required this.shiftLength,
       required this.dayOff,
@@ -16083,6 +16186,9 @@ class Employment extends DataClass implements Insertable<Employment> {
     map['job_id'] = Variable<int>(jobId);
     map['main_person_id'] = Variable<int>(mainPersonId);
     map['company_name'] = Variable<String>(companyName);
+    map['company_country'] = Variable<String>(companyCountry);
+    map['company_state'] = Variable<String>(companyState);
+    map['company_settlement'] = Variable<String>(companySettlement);
     map['start_time'] = Variable<int>(startTime);
     map['shift_length'] = Variable<int>(shiftLength);
     map['day_off'] = Variable<int>(dayOff);
@@ -16108,6 +16214,9 @@ class Employment extends DataClass implements Insertable<Employment> {
       jobId: Value(jobId),
       mainPersonId: Value(mainPersonId),
       companyName: Value(companyName),
+      companyCountry: Value(companyCountry),
+      companyState: Value(companyState),
+      companySettlement: Value(companySettlement),
       startTime: Value(startTime),
       shiftLength: Value(shiftLength),
       dayOff: Value(dayOff),
@@ -16134,6 +16243,9 @@ class Employment extends DataClass implements Insertable<Employment> {
       jobId: serializer.fromJson<int>(json['jobId']),
       mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
       companyName: serializer.fromJson<String>(json['companyName']),
+      companyCountry: serializer.fromJson<String>(json['companyCountry']),
+      companyState: serializer.fromJson<String>(json['companyState']),
+      companySettlement: serializer.fromJson<String>(json['companySettlement']),
       startTime: serializer.fromJson<int>(json['startTime']),
       shiftLength: serializer.fromJson<int>(json['shiftLength']),
       dayOff: serializer.fromJson<int>(json['dayOff']),
@@ -16160,6 +16272,9 @@ class Employment extends DataClass implements Insertable<Employment> {
       'jobId': serializer.toJson<int>(jobId),
       'mainPersonId': serializer.toJson<int>(mainPersonId),
       'companyName': serializer.toJson<String>(companyName),
+      'companyCountry': serializer.toJson<String>(companyCountry),
+      'companyState': serializer.toJson<String>(companyState),
+      'companySettlement': serializer.toJson<String>(companySettlement),
       'startTime': serializer.toJson<int>(startTime),
       'shiftLength': serializer.toJson<int>(shiftLength),
       'dayOff': serializer.toJson<int>(dayOff),
@@ -16184,6 +16299,9 @@ class Employment extends DataClass implements Insertable<Employment> {
           int? jobId,
           int? mainPersonId,
           String? companyName,
+          String? companyCountry,
+          String? companyState,
+          String? companySettlement,
           int? startTime,
           int? shiftLength,
           int? dayOff,
@@ -16204,6 +16322,9 @@ class Employment extends DataClass implements Insertable<Employment> {
         jobId: jobId ?? this.jobId,
         mainPersonId: mainPersonId ?? this.mainPersonId,
         companyName: companyName ?? this.companyName,
+        companyCountry: companyCountry ?? this.companyCountry,
+        companyState: companyState ?? this.companyState,
+        companySettlement: companySettlement ?? this.companySettlement,
         startTime: startTime ?? this.startTime,
         shiftLength: shiftLength ?? this.shiftLength,
         dayOff: dayOff ?? this.dayOff,
@@ -16228,6 +16349,9 @@ class Employment extends DataClass implements Insertable<Employment> {
           ..write('jobId: $jobId, ')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('companyName: $companyName, ')
+          ..write('companyCountry: $companyCountry, ')
+          ..write('companyState: $companyState, ')
+          ..write('companySettlement: $companySettlement, ')
           ..write('startTime: $startTime, ')
           ..write('shiftLength: $shiftLength, ')
           ..write('dayOff: $dayOff, ')
@@ -16249,26 +16373,30 @@ class Employment extends DataClass implements Insertable<Employment> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      id,
-      jobId,
-      mainPersonId,
-      companyName,
-      startTime,
-      shiftLength,
-      dayOff,
-      isDayShift,
-      currentLevel,
-      currentPay,
-      raisesGiven,
-      jobPerformance,
-      daysOfConsistentGoodPerformance,
-      vacationDaysLeft,
-      onLeave,
-      firstDay,
-      lastDay,
-      wasFired,
-      isActive);
+  int get hashCode => Object.hashAll([
+        id,
+        jobId,
+        mainPersonId,
+        companyName,
+        companyCountry,
+        companyState,
+        companySettlement,
+        startTime,
+        shiftLength,
+        dayOff,
+        isDayShift,
+        currentLevel,
+        currentPay,
+        raisesGiven,
+        jobPerformance,
+        daysOfConsistentGoodPerformance,
+        vacationDaysLeft,
+        onLeave,
+        firstDay,
+        lastDay,
+        wasFired,
+        isActive
+      ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -16277,6 +16405,9 @@ class Employment extends DataClass implements Insertable<Employment> {
           other.jobId == this.jobId &&
           other.mainPersonId == this.mainPersonId &&
           other.companyName == this.companyName &&
+          other.companyCountry == this.companyCountry &&
+          other.companyState == this.companyState &&
+          other.companySettlement == this.companySettlement &&
           other.startTime == this.startTime &&
           other.shiftLength == this.shiftLength &&
           other.dayOff == this.dayOff &&
@@ -16300,6 +16431,9 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
   final Value<int> jobId;
   final Value<int> mainPersonId;
   final Value<String> companyName;
+  final Value<String> companyCountry;
+  final Value<String> companyState;
+  final Value<String> companySettlement;
   final Value<int> startTime;
   final Value<int> shiftLength;
   final Value<int> dayOff;
@@ -16320,6 +16454,9 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
     this.jobId = const Value.absent(),
     this.mainPersonId = const Value.absent(),
     this.companyName = const Value.absent(),
+    this.companyCountry = const Value.absent(),
+    this.companyState = const Value.absent(),
+    this.companySettlement = const Value.absent(),
     this.startTime = const Value.absent(),
     this.shiftLength = const Value.absent(),
     this.dayOff = const Value.absent(),
@@ -16341,6 +16478,9 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
     required int jobId,
     required int mainPersonId,
     required String companyName,
+    required String companyCountry,
+    required String companyState,
+    required String companySettlement,
     required int startTime,
     required int shiftLength,
     required int dayOff,
@@ -16359,6 +16499,9 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
   })  : jobId = Value(jobId),
         mainPersonId = Value(mainPersonId),
         companyName = Value(companyName),
+        companyCountry = Value(companyCountry),
+        companyState = Value(companyState),
+        companySettlement = Value(companySettlement),
         startTime = Value(startTime),
         shiftLength = Value(shiftLength),
         dayOff = Value(dayOff),
@@ -16380,6 +16523,9 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
     Expression<int>? jobId,
     Expression<int>? mainPersonId,
     Expression<String>? companyName,
+    Expression<String>? companyCountry,
+    Expression<String>? companyState,
+    Expression<String>? companySettlement,
     Expression<int>? startTime,
     Expression<int>? shiftLength,
     Expression<int>? dayOff,
@@ -16401,6 +16547,9 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
       if (jobId != null) 'job_id': jobId,
       if (mainPersonId != null) 'main_person_id': mainPersonId,
       if (companyName != null) 'company_name': companyName,
+      if (companyCountry != null) 'company_country': companyCountry,
+      if (companyState != null) 'company_state': companyState,
+      if (companySettlement != null) 'company_settlement': companySettlement,
       if (startTime != null) 'start_time': startTime,
       if (shiftLength != null) 'shift_length': shiftLength,
       if (dayOff != null) 'day_off': dayOff,
@@ -16425,6 +16574,9 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
       Value<int>? jobId,
       Value<int>? mainPersonId,
       Value<String>? companyName,
+      Value<String>? companyCountry,
+      Value<String>? companyState,
+      Value<String>? companySettlement,
       Value<int>? startTime,
       Value<int>? shiftLength,
       Value<int>? dayOff,
@@ -16445,6 +16597,9 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
       jobId: jobId ?? this.jobId,
       mainPersonId: mainPersonId ?? this.mainPersonId,
       companyName: companyName ?? this.companyName,
+      companyCountry: companyCountry ?? this.companyCountry,
+      companyState: companyState ?? this.companyState,
+      companySettlement: companySettlement ?? this.companySettlement,
       startTime: startTime ?? this.startTime,
       shiftLength: shiftLength ?? this.shiftLength,
       dayOff: dayOff ?? this.dayOff,
@@ -16478,6 +16633,15 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
     }
     if (companyName.present) {
       map['company_name'] = Variable<String>(companyName.value);
+    }
+    if (companyCountry.present) {
+      map['company_country'] = Variable<String>(companyCountry.value);
+    }
+    if (companyState.present) {
+      map['company_state'] = Variable<String>(companyState.value);
+    }
+    if (companySettlement.present) {
+      map['company_settlement'] = Variable<String>(companySettlement.value);
     }
     if (startTime.present) {
       map['start_time'] = Variable<int>(startTime.value);
@@ -16535,6 +16699,9 @@ class EmploymentTableCompanion extends UpdateCompanion<Employment> {
           ..write('jobId: $jobId, ')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('companyName: $companyName, ')
+          ..write('companyCountry: $companyCountry, ')
+          ..write('companyState: $companyState, ')
+          ..write('companySettlement: $companySettlement, ')
           ..write('startTime: $startTime, ')
           ..write('shiftLength: $shiftLength, ')
           ..write('dayOff: $dayOff, ')
