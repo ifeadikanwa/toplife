@@ -172,15 +172,16 @@ class ShopScreen extends ConsumerWidget {
                 // const house = House(
                 //   id: 0,
                 //   personId: 1,
-                //   endOfLeaseDay: 5,
-                //   isCurrentHome: true,
+                //   endOfLeaseDay: 23,
+                //   isCurrentHome: false,
                 //   bedrooms: 3,
                 //   bathrooms: 2,
                 //   storage: 8,
-                //   address: "1234 TreeTop Road",
+                //   address: "4567 TreeTop Road",
                 //   isForRent: true,
                 //   buildingType: "Home78",
                 //   settlement: "Village",
+                //   state: 'Toronto',
                 //   country: "Canada",
                 //   style: "style",
                 //   lastMaintainedDay: 24,
@@ -301,6 +302,22 @@ class ShopScreen extends ConsumerWidget {
                 //   print(element);
                 //   print("\n");
                 // }
+
+                // CurrentHomeDaoImpl(db).watchCurrentHome(1).listen((event) {
+                //   print("Watch Current Home: $event");
+                // });
+
+                // CurrentHomeDaoImpl(db)
+                //     .watchAllPeopleInAHouse(1)
+                //     .listen((event) {
+                //   print("Watch People In a House: $event");
+                // });
+
+                // final currentHome = CurrentHome(
+                //   personId: 1,
+                //   houseId: 1,
+                //   hasManagementRights: true,
+                // );
               },
               child: const Text("Run"),
             ),

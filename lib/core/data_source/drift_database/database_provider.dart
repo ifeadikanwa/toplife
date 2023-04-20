@@ -53,7 +53,9 @@ import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_project.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/current_home_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/current_home.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/food_dao_impl.dart';
@@ -95,6 +97,7 @@ part 'database_provider.g.dart';
     FoodTable,
     FridgeFoodTable,
     HouseTable,
+    CurrentHomeTable,
     ItemTable,
     JewelryTable,
     StoreroomItemTable,
@@ -129,6 +132,7 @@ part 'database_provider.g.dart';
     FoodDaoImpl,
     FridgeFoodDaoImpl,
     HouseDaoImpl,
+    CurrentHomeDaoImpl,
     ItemDaoImpl,
     JewelryDaoImpl,
     StoreroomItemDaoImpl,

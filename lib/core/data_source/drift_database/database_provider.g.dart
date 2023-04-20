@@ -10904,6 +10904,237 @@ class HouseTableCompanion extends UpdateCompanion<House> {
   }
 }
 
+class $CurrentHomeTableTable extends CurrentHomeTable
+    with TableInfo<$CurrentHomeTableTable, CurrentHome> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CurrentHomeTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'UNIQUE REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _houseIdMeta =
+      const VerificationMeta('houseId');
+  @override
+  late final GeneratedColumn<int> houseId = GeneratedColumn<int>(
+      'house_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES house (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _hasManagementRightsMeta =
+      const VerificationMeta('hasManagementRights');
+  @override
+  late final GeneratedColumn<bool> hasManagementRights =
+      GeneratedColumn<bool>('has_management_rights', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("has_management_rights" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [personId, houseId, hasManagementRights];
+  @override
+  String get aliasedName => _alias ?? 'current_home';
+  @override
+  String get actualTableName => 'current_home';
+  @override
+  VerificationContext validateIntegrity(Insertable<CurrentHome> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('house_id')) {
+      context.handle(_houseIdMeta,
+          houseId.isAcceptableOrUnknown(data['house_id']!, _houseIdMeta));
+    } else if (isInserting) {
+      context.missing(_houseIdMeta);
+    }
+    if (data.containsKey('has_management_rights')) {
+      context.handle(
+          _hasManagementRightsMeta,
+          hasManagementRights.isAcceptableOrUnknown(
+              data['has_management_rights']!, _hasManagementRightsMeta));
+    } else if (isInserting) {
+      context.missing(_hasManagementRightsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  CurrentHome map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CurrentHome(
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      houseId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}house_id'])!,
+      hasManagementRights: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}has_management_rights'])!,
+    );
+  }
+
+  @override
+  $CurrentHomeTableTable createAlias(String alias) {
+    return $CurrentHomeTableTable(attachedDatabase, alias);
+  }
+}
+
+class CurrentHome extends DataClass implements Insertable<CurrentHome> {
+  final int personId;
+  final int houseId;
+  final bool hasManagementRights;
+  const CurrentHome(
+      {required this.personId,
+      required this.houseId,
+      required this.hasManagementRights});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['person_id'] = Variable<int>(personId);
+    map['house_id'] = Variable<int>(houseId);
+    map['has_management_rights'] = Variable<bool>(hasManagementRights);
+    return map;
+  }
+
+  CurrentHomeTableCompanion toCompanion(bool nullToAbsent) {
+    return CurrentHomeTableCompanion(
+      personId: Value(personId),
+      houseId: Value(houseId),
+      hasManagementRights: Value(hasManagementRights),
+    );
+  }
+
+  factory CurrentHome.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CurrentHome(
+      personId: serializer.fromJson<int>(json['personId']),
+      houseId: serializer.fromJson<int>(json['houseId']),
+      hasManagementRights:
+          serializer.fromJson<bool>(json['hasManagementRights']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'personId': serializer.toJson<int>(personId),
+      'houseId': serializer.toJson<int>(houseId),
+      'hasManagementRights': serializer.toJson<bool>(hasManagementRights),
+    };
+  }
+
+  CurrentHome copyWith(
+          {int? personId, int? houseId, bool? hasManagementRights}) =>
+      CurrentHome(
+        personId: personId ?? this.personId,
+        houseId: houseId ?? this.houseId,
+        hasManagementRights: hasManagementRights ?? this.hasManagementRights,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('CurrentHome(')
+          ..write('personId: $personId, ')
+          ..write('houseId: $houseId, ')
+          ..write('hasManagementRights: $hasManagementRights')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(personId, houseId, hasManagementRights);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CurrentHome &&
+          other.personId == this.personId &&
+          other.houseId == this.houseId &&
+          other.hasManagementRights == this.hasManagementRights);
+}
+
+class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
+  final Value<int> personId;
+  final Value<int> houseId;
+  final Value<bool> hasManagementRights;
+  const CurrentHomeTableCompanion({
+    this.personId = const Value.absent(),
+    this.houseId = const Value.absent(),
+    this.hasManagementRights = const Value.absent(),
+  });
+  CurrentHomeTableCompanion.insert({
+    required int personId,
+    required int houseId,
+    required bool hasManagementRights,
+  })  : personId = Value(personId),
+        houseId = Value(houseId),
+        hasManagementRights = Value(hasManagementRights);
+  static Insertable<CurrentHome> custom({
+    Expression<int>? personId,
+    Expression<int>? houseId,
+    Expression<bool>? hasManagementRights,
+  }) {
+    return RawValuesInsertable({
+      if (personId != null) 'person_id': personId,
+      if (houseId != null) 'house_id': houseId,
+      if (hasManagementRights != null)
+        'has_management_rights': hasManagementRights,
+    });
+  }
+
+  CurrentHomeTableCompanion copyWith(
+      {Value<int>? personId,
+      Value<int>? houseId,
+      Value<bool>? hasManagementRights}) {
+    return CurrentHomeTableCompanion(
+      personId: personId ?? this.personId,
+      houseId: houseId ?? this.houseId,
+      hasManagementRights: hasManagementRights ?? this.hasManagementRights,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (houseId.present) {
+      map['house_id'] = Variable<int>(houseId.value);
+    }
+    if (hasManagementRights.present) {
+      map['has_management_rights'] = Variable<bool>(hasManagementRights.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CurrentHomeTableCompanion(')
+          ..write('personId: $personId, ')
+          ..write('houseId: $houseId, ')
+          ..write('hasManagementRights: $hasManagementRights')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $ItemTableTable extends ItemTable with TableInfo<$ItemTableTable, Item> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -17186,6 +17417,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $FridgeFoodTableTable fridgeFoodTable =
       $FridgeFoodTableTable(this);
   late final $HouseTableTable houseTable = $HouseTableTable(this);
+  late final $CurrentHomeTableTable currentHomeTable =
+      $CurrentHomeTableTable(this);
   late final $ItemTableTable itemTable = $ItemTableTable(this);
   late final $JewelryTableTable jewelryTable = $JewelryTableTable(this);
   late final $StoreroomItemTableTable storeroomItemTable =
@@ -17235,6 +17468,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final FridgeFoodDaoImpl fridgeFoodDaoImpl =
       FridgeFoodDaoImpl(this as DatabaseProvider);
   late final HouseDaoImpl houseDaoImpl = HouseDaoImpl(this as DatabaseProvider);
+  late final CurrentHomeDaoImpl currentHomeDaoImpl =
+      CurrentHomeDaoImpl(this as DatabaseProvider);
   late final ItemDaoImpl itemDaoImpl = ItemDaoImpl(this as DatabaseProvider);
   late final JewelryDaoImpl jewelryDaoImpl =
       JewelryDaoImpl(this as DatabaseProvider);
@@ -17282,6 +17517,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         foodTable,
         fridgeFoodTable,
         houseTable,
+        currentHomeTable,
         itemTable,
         jewelryTable,
         storeroomItemTable,
@@ -17716,6 +17952,34 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('house', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('current_home', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('current_home', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('house',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('current_home', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('house',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('current_home', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(
