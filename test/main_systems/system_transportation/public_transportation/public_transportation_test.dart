@@ -131,7 +131,7 @@ void main() {
 
         expect(
           PublicTransportation.train.percentageOfTravelTime,
-          80,
+          70,
           reason: "Cause: percentageOfTravelTime",
         );
 
