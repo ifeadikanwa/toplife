@@ -21,4 +21,6 @@ class CurrentHomeTable extends Table {
       )();
 
   BoolColumn get hasManagementRights => boolean()();
+  TextColumn get stayType => text()();
+  IntColumn get exitDay => integer()();
 }

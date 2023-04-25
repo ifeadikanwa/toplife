@@ -10940,9 +10940,21 @@ class $CurrentHomeTableTable extends CurrentHomeTable
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
+  static const VerificationMeta _stayTypeMeta =
+      const VerificationMeta('stayType');
+  @override
+  late final GeneratedColumn<String> stayType = GeneratedColumn<String>(
+      'stay_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _exitDayMeta =
+      const VerificationMeta('exitDay');
+  @override
+  late final GeneratedColumn<int> exitDay = GeneratedColumn<int>(
+      'exit_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [personId, houseId, hasManagementRights];
+      [personId, houseId, hasManagementRights, stayType, exitDay];
   @override
   String get aliasedName => _alias ?? 'current_home';
   @override
@@ -10972,6 +10984,18 @@ class $CurrentHomeTableTable extends CurrentHomeTable
     } else if (isInserting) {
       context.missing(_hasManagementRightsMeta);
     }
+    if (data.containsKey('stay_type')) {
+      context.handle(_stayTypeMeta,
+          stayType.isAcceptableOrUnknown(data['stay_type']!, _stayTypeMeta));
+    } else if (isInserting) {
+      context.missing(_stayTypeMeta);
+    }
+    if (data.containsKey('exit_day')) {
+      context.handle(_exitDayMeta,
+          exitDay.isAcceptableOrUnknown(data['exit_day']!, _exitDayMeta));
+    } else if (isInserting) {
+      context.missing(_exitDayMeta);
+    }
     return context;
   }
 
@@ -10987,6 +11011,10 @@ class $CurrentHomeTableTable extends CurrentHomeTable
           .read(DriftSqlType.int, data['${effectivePrefix}house_id'])!,
       hasManagementRights: attachedDatabase.typeMapping.read(
           DriftSqlType.bool, data['${effectivePrefix}has_management_rights'])!,
+      stayType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}stay_type'])!,
+      exitDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}exit_day'])!,
     );
   }
 
@@ -11000,16 +11028,22 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
   final int personId;
   final int houseId;
   final bool hasManagementRights;
+  final String stayType;
+  final int exitDay;
   const CurrentHome(
       {required this.personId,
       required this.houseId,
-      required this.hasManagementRights});
+      required this.hasManagementRights,
+      required this.stayType,
+      required this.exitDay});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['person_id'] = Variable<int>(personId);
     map['house_id'] = Variable<int>(houseId);
     map['has_management_rights'] = Variable<bool>(hasManagementRights);
+    map['stay_type'] = Variable<String>(stayType);
+    map['exit_day'] = Variable<int>(exitDay);
     return map;
   }
 
@@ -11018,6 +11052,8 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
       personId: Value(personId),
       houseId: Value(houseId),
       hasManagementRights: Value(hasManagementRights),
+      stayType: Value(stayType),
+      exitDay: Value(exitDay),
     );
   }
 
@@ -11029,6 +11065,8 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
       houseId: serializer.fromJson<int>(json['houseId']),
       hasManagementRights:
           serializer.fromJson<bool>(json['hasManagementRights']),
+      stayType: serializer.fromJson<String>(json['stayType']),
+      exitDay: serializer.fromJson<int>(json['exitDay']),
     );
   }
   @override
@@ -11038,74 +11076,103 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
       'personId': serializer.toJson<int>(personId),
       'houseId': serializer.toJson<int>(houseId),
       'hasManagementRights': serializer.toJson<bool>(hasManagementRights),
+      'stayType': serializer.toJson<String>(stayType),
+      'exitDay': serializer.toJson<int>(exitDay),
     };
   }
 
   CurrentHome copyWith(
-          {int? personId, int? houseId, bool? hasManagementRights}) =>
+          {int? personId,
+          int? houseId,
+          bool? hasManagementRights,
+          String? stayType,
+          int? exitDay}) =>
       CurrentHome(
         personId: personId ?? this.personId,
         houseId: houseId ?? this.houseId,
         hasManagementRights: hasManagementRights ?? this.hasManagementRights,
+        stayType: stayType ?? this.stayType,
+        exitDay: exitDay ?? this.exitDay,
       );
   @override
   String toString() {
     return (StringBuffer('CurrentHome(')
           ..write('personId: $personId, ')
           ..write('houseId: $houseId, ')
-          ..write('hasManagementRights: $hasManagementRights')
+          ..write('hasManagementRights: $hasManagementRights, ')
+          ..write('stayType: $stayType, ')
+          ..write('exitDay: $exitDay')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(personId, houseId, hasManagementRights);
+  int get hashCode =>
+      Object.hash(personId, houseId, hasManagementRights, stayType, exitDay);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CurrentHome &&
           other.personId == this.personId &&
           other.houseId == this.houseId &&
-          other.hasManagementRights == this.hasManagementRights);
+          other.hasManagementRights == this.hasManagementRights &&
+          other.stayType == this.stayType &&
+          other.exitDay == this.exitDay);
 }
 
 class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
   final Value<int> personId;
   final Value<int> houseId;
   final Value<bool> hasManagementRights;
+  final Value<String> stayType;
+  final Value<int> exitDay;
   const CurrentHomeTableCompanion({
     this.personId = const Value.absent(),
     this.houseId = const Value.absent(),
     this.hasManagementRights = const Value.absent(),
+    this.stayType = const Value.absent(),
+    this.exitDay = const Value.absent(),
   });
   CurrentHomeTableCompanion.insert({
     required int personId,
     required int houseId,
     required bool hasManagementRights,
+    required String stayType,
+    required int exitDay,
   })  : personId = Value(personId),
         houseId = Value(houseId),
-        hasManagementRights = Value(hasManagementRights);
+        hasManagementRights = Value(hasManagementRights),
+        stayType = Value(stayType),
+        exitDay = Value(exitDay);
   static Insertable<CurrentHome> custom({
     Expression<int>? personId,
     Expression<int>? houseId,
     Expression<bool>? hasManagementRights,
+    Expression<String>? stayType,
+    Expression<int>? exitDay,
   }) {
     return RawValuesInsertable({
       if (personId != null) 'person_id': personId,
       if (houseId != null) 'house_id': houseId,
       if (hasManagementRights != null)
         'has_management_rights': hasManagementRights,
+      if (stayType != null) 'stay_type': stayType,
+      if (exitDay != null) 'exit_day': exitDay,
     });
   }
 
   CurrentHomeTableCompanion copyWith(
       {Value<int>? personId,
       Value<int>? houseId,
-      Value<bool>? hasManagementRights}) {
+      Value<bool>? hasManagementRights,
+      Value<String>? stayType,
+      Value<int>? exitDay}) {
     return CurrentHomeTableCompanion(
       personId: personId ?? this.personId,
       houseId: houseId ?? this.houseId,
       hasManagementRights: hasManagementRights ?? this.hasManagementRights,
+      stayType: stayType ?? this.stayType,
+      exitDay: exitDay ?? this.exitDay,
     );
   }
 
@@ -11121,6 +11188,12 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
     if (hasManagementRights.present) {
       map['has_management_rights'] = Variable<bool>(hasManagementRights.value);
     }
+    if (stayType.present) {
+      map['stay_type'] = Variable<String>(stayType.value);
+    }
+    if (exitDay.present) {
+      map['exit_day'] = Variable<int>(exitDay.value);
+    }
     return map;
   }
 
@@ -11129,7 +11202,9 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
     return (StringBuffer('CurrentHomeTableCompanion(')
           ..write('personId: $personId, ')
           ..write('houseId: $houseId, ')
-          ..write('hasManagementRights: $hasManagementRights')
+          ..write('hasManagementRights: $hasManagementRights, ')
+          ..write('stayType: $stayType, ')
+          ..write('exitDay: $exitDay')
           ..write(')'))
         .toString();
   }
