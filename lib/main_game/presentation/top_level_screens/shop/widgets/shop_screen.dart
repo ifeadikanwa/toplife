@@ -118,8 +118,7 @@ class ShopScreen extends ConsumerWidget {
                   builder: (context) => const BuyHouseDialog(
                     house: House(
                       id: 0,
-                      personId: 1,
-                      isCurrentHome: false,
+                      ownerPersonId: 1,
                       bedrooms: 3,
                       bathrooms: 2,
                       storage: 8,
@@ -313,11 +312,7 @@ class ShopScreen extends ConsumerWidget {
                 //   print("Watch People In a House: $event");
                 // });
 
-                // final currentHome = CurrentHome(
-                //   personId: 1,
-                //   houseId: 1,
-                //   hasManagementRights: true,
-                // );
+             
               },
               child: const Text("Run"),
             ),

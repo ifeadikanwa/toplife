@@ -35,16 +35,6 @@ class HouseRepositoryImpl implements HouseRepository {
   }
 
   @override
-  Future<House?> getCurrentHouse(int personID) {
-    return _houseDao.getCurrentHouse(personID);
-  }
-
-  @override
-  Future<List<House>> getAllCurrentHouses(int personID) {
-    return _houseDao.getAllCurrentHouses(personID);
-  }
-
-  @override
   Stream<List<House>> watchAllHouses(int personID) {
     return _houseDao.watchAllHouses(personID);
   }

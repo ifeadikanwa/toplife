@@ -17,6 +17,12 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/foo
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_fridge_food_count_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/purchase_food_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/use_food_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/delete_current_home_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_all_people_in_a_house_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_current_home_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/set_current_home_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_all_people_in_a_house_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_current_home_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/add_location_to_building_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_purchase_houses_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_rental_houses_usecase.dart';
@@ -27,7 +33,6 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/hou
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_fully_paid_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_with_loan_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/sign_mortgage_loan_contract.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/unset_all_current_homes_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/break_old_lease_sign_new_lease_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/end_lease_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/rent_house_usecase.dart';
@@ -87,6 +92,7 @@ class ShopAndStorageUsecases {
 
   GetCurrentHouseUsecase get getCurrentHouseUsecase => GetCurrentHouseUsecase(
         _shopAndStorageRepositories.houseRepositoryImpl,
+        _shopAndStorageRepositories.currentHomeRepositoryImpl,
       );
 
   GetCarMaxConditionUsecase get getCarMaxConditionUsecase =>
@@ -216,7 +222,6 @@ class ShopAndStorageUsecases {
       SignLeaseForRentalUsecase(
         _shopAndStorageRepositories.houseRepositoryImpl,
         _recurringBillsUsecases,
-        unsetAllCurrentHomesUsecase,
         moveIntoNewHouseUsecase,
         _personUsecases,
         _relationshipUsecases,
@@ -229,11 +234,6 @@ class ShopAndStorageUsecases {
         _shopAndStorageRepositories.fridgeFoodRepositoryImpl,
         useFoodUsecase,
         useStoreroomItemUsecase,
-      );
-
-  UnsetAllCurrentHomesUsecase get unsetAllCurrentHomesUsecase =>
-      UnsetAllCurrentHomesUsecase(
-        _shopAndStorageRepositories.houseRepositoryImpl,
       );
 
   UseFoodUsecase get useFoodUsecase => UseFoodUsecase(
@@ -282,5 +282,34 @@ class ShopAndStorageUsecases {
       MoveIntoNewHouseUsecase(
         _personUsecases,
         moveStorageToNewHouseUsecase,
+        setCurrentHomeUsecase,
+      );
+
+  DeleteCurrentHomeUsecase get deleteCurrentHomeUsecase =>
+      DeleteCurrentHomeUsecase(
+        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+      );
+
+  GetAllPeopleInAHouseUsecase get getAllPeopleInAHouseUsecase =>
+      GetAllPeopleInAHouseUsecase(
+        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+      );
+
+  GetCurrentHomeUsecase get getCurrentHomeUsecase => GetCurrentHomeUsecase(
+        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+      );
+
+  SetCurrentHomeUsecase get setCurrentHomeUsecase => SetCurrentHomeUsecase(
+        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+      );
+
+  WatchAllPeopleInAHouseUsecase get watchAllPeopleInAHouseUsecase =>
+      WatchAllPeopleInAHouseUsecase(
+        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+      );
+
+  WatchCurrentHomeUsecase get watchCurrentHomeUsecase =>
+      WatchCurrentHomeUsecase(
+        _shopAndStorageRepositories.currentHomeRepositoryImpl,
       );
 }

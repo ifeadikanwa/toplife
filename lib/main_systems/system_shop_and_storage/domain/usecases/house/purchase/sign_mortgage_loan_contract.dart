@@ -46,8 +46,7 @@ class SignMortgageLoanContract {
     //add house to storage
     final createdHouse = await _houseRepository.createHouse(
       house.copyWith(
-        personId: person.id,
-        isCurrentHome: false,
+        ownerPersonId: person.id,
         country: person.currentCountry,
         lastMaintainedDay: currentGame.currentDay,
         dayOfPurchase: currentGame.currentDay,

@@ -28,35 +28,12 @@ class HouseDaoImpl extends DatabaseAccessor<DatabaseProvider>
   }
 
   @override
-  Future<List<House>> getAllCurrentHouses(int personID) {
-    return (select(houseTable)
-          ..where(
-            (house) =>
-                house.personId.equals(personID) &
-                house.isCurrentHome.equals(true),
-          ))
-        .get();
-  }
-
-  @override
   Future<List<House>> getAllHouses(int personID) {
     return (select(houseTable)
           ..where(
-            (house) => house.personId.equals(personID),
+            (house) => house.ownerPersonId.equals(personID),
           ))
         .get();
-  }
-
-  @override
-  Future<House?> getCurrentHouse(int personID) {
-    return (select(houseTable)
-          ..where(
-            (house) =>
-                house.personId.equals(personID) &
-                house.isCurrentHome.equals(true),
-          )
-          ..limit(1))
-        .getSingleOrNull();
   }
 
   @override
@@ -76,7 +53,7 @@ class HouseDaoImpl extends DatabaseAccessor<DatabaseProvider>
   Stream<List<House>> watchAllHouses(int personID) {
     return (select(houseTable)
           ..where(
-            (house) => house.personId.equals(personID),
+            (house) => house.ownerPersonId.equals(personID),
           ))
         .watch();
   }

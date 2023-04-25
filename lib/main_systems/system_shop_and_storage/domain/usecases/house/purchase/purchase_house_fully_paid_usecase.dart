@@ -69,8 +69,7 @@ class PurchaseHouseFullyPaidUsecase {
 
       await _houseRepository.createHouse(
         house.copyWith(
-          personId: personID,
-          isCurrentHome: false,
+          ownerPersonId: personID,
           dayOfPurchase: currentGame.currentDay,
           lastMaintainedDay: currentGame.currentDay,
           country: person.currentCountry,

@@ -1,17 +1,18 @@
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/car_repository_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/repository/current_home_repository_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/food_repository_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/fridge_food_repository_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/house_repository_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/item_repository_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/jewelry_repository_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/car_dao.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/current_home_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/food_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/fridge_food_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/house_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/item_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/jewelry_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/storeroom_item_dao.dart';
-
 import 'storeroom_item_repository_impl.dart';
 
 class ShopAndStorageRepositories {
@@ -22,6 +23,7 @@ class ShopAndStorageRepositories {
   final ItemDao _itemDao;
   final StoreroomItemDao _storeroomItemDao;
   final JewelryDao _jewelryDao;
+  final CurrentHomeDao _currentHomeDao;
 
   const ShopAndStorageRepositories({
     required CarDao carDao,
@@ -31,13 +33,15 @@ class ShopAndStorageRepositories {
     required ItemDao itemDao,
     required StoreroomItemDao storeroomItemDao,
     required JewelryDao jewelryDao,
+    required CurrentHomeDao currentHomeDao,
   })  : _carDao = carDao,
         _houseDao = houseDao,
         _foodDao = foodDao,
         _fridgeFoodDao = fridgeFoodDao,
-        _itemDao = itemDao, 
+        _itemDao = itemDao,
         _storeroomItemDao = storeroomItemDao,
-        _jewelryDao = jewelryDao;
+        _jewelryDao = jewelryDao,
+        _currentHomeDao = currentHomeDao;
 
   CarRepositoryImpl get carRepositoryImpl => CarRepositoryImpl(carDao: _carDao);
 
@@ -58,4 +62,7 @@ class ShopAndStorageRepositories {
 
   JewelryRepositoryImpl get jewelryRepositoryImpl =>
       JewelryRepositoryImpl(jewelryDao: _jewelryDao);
+
+  CurrentHomeRepositoryImpl get currentHomeRepositoryImpl =>
+      CurrentHomeRepositoryImpl(currentHomeDao: _currentHomeDao);
 }

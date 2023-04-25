@@ -206,7 +206,7 @@ class HouseUtils {
     //return house containing all the information
     return House(
       id: DatabaseConstants.dummyId,
-      personId: DatabaseConstants.dummyId,
+      ownerPersonId: DatabaseConstants.dummyId,
       bedrooms: bedroomCount,
       bathrooms: bathroomCount,
       storage: storageSpace,
@@ -220,7 +220,6 @@ class HouseUtils {
       dayOfPurchase: 0,
       condition: maxStatsValue,
       purchasePrice: 0,
-      isCurrentHome: false,
       country: "",
       state: "",
       endOfLeaseDay: 0,

@@ -10014,27 +10014,15 @@ class $HouseTableTable extends HouseTable
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _personIdMeta =
-      const VerificationMeta('personId');
+  static const VerificationMeta _ownerPersonIdMeta =
+      const VerificationMeta('ownerPersonId');
   @override
-  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
-      'person_id', aliasedName, false,
+  late final GeneratedColumn<int> ownerPersonId = GeneratedColumn<int>(
+      'owner_person_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _isCurrentHomeMeta =
-      const VerificationMeta('isCurrentHome');
-  @override
-  late final GeneratedColumn<bool> isCurrentHome =
-      GeneratedColumn<bool>('is_current_home', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_current_home" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
   static const VerificationMeta _bedroomsMeta =
       const VerificationMeta('bedrooms');
   @override
@@ -10150,8 +10138,7 @@ class $HouseTableTable extends HouseTable
   @override
   List<GeneratedColumn> get $columns => [
         id,
-        personId,
-        isCurrentHome,
+        ownerPersonId,
         bedrooms,
         bathrooms,
         storage,
@@ -10182,19 +10169,13 @@ class $HouseTableTable extends HouseTable
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('person_id')) {
-      context.handle(_personIdMeta,
-          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
-    } else if (isInserting) {
-      context.missing(_personIdMeta);
-    }
-    if (data.containsKey('is_current_home')) {
+    if (data.containsKey('owner_person_id')) {
       context.handle(
-          _isCurrentHomeMeta,
-          isCurrentHome.isAcceptableOrUnknown(
-              data['is_current_home']!, _isCurrentHomeMeta));
+          _ownerPersonIdMeta,
+          ownerPersonId.isAcceptableOrUnknown(
+              data['owner_person_id']!, _ownerPersonIdMeta));
     } else if (isInserting) {
-      context.missing(_isCurrentHomeMeta);
+      context.missing(_ownerPersonIdMeta);
     }
     if (data.containsKey('bedrooms')) {
       context.handle(_bedroomsMeta,
@@ -10325,10 +10306,8 @@ class $HouseTableTable extends HouseTable
     return House(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      personId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
-      isCurrentHome: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_current_home'])!,
+      ownerPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}owner_person_id'])!,
       bedrooms: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}bedrooms'])!,
       bathrooms: attachedDatabase.typeMapping
@@ -10374,8 +10353,7 @@ class $HouseTableTable extends HouseTable
 
 class House extends DataClass implements Insertable<House> {
   final int id;
-  final int personId;
-  final bool isCurrentHome;
+  final int ownerPersonId;
   final int bedrooms;
   final int bathrooms;
   final int storage;
@@ -10395,8 +10373,7 @@ class House extends DataClass implements Insertable<House> {
   final bool fullyPaidFor;
   const House(
       {required this.id,
-      required this.personId,
-      required this.isCurrentHome,
+      required this.ownerPersonId,
       required this.bedrooms,
       required this.bathrooms,
       required this.storage,
@@ -10418,8 +10395,7 @@ class House extends DataClass implements Insertable<House> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['person_id'] = Variable<int>(personId);
-    map['is_current_home'] = Variable<bool>(isCurrentHome);
+    map['owner_person_id'] = Variable<int>(ownerPersonId);
     map['bedrooms'] = Variable<int>(bedrooms);
     map['bathrooms'] = Variable<int>(bathrooms);
     map['storage'] = Variable<int>(storage);
@@ -10443,8 +10419,7 @@ class House extends DataClass implements Insertable<House> {
   HouseTableCompanion toCompanion(bool nullToAbsent) {
     return HouseTableCompanion(
       id: Value(id),
-      personId: Value(personId),
-      isCurrentHome: Value(isCurrentHome),
+      ownerPersonId: Value(ownerPersonId),
       bedrooms: Value(bedrooms),
       bathrooms: Value(bathrooms),
       storage: Value(storage),
@@ -10470,8 +10445,7 @@ class House extends DataClass implements Insertable<House> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return House(
       id: serializer.fromJson<int>(json['id']),
-      personId: serializer.fromJson<int>(json['personId']),
-      isCurrentHome: serializer.fromJson<bool>(json['isCurrentHome']),
+      ownerPersonId: serializer.fromJson<int>(json['ownerPersonId']),
       bedrooms: serializer.fromJson<int>(json['bedrooms']),
       bathrooms: serializer.fromJson<int>(json['bathrooms']),
       storage: serializer.fromJson<int>(json['storage']),
@@ -10496,8 +10470,7 @@ class House extends DataClass implements Insertable<House> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'personId': serializer.toJson<int>(personId),
-      'isCurrentHome': serializer.toJson<bool>(isCurrentHome),
+      'ownerPersonId': serializer.toJson<int>(ownerPersonId),
       'bedrooms': serializer.toJson<int>(bedrooms),
       'bathrooms': serializer.toJson<int>(bathrooms),
       'storage': serializer.toJson<int>(storage),
@@ -10520,8 +10493,7 @@ class House extends DataClass implements Insertable<House> {
 
   House copyWith(
           {int? id,
-          int? personId,
-          bool? isCurrentHome,
+          int? ownerPersonId,
           int? bedrooms,
           int? bathrooms,
           int? storage,
@@ -10541,8 +10513,7 @@ class House extends DataClass implements Insertable<House> {
           bool? fullyPaidFor}) =>
       House(
         id: id ?? this.id,
-        personId: personId ?? this.personId,
-        isCurrentHome: isCurrentHome ?? this.isCurrentHome,
+        ownerPersonId: ownerPersonId ?? this.ownerPersonId,
         bedrooms: bedrooms ?? this.bedrooms,
         bathrooms: bathrooms ?? this.bathrooms,
         storage: storage ?? this.storage,
@@ -10565,8 +10536,7 @@ class House extends DataClass implements Insertable<House> {
   String toString() {
     return (StringBuffer('House(')
           ..write('id: $id, ')
-          ..write('personId: $personId, ')
-          ..write('isCurrentHome: $isCurrentHome, ')
+          ..write('ownerPersonId: $ownerPersonId, ')
           ..write('bedrooms: $bedrooms, ')
           ..write('bathrooms: $bathrooms, ')
           ..write('storage: $storage, ')
@@ -10591,8 +10561,7 @@ class House extends DataClass implements Insertable<House> {
   @override
   int get hashCode => Object.hash(
       id,
-      personId,
-      isCurrentHome,
+      ownerPersonId,
       bedrooms,
       bathrooms,
       storage,
@@ -10615,8 +10584,7 @@ class House extends DataClass implements Insertable<House> {
       identical(this, other) ||
       (other is House &&
           other.id == this.id &&
-          other.personId == this.personId &&
-          other.isCurrentHome == this.isCurrentHome &&
+          other.ownerPersonId == this.ownerPersonId &&
           other.bedrooms == this.bedrooms &&
           other.bathrooms == this.bathrooms &&
           other.storage == this.storage &&
@@ -10638,8 +10606,7 @@ class House extends DataClass implements Insertable<House> {
 
 class HouseTableCompanion extends UpdateCompanion<House> {
   final Value<int> id;
-  final Value<int> personId;
-  final Value<bool> isCurrentHome;
+  final Value<int> ownerPersonId;
   final Value<int> bedrooms;
   final Value<int> bathrooms;
   final Value<int> storage;
@@ -10659,8 +10626,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
   final Value<bool> fullyPaidFor;
   const HouseTableCompanion({
     this.id = const Value.absent(),
-    this.personId = const Value.absent(),
-    this.isCurrentHome = const Value.absent(),
+    this.ownerPersonId = const Value.absent(),
     this.bedrooms = const Value.absent(),
     this.bathrooms = const Value.absent(),
     this.storage = const Value.absent(),
@@ -10681,8 +10647,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
   });
   HouseTableCompanion.insert({
     this.id = const Value.absent(),
-    required int personId,
-    required bool isCurrentHome,
+    required int ownerPersonId,
     required int bedrooms,
     required int bathrooms,
     required int storage,
@@ -10700,8 +10665,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
     required int condition,
     required int purchasePrice,
     required bool fullyPaidFor,
-  })  : personId = Value(personId),
-        isCurrentHome = Value(isCurrentHome),
+  })  : ownerPersonId = Value(ownerPersonId),
         bedrooms = Value(bedrooms),
         bathrooms = Value(bathrooms),
         storage = Value(storage),
@@ -10721,8 +10685,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
         fullyPaidFor = Value(fullyPaidFor);
   static Insertable<House> custom({
     Expression<int>? id,
-    Expression<int>? personId,
-    Expression<bool>? isCurrentHome,
+    Expression<int>? ownerPersonId,
     Expression<int>? bedrooms,
     Expression<int>? bathrooms,
     Expression<int>? storage,
@@ -10743,8 +10706,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (personId != null) 'person_id': personId,
-      if (isCurrentHome != null) 'is_current_home': isCurrentHome,
+      if (ownerPersonId != null) 'owner_person_id': ownerPersonId,
       if (bedrooms != null) 'bedrooms': bedrooms,
       if (bathrooms != null) 'bathrooms': bathrooms,
       if (storage != null) 'storage': storage,
@@ -10767,8 +10729,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
 
   HouseTableCompanion copyWith(
       {Value<int>? id,
-      Value<int>? personId,
-      Value<bool>? isCurrentHome,
+      Value<int>? ownerPersonId,
       Value<int>? bedrooms,
       Value<int>? bathrooms,
       Value<int>? storage,
@@ -10788,8 +10749,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
       Value<bool>? fullyPaidFor}) {
     return HouseTableCompanion(
       id: id ?? this.id,
-      personId: personId ?? this.personId,
-      isCurrentHome: isCurrentHome ?? this.isCurrentHome,
+      ownerPersonId: ownerPersonId ?? this.ownerPersonId,
       bedrooms: bedrooms ?? this.bedrooms,
       bathrooms: bathrooms ?? this.bathrooms,
       storage: storage ?? this.storage,
@@ -10816,11 +10776,8 @@ class HouseTableCompanion extends UpdateCompanion<House> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (personId.present) {
-      map['person_id'] = Variable<int>(personId.value);
-    }
-    if (isCurrentHome.present) {
-      map['is_current_home'] = Variable<bool>(isCurrentHome.value);
+    if (ownerPersonId.present) {
+      map['owner_person_id'] = Variable<int>(ownerPersonId.value);
     }
     if (bedrooms.present) {
       map['bedrooms'] = Variable<int>(bedrooms.value);
@@ -10880,8 +10837,7 @@ class HouseTableCompanion extends UpdateCompanion<House> {
   String toString() {
     return (StringBuffer('HouseTableCompanion(')
           ..write('id: $id, ')
-          ..write('personId: $personId, ')
-          ..write('isCurrentHome: $isCurrentHome, ')
+          ..write('ownerPersonId: $ownerPersonId, ')
           ..write('bedrooms: $bedrooms, ')
           ..write('bathrooms: $bathrooms, ')
           ..write('storage: $storage, ')

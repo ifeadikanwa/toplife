@@ -278,12 +278,11 @@ void main() {
         () {
           const House houseTemplate = House(
             id: 0,
-            personId: 8,
+            ownerPersonId: 8,
             country: "",
             state: "",
             endOfLeaseDay: 0,
             fullyPaidFor: true,
-            isCurrentHome: true,
             bedrooms: 1,
             bathrooms: 1,
             storage: 1,

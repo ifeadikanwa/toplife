@@ -5,12 +5,10 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/house_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_into_new_house_usecase.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/unset_all_current_homes_usecase.dart';
 
 class SignLeaseForRentalUsecase {
   final HouseRepository _houseRepository;
   final RecurringBillsUsecases _recurringBillsUsecases;
-  final UnsetAllCurrentHomesUsecase _unsetAllCurrentHomesUsecase;
   final MoveIntoNewHouseUsecase _moveIntoNewHouseUsecase;
   final PersonUsecases _personUsecases;
   final RelationshipUsecases _relationshipUsecases;
@@ -18,7 +16,6 @@ class SignLeaseForRentalUsecase {
   const SignLeaseForRentalUsecase(
     this._houseRepository,
     this._recurringBillsUsecases,
-    this._unsetAllCurrentHomesUsecase,
     this._moveIntoNewHouseUsecase,
     this._personUsecases,
     this._relationshipUsecases,
@@ -40,11 +37,6 @@ class SignLeaseForRentalUsecase {
     //calculate lease end day
     final int endOfLeaseDay = currentDay + leaseDuration - 1;
 
-    //remove every other home as current home
-    await _unsetAllCurrentHomesUsecase.execute(
-      personID: personID,
-    );
-
     //pay rent + security deposit
     await _personUsecases.takeMoneyFromPlayerUsecase.execute(
       relationshipUsecases: _relationshipUsecases,
@@ -56,8 +48,7 @@ class SignLeaseForRentalUsecase {
     //register the house as renting
     final House createdHouse = await _houseRepository.createHouse(
       house.copyWith(
-        personId: personID,
-        isCurrentHome: true,
+        ownerPersonId: personID,
         endOfLeaseDay: endOfLeaseDay,
         purchasePrice: economyAdjustedRentPrice,
         dayOfPurchase: currentDay,
@@ -75,10 +66,11 @@ class SignLeaseForRentalUsecase {
       address: createdHouse.address,
     );
 
-    //move the user to house(returns a string describing the move(if items were left behind, if all your items were successfully moved.))
+    //move the user to house
+    //sets as current home and returns a string describing the move(if items were left behind, if all your items were successfully moved.)
     final String moveStatus = await _moveIntoNewHouseUsecase.execute(
       personID: personID,
-      newHouse: house,
+      newHouse: createdHouse,
     );
 
     //return string of the move status
