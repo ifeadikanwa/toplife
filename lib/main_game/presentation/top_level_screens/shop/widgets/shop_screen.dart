@@ -312,7 +312,13 @@ class ShopScreen extends ConsumerWidget {
                 //   print("Watch People In a House: $event");
                 // });
 
-             
+                // final Game? currentGame =
+                //     await GameDaoImpl(db).getLastPlayedActiveGame();
+
+                // if (currentGame != null) {
+                //   GameDaoImpl(db).updateGame(
+                //       currentGame.copyWith(currentTimeInMinutes: 660));
+                // }
               },
               child: const Text("Run"),
             ),

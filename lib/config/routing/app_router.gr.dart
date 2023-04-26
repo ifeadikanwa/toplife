@@ -347,6 +347,7 @@ class AppRouter extends _i37.RootStackRouter {
       return _i37.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i36.ActivitiesScreen(),
+        maintainState: false,
       );
     },
   };

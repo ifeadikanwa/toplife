@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
+import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
@@ -13,6 +15,7 @@ class GameManagerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final db = ref.watch(databaseProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -150,6 +153,14 @@ class GameManagerScreen extends ConsumerWidget {
               // print(EventManager.convertEventTypeStringToEnum("birthday"));
 
               // print(result);
+
+              final Game? currentGame =
+                  await GameDaoImpl(db).getLastPlayedActiveGame();
+
+              if (currentGame != null) {
+                GameDaoImpl(db).updateGame(
+                    currentGame.copyWith(currentTimeInMinutes: 720));
+              }
             },
             child: const Text("do")),
         ElevatedButton(onPressed: () {}, child: const Text("run")),
@@ -162,7 +173,6 @@ class GameManagerScreen extends ConsumerWidget {
               // await GameDaoImpl().deleteGame(2);
             },
             child: const Text("Delete")),
-  
       ],
     );
   }

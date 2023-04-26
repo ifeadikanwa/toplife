@@ -1,15 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
+import 'package:toplife/core/common_states/listen/game_controller_provider.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
 
-class MainGameScreen extends StatelessWidget {
+class MainGameScreen extends ConsumerWidget {
   const MainGameScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    
+    //Trigger game controller to work in the background
+    ref.listen<void>(gameControllerProvider, (previous, next) {});
+
     final appTheme = Theme.of(context);
 
     return SafeArea(
