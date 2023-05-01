@@ -36,9 +36,9 @@ class PlayerScreen extends StatelessWidget {
                 HomeOptions(),
                 BabyMonitorCard(
                   babies: [
-                    ["Natasha", "Happy"],
-                    ["Christian", "Happy"],
-                    ["Jason", "Happy"],
+                    // ["Natasha", "Happy"],
+                    // ["Christian", "Happy"],
+                    ["Natalie Howard", "Angry"],
                   ],
                 ),
                 TodaysJournalCard(),

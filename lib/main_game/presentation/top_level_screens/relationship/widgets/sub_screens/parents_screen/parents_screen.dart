@@ -79,7 +79,10 @@ class ParentsScreen extends ConsumerWidget {
                       return RelationshipListItemWithHeader(
                         onTap: () {},
                         sectionTitle: sectionTitle,
-                        avatarImagePath: "assets/images/indian_woman_face.png",
+                        avatarImagePath:
+                            parentsList[index].person.gender == "Male"
+                                ? "assets/images/blank_male_1.png"
+                                : "assets/images/blank_female_2.png",
                         relationshipLabel: relationshipLabel,
                         name: name,
                         relationshipAmount: relationshipAmount,
@@ -91,7 +94,9 @@ class ParentsScreen extends ConsumerWidget {
                   //No header needed if you get here
                   return RelationshipListItem(
                     onTap: () {},
-                    avatarImagePath: "assets/images/indian_woman_face.png",
+                    avatarImagePath: parentsList[index].person.gender == "Male"
+                        ? "assets/images/blank_male_1.png"
+                        : "assets/images/blank_female_2.png",
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,

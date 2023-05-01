@@ -96,8 +96,8 @@ class PlayerInformationCard extends ConsumerWidget {
   }
 
   Widget faceAndFlag({required String currentCountry}) {
-    const avatarImagePath = "assets/images/indian_woman_face.png";
-    const flagImagePath = "assets/images/france_flag.jpg";
+    const avatarImagePath = "assets/images/blank_male_2.png";
+    const flagImagePath = "assets/images/us_flag.png";
 
     return const AvatarWithFlag(
       avatarSize: 50,

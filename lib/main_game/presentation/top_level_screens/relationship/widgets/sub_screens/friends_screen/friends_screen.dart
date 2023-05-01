@@ -40,7 +40,9 @@ class FriendsScreen extends ConsumerWidget {
 
                   return RelationshipListItem(
                     onTap: () {},
-                    avatarImagePath: "assets/images/indian_woman_face.png",
+                    avatarImagePath: friends[index].person.gender == "Male"
+                        ? "assets/images/blank_male_3.png"
+                        : "assets/images/blank_female_3.png",
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,

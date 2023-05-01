@@ -64,7 +64,9 @@ class InLawsScreen extends ConsumerWidget {
                     return RelationshipListItemWithHeader(
                       onTap: () {},
                       sectionTitle: sectionTitle,
-                      avatarImagePath: "assets/images/indian_woman_face.png",
+                      avatarImagePath: inLawsList[index].person.gender == "Male"
+                          ? "assets/images/blank_male_1.png"
+                          : "assets/images/blank_female_2.png",
                       relationshipLabel: relationshipLabel,
                       name: name,
                       relationshipAmount: relationshipAmount,
@@ -74,7 +76,9 @@ class InLawsScreen extends ConsumerWidget {
 
                   return RelationshipListItem(
                     onTap: () {},
-                    avatarImagePath: "assets/images/indian_woman_face.png",
+                    avatarImagePath: inLawsList[index].person.gender == "Male"
+                        ? "assets/images/blank_male_1.png"
+                        : "assets/images/blank_female_2.png",
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,

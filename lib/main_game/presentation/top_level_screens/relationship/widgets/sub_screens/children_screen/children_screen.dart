@@ -43,7 +43,9 @@ class ChildrenScreen extends ConsumerWidget {
 
                   return RelationshipListItem(
                     onTap: () {},
-                    avatarImagePath: "assets/images/indian_woman_face.png",
+                    avatarImagePath: childrenList[index].person.gender == "Male"
+                        ? "assets/images/blank_male_3.png"
+                        : "assets/images/blank_female_1.png",
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,

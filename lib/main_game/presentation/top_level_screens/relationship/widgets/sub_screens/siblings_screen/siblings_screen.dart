@@ -43,7 +43,9 @@ class SiblingsScreen extends ConsumerWidget {
 
                   return RelationshipListItem(
                     onTap: () {},
-                    avatarImagePath: "assets/images/indian_woman_face.png",
+                    avatarImagePath: siblings[index].person.gender == "Male"
+                        ? "assets/images/blank_male_1.png"
+                        : "assets/images/blank_female_2.png",
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,

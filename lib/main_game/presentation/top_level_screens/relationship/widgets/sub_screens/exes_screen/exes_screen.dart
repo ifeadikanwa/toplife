@@ -48,7 +48,9 @@ class ExesScreen extends ConsumerWidget {
 
                   return RelationshipListItem(
                     onTap: () {},
-                    avatarImagePath: "assets/images/indian_woman_face.png",
+                    avatarImagePath: exes[index].person.gender == "Male"
+                        ? "assets/images/blank_male_1.png"
+                        : "assets/images/blank_female_1.png",
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,
