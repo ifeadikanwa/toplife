@@ -25,6 +25,7 @@ class PerformPartyActivity {
         await _personUsecases.updateSoberStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: -(Random().nextInt(30) + 40), //-40 -> -70
+          override: false,
         );
         break;
       case PartyEventActivity.danceDanceDance:
@@ -33,6 +34,7 @@ class PerformPartyActivity {
         await _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: Random().nextInt(10), //1-10
+          override: false,
         );
         break;
       case PartyEventActivity.eatAndLeave:
@@ -49,6 +51,7 @@ class PerformPartyActivity {
         await _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: Random().nextInt(10), //1-10
+          override: false,
         );
         break;
       default:

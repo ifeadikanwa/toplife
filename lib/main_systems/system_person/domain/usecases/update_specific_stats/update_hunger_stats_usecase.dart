@@ -3,11 +3,11 @@ import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/toggle_deplete_stats_flag_usecase.dart';
 
-class UpdateMoodStatsUsecase {
+class UpdateHungerStatsUsecase {
   final StatsRepository _statsRepository;
   final ToggleDepleteStatsFlagUsecase _toggleDepleteStatsFlagUsecase;
 
-  const UpdateMoodStatsUsecase({
+  const UpdateHungerStatsUsecase({
     required StatsRepository statsRepository,
     required ToggleDepleteStatsFlagUsecase toggleDepleteStatsFlagUsecase,
   })  : _statsRepository = statsRepository,
@@ -25,15 +25,15 @@ class UpdateMoodStatsUsecase {
       if (override) {
         await _statsRepository.updateStats(
           stats.copyWith(
-            mood: crossCheckStat(change),
+            hunger: crossCheckStat(change),
           ),
         );
       } else {
-        final int oldMood = stats.mood;
+        final int oldHunger = stats.hunger;
 
         await _statsRepository.updateStats(
           stats.copyWith(
-            mood: crossCheckStat(oldMood + change),
+            hunger: crossCheckStat(oldHunger + change),
           ),
         );
       }
@@ -41,7 +41,7 @@ class UpdateMoodStatsUsecase {
       //tell system to not deplete the stat
       _toggleDepleteStatsFlagUsecase.execute(
         personID: mainPersonID,
-        depleteMood: false,
+        depleteHunger: false,
       );
     }
   }

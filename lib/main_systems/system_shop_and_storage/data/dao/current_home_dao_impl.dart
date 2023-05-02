@@ -47,6 +47,7 @@ class CurrentHomeDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateCurrentHome(CurrentHome currentHome) {
+    //I can't use replace method because there is no primary key
     return (update(currentHomeTable)
           ..where((dbCurrentHome) =>
               dbCurrentHome.personId.equals(currentHome.personId)))

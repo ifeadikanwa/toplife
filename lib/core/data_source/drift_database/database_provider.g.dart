@@ -1957,6 +1957,364 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
   }
 }
 
+class $DepleteStatsFlagTableTable extends DepleteStatsFlagTable
+    with TableInfo<$DepleteStatsFlagTableTable, DepleteStatsFlag> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DepleteStatsFlagTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'UNIQUE REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _energyMeta = const VerificationMeta('energy');
+  @override
+  late final GeneratedColumn<bool> energy =
+      GeneratedColumn<bool>('energy', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("energy" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _hungerMeta = const VerificationMeta('hunger');
+  @override
+  late final GeneratedColumn<bool> hunger =
+      GeneratedColumn<bool>('hunger', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("hunger" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _moodMeta = const VerificationMeta('mood');
+  @override
+  late final GeneratedColumn<bool> mood =
+      GeneratedColumn<bool>('mood', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("mood" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _healthMeta = const VerificationMeta('health');
+  @override
+  late final GeneratedColumn<bool> health =
+      GeneratedColumn<bool>('health', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("health" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _athleticismMeta =
+      const VerificationMeta('athleticism');
+  @override
+  late final GeneratedColumn<bool> athleticism =
+      GeneratedColumn<bool>('athleticism', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("athleticism" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [personId, energy, hunger, mood, health, athleticism];
+  @override
+  String get aliasedName => _alias ?? 'deplete_stats_flag';
+  @override
+  String get actualTableName => 'deplete_stats_flag';
+  @override
+  VerificationContext validateIntegrity(Insertable<DepleteStatsFlag> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('energy')) {
+      context.handle(_energyMeta,
+          energy.isAcceptableOrUnknown(data['energy']!, _energyMeta));
+    } else if (isInserting) {
+      context.missing(_energyMeta);
+    }
+    if (data.containsKey('hunger')) {
+      context.handle(_hungerMeta,
+          hunger.isAcceptableOrUnknown(data['hunger']!, _hungerMeta));
+    } else if (isInserting) {
+      context.missing(_hungerMeta);
+    }
+    if (data.containsKey('mood')) {
+      context.handle(
+          _moodMeta, mood.isAcceptableOrUnknown(data['mood']!, _moodMeta));
+    } else if (isInserting) {
+      context.missing(_moodMeta);
+    }
+    if (data.containsKey('health')) {
+      context.handle(_healthMeta,
+          health.isAcceptableOrUnknown(data['health']!, _healthMeta));
+    } else if (isInserting) {
+      context.missing(_healthMeta);
+    }
+    if (data.containsKey('athleticism')) {
+      context.handle(
+          _athleticismMeta,
+          athleticism.isAcceptableOrUnknown(
+              data['athleticism']!, _athleticismMeta));
+    } else if (isInserting) {
+      context.missing(_athleticismMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  DepleteStatsFlag map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DepleteStatsFlag(
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      energy: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}energy'])!,
+      hunger: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}hunger'])!,
+      mood: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}mood'])!,
+      health: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}health'])!,
+      athleticism: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}athleticism'])!,
+    );
+  }
+
+  @override
+  $DepleteStatsFlagTableTable createAlias(String alias) {
+    return $DepleteStatsFlagTableTable(attachedDatabase, alias);
+  }
+}
+
+class DepleteStatsFlag extends DataClass
+    implements Insertable<DepleteStatsFlag> {
+  final int personId;
+  final bool energy;
+  final bool hunger;
+  final bool mood;
+  final bool health;
+  final bool athleticism;
+  const DepleteStatsFlag(
+      {required this.personId,
+      required this.energy,
+      required this.hunger,
+      required this.mood,
+      required this.health,
+      required this.athleticism});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['person_id'] = Variable<int>(personId);
+    map['energy'] = Variable<bool>(energy);
+    map['hunger'] = Variable<bool>(hunger);
+    map['mood'] = Variable<bool>(mood);
+    map['health'] = Variable<bool>(health);
+    map['athleticism'] = Variable<bool>(athleticism);
+    return map;
+  }
+
+  DepleteStatsFlagTableCompanion toCompanion(bool nullToAbsent) {
+    return DepleteStatsFlagTableCompanion(
+      personId: Value(personId),
+      energy: Value(energy),
+      hunger: Value(hunger),
+      mood: Value(mood),
+      health: Value(health),
+      athleticism: Value(athleticism),
+    );
+  }
+
+  factory DepleteStatsFlag.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DepleteStatsFlag(
+      personId: serializer.fromJson<int>(json['personId']),
+      energy: serializer.fromJson<bool>(json['energy']),
+      hunger: serializer.fromJson<bool>(json['hunger']),
+      mood: serializer.fromJson<bool>(json['mood']),
+      health: serializer.fromJson<bool>(json['health']),
+      athleticism: serializer.fromJson<bool>(json['athleticism']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'personId': serializer.toJson<int>(personId),
+      'energy': serializer.toJson<bool>(energy),
+      'hunger': serializer.toJson<bool>(hunger),
+      'mood': serializer.toJson<bool>(mood),
+      'health': serializer.toJson<bool>(health),
+      'athleticism': serializer.toJson<bool>(athleticism),
+    };
+  }
+
+  DepleteStatsFlag copyWith(
+          {int? personId,
+          bool? energy,
+          bool? hunger,
+          bool? mood,
+          bool? health,
+          bool? athleticism}) =>
+      DepleteStatsFlag(
+        personId: personId ?? this.personId,
+        energy: energy ?? this.energy,
+        hunger: hunger ?? this.hunger,
+        mood: mood ?? this.mood,
+        health: health ?? this.health,
+        athleticism: athleticism ?? this.athleticism,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DepleteStatsFlag(')
+          ..write('personId: $personId, ')
+          ..write('energy: $energy, ')
+          ..write('hunger: $hunger, ')
+          ..write('mood: $mood, ')
+          ..write('health: $health, ')
+          ..write('athleticism: $athleticism')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(personId, energy, hunger, mood, health, athleticism);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DepleteStatsFlag &&
+          other.personId == this.personId &&
+          other.energy == this.energy &&
+          other.hunger == this.hunger &&
+          other.mood == this.mood &&
+          other.health == this.health &&
+          other.athleticism == this.athleticism);
+}
+
+class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
+  final Value<int> personId;
+  final Value<bool> energy;
+  final Value<bool> hunger;
+  final Value<bool> mood;
+  final Value<bool> health;
+  final Value<bool> athleticism;
+  const DepleteStatsFlagTableCompanion({
+    this.personId = const Value.absent(),
+    this.energy = const Value.absent(),
+    this.hunger = const Value.absent(),
+    this.mood = const Value.absent(),
+    this.health = const Value.absent(),
+    this.athleticism = const Value.absent(),
+  });
+  DepleteStatsFlagTableCompanion.insert({
+    required int personId,
+    required bool energy,
+    required bool hunger,
+    required bool mood,
+    required bool health,
+    required bool athleticism,
+  })  : personId = Value(personId),
+        energy = Value(energy),
+        hunger = Value(hunger),
+        mood = Value(mood),
+        health = Value(health),
+        athleticism = Value(athleticism);
+  static Insertable<DepleteStatsFlag> custom({
+    Expression<int>? personId,
+    Expression<bool>? energy,
+    Expression<bool>? hunger,
+    Expression<bool>? mood,
+    Expression<bool>? health,
+    Expression<bool>? athleticism,
+  }) {
+    return RawValuesInsertable({
+      if (personId != null) 'person_id': personId,
+      if (energy != null) 'energy': energy,
+      if (hunger != null) 'hunger': hunger,
+      if (mood != null) 'mood': mood,
+      if (health != null) 'health': health,
+      if (athleticism != null) 'athleticism': athleticism,
+    });
+  }
+
+  DepleteStatsFlagTableCompanion copyWith(
+      {Value<int>? personId,
+      Value<bool>? energy,
+      Value<bool>? hunger,
+      Value<bool>? mood,
+      Value<bool>? health,
+      Value<bool>? athleticism}) {
+    return DepleteStatsFlagTableCompanion(
+      personId: personId ?? this.personId,
+      energy: energy ?? this.energy,
+      hunger: hunger ?? this.hunger,
+      mood: mood ?? this.mood,
+      health: health ?? this.health,
+      athleticism: athleticism ?? this.athleticism,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (energy.present) {
+      map['energy'] = Variable<bool>(energy.value);
+    }
+    if (hunger.present) {
+      map['hunger'] = Variable<bool>(hunger.value);
+    }
+    if (mood.present) {
+      map['mood'] = Variable<bool>(mood.value);
+    }
+    if (health.present) {
+      map['health'] = Variable<bool>(health.value);
+    }
+    if (athleticism.present) {
+      map['athleticism'] = Variable<bool>(athleticism.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DepleteStatsFlagTableCompanion(')
+          ..write('personId: $personId, ')
+          ..write('energy: $energy, ')
+          ..write('hunger: $hunger, ')
+          ..write('mood: $mood, ')
+          ..write('health: $health, ')
+          ..write('athleticism: $athleticism')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $StanceTableTable extends StanceTable
     with TableInfo<$StanceTableTable, Stance> {
   @override
@@ -17427,6 +17785,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $GameTableTable gameTable = $GameTableTable(this);
   late final $PersonTableTable personTable = $PersonTableTable(this);
   late final $StatsTableTable statsTable = $StatsTableTable(this);
+  late final $DepleteStatsFlagTableTable depleteStatsFlagTable =
+      $DepleteStatsFlagTableTable(this);
   late final $StanceTableTable stanceTable = $StanceTableTable(this);
   late final $BabyTraitsTableTable babyTraitsTable =
       $BabyTraitsTableTable(this);
@@ -17472,6 +17832,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
   late final StatsDaoImpl statsDaoImpl = StatsDaoImpl(this as DatabaseProvider);
+  late final DepleteStatsFlagDaoImpl depleteStatsFlagDaoImpl =
+      DepleteStatsFlagDaoImpl(this as DatabaseProvider);
   late final StanceDaoImpl stanceDaoImpl =
       StanceDaoImpl(this as DatabaseProvider);
   late final BabyTraitsDaoImpl babyTraitsDaoImpl =
@@ -17531,6 +17893,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         gameTable,
         personTable,
         statsTable,
+        depleteStatsFlagTable,
         stanceTable,
         babyTraitsTable,
         relationshipTraitsTable,
@@ -17591,6 +17954,20 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('stats', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('deplete_stats_flag', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('deplete_stats_flag', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(

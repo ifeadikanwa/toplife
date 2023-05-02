@@ -235,6 +235,7 @@ class FuneralEvent {
     _personUsecases.updateMoodStatsUsecase.execute(
       mainPersonID: mainPlayerID,
       change: Random().nextInt(10) + 20, //10-30
+      override: false,
     );
 
     //log in journal

@@ -1,7 +1,8 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
 
-class StatsConstants{
-   static const hungerDepletionRatePerHour = 10;
+class StatsConstants {
+  static const hungerDepletionRatePerHour = 10;
   static const energyDepletionRatePerHour = 7;
 
   static const nonPlayerHungerDepletionRatePerHour = 8;
@@ -21,4 +22,13 @@ class StatsConstants{
   static int getValidEnergyorHungerStatsValue() {
     return getValidRandomStatsValue(minValue: 50);
   }
+
+  static const defaultDepleteStatsFlag = DepleteStatsFlag(
+    personId: 0,
+    energy: true,
+    hunger: true,
+    mood: true,
+    health: true,
+    athleticism: true,
+  );
 }

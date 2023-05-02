@@ -1,6 +1,10 @@
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_player_information_from_data_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/create_or_update_deplete_stats_flag_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/delete_person_deplete_stats_flag_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/toggle_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/add_money_to_player_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/check_if_player_can_afford_it_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_adult_person_usecase.dart';
@@ -23,6 +27,9 @@ import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/
 import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_athleticism_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_energy_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_health_stats_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_hunger_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_intellect_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_looks_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_sober_stats_usecase.dart';
@@ -135,12 +142,37 @@ class PersonUsecases {
       );
 
   UpdateStatsUsecase get updateStatsUsecase => UpdateStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        updateEnergyStatsUsecase,
+        updateHealthStatsUsecase,
+        updateMoodStatsUsecase,
+        updateHungerStatsUsecase,
+        updateIntellectStatsUsecase,
+        updateSoberStatsUsecase,
+        updateLooksStatsUsecase,
+        updateAthleticismStatsUsecase,
       );
 
-  UpdateMoodStatsUsecase get updateMoodStatsUsecase =>
-      UpdateMoodStatsUsecase(
+  UpdateMoodStatsUsecase get updateMoodStatsUsecase => UpdateMoodStatsUsecase(
         statsRepository: _personRepositories.statsRepositoryImpl,
+        toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
+      );
+
+  UpdateHealthStatsUsecase get updateHealthStatsUsecase =>
+      UpdateHealthStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+        toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
+      );
+
+  UpdateHungerStatsUsecase get updateHungerStatsUsecase =>
+      UpdateHungerStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+        toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
+      );
+
+  UpdateEnergyStatsUsecase get updateEnergyStatsUsecase =>
+      UpdateEnergyStatsUsecase(
+        statsRepository: _personRepositories.statsRepositoryImpl,
+        toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
       );
 
   UpdateLooksStatsUsecase get updateLooksStatsUsecase =>
@@ -161,6 +193,7 @@ class PersonUsecases {
   UpdateAthleticismStatsUsecase get updateAthleticismStatsUsecase =>
       UpdateAthleticismStatsUsecase(
         statsRepository: _personRepositories.statsRepositoryImpl,
+        toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
       );
 
   CheckIfPlayerCanAffordItUsecase get checkIfPlayerCanAffordItUsecase =>
@@ -180,5 +213,30 @@ class PersonUsecases {
   GetPlayerInformationFromDataUsecase get getPlayerInformationFromDataUsecase =>
       GetPlayerInformationFromDataUsecase(
         _ageUsecases,
+      );
+
+  GetPersonDepleteStatsFlagUsecase get getPersonDepleteStatsFlagUsecase =>
+      GetPersonDepleteStatsFlagUsecase(
+        depleteStatsFlagRepository:
+            _personRepositories.depleteStatsFlagRepositoryImpl,
+      );
+
+  CreateOrUpdateDepleteStatsFlagUsecase
+      get createOrUpdateDepleteStatsFlagUsecase =>
+          CreateOrUpdateDepleteStatsFlagUsecase(
+            depleteStatsFlagRepository:
+                _personRepositories.depleteStatsFlagRepositoryImpl,
+          );
+
+  DeletePersonDepleteStatsFlagUsecase get deletePersonDepleteStatsFlagUsecase =>
+      DeletePersonDepleteStatsFlagUsecase(
+        depleteStatsFlagRepository:
+            _personRepositories.depleteStatsFlagRepositoryImpl,
+      );
+
+  ToggleDepleteStatsFlagUsecase get toggleDepleteStatsFlagUsecase =>
+      ToggleDepleteStatsFlagUsecase(
+        depleteStatsFlagRepository:
+            _personRepositories.depleteStatsFlagRepositoryImpl,
       );
 }

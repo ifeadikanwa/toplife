@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 
 void main() {
@@ -93,6 +94,23 @@ void main() {
         expect(
           StatsConstants.getValidEnergyorHungerStatsValue(),
           inInclusiveRange(50, 100),
+        );
+      },
+    );
+
+    test(
+      "defaultDepleteStatsFlag is correct",
+      () {
+        expect(
+          StatsConstants.defaultDepleteStatsFlag,
+          const DepleteStatsFlag(
+            personId: 0,
+            energy: true,
+            hunger: true,
+            mood: true,
+            health: true,
+            athleticism: true,
+          ),
         );
       },
     );

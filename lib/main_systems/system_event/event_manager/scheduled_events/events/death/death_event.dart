@@ -246,6 +246,7 @@ class DeathEvent {
       _personUsecases.updateMoodStatsUsecase.execute(
         mainPersonID: mainPlayerID,
         change: -60,
+        override: false,
       );
     }
     //child
@@ -253,6 +254,7 @@ class DeathEvent {
       _personUsecases.updateMoodStatsUsecase.execute(
         mainPersonID: mainPlayerID,
         change: -70,
+        override: false,
       );
     }
     //partner
@@ -263,11 +265,13 @@ class DeathEvent {
         _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: -60,
+          override: false,
         );
       } else {
         _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: -30,
+          override: false,
         );
       }
     }
@@ -276,6 +280,7 @@ class DeathEvent {
       _personUsecases.updateMoodStatsUsecase.execute(
         mainPersonID: mainPlayerID,
         change: -30,
+        override: false,
       );
     }
   }

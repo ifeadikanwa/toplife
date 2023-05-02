@@ -50,6 +50,7 @@ class AttendParty {
     _personUsecases.updateMoodStatsUsecase.execute(
       mainPersonID: mainPlayerID,
       change: Random().nextInt(20), //1-20
+      override: false,
     );
 
     _relationshipUsecases.updateAnyRelationshipAmountUsecase.execute(
