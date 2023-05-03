@@ -12,9 +12,9 @@ void main() {
     );
 
     test(
-      "energyDepletionRatePerHour is 7",
+      "energyDepletionRatePerHour is 5",
       () {
-        expect(StatsConstants.energyDepletionRatePerHour, 7);
+        expect(StatsConstants.energyDepletionRatePerHour, 5);
       },
     );
 
@@ -68,9 +68,9 @@ void main() {
     );
 
     test(
-      "hungerEmergencyDepletionRatePerHour is 1",
+      "hungerEmergencyDepletionRatePerHour is 0.8",
       () {
-        expect(StatsConstants.hungerEmergencyDepletionRatePerHour, 1);
+        expect(StatsConstants.hungerEmergencyDepletionRatePerHour, 0.8);
       },
     );
 
@@ -78,6 +78,33 @@ void main() {
       "energyEmergencyDepletionRatePerHour is 2",
       () {
         expect(StatsConstants.energyEmergencyDepletionRatePerHour, 2);
+      },
+    );
+
+    test(
+      "emergencyModeAthleticismSideEffectDepletionRatePerHour is 0.5",
+      () {
+        expect(
+            StatsConstants
+                .emergencyModeAthleticismSideEffectDepletionRatePerHour,
+            0.5);
+      },
+    );
+
+    test(
+      "emergencyModeLooksSideEffectDepletionRatePerHour is 0.5",
+      () {
+        expect(StatsConstants.emergencyModeLooksSideEffectDepletionRatePerHour,
+            0.5);
+      },
+    );
+
+    test(
+      "emergencyModeIntellectSideEffectDepletionRatePerHour is 0.5",
+      () {
+        expect(
+            StatsConstants.emergencyModeIntellectSideEffectDepletionRatePerHour,
+            0.5);
       },
     );
 

@@ -29,6 +29,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/manage_surviv
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/increase/increase_main_player_soberness_usecase.dart.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/increase/sleep_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/take_money_from_player_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/side_effects/energy_and_hunger_emergency_mode_side_effects_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_athleticism_stats_usecase.dart';
@@ -93,11 +94,15 @@ class PersonUsecases {
   DepleteMainPlayerEnergyUsecase get depleteMainPlayerEnergyUsecase =>
       DepleteMainPlayerEnergyUsecase(
         statsRepository: _personRepositories.statsRepositoryImpl,
+        energyAndHungerEmergencyModeSideEffectUsecase:
+            energyAndHungerEmergencyModeSideEffectUsecase,
       );
 
   DepleteMainPlayerHungerUsecase get depleteMainPlayerHungerUsecase =>
       DepleteMainPlayerHungerUsecase(
         statsRepository: _personRepositories.statsRepositoryImpl,
+        energyAndHungerEmergencyModeSideEffectUsecase:
+            energyAndHungerEmergencyModeSideEffectUsecase,
       );
 
   DepleteMainPlayerHealthUsecase get depleteMainPlayerHealthUsecase =>
@@ -271,4 +276,10 @@ class PersonUsecases {
         depleteStatsFlagRepository:
             _personRepositories.depleteStatsFlagRepositoryImpl,
       );
+
+  EnergyAndHungerEmergencyModeSideEffectUsecase
+      get energyAndHungerEmergencyModeSideEffectUsecase =>
+          EnergyAndHungerEmergencyModeSideEffectUsecase(
+            statsRepository: _personRepositories.statsRepositoryImpl,
+          );
 }

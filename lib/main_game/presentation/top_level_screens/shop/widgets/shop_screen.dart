@@ -272,7 +272,7 @@ class ShopScreen extends ConsumerWidget {
                 //     .depleteMainPlayerEnergyUsecase
                 //     .execute(
                 //       personID: 1,
-                //       hours: 5.5,
+                //       hours: 5,
                 //     );
 
                 // await ref
@@ -280,13 +280,15 @@ class ShopScreen extends ConsumerWidget {
                 //     .updateStatsUsecase
                 //     .execute(
                 //       mainPersonID: 1,
-                //       override: false,
-                //       energy: 5,
-                //       // mood: 100,
-                //       sober: -20,
-                //       // athleticism: 100,
-                //       // health: 100,
-                //       hunger: 5,
+                //       override: true,
+                //       energy: 100,
+                //       mood: 100,
+                //       sober: 100,
+                //       athleticism: 100,
+                //       health: 100,
+                //       hunger: 100,
+                //       looks: 100,
+                //       intellect: 100,
                 //     );
 
                 // ref
