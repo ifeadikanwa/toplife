@@ -27,6 +27,7 @@ class ActivePlayerStatusBar extends ConsumerWidget {
         bankBalance: playerBarInfo.bankBalance,
         time: playerBarInfo.time,
         dayNumber: playerBarInfo.day,
+        dayOfWeek: playerBarInfo.dayOfWeek,
       ),
       error: (error, stackTrace) => Container(),
       loading: () => PlayerStatusBar(
@@ -38,6 +39,7 @@ class ActivePlayerStatusBar extends ConsumerWidget {
         bankBalance: PlayerBarInfo.blankPlayerBarInfo.bankBalance,
         time: PlayerBarInfo.blankPlayerBarInfo.time,
         dayNumber: PlayerBarInfo.blankPlayerBarInfo.day,
+        dayOfWeek: PlayerBarInfo.blankPlayerBarInfo.dayOfWeek,
       ),
     );
   }

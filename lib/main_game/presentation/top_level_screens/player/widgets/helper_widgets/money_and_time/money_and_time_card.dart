@@ -64,7 +64,7 @@ class MoneyAndTimeCard extends ConsumerWidget {
               ),
               const AddVerticalSpace(height: verticalTextSpacing),
               Text(
-                "${TextConstants.day} ${playerBarInfo.day}",
+                "${playerBarInfo.dayOfWeek}, ${TextConstants.day} ${playerBarInfo.day}",
                 style: cardSecondaryTextStyle,
               ),
             ],

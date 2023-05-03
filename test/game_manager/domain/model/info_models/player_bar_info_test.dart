@@ -15,6 +15,7 @@ void main() {
           bankBalance: "-",
           time: "-",
           day: "-",
+          dayOfWeek: "-",
         ),
       ),
     );

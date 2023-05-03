@@ -1,5 +1,6 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
+import 'package:toplife/core/utils/day_of_week/get_day_of_the_week.dart';
 import 'package:toplife/core/utils/money/format_money_to_string.dart';
 import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
@@ -47,6 +48,7 @@ class GetPlayerBarInfoFromDataUsecase {
           timeInMinutes: currentGame.currentTimeInMinutes,
         ),
         day: currentGame.currentDay.toString(),
+        dayOfWeek: getDayOfTheWeek(currentGame.currentDay).name,
       );
 
       return currentGameAndPlayerInfo;

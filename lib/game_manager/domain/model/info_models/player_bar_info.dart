@@ -9,6 +9,7 @@ class PlayerBarInfo extends Equatable {
   final String bankBalance;
   final String time;
   final String day;
+  final String dayOfWeek;
 
   const PlayerBarInfo({
     required this.firstName,
@@ -18,6 +19,7 @@ class PlayerBarInfo extends Equatable {
     required this.bankBalance,
     required this.time,
     required this.day,
+    required this.dayOfWeek,
   });
 
   static const blankPlayerBarInfo = PlayerBarInfo(
@@ -28,6 +30,7 @@ class PlayerBarInfo extends Equatable {
     bankBalance: TextConstants.dash,
     time: TextConstants.dash,
     day: TextConstants.dash,
+    dayOfWeek: TextConstants.dash,
   );
 
   @override
@@ -39,6 +42,7 @@ class PlayerBarInfo extends Equatable {
         bankBalance,
         time,
         day,
+        dayOfWeek,
       ];
 
   @override
