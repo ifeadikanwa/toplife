@@ -42,7 +42,7 @@ class PerformPartyActivity {
             "I came with one mission, EAT, and I think I did a pretty good job.";
         await _personUsecases.eatUsecase.execute(
           personID: mainPlayerID,
-          food: (Random().nextInt(20) + 30), //30-50
+          nutrition: (Random().nextInt(20) + 30), //30-50
         );
         break;
       case PartyEventActivity.socialize:

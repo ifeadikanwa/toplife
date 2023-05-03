@@ -44,7 +44,7 @@ class AttendParty {
     //increase relationship w/ host, wellbeing and hunger
     await _personUsecases.eatUsecase.execute(
       personID: mainPlayerID,
-      food: (Random().nextInt(30)), //1-30
+      nutrition: (Random().nextInt(30)), //1-30
     );
 
     _personUsecases.updateMoodStatsUsecase.execute(

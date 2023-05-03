@@ -1,25 +1,29 @@
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
-class DepleteMainPlayerHungerUsecase {
+class DepleteNonPlayerHungerUsecase {
   final StatsRepository _statsRepository;
 
-  const DepleteMainPlayerHungerUsecase({
+  const DepleteNonPlayerHungerUsecase({
     required StatsRepository statsRepository,
   }) : _statsRepository = statsRepository;
 
-  Future<void> execute({required int personID, required int hours}) async {
+  Future<void> execute({
+    required int personID,
+    required double hours,
+  }) async {
     final personStats = await _statsRepository.getStats(personID);
+
     if (personStats != null) {
       final currentHungerStat = personStats.hunger;
 
-      int depletedHunger = 0;
+      double depletedHunger = 0;
       int updatedHungerStat = 0;
 
       if (currentHungerStat <= StatsConstants.hungerEmergencyModeStat) {
         //Handle depletion with emergency mode
         depletedHunger = getEmergencyDepletionValue(hours);
-        updatedHungerStat = currentHungerStat - depletedHunger;
+        updatedHungerStat = (currentHungerStat - depletedHunger).floor();
       } else {
         //Handle the depletion regular mode
         depletedHunger = getRegularDepletionValue(hours);
@@ -31,21 +35,22 @@ class DepleteMainPlayerHungerUsecase {
             StatsConstants.hungerEmergencyModeStat) {
           updatedHungerStat = StatsConstants.hungerEmergencyModeStat;
         } else {
-          updatedHungerStat = currentHungerStat - depletedHunger;
+          updatedHungerStat = (currentHungerStat - depletedHunger).floor();
         }
       }
 
-      final updatedPersonStats =  personStats.copyWith(hunger: updatedHungerStat);
+      final updatedPersonStats =
+          personStats.copyWith(hunger: updatedHungerStat);
 
       _statsRepository.updateStats(updatedPersonStats);
     }
   }
 
-  int getEmergencyDepletionValue(int hours) {
+  double getEmergencyDepletionValue(double hours) {
     return hours * StatsConstants.hungerEmergencyDepletionRatePerHour;
   }
 
-  int getRegularDepletionValue(int hours) {
-    return hours * StatsConstants.hungerDepletionRatePerHour;
+  double getRegularDepletionValue(double hours) {
+    return hours * StatsConstants.nonPlayerHungerDepletionRatePerHour;
   }
 }

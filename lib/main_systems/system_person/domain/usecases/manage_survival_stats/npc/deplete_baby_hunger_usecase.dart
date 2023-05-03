@@ -14,7 +14,7 @@ class DepleteBabyHungerUsecase {
 
   Future<void> execute({
     required int personID,
-    required int hours,
+    required double hours,
   }) async {
     final babyTraits = await _babyTraitsRepository.getBabyTraits(personID);
     final babyStats = await _statsRepository.getStats(personID);
@@ -24,11 +24,11 @@ class DepleteBabyHungerUsecase {
       final int appetite = babyTraits.appetite;
 
       int updatedHungerStat = 0;
-      int depletedHunger = 0;
+      double depletedHunger = 0;
 
       if (currentHungerStat <= StatsConstants.babyHungerEmergencyModeStat) {
         depletedHunger = getEmergencyDepletionValue(hours);
-        updatedHungerStat = currentHungerStat - depletedHunger;
+        updatedHungerStat = (currentHungerStat - depletedHunger).floor();
       } else {
         depletedHunger = getRegularDepletionValue(hours, appetite);
 
@@ -36,7 +36,7 @@ class DepleteBabyHungerUsecase {
             StatsConstants.babyHungerEmergencyModeStat) {
           updatedHungerStat = StatsConstants.babyHungerEmergencyModeStat;
         } else {
-          updatedHungerStat = currentHungerStat - depletedHunger;
+          updatedHungerStat = (currentHungerStat - depletedHunger).floor();
         }
       }
 
@@ -46,11 +46,11 @@ class DepleteBabyHungerUsecase {
     }
   }
 
-  int getEmergencyDepletionValue(int hours) {
+  double getEmergencyDepletionValue(double hours) {
     return hours * StatsConstants.babyHungerEmergencyDepletionRatePerHour;
   }
 
-  int getRegularDepletionValue(int hours, int appetite) {
+  double getRegularDepletionValue(double hours, int appetite) {
     int depletionRatePerHour = (100 ~/ appetite) - 5;
     return hours * depletionRatePerHour;
   }

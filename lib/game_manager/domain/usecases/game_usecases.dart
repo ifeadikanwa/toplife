@@ -1,5 +1,6 @@
 import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 import 'package:toplife/game_manager/domain/usecases/change_current_player_usecase.dart';
+import 'package:toplife/game_manager/domain/usecases/control_game/decay_and_alter_player_stats_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/control_game/game_controller_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/create_new_game_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/delete_game_usecase.dart';
@@ -87,5 +88,9 @@ class GameUsecases {
         gameRepository: _gameRepository,
       );
 
-  GameControllerUsecase get gameControllerUsecase => GameControllerUsecase();
+  GameControllerUsecase get gameControllerUsecase =>
+      GameControllerUsecase(decayAndAlterPlayerStatsUsecase);
+
+  DecayAndAlterPlayerStatsUsecase get decayAndAlterPlayerStatsUsecase =>
+      DecayAndAlterPlayerStatsUsecase(_personUsecases);
 }

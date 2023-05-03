@@ -258,8 +258,41 @@ class ShopScreen extends ConsumerWidget {
 
                 // final g = await GameDaoImpl(db).getGame(1);
                 // if (g != null) {
-                //   await GameDaoImpl(db).updateGame(g.copyWith(currentDay: 105));
+                //   await GameDaoImpl(db).updateGame(
+                //       g.copyWith(currentTimeInMinutes: 900, currentDay: 2));
                 // }
+
+                // ref
+                //     .watch(gameUsecasesProvider)
+                //     .decayAndAlterPlayerStatsUsecase
+                //     .execute(playerID: 1, hoursPassed: 10);
+
+                // ref
+                //     .watch(personUsecasesProvider)
+                //     .depleteMainPlayerEnergyUsecase
+                //     .execute(
+                //       personID: 1,
+                //       hours: 5.5,
+                //     );
+
+                // await ref
+                //     .watch(personUsecasesProvider)
+                //     .updateStatsUsecase
+                //     .execute(
+                //       mainPersonID: 1,
+                //       override: false,
+                //       energy: 5,
+                //       // mood: 100,
+                //       sober: -20,
+                //       // athleticism: 100,
+                //       // health: 100,
+                //       hunger: 5,
+                //     );
+
+                // ref
+                //     .watch(personUsecasesProvider)
+                //     .resetDepleteStatsFlagUsecase
+                //     .execute(1);
               },
               child: const Text("Run"),
             ),

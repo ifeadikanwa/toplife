@@ -1,3 +1,4 @@
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
@@ -8,18 +9,21 @@ class DepleteMainPlayerEnergyUsecase {
     required StatsRepository statsRepository,
   }) : _statsRepository = statsRepository;
 
-  Future<void> execute({required int personID, required int hours}) async {
+  Future<void> execute({
+    required int personID,
+    required double hours,
+  }) async {
     final personStats = await _statsRepository.getStats(personID);
     if (personStats != null) {
       final currentEnergyStat = personStats.energy;
 
-      int depletedEnergy = 0;
+      double depletedEnergy = 0;
       int updatedEnergyStat = 0;
 
       if (currentEnergyStat <= StatsConstants.energyEmergencyModeStat) {
         //Handle depletion with emergency mode
         depletedEnergy = getEmergencyDepletionValue(hours);
-        updatedEnergyStat = currentEnergyStat - depletedEnergy;
+        updatedEnergyStat = (currentEnergyStat - depletedEnergy).floor();
       } else {
         //Handle the depletion regular mode
         depletedEnergy = getRegularDepletionValue(hours);
@@ -31,21 +35,23 @@ class DepleteMainPlayerEnergyUsecase {
             StatsConstants.energyEmergencyModeStat) {
           updatedEnergyStat = StatsConstants.energyEmergencyModeStat;
         } else {
-          updatedEnergyStat = currentEnergyStat - depletedEnergy;
+          updatedEnergyStat = (currentEnergyStat - depletedEnergy).floor();
         }
       }
 
-      final updatedPersonStats =  personStats.copyWith(energy: updatedEnergyStat);
+      final updatedPersonStats = personStats.copyWith(
+        energy: crossCheckStat(updatedEnergyStat),
+      );
 
       _statsRepository.updateStats(updatedPersonStats);
     }
   }
 
-  int getEmergencyDepletionValue(int hours) {
+  double getEmergencyDepletionValue(double hours) {
     return hours * StatsConstants.energyEmergencyDepletionRatePerHour;
   }
 
-  int getRegularDepletionValue(int hours) {
+  double getRegularDepletionValue(double hours) {
     return hours * StatsConstants.energyDepletionRatePerHour;
   }
 }

@@ -17,6 +17,7 @@ class ToggleDepleteStatsFlagUsecase {
     bool depleteMood = true,
     bool depleteHealth = true,
     bool depleteAthleticism = true,
+    bool alterSober = true,
   }) async {
     //get the current state of the persons flag
     //if there is no db record create a default flag
@@ -52,9 +53,15 @@ class ToggleDepleteStatsFlagUsecase {
       currentDepleteStatsFlag = currentDepleteStatsFlag.copyWith(health: false);
     }
 
-     if (depleteAthleticism == false) {
+    if (depleteAthleticism == false) {
       //we set to false
-      currentDepleteStatsFlag = currentDepleteStatsFlag.copyWith(athleticism: false);
+      currentDepleteStatsFlag =
+          currentDepleteStatsFlag.copyWith(athleticism: false);
+    }
+
+    if (alterSober == false) {
+      //we set to false
+      currentDepleteStatsFlag = currentDepleteStatsFlag.copyWith(sober: false);
     }
 
     //we save to the database

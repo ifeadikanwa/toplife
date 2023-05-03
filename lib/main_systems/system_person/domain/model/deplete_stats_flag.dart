@@ -17,4 +17,5 @@ class DepleteStatsFlagTable extends Table {
   BoolColumn get mood => boolean()();
   BoolColumn get health => boolean()();
   BoolColumn get athleticism => boolean()();
+  BoolColumn get sober => boolean()();
 }

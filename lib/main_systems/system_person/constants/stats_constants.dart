@@ -4,6 +4,13 @@ import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
 class StatsConstants {
   static const hungerDepletionRatePerHour = 10;
   static const energyDepletionRatePerHour = 7;
+  static const moodDepletionRatePerHour = 2;
+  static const athleticismDepletionRatePerHour = 1;
+  static const healthDepletionRatePerHour = 0.2;
+
+  static const soberIncreaseRatePerHour = 10;
+
+  static const healthDepletionThreshold = 65;
 
   static const nonPlayerHungerDepletionRatePerHour = 8;
 
@@ -30,5 +37,6 @@ class StatsConstants {
     mood: true,
     health: true,
     athleticism: true,
+    sober: true,
   );
 }

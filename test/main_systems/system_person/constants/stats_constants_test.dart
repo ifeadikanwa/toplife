@@ -19,6 +19,41 @@ void main() {
     );
 
     test(
+      "moodDepletionRatePerHour is 2",
+      () {
+        expect(StatsConstants.moodDepletionRatePerHour, 2);
+      },
+    );
+
+    test(
+      "healthDepletionRatePerHour is 0.2",
+      () {
+        expect(StatsConstants.healthDepletionRatePerHour, 0.2);
+      },
+    );
+
+    test(
+      "athleticismDepletionRatePerHour is 1",
+      () {
+        expect(StatsConstants.athleticismDepletionRatePerHour, 1);
+      },
+    );
+
+    test(
+      "soberIncreaseRatePerHour is 10",
+      () {
+        expect(StatsConstants.soberIncreaseRatePerHour, 10);
+      },
+    );
+
+    test(
+      "healthDepletionThreshold is 65",
+      () {
+        expect(StatsConstants.healthDepletionThreshold, 65);
+      },
+    );
+
+    test(
       "nonPlayerHungerDepletionRatePerHour is 8",
       () {
         expect(StatsConstants.nonPlayerHungerDepletionRatePerHour, 8);
@@ -110,6 +145,7 @@ void main() {
             mood: true,
             health: true,
             athleticism: true,
+            sober: true,
           ),
         );
       },

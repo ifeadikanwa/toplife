@@ -10,20 +10,20 @@ class DepleteBabyEnergyUsecase {
 
   Future<void> execute({
     required int personID,
-    required int hours,
+    required double hours,
   }) async {
     final babyStats = await _statsRepository.getStats(personID);
 
     if (babyStats != null) {
       final int currentEnergyStat = babyStats.energy;
 
-      int depletedEnergy = 0;
+      double depletedEnergy = 0;
       int updatedEnergyStat = 0;
 
       if (currentEnergyStat <= StatsConstants.babyEnergyEmergencyModeStat) {
         //Handle depletion with emergency mode
         depletedEnergy = getEmergencyDepletionValue(hours);
-        updatedEnergyStat = currentEnergyStat - depletedEnergy;
+        updatedEnergyStat = (currentEnergyStat - depletedEnergy).floor();
       } else {
         //Handle the depletion regular mode
         depletedEnergy = getRegularDepletionValue(hours);
@@ -35,7 +35,7 @@ class DepleteBabyEnergyUsecase {
             StatsConstants.babyEnergyEmergencyModeStat) {
           updatedEnergyStat = StatsConstants.babyEnergyEmergencyModeStat;
         } else {
-          updatedEnergyStat = currentEnergyStat - depletedEnergy;
+          updatedEnergyStat = (currentEnergyStat - depletedEnergy).floor();
         }
       }
 
@@ -45,11 +45,11 @@ class DepleteBabyEnergyUsecase {
     }
   }
 
-  int getEmergencyDepletionValue(int hours) {
+  double getEmergencyDepletionValue(double hours) {
     return hours * StatsConstants.babyEnergyEmergencyDepletionRatePerHour;
   }
 
-  int getRegularDepletionValue(int hours) {
+  double getRegularDepletionValue(double hours) {
     return hours * StatsConstants.babyEnergyDepletionRatePerHour;
   }
 }

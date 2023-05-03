@@ -2028,9 +2028,20 @@ class $DepleteStatsFlagTableTable extends DepleteStatsFlagTable
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
+  static const VerificationMeta _soberMeta = const VerificationMeta('sober');
+  @override
+  late final GeneratedColumn<bool> sober =
+      GeneratedColumn<bool>('sober', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("sober" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
   @override
   List<GeneratedColumn> get $columns =>
-      [personId, energy, hunger, mood, health, athleticism];
+      [personId, energy, hunger, mood, health, athleticism, sober];
   @override
   String get aliasedName => _alias ?? 'deplete_stats_flag';
   @override
@@ -2078,6 +2089,12 @@ class $DepleteStatsFlagTableTable extends DepleteStatsFlagTable
     } else if (isInserting) {
       context.missing(_athleticismMeta);
     }
+    if (data.containsKey('sober')) {
+      context.handle(
+          _soberMeta, sober.isAcceptableOrUnknown(data['sober']!, _soberMeta));
+    } else if (isInserting) {
+      context.missing(_soberMeta);
+    }
     return context;
   }
 
@@ -2099,6 +2116,8 @@ class $DepleteStatsFlagTableTable extends DepleteStatsFlagTable
           .read(DriftSqlType.bool, data['${effectivePrefix}health'])!,
       athleticism: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}athleticism'])!,
+      sober: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}sober'])!,
     );
   }
 
@@ -2116,13 +2135,15 @@ class DepleteStatsFlag extends DataClass
   final bool mood;
   final bool health;
   final bool athleticism;
+  final bool sober;
   const DepleteStatsFlag(
       {required this.personId,
       required this.energy,
       required this.hunger,
       required this.mood,
       required this.health,
-      required this.athleticism});
+      required this.athleticism,
+      required this.sober});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2132,6 +2153,7 @@ class DepleteStatsFlag extends DataClass
     map['mood'] = Variable<bool>(mood);
     map['health'] = Variable<bool>(health);
     map['athleticism'] = Variable<bool>(athleticism);
+    map['sober'] = Variable<bool>(sober);
     return map;
   }
 
@@ -2143,6 +2165,7 @@ class DepleteStatsFlag extends DataClass
       mood: Value(mood),
       health: Value(health),
       athleticism: Value(athleticism),
+      sober: Value(sober),
     );
   }
 
@@ -2156,6 +2179,7 @@ class DepleteStatsFlag extends DataClass
       mood: serializer.fromJson<bool>(json['mood']),
       health: serializer.fromJson<bool>(json['health']),
       athleticism: serializer.fromJson<bool>(json['athleticism']),
+      sober: serializer.fromJson<bool>(json['sober']),
     );
   }
   @override
@@ -2168,6 +2192,7 @@ class DepleteStatsFlag extends DataClass
       'mood': serializer.toJson<bool>(mood),
       'health': serializer.toJson<bool>(health),
       'athleticism': serializer.toJson<bool>(athleticism),
+      'sober': serializer.toJson<bool>(sober),
     };
   }
 
@@ -2177,7 +2202,8 @@ class DepleteStatsFlag extends DataClass
           bool? hunger,
           bool? mood,
           bool? health,
-          bool? athleticism}) =>
+          bool? athleticism,
+          bool? sober}) =>
       DepleteStatsFlag(
         personId: personId ?? this.personId,
         energy: energy ?? this.energy,
@@ -2185,6 +2211,7 @@ class DepleteStatsFlag extends DataClass
         mood: mood ?? this.mood,
         health: health ?? this.health,
         athleticism: athleticism ?? this.athleticism,
+        sober: sober ?? this.sober,
       );
   @override
   String toString() {
@@ -2194,14 +2221,15 @@ class DepleteStatsFlag extends DataClass
           ..write('hunger: $hunger, ')
           ..write('mood: $mood, ')
           ..write('health: $health, ')
-          ..write('athleticism: $athleticism')
+          ..write('athleticism: $athleticism, ')
+          ..write('sober: $sober')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode =>
-      Object.hash(personId, energy, hunger, mood, health, athleticism);
+      Object.hash(personId, energy, hunger, mood, health, athleticism, sober);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2211,7 +2239,8 @@ class DepleteStatsFlag extends DataClass
           other.hunger == this.hunger &&
           other.mood == this.mood &&
           other.health == this.health &&
-          other.athleticism == this.athleticism);
+          other.athleticism == this.athleticism &&
+          other.sober == this.sober);
 }
 
 class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
@@ -2221,6 +2250,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
   final Value<bool> mood;
   final Value<bool> health;
   final Value<bool> athleticism;
+  final Value<bool> sober;
   const DepleteStatsFlagTableCompanion({
     this.personId = const Value.absent(),
     this.energy = const Value.absent(),
@@ -2228,6 +2258,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
     this.mood = const Value.absent(),
     this.health = const Value.absent(),
     this.athleticism = const Value.absent(),
+    this.sober = const Value.absent(),
   });
   DepleteStatsFlagTableCompanion.insert({
     required int personId,
@@ -2236,12 +2267,14 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
     required bool mood,
     required bool health,
     required bool athleticism,
+    required bool sober,
   })  : personId = Value(personId),
         energy = Value(energy),
         hunger = Value(hunger),
         mood = Value(mood),
         health = Value(health),
-        athleticism = Value(athleticism);
+        athleticism = Value(athleticism),
+        sober = Value(sober);
   static Insertable<DepleteStatsFlag> custom({
     Expression<int>? personId,
     Expression<bool>? energy,
@@ -2249,6 +2282,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
     Expression<bool>? mood,
     Expression<bool>? health,
     Expression<bool>? athleticism,
+    Expression<bool>? sober,
   }) {
     return RawValuesInsertable({
       if (personId != null) 'person_id': personId,
@@ -2257,6 +2291,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
       if (mood != null) 'mood': mood,
       if (health != null) 'health': health,
       if (athleticism != null) 'athleticism': athleticism,
+      if (sober != null) 'sober': sober,
     });
   }
 
@@ -2266,7 +2301,8 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
       Value<bool>? hunger,
       Value<bool>? mood,
       Value<bool>? health,
-      Value<bool>? athleticism}) {
+      Value<bool>? athleticism,
+      Value<bool>? sober}) {
     return DepleteStatsFlagTableCompanion(
       personId: personId ?? this.personId,
       energy: energy ?? this.energy,
@@ -2274,6 +2310,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
       mood: mood ?? this.mood,
       health: health ?? this.health,
       athleticism: athleticism ?? this.athleticism,
+      sober: sober ?? this.sober,
     );
   }
 
@@ -2298,6 +2335,9 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
     if (athleticism.present) {
       map['athleticism'] = Variable<bool>(athleticism.value);
     }
+    if (sober.present) {
+      map['sober'] = Variable<bool>(sober.value);
+    }
     return map;
   }
 
@@ -2309,7 +2349,8 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
           ..write('hunger: $hunger, ')
           ..write('mood: $mood, ')
           ..write('health: $health, ')
-          ..write('athleticism: $athleticism')
+          ..write('athleticism: $athleticism, ')
+          ..write('sober: $sober')
           ..write(')'))
         .toString();
   }
