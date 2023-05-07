@@ -62,7 +62,7 @@ class BreakOldLeaseSignNewLease {
       newHouseStorage: newHouse.storage,
     )} $firstPersonMoveStatus";
 
-    _journalUsecases.addToJournalUsecase.execute(
+    await _journalUsecases.addToJournalUsecase.execute(
       gameID: currentGame.id,
       day: currentGame.currentDay,
       mainPlayerID: personID,

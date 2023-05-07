@@ -23,7 +23,7 @@ class RemovePropertyTaxFromBillsUsecase {
 
     //delete it if it exists
     if (propertyTax != null) {
-      _recurringBillRepository.deleteRecurringBill(propertyTax.id);
+      await _recurringBillRepository.deleteRecurringBill(propertyTax.id);
     }
   }
 }

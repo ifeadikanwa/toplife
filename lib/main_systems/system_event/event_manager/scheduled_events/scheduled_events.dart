@@ -8,6 +8,7 @@ import 'package:toplife/main_systems/system_event/event_manager/scheduled_events
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday_party/birthday_party_event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/funeral/funeral_event.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/test_events/test_events.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
@@ -34,6 +35,12 @@ class ScheduledEvents {
     this._eventScheduler,
     this._eventRepository,
   );
+
+  TestEvents get testEvents => TestEvents(
+        _journalUsecases,
+        _eventRepository,
+        _personUsecases,
+      );
 
   BirthdayEvent get birthdayEvent => BirthdayEvent(
         _relationshipUsecases,

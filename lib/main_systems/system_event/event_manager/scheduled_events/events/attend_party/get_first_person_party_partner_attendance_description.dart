@@ -48,7 +48,7 @@ class GetFirstPersonPartyPartnerAttendanceDescription {
           firstPersonPartnerAttendanceDesc =
               "My $partnerRelationshipLabel, ${partnerPerson.firstName} agreed to accompany me.";
 
-          _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
+          await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
             currentPartner.copyWith(
               relationship: currentRelationship + Random().nextInt(15),
             ),
@@ -57,7 +57,7 @@ class GetFirstPersonPartyPartnerAttendanceDescription {
           firstPersonPartnerAttendanceDesc =
               "My $partnerRelationshipLabel, ${partnerPerson.firstName} didn't come with me, ${PartyEventDescriptions.getRandomFirstPersonPartnerExcuse(partnerPerson.gender)}";
 
-          _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
+          await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
             currentPartner.copyWith(
               relationship: currentRelationship - Random().nextInt(15),
             ),

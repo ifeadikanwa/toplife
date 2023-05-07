@@ -179,7 +179,7 @@ class FuneralEvent {
           firstPersonPartnerAttendanceDesc =
               "My $partnerRelationshipLabel, ${partnerPerson.firstName} agreed to accompany me.";
 
-          _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
+          await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
             currentPartner.copyWith(
               relationship: currentRelationship + Random().nextInt(15),
             ),
@@ -188,7 +188,7 @@ class FuneralEvent {
           firstPersonPartnerAttendanceDesc =
               "My $partnerRelationshipLabel, ${partnerPerson.firstName} didn't come with me to the funeral, ${FuneralDescriptions.getRandomFirstPersonPartnerExcuse(partnerPerson.gender)}";
 
-          _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
+          await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
             currentPartner.copyWith(
               relationship: currentRelationship - Random().nextInt(15),
             ),
@@ -232,14 +232,14 @@ class FuneralEvent {
     required String secondPersonResultDesc,
   }) async {
     //increase wellbeing
-    _personUsecases.updateMoodStatsUsecase.execute(
+    await _personUsecases.updateMoodStatsUsecase.execute(
       mainPersonID: mainPlayerID,
       change: Random().nextInt(10) + 20, //10-30
       override: false,
     );
 
     //log in journal
-    _journalUsecases.addToJournalUsecase.execute(
+    await _journalUsecases.addToJournalUsecase.execute(
       gameID: funeralEvent.gameId,
       day: funeralEvent.eventDay,
       mainPlayerID: mainPlayerID,
@@ -247,7 +247,7 @@ class FuneralEvent {
     );
 
     //mark as performed
-    _eventRepository.updateEvent(
+    await _eventRepository.updateEvent(
       funeralEvent.copyWith(
         performed: true,
       ),

@@ -42,7 +42,7 @@ class DepleteBabyHungerUsecase {
 
       final updatedBabyStats = babyStats.copyWith(hunger: updatedHungerStat);
 
-      _statsRepository.updateStats(updatedBabyStats);
+      await _statsRepository.updateStats(updatedBabyStats);
     }
   }
 

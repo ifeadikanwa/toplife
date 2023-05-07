@@ -65,7 +65,7 @@ class DepleteMainPlayerHungerUsecase {
           hunger: crossCheckStat(updatedHungerStat),
         );
 
-        _statsRepository.updateStats(updatedPersonStats);
+        await _statsRepository.updateStats(updatedPersonStats);
       }
     }
   }

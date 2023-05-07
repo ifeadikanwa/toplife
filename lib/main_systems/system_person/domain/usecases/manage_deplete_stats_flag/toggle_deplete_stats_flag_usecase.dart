@@ -65,7 +65,7 @@ class ToggleDepleteStatsFlagUsecase {
     }
 
     //we save to the database
-    _depleteStatsFlagRepository
+    await _depleteStatsFlagRepository
         .createOrUpdateDepleteStatsFlag(currentDepleteStatsFlag);
   }
 }

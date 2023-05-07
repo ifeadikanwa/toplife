@@ -45,14 +45,14 @@ class AddToJournalUsecase {
         entry: preparedJournalEntry,
       );
 
-      _journalRepository.createJournal(journal);
+      await _journalRepository.createJournal(journal);
     }
     //if it exists update the existing journal
     else {
       journal = existingJournal.copyWith(
         entry: "${existingJournal.entry}$preparedJournalEntry",
       );
-      _journalRepository.updateJournal(journal);
+      await _journalRepository.updateJournal(journal);
     }
 
     return journal;

@@ -70,7 +70,7 @@ class UpdateAnyRelationshipAmountUsecase {
       if (relationshipPair.relationship is Parent) {
         final Parent parent = relationshipPair.relationship as Parent;
 
-        _updateParentRelationshipUsecase.execute(
+        await _updateParentRelationshipUsecase.execute(
           parent.copyWith(
             relationship: parent.relationship + change,
           ),
@@ -80,7 +80,7 @@ class UpdateAnyRelationshipAmountUsecase {
       //child
       else if (relationshipPair.relationship is Child) {
         final Child child = relationshipPair.relationship as Child;
-        _updateChildRelationshipUsecase.execute(
+        await _updateChildRelationshipUsecase.execute(
           child.copyWith(
             relationship: child.relationship + change,
           ),
@@ -90,7 +90,7 @@ class UpdateAnyRelationshipAmountUsecase {
       //partner
       else if (relationshipPair.relationship is Partner) {
         final Partner partner = relationshipPair.relationship as Partner;
-        _updatePartnerRelationshipUsecase.execute(
+        await _updatePartnerRelationshipUsecase.execute(
           partner.copyWith(
             relationship: partner.relationship + change,
           ),
@@ -100,7 +100,7 @@ class UpdateAnyRelationshipAmountUsecase {
       //sibling
       else if (relationshipPair.relationship is Sibling) {
         final Sibling sibling = relationshipPair.relationship as Sibling;
-        _updateSiblingRelationshipUsecase.execute(
+        await _updateSiblingRelationshipUsecase.execute(
           sibling.copyWith(
             relationship: sibling.relationship + change,
           ),
@@ -110,7 +110,7 @@ class UpdateAnyRelationshipAmountUsecase {
       //relative
       else if (relationshipPair.relationship is Relative) {
         final Relative relative = relationshipPair.relationship as Relative;
-        _updateRelativeRelationshipUsecase.execute(
+        await _updateRelativeRelationshipUsecase.execute(
           relative.copyWith(
             relationship: relative.relationship + change,
           ),
@@ -120,7 +120,7 @@ class UpdateAnyRelationshipAmountUsecase {
       //friend
       else if (relationshipPair.relationship is Friend) {
         final Friend friend = relationshipPair.relationship as Friend;
-        _updateFriendRelationshipUsecase.execute(
+        await _updateFriendRelationshipUsecase.execute(
           friend.copyWith(
             relationship: friend.relationship + change,
           ),
@@ -130,7 +130,7 @@ class UpdateAnyRelationshipAmountUsecase {
       //inlaw
       else if (relationshipPair.relationship is InLaw) {
         final InLaw inLaw = relationshipPair.relationship as InLaw;
-        _updateInLawRelationshipUsecase.execute(
+        await _updateInLawRelationshipUsecase.execute(
           inLaw.copyWith(
             relationship: inLaw.relationship + change,
           ),
@@ -141,7 +141,7 @@ class UpdateAnyRelationshipAmountUsecase {
       else if (relationshipPair.relationship is Acquaintance) {
         final Acquaintance acquaintance =
             relationshipPair.relationship as Acquaintance;
-        _updateAcquaintanceRelationshipUsecase.execute(
+        await _updateAcquaintanceRelationshipUsecase.execute(
           acquaintance.copyWith(
             relationship: acquaintance.relationship + change,
           ),

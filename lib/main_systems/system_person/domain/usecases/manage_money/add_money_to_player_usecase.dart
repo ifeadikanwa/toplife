@@ -70,7 +70,7 @@ class AddMoneyToPlayerUsecase {
 
     final int oldJointMoney = currentPartner.jointMoney;
 
-    relationshipUsecases.updatePartnerRelationshipUsecase.execute(
+    await relationshipUsecases.updatePartnerRelationshipUsecase.execute(
       currentPartner.copyWith(
         jointMoney: (oldJointMoney + amountToAdd),
       ),
@@ -84,7 +84,7 @@ class AddMoneyToPlayerUsecase {
     //add to player account
     final int oldPlayerMoney = mainPlayerPerson.money;
 
-    _personRepositories.personRepositoryImpl.updatePerson(
+    await _personRepositories.personRepositoryImpl.updatePerson(
       mainPlayerPerson.copyWith(
         money: (oldPlayerMoney + amountToAdd),
       ),

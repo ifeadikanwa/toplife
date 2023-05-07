@@ -17,7 +17,7 @@ class ResetDepleteStatsFlagUsecase {
     );
 
     //create new or update existing record
-    _depleteStatsFlagRepository
+    await _depleteStatsFlagRepository
         .createOrUpdateDepleteStatsFlag(resetDepleteStatsFlag);
   }
 }

@@ -18,14 +18,14 @@ class UpdateIntellectStatsUsecase {
 
     if (stats != null) {
       if (override) {
-        _statsRepository.updateStats(
+        await _statsRepository.updateStats(
           stats.copyWith(
             intellect: crossCheckStat(change),
           ),
         );
       } else {
         final int oldIntellect = stats.intellect;
-        _statsRepository.updateStats(
+        await _statsRepository.updateStats(
           stats.copyWith(
             intellect: crossCheckStat(oldIntellect + change),
           ),

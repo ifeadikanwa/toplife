@@ -42,7 +42,7 @@ class EnergyAndHungerEmergencyModeSideEffectUsecase {
         looks: crossCheckStat(updatedLooks),
         athleticism: crossCheckStat(updatedAthleticism),
       );
-      _statsRepository.updateStats(updatedPersonStats);
+      await _statsRepository.updateStats(updatedPersonStats);
     }
   }
 }

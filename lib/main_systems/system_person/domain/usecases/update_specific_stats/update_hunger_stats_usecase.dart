@@ -39,7 +39,7 @@ class UpdateHungerStatsUsecase {
       }
 
       //tell system to not deplete the stat
-      _toggleDepleteStatsFlagUsecase.execute(
+      await _toggleDepleteStatsFlagUsecase.execute(
         personID: mainPersonID,
         depleteHunger: false,
       );

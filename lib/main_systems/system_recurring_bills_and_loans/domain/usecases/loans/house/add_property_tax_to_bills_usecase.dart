@@ -49,7 +49,7 @@ class AddPropertyTaxToBillsUsecase {
       );
 
       //save it
-      _recurringBillRepository.createRecurringBill(propertyTax);
+      await _recurringBillRepository.createRecurringBill(propertyTax);
     }
   }
 }

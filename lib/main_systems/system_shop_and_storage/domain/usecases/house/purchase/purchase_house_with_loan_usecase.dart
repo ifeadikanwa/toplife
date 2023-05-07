@@ -94,7 +94,7 @@ class PurchaseHouseWithLoanUsecase {
         //if no: purchase house and add loan to bills (approved)
         if (!hasExistingMortgageLoan) {
           //return is used because we don't need to run anything else outside this block.
-          _signMortgageLoanContract.execute(
+          await _signMortgageLoanContract.execute(
             context: context,
             person: person,
             currentGame: currentGame,
@@ -141,7 +141,7 @@ class PurchaseHouseWithLoanUsecase {
           //if yes: purchase house and add loans to bills (approved)
           else {
             //return is used because we don't need to run anything else outside this block.
-            _signMortgageLoanContract.execute(
+            await _signMortgageLoanContract.execute(
               context: context,
               person: person,
               currentGame: currentGame,

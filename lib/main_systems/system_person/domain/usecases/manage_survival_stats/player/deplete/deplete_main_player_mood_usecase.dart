@@ -15,7 +15,8 @@ class DepleteMainPlayerMoodUsecase {
   }) async {
     final personStats = await _statsRepository.getStats(personID);
     if (personStats != null) {
-      final double depletedMood = hours * StatsConstants.moodDepletionRatePerHour;
+      final double depletedMood =
+          hours * StatsConstants.moodDepletionRatePerHour;
 
       final int updatedMood = (personStats.mood - depletedMood).floor();
 
@@ -23,7 +24,7 @@ class DepleteMainPlayerMoodUsecase {
         mood: crossCheckStat(updatedMood),
       );
 
-      _statsRepository.updateStats(updatedPersonStats);
+      await _statsRepository.updateStats(updatedPersonStats);
     }
   }
 }

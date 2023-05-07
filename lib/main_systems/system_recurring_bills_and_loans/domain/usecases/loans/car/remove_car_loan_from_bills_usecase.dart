@@ -23,7 +23,7 @@ class RemoveCarLoanFromBillsUsecase {
 
     //delete it if it exists
     if (carLoan != null) {
-      _recurringBillRepository.deleteRecurringBill(carLoan.id);
+     await _recurringBillRepository.deleteRecurringBill(carLoan.id);
     }
   }
 }

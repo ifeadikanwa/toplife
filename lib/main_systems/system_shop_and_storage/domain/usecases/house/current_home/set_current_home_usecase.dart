@@ -9,6 +9,6 @@ class SetCurrentHomeUsecase {
   Future<CurrentHome?> execute({
     required CurrentHome currentHome,
   }) async {
-    return _currentHomeRepository.createCurrentHome(currentHome);
+    return await _currentHomeRepository.createCurrentHome(currentHome);
   }
 }

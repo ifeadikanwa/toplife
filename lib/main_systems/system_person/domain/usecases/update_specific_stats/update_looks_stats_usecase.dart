@@ -18,14 +18,14 @@ class UpdateLooksStatsUsecase {
 
     if (stats != null) {
       if (override) {
-        _statsRepository.updateStats(
+        await _statsRepository.updateStats(
           stats.copyWith(
             looks: crossCheckStat(change),
           ),
         );
       } else {
         final int oldLooks = stats.looks;
-        _statsRepository.updateStats(
+        await _statsRepository.updateStats(
           stats.copyWith(
             looks: crossCheckStat(oldLooks + change),
           ),

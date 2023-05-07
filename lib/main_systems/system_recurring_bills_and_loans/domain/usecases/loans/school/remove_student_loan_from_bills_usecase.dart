@@ -23,7 +23,7 @@ class RemoveStudentLoanFromBillsUsecase {
 
     //delete it if it exists
     if (studentLoan != null) {
-      _recurringBillRepository.deleteRecurringBill(studentLoan.id);
+      await _recurringBillRepository.deleteRecurringBill(studentLoan.id);
     }
   }
 }

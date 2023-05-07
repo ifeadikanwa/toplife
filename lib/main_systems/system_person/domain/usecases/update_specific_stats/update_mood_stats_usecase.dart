@@ -39,7 +39,7 @@ class UpdateMoodStatsUsecase {
       }
 
       //tell system to not deplete the stat
-      _toggleDepleteStatsFlagUsecase.execute(
+      await _toggleDepleteStatsFlagUsecase.execute(
         personID: mainPersonID,
         depleteMood: false,
       );

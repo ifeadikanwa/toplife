@@ -42,7 +42,7 @@ class DepleteNonPlayerHungerUsecase {
       final updatedPersonStats =
           personStats.copyWith(hunger: updatedHungerStat);
 
-      _statsRepository.updateStats(updatedPersonStats);
+      await _statsRepository.updateStats(updatedPersonStats);
     }
   }
 

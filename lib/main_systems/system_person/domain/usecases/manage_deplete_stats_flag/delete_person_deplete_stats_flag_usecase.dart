@@ -8,6 +8,6 @@ class DeletePersonDepleteStatsFlagUsecase {
   }) : _depleteStatsFlagRepository = depleteStatsFlagRepository;
 
   Future<void> execute({required int personID}) async {
-    _depleteStatsFlagRepository.deleteDepleteStatsFlag(personID);
+    await _depleteStatsFlagRepository.deleteDepleteStatsFlag(personID);
   }
 }

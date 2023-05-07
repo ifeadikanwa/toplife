@@ -8,6 +8,6 @@ class DeleteCurrentHomeUsecase {
   Future<void> execute({
     required int personID,
   }) async {
-    return _currentHomeRepository.deleteCurrentHome(personID);
+    return await _currentHomeRepository.deleteCurrentHome(personID);
   }
 }

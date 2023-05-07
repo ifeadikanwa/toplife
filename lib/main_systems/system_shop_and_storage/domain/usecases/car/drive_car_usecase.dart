@@ -69,7 +69,7 @@ class DriveCarUsecase {
     }
 
     //update car
-    _carRepository.updateCar(
+    await _carRepository.updateCar(
       car.copyWith(
         useCondition: newUseCondition,
         fuelTank: crossCheckStat(newFuelTank),

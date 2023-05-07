@@ -179,7 +179,7 @@ class FamilyPlannedFuneral {
         "I am invited to the funeral event tomorrow, Day ${scheduledFuneral.eventDay} at ${getClockTime(timeInMinutes: scheduledFuneral.startTime ?? 0)}.";
 
     //Log info in journal
-    _journalUsecases.addToJournalUsecase.execute(
+    await _journalUsecases.addToJournalUsecase.execute(
       gameID: deathEvent.gameId,
       day: deathEvent.eventDay,
       mainPlayerID: mainPlayerID,
@@ -229,7 +229,7 @@ class FamilyPlannedFuneral {
       //reduce relationship with siblings
       for (var sibling in playerSiblings) {
         final int oldRelationship = sibling.relationship;
-        _relationshipUsecases.updateSiblingRelationshipUsecase.execute(
+        await _relationshipUsecases.updateSiblingRelationshipUsecase.execute(
           sibling.copyWith(
             relationship: oldRelationship - relationshipReduction,
           ),
@@ -264,7 +264,7 @@ class FamilyPlannedFuneral {
         //reduce relationship
         final int oldRelationship = chosenPibling.relationship;
 
-        _relationshipUsecases.updateRelativeRelationshipUsecase.execute(
+        await _relationshipUsecases.updateRelativeRelationshipUsecase.execute(
           chosenPibling.copyWith(
             relationship: oldRelationship - relationshipReduction,
           ),
@@ -300,7 +300,7 @@ class FamilyPlannedFuneral {
 
     //Log info in journal
     const journalActionDesc = "I refused to contribute.";
-    _journalUsecases.addToJournalUsecase.execute(
+    await _journalUsecases.addToJournalUsecase.execute(
       gameID: deathEvent.gameId,
       day: deathEvent.eventDay,
       mainPlayerID: mainPlayerID,

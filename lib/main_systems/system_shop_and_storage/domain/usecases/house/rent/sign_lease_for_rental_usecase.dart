@@ -59,7 +59,7 @@ class SignLeaseForRentalUsecase {
     );
 
     //add rent to bills
-    _recurringBillsUsecases.addRentToBillsUsecase.execute(
+    await _recurringBillsUsecases.addRentToBillsUsecase.execute(
       personID: personID,
       billAmount: economyAdjustedRentPrice,
       houseID: createdHouse.id,

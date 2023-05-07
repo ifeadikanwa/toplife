@@ -86,7 +86,7 @@ class PlayerPlannedFuneral {
       final firstPersonJournalDesc =
           "I planned the ${funeralType.name.toLowerCase()} funeral for tomorrow at ${getClockTime(timeInMinutes: eventStartTime)} and sent out the invitations.";
 
-      _journalUsecases.addToJournalUsecase.execute(
+      await _journalUsecases.addToJournalUsecase.execute(
           gameID: deathEvent.gameId,
           day: deathEvent.eventDay,
           mainPlayerID: mainPlayerID,

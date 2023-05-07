@@ -30,7 +30,7 @@ class AddItemToStoreroomUsecase {
         countsLeft: updatedCountsLeft,
       );
 
-      _storeroomItemRepository.updateStoreroomItem(
+      await _storeroomItemRepository.updateStoreroomItem(
         updatedExistingStoreroomItem,
       );
     }
@@ -43,7 +43,7 @@ class AddItemToStoreroomUsecase {
         countsLeft: totalCount,
       );
 
-      _storeroomItemRepository.createStoreroomItem(createdStoreroomItem);
+      await _storeroomItemRepository.createStoreroomItem(createdStoreroomItem);
     }
   }
 }

@@ -24,21 +24,21 @@ class CreateExclusiveRomanticRelationshipUsecase {
     required int currentDay,
   }) async {
     //make sure all active romantic relationships are ended for both partners
-    _endAllPartnerRelationshipsNotInvolvingACertainPersonUsecase.execute(
+    await _endAllPartnerRelationshipsNotInvolvingACertainPersonUsecase.execute(
       mainPersonID: mainPersonID,
       partnerID: partnerID,
       currentDay: currentDay,
     );
 
     //create the relationship from both partners point of view
-    _createRomanticRelationship(
+    await _createRomanticRelationship(
       mainPersonID: mainPersonID,
       partnerID: partnerID,
       partnerRelationshipType: partnerRelationshipType,
       currentDay: currentDay,
     );
 
-    _createRomanticRelationship(
+    await _createRomanticRelationship(
       mainPersonID: partnerID,
       partnerID: mainPersonID,
       partnerRelationshipType: partnerRelationshipType,

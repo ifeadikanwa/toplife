@@ -25,7 +25,7 @@ class DepleteMainPlayerAthleticismUsecase {
         athleticism: crossCheckStat(updatedAthleticism),
       );
 
-      _statsRepository.updateStats(updatedPersonStats);
+      await _statsRepository.updateStats(updatedPersonStats);
     }
   }
 }

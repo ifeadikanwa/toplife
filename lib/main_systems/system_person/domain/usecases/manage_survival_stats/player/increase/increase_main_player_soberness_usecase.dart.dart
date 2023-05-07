@@ -16,15 +16,17 @@ class IncreaseMainPlayerSobernessUsecase {
     final personStats = await _statsRepository.getStats(personID);
 
     if (personStats != null) {
-      final double sobernessIncrease = hours * StatsConstants.soberIncreaseRatePerHour;
+      final double sobernessIncrease =
+          hours * StatsConstants.soberIncreaseRatePerHour;
 
-      final int updatedSoberness = (personStats.sober + sobernessIncrease).floor();
+      final int updatedSoberness =
+          (personStats.sober + sobernessIncrease).floor();
 
       final updatedPersonStats = personStats.copyWith(
         sober: crossCheckStat(updatedSoberness),
       );
 
-      _statsRepository.updateStats(updatedPersonStats);
+      await _statsRepository.updateStats(updatedPersonStats);
     }
   }
 }

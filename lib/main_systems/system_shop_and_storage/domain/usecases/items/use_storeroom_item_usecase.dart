@@ -20,7 +20,7 @@ class UseStoreroomItemUsecase {
       int newCountsLeft = storeroomItem.countsLeft - countsToUse;
 
       //if the new count left is less than zero set it as zero else use the value we calculated
-      _storeroomItemRepository.updateStoreroomItem(
+      await _storeroomItemRepository.updateStoreroomItem(
         storeroomItem.copyWith(
           countsLeft: (newCountsLeft > 0) ? newCountsLeft : 0,
         ),

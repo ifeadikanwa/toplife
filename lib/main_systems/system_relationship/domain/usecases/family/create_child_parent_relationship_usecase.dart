@@ -19,7 +19,7 @@ class CreateChildParentRelationshipUsecase {
     bool isAdopted = false,
   }) async {
     //create child for both parents
-    _relationshipRepositories.childRepositoryImpl.createChild(
+    await _relationshipRepositories.childRepositoryImpl.createChild(
       Child(
         mainPersonId: mainParentID,
         childId: childID,
@@ -35,7 +35,7 @@ class CreateChildParentRelationshipUsecase {
       ),
     );
 
-    _relationshipRepositories.childRepositoryImpl.createChild(
+    await _relationshipRepositories.childRepositoryImpl.createChild(
       Child(
         mainPersonId: otherParentID,
         childId: childID,
@@ -52,7 +52,7 @@ class CreateChildParentRelationshipUsecase {
     );
 
     //create parent relationship for child with both parents
-    _relationshipRepositories.parentRepositoryImpl.createParent(
+    await _relationshipRepositories.parentRepositoryImpl.createParent(
       Parent(
         mainPersonId: childID,
         parentId: mainParentID,
@@ -67,7 +67,7 @@ class CreateChildParentRelationshipUsecase {
       ),
     );
 
-    _relationshipRepositories.parentRepositoryImpl.createParent(
+    await _relationshipRepositories.parentRepositoryImpl.createParent(
       Parent(
         mainPersonId: childID,
         parentId: otherParentID,

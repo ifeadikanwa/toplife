@@ -4,7 +4,9 @@ import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/manage_events/manage_events.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/scheduled_events.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/test_events/test_event_type.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -53,39 +55,113 @@ class EventManager {
         _eventRepository,
       );
 
+  ManageEvents get manageEvents => ManageEvents(_eventRepository, this);
+
   static const int eventAttendanceAllowanceTime = 30;
 
-  void runEvent(int mainPlayerID, Event event, BuildContext context) {
-    final eventTypeEnum = convertEventTypeStringToEnum(event.eventType);
+  Future<void> runTestEvent(
+    int mainPlayerID,
+    Event event,
+    BuildContext context,
+  ) async {
+    final testEventTypeMap = TestEventType.values.asNameMap();
+    final TestEventType? testEventType = testEventTypeMap[event.eventType];
 
+    switch (testEventType) {
+      case TestEventType.playing:
+        return _scheduledEvents.testEvents.playingEvent(
+          event,
+          mainPlayerID,
+        );
+      case TestEventType.dancing:
+        return _scheduledEvents.testEvents.dancingEvent(
+          event,
+          mainPlayerID,
+        );
+      case TestEventType.singing:
+        return _scheduledEvents.testEvents.singingEvent(
+          event,
+          mainPlayerID,
+        );
+      case TestEventType.eating:
+        return _scheduledEvents.testEvents.eatingEvent(
+          event,
+          mainPlayerID,
+        );
+      case TestEventType.sayHello:
+        return _scheduledEvents.testEvents.sayHelloEvent(
+          event,
+          mainPlayerID,
+          context,
+        );
+      case TestEventType.sayBye:
+        return _scheduledEvents.testEvents.sayByeEvent(
+          event,
+          mainPlayerID,
+          context,
+        );
+      case TestEventType.sayGoodluck:
+        return _scheduledEvents.testEvents.sayGoodluckEvent(
+          event,
+          mainPlayerID,
+          context,
+        );
+      case TestEventType.sayGoodMorning:
+        return _scheduledEvents.testEvents.sayGoodMorningEvent(
+          event,
+          mainPlayerID,
+          context,
+        );
+      case TestEventType.sayGoodDay:
+        return _scheduledEvents.testEvents.sayGoodDayEvent(
+          event,
+          mainPlayerID,
+          context,
+        );
+      case TestEventType.sayGoodNight:
+        return _scheduledEvents.testEvents.sayGoodNightEvent(
+          event,
+          mainPlayerID,
+          context,
+        );
+      default:
+    }
+  }
+
+  Future<void> runEvent(
+    int mainPlayerID,
+    Event event,
+    BuildContext context,
+  ) async {
+    final eventTypeEnum = convertEventTypeStringToEnum(event.eventType);
     switch (eventTypeEnum) {
       case EventType.birthday:
-        _scheduledEvents.birthdayEvent.execute(
+        return _scheduledEvents.birthdayEvent.execute(
           mainPlayerID,
           event,
         );
-        break;
+
       case EventType.birthdayParty:
-        _scheduledEvents.birthdayPartyEvent.execute(
+        return _scheduledEvents.birthdayPartyEvent.execute(
           context: context,
           birthdayEvent: event,
           mainPlayerID: mainPlayerID,
         );
-        break;
+
       case EventType.death:
-        _scheduledEvents.deathEvent.execute(
+        return _scheduledEvents.deathEvent.execute(
           context: context,
           deathEvent: event,
           mainPlayerID: mainPlayerID,
         );
-        break;
+
       case EventType.funeral:
-        _scheduledEvents.funeralEvent.execute(
+        return _scheduledEvents.funeralEvent.execute(
           context: context,
           funeralEvent: event,
           mainPlayerID: mainPlayerID,
         );
-        break;
+
       case EventType.schoolAdmission:
         break;
       case EventType.engagement:

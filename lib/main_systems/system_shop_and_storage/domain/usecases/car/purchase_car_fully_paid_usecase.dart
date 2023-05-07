@@ -92,7 +92,7 @@ class PurchaseCarFullyPaidUsecase {
 
     //log in journal
     if (currentGame != null) {
-      _journalUsecases.addToJournalUsecase.execute(
+      await _journalUsecases.addToJournalUsecase.execute(
         gameID: currentGame.id,
         day: currentGame.currentDay,
         mainPlayerID: personID,

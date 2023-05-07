@@ -259,7 +259,7 @@ class ShopScreen extends ConsumerWidget {
                 // final g = await GameDaoImpl(db).getGame(1);
                 // if (g != null) {
                 //   await GameDaoImpl(db).updateGame(
-                //       g.copyWith(currentTimeInMinutes: 900, currentDay: 2));
+                //       g.copyWith(currentTimeInMinutes: 1200, currentDay: 2));
                 // }
 
                 // ref
@@ -295,6 +295,89 @@ class ShopScreen extends ConsumerWidget {
                 //     .watch(personUsecasesProvider)
                 //     .resetDepleteStatsFlagUsecase
                 //     .execute(1);
+
+                // EventDaoImpl(db).createEvent(
+                //   Event(
+                //     id: 0,
+                //     gameId: 1,
+                //     eventType: "death",
+                //     eventDay: 2,
+                //     mainPersonId: 6,
+                //     relationshipToMainPlayer: "sibling",
+                //     journalEntryOnly: false,
+                //     performed: false,
+                //     startTime: null,
+                //     endTime: null,
+                //   ),
+                // );
+
+                // ref.watch(journalRepositoryProvider).updateJournal(
+                //     Journal(gameId: 1, day: 2, mainPlayerId: 1, entry: ""));
+
+                // EventDaoImpl(db).createEvent(
+                //   Event(
+                //     id: 0,
+                //     gameId: 1,
+                //     eventType: "death",
+                //     eventDay: 2,
+                //     mainPersonId: 2,
+                //     relationshipToMainPlayer: "parent",
+                //     journalEntryOnly: false,
+                //     performed: false,
+                //     startTime: 600,
+                //     endTime: null,
+                //   ),
+                // );
+
+                // EventDaoImpl(db).createEvent(
+                //   Event(
+                //     id: 0,
+                //     gameId: 1,
+                //     eventType: "funeral",
+                //     eventDay: 2,
+                //     mainPersonId: 2,
+                //     relationshipToMainPlayer: "parent",
+                //     journalEntryOnly: false,
+                //     performed: false,
+                //     startTime: null,
+                //     endTime: null,
+                //   ),
+                // );
+
+                // EventDaoImpl(db).createEvent(
+                //   Event(
+                //     id: 0,
+                //     gameId: 1,
+                //     eventType: "birthdayParty",
+                //     eventDay: 2,
+                //     mainPersonId: 2,
+                //     relationshipToMainPlayer: "parent",
+                //     journalEntryOnly: false,
+                //     performed: false,
+                //     startTime: 600,
+                //     endTime: null,
+                //   ),
+                // );
+
+                // ref.watch(personUsecasesProvider).updateStatsUsecase.execute(
+                //       mainPersonID: 1,
+                //       override: true,
+                //       energy: 0,
+                //       hunger: 0,
+                //       mood: 70,
+                //     );
+
+                // ref
+                //     .watch(eventManagerProvider)
+                //     .manageEvents
+                //     .runScheduledEventsForTheDay
+                //     .execute(
+                //       gameID: 1,
+                //       playerID: 1,
+                //       day: 2,
+                //       currentTimeInMinutes: 900,
+                //       context: context,
+                //     );
               },
               child: const Text("Run"),
             ),

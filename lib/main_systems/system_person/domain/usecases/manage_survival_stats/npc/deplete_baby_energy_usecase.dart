@@ -41,7 +41,7 @@ class DepleteBabyEnergyUsecase {
 
       final updatedBabyStats = babyStats.copyWith(energy: updatedEnergyStat);
 
-      _statsRepository.updateStats(updatedBabyStats);
+      await _statsRepository.updateStats(updatedBabyStats);
     }
   }
 

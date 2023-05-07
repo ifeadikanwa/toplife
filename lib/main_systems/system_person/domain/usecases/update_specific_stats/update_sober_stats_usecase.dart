@@ -22,7 +22,7 @@ class UpdateSoberStatsUsecase {
 
     if (stats != null) {
       if (override) {
-        _statsRepository.updateStats(
+        await _statsRepository.updateStats(
           stats.copyWith(
             sober: crossCheckStat(change),
           ),
@@ -30,7 +30,7 @@ class UpdateSoberStatsUsecase {
       } else {
         final int oldSober = stats.sober;
 
-        _statsRepository.updateStats(
+        await _statsRepository.updateStats(
           stats.copyWith(
             sober: crossCheckStat(oldSober + change),
           ),
@@ -38,7 +38,7 @@ class UpdateSoberStatsUsecase {
       }
 
       //tell system to not alter the stat
-      _toggleDepleteStatsFlagUsecase.execute(
+      await _toggleDepleteStatsFlagUsecase.execute(
         personID: mainPersonID,
         alterSober: false,
       );

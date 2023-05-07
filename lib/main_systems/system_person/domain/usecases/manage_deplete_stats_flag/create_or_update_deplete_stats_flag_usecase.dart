@@ -9,7 +9,7 @@ class CreateOrUpdateDepleteStatsFlagUsecase {
   }) : _depleteStatsFlagRepository = depleteStatsFlagRepository;
 
   Future<void> execute(DepleteStatsFlag depleteStatsFlag) async {
-    _depleteStatsFlagRepository
+    await _depleteStatsFlagRepository
         .createOrUpdateDepleteStatsFlag(depleteStatsFlag);
   }
 }

@@ -47,13 +47,13 @@ class AttendParty {
       nutrition: (Random().nextInt(30)), //1-30
     );
 
-    _personUsecases.updateMoodStatsUsecase.execute(
+    await _personUsecases.updateMoodStatsUsecase.execute(
       mainPersonID: mainPlayerID,
       change: Random().nextInt(20), //1-20
       override: false,
     );
 
-    _relationshipUsecases.updateAnyRelationshipAmountUsecase.execute(
+    await _relationshipUsecases.updateAnyRelationshipAmountUsecase.execute(
       personUsecases: _personUsecases,
       mainPersonID: mainPlayerID,
       relationshipPersonID: event.mainPersonId,
@@ -63,13 +63,13 @@ class AttendParty {
 
     //remove chosen gift from storage
     if (chosenGift != null) {
-      _shopAndStorageUsecases.useStoreroomItemUsecase.execute(
+      await _shopAndStorageUsecases.useStoreroomItemUsecase.execute(
         storeroomItemID: chosenGift.storeroomItem.id,
       );
     }
 
     //remove chosen money gift from account
-    _personUsecases.takeMoneyFromPlayerUsecase.execute(
+    await _personUsecases.takeMoneyFromPlayerUsecase.execute(
       relationshipUsecases: _relationshipUsecases,
       mainPlayerID: mainPlayerID,
       baseAmountToTake: chosenMoneyGiftAmount.toInt(),
@@ -77,7 +77,7 @@ class AttendParty {
     );
 
     //log in journal
-    _journalUsecases.addToJournalUsecase.execute(
+    await _journalUsecases.addToJournalUsecase.execute(
       gameID: event.gameId,
       day: event.eventDay,
       mainPlayerID: mainPlayerID,
@@ -85,7 +85,7 @@ class AttendParty {
     );
 
     //mark as performed
-    _eventRepository.updateEvent(
+    await _eventRepository.updateEvent(
       event.copyWith(
         performed: true,
       ),

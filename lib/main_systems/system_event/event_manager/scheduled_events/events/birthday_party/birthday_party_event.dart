@@ -188,7 +188,7 @@ class BirthdayPartyEvent {
         "$firstPersonPartyDesc.\n$firstPersonGiftReaction.";
 
     //attend party
-    _attendParty.execute(
+   await _attendParty.execute(
       context: context,
       event: event,
       mainPlayerID: mainPlayerID,
@@ -258,7 +258,7 @@ class BirthdayPartyEvent {
     )}";
 
     //attend party
-    _attendParty.execute(
+    await _attendParty.execute(
       context: context,
       event: event,
       mainPlayerID: mainPlayerID,

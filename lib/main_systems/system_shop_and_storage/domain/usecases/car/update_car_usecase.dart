@@ -9,6 +9,6 @@ class UpdateCarUsecase {
   Future<void> execute({
     required Car car,
   }) async {
-    return _carRepository.updateCar(car);
+    return await _carRepository.updateCar(car);
   }
 }

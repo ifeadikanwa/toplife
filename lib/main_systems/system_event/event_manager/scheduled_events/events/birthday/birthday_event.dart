@@ -39,7 +39,7 @@ class BirthdayEvent {
           await getJournalEntry(mainPlayerID, birthdayPerson, event);
 
       //add to journal
-      _journalUsecases.addToJournalUsecase.execute(
+      await _journalUsecases.addToJournalUsecase.execute(
         gameID: event.gameId,
         day: event.eventDay,
         mainPlayerID: mainPlayerID,
@@ -56,7 +56,7 @@ class BirthdayEvent {
       );
 
       //mark event as performed
-      _eventRepository.updateEvent(
+      await _eventRepository.updateEvent(
         event.copyWith(performed: true),
       );
     }
@@ -82,7 +82,7 @@ class BirthdayEvent {
     }
     //else it's an npc
     else {
-      return NpcBirthday(
+      return await NpcBirthday(
         _relationshipUsecases,
         _personUsecases,
         _ageUsecases,

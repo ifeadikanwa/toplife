@@ -23,7 +23,7 @@ class UpdateAthleticismStatsUsecase {
     if (stats != null) {
       //if override, replace current stat
       if (override) {
-        _statsRepository.updateStats(
+        await _statsRepository.updateStats(
           stats.copyWith(
             athleticism: crossCheckStat(change),
           ),
@@ -32,7 +32,7 @@ class UpdateAthleticismStatsUsecase {
       //if not, add change
       else {
         final int oldAthleticism = stats.athleticism;
-        _statsRepository.updateStats(
+        await _statsRepository.updateStats(
           stats.copyWith(
             athleticism: crossCheckStat(oldAthleticism + change),
           ),
@@ -40,7 +40,7 @@ class UpdateAthleticismStatsUsecase {
       }
 
       //tell system to not deplete the stat
-      _toggleDepleteStatsFlagUsecase.execute(
+      await _toggleDepleteStatsFlagUsecase.execute(
         personID: mainPersonID,
         depleteAthleticism: false,
       );

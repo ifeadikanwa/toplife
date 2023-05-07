@@ -37,7 +37,7 @@ class NpcPlannedFuneral {
         "I am invited to their funeral event tomorrow, Day ${scheduledFuneral.eventDay} at ${getClockTime(timeInMinutes: scheduledFuneral.startTime ?? 0)}.";
 
     //log in journal
-    _journalUsecases.addToJournalUsecase.execute(
+    await _journalUsecases.addToJournalUsecase.execute(
       gameID: deathEvent.gameId,
       day: deathEvent.eventDay,
       mainPlayerID: mainPlayerID,

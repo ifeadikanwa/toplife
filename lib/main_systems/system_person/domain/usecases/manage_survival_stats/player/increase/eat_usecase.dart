@@ -6,7 +6,7 @@ class EatUsecase {
   const EatUsecase(this._updateHungerStatsUsecase);
 
   Future<void> execute({required int personID, required int nutrition}) async {
-    _updateHungerStatsUsecase.execute(
+    await _updateHungerStatsUsecase.execute(
       mainPersonID: personID,
       change: nutrition,
       override: false,

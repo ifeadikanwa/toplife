@@ -84,7 +84,7 @@ class RentHouseUsecase {
           houseQuantifier,
         );
 
-        _journalUsecases.addToJournalUsecase.execute(
+        await _journalUsecases.addToJournalUsecase.execute(
           gameID: currentGame.id,
           day: currentGame.currentDay,
           mainPlayerID: personID,
@@ -131,7 +131,7 @@ class RentHouseUsecase {
             newHouseStorage: house.storage,
           )} $firstPersonMoveStatus";
 
-          _journalUsecases.addToJournalUsecase.execute(
+          await _journalUsecases.addToJournalUsecase.execute(
             gameID: currentGame.id,
             day: currentGame.currentDay,
             mainPlayerID: personID,
@@ -176,7 +176,7 @@ class RentHouseUsecase {
             newHouseStorage: house.storage,
           )} $firstPersonMoveStatus";
 
-          _journalUsecases.addToJournalUsecase.execute(
+          await _journalUsecases.addToJournalUsecase.execute(
             gameID: currentGame.id,
             day: currentGame.currentDay,
             mainPlayerID: personID,

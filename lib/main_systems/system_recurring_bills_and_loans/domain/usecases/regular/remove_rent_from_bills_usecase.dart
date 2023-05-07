@@ -23,7 +23,7 @@ class RemoveRentFromBillsUsecase {
 
     //delete it if it exists
     if (rent != null) {
-      _recurringBillRepository.deleteRecurringBill(rent.id);
+      await _recurringBillRepository.deleteRecurringBill(rent.id);
     }
   }
 }

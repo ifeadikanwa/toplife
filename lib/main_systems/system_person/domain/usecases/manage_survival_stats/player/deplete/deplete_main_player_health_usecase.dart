@@ -28,7 +28,7 @@ class DepleteMainPlayerHealthUsecase {
           health: crossCheckStat(updatedHealth),
         );
 
-        _statsRepository.updateStats(updatedPersonStats);
+        await _statsRepository.updateStats(updatedPersonStats);
       }
     }
   }

@@ -42,7 +42,7 @@ class AddFoodToFridgeUsecase {
           servingsLeft: updatedServingsLeft,
         );
 
-        _fridgeFoodRepository.updateFridgeFood(updatedExistingFridgeFood);
+        await _fridgeFoodRepository.updateFridgeFood(updatedExistingFridgeFood);
       }
 
       //else create a new record
@@ -55,9 +55,8 @@ class AddFoodToFridgeUsecase {
           expiryDay: expiryDay,
         );
 
-        _fridgeFoodRepository.createFridgeFood(createdFridgeFood);
+        await _fridgeFoodRepository.createFridgeFood(createdFridgeFood);
       }
     }
-    
   }
 }

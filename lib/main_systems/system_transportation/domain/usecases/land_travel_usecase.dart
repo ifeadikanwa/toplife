@@ -190,7 +190,7 @@ class LandTravelUsecase {
     );
 
     if (paymentSuccessful) {
-      _moveTimeForward(
+      await _moveTimeForward(
         gameID: person.gameId,
         travelTime: travelTime,
         eventDuration: eventDuration,
@@ -276,7 +276,7 @@ class LandTravelUsecase {
         currentDay: currentGame.currentDay,
       );
 
-      _moveTimeForward(
+      await _moveTimeForward(
         gameID: person.gameId,
         travelTime: travelTime,
         eventDuration: eventDuration,
@@ -296,12 +296,12 @@ class LandTravelUsecase {
     );
   }
 
-  void _moveTimeForward({
+  Future<void> _moveTimeForward({
     required int gameID,
     required int travelTime,
     required int eventDuration,
     required bool twoWayTravel,
-  }) {
+  }) async {
     //travel time for going and coming + event duration;
 
     late final int totalTime;
@@ -311,7 +311,7 @@ class LandTravelUsecase {
       totalTime = travelTime + eventDuration;
     }
 
-    _gameUsecases.moveTimeForwardUsecase.execute(
+    await _gameUsecases.moveTimeForwardUsecase.execute(
       gameID: gameID,
       timeInMinutes: totalTime,
     );

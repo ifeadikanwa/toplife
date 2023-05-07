@@ -28,7 +28,7 @@ class EndAllPartnerRelationshipsNotInvolvingACertainPersonUsecase {
 
     for (var relationship in mainPersonActiveRelationships) {
       if (relationship.partnerId != partnerID) {
-        _endPartnerRelationshipUsecase.execute(
+        await _endPartnerRelationshipUsecase.execute(
           firstPartnerID: relationship.mainPersonId,
           secondPartnerID: relationship.partnerId,
           currentDay: currentDay,
@@ -43,7 +43,7 @@ class EndAllPartnerRelationshipsNotInvolvingACertainPersonUsecase {
 
     for (var relationship in partnerActiveRelationships) {
       if (relationship.partnerId != mainPersonID) {
-        _endPartnerRelationshipUsecase.execute(
+        await _endPartnerRelationshipUsecase.execute(
           firstPartnerID: relationship.mainPersonId,
           secondPartnerID: relationship.partnerId,
           currentDay: currentDay,

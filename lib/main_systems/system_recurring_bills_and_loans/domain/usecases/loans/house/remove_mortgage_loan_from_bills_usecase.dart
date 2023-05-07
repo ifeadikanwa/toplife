@@ -23,7 +23,7 @@ class RemoveMortgageLoanFromBillsUsecase {
 
     //delete it if it exists
     if (mortgageLoan != null) {
-      _recurringBillRepository.deleteRecurringBill(mortgageLoan.id);
+      await _recurringBillRepository.deleteRecurringBill(mortgageLoan.id);
     }
   }
 }

@@ -43,7 +43,7 @@ class AddRentToBillsUsecase {
       );
 
       //save it
-      _recurringBillRepository.createRecurringBill(rent);
+      await _recurringBillRepository.createRecurringBill(rent);
     }
   }
 }

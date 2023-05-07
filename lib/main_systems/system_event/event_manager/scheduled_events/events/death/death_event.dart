@@ -72,14 +72,14 @@ class DeathEvent {
         final Person deadPerson = relationshipPair.person;
 
         //update as dead
-        _personUsecases.updatePersonUsecase.execute(
+        await _personUsecases.updatePersonUsecase.execute(
           person: deadPerson.copyWith(
             dead: true,
           ),
         );
 
         //reduce player wellbeing
-        reducePlayerMoodForMourning(
+        await reducePlayerMoodForMourning(
           mainPlayerID: mainPlayerID,
           relationshipPair: relationshipPair,
         );
@@ -128,7 +128,7 @@ class DeathEvent {
         );
 
         if (mainPlayerDaysLived < Age.newYoungAdultDaysLived) {
-          npcPlannedFuneral.run(
+          await npcPlannedFuneral.run(
             context: context,
             mainPlayerID: mainPlayerID,
             deathEvent: deathEvent,
@@ -139,7 +139,7 @@ class DeathEvent {
         else {
           //parent
           if (relationshipPair.relationship is Parent) {
-            familyPlannedFuneral.run(
+            await familyPlannedFuneral.run(
               context: context,
               mainPlayerID: mainPlayerID,
               deathEvent: deathEvent,
@@ -155,7 +155,7 @@ class DeathEvent {
             if (partner.isActive &&
                 partner.partnerRelationshipType ==
                     PartnerRelationshipType.married.name) {
-              playerPlannedFuneral.run(
+              await playerPlannedFuneral.run(
                 context: context,
                 mainPlayerID: mainPlayerID,
                 deathEvent: deathEvent,
@@ -163,7 +163,7 @@ class DeathEvent {
                 playerCountry: playerCountry,
               );
             } else {
-              npcPlannedFuneral.run(
+              await npcPlannedFuneral.run(
                 context: context,
                 mainPlayerID: mainPlayerID,
                 deathEvent: deathEvent,
@@ -194,7 +194,7 @@ class DeathEvent {
                             PartnerRelationshipType.married.name);
 
             if (childIsAMinor || childIsAnAdultWithNoSpouse) {
-              playerPlannedFuneral.run(
+              await playerPlannedFuneral.run(
                 context: context,
                 mainPlayerID: mainPlayerID,
                 deathEvent: deathEvent,
@@ -202,7 +202,7 @@ class DeathEvent {
                 playerCountry: playerCountry,
               );
             } else {
-              npcPlannedFuneral.run(
+              await npcPlannedFuneral.run(
                 context: context,
                 mainPlayerID: mainPlayerID,
                 deathEvent: deathEvent,
@@ -212,7 +212,7 @@ class DeathEvent {
           }
           //any other relationship type
           else {
-            npcPlannedFuneral.run(
+            await npcPlannedFuneral.run(
               context: context,
               mainPlayerID: mainPlayerID,
               deathEvent: deathEvent,
@@ -231,7 +231,7 @@ class DeathEvent {
     //delete all events involving this npc character from the event table
     //make sure it is not the main player
 
-    _eventRepository.deleteAllEventsInvolvingAPerson(
+    await _eventRepository.deleteAllEventsInvolvingAPerson(
       personID: deadPersonID,
       gameID: gameID,
     );
@@ -243,7 +243,7 @@ class DeathEvent {
   }) async {
     //parent
     if (relationshipPair.relationship is Parent) {
-      _personUsecases.updateMoodStatsUsecase.execute(
+      await _personUsecases.updateMoodStatsUsecase.execute(
         mainPersonID: mainPlayerID,
         change: -60,
         override: false,
@@ -251,7 +251,7 @@ class DeathEvent {
     }
     //child
     else if (relationshipPair.relationship is Child) {
-      _personUsecases.updateMoodStatsUsecase.execute(
+      await _personUsecases.updateMoodStatsUsecase.execute(
         mainPersonID: mainPlayerID,
         change: -70,
         override: false,
@@ -262,13 +262,13 @@ class DeathEvent {
       final Partner partner = relationshipPair.relationship as Partner;
 
       if (partner.isActive) {
-        _personUsecases.updateMoodStatsUsecase.execute(
+        await _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: -60,
           override: false,
         );
       } else {
-        _personUsecases.updateMoodStatsUsecase.execute(
+        await _personUsecases.updateMoodStatsUsecase.execute(
           mainPersonID: mainPlayerID,
           change: -30,
           override: false,
@@ -277,7 +277,7 @@ class DeathEvent {
     }
     //others
     else {
-      _personUsecases.updateMoodStatsUsecase.execute(
+      await _personUsecases.updateMoodStatsUsecase.execute(
         mainPersonID: mainPlayerID,
         change: -30,
         override: false,

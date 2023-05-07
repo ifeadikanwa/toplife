@@ -65,7 +65,7 @@ class DepleteMainPlayerEnergyUsecase {
           energy: crossCheckStat(updatedEnergyStat),
         );
 
-        _statsRepository.updateStats(updatedPersonStats);
+        await _statsRepository.updateStats(updatedPersonStats);
       }
     }
   }

@@ -33,9 +33,12 @@ class GameControllerUsecase {
         (totalMinutesPassed / Time.minutesInAnHour).abs();
 
     //Alter player stats
-    _decayAndAlterPlayerStatsUsecase.execute(
+    await _decayAndAlterPlayerStatsUsecase.execute(
       playerID: newGame.currentPlayerID,
       hoursPassed: hoursPassed,
     );
+
+    //run scheduled events
+    
   }
 }

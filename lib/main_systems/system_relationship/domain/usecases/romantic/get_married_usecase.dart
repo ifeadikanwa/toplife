@@ -17,7 +17,7 @@ class GetMarriedUsecase {
     required int currentDay,
   }) async {
     //create marriage relationships from both point of views
-    _createExclusiveRomanticRelationshipUsecase.execute(
+    await _createExclusiveRomanticRelationshipUsecase.execute(
       mainPersonID: mainPersonID,
       partnerID: partnerID,
       partnerRelationshipType: PartnerRelationshipType.married,

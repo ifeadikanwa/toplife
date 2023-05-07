@@ -9,7 +9,7 @@ class SleepUsecase {
   Future<void> execute({required int personID, required double hours}) async {
     final gainedEnergy = (hours * 10).floor();
 
-    _updateEnergyStatsUsecase.execute(
+    await _updateEnergyStatsUsecase.execute(
       mainPersonID: personID,
       change: gainedEnergy,
       override: false,
