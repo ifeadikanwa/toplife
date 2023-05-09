@@ -6,12 +6,12 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 
 class NpcPlannedFuneral {
-  final EventScheduler _eventScheduler;
+  final EventSchedulers _eventScheduler;
   final JournalUsecases _journalUsecases;
 
   const NpcPlannedFuneral(
@@ -25,7 +25,8 @@ class NpcPlannedFuneral {
     required Event deathEvent,
     required String firstPersonEventDescription,
   }) async {
-    final Event scheduledFuneral = await _eventScheduler.scheduleFuneral(
+    final Event scheduledFuneral =
+        await _eventScheduler.scheduleFuneral.execute(
       gameID: deathEvent.gameId,
       mainPlayerID: mainPlayerID,
       deadPersonID: deathEvent.mainPersonId,

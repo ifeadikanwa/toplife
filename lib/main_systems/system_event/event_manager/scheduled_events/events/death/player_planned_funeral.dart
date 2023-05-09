@@ -9,7 +9,7 @@ import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/standard_event_sentences.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
@@ -19,7 +19,7 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/relatio
 
 class PlayerPlannedFuneral {
   final PersonUsecases _personUsecases;
-  final EventScheduler _eventScheduler;
+  final EventSchedulers _eventScheduler;
   final JournalUsecases _journalUsecases;
   final RelationshipUsecases _relationshipUsecases;
 
@@ -73,7 +73,8 @@ class PlayerPlannedFuneral {
       //schedule the funeral
       //show a result pop up saying the invitation for the funeral your [relationship], [name]'s has been sent out and the event will happen tomorrow, day [number] at [time chosen].
 
-      final Event scheduledFuneral = await _eventScheduler.scheduleFuneral(
+      final Event scheduledFuneral =
+          await _eventScheduler.scheduleFuneral.execute(
         gameID: deathEvent.gameId,
         mainPlayerID: mainPlayerID,
         deadPersonID: deathEvent.mainPersonId,

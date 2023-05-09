@@ -11,6 +11,7 @@ class Time extends Equatable{
 
   static const int minutesInAnHour = 60;
   static const int minutesInADay = 1440;
+  static const int hoursInADay = 24;
   
   @override
   List<Object?> get props => [hours, minutes];

@@ -1,7 +1,7 @@
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/npc_birthday.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/player_birthday.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
@@ -14,7 +14,7 @@ class BirthdayEvent {
   final PersonUsecases _personUsecases;
   final AgeUsecases _ageUsecases;
   final JournalUsecases _journalUsecases;
-  final EventScheduler _eventScheduler;
+  final EventSchedulers _eventScheduler;
   final EventRepository _eventRepository;
 
   const BirthdayEvent(
@@ -47,7 +47,7 @@ class BirthdayEvent {
       );
 
       //schedule next birthday
-      _eventScheduler.scheduleNextBirthday(
+      await _eventScheduler.scheduleNextBirthday.execute(
         gameID: event.gameId,
         mainPersonID: event.mainPersonId,
         relationshipToMainPlayer: event.relationshipToMainPlayer,

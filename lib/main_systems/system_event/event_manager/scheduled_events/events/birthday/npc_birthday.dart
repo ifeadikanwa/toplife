@@ -3,7 +3,7 @@ import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -15,7 +15,7 @@ class NpcBirthday {
   final RelationshipUsecases _relationshipUsecases;
   final PersonUsecases _personUsecases;
   final AgeUsecases _ageUsecases;
-  final EventScheduler _eventScheduler;
+  final EventSchedulers _eventScheduler;
 
   const NpcBirthday(
     this._relationshipUsecases,
@@ -75,7 +75,8 @@ class NpcBirthday {
             );
 
             if (haveBirthdayParty) {
-              final Event party = await _eventScheduler.scheduleBirthdayParty(
+              final Event party =
+                  await _eventScheduler.scheduleBirthdayParty.execute(
                 gameID: event.gameId,
                 mainPersonID: event.mainPersonId,
                 relationshipToMainPlayer: event.relationshipToMainPlayer,

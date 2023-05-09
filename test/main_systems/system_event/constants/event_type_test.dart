@@ -4,6 +4,11 @@ import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 void main() {
   group("Event type", () {
     test(
+        "unmovable autonomous events contains correct event types",
+        () => expect(unmovableAutonomousEvents, [
+              EventType.death,
+            ]));
+    test(
       "birthday event duration is 0",
       () {
         expect(EventType.birthday.eventDuration, 0);
@@ -60,9 +65,16 @@ void main() {
     );
 
     test(
-      "graduation event duration is 0",
+      "graduation event duration is 3 hours",
       () {
-        expect(EventType.graduation.eventDuration, 0);
+        expect(EventType.graduation.eventDuration, 180);
+      },
+    );
+
+    test(
+      "askForSchoolTuition event duration is 0",
+      () {
+        expect(EventType.askForSchoolTuition.eventDuration, 0);
       },
     );
 
@@ -130,5 +142,46 @@ void main() {
         expect(EventType.graduation.presentationName, "Graduation");
       },
     );
+
+    test(
+      "askForSchoolTuition event presentation name is Ask For School Tuition",
+      () {
+        expect(EventType.askForSchoolTuition.presentationName,
+            "Ask For School Tuition");
+      },
+    );
+
+    //Autonomous dialog event
+
+    test("death is an autonomous dialog event",
+        () => expect(EventType.death.isAutonomousDialogEvent, true));
+
+    test(
+        "askForSchoolTuition is an autonomous dialog event",
+        () => expect(
+            EventType.askForSchoolTuition.isAutonomousDialogEvent, true));
+    test("birthdayParty is an autonomous dialog event",
+        () => expect(EventType.birthdayParty.isAutonomousDialogEvent, false));
+
+    test("funeral is an autonomous dialog event",
+        () => expect(EventType.funeral.isAutonomousDialogEvent, false));
+
+    test("wedding is an autonomous dialog event",
+        () => expect(EventType.wedding.isAutonomousDialogEvent, false));
+
+    test("graduation is an autonomous dialog event",
+        () => expect(EventType.graduation.isAutonomousDialogEvent, false));
+
+    test("birthday is an autonomous dialog event",
+        () => expect(EventType.birthday.isAutonomousDialogEvent, false));
+
+    test("engagement is an autonomous dialog event",
+        () => expect(EventType.engagement.isAutonomousDialogEvent, false));
+
+    test("employment is an autonomous dialog event",
+        () => expect(EventType.employment.isAutonomousDialogEvent, false));
+
+    test("schoolAdmission is an autonomous dialog event",
+        () => expect(EventType.schoolAdmission.isAutonomousDialogEvent, false));
   });
 }

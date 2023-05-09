@@ -3,10 +3,11 @@ import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/manage_events/manage_events.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/scheduled_events.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/test_events/test_event_type.dart';
+import 'package:toplife/main_systems/system_event/util/convert_event_type_string_to_enum.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -40,7 +41,7 @@ class EventManager {
         _shopAndStorageUsecases = shopAndStorageUsecases,
         _eventRepository = eventRepository;
 
-  EventScheduler get _eventScheduler => EventScheduler(
+  EventSchedulers get _eventScheduler => EventSchedulers(
         _eventRepository,
         _ageUsecases,
       );
@@ -264,8 +265,5 @@ class EventManager {
     return (endTime - currentTime) > travelTime;
   }
 
-  static EventType? convertEventTypeStringToEnum(String eventType) {
-    final eventTypeMap = EventType.values.asNameMap();
-    return eventTypeMap[eventType];
-  }
+ 
 }

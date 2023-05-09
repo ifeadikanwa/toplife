@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_descriptions.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/family_planned_funeral.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/npc_planned_funeral.dart';
@@ -24,7 +24,7 @@ class DeathEvent {
   final EventRepository _eventRepository;
   final PersonUsecases _personUsecases;
   final RelationshipUsecases _relationshipUsecases;
-  final EventScheduler _eventScheduler;
+  final EventSchedulers _eventScheduler;
   final JournalUsecases _journalUsecases;
   final AgeUsecases _ageUsecases;
 

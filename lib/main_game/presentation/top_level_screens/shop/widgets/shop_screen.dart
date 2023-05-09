@@ -378,6 +378,68 @@ class ShopScreen extends ConsumerWidget {
                 //       currentTimeInMinutes: 900,
                 //       context: context,
                 //     );
+
+                // final event = const Event(
+                //   id: 0,
+                //   gameId: 1,
+                //   eventType: "birthdayParty",
+                //   eventDay: 2,
+                //   mainPersonId: 2,
+                //   relationshipToMainPlayer: "parent",
+                //   journalEntryOnly: false,
+                //   performed: false,
+                //   startTime: null,
+                //   endTime: null,
+                // );
+
+                // int num = 1;
+
+                // while (num < 40) {
+                //   ref.watch(eventRepositoryProvider).deleteEvent(num);
+                //   num++;
+                // }
+
+                // //journal
+                // ScheduleEvent(
+                //   ref.watch(eventRepositoryProvider),
+                // ).execute(
+                //     event: event.copyWith(
+                //   eventType: "birthday",
+                //   journalEntryOnly: true,
+                //   eventDay: 3,
+                // ));
+
+                // //attendable
+                // ScheduleEvent(
+                //   ref.watch(eventRepositoryProvider),
+                // ).execute(
+                //     event: event.copyWith(
+                //   eventType: "graduation",
+                //   journalEntryOnly: false,
+                //   eventDay: 3,
+                //   startTime: const drift.Value(450),
+                //   endTime: const drift.Value(900),
+                // ));
+
+                //auto - unmovable
+                // ScheduleEvent(
+                //   ref.watch(eventRepositoryProvider),
+                // ).execute(
+                //     event: event.copyWith(
+                //   eventType: "death",
+                //   journalEntryOnly: false,
+                //   eventDay: 3,
+                // ));
+
+                // //auto
+                // ScheduleEvent(
+                //   ref.watch(eventRepositoryProvider),
+                // ).execute(
+                //     event: event.copyWith(
+                //   eventType: "askForSchoolTuition",
+                //   journalEntryOnly: false,
+                //   eventDay: 3,
+                // ));
               },
               child: const Text("Run"),
             ),

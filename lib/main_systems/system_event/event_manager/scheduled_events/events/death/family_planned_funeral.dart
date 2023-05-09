@@ -11,7 +11,7 @@ import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_descriptions.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
@@ -25,7 +25,7 @@ import 'package:toplife/main_systems/system_relationship/util/get_sibling_relati
 class FamilyPlannedFuneral {
   final PersonUsecases _personUsecases;
   final RelationshipUsecases _relationshipUsecases;
-  final EventScheduler _eventScheduler;
+  final EventSchedulers _eventScheduler;
   final JournalUsecases _journalUsecases;
 
   const FamilyPlannedFuneral(
@@ -167,7 +167,8 @@ class FamilyPlannedFuneral {
     }
 
     //schedule funeral
-    final Event scheduledFuneral = await _eventScheduler.scheduleFuneral(
+    final Event scheduledFuneral =
+        await _eventScheduler.scheduleFuneral.execute(
       gameID: deathEvent.gameId,
       mainPlayerID: mainPlayerID,
       deadPersonID: deathEvent.mainPersonId,
@@ -287,7 +288,8 @@ class FamilyPlannedFuneral {
     }
 
     //schedule funeral
-    final Event scheduledFuneral = await _eventScheduler.scheduleFuneral(
+    final Event scheduledFuneral =
+        await _eventScheduler.scheduleFuneral.execute(
       gameID: deathEvent.gameId,
       mainPlayerID: mainPlayerID,
       deadPersonID: deathEvent.mainPersonId,

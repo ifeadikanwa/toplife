@@ -1,6 +1,6 @@
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
+import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/attend_party.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/get_first_person_party_partner_attendance_description.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/perform_party_activity.dart';
@@ -23,7 +23,7 @@ class ScheduledEvents {
   final AgeUsecases _ageUsecases;
   final JournalUsecases _journalUsecases;
   final ShopAndStorageUsecases _shopAndStorageUsecases;
-  final EventScheduler _eventScheduler;
+  final EventSchedulers _eventScheduler;
   final EventRepository _eventRepository;
 
   const ScheduledEvents(
