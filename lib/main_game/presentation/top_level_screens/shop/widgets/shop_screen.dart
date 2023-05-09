@@ -260,7 +260,7 @@ class ShopScreen extends ConsumerWidget {
                 // final g = await GameDaoImpl(db).getGame(1);
                 // if (g != null) {
                 //   await GameDaoImpl(db).updateGame(
-                //       g.copyWith(currentTimeInMinutes: 1200, currentDay: 2));
+                //       g.copyWith(currentTimeInMinutes: 480, currentDay: 6));
                 // }
 
                 // ref
@@ -349,14 +349,14 @@ class ShopScreen extends ConsumerWidget {
                 //   Event(
                 //     id: 0,
                 //     gameId: 1,
-                //     eventType: "birthdayParty",
-                //     eventDay: 2,
-                //     mainPersonId: 2,
-                //     relationshipToMainPlayer: "parent",
+                //     eventType: "engagement",
+                //     eventDay: 4,
+                //     mainPersonId: 5,
+                //     relationshipToMainPlayer: "sibling",
                 //     journalEntryOnly: false,
                 //     performed: false,
                 //     startTime: 600,
-                //     endTime: null,
+                //     endTime: 980,
                 //   ),
                 // );
 
@@ -452,8 +452,12 @@ class ShopScreen extends ConsumerWidget {
                 //       mainPlayerID: 1,
                 //     );
 
-                // final event = await EventDaoImpl(db).getEvent(36);
-                // EventDaoImpl(db).updateEvent(event!.copyWith(performed: true));
+                // final event = await EventDaoImpl(db).getEvent(56);
+                // EventDaoImpl(db).updateEvent(event!.copyWith(
+                //     // eventType: "funeral",
+                //     // startTime: const drift.Value(1200),
+                //     eventDay: 5,
+                //     mainPersonId: 2));
               },
               child: const Text("Run"),
             ),

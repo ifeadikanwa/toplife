@@ -21,14 +21,15 @@ class ReportUnattendedEventsToDaysJournal {
   );
 
   Future<void> execute({
-    required int day,
+    required int dayToCheckForEvents,
     required int gameID,
     required int mainPlayerID,
+    required int dayToLogReportTo,
   }) async {
     //get all attendable events for the day
     final List<Event> attendableEventsForTheDay =
         await _eventRepository.getAttendableEventsForDay(
-      day: day,
+      day: dayToCheckForEvents,
       gameID: gameID,
     );
 
@@ -50,7 +51,7 @@ class ReportUnattendedEventsToDaysJournal {
         // log report to journal
         await _journalUsecases.addToJournalUsecase.execute(
           gameID: gameID,
-          day: day,
+          day: dayToLogReportTo,
           mainPlayerID: mainPlayerID,
           entry: "I did not attend ${getAttendableEventTitle(
             eventMainPerson: eventMainPerson,

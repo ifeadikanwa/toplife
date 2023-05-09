@@ -88,8 +88,9 @@ class GameUsecases {
         gameRepository: _gameRepository,
       );
 
-  GameControllerUsecase get gameControllerUsecase =>
-      GameControllerUsecase(decayAndAlterPlayerStatsUsecase);
+  GameControllerUsecase get gameControllerUsecase => GameControllerUsecase(
+        decayAndAlterPlayerStatsUsecase,
+      );
 
   DecayAndAlterPlayerStatsUsecase get decayAndAlterPlayerStatsUsecase =>
       DecayAndAlterPlayerStatsUsecase(_personUsecases);
