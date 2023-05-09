@@ -56,7 +56,13 @@ class EventManager {
         _eventRepository,
       );
 
-  ManageEvents get manageEvents => ManageEvents(_eventRepository, this);
+  ManageEvents get manageEvents => ManageEvents(
+        _eventRepository,
+        this,
+        _personUsecases,
+        _journalUsecases,
+        _relationshipUsecases,
+      );
 
   static const int eventAttendanceAllowanceTime = 30;
 
@@ -264,6 +270,4 @@ class EventManager {
     //if the event duration is greater than the travel time
     return (endTime - currentTime) > travelTime;
   }
-
- 
 }

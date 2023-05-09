@@ -250,10 +250,11 @@ class ShopScreen extends ConsumerWidget {
                 // (BabyTraitsDaoImpl(db).watchBabyTraits(1).listen((event) {
                 //   print(event);
 
-                // final p = await PersonDaoImpl(db).getPerson(49);
+                // final p = await PersonDaoImpl(db).getPerson(2);
                 // if (p != null) {
-                //   await PersonDaoImpl(db)
-                //       .updatePerson(p.copyWith(lastName: "Davis"));
+                //   await PersonDaoImpl(db).updatePerson(p.copyWith(
+                //     dead: false,
+                //   ));
                 // }
 
                 // final g = await GameDaoImpl(db).getGame(1);
@@ -440,6 +441,19 @@ class ShopScreen extends ConsumerWidget {
                 //   journalEntryOnly: false,
                 //   eventDay: 3,
                 // ));
+
+                // ref
+                //     .watch(eventManagerProvider)
+                //     .manageEvents
+                //     .reportUnattendedEventsToDaysJournal
+                //     .execute(
+                //       day: 3,
+                //       gameID: 1,
+                //       mainPlayerID: 1,
+                //     );
+
+                // final event = await EventDaoImpl(db).getEvent(36);
+                // EventDaoImpl(db).updateEvent(event!.copyWith(performed: true));
               },
               child: const Text("Run"),
             ),
