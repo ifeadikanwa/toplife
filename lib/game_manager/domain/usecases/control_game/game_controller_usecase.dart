@@ -51,7 +51,6 @@ class GameControllerUsecase {
           final double hoursPassed =
               (totalMinutesPassed / Time.minutesInAnHour).abs();
 
-
           //Alter player stats:
           await _decayAndAlterPlayerStatsUsecase.execute(
             playerID: newGame.currentPlayerID,
@@ -89,7 +88,8 @@ class GameControllerUsecase {
                     .execute(
                   gameID: newGame.id,
                   playerID: newGame.currentPlayerID,
-                  day: day,
+                  dayToCheckForEvents: day,
+                  dayToLogEventTo: newGame.currentDay,
                   currentTimeInMinutes: Time
                       .minutesInADay, //we want the entire days events to run
                   context: context,
@@ -104,7 +104,8 @@ class GameControllerUsecase {
             await eventManager.manageEvents.runScheduledEventsForTheDay.execute(
               gameID: newGame.id,
               playerID: newGame.currentPlayerID,
-              day: newGame.currentDay,
+              dayToCheckForEvents: newGame.currentDay,
+              dayToLogEventTo: newGame.currentDay,
               currentTimeInMinutes: newGame.currentTimeInMinutes,
               context: context,
             );

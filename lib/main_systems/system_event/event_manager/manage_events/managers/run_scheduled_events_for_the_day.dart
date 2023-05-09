@@ -12,7 +12,8 @@ class RunScheduledEventsForTheDay {
   Future<void> execute({
     required int gameID,
     required int playerID,
-    required int day,
+    required int dayToCheckForEvents,
+    required int dayToLogEventTo, //journal entry day
     required int currentTimeInMinutes,
     required BuildContext context,
   }) async {
@@ -24,7 +25,7 @@ class RunScheduledEventsForTheDay {
 
     final List<Event> unperformedEventsForTheDay =
         await _eventRepository.getUnperformedEventsForDay(
-      day: day,
+      day: dayToCheckForEvents,
       gameID: gameID,
     );
 
@@ -36,7 +37,11 @@ class RunScheduledEventsForTheDay {
     //run them all
     for (var event in journalOnlyEvents) {
       if (context.mounted) {
-        await _eventManager.runEvent(playerID, event, context);
+        await _eventManager.runEvent(
+          playerID,
+          event.copyWith(eventDay: dayToLogEventTo),
+          context,
+        );
       }
     }
 
@@ -51,7 +56,11 @@ class RunScheduledEventsForTheDay {
     //run them all
     for (var event in untimedNonJournalEvents) {
       if (context.mounted) {
-        await _eventManager.runEvent(playerID, event, context);
+        await _eventManager.runEvent(
+          playerID,
+          event.copyWith(eventDay: dayToLogEventTo),
+          context,
+        );
       }
     }
 
@@ -67,7 +76,11 @@ class RunScheduledEventsForTheDay {
     //run them all
     for (var event in startTimedNonJournalEvents) {
       if (context.mounted) {
-        await _eventManager.runEvent(playerID, event, context);
+        await _eventManager.runEvent(
+          playerID,
+          event.copyWith(eventDay: dayToLogEventTo),
+          context,
+        );
       }
     }
   }

@@ -453,11 +453,7 @@ class ShopScreen extends ConsumerWidget {
                 //     );
 
                 // final event = await EventDaoImpl(db).getEvent(56);
-                // EventDaoImpl(db).updateEvent(event!.copyWith(
-                //     // eventType: "funeral",
-                //     // startTime: const drift.Value(1200),
-                //     eventDay: 5,
-                //     mainPersonId: 2));
+                // EventDaoImpl(db).updateEvent(event!.copyWith(performed: false));
               },
               child: const Text("Run"),
             ),
