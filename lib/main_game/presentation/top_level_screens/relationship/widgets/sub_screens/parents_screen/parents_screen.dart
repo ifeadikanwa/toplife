@@ -6,7 +6,7 @@ import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item_with_header.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen/parents_screen_view_model.dart';
 import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item/relationship_list_item.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_parent_relationship_label.dart';
 
 class ParentsScreen extends ConsumerWidget {
@@ -51,9 +51,8 @@ class ParentsScreen extends ConsumerWidget {
                   final relationshipAmount =
                       parentsList[index].relationship.relationship;
 
-                  //living together
-                  final currentlyLivingTogether =
-                      parentsList[index].relationship.currentlyLivingTogether;
+                  //person ID
+            final int personID = parentsList[index].person.id;
 
                   //Check if it needs a header
                   if (index == 0 ||
@@ -86,7 +85,7 @@ class ParentsScreen extends ConsumerWidget {
                         relationshipLabel: relationshipLabel,
                         name: name,
                         relationshipAmount: relationshipAmount,
-                        currentlyLivingTogether: currentlyLivingTogether,
+                    personID: personID,
                       );
                     }
                   }
@@ -100,7 +99,7 @@ class ParentsScreen extends ConsumerWidget {
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,
-                    currentlyLivingTogether: currentlyLivingTogether,
+                    personID: personID,
                   );
                 },
                 separatorBuilder: (context, index) {

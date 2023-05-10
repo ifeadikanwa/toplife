@@ -68,7 +68,6 @@ void main() {
           relationship: 56,
           endDay: 0,
           jointMoney: 0,
-          currentlyLivingTogether: false,
           interestedInRelationship: true,
         );
 
@@ -99,7 +98,6 @@ void main() {
           relationship: 56,
           endDay: 0,
           jointMoney: 0,
-          currentlyLivingTogether: false,
           interestedInRelationship: true,
         );
 
@@ -130,7 +128,6 @@ void main() {
           relationship: 56,
           endDay: 0,
           jointMoney: 0,
-          currentlyLivingTogether: false,
           interestedInRelationship: true,
         );
 
@@ -156,7 +153,7 @@ void main() {
           assumedRelationshipType: JournalCharacters.emptyString,
           mainPersonId: 1,
           childId: 2,
-          currentlyLivingTogether: true,
+          inYourCustody: true,
           childRelationshipType: ChildRelationshipType.birth.name,
           relationship: 89,
           interestedInRelationship: true,
@@ -187,7 +184,6 @@ void main() {
           parentRelationshipType: ParentRelationshipType.grand.name,
           relationship: 50,
           isActive: true,
-          currentlyLivingTogether: false,
           interestedInRelationship: true,
         );
 
@@ -214,8 +210,8 @@ void main() {
           siblingId: 2,
           siblingRelationshipType: SiblingRelationshipType.full.name,
           relationship: 79,
-          currentlyLivingTogether: false,
           interestedInRelationship: true,
+          inYourCustody: true,
         );
 
         expect(
@@ -237,7 +233,7 @@ void main() {
         final relative = Relative(
           mainPersonId: 1,
           relativeId: 2,
-          currentlyLivingTogether: true,
+          inYourCustody: true,
           relativeRelationshipType: RelativeRelationshipType.pibling.name,
           relationship: 29,
           interestedInRelationship: true,
@@ -268,7 +264,6 @@ void main() {
           inLawRelationshipType: InLawRelationshipType.child.name,
           relationship: 67,
           haveRomanticRelationship: false,
-          currentlyLivingTogether: false,
           interestedInRelationship: true,
         );
 
@@ -296,7 +291,6 @@ void main() {
           metAt: "metAt",
           relationship: 56,
           haveRomanticRelationship: false,
-          currentlyLivingTogether: false,
           interestedInRelationship: true,
         );
 

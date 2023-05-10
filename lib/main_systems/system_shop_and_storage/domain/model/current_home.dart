@@ -21,6 +21,7 @@ class CurrentHomeTable extends Table {
       )();
 
   BoolColumn get hasManagementRights => boolean()();
+  BoolColumn get isAtHome => boolean()();
   TextColumn get stayType => text()();
   IntColumn get exitDay => integer()();
 }

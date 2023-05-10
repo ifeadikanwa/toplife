@@ -21,7 +21,7 @@ void main() {
             parentRelationshipType: ParentRelationshipType.grand.name,
             relationship: 34,
             isActive: true,
-            currentlyLivingTogether: false,
+            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -61,7 +61,7 @@ void main() {
             parentRelationshipType: ParentRelationshipType.main.name,
             relationship: 34,
             isActive: true,
-            currentlyLivingTogether: false,
+            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -101,7 +101,7 @@ void main() {
             parentRelationshipType: ParentRelationshipType.step.name,
             relationship: 34,
             isActive: true,
-            currentlyLivingTogether: false,
+            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -144,7 +144,7 @@ void main() {
             parentRelationshipType: ParentRelationshipType.main.name,
             relationship: 34,
             isActive: true,
-            currentlyLivingTogether: false,
+            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -184,7 +184,7 @@ void main() {
             parentRelationshipType: ParentRelationshipType.step.name,
             relationship: 34,
             isActive: true,
-            currentlyLivingTogether: false,
+            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -224,7 +224,7 @@ void main() {
             parentRelationshipType: ParentRelationshipType.grand.name,
             relationship: 34,
             isActive: true,
-            currentlyLivingTogether: false,
+            
             interestedInRelationship: true,
           ),
           person: const Person(

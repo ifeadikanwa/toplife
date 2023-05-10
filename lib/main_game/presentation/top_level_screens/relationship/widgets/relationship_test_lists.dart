@@ -17,7 +17,7 @@ class RelationshipTestLists {
     mainPersonId: 1,
     childId: 2,
     interestedInRelationship: true,
-    currentlyLivingTogether: true,
+    inYourCustody: true,
     childRelationshipType: ChildRelationshipType.adopted.name,
     relationship: 45,
   );
@@ -87,7 +87,7 @@ class RelationshipTestLists {
     RelationshipPair(
       relationship: childRelationship.copyWith(
         childRelationshipType: ChildRelationshipType.birth.name,
-        currentlyLivingTogether: false,
+        inYourCustody: false,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -129,7 +129,6 @@ class RelationshipTestLists {
     isCoParent: true,
     metAt: "metAt",
     relationship: 68,
-    currentlyLivingTogether: false,
     interestedInRelationship: true,
   );
 
@@ -260,8 +259,8 @@ class RelationshipTestLists {
     ),
     RelationshipPair(
       relationship: exesRelationship.copyWith(
-          partnerRelationshipType: PartnerRelationshipType.dating.name,
-          currentlyLivingTogether: true),
+        partnerRelationshipType: PartnerRelationshipType.dating.name,
+      ),
       person: Person(
         hasDriversLicense: false,
         id: 2,
@@ -390,7 +389,6 @@ class RelationshipTestLists {
     metAt: "metAt",
     relationship: 66,
     haveRomanticRelationship: false,
-    currentlyLivingTogether: false,
     interestedInRelationship: true,
   );
 
@@ -429,7 +427,6 @@ class RelationshipTestLists {
     RelationshipPair(
       relationship: friendRelationship.copyWith(
         relationship: 89,
-        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -525,7 +522,6 @@ class RelationshipTestLists {
     likesMainPerson: true,
     inLawRelationshipType: InLawRelationshipType.sibling.name,
     relationship: 89,
-    currentlyLivingTogether: false,
     interestedInRelationship: true,
   );
 
@@ -564,7 +560,6 @@ class RelationshipTestLists {
     RelationshipPair(
       relationship: inLawRelationship.copyWith(
         inLawRelationshipType: InLawRelationshipType.child.name,
-        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -658,7 +653,6 @@ class RelationshipTestLists {
     RelationshipPair(
       relationship: inLawRelationship.copyWith(
         inLawRelationshipType: InLawRelationshipType.parent.name,
-        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -791,7 +785,6 @@ class RelationshipTestLists {
     parentRelationshipType: ParentRelationshipType.grand.name,
     relationship: 34,
     isActive: true,
-    currentlyLivingTogether: false,
     interestedInRelationship: true,
   );
 
@@ -799,7 +792,6 @@ class RelationshipTestLists {
     RelationshipPair(
       relationship: parentRelationship.copyWith(
         parentRelationshipType: ParentRelationshipType.grand.name,
-        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -955,7 +947,6 @@ class RelationshipTestLists {
     RelationshipPair(
       relationship: parentRelationship.copyWith(
         parentRelationshipType: ParentRelationshipType.step.name,
-        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1059,7 +1050,6 @@ class RelationshipTestLists {
     isCoParent: true,
     metAt: "metAt",
     relationship: 68,
-    currentlyLivingTogether: false,
     interestedInRelationship: true,
   );
   static final testPartnersList = [
@@ -1168,7 +1158,6 @@ class RelationshipTestLists {
         isCoParent: true,
         relationship: 90,
         isActive: true,
-        currentlyLivingTogether: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1334,7 +1323,7 @@ class RelationshipTestLists {
   static final relativesRelationship = Relative(
     mainPersonId: 1,
     relativeId: 2,
-    currentlyLivingTogether: true,
+    inYourCustody: true,
     relativeRelationshipType: RelativeRelationshipType.grandchild.name,
     relationship: 56,
     interestedInRelationship: true,
@@ -1406,7 +1395,7 @@ class RelationshipTestLists {
     RelationshipPair(
       relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.pibling.name,
-        currentlyLivingTogether: true,
+        inYourCustody: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1500,7 +1489,7 @@ class RelationshipTestLists {
     RelationshipPair(
       relationship: relativesRelationship.copyWith(
         relativeRelationshipType: RelativeRelationshipType.grandchild.name,
-        currentlyLivingTogether: true,
+        inYourCustody: true,
       ),
       person: Person(
         hasDriversLicense: false,
@@ -1691,7 +1680,7 @@ class RelationshipTestLists {
     siblingId: 2,
     siblingRelationshipType: SiblingRelationshipType.step.name,
     relationship: 80,
-    currentlyLivingTogether: false,
+    inYourCustody: false,
     interestedInRelationship: true,
   );
 
@@ -1730,7 +1719,7 @@ class RelationshipTestLists {
     RelationshipPair(
       relationship: siblingRelationship.copyWith(
         siblingRelationshipType: SiblingRelationshipType.full.name,
-        currentlyLivingTogether: true,
+        inYourCustody: true,
       ),
       person: Person(
         hasDriversLicense: false,

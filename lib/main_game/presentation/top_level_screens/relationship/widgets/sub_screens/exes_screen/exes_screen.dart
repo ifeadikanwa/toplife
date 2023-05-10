@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/empty_relationship_list_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/exes_screen/exes_screen_view_model.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item/relationship_list_item.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_ex_relationship_label.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_partner_relationship_type_enum.dart';
 
@@ -42,9 +42,8 @@ class ExesScreen extends ConsumerWidget {
                   final relationshipAmount =
                       exes[index].relationship.relationship;
 
-                  //living together
-                  final currentlyLivingTogether =
-                      exes[index].relationship.currentlyLivingTogether;
+                  //person ID
+                  final int personID = exes[index].person.id;
 
                   return RelationshipListItem(
                     onTap: () {},
@@ -54,7 +53,7 @@ class ExesScreen extends ConsumerWidget {
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,
-                    currentlyLivingTogether: currentlyLivingTogether,
+                    personID: personID,
                   );
                 },
                 separatorBuilder: (context, index) {

@@ -39,6 +39,7 @@ class MoveIntoNewHouseUsecase {
         personId: person.id,
         houseId: newHouse.id,
         hasManagementRights: true,
+        isAtHome: true,
         stayType: StayType.indefinitely.name,
         exitDay: 0,
       );

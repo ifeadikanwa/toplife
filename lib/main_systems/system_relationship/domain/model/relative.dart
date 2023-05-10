@@ -18,7 +18,7 @@ class RelativeTable extends Table {
         onUpdate: KeyAction.cascade,
         onDelete: KeyAction.cascade,
       )();
-  BoolColumn get currentlyLivingTogether => boolean()();
+  BoolColumn get inYourCustody => boolean()();
   TextColumn get relativeRelationshipType => text()();
   IntColumn get relationship => integer()();
   BoolColumn get interestedInRelationship => boolean()();

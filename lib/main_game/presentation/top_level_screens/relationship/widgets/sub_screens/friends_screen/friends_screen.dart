@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/empty_relationship_list_screen.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item/relationship_list_item.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/friends_screen/friends_screen_view_model.dart';
 
 class FriendsScreen extends ConsumerWidget {
@@ -34,9 +34,8 @@ class FriendsScreen extends ConsumerWidget {
                   final relationshipAmount =
                       friends[index].relationship.relationship;
 
-                  //living together
-                  final currentlyLivingTogether =
-                      friends[index].relationship.currentlyLivingTogether;
+                  //person ID
+                  final int personID = friends[index].person.id;
 
                   return RelationshipListItem(
                     onTap: () {},
@@ -46,7 +45,7 @@ class FriendsScreen extends ConsumerWidget {
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,
-                    currentlyLivingTogether: currentlyLivingTogether,
+                    personID: personID,
                   );
                 },
                 separatorBuilder: (context, index) {

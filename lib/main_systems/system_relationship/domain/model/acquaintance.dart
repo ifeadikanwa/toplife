@@ -20,7 +20,6 @@ class AcquaintanceTable extends Table {
       )();
   TextColumn get metAt => text()();
   IntColumn get relationship => integer()();
-  BoolColumn get currentlyLivingTogether => boolean()();
   BoolColumn get interestedInRelationship => boolean()();
 
   @override

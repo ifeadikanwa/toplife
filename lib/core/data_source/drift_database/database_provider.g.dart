@@ -4199,18 +4199,6 @@ class $AcquaintanceTableTable extends AcquaintanceTable
   late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
       'relationship', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentlyLivingTogetherMeta =
-      const VerificationMeta('currentlyLivingTogether');
-  @override
-  late final GeneratedColumn<bool> currentlyLivingTogether =
-      GeneratedColumn<bool>('currently_living_together', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("currently_living_together" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
   static const VerificationMeta _interestedInRelationshipMeta =
       const VerificationMeta('interestedInRelationship');
   @override
@@ -4229,7 +4217,6 @@ class $AcquaintanceTableTable extends AcquaintanceTable
         acquaintanceId,
         metAt,
         relationship,
-        currentlyLivingTogether,
         interestedInRelationship
       ];
   @override
@@ -4271,15 +4258,6 @@ class $AcquaintanceTableTable extends AcquaintanceTable
     } else if (isInserting) {
       context.missing(_relationshipMeta);
     }
-    if (data.containsKey('currently_living_together')) {
-      context.handle(
-          _currentlyLivingTogetherMeta,
-          currentlyLivingTogether.isAcceptableOrUnknown(
-              data['currently_living_together']!,
-              _currentlyLivingTogetherMeta));
-    } else if (isInserting) {
-      context.missing(_currentlyLivingTogetherMeta);
-    }
     if (data.containsKey('interested_in_relationship')) {
       context.handle(
           _interestedInRelationshipMeta,
@@ -4306,9 +4284,6 @@ class $AcquaintanceTableTable extends AcquaintanceTable
           .read(DriftSqlType.string, data['${effectivePrefix}met_at'])!,
       relationship: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      currentlyLivingTogether: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}currently_living_together'])!,
       interestedInRelationship: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}interested_in_relationship'])!,
@@ -4326,14 +4301,12 @@ class Acquaintance extends DataClass implements Insertable<Acquaintance> {
   final int acquaintanceId;
   final String metAt;
   final int relationship;
-  final bool currentlyLivingTogether;
   final bool interestedInRelationship;
   const Acquaintance(
       {required this.mainPersonId,
       required this.acquaintanceId,
       required this.metAt,
       required this.relationship,
-      required this.currentlyLivingTogether,
       required this.interestedInRelationship});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -4342,7 +4315,6 @@ class Acquaintance extends DataClass implements Insertable<Acquaintance> {
     map['acquaintance_id'] = Variable<int>(acquaintanceId);
     map['met_at'] = Variable<String>(metAt);
     map['relationship'] = Variable<int>(relationship);
-    map['currently_living_together'] = Variable<bool>(currentlyLivingTogether);
     map['interested_in_relationship'] =
         Variable<bool>(interestedInRelationship);
     return map;
@@ -4354,7 +4326,6 @@ class Acquaintance extends DataClass implements Insertable<Acquaintance> {
       acquaintanceId: Value(acquaintanceId),
       metAt: Value(metAt),
       relationship: Value(relationship),
-      currentlyLivingTogether: Value(currentlyLivingTogether),
       interestedInRelationship: Value(interestedInRelationship),
     );
   }
@@ -4367,8 +4338,6 @@ class Acquaintance extends DataClass implements Insertable<Acquaintance> {
       acquaintanceId: serializer.fromJson<int>(json['acquaintanceId']),
       metAt: serializer.fromJson<String>(json['metAt']),
       relationship: serializer.fromJson<int>(json['relationship']),
-      currentlyLivingTogether:
-          serializer.fromJson<bool>(json['currentlyLivingTogether']),
       interestedInRelationship:
           serializer.fromJson<bool>(json['interestedInRelationship']),
     );
@@ -4381,8 +4350,6 @@ class Acquaintance extends DataClass implements Insertable<Acquaintance> {
       'acquaintanceId': serializer.toJson<int>(acquaintanceId),
       'metAt': serializer.toJson<String>(metAt),
       'relationship': serializer.toJson<int>(relationship),
-      'currentlyLivingTogether':
-          serializer.toJson<bool>(currentlyLivingTogether),
       'interestedInRelationship':
           serializer.toJson<bool>(interestedInRelationship),
     };
@@ -4393,15 +4360,12 @@ class Acquaintance extends DataClass implements Insertable<Acquaintance> {
           int? acquaintanceId,
           String? metAt,
           int? relationship,
-          bool? currentlyLivingTogether,
           bool? interestedInRelationship}) =>
       Acquaintance(
         mainPersonId: mainPersonId ?? this.mainPersonId,
         acquaintanceId: acquaintanceId ?? this.acquaintanceId,
         metAt: metAt ?? this.metAt,
         relationship: relationship ?? this.relationship,
-        currentlyLivingTogether:
-            currentlyLivingTogether ?? this.currentlyLivingTogether,
         interestedInRelationship:
             interestedInRelationship ?? this.interestedInRelationship,
       );
@@ -4412,7 +4376,6 @@ class Acquaintance extends DataClass implements Insertable<Acquaintance> {
           ..write('acquaintanceId: $acquaintanceId, ')
           ..write('metAt: $metAt, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -4420,7 +4383,7 @@ class Acquaintance extends DataClass implements Insertable<Acquaintance> {
 
   @override
   int get hashCode => Object.hash(mainPersonId, acquaintanceId, metAt,
-      relationship, currentlyLivingTogether, interestedInRelationship);
+      relationship, interestedInRelationship);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4429,7 +4392,6 @@ class Acquaintance extends DataClass implements Insertable<Acquaintance> {
           other.acquaintanceId == this.acquaintanceId &&
           other.metAt == this.metAt &&
           other.relationship == this.relationship &&
-          other.currentlyLivingTogether == this.currentlyLivingTogether &&
           other.interestedInRelationship == this.interestedInRelationship);
 }
 
@@ -4438,14 +4400,12 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
   final Value<int> acquaintanceId;
   final Value<String> metAt;
   final Value<int> relationship;
-  final Value<bool> currentlyLivingTogether;
   final Value<bool> interestedInRelationship;
   const AcquaintanceTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.acquaintanceId = const Value.absent(),
     this.metAt = const Value.absent(),
     this.relationship = const Value.absent(),
-    this.currentlyLivingTogether = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
   });
   AcquaintanceTableCompanion.insert({
@@ -4453,20 +4413,17 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
     required int acquaintanceId,
     required String metAt,
     required int relationship,
-    required bool currentlyLivingTogether,
     required bool interestedInRelationship,
   })  : mainPersonId = Value(mainPersonId),
         acquaintanceId = Value(acquaintanceId),
         metAt = Value(metAt),
         relationship = Value(relationship),
-        currentlyLivingTogether = Value(currentlyLivingTogether),
         interestedInRelationship = Value(interestedInRelationship);
   static Insertable<Acquaintance> custom({
     Expression<int>? mainPersonId,
     Expression<int>? acquaintanceId,
     Expression<String>? metAt,
     Expression<int>? relationship,
-    Expression<bool>? currentlyLivingTogether,
     Expression<bool>? interestedInRelationship,
   }) {
     return RawValuesInsertable({
@@ -4474,8 +4431,6 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
       if (acquaintanceId != null) 'acquaintance_id': acquaintanceId,
       if (metAt != null) 'met_at': metAt,
       if (relationship != null) 'relationship': relationship,
-      if (currentlyLivingTogether != null)
-        'currently_living_together': currentlyLivingTogether,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
     });
@@ -4486,15 +4441,12 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
       Value<int>? acquaintanceId,
       Value<String>? metAt,
       Value<int>? relationship,
-      Value<bool>? currentlyLivingTogether,
       Value<bool>? interestedInRelationship}) {
     return AcquaintanceTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       acquaintanceId: acquaintanceId ?? this.acquaintanceId,
       metAt: metAt ?? this.metAt,
       relationship: relationship ?? this.relationship,
-      currentlyLivingTogether:
-          currentlyLivingTogether ?? this.currentlyLivingTogether,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
     );
@@ -4515,10 +4467,6 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
     if (relationship.present) {
       map['relationship'] = Variable<int>(relationship.value);
     }
-    if (currentlyLivingTogether.present) {
-      map['currently_living_together'] =
-          Variable<bool>(currentlyLivingTogether.value);
-    }
     if (interestedInRelationship.present) {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
@@ -4533,7 +4481,6 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
           ..write('acquaintanceId: $acquaintanceId, ')
           ..write('metAt: $metAt, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -4564,15 +4511,15 @@ class $ChildTableTable extends ChildTable
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _currentlyLivingTogetherMeta =
-      const VerificationMeta('currentlyLivingTogether');
+  static const VerificationMeta _inYourCustodyMeta =
+      const VerificationMeta('inYourCustody');
   @override
-  late final GeneratedColumn<bool> currentlyLivingTogether =
-      GeneratedColumn<bool>('currently_living_together', aliasedName, false,
+  late final GeneratedColumn<bool> inYourCustody =
+      GeneratedColumn<bool>('in_your_custody', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
           defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("currently_living_together" IN (0, 1))',
+            SqlDialect.sqlite: 'CHECK ("in_your_custody" IN (0, 1))',
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
@@ -4633,7 +4580,7 @@ class $ChildTableTable extends ChildTable
   List<GeneratedColumn> get $columns => [
         mainPersonId,
         childId,
-        currentlyLivingTogether,
+        inYourCustody,
         childRelationshipType,
         hidden,
         paternityFraud,
@@ -4664,14 +4611,13 @@ class $ChildTableTable extends ChildTable
     } else if (isInserting) {
       context.missing(_childIdMeta);
     }
-    if (data.containsKey('currently_living_together')) {
+    if (data.containsKey('in_your_custody')) {
       context.handle(
-          _currentlyLivingTogetherMeta,
-          currentlyLivingTogether.isAcceptableOrUnknown(
-              data['currently_living_together']!,
-              _currentlyLivingTogetherMeta));
+          _inYourCustodyMeta,
+          inYourCustody.isAcceptableOrUnknown(
+              data['in_your_custody']!, _inYourCustodyMeta));
     } else if (isInserting) {
-      context.missing(_currentlyLivingTogetherMeta);
+      context.missing(_inYourCustodyMeta);
     }
     if (data.containsKey('child_relationship_type')) {
       context.handle(
@@ -4734,9 +4680,8 @@ class $ChildTableTable extends ChildTable
           .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
       childId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}child_id'])!,
-      currentlyLivingTogether: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}currently_living_together'])!,
+      inYourCustody: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}in_your_custody'])!,
       childRelationshipType: attachedDatabase.typeMapping.read(
           DriftSqlType.string,
           data['${effectivePrefix}child_relationship_type'])!,
@@ -4764,7 +4709,7 @@ class $ChildTableTable extends ChildTable
 class Child extends DataClass implements Insertable<Child> {
   final int mainPersonId;
   final int childId;
-  final bool currentlyLivingTogether;
+  final bool inYourCustody;
   final String childRelationshipType;
   final bool hidden;
   final bool paternityFraud;
@@ -4774,7 +4719,7 @@ class Child extends DataClass implements Insertable<Child> {
   const Child(
       {required this.mainPersonId,
       required this.childId,
-      required this.currentlyLivingTogether,
+      required this.inYourCustody,
       required this.childRelationshipType,
       required this.hidden,
       required this.paternityFraud,
@@ -4786,7 +4731,7 @@ class Child extends DataClass implements Insertable<Child> {
     final map = <String, Expression>{};
     map['main_person_id'] = Variable<int>(mainPersonId);
     map['child_id'] = Variable<int>(childId);
-    map['currently_living_together'] = Variable<bool>(currentlyLivingTogether);
+    map['in_your_custody'] = Variable<bool>(inYourCustody);
     map['child_relationship_type'] = Variable<String>(childRelationshipType);
     map['hidden'] = Variable<bool>(hidden);
     map['paternity_fraud'] = Variable<bool>(paternityFraud);
@@ -4802,7 +4747,7 @@ class Child extends DataClass implements Insertable<Child> {
     return ChildTableCompanion(
       mainPersonId: Value(mainPersonId),
       childId: Value(childId),
-      currentlyLivingTogether: Value(currentlyLivingTogether),
+      inYourCustody: Value(inYourCustody),
       childRelationshipType: Value(childRelationshipType),
       hidden: Value(hidden),
       paternityFraud: Value(paternityFraud),
@@ -4818,8 +4763,7 @@ class Child extends DataClass implements Insertable<Child> {
     return Child(
       mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
       childId: serializer.fromJson<int>(json['childId']),
-      currentlyLivingTogether:
-          serializer.fromJson<bool>(json['currentlyLivingTogether']),
+      inYourCustody: serializer.fromJson<bool>(json['inYourCustody']),
       childRelationshipType:
           serializer.fromJson<String>(json['childRelationshipType']),
       hidden: serializer.fromJson<bool>(json['hidden']),
@@ -4837,8 +4781,7 @@ class Child extends DataClass implements Insertable<Child> {
     return <String, dynamic>{
       'mainPersonId': serializer.toJson<int>(mainPersonId),
       'childId': serializer.toJson<int>(childId),
-      'currentlyLivingTogether':
-          serializer.toJson<bool>(currentlyLivingTogether),
+      'inYourCustody': serializer.toJson<bool>(inYourCustody),
       'childRelationshipType': serializer.toJson<String>(childRelationshipType),
       'hidden': serializer.toJson<bool>(hidden),
       'paternityFraud': serializer.toJson<bool>(paternityFraud),
@@ -4853,7 +4796,7 @@ class Child extends DataClass implements Insertable<Child> {
   Child copyWith(
           {int? mainPersonId,
           int? childId,
-          bool? currentlyLivingTogether,
+          bool? inYourCustody,
           String? childRelationshipType,
           bool? hidden,
           bool? paternityFraud,
@@ -4863,8 +4806,7 @@ class Child extends DataClass implements Insertable<Child> {
       Child(
         mainPersonId: mainPersonId ?? this.mainPersonId,
         childId: childId ?? this.childId,
-        currentlyLivingTogether:
-            currentlyLivingTogether ?? this.currentlyLivingTogether,
+        inYourCustody: inYourCustody ?? this.inYourCustody,
         childRelationshipType:
             childRelationshipType ?? this.childRelationshipType,
         hidden: hidden ?? this.hidden,
@@ -4880,7 +4822,7 @@ class Child extends DataClass implements Insertable<Child> {
     return (StringBuffer('Child(')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('childId: $childId, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
+          ..write('inYourCustody: $inYourCustody, ')
           ..write('childRelationshipType: $childRelationshipType, ')
           ..write('hidden: $hidden, ')
           ..write('paternityFraud: $paternityFraud, ')
@@ -4895,7 +4837,7 @@ class Child extends DataClass implements Insertable<Child> {
   int get hashCode => Object.hash(
       mainPersonId,
       childId,
-      currentlyLivingTogether,
+      inYourCustody,
       childRelationshipType,
       hidden,
       paternityFraud,
@@ -4908,7 +4850,7 @@ class Child extends DataClass implements Insertable<Child> {
       (other is Child &&
           other.mainPersonId == this.mainPersonId &&
           other.childId == this.childId &&
-          other.currentlyLivingTogether == this.currentlyLivingTogether &&
+          other.inYourCustody == this.inYourCustody &&
           other.childRelationshipType == this.childRelationshipType &&
           other.hidden == this.hidden &&
           other.paternityFraud == this.paternityFraud &&
@@ -4920,7 +4862,7 @@ class Child extends DataClass implements Insertable<Child> {
 class ChildTableCompanion extends UpdateCompanion<Child> {
   final Value<int> mainPersonId;
   final Value<int> childId;
-  final Value<bool> currentlyLivingTogether;
+  final Value<bool> inYourCustody;
   final Value<String> childRelationshipType;
   final Value<bool> hidden;
   final Value<bool> paternityFraud;
@@ -4930,7 +4872,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
   const ChildTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.childId = const Value.absent(),
-    this.currentlyLivingTogether = const Value.absent(),
+    this.inYourCustody = const Value.absent(),
     this.childRelationshipType = const Value.absent(),
     this.hidden = const Value.absent(),
     this.paternityFraud = const Value.absent(),
@@ -4941,7 +4883,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
   ChildTableCompanion.insert({
     required int mainPersonId,
     required int childId,
-    required bool currentlyLivingTogether,
+    required bool inYourCustody,
     required String childRelationshipType,
     required bool hidden,
     required bool paternityFraud,
@@ -4950,7 +4892,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
     required bool interestedInRelationship,
   })  : mainPersonId = Value(mainPersonId),
         childId = Value(childId),
-        currentlyLivingTogether = Value(currentlyLivingTogether),
+        inYourCustody = Value(inYourCustody),
         childRelationshipType = Value(childRelationshipType),
         hidden = Value(hidden),
         paternityFraud = Value(paternityFraud),
@@ -4960,7 +4902,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
   static Insertable<Child> custom({
     Expression<int>? mainPersonId,
     Expression<int>? childId,
-    Expression<bool>? currentlyLivingTogether,
+    Expression<bool>? inYourCustody,
     Expression<String>? childRelationshipType,
     Expression<bool>? hidden,
     Expression<bool>? paternityFraud,
@@ -4971,8 +4913,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
       if (childId != null) 'child_id': childId,
-      if (currentlyLivingTogether != null)
-        'currently_living_together': currentlyLivingTogether,
+      if (inYourCustody != null) 'in_your_custody': inYourCustody,
       if (childRelationshipType != null)
         'child_relationship_type': childRelationshipType,
       if (hidden != null) 'hidden': hidden,
@@ -4988,7 +4929,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
   ChildTableCompanion copyWith(
       {Value<int>? mainPersonId,
       Value<int>? childId,
-      Value<bool>? currentlyLivingTogether,
+      Value<bool>? inYourCustody,
       Value<String>? childRelationshipType,
       Value<bool>? hidden,
       Value<bool>? paternityFraud,
@@ -4998,8 +4939,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
     return ChildTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       childId: childId ?? this.childId,
-      currentlyLivingTogether:
-          currentlyLivingTogether ?? this.currentlyLivingTogether,
+      inYourCustody: inYourCustody ?? this.inYourCustody,
       childRelationshipType:
           childRelationshipType ?? this.childRelationshipType,
       hidden: hidden ?? this.hidden,
@@ -5021,9 +4961,8 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
     if (childId.present) {
       map['child_id'] = Variable<int>(childId.value);
     }
-    if (currentlyLivingTogether.present) {
-      map['currently_living_together'] =
-          Variable<bool>(currentlyLivingTogether.value);
+    if (inYourCustody.present) {
+      map['in_your_custody'] = Variable<bool>(inYourCustody.value);
     }
     if (childRelationshipType.present) {
       map['child_relationship_type'] =
@@ -5054,7 +4993,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
     return (StringBuffer('ChildTableCompanion(')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('childId: $childId, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
+          ..write('inYourCustody: $inYourCustody, ')
           ..write('childRelationshipType: $childRelationshipType, ')
           ..write('hidden: $hidden, ')
           ..write('paternityFraud: $paternityFraud, ')
@@ -5113,18 +5052,6 @@ class $FriendTableTable extends FriendTable
   late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
       'relationship', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentlyLivingTogetherMeta =
-      const VerificationMeta('currentlyLivingTogether');
-  @override
-  late final GeneratedColumn<bool> currentlyLivingTogether =
-      GeneratedColumn<bool>('currently_living_together', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("currently_living_together" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
   static const VerificationMeta _interestedInRelationshipMeta =
       const VerificationMeta('interestedInRelationship');
   @override
@@ -5144,7 +5071,6 @@ class $FriendTableTable extends FriendTable
         metAt,
         haveRomanticRelationship,
         relationship,
-        currentlyLivingTogether,
         interestedInRelationship
       ];
   @override
@@ -5193,15 +5119,6 @@ class $FriendTableTable extends FriendTable
     } else if (isInserting) {
       context.missing(_relationshipMeta);
     }
-    if (data.containsKey('currently_living_together')) {
-      context.handle(
-          _currentlyLivingTogetherMeta,
-          currentlyLivingTogether.isAcceptableOrUnknown(
-              data['currently_living_together']!,
-              _currentlyLivingTogetherMeta));
-    } else if (isInserting) {
-      context.missing(_currentlyLivingTogetherMeta);
-    }
     if (data.containsKey('interested_in_relationship')) {
       context.handle(
           _interestedInRelationshipMeta,
@@ -5231,9 +5148,6 @@ class $FriendTableTable extends FriendTable
           data['${effectivePrefix}have_romantic_relationship'])!,
       relationship: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      currentlyLivingTogether: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}currently_living_together'])!,
       interestedInRelationship: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}interested_in_relationship'])!,
@@ -5252,7 +5166,6 @@ class Friend extends DataClass implements Insertable<Friend> {
   final String metAt;
   final bool haveRomanticRelationship;
   final int relationship;
-  final bool currentlyLivingTogether;
   final bool interestedInRelationship;
   const Friend(
       {required this.mainPersonId,
@@ -5260,7 +5173,6 @@ class Friend extends DataClass implements Insertable<Friend> {
       required this.metAt,
       required this.haveRomanticRelationship,
       required this.relationship,
-      required this.currentlyLivingTogether,
       required this.interestedInRelationship});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -5271,7 +5183,6 @@ class Friend extends DataClass implements Insertable<Friend> {
     map['have_romantic_relationship'] =
         Variable<bool>(haveRomanticRelationship);
     map['relationship'] = Variable<int>(relationship);
-    map['currently_living_together'] = Variable<bool>(currentlyLivingTogether);
     map['interested_in_relationship'] =
         Variable<bool>(interestedInRelationship);
     return map;
@@ -5284,7 +5195,6 @@ class Friend extends DataClass implements Insertable<Friend> {
       metAt: Value(metAt),
       haveRomanticRelationship: Value(haveRomanticRelationship),
       relationship: Value(relationship),
-      currentlyLivingTogether: Value(currentlyLivingTogether),
       interestedInRelationship: Value(interestedInRelationship),
     );
   }
@@ -5299,8 +5209,6 @@ class Friend extends DataClass implements Insertable<Friend> {
       haveRomanticRelationship:
           serializer.fromJson<bool>(json['haveRomanticRelationship']),
       relationship: serializer.fromJson<int>(json['relationship']),
-      currentlyLivingTogether:
-          serializer.fromJson<bool>(json['currentlyLivingTogether']),
       interestedInRelationship:
           serializer.fromJson<bool>(json['interestedInRelationship']),
     );
@@ -5315,8 +5223,6 @@ class Friend extends DataClass implements Insertable<Friend> {
       'haveRomanticRelationship':
           serializer.toJson<bool>(haveRomanticRelationship),
       'relationship': serializer.toJson<int>(relationship),
-      'currentlyLivingTogether':
-          serializer.toJson<bool>(currentlyLivingTogether),
       'interestedInRelationship':
           serializer.toJson<bool>(interestedInRelationship),
     };
@@ -5328,7 +5234,6 @@ class Friend extends DataClass implements Insertable<Friend> {
           String? metAt,
           bool? haveRomanticRelationship,
           int? relationship,
-          bool? currentlyLivingTogether,
           bool? interestedInRelationship}) =>
       Friend(
         mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -5337,8 +5242,6 @@ class Friend extends DataClass implements Insertable<Friend> {
         haveRomanticRelationship:
             haveRomanticRelationship ?? this.haveRomanticRelationship,
         relationship: relationship ?? this.relationship,
-        currentlyLivingTogether:
-            currentlyLivingTogether ?? this.currentlyLivingTogether,
         interestedInRelationship:
             interestedInRelationship ?? this.interestedInRelationship,
       );
@@ -5350,21 +5253,14 @@ class Friend extends DataClass implements Insertable<Friend> {
           ..write('metAt: $metAt, ')
           ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      mainPersonId,
-      friendId,
-      metAt,
-      haveRomanticRelationship,
-      relationship,
-      currentlyLivingTogether,
-      interestedInRelationship);
+  int get hashCode => Object.hash(mainPersonId, friendId, metAt,
+      haveRomanticRelationship, relationship, interestedInRelationship);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -5374,7 +5270,6 @@ class Friend extends DataClass implements Insertable<Friend> {
           other.metAt == this.metAt &&
           other.haveRomanticRelationship == this.haveRomanticRelationship &&
           other.relationship == this.relationship &&
-          other.currentlyLivingTogether == this.currentlyLivingTogether &&
           other.interestedInRelationship == this.interestedInRelationship);
 }
 
@@ -5384,7 +5279,6 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
   final Value<String> metAt;
   final Value<bool> haveRomanticRelationship;
   final Value<int> relationship;
-  final Value<bool> currentlyLivingTogether;
   final Value<bool> interestedInRelationship;
   const FriendTableCompanion({
     this.mainPersonId = const Value.absent(),
@@ -5392,7 +5286,6 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
     this.metAt = const Value.absent(),
     this.haveRomanticRelationship = const Value.absent(),
     this.relationship = const Value.absent(),
-    this.currentlyLivingTogether = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
   });
   FriendTableCompanion.insert({
@@ -5401,14 +5294,12 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
     required String metAt,
     required bool haveRomanticRelationship,
     required int relationship,
-    required bool currentlyLivingTogether,
     required bool interestedInRelationship,
   })  : mainPersonId = Value(mainPersonId),
         friendId = Value(friendId),
         metAt = Value(metAt),
         haveRomanticRelationship = Value(haveRomanticRelationship),
         relationship = Value(relationship),
-        currentlyLivingTogether = Value(currentlyLivingTogether),
         interestedInRelationship = Value(interestedInRelationship);
   static Insertable<Friend> custom({
     Expression<int>? mainPersonId,
@@ -5416,7 +5307,6 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
     Expression<String>? metAt,
     Expression<bool>? haveRomanticRelationship,
     Expression<int>? relationship,
-    Expression<bool>? currentlyLivingTogether,
     Expression<bool>? interestedInRelationship,
   }) {
     return RawValuesInsertable({
@@ -5426,8 +5316,6 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
       if (haveRomanticRelationship != null)
         'have_romantic_relationship': haveRomanticRelationship,
       if (relationship != null) 'relationship': relationship,
-      if (currentlyLivingTogether != null)
-        'currently_living_together': currentlyLivingTogether,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
     });
@@ -5439,7 +5327,6 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
       Value<String>? metAt,
       Value<bool>? haveRomanticRelationship,
       Value<int>? relationship,
-      Value<bool>? currentlyLivingTogether,
       Value<bool>? interestedInRelationship}) {
     return FriendTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -5448,8 +5335,6 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
       haveRomanticRelationship:
           haveRomanticRelationship ?? this.haveRomanticRelationship,
       relationship: relationship ?? this.relationship,
-      currentlyLivingTogether:
-          currentlyLivingTogether ?? this.currentlyLivingTogether,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
     );
@@ -5474,10 +5359,6 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
     if (relationship.present) {
       map['relationship'] = Variable<int>(relationship.value);
     }
-    if (currentlyLivingTogether.present) {
-      map['currently_living_together'] =
-          Variable<bool>(currentlyLivingTogether.value);
-    }
     if (interestedInRelationship.present) {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
@@ -5493,7 +5374,6 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
           ..write('metAt: $metAt, ')
           ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -5908,18 +5788,6 @@ class $InLawTableTable extends InLawTable
   late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
       'relationship', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentlyLivingTogetherMeta =
-      const VerificationMeta('currentlyLivingTogether');
-  @override
-  late final GeneratedColumn<bool> currentlyLivingTogether =
-      GeneratedColumn<bool>('currently_living_together', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("currently_living_together" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
   static const VerificationMeta _interestedInRelationshipMeta =
       const VerificationMeta('interestedInRelationship');
   @override
@@ -5940,7 +5808,6 @@ class $InLawTableTable extends InLawTable
         inLawRelationshipType,
         haveRomanticRelationship,
         relationship,
-        currentlyLivingTogether,
         interestedInRelationship
       ];
   @override
@@ -5999,15 +5866,6 @@ class $InLawTableTable extends InLawTable
     } else if (isInserting) {
       context.missing(_relationshipMeta);
     }
-    if (data.containsKey('currently_living_together')) {
-      context.handle(
-          _currentlyLivingTogetherMeta,
-          currentlyLivingTogether.isAcceptableOrUnknown(
-              data['currently_living_together']!,
-              _currentlyLivingTogetherMeta));
-    } else if (isInserting) {
-      context.missing(_currentlyLivingTogetherMeta);
-    }
     if (data.containsKey('interested_in_relationship')) {
       context.handle(
           _interestedInRelationshipMeta,
@@ -6040,9 +5898,6 @@ class $InLawTableTable extends InLawTable
           data['${effectivePrefix}have_romantic_relationship'])!,
       relationship: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      currentlyLivingTogether: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}currently_living_together'])!,
       interestedInRelationship: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}interested_in_relationship'])!,
@@ -6062,7 +5917,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
   final String inLawRelationshipType;
   final bool haveRomanticRelationship;
   final int relationship;
-  final bool currentlyLivingTogether;
   final bool interestedInRelationship;
   const InLaw(
       {required this.mainPersonId,
@@ -6071,7 +5925,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
       required this.inLawRelationshipType,
       required this.haveRomanticRelationship,
       required this.relationship,
-      required this.currentlyLivingTogether,
       required this.interestedInRelationship});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -6083,7 +5936,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
     map['have_romantic_relationship'] =
         Variable<bool>(haveRomanticRelationship);
     map['relationship'] = Variable<int>(relationship);
-    map['currently_living_together'] = Variable<bool>(currentlyLivingTogether);
     map['interested_in_relationship'] =
         Variable<bool>(interestedInRelationship);
     return map;
@@ -6097,7 +5949,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
       inLawRelationshipType: Value(inLawRelationshipType),
       haveRomanticRelationship: Value(haveRomanticRelationship),
       relationship: Value(relationship),
-      currentlyLivingTogether: Value(currentlyLivingTogether),
       interestedInRelationship: Value(interestedInRelationship),
     );
   }
@@ -6114,8 +5965,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
       haveRomanticRelationship:
           serializer.fromJson<bool>(json['haveRomanticRelationship']),
       relationship: serializer.fromJson<int>(json['relationship']),
-      currentlyLivingTogether:
-          serializer.fromJson<bool>(json['currentlyLivingTogether']),
       interestedInRelationship:
           serializer.fromJson<bool>(json['interestedInRelationship']),
     );
@@ -6131,8 +5980,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
       'haveRomanticRelationship':
           serializer.toJson<bool>(haveRomanticRelationship),
       'relationship': serializer.toJson<int>(relationship),
-      'currentlyLivingTogether':
-          serializer.toJson<bool>(currentlyLivingTogether),
       'interestedInRelationship':
           serializer.toJson<bool>(interestedInRelationship),
     };
@@ -6145,7 +5992,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
           String? inLawRelationshipType,
           bool? haveRomanticRelationship,
           int? relationship,
-          bool? currentlyLivingTogether,
           bool? interestedInRelationship}) =>
       InLaw(
         mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -6156,8 +6002,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
         haveRomanticRelationship:
             haveRomanticRelationship ?? this.haveRomanticRelationship,
         relationship: relationship ?? this.relationship,
-        currentlyLivingTogether:
-            currentlyLivingTogether ?? this.currentlyLivingTogether,
         interestedInRelationship:
             interestedInRelationship ?? this.interestedInRelationship,
       );
@@ -6170,7 +6014,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
           ..write('inLawRelationshipType: $inLawRelationshipType, ')
           ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -6184,7 +6027,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
       inLawRelationshipType,
       haveRomanticRelationship,
       relationship,
-      currentlyLivingTogether,
       interestedInRelationship);
   @override
   bool operator ==(Object other) =>
@@ -6196,7 +6038,6 @@ class InLaw extends DataClass implements Insertable<InLaw> {
           other.inLawRelationshipType == this.inLawRelationshipType &&
           other.haveRomanticRelationship == this.haveRomanticRelationship &&
           other.relationship == this.relationship &&
-          other.currentlyLivingTogether == this.currentlyLivingTogether &&
           other.interestedInRelationship == this.interestedInRelationship);
 }
 
@@ -6207,7 +6048,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
   final Value<String> inLawRelationshipType;
   final Value<bool> haveRomanticRelationship;
   final Value<int> relationship;
-  final Value<bool> currentlyLivingTogether;
   final Value<bool> interestedInRelationship;
   const InLawTableCompanion({
     this.mainPersonId = const Value.absent(),
@@ -6216,7 +6056,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
     this.inLawRelationshipType = const Value.absent(),
     this.haveRomanticRelationship = const Value.absent(),
     this.relationship = const Value.absent(),
-    this.currentlyLivingTogether = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
   });
   InLawTableCompanion.insert({
@@ -6226,7 +6065,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
     required String inLawRelationshipType,
     required bool haveRomanticRelationship,
     required int relationship,
-    required bool currentlyLivingTogether,
     required bool interestedInRelationship,
   })  : mainPersonId = Value(mainPersonId),
         inLawId = Value(inLawId),
@@ -6234,7 +6072,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
         inLawRelationshipType = Value(inLawRelationshipType),
         haveRomanticRelationship = Value(haveRomanticRelationship),
         relationship = Value(relationship),
-        currentlyLivingTogether = Value(currentlyLivingTogether),
         interestedInRelationship = Value(interestedInRelationship);
   static Insertable<InLaw> custom({
     Expression<int>? mainPersonId,
@@ -6243,7 +6080,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
     Expression<String>? inLawRelationshipType,
     Expression<bool>? haveRomanticRelationship,
     Expression<int>? relationship,
-    Expression<bool>? currentlyLivingTogether,
     Expression<bool>? interestedInRelationship,
   }) {
     return RawValuesInsertable({
@@ -6255,8 +6091,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
       if (haveRomanticRelationship != null)
         'have_romantic_relationship': haveRomanticRelationship,
       if (relationship != null) 'relationship': relationship,
-      if (currentlyLivingTogether != null)
-        'currently_living_together': currentlyLivingTogether,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
     });
@@ -6269,7 +6103,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
       Value<String>? inLawRelationshipType,
       Value<bool>? haveRomanticRelationship,
       Value<int>? relationship,
-      Value<bool>? currentlyLivingTogether,
       Value<bool>? interestedInRelationship}) {
     return InLawTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -6280,8 +6113,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
       haveRomanticRelationship:
           haveRomanticRelationship ?? this.haveRomanticRelationship,
       relationship: relationship ?? this.relationship,
-      currentlyLivingTogether:
-          currentlyLivingTogether ?? this.currentlyLivingTogether,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
     );
@@ -6310,10 +6141,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
     if (relationship.present) {
       map['relationship'] = Variable<int>(relationship.value);
     }
-    if (currentlyLivingTogether.present) {
-      map['currently_living_together'] =
-          Variable<bool>(currentlyLivingTogether.value);
-    }
     if (interestedInRelationship.present) {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
@@ -6330,7 +6157,6 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
           ..write('inLawRelationshipType: $inLawRelationshipType, ')
           ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -6414,18 +6240,6 @@ class $ParentTableTable extends ParentTable
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
-  static const VerificationMeta _currentlyLivingTogetherMeta =
-      const VerificationMeta('currentlyLivingTogether');
-  @override
-  late final GeneratedColumn<bool> currentlyLivingTogether =
-      GeneratedColumn<bool>('currently_living_together', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("currently_living_together" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
   static const VerificationMeta _interestedInRelationshipMeta =
       const VerificationMeta('interestedInRelationship');
   @override
@@ -6448,7 +6262,6 @@ class $ParentTableTable extends ParentTable
         assumedRelationshipType,
         relationship,
         isActive,
-        currentlyLivingTogether,
         interestedInRelationship
       ];
   @override
@@ -6519,15 +6332,6 @@ class $ParentTableTable extends ParentTable
     } else if (isInserting) {
       context.missing(_isActiveMeta);
     }
-    if (data.containsKey('currently_living_together')) {
-      context.handle(
-          _currentlyLivingTogetherMeta,
-          currentlyLivingTogether.isAcceptableOrUnknown(
-              data['currently_living_together']!,
-              _currentlyLivingTogetherMeta));
-    } else if (isInserting) {
-      context.missing(_currentlyLivingTogetherMeta);
-    }
     if (data.containsKey('interested_in_relationship')) {
       context.handle(
           _interestedInRelationshipMeta,
@@ -6564,9 +6368,6 @@ class $ParentTableTable extends ParentTable
           .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
       isActive: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-      currentlyLivingTogether: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}currently_living_together'])!,
       interestedInRelationship: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}interested_in_relationship'])!,
@@ -6588,7 +6389,6 @@ class Parent extends DataClass implements Insertable<Parent> {
   final String assumedRelationshipType;
   final int relationship;
   final bool isActive;
-  final bool currentlyLivingTogether;
   final bool interestedInRelationship;
   const Parent(
       {required this.mainPersonId,
@@ -6599,7 +6399,6 @@ class Parent extends DataClass implements Insertable<Parent> {
       required this.assumedRelationshipType,
       required this.relationship,
       required this.isActive,
-      required this.currentlyLivingTogether,
       required this.interestedInRelationship});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -6613,7 +6412,6 @@ class Parent extends DataClass implements Insertable<Parent> {
         Variable<String>(assumedRelationshipType);
     map['relationship'] = Variable<int>(relationship);
     map['is_active'] = Variable<bool>(isActive);
-    map['currently_living_together'] = Variable<bool>(currentlyLivingTogether);
     map['interested_in_relationship'] =
         Variable<bool>(interestedInRelationship);
     return map;
@@ -6629,7 +6427,6 @@ class Parent extends DataClass implements Insertable<Parent> {
       assumedRelationshipType: Value(assumedRelationshipType),
       relationship: Value(relationship),
       isActive: Value(isActive),
-      currentlyLivingTogether: Value(currentlyLivingTogether),
       interestedInRelationship: Value(interestedInRelationship),
     );
   }
@@ -6648,8 +6445,6 @@ class Parent extends DataClass implements Insertable<Parent> {
           serializer.fromJson<String>(json['assumedRelationshipType']),
       relationship: serializer.fromJson<int>(json['relationship']),
       isActive: serializer.fromJson<bool>(json['isActive']),
-      currentlyLivingTogether:
-          serializer.fromJson<bool>(json['currentlyLivingTogether']),
       interestedInRelationship:
           serializer.fromJson<bool>(json['interestedInRelationship']),
     );
@@ -6668,8 +6463,6 @@ class Parent extends DataClass implements Insertable<Parent> {
           serializer.toJson<String>(assumedRelationshipType),
       'relationship': serializer.toJson<int>(relationship),
       'isActive': serializer.toJson<bool>(isActive),
-      'currentlyLivingTogether':
-          serializer.toJson<bool>(currentlyLivingTogether),
       'interestedInRelationship':
           serializer.toJson<bool>(interestedInRelationship),
     };
@@ -6684,7 +6477,6 @@ class Parent extends DataClass implements Insertable<Parent> {
           String? assumedRelationshipType,
           int? relationship,
           bool? isActive,
-          bool? currentlyLivingTogether,
           bool? interestedInRelationship}) =>
       Parent(
         mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -6697,8 +6489,6 @@ class Parent extends DataClass implements Insertable<Parent> {
             assumedRelationshipType ?? this.assumedRelationshipType,
         relationship: relationship ?? this.relationship,
         isActive: isActive ?? this.isActive,
-        currentlyLivingTogether:
-            currentlyLivingTogether ?? this.currentlyLivingTogether,
         interestedInRelationship:
             interestedInRelationship ?? this.interestedInRelationship,
       );
@@ -6713,7 +6503,6 @@ class Parent extends DataClass implements Insertable<Parent> {
           ..write('assumedRelationshipType: $assumedRelationshipType, ')
           ..write('relationship: $relationship, ')
           ..write('isActive: $isActive, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -6729,7 +6518,6 @@ class Parent extends DataClass implements Insertable<Parent> {
       assumedRelationshipType,
       relationship,
       isActive,
-      currentlyLivingTogether,
       interestedInRelationship);
   @override
   bool operator ==(Object other) =>
@@ -6743,7 +6531,6 @@ class Parent extends DataClass implements Insertable<Parent> {
           other.assumedRelationshipType == this.assumedRelationshipType &&
           other.relationship == this.relationship &&
           other.isActive == this.isActive &&
-          other.currentlyLivingTogether == this.currentlyLivingTogether &&
           other.interestedInRelationship == this.interestedInRelationship);
 }
 
@@ -6756,7 +6543,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
   final Value<String> assumedRelationshipType;
   final Value<int> relationship;
   final Value<bool> isActive;
-  final Value<bool> currentlyLivingTogether;
   final Value<bool> interestedInRelationship;
   const ParentTableCompanion({
     this.mainPersonId = const Value.absent(),
@@ -6767,7 +6553,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
     this.assumedRelationshipType = const Value.absent(),
     this.relationship = const Value.absent(),
     this.isActive = const Value.absent(),
-    this.currentlyLivingTogether = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
   });
   ParentTableCompanion.insert({
@@ -6779,7 +6564,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
     required String assumedRelationshipType,
     required int relationship,
     required bool isActive,
-    required bool currentlyLivingTogether,
     required bool interestedInRelationship,
   })  : mainPersonId = Value(mainPersonId),
         parentId = Value(parentId),
@@ -6789,7 +6573,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
         assumedRelationshipType = Value(assumedRelationshipType),
         relationship = Value(relationship),
         isActive = Value(isActive),
-        currentlyLivingTogether = Value(currentlyLivingTogether),
         interestedInRelationship = Value(interestedInRelationship);
   static Insertable<Parent> custom({
     Expression<int>? mainPersonId,
@@ -6800,7 +6583,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
     Expression<String>? assumedRelationshipType,
     Expression<int>? relationship,
     Expression<bool>? isActive,
-    Expression<bool>? currentlyLivingTogether,
     Expression<bool>? interestedInRelationship,
   }) {
     return RawValuesInsertable({
@@ -6814,8 +6596,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
         'assumed_relationship_type': assumedRelationshipType,
       if (relationship != null) 'relationship': relationship,
       if (isActive != null) 'is_active': isActive,
-      if (currentlyLivingTogether != null)
-        'currently_living_together': currentlyLivingTogether,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
     });
@@ -6830,7 +6610,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
       Value<String>? assumedRelationshipType,
       Value<int>? relationship,
       Value<bool>? isActive,
-      Value<bool>? currentlyLivingTogether,
       Value<bool>? interestedInRelationship}) {
     return ParentTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -6843,8 +6622,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
           assumedRelationshipType ?? this.assumedRelationshipType,
       relationship: relationship ?? this.relationship,
       isActive: isActive ?? this.isActive,
-      currentlyLivingTogether:
-          currentlyLivingTogether ?? this.currentlyLivingTogether,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
     );
@@ -6879,10 +6656,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
     if (isActive.present) {
       map['is_active'] = Variable<bool>(isActive.value);
     }
-    if (currentlyLivingTogether.present) {
-      map['currently_living_together'] =
-          Variable<bool>(currentlyLivingTogether.value);
-    }
     if (interestedInRelationship.present) {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
@@ -6901,7 +6674,6 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
           ..write('assumedRelationshipType: $assumedRelationshipType, ')
           ..write('relationship: $relationship, ')
           ..write('isActive: $isActive, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -6990,18 +6762,6 @@ class $PartnerTableTable extends PartnerTable
   late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
       'relationship', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentlyLivingTogetherMeta =
-      const VerificationMeta('currentlyLivingTogether');
-  @override
-  late final GeneratedColumn<bool> currentlyLivingTogether =
-      GeneratedColumn<bool>('currently_living_together', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("currently_living_together" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
   static const VerificationMeta _interestedInRelationshipMeta =
       const VerificationMeta('interestedInRelationship');
   @override
@@ -7026,7 +6786,6 @@ class $PartnerTableTable extends PartnerTable
         isCoParent,
         metAt,
         relationship,
-        currentlyLivingTogether,
         interestedInRelationship
       ];
   @override
@@ -7109,15 +6868,6 @@ class $PartnerTableTable extends PartnerTable
     } else if (isInserting) {
       context.missing(_relationshipMeta);
     }
-    if (data.containsKey('currently_living_together')) {
-      context.handle(
-          _currentlyLivingTogetherMeta,
-          currentlyLivingTogether.isAcceptableOrUnknown(
-              data['currently_living_together']!,
-              _currentlyLivingTogetherMeta));
-    } else if (isInserting) {
-      context.missing(_currentlyLivingTogetherMeta);
-    }
     if (data.containsKey('interested_in_relationship')) {
       context.handle(
           _interestedInRelationshipMeta,
@@ -7157,9 +6907,6 @@ class $PartnerTableTable extends PartnerTable
           .read(DriftSqlType.string, data['${effectivePrefix}met_at'])!,
       relationship: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      currentlyLivingTogether: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}currently_living_together'])!,
       interestedInRelationship: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}interested_in_relationship'])!,
@@ -7183,7 +6930,6 @@ class Partner extends DataClass implements Insertable<Partner> {
   final bool isCoParent;
   final String metAt;
   final int relationship;
-  final bool currentlyLivingTogether;
   final bool interestedInRelationship;
   const Partner(
       {required this.mainPersonId,
@@ -7196,7 +6942,6 @@ class Partner extends DataClass implements Insertable<Partner> {
       required this.isCoParent,
       required this.metAt,
       required this.relationship,
-      required this.currentlyLivingTogether,
       required this.interestedInRelationship});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -7212,7 +6957,6 @@ class Partner extends DataClass implements Insertable<Partner> {
     map['is_co_parent'] = Variable<bool>(isCoParent);
     map['met_at'] = Variable<String>(metAt);
     map['relationship'] = Variable<int>(relationship);
-    map['currently_living_together'] = Variable<bool>(currentlyLivingTogether);
     map['interested_in_relationship'] =
         Variable<bool>(interestedInRelationship);
     return map;
@@ -7230,7 +6974,6 @@ class Partner extends DataClass implements Insertable<Partner> {
       isCoParent: Value(isCoParent),
       metAt: Value(metAt),
       relationship: Value(relationship),
-      currentlyLivingTogether: Value(currentlyLivingTogether),
       interestedInRelationship: Value(interestedInRelationship),
     );
   }
@@ -7250,8 +6993,6 @@ class Partner extends DataClass implements Insertable<Partner> {
       isCoParent: serializer.fromJson<bool>(json['isCoParent']),
       metAt: serializer.fromJson<String>(json['metAt']),
       relationship: serializer.fromJson<int>(json['relationship']),
-      currentlyLivingTogether:
-          serializer.fromJson<bool>(json['currentlyLivingTogether']),
       interestedInRelationship:
           serializer.fromJson<bool>(json['interestedInRelationship']),
     );
@@ -7271,8 +7012,6 @@ class Partner extends DataClass implements Insertable<Partner> {
       'isCoParent': serializer.toJson<bool>(isCoParent),
       'metAt': serializer.toJson<String>(metAt),
       'relationship': serializer.toJson<int>(relationship),
-      'currentlyLivingTogether':
-          serializer.toJson<bool>(currentlyLivingTogether),
       'interestedInRelationship':
           serializer.toJson<bool>(interestedInRelationship),
     };
@@ -7289,7 +7028,6 @@ class Partner extends DataClass implements Insertable<Partner> {
           bool? isCoParent,
           String? metAt,
           int? relationship,
-          bool? currentlyLivingTogether,
           bool? interestedInRelationship}) =>
       Partner(
         mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -7303,8 +7041,6 @@ class Partner extends DataClass implements Insertable<Partner> {
         isCoParent: isCoParent ?? this.isCoParent,
         metAt: metAt ?? this.metAt,
         relationship: relationship ?? this.relationship,
-        currentlyLivingTogether:
-            currentlyLivingTogether ?? this.currentlyLivingTogether,
         interestedInRelationship:
             interestedInRelationship ?? this.interestedInRelationship,
       );
@@ -7321,7 +7057,6 @@ class Partner extends DataClass implements Insertable<Partner> {
           ..write('isCoParent: $isCoParent, ')
           ..write('metAt: $metAt, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -7339,7 +7074,6 @@ class Partner extends DataClass implements Insertable<Partner> {
       isCoParent,
       metAt,
       relationship,
-      currentlyLivingTogether,
       interestedInRelationship);
   @override
   bool operator ==(Object other) =>
@@ -7355,7 +7089,6 @@ class Partner extends DataClass implements Insertable<Partner> {
           other.isCoParent == this.isCoParent &&
           other.metAt == this.metAt &&
           other.relationship == this.relationship &&
-          other.currentlyLivingTogether == this.currentlyLivingTogether &&
           other.interestedInRelationship == this.interestedInRelationship);
 }
 
@@ -7370,7 +7103,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
   final Value<bool> isCoParent;
   final Value<String> metAt;
   final Value<int> relationship;
-  final Value<bool> currentlyLivingTogether;
   final Value<bool> interestedInRelationship;
   const PartnerTableCompanion({
     this.mainPersonId = const Value.absent(),
@@ -7383,7 +7115,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     this.isCoParent = const Value.absent(),
     this.metAt = const Value.absent(),
     this.relationship = const Value.absent(),
-    this.currentlyLivingTogether = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
   });
   PartnerTableCompanion.insert({
@@ -7397,7 +7128,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     required bool isCoParent,
     required String metAt,
     required int relationship,
-    required bool currentlyLivingTogether,
     required bool interestedInRelationship,
   })  : mainPersonId = Value(mainPersonId),
         partnerId = Value(partnerId),
@@ -7409,7 +7139,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
         isCoParent = Value(isCoParent),
         metAt = Value(metAt),
         relationship = Value(relationship),
-        currentlyLivingTogether = Value(currentlyLivingTogether),
         interestedInRelationship = Value(interestedInRelationship);
   static Insertable<Partner> custom({
     Expression<int>? mainPersonId,
@@ -7422,7 +7151,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     Expression<bool>? isCoParent,
     Expression<String>? metAt,
     Expression<int>? relationship,
-    Expression<bool>? currentlyLivingTogether,
     Expression<bool>? interestedInRelationship,
   }) {
     return RawValuesInsertable({
@@ -7437,8 +7165,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       if (isCoParent != null) 'is_co_parent': isCoParent,
       if (metAt != null) 'met_at': metAt,
       if (relationship != null) 'relationship': relationship,
-      if (currentlyLivingTogether != null)
-        'currently_living_together': currentlyLivingTogether,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
     });
@@ -7455,7 +7181,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       Value<bool>? isCoParent,
       Value<String>? metAt,
       Value<int>? relationship,
-      Value<bool>? currentlyLivingTogether,
       Value<bool>? interestedInRelationship}) {
     return PartnerTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -7469,8 +7194,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       isCoParent: isCoParent ?? this.isCoParent,
       metAt: metAt ?? this.metAt,
       relationship: relationship ?? this.relationship,
-      currentlyLivingTogether:
-          currentlyLivingTogether ?? this.currentlyLivingTogether,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
     );
@@ -7510,10 +7233,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     if (relationship.present) {
       map['relationship'] = Variable<int>(relationship.value);
     }
-    if (currentlyLivingTogether.present) {
-      map['currently_living_together'] =
-          Variable<bool>(currentlyLivingTogether.value);
-    }
     if (interestedInRelationship.present) {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
@@ -7534,7 +7253,6 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
           ..write('isCoParent: $isCoParent, ')
           ..write('metAt: $metAt, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -7565,15 +7283,15 @@ class $RelativeTableTable extends RelativeTable
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _currentlyLivingTogetherMeta =
-      const VerificationMeta('currentlyLivingTogether');
+  static const VerificationMeta _inYourCustodyMeta =
+      const VerificationMeta('inYourCustody');
   @override
-  late final GeneratedColumn<bool> currentlyLivingTogether =
-      GeneratedColumn<bool>('currently_living_together', aliasedName, false,
+  late final GeneratedColumn<bool> inYourCustody =
+      GeneratedColumn<bool>('in_your_custody', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
           defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("currently_living_together" IN (0, 1))',
+            SqlDialect.sqlite: 'CHECK ("in_your_custody" IN (0, 1))',
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
@@ -7605,7 +7323,7 @@ class $RelativeTableTable extends RelativeTable
   List<GeneratedColumn> get $columns => [
         mainPersonId,
         relativeId,
-        currentlyLivingTogether,
+        inYourCustody,
         relativeRelationshipType,
         relationship,
         interestedInRelationship
@@ -7635,14 +7353,13 @@ class $RelativeTableTable extends RelativeTable
     } else if (isInserting) {
       context.missing(_relativeIdMeta);
     }
-    if (data.containsKey('currently_living_together')) {
+    if (data.containsKey('in_your_custody')) {
       context.handle(
-          _currentlyLivingTogetherMeta,
-          currentlyLivingTogether.isAcceptableOrUnknown(
-              data['currently_living_together']!,
-              _currentlyLivingTogetherMeta));
+          _inYourCustodyMeta,
+          inYourCustody.isAcceptableOrUnknown(
+              data['in_your_custody']!, _inYourCustodyMeta));
     } else if (isInserting) {
-      context.missing(_currentlyLivingTogetherMeta);
+      context.missing(_inYourCustodyMeta);
     }
     if (data.containsKey('relative_relationship_type')) {
       context.handle(
@@ -7683,9 +7400,8 @@ class $RelativeTableTable extends RelativeTable
           .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
       relativeId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}relative_id'])!,
-      currentlyLivingTogether: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}currently_living_together'])!,
+      inYourCustody: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}in_your_custody'])!,
       relativeRelationshipType: attachedDatabase.typeMapping.read(
           DriftSqlType.string,
           data['${effectivePrefix}relative_relationship_type'])!,
@@ -7706,14 +7422,14 @@ class $RelativeTableTable extends RelativeTable
 class Relative extends DataClass implements Insertable<Relative> {
   final int mainPersonId;
   final int relativeId;
-  final bool currentlyLivingTogether;
+  final bool inYourCustody;
   final String relativeRelationshipType;
   final int relationship;
   final bool interestedInRelationship;
   const Relative(
       {required this.mainPersonId,
       required this.relativeId,
-      required this.currentlyLivingTogether,
+      required this.inYourCustody,
       required this.relativeRelationshipType,
       required this.relationship,
       required this.interestedInRelationship});
@@ -7722,7 +7438,7 @@ class Relative extends DataClass implements Insertable<Relative> {
     final map = <String, Expression>{};
     map['main_person_id'] = Variable<int>(mainPersonId);
     map['relative_id'] = Variable<int>(relativeId);
-    map['currently_living_together'] = Variable<bool>(currentlyLivingTogether);
+    map['in_your_custody'] = Variable<bool>(inYourCustody);
     map['relative_relationship_type'] =
         Variable<String>(relativeRelationshipType);
     map['relationship'] = Variable<int>(relationship);
@@ -7735,7 +7451,7 @@ class Relative extends DataClass implements Insertable<Relative> {
     return RelativeTableCompanion(
       mainPersonId: Value(mainPersonId),
       relativeId: Value(relativeId),
-      currentlyLivingTogether: Value(currentlyLivingTogether),
+      inYourCustody: Value(inYourCustody),
       relativeRelationshipType: Value(relativeRelationshipType),
       relationship: Value(relationship),
       interestedInRelationship: Value(interestedInRelationship),
@@ -7748,8 +7464,7 @@ class Relative extends DataClass implements Insertable<Relative> {
     return Relative(
       mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
       relativeId: serializer.fromJson<int>(json['relativeId']),
-      currentlyLivingTogether:
-          serializer.fromJson<bool>(json['currentlyLivingTogether']),
+      inYourCustody: serializer.fromJson<bool>(json['inYourCustody']),
       relativeRelationshipType:
           serializer.fromJson<String>(json['relativeRelationshipType']),
       relationship: serializer.fromJson<int>(json['relationship']),
@@ -7763,8 +7478,7 @@ class Relative extends DataClass implements Insertable<Relative> {
     return <String, dynamic>{
       'mainPersonId': serializer.toJson<int>(mainPersonId),
       'relativeId': serializer.toJson<int>(relativeId),
-      'currentlyLivingTogether':
-          serializer.toJson<bool>(currentlyLivingTogether),
+      'inYourCustody': serializer.toJson<bool>(inYourCustody),
       'relativeRelationshipType':
           serializer.toJson<String>(relativeRelationshipType),
       'relationship': serializer.toJson<int>(relationship),
@@ -7776,15 +7490,14 @@ class Relative extends DataClass implements Insertable<Relative> {
   Relative copyWith(
           {int? mainPersonId,
           int? relativeId,
-          bool? currentlyLivingTogether,
+          bool? inYourCustody,
           String? relativeRelationshipType,
           int? relationship,
           bool? interestedInRelationship}) =>
       Relative(
         mainPersonId: mainPersonId ?? this.mainPersonId,
         relativeId: relativeId ?? this.relativeId,
-        currentlyLivingTogether:
-            currentlyLivingTogether ?? this.currentlyLivingTogether,
+        inYourCustody: inYourCustody ?? this.inYourCustody,
         relativeRelationshipType:
             relativeRelationshipType ?? this.relativeRelationshipType,
         relationship: relationship ?? this.relationship,
@@ -7796,7 +7509,7 @@ class Relative extends DataClass implements Insertable<Relative> {
     return (StringBuffer('Relative(')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('relativeId: $relativeId, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
+          ..write('inYourCustody: $inYourCustody, ')
           ..write('relativeRelationshipType: $relativeRelationshipType, ')
           ..write('relationship: $relationship, ')
           ..write('interestedInRelationship: $interestedInRelationship')
@@ -7805,20 +7518,15 @@ class Relative extends DataClass implements Insertable<Relative> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      mainPersonId,
-      relativeId,
-      currentlyLivingTogether,
-      relativeRelationshipType,
-      relationship,
-      interestedInRelationship);
+  int get hashCode => Object.hash(mainPersonId, relativeId, inYourCustody,
+      relativeRelationshipType, relationship, interestedInRelationship);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Relative &&
           other.mainPersonId == this.mainPersonId &&
           other.relativeId == this.relativeId &&
-          other.currentlyLivingTogether == this.currentlyLivingTogether &&
+          other.inYourCustody == this.inYourCustody &&
           other.relativeRelationshipType == this.relativeRelationshipType &&
           other.relationship == this.relationship &&
           other.interestedInRelationship == this.interestedInRelationship);
@@ -7827,14 +7535,14 @@ class Relative extends DataClass implements Insertable<Relative> {
 class RelativeTableCompanion extends UpdateCompanion<Relative> {
   final Value<int> mainPersonId;
   final Value<int> relativeId;
-  final Value<bool> currentlyLivingTogether;
+  final Value<bool> inYourCustody;
   final Value<String> relativeRelationshipType;
   final Value<int> relationship;
   final Value<bool> interestedInRelationship;
   const RelativeTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.relativeId = const Value.absent(),
-    this.currentlyLivingTogether = const Value.absent(),
+    this.inYourCustody = const Value.absent(),
     this.relativeRelationshipType = const Value.absent(),
     this.relationship = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
@@ -7842,20 +7550,20 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
   RelativeTableCompanion.insert({
     required int mainPersonId,
     required int relativeId,
-    required bool currentlyLivingTogether,
+    required bool inYourCustody,
     required String relativeRelationshipType,
     required int relationship,
     required bool interestedInRelationship,
   })  : mainPersonId = Value(mainPersonId),
         relativeId = Value(relativeId),
-        currentlyLivingTogether = Value(currentlyLivingTogether),
+        inYourCustody = Value(inYourCustody),
         relativeRelationshipType = Value(relativeRelationshipType),
         relationship = Value(relationship),
         interestedInRelationship = Value(interestedInRelationship);
   static Insertable<Relative> custom({
     Expression<int>? mainPersonId,
     Expression<int>? relativeId,
-    Expression<bool>? currentlyLivingTogether,
+    Expression<bool>? inYourCustody,
     Expression<String>? relativeRelationshipType,
     Expression<int>? relationship,
     Expression<bool>? interestedInRelationship,
@@ -7863,8 +7571,7 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
       if (relativeId != null) 'relative_id': relativeId,
-      if (currentlyLivingTogether != null)
-        'currently_living_together': currentlyLivingTogether,
+      if (inYourCustody != null) 'in_your_custody': inYourCustody,
       if (relativeRelationshipType != null)
         'relative_relationship_type': relativeRelationshipType,
       if (relationship != null) 'relationship': relationship,
@@ -7876,15 +7583,14 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
   RelativeTableCompanion copyWith(
       {Value<int>? mainPersonId,
       Value<int>? relativeId,
-      Value<bool>? currentlyLivingTogether,
+      Value<bool>? inYourCustody,
       Value<String>? relativeRelationshipType,
       Value<int>? relationship,
       Value<bool>? interestedInRelationship}) {
     return RelativeTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       relativeId: relativeId ?? this.relativeId,
-      currentlyLivingTogether:
-          currentlyLivingTogether ?? this.currentlyLivingTogether,
+      inYourCustody: inYourCustody ?? this.inYourCustody,
       relativeRelationshipType:
           relativeRelationshipType ?? this.relativeRelationshipType,
       relationship: relationship ?? this.relationship,
@@ -7902,9 +7608,8 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
     if (relativeId.present) {
       map['relative_id'] = Variable<int>(relativeId.value);
     }
-    if (currentlyLivingTogether.present) {
-      map['currently_living_together'] =
-          Variable<bool>(currentlyLivingTogether.value);
+    if (inYourCustody.present) {
+      map['in_your_custody'] = Variable<bool>(inYourCustody.value);
     }
     if (relativeRelationshipType.present) {
       map['relative_relationship_type'] =
@@ -7925,7 +7630,7 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
     return (StringBuffer('RelativeTableCompanion(')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('relativeId: $relativeId, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
+          ..write('inYourCustody: $inYourCustody, ')
           ..write('relativeRelationshipType: $relativeRelationshipType, ')
           ..write('relationship: $relationship, ')
           ..write('interestedInRelationship: $interestedInRelationship')
@@ -7970,15 +7675,15 @@ class $SiblingTableTable extends SiblingTable
   late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
       'relationship', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentlyLivingTogetherMeta =
-      const VerificationMeta('currentlyLivingTogether');
+  static const VerificationMeta _inYourCustodyMeta =
+      const VerificationMeta('inYourCustody');
   @override
-  late final GeneratedColumn<bool> currentlyLivingTogether =
-      GeneratedColumn<bool>('currently_living_together', aliasedName, false,
+  late final GeneratedColumn<bool> inYourCustody =
+      GeneratedColumn<bool>('in_your_custody', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
           defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("currently_living_together" IN (0, 1))',
+            SqlDialect.sqlite: 'CHECK ("in_your_custody" IN (0, 1))',
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
@@ -8000,7 +7705,7 @@ class $SiblingTableTable extends SiblingTable
         siblingId,
         siblingRelationshipType,
         relationship,
-        currentlyLivingTogether,
+        inYourCustody,
         interestedInRelationship
       ];
   @override
@@ -8043,14 +7748,13 @@ class $SiblingTableTable extends SiblingTable
     } else if (isInserting) {
       context.missing(_relationshipMeta);
     }
-    if (data.containsKey('currently_living_together')) {
+    if (data.containsKey('in_your_custody')) {
       context.handle(
-          _currentlyLivingTogetherMeta,
-          currentlyLivingTogether.isAcceptableOrUnknown(
-              data['currently_living_together']!,
-              _currentlyLivingTogetherMeta));
+          _inYourCustodyMeta,
+          inYourCustody.isAcceptableOrUnknown(
+              data['in_your_custody']!, _inYourCustodyMeta));
     } else if (isInserting) {
-      context.missing(_currentlyLivingTogetherMeta);
+      context.missing(_inYourCustodyMeta);
     }
     if (data.containsKey('interested_in_relationship')) {
       context.handle(
@@ -8079,9 +7783,8 @@ class $SiblingTableTable extends SiblingTable
           data['${effectivePrefix}sibling_relationship_type'])!,
       relationship: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      currentlyLivingTogether: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}currently_living_together'])!,
+      inYourCustody: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}in_your_custody'])!,
       interestedInRelationship: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}interested_in_relationship'])!,
@@ -8099,14 +7802,14 @@ class Sibling extends DataClass implements Insertable<Sibling> {
   final int siblingId;
   final String siblingRelationshipType;
   final int relationship;
-  final bool currentlyLivingTogether;
+  final bool inYourCustody;
   final bool interestedInRelationship;
   const Sibling(
       {required this.mainPersonId,
       required this.siblingId,
       required this.siblingRelationshipType,
       required this.relationship,
-      required this.currentlyLivingTogether,
+      required this.inYourCustody,
       required this.interestedInRelationship});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -8116,7 +7819,7 @@ class Sibling extends DataClass implements Insertable<Sibling> {
     map['sibling_relationship_type'] =
         Variable<String>(siblingRelationshipType);
     map['relationship'] = Variable<int>(relationship);
-    map['currently_living_together'] = Variable<bool>(currentlyLivingTogether);
+    map['in_your_custody'] = Variable<bool>(inYourCustody);
     map['interested_in_relationship'] =
         Variable<bool>(interestedInRelationship);
     return map;
@@ -8128,7 +7831,7 @@ class Sibling extends DataClass implements Insertable<Sibling> {
       siblingId: Value(siblingId),
       siblingRelationshipType: Value(siblingRelationshipType),
       relationship: Value(relationship),
-      currentlyLivingTogether: Value(currentlyLivingTogether),
+      inYourCustody: Value(inYourCustody),
       interestedInRelationship: Value(interestedInRelationship),
     );
   }
@@ -8142,8 +7845,7 @@ class Sibling extends DataClass implements Insertable<Sibling> {
       siblingRelationshipType:
           serializer.fromJson<String>(json['siblingRelationshipType']),
       relationship: serializer.fromJson<int>(json['relationship']),
-      currentlyLivingTogether:
-          serializer.fromJson<bool>(json['currentlyLivingTogether']),
+      inYourCustody: serializer.fromJson<bool>(json['inYourCustody']),
       interestedInRelationship:
           serializer.fromJson<bool>(json['interestedInRelationship']),
     );
@@ -8157,8 +7859,7 @@ class Sibling extends DataClass implements Insertable<Sibling> {
       'siblingRelationshipType':
           serializer.toJson<String>(siblingRelationshipType),
       'relationship': serializer.toJson<int>(relationship),
-      'currentlyLivingTogether':
-          serializer.toJson<bool>(currentlyLivingTogether),
+      'inYourCustody': serializer.toJson<bool>(inYourCustody),
       'interestedInRelationship':
           serializer.toJson<bool>(interestedInRelationship),
     };
@@ -8169,7 +7870,7 @@ class Sibling extends DataClass implements Insertable<Sibling> {
           int? siblingId,
           String? siblingRelationshipType,
           int? relationship,
-          bool? currentlyLivingTogether,
+          bool? inYourCustody,
           bool? interestedInRelationship}) =>
       Sibling(
         mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -8177,8 +7878,7 @@ class Sibling extends DataClass implements Insertable<Sibling> {
         siblingRelationshipType:
             siblingRelationshipType ?? this.siblingRelationshipType,
         relationship: relationship ?? this.relationship,
-        currentlyLivingTogether:
-            currentlyLivingTogether ?? this.currentlyLivingTogether,
+        inYourCustody: inYourCustody ?? this.inYourCustody,
         interestedInRelationship:
             interestedInRelationship ?? this.interestedInRelationship,
       );
@@ -8189,7 +7889,7 @@ class Sibling extends DataClass implements Insertable<Sibling> {
           ..write('siblingId: $siblingId, ')
           ..write('siblingRelationshipType: $siblingRelationshipType, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
+          ..write('inYourCustody: $inYourCustody, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -8201,7 +7901,7 @@ class Sibling extends DataClass implements Insertable<Sibling> {
       siblingId,
       siblingRelationshipType,
       relationship,
-      currentlyLivingTogether,
+      inYourCustody,
       interestedInRelationship);
   @override
   bool operator ==(Object other) =>
@@ -8211,7 +7911,7 @@ class Sibling extends DataClass implements Insertable<Sibling> {
           other.siblingId == this.siblingId &&
           other.siblingRelationshipType == this.siblingRelationshipType &&
           other.relationship == this.relationship &&
-          other.currentlyLivingTogether == this.currentlyLivingTogether &&
+          other.inYourCustody == this.inYourCustody &&
           other.interestedInRelationship == this.interestedInRelationship);
 }
 
@@ -8220,14 +7920,14 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
   final Value<int> siblingId;
   final Value<String> siblingRelationshipType;
   final Value<int> relationship;
-  final Value<bool> currentlyLivingTogether;
+  final Value<bool> inYourCustody;
   final Value<bool> interestedInRelationship;
   const SiblingTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.siblingId = const Value.absent(),
     this.siblingRelationshipType = const Value.absent(),
     this.relationship = const Value.absent(),
-    this.currentlyLivingTogether = const Value.absent(),
+    this.inYourCustody = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
   });
   SiblingTableCompanion.insert({
@@ -8235,20 +7935,20 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
     required int siblingId,
     required String siblingRelationshipType,
     required int relationship,
-    required bool currentlyLivingTogether,
+    required bool inYourCustody,
     required bool interestedInRelationship,
   })  : mainPersonId = Value(mainPersonId),
         siblingId = Value(siblingId),
         siblingRelationshipType = Value(siblingRelationshipType),
         relationship = Value(relationship),
-        currentlyLivingTogether = Value(currentlyLivingTogether),
+        inYourCustody = Value(inYourCustody),
         interestedInRelationship = Value(interestedInRelationship);
   static Insertable<Sibling> custom({
     Expression<int>? mainPersonId,
     Expression<int>? siblingId,
     Expression<String>? siblingRelationshipType,
     Expression<int>? relationship,
-    Expression<bool>? currentlyLivingTogether,
+    Expression<bool>? inYourCustody,
     Expression<bool>? interestedInRelationship,
   }) {
     return RawValuesInsertable({
@@ -8257,8 +7957,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
       if (siblingRelationshipType != null)
         'sibling_relationship_type': siblingRelationshipType,
       if (relationship != null) 'relationship': relationship,
-      if (currentlyLivingTogether != null)
-        'currently_living_together': currentlyLivingTogether,
+      if (inYourCustody != null) 'in_your_custody': inYourCustody,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
     });
@@ -8269,7 +7968,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
       Value<int>? siblingId,
       Value<String>? siblingRelationshipType,
       Value<int>? relationship,
-      Value<bool>? currentlyLivingTogether,
+      Value<bool>? inYourCustody,
       Value<bool>? interestedInRelationship}) {
     return SiblingTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
@@ -8277,8 +7976,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
       siblingRelationshipType:
           siblingRelationshipType ?? this.siblingRelationshipType,
       relationship: relationship ?? this.relationship,
-      currentlyLivingTogether:
-          currentlyLivingTogether ?? this.currentlyLivingTogether,
+      inYourCustody: inYourCustody ?? this.inYourCustody,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
     );
@@ -8300,9 +7998,8 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
     if (relationship.present) {
       map['relationship'] = Variable<int>(relationship.value);
     }
-    if (currentlyLivingTogether.present) {
-      map['currently_living_together'] =
-          Variable<bool>(currentlyLivingTogether.value);
+    if (inYourCustody.present) {
+      map['in_your_custody'] = Variable<bool>(inYourCustody.value);
     }
     if (interestedInRelationship.present) {
       map['interested_in_relationship'] =
@@ -8318,7 +8015,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
           ..write('siblingId: $siblingId, ')
           ..write('siblingRelationshipType: $siblingRelationshipType, ')
           ..write('relationship: $relationship, ')
-          ..write('currentlyLivingTogether: $currentlyLivingTogether, ')
+          ..write('inYourCustody: $inYourCustody, ')
           ..write('interestedInRelationship: $interestedInRelationship')
           ..write(')'))
         .toString();
@@ -11295,6 +10992,18 @@ class $CurrentHomeTableTable extends CurrentHomeTable
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
+  static const VerificationMeta _isAtHomeMeta =
+      const VerificationMeta('isAtHome');
+  @override
+  late final GeneratedColumn<bool> isAtHome =
+      GeneratedColumn<bool>('is_at_home', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_at_home" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
   static const VerificationMeta _stayTypeMeta =
       const VerificationMeta('stayType');
   @override
@@ -11309,7 +11018,7 @@ class $CurrentHomeTableTable extends CurrentHomeTable
       type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [personId, houseId, hasManagementRights, stayType, exitDay];
+      [personId, houseId, hasManagementRights, isAtHome, stayType, exitDay];
   @override
   String get aliasedName => _alias ?? 'current_home';
   @override
@@ -11339,6 +11048,12 @@ class $CurrentHomeTableTable extends CurrentHomeTable
     } else if (isInserting) {
       context.missing(_hasManagementRightsMeta);
     }
+    if (data.containsKey('is_at_home')) {
+      context.handle(_isAtHomeMeta,
+          isAtHome.isAcceptableOrUnknown(data['is_at_home']!, _isAtHomeMeta));
+    } else if (isInserting) {
+      context.missing(_isAtHomeMeta);
+    }
     if (data.containsKey('stay_type')) {
       context.handle(_stayTypeMeta,
           stayType.isAcceptableOrUnknown(data['stay_type']!, _stayTypeMeta));
@@ -11366,6 +11081,8 @@ class $CurrentHomeTableTable extends CurrentHomeTable
           .read(DriftSqlType.int, data['${effectivePrefix}house_id'])!,
       hasManagementRights: attachedDatabase.typeMapping.read(
           DriftSqlType.bool, data['${effectivePrefix}has_management_rights'])!,
+      isAtHome: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_at_home'])!,
       stayType: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}stay_type'])!,
       exitDay: attachedDatabase.typeMapping
@@ -11383,12 +11100,14 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
   final int personId;
   final int houseId;
   final bool hasManagementRights;
+  final bool isAtHome;
   final String stayType;
   final int exitDay;
   const CurrentHome(
       {required this.personId,
       required this.houseId,
       required this.hasManagementRights,
+      required this.isAtHome,
       required this.stayType,
       required this.exitDay});
   @override
@@ -11397,6 +11116,7 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
     map['person_id'] = Variable<int>(personId);
     map['house_id'] = Variable<int>(houseId);
     map['has_management_rights'] = Variable<bool>(hasManagementRights);
+    map['is_at_home'] = Variable<bool>(isAtHome);
     map['stay_type'] = Variable<String>(stayType);
     map['exit_day'] = Variable<int>(exitDay);
     return map;
@@ -11407,6 +11127,7 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
       personId: Value(personId),
       houseId: Value(houseId),
       hasManagementRights: Value(hasManagementRights),
+      isAtHome: Value(isAtHome),
       stayType: Value(stayType),
       exitDay: Value(exitDay),
     );
@@ -11420,6 +11141,7 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
       houseId: serializer.fromJson<int>(json['houseId']),
       hasManagementRights:
           serializer.fromJson<bool>(json['hasManagementRights']),
+      isAtHome: serializer.fromJson<bool>(json['isAtHome']),
       stayType: serializer.fromJson<String>(json['stayType']),
       exitDay: serializer.fromJson<int>(json['exitDay']),
     );
@@ -11431,6 +11153,7 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
       'personId': serializer.toJson<int>(personId),
       'houseId': serializer.toJson<int>(houseId),
       'hasManagementRights': serializer.toJson<bool>(hasManagementRights),
+      'isAtHome': serializer.toJson<bool>(isAtHome),
       'stayType': serializer.toJson<String>(stayType),
       'exitDay': serializer.toJson<int>(exitDay),
     };
@@ -11440,12 +11163,14 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
           {int? personId,
           int? houseId,
           bool? hasManagementRights,
+          bool? isAtHome,
           String? stayType,
           int? exitDay}) =>
       CurrentHome(
         personId: personId ?? this.personId,
         houseId: houseId ?? this.houseId,
         hasManagementRights: hasManagementRights ?? this.hasManagementRights,
+        isAtHome: isAtHome ?? this.isAtHome,
         stayType: stayType ?? this.stayType,
         exitDay: exitDay ?? this.exitDay,
       );
@@ -11455,6 +11180,7 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
           ..write('personId: $personId, ')
           ..write('houseId: $houseId, ')
           ..write('hasManagementRights: $hasManagementRights, ')
+          ..write('isAtHome: $isAtHome, ')
           ..write('stayType: $stayType, ')
           ..write('exitDay: $exitDay')
           ..write(')'))
@@ -11462,8 +11188,8 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(personId, houseId, hasManagementRights, stayType, exitDay);
+  int get hashCode => Object.hash(
+      personId, houseId, hasManagementRights, isAtHome, stayType, exitDay);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -11471,6 +11197,7 @@ class CurrentHome extends DataClass implements Insertable<CurrentHome> {
           other.personId == this.personId &&
           other.houseId == this.houseId &&
           other.hasManagementRights == this.hasManagementRights &&
+          other.isAtHome == this.isAtHome &&
           other.stayType == this.stayType &&
           other.exitDay == this.exitDay);
 }
@@ -11479,12 +11206,14 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
   final Value<int> personId;
   final Value<int> houseId;
   final Value<bool> hasManagementRights;
+  final Value<bool> isAtHome;
   final Value<String> stayType;
   final Value<int> exitDay;
   const CurrentHomeTableCompanion({
     this.personId = const Value.absent(),
     this.houseId = const Value.absent(),
     this.hasManagementRights = const Value.absent(),
+    this.isAtHome = const Value.absent(),
     this.stayType = const Value.absent(),
     this.exitDay = const Value.absent(),
   });
@@ -11492,17 +11221,20 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
     required int personId,
     required int houseId,
     required bool hasManagementRights,
+    required bool isAtHome,
     required String stayType,
     required int exitDay,
   })  : personId = Value(personId),
         houseId = Value(houseId),
         hasManagementRights = Value(hasManagementRights),
+        isAtHome = Value(isAtHome),
         stayType = Value(stayType),
         exitDay = Value(exitDay);
   static Insertable<CurrentHome> custom({
     Expression<int>? personId,
     Expression<int>? houseId,
     Expression<bool>? hasManagementRights,
+    Expression<bool>? isAtHome,
     Expression<String>? stayType,
     Expression<int>? exitDay,
   }) {
@@ -11511,6 +11243,7 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
       if (houseId != null) 'house_id': houseId,
       if (hasManagementRights != null)
         'has_management_rights': hasManagementRights,
+      if (isAtHome != null) 'is_at_home': isAtHome,
       if (stayType != null) 'stay_type': stayType,
       if (exitDay != null) 'exit_day': exitDay,
     });
@@ -11520,12 +11253,14 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
       {Value<int>? personId,
       Value<int>? houseId,
       Value<bool>? hasManagementRights,
+      Value<bool>? isAtHome,
       Value<String>? stayType,
       Value<int>? exitDay}) {
     return CurrentHomeTableCompanion(
       personId: personId ?? this.personId,
       houseId: houseId ?? this.houseId,
       hasManagementRights: hasManagementRights ?? this.hasManagementRights,
+      isAtHome: isAtHome ?? this.isAtHome,
       stayType: stayType ?? this.stayType,
       exitDay: exitDay ?? this.exitDay,
     );
@@ -11543,6 +11278,9 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
     if (hasManagementRights.present) {
       map['has_management_rights'] = Variable<bool>(hasManagementRights.value);
     }
+    if (isAtHome.present) {
+      map['is_at_home'] = Variable<bool>(isAtHome.value);
+    }
     if (stayType.present) {
       map['stay_type'] = Variable<String>(stayType.value);
     }
@@ -11558,6 +11296,7 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
           ..write('personId: $personId, ')
           ..write('houseId: $houseId, ')
           ..write('hasManagementRights: $hasManagementRights, ')
+          ..write('isAtHome: $isAtHome, ')
           ..write('stayType: $stayType, ')
           ..write('exitDay: $exitDay')
           ..write(')'))

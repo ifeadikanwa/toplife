@@ -24,7 +24,6 @@ class ParentTable extends Table {
   TextColumn get assumedRelationshipType => text()();
   IntColumn get relationship => integer()();
   BoolColumn get isActive => boolean()();
-  BoolColumn get currentlyLivingTogether => boolean()();
   BoolColumn get interestedInRelationship => boolean()();
 
   @override

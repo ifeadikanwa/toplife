@@ -21,7 +21,6 @@ class FriendTable extends Table {
   TextColumn get metAt => text()();
   BoolColumn get haveRomanticRelationship => boolean()();
   IntColumn get relationship => integer()();
-  BoolColumn get currentlyLivingTogether => boolean()();
   BoolColumn get interestedInRelationship => boolean()();
 
   @override

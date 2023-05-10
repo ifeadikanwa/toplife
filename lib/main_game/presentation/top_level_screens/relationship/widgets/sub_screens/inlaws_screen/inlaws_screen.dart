@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/empty_relationship_list_screen.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item/relationship_list_item.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item_with_header.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/inlaws_screen/inlaws_screen_view_model.dart';
 import 'package:toplife/main_systems/system_relationship/constants/inlaw_relationship_type.dart';
@@ -38,9 +38,8 @@ class InLawsScreen extends ConsumerWidget {
                   final relationshipAmount =
                       inLawsList[index].relationship.relationship;
 
-                  //living together
-                  final currentlyLivingTogether =
-                      inLawsList[index].relationship.currentlyLivingTogether;
+                  //person ID
+                  final int personID = inLawsList[index].person.id;
 
                   //divide into sections
                   if (index == 0 ||
@@ -70,7 +69,7 @@ class InLawsScreen extends ConsumerWidget {
                       relationshipLabel: relationshipLabel,
                       name: name,
                       relationshipAmount: relationshipAmount,
-                      currentlyLivingTogether: currentlyLivingTogether,
+                    personID: personID,
                     );
                   }
 
@@ -82,7 +81,7 @@ class InLawsScreen extends ConsumerWidget {
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,
-                    currentlyLivingTogether: currentlyLivingTogether,
+                    personID: personID,
                   );
                 },
                 separatorBuilder: (context, index) {

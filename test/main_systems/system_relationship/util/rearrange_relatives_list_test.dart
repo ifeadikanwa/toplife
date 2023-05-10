@@ -14,7 +14,7 @@ void main() {
           relationship: Relative(
             mainPersonId: 1,
             relativeId: 2,
-            currentlyLivingTogether: true,
+            inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.nibling.name,
             relationship: 56,
             interestedInRelationship: true,
@@ -50,7 +50,7 @@ void main() {
           relationship: Relative(
             mainPersonId: 1,
             relativeId: 2,
-            currentlyLivingTogether: true,
+            inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.grandchild.name,
             relationship: 56,
             interestedInRelationship: true,
@@ -86,7 +86,7 @@ void main() {
           relationship: Relative(
             mainPersonId: 1,
             relativeId: 2,
-            currentlyLivingTogether: true,
+            inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.cousin.name,
             relationship: 56,
             interestedInRelationship: true,
@@ -122,7 +122,7 @@ void main() {
           relationship: Relative(
             mainPersonId: 1,
             relativeId: 2,
-            currentlyLivingTogether: true,
+            inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.pibling.name,
             relationship: 56,
             interestedInRelationship: true,
@@ -161,7 +161,7 @@ void main() {
           relationship: Relative(
             mainPersonId: 1,
             relativeId: 2,
-            currentlyLivingTogether: true,
+            inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.grandchild.name,
             relationship: 56,
             interestedInRelationship: true,
@@ -197,7 +197,7 @@ void main() {
           relationship: Relative(
             mainPersonId: 1,
             relativeId: 2,
-            currentlyLivingTogether: true,
+            inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.nibling.name,
             relationship: 56,
             interestedInRelationship: true,
@@ -233,7 +233,7 @@ void main() {
           relationship: Relative(
             mainPersonId: 1,
             relativeId: 2,
-            currentlyLivingTogether: true,
+            inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.pibling.name,
             relationship: 56,
             interestedInRelationship: true,
@@ -269,7 +269,7 @@ void main() {
           relationship: Relative(
             mainPersonId: 1,
             relativeId: 2,
-            currentlyLivingTogether: true,
+            inYourCustody: true,
             relativeRelationshipType: RelativeRelationshipType.cousin.name,
             relationship: 56,
             interestedInRelationship: true,

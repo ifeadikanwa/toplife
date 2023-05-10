@@ -170,9 +170,8 @@ class ShopScreen extends ConsumerWidget {
 
                 // const house = House(
                 //   id: 0,
-                //   personId: 1,
+                //   ownerPersonId: 1,
                 //   endOfLeaseDay: 23,
-                //   isCurrentHome: false,
                 //   bedrooms: 3,
                 //   bathrooms: 2,
                 //   storage: 8,
@@ -264,196 +263,22 @@ class ShopScreen extends ConsumerWidget {
                 // }
 
                 // ref
-                //     .watch(gameUsecasesProvider)
-                //     .decayAndAlterPlayerStatsUsecase
-                //     .execute(playerID: 1, hoursPassed: 10);
-
-                // ref
-                //     .watch(personUsecasesProvider)
-                //     .depleteMainPlayerEnergyUsecase
+                //     .watch(shopAndStorageUsecasesProvider)
+                //     .setCurrentHomeUsecase
                 //     .execute(
-                //       personID: 1,
-                //       hours: 5,
+                //       currentHome: CurrentHome(
+                //         personId: 6,
+                //         houseId: 1,
+                //         hasManagementRights: true,
+                //         isAtHome: true,
+                //         stayType: "stayType",
+                //         exitDay: 0,
+                //       ),
                 //     );
 
-                // await ref
-                //     .watch(personUsecasesProvider)
-                //     .updateStatsUsecase
-                //     .execute(
-                //       mainPersonID: 1,
-                //       override: true,
-                //       energy: 100,
-                //       mood: 100,
-                //       sober: 100,
-                //       athleticism: 100,
-                //       health: 100,
-                //       hunger: 100,
-                //       looks: 100,
-                //       intellect: 100,
-                //     );
-
-                // ref
-                //     .watch(personUsecasesProvider)
-                //     .resetDepleteStatsFlagUsecase
-                //     .execute(1);
-
-                // EventDaoImpl(db).createEvent(
-                //   Event(
-                //     id: 0,
-                //     gameId: 1,
-                //     eventType: "death",
-                //     eventDay: 2,
-                //     mainPersonId: 6,
-                //     relationshipToMainPlayer: "sibling",
-                //     journalEntryOnly: false,
-                //     performed: false,
-                //     startTime: null,
-                //     endTime: null,
-                //   ),
-                // );
-
-                // ref.watch(journalRepositoryProvider).updateJournal(
-                //     Journal(gameId: 1, day: 2, mainPlayerId: 1, entry: ""));
-
-                // EventDaoImpl(db).createEvent(
-                //   Event(
-                //     id: 0,
-                //     gameId: 1,
-                //     eventType: "death",
-                //     eventDay: 2,
-                //     mainPersonId: 2,
-                //     relationshipToMainPlayer: "parent",
-                //     journalEntryOnly: false,
-                //     performed: false,
-                //     startTime: 600,
-                //     endTime: null,
-                //   ),
-                // );
-
-                // EventDaoImpl(db).createEvent(
-                //   Event(
-                //     id: 0,
-                //     gameId: 1,
-                //     eventType: "funeral",
-                //     eventDay: 2,
-                //     mainPersonId: 2,
-                //     relationshipToMainPlayer: "parent",
-                //     journalEntryOnly: false,
-                //     performed: false,
-                //     startTime: null,
-                //     endTime: null,
-                //   ),
-                // );
-
-                // EventDaoImpl(db).createEvent(
-                //   Event(
-                //     id: 0,
-                //     gameId: 1,
-                //     eventType: "engagement",
-                //     eventDay: 4,
-                //     mainPersonId: 5,
-                //     relationshipToMainPlayer: "sibling",
-                //     journalEntryOnly: false,
-                //     performed: false,
-                //     startTime: 600,
-                //     endTime: 980,
-                //   ),
-                // );
-
-                // ref.watch(personUsecasesProvider).updateStatsUsecase.execute(
-                //       mainPersonID: 1,
-                //       override: true,
-                //       energy: 0,
-                //       hunger: 0,
-                //       mood: 70,
-                //     );
-
-                // ref
-                //     .watch(eventManagerProvider)
-                //     .manageEvents
-                //     .runScheduledEventsForTheDay
-                //     .execute(
-                //       gameID: 1,
-                //       playerID: 1,
-                //       day: 2,
-                //       currentTimeInMinutes: 900,
-                //       context: context,
-                //     );
-
-                // final event = const Event(
-                //   id: 0,
-                //   gameId: 1,
-                //   eventType: "birthdayParty",
-                //   eventDay: 2,
-                //   mainPersonId: 2,
-                //   relationshipToMainPlayer: "parent",
-                //   journalEntryOnly: false,
-                //   performed: false,
-                //   startTime: null,
-                //   endTime: null,
-                // );
-
-                // int num = 1;
-
-                // while (num < 40) {
-                //   ref.watch(eventRepositoryProvider).deleteEvent(num);
-                //   num++;
-                // }
-
-                // //journal
-                // ScheduleEvent(
-                //   ref.watch(eventRepositoryProvider),
-                // ).execute(
-                //     event: event.copyWith(
-                //   eventType: "birthday",
-                //   journalEntryOnly: true,
-                //   eventDay: 3,
-                // ));
-
-                // //attendable
-                // ScheduleEvent(
-                //   ref.watch(eventRepositoryProvider),
-                // ).execute(
-                //     event: event.copyWith(
-                //   eventType: "graduation",
-                //   journalEntryOnly: false,
-                //   eventDay: 3,
-                //   startTime: const drift.Value(450),
-                //   endTime: const drift.Value(900),
-                // ));
-
-                //auto - unmovable
-                // ScheduleEvent(
-                //   ref.watch(eventRepositoryProvider),
-                // ).execute(
-                //     event: event.copyWith(
-                //   eventType: "death",
-                //   journalEntryOnly: false,
-                //   eventDay: 3,
-                // ));
-
-                // //auto
-                // ScheduleEvent(
-                //   ref.watch(eventRepositoryProvider),
-                // ).execute(
-                //     event: event.copyWith(
-                //   eventType: "askForSchoolTuition",
-                //   journalEntryOnly: false,
-                //   eventDay: 3,
-                // ));
-
-                // ref
-                //     .watch(eventManagerProvider)
-                //     .manageEvents
-                //     .reportUnattendedEventsToDaysJournal
-                //     .execute(
-                //       day: 3,
-                //       gameID: 1,
-                //       mainPlayerID: 1,
-                //     );
-
-                // final event = await EventDaoImpl(db).getEvent(56);
-                // EventDaoImpl(db).updateEvent(event!.copyWith(performed: false));
+                // CurrentHomeDaoImpl(db).deleteCurrentHome(1);
+                // CurrentHomeDaoImpl(db).deleteCurrentHome(2);
+                // CurrentHomeDaoImpl(db).deleteCurrentHome(3);
               },
               child: const Text("Run"),
             ),

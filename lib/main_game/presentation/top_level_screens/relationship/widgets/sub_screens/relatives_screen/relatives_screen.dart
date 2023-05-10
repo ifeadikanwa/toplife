@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/empty_relationship_list_screen.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item/relationship_list_item.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/helper_widgets/list_item/relationship_list_item_with_header.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/relatives_screen/relatives_screen_view_model.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
@@ -40,9 +40,8 @@ class RelativesScreen extends ConsumerWidget {
                   final relationshipAmount =
                       relativesList[index].relationship.relationship;
 
-                  //living together
-                  final currentlyLivingTogether =
-                      relativesList[index].relationship.currentlyLivingTogether;
+                  //person ID
+                  final int personID = relativesList[index].person.id;
 
                   if (index == 0 ||
                       relationshipType !=
@@ -74,7 +73,7 @@ class RelativesScreen extends ConsumerWidget {
                       relationshipLabel: relationshipLabel,
                       name: name,
                       relationshipAmount: relationshipAmount,
-                      currentlyLivingTogether: currentlyLivingTogether,
+                      personID: personID,
                     );
                   }
 
@@ -87,7 +86,7 @@ class RelativesScreen extends ConsumerWidget {
                     relationshipLabel: relationshipLabel,
                     name: name,
                     relationshipAmount: relationshipAmount,
-                    currentlyLivingTogether: currentlyLivingTogether,
+                    personID: personID,
                   );
                 },
                 separatorBuilder: (context, index) {

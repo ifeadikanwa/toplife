@@ -18,7 +18,6 @@ void main() {
             inLawRelationshipType: InLawRelationshipType.sibling.name,
             relationship: 89,
             haveRomanticRelationship: false,
-            currentlyLivingTogether: false,
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -56,7 +55,6 @@ void main() {
             inLawRelationshipType: InLawRelationshipType.parent.name,
             relationship: 89,
             haveRomanticRelationship: false,
-            currentlyLivingTogether: false,
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -94,7 +92,6 @@ void main() {
             inLawRelationshipType: InLawRelationshipType.child.name,
             relationship: 89,
             haveRomanticRelationship: false,
-            currentlyLivingTogether: false,
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -135,7 +132,6 @@ void main() {
             inLawRelationshipType: InLawRelationshipType.parent.name,
             relationship: 89,
             haveRomanticRelationship: false,
-            currentlyLivingTogether: false,
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -173,7 +169,6 @@ void main() {
             inLawRelationshipType: InLawRelationshipType.child.name,
             relationship: 89,
             haveRomanticRelationship: false,
-            currentlyLivingTogether: false,
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -211,7 +206,6 @@ void main() {
             inLawRelationshipType: InLawRelationshipType.sibling.name,
             relationship: 89,
             haveRomanticRelationship: false,
-            currentlyLivingTogether: false,
             interestedInRelationship: true,
           ),
           person: const Person(
