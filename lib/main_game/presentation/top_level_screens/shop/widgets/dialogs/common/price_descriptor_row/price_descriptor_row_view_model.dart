@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/get/player_and_game/current_player_bar_info_provider.dart';
+import 'package:toplife/core/utils/money/format_money_to_string.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 
 final priceDescriptorRowViewModelProvider =
@@ -31,11 +32,13 @@ class PriceDescriptorRowViewModel {
         _currentCurrency = currentCurrency;
 
   String getEconomyAdjustedPrice({required int basePrice}) {
-    final adjustedPrice = getCountryEconomyAdjustedPrice(
+    final int adjustedPrice = getCountryEconomyAdjustedPrice(
       country: _currentCountry,
       basePrice: basePrice,
     );
 
-    return "$_currentCurrency$adjustedPrice";
+    final String formattedAdjustedPrice = formatMoneyToString(adjustedPrice);
+
+    return "$_currentCurrency$formattedAdjustedPrice";
   }
 }

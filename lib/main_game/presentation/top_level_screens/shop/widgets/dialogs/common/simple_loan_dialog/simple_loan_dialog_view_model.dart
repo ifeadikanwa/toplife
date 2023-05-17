@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/recurring_bill/recurring_bill_dependencies_providers.dart';
 import 'package:toplife/core/common_states/get/player_and_game/current_player_bar_info_provider.dart';
 import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/core/utils/money/format_money_to_string.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/bill_type.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
@@ -69,68 +70,63 @@ class SimpleLoanDialogViewModel extends StateNotifier<AsyncValue<double>> {
       country: _currentCountry,
       basePrice: _getBaseDownPayment(basePrice),
     );
-    return "$_currentCurrency$adjustedDownPayment";
+    return "$_currentCurrency${formatMoneyToString(adjustedDownPayment)}";
   }
 
   String getEconomyAdjustedLoanAmount(BillType billType, int basePrice) {
     final baseLoanAmount = _getBaseLoanAmount(basePrice);
 
-    String adjustedLoanAmount = "";
+    String formattedAdjustedLoanAmount = "";
 
     switch (billType) {
       case BillType.carLoan:
-        adjustedLoanAmount = _recurringBillsUsecases.carLoanCalculatorUsecase
-            .execute(
-              baseLoanAmount: baseLoanAmount,
-              country: _currentCountry,
-            )
-            .toString();
+        formattedAdjustedLoanAmount = formatMoneyToString(
+            _recurringBillsUsecases.carLoanCalculatorUsecase.execute(
+          baseLoanAmount: baseLoanAmount,
+          country: _currentCountry,
+        ));
         break;
       case BillType.mortgageLoan:
-        adjustedLoanAmount =
-            _recurringBillsUsecases.mortgageLoanCalculatorUsecase
-                .execute(
-                  baseLoanAmount: baseLoanAmount,
-                  country: _currentCountry,
-                )
-                .toString();
+        formattedAdjustedLoanAmount = formatMoneyToString(
+            _recurringBillsUsecases.mortgageLoanCalculatorUsecase.execute(
+          baseLoanAmount: baseLoanAmount,
+          country: _currentCountry,
+        ));
         break;
       default:
-        adjustedLoanAmount = TextConstants.dash;
+        formattedAdjustedLoanAmount = TextConstants.dash;
     }
 
-    return "$_currentCurrency$adjustedLoanAmount";
+    return "$_currentCurrency$formattedAdjustedLoanAmount";
   }
 
   String getEconomyAdjustedInstallmentAmount(BillType billType, int basePrice) {
     final baseLoanAmount = _getBaseLoanAmount(basePrice);
 
-    String adjustedInstallmentAmount = "";
+    String formattedAdjustedInstallmentAmount = "";
 
     switch (billType) {
       case BillType.carLoan:
-        adjustedInstallmentAmount =
-            _recurringBillsUsecases.carLoanRecurringPaymentCalculatorUsecase
-                .execute(
-                  baseLoanAmount: baseLoanAmount,
-                  country: _currentCountry,
-                )
-                .toString();
+        formattedAdjustedInstallmentAmount = formatMoneyToString(_recurringBillsUsecases
+            .carLoanRecurringPaymentCalculatorUsecase
+            .execute(
+          baseLoanAmount: baseLoanAmount,
+          country: _currentCountry,
+        ));
         break;
       case BillType.mortgageLoan:
-        adjustedInstallmentAmount = _recurringBillsUsecases
+        formattedAdjustedInstallmentAmount = formatMoneyToString(_recurringBillsUsecases
             .mortgageLoanRecurringPaymentCalculatorUsecase
             .execute(
-              baseLoanAmount: baseLoanAmount,
-              country: _currentCountry,
-            )
-            .toString();
+          baseLoanAmount: baseLoanAmount,
+          country: _currentCountry,
+        ));
         break;
       default:
-        adjustedInstallmentAmount = TextConstants.dash;
+        formattedAdjustedInstallmentAmount = TextConstants.dash;
     }
 
-    return "$_currentCurrency$adjustedInstallmentAmount";
+    return "$_currentCurrency$formattedAdjustedInstallmentAmount";
   }
 
   double getSliderMin() {

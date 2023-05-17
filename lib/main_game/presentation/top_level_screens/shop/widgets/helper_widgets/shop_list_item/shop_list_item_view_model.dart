@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/get/player_and_game/current_player_bar_info_provider.dart';
+import 'package:toplife/core/utils/money/format_money_to_string.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 
 final shopListItemViewModelProvider =
@@ -45,12 +46,14 @@ class ShopListItemViewModel extends StateNotifier<AsyncValue<String>> {
     state = await AsyncValue.guard(() async => currentCurrencyFuture);
   }
 
-  int getEconomyAdjustedItemPrice({required int itemBasePrice}) {
-    //player country from currentPlayerBarInfoProvider can be an empty string. 
+  String getEconomyAdjustedItemPrice({required int itemBasePrice}) {
+    //player country from currentPlayerBarInfoProvider can be an empty string.
     //We don't have to worry because this funtion handles situations where we dont have a valid country
-    return getCountryEconomyAdjustedPrice(
-      country: _playerCountry,
-      basePrice: itemBasePrice,
+    return formatMoneyToString(
+      getCountryEconomyAdjustedPrice(
+        country: _playerCountry,
+        basePrice: itemBasePrice,
+      ),
     );
   }
 }

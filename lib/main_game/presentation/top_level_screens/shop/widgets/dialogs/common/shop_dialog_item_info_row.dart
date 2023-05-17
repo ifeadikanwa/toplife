@@ -19,7 +19,7 @@ class ShopDialogItemInfoRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Image.asset(
-          "assets/images/baby_food.jpg",
+          "assets/images/house.png",
           height: 40,
           width: 40,
         ),
