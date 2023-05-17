@@ -13,6 +13,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/set_all_person_cars_to_not_currently_driving_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/update_car_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/add_food_to_fridge_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_all_person_fridge_food_pairs_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_food_record_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_fridge_food_count_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/purchase_food_usecase.dart';
@@ -238,6 +239,12 @@ class ShopAndStorageUsecases {
 
   UseFoodUsecase get useFoodUsecase => UseFoodUsecase(
         _shopAndStorageRepositories.fridgeFoodRepositoryImpl,
+      );
+
+  GetAllPersonFridgeFoodPairsUsecase get getAllPersonFridgeFoodPairsUsecase =>
+      GetAllPersonFridgeFoodPairsUsecase(
+        _shopAndStorageRepositories.fridgeFoodRepositoryImpl,
+        _shopAndStorageRepositories.foodRepositoryImpl,
       );
 
   PurchaseCarWithLoanUsecase get purchaseCarWithLoanUsecase =>

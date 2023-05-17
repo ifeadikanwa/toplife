@@ -1,4 +1,5 @@
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
+import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_player_information_from_data_usecase.dart';
@@ -19,13 +20,14 @@ import 'package:toplife/main_systems/system_person/domain/usecases/manage_surviv
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/deplete/deplete_main_player_hunger_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/npc/deplete_non_player_hunger_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/deplete/deplete_main_player_mood_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/increase/eat_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/increase/eat/eat_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_a_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_list_of_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_player_money_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/npc/make_non_player_hungry_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/increase/eat/quick_eat_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/increase/increase_main_player_soberness_usecase.dart.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/increase/sleep_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/take_money_from_player_usecase.dart';
@@ -46,12 +48,15 @@ import 'package:toplife/main_systems/system_person/domain/usecases/watch/watch_p
 class PersonUsecases {
   final PersonRepositories _personRepositories;
   final AgeUsecases _ageUsecases;
+  final JournalUsecases _journalUsecases;
 
   const PersonUsecases({
     required PersonRepositories personRepositories,
     required AgeUsecases ageUsecases,
+    required JournalUsecases journalUsecases,
   })  : _personRepositories = personRepositories,
-        _ageUsecases = ageUsecases;
+        _ageUsecases = ageUsecases,
+        _journalUsecases = journalUsecases;
 
   GenerateAPersonUsecase get generateAPersonUsecase =>
       GenerateAPersonUsecase(ageUsecases: _ageUsecases);
@@ -131,11 +136,20 @@ class PersonUsecases {
       );
 
   EatUsecase get eatUsecase => EatUsecase(
+        _personRepositories.statsRepositoryImpl,
         updateHungerStatsUsecase,
+        _journalUsecases,
+      );
+
+  QuickEatUsecase get quickEatUsecase => QuickEatUsecase(
+        _personRepositories.statsRepositoryImpl,
+        eatUsecase,
       );
 
   SleepUsecase get sleepUsecase => SleepUsecase(
         updateEnergyStatsUsecase,
+        _personRepositories.statsRepositoryImpl,
+        _journalUsecases,
       );
 
   MakeNonPlayerHungryUsecase get makeNonPlayerHungryUsecase =>

@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 
 void main() {
@@ -43,6 +44,27 @@ void main() {
       "soberIncreaseRatePerHour is 10",
       () {
         expect(StatsConstants.soberIncreaseRatePerHour, 10);
+      },
+    );
+
+    test(
+      "energyGainRatePerHour is 10",
+      () {
+        expect(StatsConstants.energyGainRatePerHour, 10);
+      },
+    );
+
+    test(
+      "maxEnergyForChanceToOversleep is 65",
+      () {
+        expect(StatsConstants.maxEnergyForChanceToOversleep, 65);
+      },
+    );
+
+    test(
+      "percentageChanceToOversleep is 20",
+      () {
+        expect(StatsConstants.percentageChanceToOversleep, 20);
       },
     );
 
@@ -147,6 +169,51 @@ void main() {
       "babyHungerEmergencyModeStat is 10",
       () {
         expect(StatsConstants.babyHungerEmergencyModeStat, 10);
+      },
+    );
+
+    test(
+      "possibleSleepHoursInMinutes is correct",
+      () {
+        expect(
+          StatsConstants.possibleSleepHoursInMinutes,
+          [
+            DurationTimeInMinutes.zero,
+            DurationTimeInMinutes.oneHour,
+            DurationTimeInMinutes.twoHours,
+            DurationTimeInMinutes.threeHours,
+            DurationTimeInMinutes.fourHours,
+            DurationTimeInMinutes.fiveHours,
+            DurationTimeInMinutes.sixHours,
+            DurationTimeInMinutes.sevenHours,
+            DurationTimeInMinutes.eightHours,
+            DurationTimeInMinutes.nineHours,
+            DurationTimeInMinutes.tenHours,
+          ],
+        );
+      },
+    );
+
+    test(
+      "possibleSleepMinutesInMinutes is correct",
+      () {
+        expect(
+          StatsConstants.possibleSleepMinutesInMinutes,
+          [
+            DurationTimeInMinutes.zero,
+            DurationTimeInMinutes.fiveMinutes,
+            DurationTimeInMinutes.tenMinutes,
+            DurationTimeInMinutes.fifteenMinutes,
+            DurationTimeInMinutes.twentyMinutes,
+            DurationTimeInMinutes.twentyFiveMinutes,
+            DurationTimeInMinutes.thirtyMinutes,
+            DurationTimeInMinutes.thirtyFiveMinutes,
+            DurationTimeInMinutes.fortyMinutes,
+            DurationTimeInMinutes.fortyFiveMinutes,
+            DurationTimeInMinutes.fiftyMinutes,
+            DurationTimeInMinutes.fiftyFiveMinutes,
+          ],
+        );
       },
     );
 

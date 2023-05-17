@@ -279,6 +279,12 @@ class ShopScreen extends ConsumerWidget {
                 // CurrentHomeDaoImpl(db).deleteCurrentHome(1);
                 // CurrentHomeDaoImpl(db).deleteCurrentHome(2);
                 // CurrentHomeDaoImpl(db).deleteCurrentHome(3);
+
+                // ref.watch(personUsecasesProvider).updateStatsUsecase.execute(
+                //       mainPersonID: 1,
+                //       override: true,
+                //       energy: 20,
+                //     );
               },
               child: const Text("Run"),
             ),

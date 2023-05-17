@@ -40,9 +40,10 @@ class PerformPartyActivity {
       case PartyEventActivity.eatAndLeave:
         firstPersonPartyActivityDesc =
             "I came with one mission, EAT, and I think I did a pretty good job.";
-        await _personUsecases.eatUsecase.execute(
-          personID: mainPlayerID,
-          nutrition: (Random().nextInt(20) + 30), //30-50
+        await _personUsecases.updateHungerStatsUsecase.execute(
+          mainPersonID: mainPlayerID,
+          change: (Random().nextInt(20) + 30), //30-50
+          override: false,
         );
         break;
       case PartyEventActivity.socialize:

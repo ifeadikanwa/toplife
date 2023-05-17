@@ -38,8 +38,8 @@ class EventSection extends ConsumerWidget {
                 ],
         );
       },
-      error: (error, stackTrace) => const NoEventListItem(),
-      loading: () => Container(),
+      error: (error, stackTrace) => Container(),
+      loading: () => const NoEventListItem(),
     );
   }
 }

@@ -152,19 +152,19 @@ class PlayerInformationCard extends ConsumerWidget {
     return MultipleStatsWidget(
       statsList: [
         StatsItem(
-          statsName: TextConstants.energy.toUpperCase(),
+          statsName: TextConstants.energy,
           statsLevel: playerStats.energy,
         ),
         StatsItem(
-          statsName: TextConstants.hunger.toUpperCase(),
+          statsName: TextConstants.hunger,
           statsLevel: playerStats.hunger,
         ),
         StatsItem(
-          statsName: TextConstants.mood.toUpperCase(),
+          statsName: TextConstants.mood,
           statsLevel: playerStats.mood,
         ),
         StatsItem(
-          statsName: TextConstants.health.toUpperCase(),
+          statsName: TextConstants.health,
           statsLevel: playerStats.health,
         ),
       ],

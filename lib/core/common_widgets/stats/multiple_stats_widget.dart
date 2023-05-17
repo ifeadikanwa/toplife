@@ -5,11 +5,10 @@ import 'package:toplife/main_systems/system_person/domain/model/info_models/stat
 
 class MultipleStatsWidget extends StatelessWidget {
   final List<StatsItem> statsList;
+
   const MultipleStatsWidget({
     Key? key,
     required this.statsList,
-    // required this.statName,
-    // required this.progressValue,
   }) : super(key: key);
 
   @override
@@ -36,7 +35,7 @@ class MultipleStatsWidget extends StatelessWidget {
         .map(
           (stats) => addVerticalPadding(
             widget: Text(
-              stats.statsName,
+              stats.statsName.toUpperCase(),
               style: statsTextStyle,
             ),
           ),

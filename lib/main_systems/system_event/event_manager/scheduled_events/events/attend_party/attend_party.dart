@@ -42,9 +42,10 @@ class AttendParty {
     //todo: move time forward
 
     //increase relationship w/ host, wellbeing and hunger
-    await _personUsecases.eatUsecase.execute(
-      personID: mainPlayerID,
-      nutrition: (Random().nextInt(30)), //1-30
+    await _personUsecases.updateHungerStatsUsecase.execute(
+      mainPersonID: mainPlayerID,
+      change: (Random().nextInt(30)), 
+      override: false,//1-30
     );
 
     await _personUsecases.updateMoodStatsUsecase.execute(
