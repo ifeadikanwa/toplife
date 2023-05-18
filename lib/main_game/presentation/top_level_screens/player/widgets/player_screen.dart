@@ -13,9 +13,9 @@ class PlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        const TopLevelAppBar(
+        TopLevelAppBar(
           leading: Icon(
             Icons.menu_outlined,
           ),
@@ -30,7 +30,7 @@ class PlayerScreen extends StatelessWidget {
           child: ScreenContent(
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 MoneyAndTimeCard(),
                 PlayerInformationCard(),
                 HomeOptions(),

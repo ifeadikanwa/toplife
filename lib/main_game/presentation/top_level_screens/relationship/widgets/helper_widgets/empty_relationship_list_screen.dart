@@ -7,10 +7,10 @@ class EmptyRelationshipListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
+      children: [
         Icon(
           Icons.group_off_outlined,
           size: 50,

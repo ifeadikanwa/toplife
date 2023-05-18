@@ -13,12 +13,12 @@ class WorkScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TopLevelScreen(
+    return const TopLevelScreen(
       title: TextConstants.work,
       child: ScrollableScreenContent(
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             CurrentSection(),
             HistorySection(),
             OpportunitiesSection(),

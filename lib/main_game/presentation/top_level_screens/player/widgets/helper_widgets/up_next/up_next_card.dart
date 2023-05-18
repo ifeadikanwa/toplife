@@ -17,9 +17,9 @@ class UpNextCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedCard(children: [
-      Column(
+      const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(TextConstants.upNext,
               style: TextStyle(
                 fontWeight: FontWeight.bold,

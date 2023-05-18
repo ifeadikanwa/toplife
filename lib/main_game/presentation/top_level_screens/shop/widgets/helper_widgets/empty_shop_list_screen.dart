@@ -7,10 +7,10 @@ class EmptyShopListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
+      children: [
         Icon(
           Icons.remove_shopping_cart_outlined,
           size: 50,

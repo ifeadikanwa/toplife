@@ -12,11 +12,11 @@ class ActivitiesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return TopLevelScreen(
+    return const TopLevelScreen(
       title: TextConstants.activities,
       child: ScrollableScreenContent(
         content: Column(
-          children: const [
+          children: [
             QuickActionsSection(),
             EventSection(),
             ActivitiesSection(),
