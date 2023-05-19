@@ -4,7 +4,7 @@ import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
 
 class StatsConstants {
   //chance
-  static const percentageChanceToOversleep = 20;
+  static const percentageChanceToOversleep = 10;
 
   //thresholds
   static const healthDepletionThreshold = 65;

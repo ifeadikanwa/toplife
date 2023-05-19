@@ -1,9 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/dialog_button.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
@@ -50,15 +50,16 @@ class SleepActionDialog extends ConsumerWidget {
         const AddVerticalSpace(
           height: DialogConstants.verticalDescriptionButtonSpacing,
         ),
-        DialogButton(
-          buttonDescription: ActivitiesDialogText.sleep,
-          action: () async {
+        ElevatedButton(
+          onPressed: () async {
+            AutoRouter.of(context).pop();
             await sleepActionDialogViewModel.sleep(
               context: context,
               currentGame: currentGame,
             );
           },
-        )
+          child: const Text(ActivitiesDialogText.sleep),
+        ),
       ],
     );
   }

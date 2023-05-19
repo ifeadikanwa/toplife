@@ -62,9 +62,9 @@ void main() {
     );
 
     test(
-      "percentageChanceToOversleep is 20",
+      "percentageChanceToOversleep is 10",
       () {
-        expect(StatsConstants.percentageChanceToOversleep, 20);
+        expect(StatsConstants.percentageChanceToOversleep, 10);
       },
     );
 

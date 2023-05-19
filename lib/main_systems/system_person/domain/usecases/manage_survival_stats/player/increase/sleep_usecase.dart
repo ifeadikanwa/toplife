@@ -62,7 +62,6 @@ class SleepUsecase {
         willOverSleep = false;
       }
 
-
       //values needed
 
       //UPDATE ENERGY
