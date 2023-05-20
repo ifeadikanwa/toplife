@@ -33,6 +33,9 @@ class RouteName {
   static const inLawsPath = "inlaws";
   static const exesPath = "exes";
   static const gravePath = "grave";
+  //--relationship actions
+  static const relationshipActionsPath = "relationship_actions";
+
 
   //-shop
   //--food

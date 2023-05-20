@@ -6,6 +6,7 @@ import 'package:toplife/game_manager/presentation/game_manager_screen.dart';
 import 'package:toplife/main_game/presentation/main_game_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/player_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/relationship_actions_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/children_screen/children_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/exes_screen/exes_screen.dart';
@@ -192,6 +193,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
           name: RouteName.relationshipRouter,
           page: EmptyRouterPage,
           children: [
+            
             //all screens under relationship tab
             AutoRoute(
               path: RouteName.emptyPath,
@@ -208,6 +210,12 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
                 AutoRoute(path: RouteName.exesPath, page: ExesScreen),
                 AutoRoute(path: RouteName.gravePath, page: GravesScreen),
               ],
+            ),
+
+            //other screens that can be navigated to under relationship tab
+            AutoRoute(
+              path: RouteName.relationshipActionsPath,
+              page: RelationshipActionsScreen,
             ),
           ],
         ),

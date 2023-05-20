@@ -9,7 +9,7 @@ class RelationshipAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Avatar(
+    return AvatarWidget(
       avatarSize: 45,
       imagePath: avatarImagePath,
     );
