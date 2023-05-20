@@ -1,5 +1,6 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
 
 class StatsConstants {
@@ -73,6 +74,13 @@ class StatsConstants {
 
   static int getValidEnergyorHungerStatsValue() {
     return getValidRandomStatsValue(minValue: 50);
+  }
+
+  static int getValidAlcoholToleranceStatsValue() {
+    return getValidRandomStatsValue(
+      minValue: 0,
+      maxValue: maxStatsValue,
+    );
   }
 
   static const defaultDepleteStatsFlag = DepleteStatsFlag(

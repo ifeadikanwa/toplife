@@ -21,6 +21,7 @@ void main() {
           looks: 76,
           athleticism: 90,
           intellect: 24,
+          alcoholTolerance: 76,
         ),
         jobTitles: "Writer",
       );
@@ -41,6 +42,7 @@ void main() {
           looks: 87,
           athleticism: 100,
           intellect: 82,
+          alcoholTolerance: 45,
         ),
         jobTitles: "Footballer",
       );
@@ -61,6 +63,7 @@ void main() {
             looks: 87,
             athleticism: 100,
             intellect: 82,
+            alcoholTolerance: 45,
           ),
           jobTitles: "Footballer",
         ),
@@ -87,6 +90,7 @@ void main() {
             looks: 0,
             athleticism: 0,
             intellect: 0,
+            alcoholTolerance: 0
           ),
           jobTitles: "",
         ),

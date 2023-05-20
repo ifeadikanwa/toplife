@@ -1545,6 +1545,12 @@ class $StatsTableTable extends StatsTable
   late final GeneratedColumn<int> intellect = GeneratedColumn<int>(
       'intellect', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _alcoholToleranceMeta =
+      const VerificationMeta('alcoholTolerance');
+  @override
+  late final GeneratedColumn<int> alcoholTolerance = GeneratedColumn<int>(
+      'alcohol_tolerance', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -1556,7 +1562,8 @@ class $StatsTableTable extends StatsTable
         sober,
         looks,
         athleticism,
-        intellect
+        intellect,
+        alcoholTolerance
       ];
   @override
   String get aliasedName => _alias ?? 'stats';
@@ -1626,6 +1633,14 @@ class $StatsTableTable extends StatsTable
     } else if (isInserting) {
       context.missing(_intellectMeta);
     }
+    if (data.containsKey('alcohol_tolerance')) {
+      context.handle(
+          _alcoholToleranceMeta,
+          alcoholTolerance.isAcceptableOrUnknown(
+              data['alcohol_tolerance']!, _alcoholToleranceMeta));
+    } else if (isInserting) {
+      context.missing(_alcoholToleranceMeta);
+    }
     return context;
   }
 
@@ -1655,6 +1670,8 @@ class $StatsTableTable extends StatsTable
           .read(DriftSqlType.int, data['${effectivePrefix}athleticism'])!,
       intellect: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}intellect'])!,
+      alcoholTolerance: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}alcohol_tolerance'])!,
     );
   }
 
@@ -1675,6 +1692,7 @@ class Stats extends DataClass implements Insertable<Stats> {
   final int looks;
   final int athleticism;
   final int intellect;
+  final int alcoholTolerance;
   const Stats(
       {required this.id,
       required this.personId,
@@ -1685,7 +1703,8 @@ class Stats extends DataClass implements Insertable<Stats> {
       required this.sober,
       required this.looks,
       required this.athleticism,
-      required this.intellect});
+      required this.intellect,
+      required this.alcoholTolerance});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1699,6 +1718,7 @@ class Stats extends DataClass implements Insertable<Stats> {
     map['looks'] = Variable<int>(looks);
     map['athleticism'] = Variable<int>(athleticism);
     map['intellect'] = Variable<int>(intellect);
+    map['alcohol_tolerance'] = Variable<int>(alcoholTolerance);
     return map;
   }
 
@@ -1714,6 +1734,7 @@ class Stats extends DataClass implements Insertable<Stats> {
       looks: Value(looks),
       athleticism: Value(athleticism),
       intellect: Value(intellect),
+      alcoholTolerance: Value(alcoholTolerance),
     );
   }
 
@@ -1731,6 +1752,7 @@ class Stats extends DataClass implements Insertable<Stats> {
       looks: serializer.fromJson<int>(json['looks']),
       athleticism: serializer.fromJson<int>(json['athleticism']),
       intellect: serializer.fromJson<int>(json['intellect']),
+      alcoholTolerance: serializer.fromJson<int>(json['alcoholTolerance']),
     );
   }
   @override
@@ -1747,6 +1769,7 @@ class Stats extends DataClass implements Insertable<Stats> {
       'looks': serializer.toJson<int>(looks),
       'athleticism': serializer.toJson<int>(athleticism),
       'intellect': serializer.toJson<int>(intellect),
+      'alcoholTolerance': serializer.toJson<int>(alcoholTolerance),
     };
   }
 
@@ -1760,7 +1783,8 @@ class Stats extends DataClass implements Insertable<Stats> {
           int? sober,
           int? looks,
           int? athleticism,
-          int? intellect}) =>
+          int? intellect,
+          int? alcoholTolerance}) =>
       Stats(
         id: id ?? this.id,
         personId: personId ?? this.personId,
@@ -1772,6 +1796,7 @@ class Stats extends DataClass implements Insertable<Stats> {
         looks: looks ?? this.looks,
         athleticism: athleticism ?? this.athleticism,
         intellect: intellect ?? this.intellect,
+        alcoholTolerance: alcoholTolerance ?? this.alcoholTolerance,
       );
   @override
   String toString() {
@@ -1785,14 +1810,15 @@ class Stats extends DataClass implements Insertable<Stats> {
           ..write('sober: $sober, ')
           ..write('looks: $looks, ')
           ..write('athleticism: $athleticism, ')
-          ..write('intellect: $intellect')
+          ..write('intellect: $intellect, ')
+          ..write('alcoholTolerance: $alcoholTolerance')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(id, personId, energy, hunger, mood, health,
-      sober, looks, athleticism, intellect);
+      sober, looks, athleticism, intellect, alcoholTolerance);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1806,7 +1832,8 @@ class Stats extends DataClass implements Insertable<Stats> {
           other.sober == this.sober &&
           other.looks == this.looks &&
           other.athleticism == this.athleticism &&
-          other.intellect == this.intellect);
+          other.intellect == this.intellect &&
+          other.alcoholTolerance == this.alcoholTolerance);
 }
 
 class StatsTableCompanion extends UpdateCompanion<Stats> {
@@ -1820,6 +1847,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
   final Value<int> looks;
   final Value<int> athleticism;
   final Value<int> intellect;
+  final Value<int> alcoholTolerance;
   const StatsTableCompanion({
     this.id = const Value.absent(),
     this.personId = const Value.absent(),
@@ -1831,6 +1859,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
     this.looks = const Value.absent(),
     this.athleticism = const Value.absent(),
     this.intellect = const Value.absent(),
+    this.alcoholTolerance = const Value.absent(),
   });
   StatsTableCompanion.insert({
     this.id = const Value.absent(),
@@ -1843,6 +1872,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
     required int looks,
     required int athleticism,
     required int intellect,
+    required int alcoholTolerance,
   })  : personId = Value(personId),
         energy = Value(energy),
         hunger = Value(hunger),
@@ -1851,7 +1881,8 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
         sober = Value(sober),
         looks = Value(looks),
         athleticism = Value(athleticism),
-        intellect = Value(intellect);
+        intellect = Value(intellect),
+        alcoholTolerance = Value(alcoholTolerance);
   static Insertable<Stats> custom({
     Expression<int>? id,
     Expression<int>? personId,
@@ -1863,6 +1894,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
     Expression<int>? looks,
     Expression<int>? athleticism,
     Expression<int>? intellect,
+    Expression<int>? alcoholTolerance,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1875,6 +1907,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
       if (looks != null) 'looks': looks,
       if (athleticism != null) 'athleticism': athleticism,
       if (intellect != null) 'intellect': intellect,
+      if (alcoholTolerance != null) 'alcohol_tolerance': alcoholTolerance,
     });
   }
 
@@ -1888,7 +1921,8 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
       Value<int>? sober,
       Value<int>? looks,
       Value<int>? athleticism,
-      Value<int>? intellect}) {
+      Value<int>? intellect,
+      Value<int>? alcoholTolerance}) {
     return StatsTableCompanion(
       id: id ?? this.id,
       personId: personId ?? this.personId,
@@ -1900,6 +1934,7 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
       looks: looks ?? this.looks,
       athleticism: athleticism ?? this.athleticism,
       intellect: intellect ?? this.intellect,
+      alcoholTolerance: alcoholTolerance ?? this.alcoholTolerance,
     );
   }
 
@@ -1936,6 +1971,9 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
     if (intellect.present) {
       map['intellect'] = Variable<int>(intellect.value);
     }
+    if (alcoholTolerance.present) {
+      map['alcohol_tolerance'] = Variable<int>(alcoholTolerance.value);
+    }
     return map;
   }
 
@@ -1951,7 +1989,8 @@ class StatsTableCompanion extends UpdateCompanion<Stats> {
           ..write('sober: $sober, ')
           ..write('looks: $looks, ')
           ..write('athleticism: $athleticism, ')
-          ..write('intellect: $intellect')
+          ..write('intellect: $intellect, ')
+          ..write('alcoholTolerance: $alcoholTolerance')
           ..write(')'))
         .toString();
   }

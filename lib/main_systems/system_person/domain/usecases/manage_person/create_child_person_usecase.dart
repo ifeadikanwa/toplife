@@ -45,6 +45,7 @@ class CreateChildPersonUsecase {
       looks: getValidRandomStatsValue(),
       intellect: getValidRandomStatsValue(),
       athleticism: getValidRandomStatsValue(),
+      alcoholTolerance: StatsConstants.getValidAlcoholToleranceStatsValue(),
     );
 
     _statsRepository.createStats(createdPersonStats);

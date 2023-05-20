@@ -45,6 +45,7 @@ class PlayerInformation extends Equatable {
       looks: 0,
       athleticism: 0,
       intellect: 0,
+      alcoholTolerance: 0,
     ),
     jobTitles: TextConstants.emptyString,
   );

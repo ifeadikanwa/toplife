@@ -40,6 +40,7 @@ class CreateAdultPersonUsecase {
       looks: getValidRandomStatsValue(),
       intellect: getValidRandomStatsValue(),
       athleticism: getValidRandomStatsValue(),
+      alcoholTolerance: StatsConstants.getValidAlcoholToleranceStatsValue(),
     );
 
     await _statsRepository.createStats(createdPersonStats);

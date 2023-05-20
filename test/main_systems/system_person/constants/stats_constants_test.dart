@@ -227,6 +227,16 @@ void main() {
       },
     );
 
+     test(
+      "getValidAlcoholToleranceStatsValue return a number in the range 0 - 100",
+      () {
+        expect(
+          StatsConstants.getValidAlcoholToleranceStatsValue(),
+          inInclusiveRange(0, 100),
+        );
+      },
+    );
+
     test(
       "defaultDepleteStatsFlag is correct",
       () {
