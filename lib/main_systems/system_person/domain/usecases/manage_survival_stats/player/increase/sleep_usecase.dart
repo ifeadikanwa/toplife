@@ -3,7 +3,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/result_with_stats_dialog.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/chance.dart';
-import 'package:toplife/core/utils/date_and_time/convert_to_hours_and_minutes.dart';
+import 'package:toplife/core/utils/date_and_time/get_sentence_time.dart';
 import 'package:toplife/core/utils/date_and_time/time.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
@@ -99,18 +99,12 @@ class SleepUsecase {
           ? SleepResultDialogTexts.overSleepTitle
           : SleepResultDialogTexts.normalSleepTitle;
 
-      //get sleep time
-      final Time expectedSleepTime =
-          convertToHoursAndMinutes(timeInMinutes: activityDurationInMinutes);
-      final Time actualSleepTime =
-          convertToHoursAndMinutes(timeInMinutes: minutesPassed);
-
       //get description
       final String firstPersonNormalSleepDesc =
-          "I slept for ${actualSleepTime.hours}h ${actualSleepTime.minutes}m.";
+          "I slept for ${getSentenceTime(timeInMinutes: minutesPassed)}.";
 
       final String firstPersonOverSleepDesc =
-          "Whoops! Looks like I overslept.\nThe plan was to sleep for ${expectedSleepTime.hours}h ${expectedSleepTime.minutes}m but I slept for ${actualSleepTime.hours}h ${actualSleepTime.minutes}m.";
+          "Whoops! Looks like I overslept.\nThe plan was to sleep for ${getSentenceTime(timeInMinutes: activityDurationInMinutes)} but I slept for ${getSentenceTime(timeInMinutes: minutesPassed)}.";
 
       final String firstPersonResultDesc = (willOverSleep)
           ? firstPersonOverSleepDesc
