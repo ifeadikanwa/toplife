@@ -17,7 +17,7 @@ import 'package:drift/drift.dart' as _i40;
 import 'package:drift_db_viewer/drift_db_viewer.dart' as _i7;
 import 'package:flutter/material.dart' as _i39;
 
-import '../../core/data_source/drift_database/database_provider.dart' as _i42;
+import '../../core/data_source/drift_database/database_provider.dart' as _i41;
 import '../../game_manager/presentation/game_manager_screen.dart' as _i2;
 import '../../main_game/presentation/main_game_screen.dart' as _i1;
 import '../../main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart'
@@ -86,8 +86,10 @@ import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/
     as _i13;
 import '../../main_game/presentation/top_level_screens/work/widgets/work_screen.dart'
     as _i5;
+import '../../main_systems/system_relationship/constants/informal_relationship_type.dart'
+    as _i43;
 import '../../main_systems/system_relationship/domain/model/info_models/relationship_pair.dart'
-    as _i41;
+    as _i42;
 
 class AppRouter extends _i38.RootStackRouter {
   AppRouter([_i39.GlobalKey<_i39.NavigatorState>? navigatorKey])
@@ -300,8 +302,10 @@ class AppRouter extends _i38.RootStackRouter {
         routeData: routeData,
         child: _i27.RelationshipActionsScreen(
           key: args.key,
+          currentGame: args.currentGame,
           relationshipLabel: args.relationshipLabel,
           relationshipPair: args.relationshipPair,
+          informalRelationshipType: args.informalRelationshipType,
           player: args.player,
           relationship: args.relationship,
           livingTogether: args.livingTogether,
@@ -998,9 +1002,11 @@ class RelationshipActionsRoute
     extends _i38.PageRouteInfo<RelationshipActionsRouteArgs> {
   RelationshipActionsRoute({
     _i39.Key? key,
+    required _i41.Game? currentGame,
     required String relationshipLabel,
-    required _i41.RelationshipPair<dynamic> relationshipPair,
-    required _i42.Person player,
+    required _i42.RelationshipPair<dynamic> relationshipPair,
+    required _i43.InformalRelationshipType informalRelationshipType,
+    required _i41.Person player,
     required int relationship,
     required bool livingTogether,
   }) : super(
@@ -1008,8 +1014,10 @@ class RelationshipActionsRoute
           path: 'relationship_actions',
           args: RelationshipActionsRouteArgs(
             key: key,
+            currentGame: currentGame,
             relationshipLabel: relationshipLabel,
             relationshipPair: relationshipPair,
+            informalRelationshipType: informalRelationshipType,
             player: player,
             relationship: relationship,
             livingTogether: livingTogether,
@@ -1022,8 +1030,10 @@ class RelationshipActionsRoute
 class RelationshipActionsRouteArgs {
   const RelationshipActionsRouteArgs({
     this.key,
+    required this.currentGame,
     required this.relationshipLabel,
     required this.relationshipPair,
+    required this.informalRelationshipType,
     required this.player,
     required this.relationship,
     required this.livingTogether,
@@ -1031,11 +1041,15 @@ class RelationshipActionsRouteArgs {
 
   final _i39.Key? key;
 
+  final _i41.Game? currentGame;
+
   final String relationshipLabel;
 
-  final _i41.RelationshipPair<dynamic> relationshipPair;
+  final _i42.RelationshipPair<dynamic> relationshipPair;
 
-  final _i42.Person player;
+  final _i43.InformalRelationshipType informalRelationshipType;
+
+  final _i41.Person player;
 
   final int relationship;
 
@@ -1043,7 +1057,7 @@ class RelationshipActionsRouteArgs {
 
   @override
   String toString() {
-    return 'RelationshipActionsRouteArgs{key: $key, relationshipLabel: $relationshipLabel, relationshipPair: $relationshipPair, player: $player, relationship: $relationship, livingTogether: $livingTogether}';
+    return 'RelationshipActionsRouteArgs{key: $key, currentGame: $currentGame, relationshipLabel: $relationshipLabel, relationshipPair: $relationshipPair, informalRelationshipType: $informalRelationshipType, player: $player, relationship: $relationship, livingTogether: $livingTogether}';
   }
 }
 

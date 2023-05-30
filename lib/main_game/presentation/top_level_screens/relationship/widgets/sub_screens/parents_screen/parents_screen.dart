@@ -1,7 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
@@ -24,6 +22,7 @@ class ParentsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final parentsScreenViewModel = ref.watch(parentsScreenViewModelProvider);
+    
 
     return parentsScreenViewModel.when(
       data: (parentsList) {
@@ -84,15 +83,17 @@ class ParentsScreen extends ConsumerWidget {
                       }
                       return RelationshipListItemWithHeader(
                         onTap: () {
-                          AutoRouter.of(context).push(
-                            RelationshipActionsRoute(
-                              relationshipLabel: relationshipLabel,
-                              relationshipPair: parentsList[index],
-                              player: dummyPlayer,
-                              relationship: 45,
-                              livingTogether: true,
-                            ),
-                          );
+                          // AutoRouter.of(context).push(
+                          //   RelationshipActionsRoute(
+                          //     currentGame: game,
+                          //     informalRelationshipType: InformalRelationshipType.parent,
+                          //     relationshipLabel: relationshipLabel,
+                          //     relationshipPair: parentsList[index],
+                          //     player: dummyPlayer,
+                          //     relationship: 45,
+                          //     livingTogether: true,
+                          //   ),
+                          // );
                         },
                         sectionTitle: sectionTitle,
                         avatarImagePath:
@@ -110,15 +111,17 @@ class ParentsScreen extends ConsumerWidget {
                   //No header needed if you get here
                   return RelationshipListItem(
                     onTap: () {
-                      AutoRouter.of(context).push(
-                        RelationshipActionsRoute(
-                          relationshipLabel: relationshipLabel,
-                          relationshipPair: parentsList[index],
-                          player: dummyPlayer,
-                          relationship: 45,
-                          livingTogether: true,
-                        ),
-                      );
+                      // AutoRouter.of(context).push(
+                      //   RelationshipActionsRoute(
+                      //     currentGame: game,
+                      //         informalRelationshipType: InformalRelationshipType.parent,
+                      //     relationshipLabel: relationshipLabel,
+                      //     relationshipPair: parentsList[index],
+                      //     player: dummyPlayer,
+                      //     relationship: 45,
+                      //     livingTogether: true,
+                      //   ),
+                      // );
                     },
                     avatarImagePath: parentsList[index].person.gender == "Male"
                         ? "assets/images/blank_male_1.png"

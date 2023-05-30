@@ -65,87 +65,114 @@ class UpdateAnyRelationshipAmountUsecase {
       informalRelationshipType: relationshipToMainPerson,
     );
 
+    //RULES:
+    //WE ALWAYS DO DECREASE UPDATES
+    //WE ONLY DO INCREASE UPDATES IF THE RELATIONSHIP PERSON IS INTERESTED IN A RELATIONSHIP
+
     if (relationshipPair != null) {
       //parent
       if (relationshipPair.relationship is Parent) {
         final Parent parent = relationshipPair.relationship as Parent;
 
-        await _updateParentRelationshipUsecase.execute(
-          parent.copyWith(
-            relationship: parent.relationship + change,
-          ),
-        );
+        if (change.isNegative || parent.interestedInRelationship) {
+          await _updateParentRelationshipUsecase.execute(
+            parent.copyWith(
+              relationship: parent.relationship + change,
+            ),
+          );
+        }
       }
 
       //child
       else if (relationshipPair.relationship is Child) {
         final Child child = relationshipPair.relationship as Child;
-        await _updateChildRelationshipUsecase.execute(
-          child.copyWith(
-            relationship: child.relationship + change,
-          ),
-        );
+
+        if (change.isNegative || child.interestedInRelationship) {
+          await _updateChildRelationshipUsecase.execute(
+            child.copyWith(
+              relationship: child.relationship + change,
+            ),
+          );
+        }
       }
 
       //partner
       else if (relationshipPair.relationship is Partner) {
         final Partner partner = relationshipPair.relationship as Partner;
-        await _updatePartnerRelationshipUsecase.execute(
-          partner.copyWith(
-            relationship: partner.relationship + change,
-          ),
-        );
+
+        if (change.isNegative || partner.interestedInRelationship) {
+          await _updatePartnerRelationshipUsecase.execute(
+            partner.copyWith(
+              relationship: partner.relationship + change,
+            ),
+          );
+        }
       }
 
       //sibling
       else if (relationshipPair.relationship is Sibling) {
         final Sibling sibling = relationshipPair.relationship as Sibling;
-        await _updateSiblingRelationshipUsecase.execute(
-          sibling.copyWith(
-            relationship: sibling.relationship + change,
-          ),
-        );
+
+        if (change.isNegative || sibling.interestedInRelationship) {
+          await _updateSiblingRelationshipUsecase.execute(
+            sibling.copyWith(
+              relationship: sibling.relationship + change,
+            ),
+          );
+        }
       }
 
       //relative
       else if (relationshipPair.relationship is Relative) {
         final Relative relative = relationshipPair.relationship as Relative;
-        await _updateRelativeRelationshipUsecase.execute(
-          relative.copyWith(
-            relationship: relative.relationship + change,
-          ),
-        );
+
+        if (change.isNegative || relative.interestedInRelationship) {
+          await _updateRelativeRelationshipUsecase.execute(
+            relative.copyWith(
+              relationship: relative.relationship + change,
+            ),
+          );
+        }
       }
 
       //friend
       else if (relationshipPair.relationship is Friend) {
         final Friend friend = relationshipPair.relationship as Friend;
-        await _updateFriendRelationshipUsecase.execute(
-          friend.copyWith(
-            relationship: friend.relationship + change,
-          ),
-        );
+
+        if (change.isNegative || friend.interestedInRelationship) {
+          await _updateFriendRelationshipUsecase.execute(
+            friend.copyWith(
+              relationship: friend.relationship + change,
+            ),
+          );
+        }
       }
 
       //inlaw
       else if (relationshipPair.relationship is InLaw) {
         final InLaw inLaw = relationshipPair.relationship as InLaw;
-        await _updateInLawRelationshipUsecase.execute(
-          inLaw.copyWith(
-            relationship: inLaw.relationship + change,
-          ),
-        );
+
+        if (change.isNegative || inLaw.interestedInRelationship) {
+          await _updateInLawRelationshipUsecase.execute(
+            inLaw.copyWith(
+              relationship: inLaw.relationship + change,
+            ),
+          );
+        }
       }
 
       //acquaintance
       else if (relationshipPair.relationship is Acquaintance) {
         final Acquaintance acquaintance =
             relationshipPair.relationship as Acquaintance;
-        await _updateAcquaintanceRelationshipUsecase.execute(
-          acquaintance.copyWith(
-            relationship: acquaintance.relationship + change,
-          ),
-        );
+
+        if (change.isNegative || acquaintance.interestedInRelationship) {
+          await _updateAcquaintanceRelationshipUsecase.execute(
+            acquaintance.copyWith(
+              relationship: acquaintance.relationship + change,
+            ),
+          );
+        }
       }
     }
   }
