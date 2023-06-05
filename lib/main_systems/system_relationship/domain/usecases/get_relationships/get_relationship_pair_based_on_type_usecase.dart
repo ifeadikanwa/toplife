@@ -109,6 +109,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
         return RelationshipPair<Acquaintance>(
           relationship: acquaintance,
           person: person,
+          informalRelationshipType: InformalRelationshipType.acquaintance,
         );
       }
     }
@@ -136,6 +137,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
         return RelationshipPair<Friend>(
           relationship: friend,
           person: person,
+          informalRelationshipType: InformalRelationshipType.friend,
         );
       }
     }
@@ -163,6 +165,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
         return RelationshipPair<Parent>(
           relationship: parent,
           person: person,
+          informalRelationshipType: InformalRelationshipType.parent,
         );
       }
     }
@@ -190,6 +193,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
         return RelationshipPair<Partner>(
           relationship: partner,
           person: person,
+          informalRelationshipType: InformalRelationshipType.partner,
         );
       }
     }
@@ -217,6 +221,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
         return RelationshipPair<Child>(
           relationship: child,
           person: person,
+          informalRelationshipType: InformalRelationshipType.child,
         );
       }
     }
@@ -244,6 +249,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
         return RelationshipPair<Sibling>(
           relationship: sibling,
           person: person,
+          informalRelationshipType: InformalRelationshipType.sibling,
         );
       }
     }
@@ -271,6 +277,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
         return RelationshipPair<Relative>(
           relationship: relative,
           person: person,
+          informalRelationshipType: InformalRelationshipType.relative,
         );
       }
     }
@@ -298,6 +305,7 @@ class GetRelationshipPairBasedOnTypeUsecase {
         return RelationshipPair<InLaw>(
           relationship: inLaw,
           person: person,
+          informalRelationshipType: InformalRelationshipType.inLaw,
         );
       }
     }

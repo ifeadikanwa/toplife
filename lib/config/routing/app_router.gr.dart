@@ -17,7 +17,6 @@ import 'package:drift/drift.dart' as _i40;
 import 'package:drift_db_viewer/drift_db_viewer.dart' as _i7;
 import 'package:flutter/material.dart' as _i39;
 
-import '../../core/data_source/drift_database/database_provider.dart' as _i41;
 import '../../game_manager/presentation/game_manager_screen.dart' as _i2;
 import '../../main_game/presentation/main_game_screen.dart' as _i1;
 import '../../main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart'
@@ -26,26 +25,26 @@ import '../../main_game/presentation/top_level_screens/player/widgets/player_scr
     as _i4;
 import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/relationship_actions_screen.dart'
     as _i27;
+import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/children_screen/children_screen.dart'
+    as _i31;
+import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/exes_screen/exes_screen.dart'
+    as _i35;
+import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/friends_screen/friends_screen.dart'
+    as _i34;
+import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/graves_screen/graves_screen.dart'
+    as _i36;
+import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/inlaws_screen/inlaws_screen.dart'
+    as _i33;
+import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/parents_screen/parents_screen.dart'
+    as _i28;
+import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/partners_screen/partners_screen.dart'
+    as _i30;
+import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/relatives_screen/relatives_screen.dart'
+    as _i32;
+import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/siblings_screen/siblings_screen.dart'
+    as _i29;
 import '../../main_game/presentation/top_level_screens/relationship/widgets/relationship_screen.dart'
     as _i26;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/children_screen/children_screen.dart'
-    as _i31;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/exes_screen/exes_screen.dart'
-    as _i35;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/friends_screen/friends_screen.dart'
-    as _i34;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/graves_screen/graves_screen.dart'
-    as _i36;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/inlaws_screen/inlaws_screen.dart'
-    as _i33;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen/parents_screen.dart'
-    as _i28;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/partners_screen/partners_screen.dart'
-    as _i30;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/relatives_screen/relatives_screen.dart'
-    as _i32;
-import '../../main_game/presentation/top_level_screens/relationship/widgets/sub_screens/siblings_screen/siblings_screen.dart'
-    as _i29;
 import '../../main_game/presentation/top_level_screens/shop/widgets/shop_screen.dart'
     as _i6;
 import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/car_shop_screen.dart'
@@ -86,10 +85,6 @@ import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/
     as _i13;
 import '../../main_game/presentation/top_level_screens/work/widgets/work_screen.dart'
     as _i5;
-import '../../main_systems/system_relationship/constants/informal_relationship_type.dart'
-    as _i43;
-import '../../main_systems/system_relationship/domain/model/info_models/relationship_pair.dart'
-    as _i42;
 
 class AppRouter extends _i38.RootStackRouter {
   AppRouter([_i39.GlobalKey<_i39.NavigatorState>? navigatorKey])
@@ -297,19 +292,12 @@ class AppRouter extends _i38.RootStackRouter {
       );
     },
     RelationshipActionsRoute.name: (routeData) {
-      final args = routeData.argsAs<RelationshipActionsRouteArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i38.CustomPage<dynamic>(
         routeData: routeData,
-        child: _i27.RelationshipActionsScreen(
-          key: args.key,
-          currentGame: args.currentGame,
-          relationshipLabel: args.relationshipLabel,
-          relationshipPair: args.relationshipPair,
-          informalRelationshipType: args.informalRelationshipType,
-          player: args.player,
-          relationship: args.relationship,
-          livingTogether: args.livingTogether,
-        ),
+        child: const _i27.RelationshipActionsScreen(),
+        transitionsBuilder: _i38.TransitionsBuilders.slideLeftWithFade,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     ParentsRoute.name: (routeData) {
@@ -998,67 +986,14 @@ class RelationshipRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i27.RelationshipActionsScreen]
-class RelationshipActionsRoute
-    extends _i38.PageRouteInfo<RelationshipActionsRouteArgs> {
-  RelationshipActionsRoute({
-    _i39.Key? key,
-    required _i41.Game? currentGame,
-    required String relationshipLabel,
-    required _i42.RelationshipPair<dynamic> relationshipPair,
-    required _i43.InformalRelationshipType informalRelationshipType,
-    required _i41.Person player,
-    required int relationship,
-    required bool livingTogether,
-  }) : super(
+class RelationshipActionsRoute extends _i38.PageRouteInfo<void> {
+  const RelationshipActionsRoute()
+      : super(
           RelationshipActionsRoute.name,
           path: 'relationship_actions',
-          args: RelationshipActionsRouteArgs(
-            key: key,
-            currentGame: currentGame,
-            relationshipLabel: relationshipLabel,
-            relationshipPair: relationshipPair,
-            informalRelationshipType: informalRelationshipType,
-            player: player,
-            relationship: relationship,
-            livingTogether: livingTogether,
-          ),
         );
 
   static const String name = 'RelationshipActionsRoute';
-}
-
-class RelationshipActionsRouteArgs {
-  const RelationshipActionsRouteArgs({
-    this.key,
-    required this.currentGame,
-    required this.relationshipLabel,
-    required this.relationshipPair,
-    required this.informalRelationshipType,
-    required this.player,
-    required this.relationship,
-    required this.livingTogether,
-  });
-
-  final _i39.Key? key;
-
-  final _i41.Game? currentGame;
-
-  final String relationshipLabel;
-
-  final _i42.RelationshipPair<dynamic> relationshipPair;
-
-  final _i43.InformalRelationshipType informalRelationshipType;
-
-  final _i41.Person player;
-
-  final int relationship;
-
-  final bool livingTogether;
-
-  @override
-  String toString() {
-    return 'RelationshipActionsRouteArgs{key: $key, currentGame: $currentGame, relationshipLabel: $relationshipLabel, relationshipPair: $relationshipPair, informalRelationshipType: $informalRelationshipType, player: $player, relationship: $relationship, livingTogether: $livingTogether}';
-  }
 }
 
 /// generated route for

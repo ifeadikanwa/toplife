@@ -10,11 +10,11 @@ import 'package:toplife/main_systems/system_relationship/util/get_partner_relati
 import 'package:toplife/main_systems/system_relationship/util/get_relative_relationship_label.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_sibling_relationship_label.dart';
 
-String getRelationshipLabel({
+String getRelationshipLabelFromAnyRelationshipPair({
   required RelationshipPair relationshipPair,
   required bool onlyActivePartnerWanted,
 }) {
-  String relationshipLabel = "";
+  String relationshipLabel = TextConstants.dash;
 
   late final Person person;
 

@@ -1,104 +1,124 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/inner_level_screen.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/common_widgets/list_templates/helper_widgets/section_header.dart';
 import 'package:toplife/core/common_widgets/list_templates/interaction_list_item.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
-import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/helper_widgets/relationship_info_card_widget.dart';
-import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/relationship_actions_screen_view_model.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_interaction.dart';
 
 //view model data is list of interactions
 class RelationshipActionsScreen extends ConsumerWidget {
-  final Game? currentGame;
-  final String relationshipLabel;
-  final InformalRelationshipType informalRelationshipType;
-  final RelationshipPair relationshipPair;
-  final Person player;
-  final int relationship;
-  final bool livingTogether;
+  // final String relationshipLabel;
+  // final RelationshipPair relationshipPair;
+  // final int relationship;
+  // final bool showInfoButton;
 
   const RelationshipActionsScreen({
     super.key,
-    required this.currentGame,
-    required this.relationshipLabel,
-    required this.relationshipPair,
-    required this.informalRelationshipType,
-    required this.player,
-    required this.relationship,
-    required this.livingTogether,
+    // required this.relationshipLabel,
+    // required this.relationshipPair,
+    // required this.relationship,
+    // this.showInfoButton = true,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final interactions = ref.watch(gameRelationshipInteractionsProvider);
+    final relationshipActionsScreenViewModelDataProvider =
+        ref.watch(relationshipActionsScreenViewModelProvider);
 
-    return InnerLevelScreen(
-      title: relationshipLabel,
-      child: Expanded(
-        child: ScreenContent(
-          content: ListView.separated(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              //person
-              final Person relationshipPerson = relationshipPair.person;
+    return relationshipActionsScreenViewModelDataProvider.when(
+      data: (relationshipInteractions) {
+        //get the view model class
+        final RelationshipActionsScreenViewModel
+            relationshipActionsScreenViewModel =
+            ref.watch(relationshipActionsScreenViewModelProvider.notifier);
 
-              if (index == 0) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    RelationshipInfoCardWidget(
-                      firstName: relationshipPerson.firstName,
-                      lastName: relationshipPerson.lastName,
-                      age: "Adult",
-                      relationship: 45,
-                      showInfoButton: true,
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: listHeaderPadding),
-                      child: SectionHeader(
-                        sectionTitle: TextConstants.interactions,
-                      ),
-                    ),
-                    InteractionListItem(
-                      interactionTitle: "Chat",
+        //widget
+        return InnerLevelScreen(
+          title: relationshipActionsScreenViewModel.getRelationshipLabel(),
+          child: Expanded(
+            child: ScreenContent(
+              content: ListView.separated(
+                itemCount: relationshipInteractions.length,
+                itemBuilder: (context, index) {
+                  //interaction
+                  final RelationshipInteraction relationshipInteraction =
+                      relationshipInteractions[index];
+                  //person
+                  // final Person relationshipPerson = relationshipActionsScreenViewModel.relationshipPair.person;
+
+                  //Add person info, section header, and list item
+                  if (index == 0) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RelationshipInfoCardWidget(
+                          firstName:
+                              relationshipActionsScreenViewModel.getFirstName(),
+                          lastName:
+                              relationshipActionsScreenViewModel.getLastName(),
+                          age: relationshipActionsScreenViewModel.getAge(),
+                          relationship: relationshipActionsScreenViewModel
+                              .getRelationshipLevel(),
+                          showInfoButton: relationshipActionsScreenViewModel
+                              .showInfoButton(),
+                        ),
+                        const Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: listHeaderPadding),
+                          child: SectionHeader(
+                            sectionTitle: TextConstants.interactions,
+                          ),
+                        ),
+                        InteractionListItem(
+                          interactionTitle: relationshipInteraction.title,
+                          interactionDescription:
+                              relationshipInteraction.description,
+                          timeInMinutes:
+                              relationshipInteraction.durationInMinutes,
+                          onTap: () async {
+                            await relationshipActionsScreenViewModel
+                                .executeInteraction(
+                              relationshipInteraction: relationshipInteraction,
+                              context: context,
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  }
+                  //just add list item
+                  else {
+                    return InteractionListItem(
+                      interactionTitle: relationshipInteraction.title,
                       interactionDescription:
-                          "Have a conversation about any and every thing",
-                      onTap: () {
-                        if (currentGame != null) {
-                          interactions.chatInteraction.execute(
-                            context: context,
-                            currentGame: currentGame!,
-                            currentPlayer: player,
-                            relationshipPair: relationshipPair,
-                            informalRelationshipType: informalRelationshipType,
-                            relationshipLabel: relationshipLabel,
-                          );
-                        }
+                          relationshipInteraction.description,
+                      timeInMinutes: relationshipInteraction.durationInMinutes,
+                      onTap: () async {
+                        await relationshipActionsScreenViewModel
+                            .executeInteraction(
+                          relationshipInteraction: relationshipInteraction,
+                          context: context,
+                        );
                       },
-                    ),
-                  ],
-                );
-              } else {
-                return InteractionListItem(
-                  interactionTitle: "Compliment",
-                  interactionDescription: "Say something nice",
-                  onTap: () {},
-                );
-              }
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const ListDivider();
-            },
+                    );
+                  }
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const ListDivider();
+                },
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
+      error: (error, stackTrace) => const SizedBox(),
+      loading: () => const SizedBox(),
     );
   }
 }

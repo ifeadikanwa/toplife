@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/util/rearrange_relatives_list.dart';
@@ -45,6 +46,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.relative,
         ),
         RelationshipPair(
           relationship: Relative(
@@ -81,6 +83,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.relative,
         ),
         RelationshipPair(
           relationship: Relative(
@@ -117,6 +120,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.relative,
         ),
         RelationshipPair(
           relationship: Relative(
@@ -153,6 +157,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.relative,
         ),
       ];
 
@@ -192,6 +197,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.relative,
         ),
         RelationshipPair(
           relationship: Relative(
@@ -228,6 +234,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.relative,
         ),
         RelationshipPair(
           relationship: Relative(
@@ -264,6 +271,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.relative,
         ),
         RelationshipPair(
           relationship: Relative(
@@ -300,6 +308,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.relative,
         ),
       ];
 

@@ -44,7 +44,7 @@ class NpcBirthday {
     if (relationshipPair != null) {
       final Person person = relationshipPair.person;
 
-      String relationshipLabel = getRelationshipLabel(
+      String relationshipLabel = getRelationshipLabelFromAnyRelationshipPair(
         relationshipPair: relationshipPair,
         onlyActivePartnerWanted: true,
       );

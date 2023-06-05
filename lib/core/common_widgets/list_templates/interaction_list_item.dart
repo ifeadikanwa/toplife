@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/list_templates/action_list_item.dart';
+import 'package:toplife/core/common_widgets/list_templates/timed_action_list_item.dart';
 
 class InteractionListItem extends StatelessWidget {
   final IconData? icon;
   final String interactionTitle;
   final String interactionDescription;
+  final int timeInMinutes;
   final void Function() onTap;
 
   const InteractionListItem({
@@ -12,17 +13,19 @@ class InteractionListItem extends StatelessWidget {
     this.icon,
     required this.interactionTitle,
     required this.interactionDescription,
+    required this.timeInMinutes,
     required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ActionListItem(
+    //todo: needs to display duration
+    return TimedActionListItem(
+      icon: icon,
       actionTitle: interactionTitle,
       actionDescription: interactionDescription,
+      timeInMinutes: timeInMinutes,
       onTap: onTap,
-      icon: icon,
-      hasArrow: false,
       hasDivider: false,
     );
   }

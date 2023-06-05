@@ -85,7 +85,8 @@ class DeathEvent {
         );
 
         //get relationship label and event description
-        final String relationshipLabel = getRelationshipLabel(
+        final String relationshipLabel =
+            getRelationshipLabelFromAnyRelationshipPair(
           relationshipPair: relationshipPair,
           onlyActivePartnerWanted: false,
         );

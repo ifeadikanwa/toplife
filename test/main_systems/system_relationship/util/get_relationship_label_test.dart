@@ -3,6 +3,7 @@ import 'package:toplife/main_systems/system_journal/constants/journal_characters
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/child_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/inlaw_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
@@ -41,16 +42,17 @@ void main() {
     );
 
     test(
-      "returns an empty string if relationship pair is not valid",
+      "returns a dash if relationship pair is not valid",
       () {
         expect(
-            getRelationshipLabel(
+            getRelationshipLabelFromAnyRelationshipPair(
                 relationshipPair: RelationshipPair(
                   relationship: "relationship",
                   person: testPerson,
+                  informalRelationshipType: InformalRelationshipType.child,
                 ),
                 onlyActivePartnerWanted: false),
-            "");
+            "-");
       },
     );
 
@@ -72,10 +74,11 @@ void main() {
         );
 
         expect(
-          getRelationshipLabel(
+          getRelationshipLabelFromAnyRelationshipPair(
             relationshipPair: RelationshipPair(
               relationship: partner,
               person: testPerson,
+              informalRelationshipType: InformalRelationshipType.partner,
             ),
             onlyActivePartnerWanted: true,
           ),
@@ -102,10 +105,11 @@ void main() {
         );
 
         expect(
-          getRelationshipLabel(
+          getRelationshipLabelFromAnyRelationshipPair(
             relationshipPair: RelationshipPair(
               relationship: partner,
               person: testPerson,
+              informalRelationshipType: InformalRelationshipType.partner,
             ),
             onlyActivePartnerWanted: true,
           ),
@@ -132,10 +136,11 @@ void main() {
         );
 
         expect(
-          getRelationshipLabel(
+          getRelationshipLabelFromAnyRelationshipPair(
             relationshipPair: RelationshipPair(
               relationship: partner,
               person: testPerson,
+              informalRelationshipType: InformalRelationshipType.partner,
             ),
             onlyActivePartnerWanted: false,
           ),
@@ -160,10 +165,11 @@ void main() {
         );
 
         expect(
-          getRelationshipLabel(
+          getRelationshipLabelFromAnyRelationshipPair(
             relationshipPair: RelationshipPair(
               relationship: child,
               person: testPerson,
+              informalRelationshipType: InformalRelationshipType.child,
             ),
             onlyActivePartnerWanted: true,
           ),
@@ -188,12 +194,13 @@ void main() {
         );
 
         expect(
-          getRelationshipLabel(
+          getRelationshipLabelFromAnyRelationshipPair(
             relationshipPair: RelationshipPair(
               relationship: parent,
               person: testPerson.copyWith(
                 gender: Gender.Male.name,
               ),
+              informalRelationshipType: InformalRelationshipType.parent,
             ),
             onlyActivePartnerWanted: true,
           ),
@@ -215,10 +222,11 @@ void main() {
         );
 
         expect(
-          getRelationshipLabel(
+          getRelationshipLabelFromAnyRelationshipPair(
             relationshipPair: RelationshipPair(
               relationship: sibling,
               person: testPerson,
+              informalRelationshipType: InformalRelationshipType.sibling,
             ),
             onlyActivePartnerWanted: true,
           ),
@@ -240,12 +248,13 @@ void main() {
         );
 
         expect(
-          getRelationshipLabel(
+          getRelationshipLabelFromAnyRelationshipPair(
             relationshipPair: RelationshipPair(
               relationship: relative,
               person: testPerson.copyWith(
                 gender: Gender.Male.name,
               ),
+              informalRelationshipType: InformalRelationshipType.relative,
             ),
             onlyActivePartnerWanted: true,
           ),
@@ -268,12 +277,13 @@ void main() {
         );
 
         expect(
-          getRelationshipLabel(
+          getRelationshipLabelFromAnyRelationshipPair(
             relationshipPair: RelationshipPair(
               relationship: inLaw,
               person: testPerson.copyWith(
                 gender: Gender.Male.name,
               ),
+              informalRelationshipType: InformalRelationshipType.inLaw,
             ),
             onlyActivePartnerWanted: true,
           ),
@@ -295,9 +305,12 @@ void main() {
         );
 
         expect(
-          getRelationshipLabel(
-            relationshipPair:
-                RelationshipPair(relationship: friend, person: testPerson),
+          getRelationshipLabelFromAnyRelationshipPair(
+            relationshipPair: RelationshipPair(
+              relationship: friend,
+              person: testPerson,
+              informalRelationshipType: InformalRelationshipType.friend,
+            ),
             onlyActivePartnerWanted: true,
           ),
           "friend",

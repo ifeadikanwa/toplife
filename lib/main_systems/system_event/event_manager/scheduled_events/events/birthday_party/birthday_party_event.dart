@@ -85,7 +85,7 @@ class BirthdayPartyEvent {
 
       if (playerCanAttendBirthdayPerty) {
         //get event title and description
-        final relationshipLabel = getRelationshipLabel(
+        final relationshipLabel = getRelationshipLabelFromAnyRelationshipPair(
           relationshipPair: relationshipPair,
           onlyActivePartnerWanted: false,
         );
@@ -188,7 +188,7 @@ class BirthdayPartyEvent {
         "$firstPersonPartyDesc.\n$firstPersonGiftReaction.";
 
     //attend party
-   await _attendParty.execute(
+    await _attendParty.execute(
       context: context,
       event: event,
       mainPlayerID: mainPlayerID,

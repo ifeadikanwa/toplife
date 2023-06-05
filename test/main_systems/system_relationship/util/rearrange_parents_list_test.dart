@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
+import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/parent_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/util/rearrange_parents_list.dart';
@@ -21,7 +22,6 @@ void main() {
             parentRelationshipType: ParentRelationshipType.grand.name,
             relationship: 34,
             isActive: true,
-            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -50,6 +50,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.parent,
         ),
         RelationshipPair(
           relationship: Parent(
@@ -61,7 +62,6 @@ void main() {
             parentRelationshipType: ParentRelationshipType.main.name,
             relationship: 34,
             isActive: true,
-            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -90,6 +90,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.parent,
         ),
         RelationshipPair(
           relationship: Parent(
@@ -101,7 +102,6 @@ void main() {
             parentRelationshipType: ParentRelationshipType.step.name,
             relationship: 34,
             isActive: true,
-            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -130,6 +130,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.parent,
         ),
       ];
 
@@ -144,7 +145,6 @@ void main() {
             parentRelationshipType: ParentRelationshipType.main.name,
             relationship: 34,
             isActive: true,
-            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -173,6 +173,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.parent,
         ),
         RelationshipPair(
           relationship: Parent(
@@ -184,7 +185,6 @@ void main() {
             parentRelationshipType: ParentRelationshipType.step.name,
             relationship: 34,
             isActive: true,
-            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -213,6 +213,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.parent,
         ),
         RelationshipPair(
           relationship: Parent(
@@ -224,7 +225,6 @@ void main() {
             parentRelationshipType: ParentRelationshipType.grand.name,
             relationship: 34,
             isActive: true,
-            
             interestedInRelationship: true,
           ),
           person: const Person(
@@ -253,6 +253,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.parent,
         ),
       ];
 

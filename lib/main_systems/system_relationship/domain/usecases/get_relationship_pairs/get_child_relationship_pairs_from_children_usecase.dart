@@ -1,5 +1,6 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 
 class GetChildRelationshipPairsFromChildrenUsecase {
@@ -25,6 +26,7 @@ class GetChildRelationshipPairsFromChildrenUsecase {
             RelationshipPair<Child>(
               relationship: child,
               person: person,
+              informalRelationshipType: InformalRelationshipType.child,
             ),
           );
         }

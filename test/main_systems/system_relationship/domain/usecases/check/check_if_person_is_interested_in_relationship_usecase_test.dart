@@ -3,6 +3,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
+import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/check/check_if_person_is_interested_in_relationship_usecase.dart';
 
@@ -47,6 +48,7 @@ void main() {
             count: 0,
           ),
           person: testPerson,
+          informalRelationshipType: InformalRelationshipType.child,
         ),
       );
 
@@ -72,6 +74,7 @@ void main() {
             interestedInRelationship: true,
           ),
           person: testPerson,
+          informalRelationshipType: InformalRelationshipType.child,
         ),
       );
 
@@ -97,6 +100,7 @@ void main() {
             interestedInRelationship: true,
           ),
           person: testPerson,
+          informalRelationshipType: InformalRelationshipType.parent,
         ),
       );
 
@@ -119,6 +123,7 @@ void main() {
             interestedInRelationship: true,
           ),
           person: testPerson,
+          informalRelationshipType: InformalRelationshipType.relative,
         ),
       );
 
@@ -141,6 +146,7 @@ void main() {
             interestedInRelationship: true,
           ),
           person: testPerson,
+          informalRelationshipType: InformalRelationshipType.friend,
         ),
       );
 
@@ -168,6 +174,7 @@ void main() {
             interestedInRelationship: true,
           ),
           person: testPerson,
+          informalRelationshipType: InformalRelationshipType.partner,
         ),
       );
 
@@ -191,6 +198,7 @@ void main() {
             interestedInRelationship: true,
           ),
           person: testPerson,
+          informalRelationshipType: InformalRelationshipType.inLaw,
         ),
       );
 
@@ -213,6 +221,7 @@ void main() {
             interestedInRelationship: true,
           ),
           person: testPerson,
+          informalRelationshipType: InformalRelationshipType.sibling,
         ),
       );
 
@@ -234,6 +243,7 @@ void main() {
             interestedInRelationship: true,
           ),
           person: testPerson,
+          informalRelationshipType: InformalRelationshipType.acquaintance,
         ),
       );
 

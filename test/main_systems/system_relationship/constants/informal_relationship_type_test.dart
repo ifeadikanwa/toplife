@@ -28,5 +28,9 @@ void main() {
     test("sibling is a type of informal relationship", () {
       assert(InformalRelationshipType.sibling is InformalRelationshipType);
     });
+
+    test("grave is a type of informal relationship", () {
+      assert(InformalRelationshipType.grave is InformalRelationshipType);
+    });
   });
 }

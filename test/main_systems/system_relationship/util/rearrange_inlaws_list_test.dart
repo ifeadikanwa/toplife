@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/inlaw_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/util/rearrange_inlaws_list.dart';
@@ -46,6 +47,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.inLaw,
         ),
         RelationshipPair(
           relationship: InLaw(
@@ -83,6 +85,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.inLaw,
         ),
         RelationshipPair(
           relationship: InLaw(
@@ -120,6 +123,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.inLaw,
         ),
       ];
 
@@ -160,6 +164,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.inLaw,
         ),
         RelationshipPair(
           relationship: InLaw(
@@ -197,6 +202,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.inLaw,
         ),
         RelationshipPair(
           relationship: InLaw(
@@ -234,6 +240,7 @@ void main() {
             rebellious: false,
             dead: false,
           ),
+          informalRelationshipType: InformalRelationshipType.inLaw,
         ),
       ];
 

@@ -8,15 +8,15 @@ import 'package:toplife/main_game/presentation/top_level_screens/activities/widg
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/player_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/relationship_actions_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/children_screen/children_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/exes_screen/exes_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/friends_screen/friends_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/graves_screen/graves_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/inlaws_screen/inlaws_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/parents_screen/parents_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/partners_screen/partners_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/relatives_screen/relatives_screen.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/sub_screens/siblings_screen/siblings_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/children_screen/children_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/exes_screen/exes_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/friends_screen/friends_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/graves_screen/graves_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/inlaws_screen/inlaws_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/parents_screen/parents_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/partners_screen/partners_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/relatives_screen/relatives_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/siblings_screen/siblings_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/shop_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/car_shop_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/tab_screens/new_cars_screen/new_cars_screen.dart';
@@ -213,9 +213,10 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
             ),
 
             //other screens that can be navigated to under relationship tab
-            AutoRoute(
+             CustomRoute(
               path: RouteName.relationshipActionsPath,
               page: RelationshipActionsScreen,
+              transitionsBuilder: TransitionsBuilders.slideLeftWithFade
             ),
           ],
         ),

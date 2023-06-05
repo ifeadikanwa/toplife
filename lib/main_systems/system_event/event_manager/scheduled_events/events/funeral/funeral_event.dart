@@ -63,7 +63,7 @@ class FuneralEvent {
       );
 
       if (playerCanAttendFuneral) {
-        final relationshipLabel = getRelationshipLabel(
+        final relationshipLabel = getRelationshipLabelFromAnyRelationshipPair(
           relationshipPair: relationshipPair,
           onlyActivePartnerWanted: false,
         );

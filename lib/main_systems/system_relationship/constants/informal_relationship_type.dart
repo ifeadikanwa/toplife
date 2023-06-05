@@ -7,4 +7,5 @@ enum InformalRelationshipType {
   partner,
   relative,
   inLaw,
+  grave,
 }
