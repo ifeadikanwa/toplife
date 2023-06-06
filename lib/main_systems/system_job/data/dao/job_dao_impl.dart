@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/job_dao.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
@@ -14,11 +15,17 @@ class JobDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<Job> createJob(Job job) async {
+    final Job checkedJob = job.copyWith(
+      healthInsuranceCoverage: crossCheckStat(job.healthInsuranceCoverage),
+    );
+
     final JobTableCompanion jobWithoutID =
-        job.toCompanion(false).copyWith(id: const Value.absent());
+        checkedJob.toCompanion(false).copyWith(
+              id: const Value.absent(),
+            );
 
     final jobID = await into(jobTable).insertOnConflictUpdate(jobWithoutID);
-    return job.copyWith(id: jobID);
+    return checkedJob.copyWith(id: jobID);
   }
 
   @override
@@ -55,6 +62,10 @@ class JobDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateJob(Job job) {
-    return update(jobTable).replace(job);
+    final Job checkedJob = job.copyWith(
+      healthInsuranceCoverage: crossCheckStat(job.healthInsuranceCoverage),
+    );
+
+    return update(jobTable).replace(checkedJob);
   }
 }

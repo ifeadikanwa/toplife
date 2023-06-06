@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/relative_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
@@ -14,8 +15,12 @@ class RelativeDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<Relative> createRelative(Relative relative) async {
-    await into(relativeTable).insertOnConflictUpdate(relative);
-    return relative;
+    final Relative checkedRelative = relative.copyWith(
+      relationship: crossCheckStat(relative.relationship),
+    );
+
+    await into(relativeTable).insertOnConflictUpdate(checkedRelative);
+    return checkedRelative;
   }
 
   @override
@@ -88,7 +93,10 @@ class RelativeDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateRelative(Relative relative) {
-    return update(relativeTable).replace(relative);
+    final Relative checkedRelative = relative.copyWith(
+      relationship: crossCheckStat(relative.relationship),
+    );
+    return update(relativeTable).replace(checkedRelative);
   }
 
   @override

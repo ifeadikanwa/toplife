@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_dao.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school.dart';
@@ -14,12 +15,23 @@ class SchoolDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<School> createSchool(School school) async {
+    final School checkedSchool = school.copyWith(
+      grades: crossCheckStat(school.grades),
+      attendance: crossCheckStat(school.attendance),
+      project: crossCheckStat(school.project),
+      exam: crossCheckStat(school.exam),
+      scholarshipPercentage: crossCheckStat(school.scholarshipPercentage),
+    );
+
     final SchoolTableCompanion schoolWithoutID =
-        school.toCompanion(false).copyWith(id: const Value.absent());
+        checkedSchool.toCompanion(false).copyWith(
+              id: const Value.absent(),
+            );
 
     final schoolID =
         await into(schoolTable).insertOnConflictUpdate(schoolWithoutID);
-    return school.copyWith(id: schoolID);
+
+    return checkedSchool.copyWith(id: schoolID);
   }
 
   @override
@@ -247,7 +259,15 @@ class SchoolDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateSchool(School school) {
-    return update(schoolTable).replace(school);
+    final School checkedSchool = school.copyWith(
+      grades: crossCheckStat(school.grades),
+      attendance: crossCheckStat(school.attendance),
+      project: crossCheckStat(school.project),
+      exam: crossCheckStat(school.exam),
+      scholarshipPercentage: crossCheckStat(school.scholarshipPercentage),
+    );
+
+    return update(schoolTable).replace(checkedSchool);
   }
 
   @override

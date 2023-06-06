@@ -12,10 +12,6 @@ void main() {
       expect(crossCheckStat(150), maxStatsValue);
     });
 
-    test("crossCheckStat returns null if stat is null", () {
-      expect(crossCheckStat(null), null);
-    });
-
     test(
         "crossCheckStat returns original stat if it is less or equal to the maxStatValue",
         () {

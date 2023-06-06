@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/house_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 
@@ -13,12 +14,19 @@ class HouseDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<House> createHouse(House house) async {
+    final House checkedHouse = house.copyWith(
+      condition: crossCheckStat(
+        house.condition,
+      ),
+    );
+
     final HouseTableCompanion houseWithoutID =
-        house.toCompanion(false).copyWith(id: const Value.absent());
+        checkedHouse.toCompanion(false).copyWith(id: const Value.absent());
 
     final houseID =
         await into(houseTable).insertOnConflictUpdate(houseWithoutID);
-    return house.copyWith(id: houseID);
+
+    return checkedHouse.copyWith(id: houseID);
   }
 
   @override
@@ -46,7 +54,13 @@ class HouseDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateHouse(House house) {
-    return update(houseTable).replace(house);
+    final House checkedHouse = house.copyWith(
+      condition: crossCheckStat(
+        house.condition,
+      ),
+    );
+
+    return update(houseTable).replace(checkedHouse);
   }
 
   @override

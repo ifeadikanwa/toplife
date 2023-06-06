@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_project_dao.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_project.dart';
 
@@ -13,12 +14,22 @@ class SchoolProjectDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<SchoolProject> createSchoolProject(SchoolProject schoolProject) async {
+    final SchoolProject checkedSchoolProject = schoolProject.copyWith(
+      mainPersonContribution:
+          crossCheckStat(schoolProject.mainPersonContribution),
+      projectPartnerContribution:
+          crossCheckStat(schoolProject.projectPartnerContribution),
+    );
+
     final SchoolProjectTableCompanion schoolProjectWithoutID =
-        schoolProject.toCompanion(false).copyWith(id: const Value.absent());
+        checkedSchoolProject
+            .toCompanion(false)
+            .copyWith(id: const Value.absent());
 
     final schoolProjectID = await into(schoolProjectTable)
         .insertOnConflictUpdate(schoolProjectWithoutID);
-    return schoolProject.copyWith(id: schoolProjectID);
+
+    return checkedSchoolProject.copyWith(id: schoolProjectID);
   }
 
   @override
@@ -66,7 +77,14 @@ class SchoolProjectDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateSchoolProject(SchoolProject schoolProject) {
-    return update(schoolProjectTable).replace(schoolProject);
+     final SchoolProject checkedSchoolProject = schoolProject.copyWith(
+      mainPersonContribution:
+          crossCheckStat(schoolProject.mainPersonContribution),
+      projectPartnerContribution:
+          crossCheckStat(schoolProject.projectPartnerContribution),
+    );
+
+    return update(schoolProjectTable).replace(checkedSchoolProject);
   }
 
   @override

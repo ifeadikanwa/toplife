@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_school/constants/school_relationship_type.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_relationship_dao.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
@@ -15,14 +16,21 @@ class SchoolRelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<SchoolRelationship> createSchoolRelationship(
       SchoolRelationship schoolRelationship) async {
+    //check grades
+    final SchoolRelationship checkedSchoolRelationship =
+        schoolRelationship.copyWith(
+      grades: crossCheckStat(schoolRelationship.grades),
+    );
+
     final SchoolRelationshipTableCompanion schoolRelationshipWithoutID =
-        schoolRelationship
+        checkedSchoolRelationship
             .toCompanion(false)
             .copyWith(id: const Value.absent());
 
     final schoolRelationshipID = await into(schoolRelationshipTable)
         .insertOnConflictUpdate(schoolRelationshipWithoutID);
-    return schoolRelationship.copyWith(id: schoolRelationshipID);
+
+    return checkedSchoolRelationship.copyWith(id: schoolRelationshipID);
   }
 
   @override
@@ -78,7 +86,11 @@ class SchoolRelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateSchoolRelationship(SchoolRelationship schoolRelationship) {
-    return update(schoolRelationshipTable).replace(schoolRelationship);
+    return update(schoolRelationshipTable).replace(
+      schoolRelationship.copyWith(
+        grades: crossCheckStat(schoolRelationship.grades),
+      ),
+    );
   }
 
   @override

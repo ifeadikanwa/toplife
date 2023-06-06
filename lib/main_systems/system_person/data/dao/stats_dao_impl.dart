@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/stats_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 
@@ -13,8 +14,20 @@ class StatsDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<Stats> createStats(Stats stats) async {
+    final Stats checkedStats = stats.copyWith(
+      energy: crossCheckStat(stats.energy),
+      health: crossCheckStat(stats.health),
+      mood: crossCheckStat(stats.mood),
+      hunger: crossCheckStat(stats.hunger),
+      sober: crossCheckStat(stats.sober),
+      looks: crossCheckStat(stats.looks),
+      athleticism: crossCheckStat(stats.athleticism),
+      intellect: crossCheckStat(stats.intellect),
+      alcoholTolerance: crossCheckStat(stats.alcoholTolerance),
+    );
+
     final StatsTableCompanion statsWithoutID =
-        stats.toCompanion(false).copyWith(
+        checkedStats.toCompanion(false).copyWith(
               id: const Value.absent(),
             );
     final statsID = await into(statsTable).insertOnConflictUpdate(
@@ -42,7 +55,19 @@ class StatsDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateStats(Stats stats) {
-    return update(statsTable).replace(stats);
+    final Stats checkedStats = stats.copyWith(
+      energy: crossCheckStat(stats.energy),
+      health: crossCheckStat(stats.health),
+      mood: crossCheckStat(stats.mood),
+      hunger: crossCheckStat(stats.hunger),
+      sober: crossCheckStat(stats.sober),
+      looks: crossCheckStat(stats.looks),
+      athleticism: crossCheckStat(stats.athleticism),
+      intellect: crossCheckStat(stats.intellect),
+      alcoholTolerance: crossCheckStat(stats.alcoholTolerance),
+    );
+
+    return update(statsTable).replace(checkedStats);
   }
 
   @override

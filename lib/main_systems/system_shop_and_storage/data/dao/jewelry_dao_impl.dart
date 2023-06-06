@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/jewelry_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
 
@@ -13,12 +14,15 @@ class JewelryDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<Jewelry> createJewelry(Jewelry jewelry) async {
+    final Jewelry checkedJewelry = jewelry.copyWith(
+      maxConditionAtPurchase: crossCheckStat(jewelry.maxConditionAtPurchase),
+    );
     final JewelryTableCompanion jewelryWithoutID =
-        jewelry.toCompanion(false).copyWith(id: const Value.absent());
+        checkedJewelry.toCompanion(false).copyWith(id: const Value.absent());
 
     final jewelryID =
         await into(jewelryTable).insertOnConflictUpdate(jewelryWithoutID);
-    return jewelry.copyWith(id: jewelryID);
+    return checkedJewelry.copyWith(id: jewelryID);
   }
 
   @override
@@ -47,7 +51,11 @@ class JewelryDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateJewelry(Jewelry jewelry) {
-    return update(jewelryTable).replace(jewelry);
+    final Jewelry checkedJewelry = jewelry.copyWith(
+      maxConditionAtPurchase: crossCheckStat(jewelry.maxConditionAtPurchase),
+    );
+
+    return update(jewelryTable).replace(checkedJewelry);
   }
 
   @override

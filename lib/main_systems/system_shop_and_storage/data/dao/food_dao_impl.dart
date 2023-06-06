@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/food_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
 
@@ -13,11 +14,16 @@ class FoodDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<Food> createFood(Food food) async {
+    final Food checkedFood = food.copyWith(
+      nutrition: crossCheckStat(food.nutrition),
+    );
+
     final FoodTableCompanion foodWithoutID =
-        food.toCompanion(false).copyWith(id: const Value.absent());
+        checkedFood.toCompanion(false).copyWith(id: const Value.absent());
 
     final foodID = await into(foodTable).insertOnConflictUpdate(foodWithoutID);
-    return food.copyWith(id: foodID);
+
+    return checkedFood.copyWith(id: foodID);
   }
 
   @override
@@ -38,6 +44,10 @@ class FoodDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateFood(Food food) {
-    return update(foodTable).replace(food);
+    final Food checkedFood = food.copyWith(
+      nutrition: crossCheckStat(food.nutrition),
+    );
+
+    return update(foodTable).replace(checkedFood);
   }
 }

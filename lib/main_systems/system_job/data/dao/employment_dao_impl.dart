@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/employment_dao.dart';
 import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
 
@@ -13,12 +14,17 @@ class EmploymentDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<Employment> createEmployment(Employment employment) async {
+    final Employment checkedEmployment = employment.copyWith(
+      jobPerformance: crossCheckStat(employment.jobPerformance),
+    );
+
     final EmploymentTableCompanion employmentWithoutID =
-        employment.toCompanion(false).copyWith(id: const Value.absent());
+        checkedEmployment.toCompanion(false).copyWith(id: const Value.absent());
 
     final employmentID =
         await into(employmentTable).insertOnConflictUpdate(employmentWithoutID);
-    return employment.copyWith(id: employmentID);
+
+    return checkedEmployment.copyWith(id: employmentID);
   }
 
   @override
@@ -96,7 +102,11 @@ class EmploymentDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateEmployment(Employment employment) {
-    return update(employmentTable).replace(employment);
+    final Employment checkedEmployment = employment.copyWith(
+      jobPerformance: crossCheckStat(employment.jobPerformance),
+    );
+    
+    return update(employmentTable).replace(checkedEmployment);
   }
 
   @override
