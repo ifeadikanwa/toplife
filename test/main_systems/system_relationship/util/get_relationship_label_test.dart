@@ -113,7 +113,7 @@ void main() {
             ),
             onlyActivePartnerWanted: true,
           ),
-          "",
+          "-",
         );
       },
     );
