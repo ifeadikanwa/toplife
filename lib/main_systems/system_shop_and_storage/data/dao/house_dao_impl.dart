@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/house_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 
@@ -16,7 +17,8 @@ class HouseDaoImpl extends DatabaseAccessor<DatabaseProvider>
   Future<House> createHouse(House house) async {
     final House checkedHouse = house.copyWith(
       condition: crossCheckStat(
-        house.condition,
+        stat: house.condition,
+        statsRange: StatsRangeConstants.defaultRange,
       ),
     );
 
@@ -56,7 +58,8 @@ class HouseDaoImpl extends DatabaseAccessor<DatabaseProvider>
   Future<void> updateHouse(House house) {
     final House checkedHouse = house.copyWith(
       condition: crossCheckStat(
-        house.condition,
+        stat: house.condition,
+        statsRange: StatsRangeConstants.defaultRange,
       ),
     );
 

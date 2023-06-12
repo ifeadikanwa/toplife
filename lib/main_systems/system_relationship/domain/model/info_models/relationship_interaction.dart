@@ -9,7 +9,7 @@ abstract class RelationshipInteraction extends Equatable {
   abstract final String description;
   abstract final int durationInMinutes;
   //rules that check who this interaction is available for
-  bool isAvailable();
+  bool isAvailable({required int currentDay, required Person currentPlayer, required Person relationshipPerson,});
   //the execution of the interaction.
   //No checks are done here because if this was available for execution it must have passed the isAvailable check.
   Future<void> execute({

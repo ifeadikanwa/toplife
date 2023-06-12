@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/inlaw_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
 
@@ -15,7 +16,10 @@ class InLawDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<InLaw> createInLaw(InLaw inLaw) async {
     final InLaw checkedInLaw = inLaw.copyWith(
-      relationship: crossCheckStat(inLaw.relationship),
+      relationship: crossCheckStat(
+        stat: inLaw.relationship,
+        statsRange: StatsRangeConstants.relationshipRange,
+      ),
     );
 
     await into(inLawTable).insertOnConflictUpdate(checkedInLaw);
@@ -57,7 +61,10 @@ class InLawDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<void> updateInLaw(InLaw inLaw) {
     final InLaw checkedInLaw = inLaw.copyWith(
-      relationship: crossCheckStat(inLaw.relationship),
+      relationship: crossCheckStat(
+        stat: inLaw.relationship,
+        statsRange: StatsRangeConstants.relationshipRange,
+      ),
     );
 
     return update(inLawTable).replace(checkedInLaw);

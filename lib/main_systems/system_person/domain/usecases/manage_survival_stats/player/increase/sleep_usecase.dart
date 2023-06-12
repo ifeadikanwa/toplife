@@ -11,7 +11,7 @@ import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/text/sleep_result_dialog_texts.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/stats_item.dart';
+import 'package:toplife/core/utils/stats/stats_item_builder.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_energy_stats_usecase.dart';
 
@@ -71,7 +71,7 @@ class SleepUsecase {
       await _updateEnergyStatsUsecase.execute(
         mainPersonID: personID,
         change: (willOverSleep)
-            ? (maxStatsValue - personStats.energy)
+            ? (defaultMaxStatsValue - personStats.energy)
             : gainedEnergy,
         override: false,
       );
@@ -83,7 +83,8 @@ class SleepUsecase {
       //this is (statsAmountNeededToReachMax * minutes in an hour)/gainPerHour
       //If they don't oversleep we pass the requested time
       final int minutesPassed = (willOverSleep)
-          ? (((maxStatsValue - personStats.energy) * Time.minutesInAnHour) /
+          ? (((defaultMaxStatsValue - personStats.energy) *
+                      Time.minutesInAnHour) /
                   StatsConstants.energyGainRatePerHour)
               .round()
           : activityDurationInMinutes;
@@ -131,7 +132,7 @@ class SleepUsecase {
             firstPersonSentence: firstPersonResultDesc,
           ),
           statsList: [
-            StatsItem(
+            StatsItemBuilder.defaultStat(
               statsName: TextConstants.energy,
               statsLevel: newEnergy,
             ),

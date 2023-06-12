@@ -22,6 +22,7 @@ class TextConstants {
   static const mood = "Mood";
   static const health = "Health";
   static const hunger = "Hunger";
+  static const sober = "Sober";
   static const looks = "Looks";
   static const intellect = "Intellect";
   static const athleticism = "Athleticism";

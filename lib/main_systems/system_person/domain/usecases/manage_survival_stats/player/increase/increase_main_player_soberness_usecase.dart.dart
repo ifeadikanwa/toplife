@@ -1,4 +1,3 @@
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
@@ -23,7 +22,7 @@ class IncreaseMainPlayerSobernessUsecase {
           (personStats.sober + sobernessIncrease).floor();
 
       final updatedPersonStats = personStats.copyWith(
-        sober: crossCheckStat(updatedSoberness),
+        sober: updatedSoberness,
       );
 
       await _statsRepository.updateStats(updatedPersonStats);

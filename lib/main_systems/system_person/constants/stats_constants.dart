@@ -79,7 +79,7 @@ class StatsConstants {
   static int getValidAlcoholToleranceStatsValue() {
     return getValidRandomStatsValue(
       minValue: 0,
-      maxValue: maxStatsValue,
+      maxValue: defaultMaxStatsValue,
     );
   }
 

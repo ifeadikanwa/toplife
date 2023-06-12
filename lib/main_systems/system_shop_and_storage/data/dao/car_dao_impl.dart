@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/car_dao.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
 
@@ -15,10 +16,22 @@ class CarDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<Car> createCar(Car car) async {
     final Car checkedCar = car.copyWith(
-      percentageOfTravelTime: crossCheckStat(car.percentageOfTravelTime),
-      fuelTank: crossCheckStat(car.fuelTank),
-      useCondition: crossCheckStat(car.useCondition),
-      maxConditionAtPurchase: crossCheckStat(car.maxConditionAtPurchase),
+      percentageOfTravelTime: crossCheckStat(
+        stat: car.percentageOfTravelTime,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      fuelTank: crossCheckStat(
+        stat: car.fuelTank,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      useCondition: crossCheckStat(
+        stat: car.useCondition,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      maxConditionAtPurchase: crossCheckStat(
+        stat: car.maxConditionAtPurchase,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     final CarTableCompanion carWithoutID =
@@ -75,11 +88,23 @@ class CarDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateCar(Car car) {
-     final Car checkedCar = car.copyWith(
-      percentageOfTravelTime: crossCheckStat(car.percentageOfTravelTime),
-      fuelTank: crossCheckStat(car.fuelTank),
-      useCondition: crossCheckStat(car.useCondition),
-      maxConditionAtPurchase: crossCheckStat(car.maxConditionAtPurchase),
+    final Car checkedCar = car.copyWith(
+      percentageOfTravelTime: crossCheckStat(
+        stat: car.percentageOfTravelTime,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      fuelTank: crossCheckStat(
+        stat: car.fuelTank,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      useCondition: crossCheckStat(
+        stat: car.useCondition,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      maxConditionAtPurchase: crossCheckStat(
+        stat: car.maxConditionAtPurchase,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     return update(carTable).replace(checkedCar);

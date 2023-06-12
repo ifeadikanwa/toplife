@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/partner_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 
@@ -15,7 +16,10 @@ class PartnerDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<Partner> createPartner(Partner partner) async {
     final Partner checkedPartner = partner.copyWith(
-      relationship: crossCheckStat(partner.relationship),
+      relationship: crossCheckStat(
+        stat: partner.relationship,
+        statsRange: StatsRangeConstants.relationshipRange,
+      ),
     );
 
     await into(partnerTable).insertOnConflictUpdate(checkedPartner);
@@ -103,7 +107,10 @@ class PartnerDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<void> updatePartner(Partner partner) {
     final Partner checkedPartner = partner.copyWith(
-      relationship: crossCheckStat(partner.relationship),
+      relationship: crossCheckStat(
+        stat: partner.relationship,
+        statsRange: StatsRangeConstants.relationshipRange,
+      ),
     );
     return update(partnerTable).replace(checkedPartner);
   }

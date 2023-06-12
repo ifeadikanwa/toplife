@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/progress_bar/progress_bar.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
+import 'package:toplife/core/utils/stats/stats_item.dart';
 
 class SingleStatsWidget extends StatelessWidget {
-  final String statsName;
-  final int statsValue;
+  final StatsItem statsItem;
+  final bool showProgressValue;
 
   const SingleStatsWidget({
     Key? key,
-    required this.statsValue,
-    required this.statsName,
+    required this.statsItem,
+    required this.showProgressValue,
   }) : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class SingleStatsWidget extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            statsName,
+            statsItem.statsName,
             style: statsTextStyle,
           ),
           const AddHorizontalSpace(
@@ -28,9 +29,11 @@ class SingleStatsWidget extends StatelessWidget {
           ),
           Expanded(
             child: ProgressBar(
-              progressValue: statsValue,
               minHeight: smallMinHeight,
-              showProgressValue: false,
+              progressValue: statsItem.statsLevel,
+              progressStatsRange: statsItem.statsRange,
+              positveIsAlwaysGreen: statsItem.positiveIsAlwaysGreen,
+              showProgressValue: showProgressValue,
             ),
           ),
         ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/progress_bar/progress_bar.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/stats_item.dart';
+import 'package:toplife/core/utils/stats/stats_item.dart';
 
 class MultipleStatsWidget extends StatelessWidget {
   final List<StatsItem> statsList;
@@ -58,7 +58,11 @@ class MultipleStatsWidget extends StatelessWidget {
     return statsList
         .map(
           (stats) => addVerticalPadding(
-            widget: ProgressBar(progressValue: stats.statsLevel),
+            widget: ProgressBar(
+              progressValue: stats.statsLevel,
+              progressStatsRange: stats.statsRange,
+              positveIsAlwaysGreen: stats.positiveIsAlwaysGreen,
+            ),
           ),
         )
         .toList();

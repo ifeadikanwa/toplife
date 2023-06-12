@@ -1,5 +1,4 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
 class UpdateLooksStatsUsecase {
@@ -20,14 +19,14 @@ class UpdateLooksStatsUsecase {
       if (override) {
         await _statsRepository.updateStats(
           stats.copyWith(
-            looks: crossCheckStat(change),
+            looks: change,
           ),
         );
       } else {
         final int oldLooks = stats.looks;
         await _statsRepository.updateStats(
           stats.copyWith(
-            looks: crossCheckStat(oldLooks + change),
+            looks: (oldLooks + change),
           ),
         );
       }

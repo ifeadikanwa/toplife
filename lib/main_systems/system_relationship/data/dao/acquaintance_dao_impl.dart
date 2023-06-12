@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/acquaintance_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/acquaintance.dart';
 
@@ -15,7 +16,10 @@ class AcquaintanceDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<Acquaintance> createAcquaintance(Acquaintance acquaintance) async {
     final Acquaintance checkedAcquaintance = acquaintance.copyWith(
-      relationship: crossCheckStat(acquaintance.relationship),
+      relationship: crossCheckStat(
+        stat: acquaintance.relationship,
+        statsRange: StatsRangeConstants.relationshipRange,
+      ),
     );
 
     await into(acquaintanceTable).insertOnConflictUpdate(checkedAcquaintance);
@@ -57,7 +61,10 @@ class AcquaintanceDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<void> updateAcquaintance(Acquaintance acquaintance) {
     final Acquaintance checkedAcquaintance = acquaintance.copyWith(
-      relationship: crossCheckStat(acquaintance.relationship),
+      relationship: crossCheckStat(
+        stat: acquaintance.relationship,
+        statsRange: StatsRangeConstants.relationshipRange,
+      ),
     );
 
     return update(acquaintanceTable).replace(checkedAcquaintance);

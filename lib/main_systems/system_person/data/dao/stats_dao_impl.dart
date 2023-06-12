@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/stats_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 
@@ -15,15 +16,42 @@ class StatsDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<Stats> createStats(Stats stats) async {
     final Stats checkedStats = stats.copyWith(
-      energy: crossCheckStat(stats.energy),
-      health: crossCheckStat(stats.health),
-      mood: crossCheckStat(stats.mood),
-      hunger: crossCheckStat(stats.hunger),
-      sober: crossCheckStat(stats.sober),
-      looks: crossCheckStat(stats.looks),
-      athleticism: crossCheckStat(stats.athleticism),
-      intellect: crossCheckStat(stats.intellect),
-      alcoholTolerance: crossCheckStat(stats.alcoholTolerance),
+      energy: crossCheckStat(
+        stat: stats.energy,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      health: crossCheckStat(
+        stat: stats.health,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      mood: crossCheckStat(
+        stat: stats.mood,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      hunger: crossCheckStat(
+        stat: stats.hunger,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      sober: crossCheckStat(
+        stat: stats.sober,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      looks: crossCheckStat(
+        stat: stats.looks,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      athleticism: crossCheckStat(
+        stat: stats.athleticism,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      intellect: crossCheckStat(
+        stat: stats.intellect,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      alcoholTolerance: crossCheckStat(
+        stat: stats.alcoholTolerance,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     final StatsTableCompanion statsWithoutID =
@@ -56,15 +84,42 @@ class StatsDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<void> updateStats(Stats stats) {
     final Stats checkedStats = stats.copyWith(
-      energy: crossCheckStat(stats.energy),
-      health: crossCheckStat(stats.health),
-      mood: crossCheckStat(stats.mood),
-      hunger: crossCheckStat(stats.hunger),
-      sober: crossCheckStat(stats.sober),
-      looks: crossCheckStat(stats.looks),
-      athleticism: crossCheckStat(stats.athleticism),
-      intellect: crossCheckStat(stats.intellect),
-      alcoholTolerance: crossCheckStat(stats.alcoholTolerance),
+      energy: crossCheckStat(
+        stat: stats.energy,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      health: crossCheckStat(
+        stat: stats.health,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      mood: crossCheckStat(
+        stat: stats.mood,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      hunger: crossCheckStat(
+        stat: stats.hunger,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      sober: crossCheckStat(
+        stat: stats.sober,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      looks: crossCheckStat(
+        stat: stats.looks,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      athleticism: crossCheckStat(
+        stat: stats.athleticism,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      intellect: crossCheckStat(
+        stat: stats.intellect,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      alcoholTolerance: crossCheckStat(
+        stat: stats.alcoholTolerance,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     return update(statsTable).replace(checkedStats);

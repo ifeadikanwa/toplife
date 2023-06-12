@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_project_dao.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_project.dart';
 
@@ -15,10 +16,14 @@ class SchoolProjectDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<SchoolProject> createSchoolProject(SchoolProject schoolProject) async {
     final SchoolProject checkedSchoolProject = schoolProject.copyWith(
-      mainPersonContribution:
-          crossCheckStat(schoolProject.mainPersonContribution),
-      projectPartnerContribution:
-          crossCheckStat(schoolProject.projectPartnerContribution),
+      mainPersonContribution: crossCheckStat(
+        stat: schoolProject.mainPersonContribution,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      projectPartnerContribution: crossCheckStat(
+        stat: schoolProject.projectPartnerContribution,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     final SchoolProjectTableCompanion schoolProjectWithoutID =
@@ -77,11 +82,15 @@ class SchoolProjectDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateSchoolProject(SchoolProject schoolProject) {
-     final SchoolProject checkedSchoolProject = schoolProject.copyWith(
-      mainPersonContribution:
-          crossCheckStat(schoolProject.mainPersonContribution),
-      projectPartnerContribution:
-          crossCheckStat(schoolProject.projectPartnerContribution),
+    final SchoolProject checkedSchoolProject = schoolProject.copyWith(
+      mainPersonContribution: crossCheckStat(
+        stat: schoolProject.mainPersonContribution,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      projectPartnerContribution: crossCheckStat(
+        stat: schoolProject.projectPartnerContribution,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     return update(schoolProjectTable).replace(checkedSchoolProject);

@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/employment_dao.dart';
 import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
 
@@ -15,7 +16,10 @@ class EmploymentDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<Employment> createEmployment(Employment employment) async {
     final Employment checkedEmployment = employment.copyWith(
-      jobPerformance: crossCheckStat(employment.jobPerformance),
+      jobPerformance: crossCheckStat(
+        stat: employment.jobPerformance,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     final EmploymentTableCompanion employmentWithoutID =
@@ -103,9 +107,12 @@ class EmploymentDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<void> updateEmployment(Employment employment) {
     final Employment checkedEmployment = employment.copyWith(
-      jobPerformance: crossCheckStat(employment.jobPerformance),
+      jobPerformance: crossCheckStat(
+        stat: employment.jobPerformance,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
-    
+
     return update(employmentTable).replace(checkedEmployment);
   }
 

@@ -1,11 +1,21 @@
-const int maxStatsValue = 100;
+import 'package:toplife/core/utils/stats/stats_range/stats_range.dart';
 
-int crossCheckStat(int stat) {
-  if (stat > maxStatsValue) {
-    return maxStatsValue;
-  } else if (stat < 0) {
-    return 0;
-  } else {
+const int defaultMaxStatsValue = 100;
+
+int crossCheckStat({
+  required int stat,
+  required StatsRange statsRange,
+}) {
+  //if it is less than min
+  if (stat < statsRange.min) {
+    return statsRange.min;
+  }
+  //if it is greater than max
+  else if (stat > statsRange.max) {
+    return statsRange.max;
+  }
+  //if it gets here it is in the range
+  else {
     return stat;
   }
 }

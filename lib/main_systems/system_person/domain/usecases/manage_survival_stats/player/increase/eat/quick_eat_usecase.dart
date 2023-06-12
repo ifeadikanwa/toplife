@@ -55,13 +55,12 @@ class QuickEatUsecase {
     final Stats? personStats = await _statsRepository.getStats(mainPersonID);
 
     if (personStats != null) {
-      int nutritionNeeded = maxStatsValue - personStats.hunger;
+      int nutritionNeeded = defaultMaxStatsValue - personStats.hunger;
 
       //sort fridgefoodpairs by expiry day (largest to smallest)
       fridgeFoodPairs.sort(
         (a, b) => b.fridgeFood.expiryDay.compareTo(a.fridgeFood.expiryDay),
       );
-
 
       //list of fridge food to eat
       List<FridgeFoodServingPair> foodToEat = [];
@@ -102,7 +101,6 @@ class QuickEatUsecase {
         //increase index
         currentIndex++;
       }
-
 
       //after we've decided what to eat
       //call eat usecase

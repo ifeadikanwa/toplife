@@ -1,5 +1,4 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/toggle_deplete_stats_flag_usecase.dart';
 
@@ -24,7 +23,7 @@ class UpdateSoberStatsUsecase {
       if (override) {
         await _statsRepository.updateStats(
           stats.copyWith(
-            sober: crossCheckStat(change),
+            sober: change,
           ),
         );
       } else {
@@ -32,7 +31,7 @@ class UpdateSoberStatsUsecase {
 
         await _statsRepository.updateStats(
           stats.copyWith(
-            sober: crossCheckStat(oldSober + change),
+            sober: (oldSober + change),
           ),
         );
       }

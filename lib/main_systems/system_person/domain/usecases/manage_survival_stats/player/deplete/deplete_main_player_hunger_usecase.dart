@@ -1,4 +1,3 @@
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/side_effects/energy_and_hunger_emergency_mode_side_effects_usecase.dart';
@@ -34,7 +33,7 @@ class DepleteMainPlayerHungerUsecase {
         updatedHungerStat = (currentHungerStat - depletedHunger).floor();
 
         final updatedPersonStats = personStats.copyWith(
-          hunger: crossCheckStat(updatedHungerStat),
+          hunger: updatedHungerStat,
         );
 
         //we need to call this before the side effects if not our update will be overriden
@@ -62,7 +61,7 @@ class DepleteMainPlayerHungerUsecase {
         }
 
         final updatedPersonStats = personStats.copyWith(
-          hunger: crossCheckStat(updatedHungerStat),
+          hunger: updatedHungerStat,
         );
 
         await _statsRepository.updateStats(updatedPersonStats);

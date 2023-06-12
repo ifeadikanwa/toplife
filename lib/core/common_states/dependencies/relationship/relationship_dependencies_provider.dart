@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
@@ -45,5 +46,6 @@ final gameRelationshipInteractionsProvider =
     ref.watch(relationshipUsecasesProvider),
     ref.watch(journalUsecasesProvider),
     ref.watch(personUsecasesProvider),
+    ref.watch(ageUsecasesProvider),
   );
 });

@@ -6,7 +6,7 @@ import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/constants/text/eat_result_dialog_texts.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/stats_item.dart';
+import 'package:toplife/core/utils/stats/stats_item_builder.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/update_specific_stats/update_hunger_stats_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/fridge_food_servings_pair.dart';
@@ -119,7 +119,7 @@ class EatUsecase {
             firstPersonSentence: firstPersonResultStringBuffer.toString(),
           ),
           statsList: [
-            StatsItem(
+            StatsItemBuilder.defaultStat(
               statsName: TextConstants.hunger,
               statsLevel: newHunger,
             ),

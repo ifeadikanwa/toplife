@@ -10,8 +10,8 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/player_information/player_information_card_view_model.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/player_information.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/stats_item.dart';
 import 'package:toplife/core/utils/extensions/string_extensions.dart';
+import 'package:toplife/core/utils/stats/stats_item_builder.dart';
 
 class PlayerInformationCard extends ConsumerWidget {
   const PlayerInformationCard({
@@ -151,21 +151,25 @@ class PlayerInformationCard extends ConsumerWidget {
   Widget allStats(Stats playerStats) {
     return MultipleStatsWidget(
       statsList: [
-        StatsItem(
+        StatsItemBuilder.defaultStat(
           statsName: TextConstants.energy,
           statsLevel: playerStats.energy,
         ),
-        StatsItem(
+        StatsItemBuilder.defaultStat(
           statsName: TextConstants.hunger,
           statsLevel: playerStats.hunger,
         ),
-        StatsItem(
+        StatsItemBuilder.defaultStat(
           statsName: TextConstants.mood,
           statsLevel: playerStats.mood,
         ),
-        StatsItem(
+        StatsItemBuilder.defaultStat(
           statsName: TextConstants.health,
           statsLevel: playerStats.health,
+        ),
+        StatsItemBuilder.defaultStat(
+          statsName: TextConstants.sober,
+          statsLevel: playerStats.sober,
         ),
       ],
     );

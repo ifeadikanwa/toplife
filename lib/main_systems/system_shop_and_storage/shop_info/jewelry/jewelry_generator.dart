@@ -30,7 +30,7 @@ class JewelryGenerator {
     quality: JewelryQuality.natural.name,
     basePrice: 0,
     dayOfPurchase: 0,
-    maxConditionAtPurchase: maxStatsValue,
+    maxConditionAtPurchase: defaultMaxStatsValue,
   );
 
   //*generate
@@ -44,7 +44,7 @@ class JewelryGenerator {
 
     //sort from cheap to expensive
     allJewelriesList.sort((a, b) => a.basePrice.compareTo(b.basePrice));
-    
+
     return allJewelriesList;
   }
 

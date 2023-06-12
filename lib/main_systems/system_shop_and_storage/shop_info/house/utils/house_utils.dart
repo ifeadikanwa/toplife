@@ -218,7 +218,7 @@ class HouseUtils {
       basePrice: price,
       lastMaintainedDay: 0,
       dayOfPurchase: 0,
-      condition: maxStatsValue,
+      condition: defaultMaxStatsValue,
       purchasePrice: 0,
       country: "",
       state: "",

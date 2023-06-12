@@ -1,4 +1,3 @@
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
@@ -38,9 +37,9 @@ class EnergyAndHungerEmergencyModeSideEffectUsecase {
           (personStats.athleticism - athleticismDecrease).floor();
 
       final updatedPersonStats = personStats.copyWith(
-        intellect: crossCheckStat(updatedIntellect),
-        looks: crossCheckStat(updatedLooks),
-        athleticism: crossCheckStat(updatedAthleticism),
+        intellect: updatedIntellect,
+        looks: updatedLooks,
+        athleticism: updatedAthleticism,
       );
       await _statsRepository.updateStats(updatedPersonStats);
     }

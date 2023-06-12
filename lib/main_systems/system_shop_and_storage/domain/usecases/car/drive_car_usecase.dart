@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/numbers/get_negative_or_positive_multiplier.dart';
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_problem.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
@@ -72,7 +71,7 @@ class DriveCarUsecase {
     await _carRepository.updateCar(
       car.copyWith(
         useCondition: newUseCondition,
-        fuelTank: crossCheckStat(newFuelTank),
+        fuelTank: newFuelTank,
         problem: newCarProblem.name,
       ),
     );

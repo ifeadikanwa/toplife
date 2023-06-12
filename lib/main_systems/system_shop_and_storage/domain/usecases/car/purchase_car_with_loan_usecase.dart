@@ -42,8 +42,9 @@ class PurchaseCarWithLoanUsecase {
     //I made it false since there is only one instance where the loan app is successful. we can override to true there.
     bool purchaseSuccessful = false;
 
-    final String carState =
-        (car.maxConditionAtPurchase == maxStatsValue) ? "brand new" : "used";
+    final String carState = (car.maxConditionAtPurchase == defaultMaxStatsValue)
+        ? "brand new"
+        : "used";
 
     final String carNameAndState = "$carState ${car.name} car";
 

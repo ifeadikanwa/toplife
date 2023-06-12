@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/config/theme/colors.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
+import 'package:toplife/core/utils/numbers/remap_value_in_range_to_percentage_range.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range.dart';
 
 class ProgressBar extends StatelessWidget {
   final int progressValue;
+  final StatsRange progressStatsRange;
+  final bool positveIsAlwaysGreen;
   final double minHeight;
   final bool showProgressValue;
   const ProgressBar({
     Key? key,
     required this.progressValue,
+    required this.progressStatsRange,
+    required this.positveIsAlwaysGreen,
     this.minHeight = 10.0,
     this.showProgressValue = true,
   }) : super(key: key);
@@ -16,6 +22,12 @@ class ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+
+    //remap progress value to percentage range
+    final int remappedProgressValue = remapValueInRangeToPercentageRange(
+      statsRange: progressStatsRange,
+      rangeValue: progressValue,
+    );
 
     return Container(
       width: 100,
@@ -31,7 +43,7 @@ class ProgressBar extends StatelessWidget {
       child: Stack(
         children: [
           LinearProgressIndicator(
-            value: progressValue / 100,
+            value: (remappedProgressValue.abs()) / 100,
             backgroundColor: Colors.grey.withOpacity(0.2),
             color: getProgressBarColor(appTheme),
             minHeight: minHeight,
@@ -57,21 +69,42 @@ class ProgressBar extends StatelessWidget {
   }
 
   Color getProgressBarColor(ThemeData appTheme) {
-    if (progressValue < 20) {
-      //red
-      return (appTheme.brightness == Brightness.light)
-          ? progressBarLightThemeRed
-          : progressBarDarkThemeRed;
-    } else if (progressValue >= 20 && progressValue < 50) {
-      //yellow
-      return (appTheme.brightness == Brightness.light)
-          ? progressBarLightThemeOrange
-          : progressBarDarkThemeOrange;
-    } else {
-      //green
-      return (appTheme.brightness == Brightness.light)
-          ? progressBarLightThemeGreen
-          : progressBarDarkThemeGreen;
+    //red
+    final Color themedRed = (appTheme.brightness == Brightness.light)
+        ? progressBarLightThemeRed
+        : progressBarDarkThemeRed;
+
+    //yellow
+    final Color themedYellow = (appTheme.brightness == Brightness.light)
+        ? progressBarLightThemeOrange
+        : progressBarDarkThemeOrange;
+
+    //green
+    final Color themedGreen = (appTheme.brightness == Brightness.light)
+        ? progressBarLightThemeGreen
+        : progressBarDarkThemeGreen;
+
+    //Get color
+    //negative values are always red
+    if (progressValue.isNegative) {
+      return themedRed;
+    }
+    //only if requested will positive values be green
+    else if (positveIsAlwaysGreen) {
+      return themedGreen;
+    }
+    //if no special requests were made we return red, yellow or green depending on position
+    else {
+      if (progressValue < 20) {
+        //red
+        return themedRed;
+      } else if (progressValue >= 20 && progressValue < 50) {
+        //yellow
+        return themedYellow;
+      } else {
+        //green
+        return themedGreen;
+      }
     }
   }
 }

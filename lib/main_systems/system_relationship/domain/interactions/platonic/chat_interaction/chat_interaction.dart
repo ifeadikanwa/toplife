@@ -36,7 +36,11 @@ class ChatInteraction extends RelationshipInteraction {
   int get durationInMinutes => DurationTimeInMinutes.tenMinutes;
 
   @override
-  bool isAvailable() {
+  bool isAvailable({
+    required int currentDay,
+    required Person currentPlayer,
+    required Person relationshipPerson,
+  }) {
     //RULES:
     //chat is open to every character of every age
     return true;
@@ -64,8 +68,8 @@ class ChatInteraction extends RelationshipInteraction {
     late final String journalEntry;
     late final String resultDesc;
 
-    //get a random number btw 5 - 15
-    final int randomNumber = Random().nextInt(10) + 5;
+    //get a random number btw 1 - 10
+    final int randomNumber = Random().nextInt(10) + 1;
 
     final bool personIsInterestedInRelationship = _relationshipUsecases
         .checkIfPersonIsInterestedInRelationshipUsecase

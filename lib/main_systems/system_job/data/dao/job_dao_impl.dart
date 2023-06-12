@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/job_dao.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
@@ -16,7 +17,10 @@ class JobDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<Job> createJob(Job job) async {
     final Job checkedJob = job.copyWith(
-      healthInsuranceCoverage: crossCheckStat(job.healthInsuranceCoverage),
+      healthInsuranceCoverage: crossCheckStat(
+        stat: job.healthInsuranceCoverage,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     final JobTableCompanion jobWithoutID =
@@ -63,7 +67,10 @@ class JobDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<void> updateJob(Job job) {
     final Job checkedJob = job.copyWith(
-      healthInsuranceCoverage: crossCheckStat(job.healthInsuranceCoverage),
+      healthInsuranceCoverage: crossCheckStat(
+        stat: job.healthInsuranceCoverage,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     return update(jobTable).replace(checkedJob);

@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_school/constants/school_relationship_type.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_relationship_dao.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
@@ -19,7 +20,10 @@ class SchoolRelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
     //check grades
     final SchoolRelationship checkedSchoolRelationship =
         schoolRelationship.copyWith(
-      grades: crossCheckStat(schoolRelationship.grades),
+      grades: crossCheckStat(
+        stat: schoolRelationship.grades,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     final SchoolRelationshipTableCompanion schoolRelationshipWithoutID =
@@ -88,7 +92,10 @@ class SchoolRelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
   Future<void> updateSchoolRelationship(SchoolRelationship schoolRelationship) {
     return update(schoolRelationshipTable).replace(
       schoolRelationship.copyWith(
-        grades: crossCheckStat(schoolRelationship.grades),
+        grades: crossCheckStat(
+          stat: schoolRelationship.grades,
+          statsRange: StatsRangeConstants.defaultRange,
+        ),
       ),
     );
   }

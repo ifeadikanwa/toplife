@@ -1,5 +1,4 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/toggle_deplete_stats_flag_usecase.dart';
 
@@ -25,7 +24,7 @@ class UpdateHungerStatsUsecase {
       if (override) {
         await _statsRepository.updateStats(
           stats.copyWith(
-            hunger: crossCheckStat(change),
+            hunger: change,
           ),
         );
       } else {
@@ -33,7 +32,7 @@ class UpdateHungerStatsUsecase {
 
         await _statsRepository.updateStats(
           stats.copyWith(
-            hunger: crossCheckStat(oldHunger + change),
+            hunger: (oldHunger + change),
           ),
         );
       }

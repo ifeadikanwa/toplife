@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_dao.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school.dart';
@@ -16,11 +17,26 @@ class SchoolDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<School> createSchool(School school) async {
     final School checkedSchool = school.copyWith(
-      grades: crossCheckStat(school.grades),
-      attendance: crossCheckStat(school.attendance),
-      project: crossCheckStat(school.project),
-      exam: crossCheckStat(school.exam),
-      scholarshipPercentage: crossCheckStat(school.scholarshipPercentage),
+      grades: crossCheckStat(
+        stat: school.grades,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      attendance: crossCheckStat(
+        stat: school.attendance,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      project: crossCheckStat(
+        stat: school.project,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      exam: crossCheckStat(
+        stat: school.exam,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      scholarshipPercentage: crossCheckStat(
+        stat: school.scholarshipPercentage,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     final SchoolTableCompanion schoolWithoutID =
@@ -260,11 +276,26 @@ class SchoolDaoImpl extends DatabaseAccessor<DatabaseProvider>
   @override
   Future<void> updateSchool(School school) {
     final School checkedSchool = school.copyWith(
-      grades: crossCheckStat(school.grades),
-      attendance: crossCheckStat(school.attendance),
-      project: crossCheckStat(school.project),
-      exam: crossCheckStat(school.exam),
-      scholarshipPercentage: crossCheckStat(school.scholarshipPercentage),
+      grades: crossCheckStat(
+        stat: school.grades,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      attendance: crossCheckStat(
+        stat: school.attendance,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      project: crossCheckStat(
+        stat: school.project,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      exam: crossCheckStat(
+        stat: school.exam,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      scholarshipPercentage: crossCheckStat(
+        stat: school.scholarshipPercentage,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
     return update(schoolTable).replace(checkedSchool);

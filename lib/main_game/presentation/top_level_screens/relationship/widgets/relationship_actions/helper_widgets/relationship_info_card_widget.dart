@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/info_cards/person_info_card.dart';
-import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/stats_item.dart';
+import 'package:toplife/core/utils/stats/stats_item_builder.dart';
 
 class RelationshipInfoCardWidget extends StatelessWidget {
   final String firstName;
@@ -27,9 +26,8 @@ class RelationshipInfoCardWidget extends StatelessWidget {
       age: age,
       currentCountry: null,
       statsList: [
-        StatsItem(
-          statsName: TextConstants.relationship,
-          statsLevel: relationship,
+        StatsItemBuilder.relationshipStat(
+          relationshipAmount: relationship,
         ),
       ],
       showInfoButton: showInfoButton,

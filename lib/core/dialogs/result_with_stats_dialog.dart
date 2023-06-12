@@ -5,7 +5,7 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/stats_item.dart';
+import 'package:toplife/core/utils/stats/stats_item.dart';
 
 class ResultWithStatsDialog {
   static Future<void> show({

@@ -10,10 +10,10 @@ int getValidRandomStatsValue({
   int maxValue = defaultMaxValue,
 }) {
   //correct values if they are over 100
-  if (minValue > maxStatsValue) {
+  if (minValue > defaultMaxStatsValue) {
     minValue = 100;
   }
-  if (maxValue > maxStatsValue) {
+  if (maxValue > defaultMaxStatsValue) {
     maxValue = 100;
   }
 

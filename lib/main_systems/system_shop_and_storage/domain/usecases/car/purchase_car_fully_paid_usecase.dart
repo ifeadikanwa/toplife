@@ -43,7 +43,7 @@ class PurchaseCarFullyPaidUsecase {
 
     //if max condition is not 100, the car is used
     String carQuantifier = "a ";
-    (car.maxConditionAtPurchase == maxStatsValue)
+    (car.maxConditionAtPurchase == defaultMaxStatsValue)
         ? carQuantifier += "brand new"
         : carQuantifier += "used";
 

@@ -52,7 +52,7 @@ class CarLoanDialogViewModel {
     //if purchase is successful, ask responsible view model to remove the car from the shop
     if (purchaseSuccessful) {
       //new cars have 100% condition at purchase
-      (car.maxConditionAtPurchase == maxStatsValue)
+      (car.maxConditionAtPurchase == defaultMaxStatsValue)
           ? _newCarsScreenViewModel.removePurchasedCarFromShop(car)
           : _usedCarsScreenViewModel.removePurchasedCarFromShop(car);
     }
