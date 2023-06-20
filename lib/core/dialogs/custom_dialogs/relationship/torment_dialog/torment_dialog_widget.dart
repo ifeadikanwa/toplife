@@ -1,15 +1,35 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/relationship/torment_dialog/torment_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
+import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/constants/torment_option.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 
 class TormentDialogWidget extends ConsumerWidget {
-  const TormentDialogWidget({super.key});
+  final Game currentGame;
+  final Person currentPlayer;
+  final RelationshipPair relationshipPair;
+  final String relationshipLabel;
+  final InformalRelationshipType informalRelationshipType;
+
+  const TormentDialogWidget({
+    super.key,
+    required this.currentGame,
+    required this.currentPlayer,
+    required this.relationshipPair,
+    required this.informalRelationshipType,
+    required this.relationshipLabel,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,19 +40,39 @@ class TormentDialogWidget extends ConsumerWidget {
         ref.watch(tormentDialogViewModelProvider.notifier);
 
     return DialogContainer(
-      title: const Text("Torment"),
+      title: DialogTitleText(
+        text: tormentDialogViewModel.getTitle(),
+      ),
       children: [
-        const DialogDropdownLabelText(text: "What do you want to do?"),
+        DialogDropdownLabelText(
+          text: tormentDialogViewModel.getPrompt(
+            relationshipLabel: relationshipLabel,
+            recieverFirstName: relationshipPair.person.firstName,
+          ),
+        ),
         tormentOptionsDropdown(
           chosenTormentOption,
           tormentDialogViewModel,
         ),
-        const AddVerticalSpace(height: 16.0),
+        const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
         ElevatedButton(
-          onPressed: () {
-            tormentDialogViewModel.executeTorment();
+          onPressed: () async {
+            await tormentDialogViewModel.executeTormentOption(
+              context: context,
+              currentGame: currentGame,
+              currentPlayer: currentPlayer,
+              relationshipPair: relationshipPair,
+              relationshipLabel: relationshipLabel,
+              informalRelationshipType: informalRelationshipType,
+            );
+
+            if (context.mounted) {
+              AutoRouter.of(context).pop();
+            }
           },
-          child: const Text("TORMENT"),
+          child: Text(
+            TextConstants.doString.toUpperCase(),
+          ),
         ),
       ],
     );

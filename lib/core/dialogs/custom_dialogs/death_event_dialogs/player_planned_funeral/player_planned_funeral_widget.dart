@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/death_event_dialogs_text_constants.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral/player_planned_funeral_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
@@ -51,7 +52,7 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
         ref.watch(playerPlannedFuneralDialogViewModelProvider.notifier);
 
     return DialogContainer(
-      title: const DialogTitleText(text: DialogConstants.funeralPlanEventTitle),
+      title: const DialogTitleText(text: DeathEventDialogsTextConstants.funeralPlanEventTitle),
       children: [
         DialogBodyText(
           text: SentenceUtil.convertFromFirstPersonToSecondPerson(
@@ -61,7 +62,7 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
 
         //plan
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
-        const DialogDropdownLabelText(text: DialogConstants.funeralPlanPrompt),
+        const DialogDropdownLabelText(text: DeathEventDialogsTextConstants.funeralPlanPrompt),
         funeralTypeDropDown(
           plannedFuneralDialogViewModel,
           funeralEventDetail.funeralType,
@@ -70,7 +71,7 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
         //event start time
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
         const DialogDropdownLabelText(
-            text: DialogConstants.funeralStartTimePrompt),
+            text: DeathEventDialogsTextConstants.funeralStartTimePrompt),
         eventStartTimeDropDown(
           plannedFuneralDialogViewModel,
           funeralEventDetail.funeralStartTime,
@@ -101,7 +102,7 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
                 eventStartTime: funeralEventDetail.funeralStartTime,
               );
             },
-            child: const Text(DialogConstants.funeralPlanCallToAction)),
+            child: const Text(DeathEventDialogsTextConstants.funeralPlanCallToAction)),
       ],
     );
   }

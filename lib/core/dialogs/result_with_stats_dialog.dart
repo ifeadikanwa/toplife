@@ -5,6 +5,7 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
+import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 import 'package:toplife/core/utils/stats/stats_item.dart';
 
 class ResultWithStatsDialog {
@@ -15,24 +16,22 @@ class ResultWithStatsDialog {
     required List<StatsItem> statsList,
   }) async {
     if (context.mounted) {
-      return showDialog<void>(
+      return showDismissableDialog(
         context: context,
-        builder: (BuildContext context) {
-          return DialogContainer(
-            title: DialogTitleText(text: title),
-            children: [
-              Center(
-                child: DialogBodyText(text: result),
-              ),
-              const AddVerticalSpace(
-                height: DialogConstants.verticalTextTextSpacing,
-              ),
-              MultipleStatsWidget(
-                statsList: statsList,
-              ),
-            ],
-          );
-        },
+        child: DialogContainer(
+          title: DialogTitleText(text: title),
+          children: [
+            Center(
+              child: DialogBodyText(text: result),
+            ),
+            const AddVerticalSpace(
+              height: DialogConstants.verticalTextTextSpacing,
+            ),
+            MultipleStatsWidget(
+              statsList: statsList,
+            ),
+          ],
+        ),
       );
     }
   }

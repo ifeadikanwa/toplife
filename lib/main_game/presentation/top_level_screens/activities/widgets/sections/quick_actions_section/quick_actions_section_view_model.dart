@@ -5,6 +5,7 @@ import 'package:toplife/core/common_states/dependencies/person/person_dependenci
 import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/activities/widgets/dialogs/sleep_action_dialog/sleep_action_dialog.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -54,9 +55,9 @@ class QuickActionsSectionViewModel {
 
   void goToSleepActionDialog(BuildContext context) {
     if (_currentGame != null) {
-      showDialog(
+      showDismissableDialog(
         context: context,
-        builder: (context) => SleepActionDialog(currentGame: _currentGame!),
+        child: SleepActionDialog(currentGame: _currentGame!),
       );
     }
   }

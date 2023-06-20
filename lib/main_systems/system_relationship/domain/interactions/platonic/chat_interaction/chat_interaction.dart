@@ -7,6 +7,7 @@ import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
 import 'package:toplife/core/utils/words/sentence_pair.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
+import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
@@ -37,9 +38,11 @@ class ChatInteraction extends RelationshipInteraction {
 
   @override
   bool isAvailable({
+    required AgeUsecases ageUsecases,
     required int currentDay,
     required Person currentPlayer,
     required Person relationshipPerson,
+    required bool livingTogether,
   }) {
     //RULES:
     //chat is open to every character of every age

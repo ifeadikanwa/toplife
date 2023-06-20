@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/mortgagae_loan_dialog/mortgage_loan_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/house/tab_screens/purchase_houses_screen/purchase_houses_screen_view_model.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/house_constants.dart';
@@ -82,9 +83,9 @@ class BuyHouseDialogViewModel {
     House house,
   ) {
     if (_currentPlayerID != null) {
-      showDialog(
+      showDismissableDialog(
         context: context,
-        builder: (context) => MortgageLoanDialog(
+        child: MortgageLoanDialog(
           house: house,
           personID: _currentPlayerID!,
         ),

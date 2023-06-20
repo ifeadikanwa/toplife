@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_event_choices_to_buttons.dart';
+import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 
 class DialogContainer extends StatelessWidget {
@@ -20,7 +21,7 @@ class DialogContainer extends StatelessWidget {
     final appTheme = Theme.of(context);
 
     final closeChoice = EventChoice(
-      choiceDescription: DialogConstants.close,
+      choiceDescription: TextConstants.close,
       choiceAction: (BuildContext context) {},
     );
 

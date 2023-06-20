@@ -54,6 +54,13 @@ dependencies:
   path_provider: ^2.0.0
   drift_db_viewer: ^2.0.0
   get_it: ^7.6.0
+  #currency formatter for textfield
+  currency_text_input_formatter: ^2.1.10
+  mockito: ^5.4.2
+
+dependency_overrides:
+  intl: ^0.18.0
+
 
 
 dev_dependencies:

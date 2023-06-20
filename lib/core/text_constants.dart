@@ -3,6 +3,7 @@ class TextConstants {
   static const appName = "TopLife";
   static const emptyString = "";
   static const dash = "-";
+  static const fullStop = ".";
   static const me = "Me";
   static const others = "Others";
   static const home = "Home";
@@ -12,6 +13,10 @@ class TextConstants {
   static const day = "Day";
   static const days = "Days";
   static const interactions = "Interactions";
+  static const doString = "Do";
+  static const send = "Send";
+  static const none = "None";
+  static const close = "Close";
 
   //player
   static const babyMonitor = "Baby Monitor";
@@ -66,6 +71,8 @@ class TextConstants {
   static const attend = "Attend";
   static const noEventTitle = "No Events";
   static const noEventDesc = "You have no event invitations";
+  static const attendAlone = "Attend alone";
+  static const attendWithPartner = "Attend with partner";
 
   //shop
   static const shop = "Shop";

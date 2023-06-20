@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
@@ -46,6 +46,6 @@ final gameRelationshipInteractionsProvider =
     ref.watch(relationshipUsecasesProvider),
     ref.watch(journalUsecasesProvider),
     ref.watch(personUsecasesProvider),
-    ref.watch(ageUsecasesProvider),
+    ref.watch(shopAndStorageUsecasesProvider),
   );
 });

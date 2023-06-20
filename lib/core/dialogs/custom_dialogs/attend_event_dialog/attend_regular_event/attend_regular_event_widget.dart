@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_event_dialogs_text_constants.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_regular_event/attend_regular_event_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
@@ -9,6 +10,7 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_event_choices_to_buttons.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
+import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
@@ -70,7 +72,8 @@ class AttendRegularEventWidget extends ConsumerWidget {
         const AddVerticalSpace(
           height: DialogConstants.verticalDropdownSpacing,
         ),
-        const DialogDropdownLabelText(text: DialogConstants.stayDurationPrompt),
+        const DialogDropdownLabelText(
+            text: AttendEventDialogsTextConstants.stayDurationPrompt),
         stayDurationDropdown(
           attendRegularEventDialogViewModel,
           eventStayDuration,
@@ -82,7 +85,7 @@ class AttendRegularEventWidget extends ConsumerWidget {
             ? DialogEventChoicesToWidgets(
                 eventChoices: [
                   EventChoice(
-                    choiceDescription: DialogConstants.attendAlone,
+                    choiceDescription: TextConstants.attendAlone,
                     choiceAction: (BuildContext context) async {
                       attendAlone(
                         context: context,
@@ -95,7 +98,7 @@ class AttendRegularEventWidget extends ConsumerWidget {
                     },
                   ),
                   EventChoice(
-                    choiceDescription: DialogConstants.attendWithPartner,
+                    choiceDescription: TextConstants.attendWithPartner,
                     choiceAction: (BuildContext context) async {
                       attendWithPartner(
                         context: context,
@@ -112,7 +115,7 @@ class AttendRegularEventWidget extends ConsumerWidget {
             : DialogEventChoicesToWidgets(
                 eventChoices: [
                   EventChoice(
-                    choiceDescription: DialogConstants.attend,
+                    choiceDescription: TextConstants.attend,
                     choiceAction: (BuildContext context) async {
                       attendAlone(
                         context: context,

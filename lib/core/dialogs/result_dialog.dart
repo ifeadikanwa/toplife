@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
+import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 
 class ResultDialog {
   static Future<void> show({
@@ -10,18 +11,16 @@ class ResultDialog {
     required String result,
   }) async {
     if (context.mounted) {
-      return showDialog<void>(
+      return showDismissableDialog(
         context: context,
-        builder: (BuildContext context) {
-          return DialogContainer(
-            title: DialogTitleText(text: title),
-            children: [
-              Center(
-                child: DialogBodyText(text: result),
-              )
-            ],
-          );
-        },
+        child: DialogContainer(
+          title: DialogTitleText(text: title),
+          children: [
+            Center(
+              child: DialogBodyText(text: result),
+            )
+          ],
+        ),
       );
     }
   }

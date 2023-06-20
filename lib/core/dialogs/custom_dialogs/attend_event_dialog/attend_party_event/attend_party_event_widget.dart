@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_event_dialogs_text_constants.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/attend_party_event/attend_party_event_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
@@ -10,6 +11,7 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.d
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_event_choices_to_buttons.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_slider.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
+import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
 import 'package:toplife/main_systems/system_event/constants/party_event_activity.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/attend_party_detail.dart';
@@ -88,7 +90,8 @@ class AttendPartyEventWidget extends ConsumerWidget {
         ),
 
         //stay duration
-        const DialogDropdownLabelText(text: DialogConstants.stayDurationPrompt),
+        const DialogDropdownLabelText(
+            text: AttendEventDialogsTextConstants.stayDurationPrompt),
         stayDurationDropdown(
           attendPartyEventDialogViewModel,
           partyDetails.partyStayDuration,
@@ -107,7 +110,7 @@ class AttendPartyEventWidget extends ConsumerWidget {
             ? DialogEventChoicesToWidgets(
                 eventChoices: [
                   EventChoice(
-                    choiceDescription: DialogConstants.attendAlone,
+                    choiceDescription: TextConstants.attendAlone,
                     choiceAction: (BuildContext context) async {
                       attendPartyAlone(
                         context: context,
@@ -124,7 +127,7 @@ class AttendPartyEventWidget extends ConsumerWidget {
                     },
                   ),
                   EventChoice(
-                    choiceDescription: DialogConstants.attendWithPartner,
+                    choiceDescription: TextConstants.attendWithPartner,
                     choiceAction: (BuildContext context) {
                       attendPartyWithPartner(
                         context: context,
@@ -145,7 +148,7 @@ class AttendPartyEventWidget extends ConsumerWidget {
             : DialogEventChoicesToWidgets(
                 eventChoices: [
                   EventChoice(
-                    choiceDescription: DialogConstants.attend,
+                    choiceDescription: TextConstants.attend,
                     choiceAction: (BuildContext context) {
                       attendPartyAlone(
                         context: context,
@@ -176,7 +179,7 @@ class AttendPartyEventWidget extends ConsumerWidget {
       children: [
         //activity
         const DialogDropdownLabelText(
-          text: DialogConstants.partyActivityPrompt,
+          text: AttendEventDialogsTextConstants.partyActivityPrompt,
         ),
         partyActivityDropdown(
           attendPartyEventDialogViewModel,
@@ -185,7 +188,8 @@ class AttendPartyEventWidget extends ConsumerWidget {
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
 
         //gift
-        const DialogDropdownLabelText(text: DialogConstants.giftItemPrompt),
+        const DialogDropdownLabelText(
+            text: AttendEventDialogsTextConstants.giftItemPrompt),
         bringGiftDropDown(
           attendPartyEventDialogViewModel,
           giftOptionsInStorage,
@@ -196,7 +200,7 @@ class AttendPartyEventWidget extends ConsumerWidget {
         //money gift
         DialogDropdownLabelText(
             text:
-                "${DialogConstants.moneyGiftPrompt} $currency${partyDetails.moneyGift}"),
+                "${AttendEventDialogsTextConstants.moneyGiftPrompt} $currency${partyDetails.moneyGift}"),
         moneyGiftSlider(
           attendPartyEventDialogViewModel,
           partyDetails.moneyGift,
@@ -225,7 +229,7 @@ class AttendPartyEventWidget extends ConsumerWidget {
             (giftOption) => DropdownMenuItem(
               value: giftOption,
               child: DialogBodyText(
-                text: giftOption?.item.name ?? DialogConstants.none,
+                text: giftOption?.item.name ?? TextConstants.none,
               ),
             ),
           )

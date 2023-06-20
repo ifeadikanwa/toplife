@@ -11,7 +11,6 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/buy_house_dialog/buy_house_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
@@ -113,32 +112,11 @@ class ShopScreen extends ConsumerWidget {
             const AddVerticalSpace(height: 16.0),
             OutlinedButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => const BuyHouseDialog(
-                    house: House(
-                      id: 0,
-                      ownerPersonId: 1,
-                      bedrooms: 3,
-                      bathrooms: 2,
-                      storage: 8,
-                      address: "1234 Daisy Road",
-                      isForRent: true,
-                      buildingType: "townhouse",
-                      settlement: "City",
-                      country: "country",
-                      state: "state",
-                      style: "Rustic",
-                      lastMaintainedDay: 24,
-                      basePrice: 2000,
-                      dayOfPurchase: 12,
-                      condition: 78,
-                      purchasePrice: 5900,
-                      fullyPaidFor: false,
-                      endOfLeaseDay: 0,
-                    ),
-                  ),
-                );
+                // showDialog(
+                //   context: context,
+                //   builder: (context) =>
+                //   ),
+                // );
               },
               child: const Text("Dialog"),
             ),
@@ -324,16 +302,16 @@ class ShopScreen extends ConsumerWidget {
 // );
 
 //  [
-//               const ShopListItem(
-//                   itemName: BabyFoodNames.fuzziesMegaOrganicBabyFormula,
-//                   itemDetails: "2 Servings",
-//                   itemPrice: 30,
-//                   itemImage: "itemImage"),
-//               const ShopListItem(
-//                   itemName: BabyFoodNames.mangoPuree,
-//                   itemDetails: "2 Servings",
-//                   itemPrice: 30,
-//                   itemImage: "itemImage"),
+              // const ShopListItem(
+              //     itemName: BabyFoodNames.fuzziesMegaOrganicBabyFormula,
+              //     itemDetails: "2 Servings",
+              //     itemPrice: 30,
+              //     itemImage: "itemImage"),
+              // const ShopListItem(
+              //     itemName: BabyFoodNames.mangoPuree,
+              //     itemDetails: "2 Servings",
+              //     itemPrice: 30,
+              //     itemImage: "itemImage"),
 //               const ShopListItem(
 //                   itemName: BabyFoodNames.bananaAppleMangoPuree,
 //                   itemDetails: "1 Servings",

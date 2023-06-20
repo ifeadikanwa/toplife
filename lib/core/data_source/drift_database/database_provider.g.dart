@@ -2290,6 +2290,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
   final Value<bool> health;
   final Value<bool> athleticism;
   final Value<bool> sober;
+  final Value<int> rowid;
   const DepleteStatsFlagTableCompanion({
     this.personId = const Value.absent(),
     this.energy = const Value.absent(),
@@ -2298,6 +2299,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
     this.health = const Value.absent(),
     this.athleticism = const Value.absent(),
     this.sober = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   DepleteStatsFlagTableCompanion.insert({
     required int personId,
@@ -2307,6 +2309,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
     required bool health,
     required bool athleticism,
     required bool sober,
+    this.rowid = const Value.absent(),
   })  : personId = Value(personId),
         energy = Value(energy),
         hunger = Value(hunger),
@@ -2322,6 +2325,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
     Expression<bool>? health,
     Expression<bool>? athleticism,
     Expression<bool>? sober,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (personId != null) 'person_id': personId,
@@ -2331,6 +2335,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
       if (health != null) 'health': health,
       if (athleticism != null) 'athleticism': athleticism,
       if (sober != null) 'sober': sober,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -2341,7 +2346,8 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
       Value<bool>? mood,
       Value<bool>? health,
       Value<bool>? athleticism,
-      Value<bool>? sober}) {
+      Value<bool>? sober,
+      Value<int>? rowid}) {
     return DepleteStatsFlagTableCompanion(
       personId: personId ?? this.personId,
       energy: energy ?? this.energy,
@@ -2350,6 +2356,7 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
       health: health ?? this.health,
       athleticism: athleticism ?? this.athleticism,
       sober: sober ?? this.sober,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -2377,6 +2384,9 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
     if (sober.present) {
       map['sober'] = Variable<bool>(sober.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -2389,7 +2399,8 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
           ..write('mood: $mood, ')
           ..write('health: $health, ')
           ..write('athleticism: $athleticism, ')
-          ..write('sober: $sober')
+          ..write('sober: $sober, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -4440,12 +4451,14 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
   final Value<String> metAt;
   final Value<int> relationship;
   final Value<bool> interestedInRelationship;
+  final Value<int> rowid;
   const AcquaintanceTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.acquaintanceId = const Value.absent(),
     this.metAt = const Value.absent(),
     this.relationship = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   AcquaintanceTableCompanion.insert({
     required int mainPersonId,
@@ -4453,6 +4466,7 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
     required String metAt,
     required int relationship,
     required bool interestedInRelationship,
+    this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         acquaintanceId = Value(acquaintanceId),
         metAt = Value(metAt),
@@ -4464,6 +4478,7 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
     Expression<String>? metAt,
     Expression<int>? relationship,
     Expression<bool>? interestedInRelationship,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
@@ -4472,6 +4487,7 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
       if (relationship != null) 'relationship': relationship,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -4480,7 +4496,8 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
       Value<int>? acquaintanceId,
       Value<String>? metAt,
       Value<int>? relationship,
-      Value<bool>? interestedInRelationship}) {
+      Value<bool>? interestedInRelationship,
+      Value<int>? rowid}) {
     return AcquaintanceTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       acquaintanceId: acquaintanceId ?? this.acquaintanceId,
@@ -4488,6 +4505,7 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
       relationship: relationship ?? this.relationship,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -4510,6 +4528,9 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -4520,7 +4541,8 @@ class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
           ..write('acquaintanceId: $acquaintanceId, ')
           ..write('metAt: $metAt, ')
           ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -4908,6 +4930,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
   final Value<String> assumedRelationshipType;
   final Value<int> relationship;
   final Value<bool> interestedInRelationship;
+  final Value<int> rowid;
   const ChildTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.childId = const Value.absent(),
@@ -4918,6 +4941,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
     this.assumedRelationshipType = const Value.absent(),
     this.relationship = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   ChildTableCompanion.insert({
     required int mainPersonId,
@@ -4929,6 +4953,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
     required String assumedRelationshipType,
     required int relationship,
     required bool interestedInRelationship,
+    this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         childId = Value(childId),
         inYourCustody = Value(inYourCustody),
@@ -4948,6 +4973,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
     Expression<String>? assumedRelationshipType,
     Expression<int>? relationship,
     Expression<bool>? interestedInRelationship,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
@@ -4962,6 +4988,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
       if (relationship != null) 'relationship': relationship,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -4974,7 +5001,8 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
       Value<bool>? paternityFraud,
       Value<String>? assumedRelationshipType,
       Value<int>? relationship,
-      Value<bool>? interestedInRelationship}) {
+      Value<bool>? interestedInRelationship,
+      Value<int>? rowid}) {
     return ChildTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       childId: childId ?? this.childId,
@@ -4988,6 +5016,7 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
       relationship: relationship ?? this.relationship,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -5024,6 +5053,9 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -5038,7 +5070,8 @@ class ChildTableCompanion extends UpdateCompanion<Child> {
           ..write('paternityFraud: $paternityFraud, ')
           ..write('assumedRelationshipType: $assumedRelationshipType, ')
           ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -5319,6 +5352,7 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
   final Value<bool> haveRomanticRelationship;
   final Value<int> relationship;
   final Value<bool> interestedInRelationship;
+  final Value<int> rowid;
   const FriendTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.friendId = const Value.absent(),
@@ -5326,6 +5360,7 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
     this.haveRomanticRelationship = const Value.absent(),
     this.relationship = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   FriendTableCompanion.insert({
     required int mainPersonId,
@@ -5334,6 +5369,7 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
     required bool haveRomanticRelationship,
     required int relationship,
     required bool interestedInRelationship,
+    this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         friendId = Value(friendId),
         metAt = Value(metAt),
@@ -5347,6 +5383,7 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
     Expression<bool>? haveRomanticRelationship,
     Expression<int>? relationship,
     Expression<bool>? interestedInRelationship,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
@@ -5357,6 +5394,7 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
       if (relationship != null) 'relationship': relationship,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -5366,7 +5404,8 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
       Value<String>? metAt,
       Value<bool>? haveRomanticRelationship,
       Value<int>? relationship,
-      Value<bool>? interestedInRelationship}) {
+      Value<bool>? interestedInRelationship,
+      Value<int>? rowid}) {
     return FriendTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       friendId: friendId ?? this.friendId,
@@ -5376,6 +5415,7 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
       relationship: relationship ?? this.relationship,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -5402,6 +5442,9 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -5413,7 +5456,8 @@ class FriendTableCompanion extends UpdateCompanion<Friend> {
           ..write('metAt: $metAt, ')
           ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
           ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -5673,6 +5717,7 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
   final Value<int> dayOfDeath;
   final Value<String> fullName;
   final Value<String> ageAtDeath;
+  final Value<int> rowid;
   const GraveTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.deadPersonId = const Value.absent(),
@@ -5680,6 +5725,7 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
     this.dayOfDeath = const Value.absent(),
     this.fullName = const Value.absent(),
     this.ageAtDeath = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   GraveTableCompanion.insert({
     required int mainPersonId,
@@ -5688,6 +5734,7 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
     required int dayOfDeath,
     required String fullName,
     required String ageAtDeath,
+    this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         deadPersonId = Value(deadPersonId),
         relationshipType = Value(relationshipType),
@@ -5701,6 +5748,7 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
     Expression<int>? dayOfDeath,
     Expression<String>? fullName,
     Expression<String>? ageAtDeath,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
@@ -5709,6 +5757,7 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
       if (dayOfDeath != null) 'day_of_death': dayOfDeath,
       if (fullName != null) 'full_name': fullName,
       if (ageAtDeath != null) 'age_at_death': ageAtDeath,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -5718,7 +5767,8 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
       Value<String>? relationshipType,
       Value<int>? dayOfDeath,
       Value<String>? fullName,
-      Value<String>? ageAtDeath}) {
+      Value<String>? ageAtDeath,
+      Value<int>? rowid}) {
     return GraveTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       deadPersonId: deadPersonId ?? this.deadPersonId,
@@ -5726,6 +5776,7 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
       dayOfDeath: dayOfDeath ?? this.dayOfDeath,
       fullName: fullName ?? this.fullName,
       ageAtDeath: ageAtDeath ?? this.ageAtDeath,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -5750,6 +5801,9 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
     if (ageAtDeath.present) {
       map['age_at_death'] = Variable<String>(ageAtDeath.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -5761,7 +5815,8 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
           ..write('relationshipType: $relationshipType, ')
           ..write('dayOfDeath: $dayOfDeath, ')
           ..write('fullName: $fullName, ')
-          ..write('ageAtDeath: $ageAtDeath')
+          ..write('ageAtDeath: $ageAtDeath, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -6088,6 +6143,7 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
   final Value<bool> haveRomanticRelationship;
   final Value<int> relationship;
   final Value<bool> interestedInRelationship;
+  final Value<int> rowid;
   const InLawTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.inLawId = const Value.absent(),
@@ -6096,6 +6152,7 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
     this.haveRomanticRelationship = const Value.absent(),
     this.relationship = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   InLawTableCompanion.insert({
     required int mainPersonId,
@@ -6105,6 +6162,7 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
     required bool haveRomanticRelationship,
     required int relationship,
     required bool interestedInRelationship,
+    this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         inLawId = Value(inLawId),
         likesMainPerson = Value(likesMainPerson),
@@ -6120,6 +6178,7 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
     Expression<bool>? haveRomanticRelationship,
     Expression<int>? relationship,
     Expression<bool>? interestedInRelationship,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
@@ -6132,6 +6191,7 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
       if (relationship != null) 'relationship': relationship,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -6142,7 +6202,8 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
       Value<String>? inLawRelationshipType,
       Value<bool>? haveRomanticRelationship,
       Value<int>? relationship,
-      Value<bool>? interestedInRelationship}) {
+      Value<bool>? interestedInRelationship,
+      Value<int>? rowid}) {
     return InLawTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       inLawId: inLawId ?? this.inLawId,
@@ -6154,6 +6215,7 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
       relationship: relationship ?? this.relationship,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -6184,6 +6246,9 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -6196,7 +6261,8 @@ class InLawTableCompanion extends UpdateCompanion<InLaw> {
           ..write('inLawRelationshipType: $inLawRelationshipType, ')
           ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
           ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -6583,6 +6649,7 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
   final Value<int> relationship;
   final Value<bool> isActive;
   final Value<bool> interestedInRelationship;
+  final Value<int> rowid;
   const ParentTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.parentId = const Value.absent(),
@@ -6593,6 +6660,7 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
     this.relationship = const Value.absent(),
     this.isActive = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   ParentTableCompanion.insert({
     required int mainPersonId,
@@ -6604,6 +6672,7 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
     required int relationship,
     required bool isActive,
     required bool interestedInRelationship,
+    this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         parentId = Value(parentId),
         parentRelationshipType = Value(parentRelationshipType),
@@ -6623,6 +6692,7 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
     Expression<int>? relationship,
     Expression<bool>? isActive,
     Expression<bool>? interestedInRelationship,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
@@ -6637,6 +6707,7 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
       if (isActive != null) 'is_active': isActive,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -6649,7 +6720,8 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
       Value<String>? assumedRelationshipType,
       Value<int>? relationship,
       Value<bool>? isActive,
-      Value<bool>? interestedInRelationship}) {
+      Value<bool>? interestedInRelationship,
+      Value<int>? rowid}) {
     return ParentTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       parentId: parentId ?? this.parentId,
@@ -6663,6 +6735,7 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
       isActive: isActive ?? this.isActive,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -6699,6 +6772,9 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -6713,7 +6789,8 @@ class ParentTableCompanion extends UpdateCompanion<Parent> {
           ..write('assumedRelationshipType: $assumedRelationshipType, ')
           ..write('relationship: $relationship, ')
           ..write('isActive: $isActive, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -7143,6 +7220,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
   final Value<String> metAt;
   final Value<int> relationship;
   final Value<bool> interestedInRelationship;
+  final Value<int> rowid;
   const PartnerTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.partnerId = const Value.absent(),
@@ -7155,6 +7233,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     this.metAt = const Value.absent(),
     this.relationship = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   PartnerTableCompanion.insert({
     required int mainPersonId,
@@ -7168,6 +7247,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     required String metAt,
     required int relationship,
     required bool interestedInRelationship,
+    this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         partnerId = Value(partnerId),
         partnerRelationshipType = Value(partnerRelationshipType),
@@ -7191,6 +7271,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     Expression<String>? metAt,
     Expression<int>? relationship,
     Expression<bool>? interestedInRelationship,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
@@ -7206,6 +7287,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       if (relationship != null) 'relationship': relationship,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -7220,7 +7302,8 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       Value<bool>? isCoParent,
       Value<String>? metAt,
       Value<int>? relationship,
-      Value<bool>? interestedInRelationship}) {
+      Value<bool>? interestedInRelationship,
+      Value<int>? rowid}) {
     return PartnerTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       partnerId: partnerId ?? this.partnerId,
@@ -7235,6 +7318,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       relationship: relationship ?? this.relationship,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -7276,6 +7360,9 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -7292,7 +7379,8 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
           ..write('isCoParent: $isCoParent, ')
           ..write('metAt: $metAt, ')
           ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -7578,6 +7666,7 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
   final Value<String> relativeRelationshipType;
   final Value<int> relationship;
   final Value<bool> interestedInRelationship;
+  final Value<int> rowid;
   const RelativeTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.relativeId = const Value.absent(),
@@ -7585,6 +7674,7 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
     this.relativeRelationshipType = const Value.absent(),
     this.relationship = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   RelativeTableCompanion.insert({
     required int mainPersonId,
@@ -7593,6 +7683,7 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
     required String relativeRelationshipType,
     required int relationship,
     required bool interestedInRelationship,
+    this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         relativeId = Value(relativeId),
         inYourCustody = Value(inYourCustody),
@@ -7606,6 +7697,7 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
     Expression<String>? relativeRelationshipType,
     Expression<int>? relationship,
     Expression<bool>? interestedInRelationship,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
@@ -7616,6 +7708,7 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
       if (relationship != null) 'relationship': relationship,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -7625,7 +7718,8 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
       Value<bool>? inYourCustody,
       Value<String>? relativeRelationshipType,
       Value<int>? relationship,
-      Value<bool>? interestedInRelationship}) {
+      Value<bool>? interestedInRelationship,
+      Value<int>? rowid}) {
     return RelativeTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       relativeId: relativeId ?? this.relativeId,
@@ -7635,6 +7729,7 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
       relationship: relationship ?? this.relationship,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -7661,6 +7756,9 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -7672,7 +7770,8 @@ class RelativeTableCompanion extends UpdateCompanion<Relative> {
           ..write('inYourCustody: $inYourCustody, ')
           ..write('relativeRelationshipType: $relativeRelationshipType, ')
           ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -7961,6 +8060,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
   final Value<int> relationship;
   final Value<bool> inYourCustody;
   final Value<bool> interestedInRelationship;
+  final Value<int> rowid;
   const SiblingTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.siblingId = const Value.absent(),
@@ -7968,6 +8068,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
     this.relationship = const Value.absent(),
     this.inYourCustody = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   SiblingTableCompanion.insert({
     required int mainPersonId,
@@ -7976,6 +8077,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
     required int relationship,
     required bool inYourCustody,
     required bool interestedInRelationship,
+    this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         siblingId = Value(siblingId),
         siblingRelationshipType = Value(siblingRelationshipType),
@@ -7989,6 +8091,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
     Expression<int>? relationship,
     Expression<bool>? inYourCustody,
     Expression<bool>? interestedInRelationship,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
@@ -7999,6 +8102,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
       if (inYourCustody != null) 'in_your_custody': inYourCustody,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -8008,7 +8112,8 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
       Value<String>? siblingRelationshipType,
       Value<int>? relationship,
       Value<bool>? inYourCustody,
-      Value<bool>? interestedInRelationship}) {
+      Value<bool>? interestedInRelationship,
+      Value<int>? rowid}) {
     return SiblingTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       siblingId: siblingId ?? this.siblingId,
@@ -8018,6 +8123,7 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
       inYourCustody: inYourCustody ?? this.inYourCustody,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -8044,6 +8150,9 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -8055,7 +8164,8 @@ class SiblingTableCompanion extends UpdateCompanion<Sibling> {
           ..write('siblingRelationshipType: $siblingRelationshipType, ')
           ..write('relationship: $relationship, ')
           ..write('inYourCustody: $inYourCustody, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -11248,6 +11358,7 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
   final Value<bool> isAtHome;
   final Value<String> stayType;
   final Value<int> exitDay;
+  final Value<int> rowid;
   const CurrentHomeTableCompanion({
     this.personId = const Value.absent(),
     this.houseId = const Value.absent(),
@@ -11255,6 +11366,7 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
     this.isAtHome = const Value.absent(),
     this.stayType = const Value.absent(),
     this.exitDay = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   CurrentHomeTableCompanion.insert({
     required int personId,
@@ -11263,6 +11375,7 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
     required bool isAtHome,
     required String stayType,
     required int exitDay,
+    this.rowid = const Value.absent(),
   })  : personId = Value(personId),
         houseId = Value(houseId),
         hasManagementRights = Value(hasManagementRights),
@@ -11276,6 +11389,7 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
     Expression<bool>? isAtHome,
     Expression<String>? stayType,
     Expression<int>? exitDay,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (personId != null) 'person_id': personId,
@@ -11285,6 +11399,7 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
       if (isAtHome != null) 'is_at_home': isAtHome,
       if (stayType != null) 'stay_type': stayType,
       if (exitDay != null) 'exit_day': exitDay,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -11294,7 +11409,8 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
       Value<bool>? hasManagementRights,
       Value<bool>? isAtHome,
       Value<String>? stayType,
-      Value<int>? exitDay}) {
+      Value<int>? exitDay,
+      Value<int>? rowid}) {
     return CurrentHomeTableCompanion(
       personId: personId ?? this.personId,
       houseId: houseId ?? this.houseId,
@@ -11302,6 +11418,7 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
       isAtHome: isAtHome ?? this.isAtHome,
       stayType: stayType ?? this.stayType,
       exitDay: exitDay ?? this.exitDay,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -11326,6 +11443,9 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
     if (exitDay.present) {
       map['exit_day'] = Variable<int>(exitDay.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -11337,7 +11457,8 @@ class CurrentHomeTableCompanion extends UpdateCompanion<CurrentHome> {
           ..write('hasManagementRights: $hasManagementRights, ')
           ..write('isAtHome: $isAtHome, ')
           ..write('stayType: $stayType, ')
-          ..write('exitDay: $exitDay')
+          ..write('exitDay: $exitDay, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -12510,17 +12631,20 @@ class JournalTableCompanion extends UpdateCompanion<Journal> {
   final Value<int> day;
   final Value<int> mainPlayerId;
   final Value<String> entry;
+  final Value<int> rowid;
   const JournalTableCompanion({
     this.gameId = const Value.absent(),
     this.day = const Value.absent(),
     this.mainPlayerId = const Value.absent(),
     this.entry = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   JournalTableCompanion.insert({
     required int gameId,
     required int day,
     required int mainPlayerId,
     required String entry,
+    this.rowid = const Value.absent(),
   })  : gameId = Value(gameId),
         day = Value(day),
         mainPlayerId = Value(mainPlayerId),
@@ -12530,12 +12654,14 @@ class JournalTableCompanion extends UpdateCompanion<Journal> {
     Expression<int>? day,
     Expression<int>? mainPlayerId,
     Expression<String>? entry,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (gameId != null) 'game_id': gameId,
       if (day != null) 'day': day,
       if (mainPlayerId != null) 'main_player_id': mainPlayerId,
       if (entry != null) 'entry': entry,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -12543,12 +12669,14 @@ class JournalTableCompanion extends UpdateCompanion<Journal> {
       {Value<int>? gameId,
       Value<int>? day,
       Value<int>? mainPlayerId,
-      Value<String>? entry}) {
+      Value<String>? entry,
+      Value<int>? rowid}) {
     return JournalTableCompanion(
       gameId: gameId ?? this.gameId,
       day: day ?? this.day,
       mainPlayerId: mainPlayerId ?? this.mainPlayerId,
       entry: entry ?? this.entry,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -12567,6 +12695,9 @@ class JournalTableCompanion extends UpdateCompanion<Journal> {
     if (entry.present) {
       map['entry'] = Variable<String>(entry.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -12576,7 +12707,8 @@ class JournalTableCompanion extends UpdateCompanion<Journal> {
           ..write('gameId: $gameId, ')
           ..write('day: $day, ')
           ..write('mainPlayerId: $mainPlayerId, ')
-          ..write('entry: $entry')
+          ..write('entry: $entry, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
