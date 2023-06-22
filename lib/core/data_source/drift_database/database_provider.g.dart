@@ -2442,6 +2442,18 @@ class $StanceTableTable extends StanceTable
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
+  static const VerificationMeta _openToMarriageMeta =
+      const VerificationMeta('openToMarriage');
+  @override
+  late final GeneratedColumn<bool> openToMarriage =
+      GeneratedColumn<bool>('open_to_marriage', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("open_to_marriage" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
   static const VerificationMeta _openToSexWorkerPartnerMeta =
       const VerificationMeta('openToSexWorkerPartner');
   @override
@@ -2648,6 +2660,7 @@ class $StanceTableTable extends StanceTable
         id,
         personId,
         openToAdoption,
+        openToMarriage,
         openToSexWorkerPartner,
         openToAbortion,
         openToSurrogacy,
@@ -2690,6 +2703,14 @@ class $StanceTableTable extends StanceTable
               data['open_to_adoption']!, _openToAdoptionMeta));
     } else if (isInserting) {
       context.missing(_openToAdoptionMeta);
+    }
+    if (data.containsKey('open_to_marriage')) {
+      context.handle(
+          _openToMarriageMeta,
+          openToMarriage.isAcceptableOrUnknown(
+              data['open_to_marriage']!, _openToMarriageMeta));
+    } else if (isInserting) {
+      context.missing(_openToMarriageMeta);
     }
     if (data.containsKey('open_to_sex_worker_partner')) {
       context.handle(
@@ -2840,6 +2861,8 @@ class $StanceTableTable extends StanceTable
           .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
       openToAdoption: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}open_to_adoption'])!,
+      openToMarriage: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}open_to_marriage'])!,
       openToSexWorkerPartner: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}open_to_sex_worker_partner'])!,
@@ -2892,6 +2915,7 @@ class Stance extends DataClass implements Insertable<Stance> {
   final int id;
   final int personId;
   final bool openToAdoption;
+  final bool openToMarriage;
   final bool openToSexWorkerPartner;
   final bool openToAbortion;
   final bool openToSurrogacy;
@@ -2912,6 +2936,7 @@ class Stance extends DataClass implements Insertable<Stance> {
       {required this.id,
       required this.personId,
       required this.openToAdoption,
+      required this.openToMarriage,
       required this.openToSexWorkerPartner,
       required this.openToAbortion,
       required this.openToSurrogacy,
@@ -2934,6 +2959,7 @@ class Stance extends DataClass implements Insertable<Stance> {
     map['id'] = Variable<int>(id);
     map['person_id'] = Variable<int>(personId);
     map['open_to_adoption'] = Variable<bool>(openToAdoption);
+    map['open_to_marriage'] = Variable<bool>(openToMarriage);
     map['open_to_sex_worker_partner'] = Variable<bool>(openToSexWorkerPartner);
     map['open_to_abortion'] = Variable<bool>(openToAbortion);
     map['open_to_surrogacy'] = Variable<bool>(openToSurrogacy);
@@ -2963,6 +2989,7 @@ class Stance extends DataClass implements Insertable<Stance> {
       id: Value(id),
       personId: Value(personId),
       openToAdoption: Value(openToAdoption),
+      openToMarriage: Value(openToMarriage),
       openToSexWorkerPartner: Value(openToSexWorkerPartner),
       openToAbortion: Value(openToAbortion),
       openToSurrogacy: Value(openToSurrogacy),
@@ -2991,6 +3018,7 @@ class Stance extends DataClass implements Insertable<Stance> {
       id: serializer.fromJson<int>(json['id']),
       personId: serializer.fromJson<int>(json['personId']),
       openToAdoption: serializer.fromJson<bool>(json['openToAdoption']),
+      openToMarriage: serializer.fromJson<bool>(json['openToMarriage']),
       openToSexWorkerPartner:
           serializer.fromJson<bool>(json['openToSexWorkerPartner']),
       openToAbortion: serializer.fromJson<bool>(json['openToAbortion']),
@@ -3026,6 +3054,7 @@ class Stance extends DataClass implements Insertable<Stance> {
       'id': serializer.toJson<int>(id),
       'personId': serializer.toJson<int>(personId),
       'openToAdoption': serializer.toJson<bool>(openToAdoption),
+      'openToMarriage': serializer.toJson<bool>(openToMarriage),
       'openToSexWorkerPartner': serializer.toJson<bool>(openToSexWorkerPartner),
       'openToAbortion': serializer.toJson<bool>(openToAbortion),
       'openToSurrogacy': serializer.toJson<bool>(openToSurrogacy),
@@ -3054,6 +3083,7 @@ class Stance extends DataClass implements Insertable<Stance> {
           {int? id,
           int? personId,
           bool? openToAdoption,
+          bool? openToMarriage,
           bool? openToSexWorkerPartner,
           bool? openToAbortion,
           bool? openToSurrogacy,
@@ -3074,6 +3104,7 @@ class Stance extends DataClass implements Insertable<Stance> {
         id: id ?? this.id,
         personId: personId ?? this.personId,
         openToAdoption: openToAdoption ?? this.openToAdoption,
+        openToMarriage: openToMarriage ?? this.openToMarriage,
         openToSexWorkerPartner:
             openToSexWorkerPartner ?? this.openToSexWorkerPartner,
         openToAbortion: openToAbortion ?? this.openToAbortion,
@@ -3104,6 +3135,7 @@ class Stance extends DataClass implements Insertable<Stance> {
           ..write('id: $id, ')
           ..write('personId: $personId, ')
           ..write('openToAdoption: $openToAdoption, ')
+          ..write('openToMarriage: $openToMarriage, ')
           ..write('openToSexWorkerPartner: $openToSexWorkerPartner, ')
           ..write('openToAbortion: $openToAbortion, ')
           ..write('openToSurrogacy: $openToSurrogacy, ')
@@ -3132,6 +3164,7 @@ class Stance extends DataClass implements Insertable<Stance> {
       id,
       personId,
       openToAdoption,
+      openToMarriage,
       openToSexWorkerPartner,
       openToAbortion,
       openToSurrogacy,
@@ -3155,6 +3188,7 @@ class Stance extends DataClass implements Insertable<Stance> {
           other.id == this.id &&
           other.personId == this.personId &&
           other.openToAdoption == this.openToAdoption &&
+          other.openToMarriage == this.openToMarriage &&
           other.openToSexWorkerPartner == this.openToSexWorkerPartner &&
           other.openToAbortion == this.openToAbortion &&
           other.openToSurrogacy == this.openToSurrogacy &&
@@ -3180,6 +3214,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
   final Value<int> id;
   final Value<int> personId;
   final Value<bool> openToAdoption;
+  final Value<bool> openToMarriage;
   final Value<bool> openToSexWorkerPartner;
   final Value<bool> openToAbortion;
   final Value<bool> openToSurrogacy;
@@ -3200,6 +3235,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     this.id = const Value.absent(),
     this.personId = const Value.absent(),
     this.openToAdoption = const Value.absent(),
+    this.openToMarriage = const Value.absent(),
     this.openToSexWorkerPartner = const Value.absent(),
     this.openToAbortion = const Value.absent(),
     this.openToSurrogacy = const Value.absent(),
@@ -3221,6 +3257,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     this.id = const Value.absent(),
     required int personId,
     required bool openToAdoption,
+    required bool openToMarriage,
     required bool openToSexWorkerPartner,
     required bool openToAbortion,
     required bool openToSurrogacy,
@@ -3239,6 +3276,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     required bool openToGayPeople,
   })  : personId = Value(personId),
         openToAdoption = Value(openToAdoption),
+        openToMarriage = Value(openToMarriage),
         openToSexWorkerPartner = Value(openToSexWorkerPartner),
         openToAbortion = Value(openToAbortion),
         openToSurrogacy = Value(openToSurrogacy),
@@ -3261,6 +3299,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     Expression<int>? id,
     Expression<int>? personId,
     Expression<bool>? openToAdoption,
+    Expression<bool>? openToMarriage,
     Expression<bool>? openToSexWorkerPartner,
     Expression<bool>? openToAbortion,
     Expression<bool>? openToSurrogacy,
@@ -3282,6 +3321,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
       if (id != null) 'id': id,
       if (personId != null) 'person_id': personId,
       if (openToAdoption != null) 'open_to_adoption': openToAdoption,
+      if (openToMarriage != null) 'open_to_marriage': openToMarriage,
       if (openToSexWorkerPartner != null)
         'open_to_sex_worker_partner': openToSexWorkerPartner,
       if (openToAbortion != null) 'open_to_abortion': openToAbortion,
@@ -3317,6 +3357,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
       {Value<int>? id,
       Value<int>? personId,
       Value<bool>? openToAdoption,
+      Value<bool>? openToMarriage,
       Value<bool>? openToSexWorkerPartner,
       Value<bool>? openToAbortion,
       Value<bool>? openToSurrogacy,
@@ -3337,6 +3378,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
       id: id ?? this.id,
       personId: personId ?? this.personId,
       openToAdoption: openToAdoption ?? this.openToAdoption,
+      openToMarriage: openToMarriage ?? this.openToMarriage,
       openToSexWorkerPartner:
           openToSexWorkerPartner ?? this.openToSexWorkerPartner,
       openToAbortion: openToAbortion ?? this.openToAbortion,
@@ -3374,6 +3416,9 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     }
     if (openToAdoption.present) {
       map['open_to_adoption'] = Variable<bool>(openToAdoption.value);
+    }
+    if (openToMarriage.present) {
+      map['open_to_marriage'] = Variable<bool>(openToMarriage.value);
     }
     if (openToSexWorkerPartner.present) {
       map['open_to_sex_worker_partner'] =
@@ -3439,6 +3484,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
           ..write('id: $id, ')
           ..write('personId: $personId, ')
           ..write('openToAdoption: $openToAdoption, ')
+          ..write('openToMarriage: $openToMarriage, ')
           ..write('openToSexWorkerPartner: $openToSexWorkerPartner, ')
           ..write('openToAbortion: $openToAbortion, ')
           ..write('openToSurrogacy: $openToSurrogacy, ')
@@ -3758,457 +3804,6 @@ class BabyTraitsTableCompanion extends UpdateCompanion<BabyTraits> {
           ..write('fussiness: $fussiness, ')
           ..write('appetite: $appetite, ')
           ..write('needsChanging: $needsChanging')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $RelationshipTraitsTableTable extends RelationshipTraitsTable
-    with TableInfo<$RelationshipTraitsTableTable, RelationshipTraits> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $RelationshipTraitsTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _personIdMeta =
-      const VerificationMeta('personId');
-  @override
-  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
-      'person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _helpfulnessMeta =
-      const VerificationMeta('helpfulness');
-  @override
-  late final GeneratedColumn<int> helpfulness = GeneratedColumn<int>(
-      'helpfulness', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _daysToDateBeforeMarriageMeta =
-      const VerificationMeta('daysToDateBeforeMarriage');
-  @override
-  late final GeneratedColumn<int> daysToDateBeforeMarriage =
-      GeneratedColumn<int>('days_to_date_before_marriage', aliasedName, false,
-          type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _economicalMeta =
-      const VerificationMeta('economical');
-  @override
-  late final GeneratedColumn<bool> economical =
-      GeneratedColumn<bool>('economical', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("economical" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
-  static const VerificationMeta _materialisticMeta =
-      const VerificationMeta('materialistic');
-  @override
-  late final GeneratedColumn<bool> materialistic =
-      GeneratedColumn<bool>('materialistic', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("materialistic" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
-  static const VerificationMeta _jealousMeta =
-      const VerificationMeta('jealous');
-  @override
-  late final GeneratedColumn<bool> jealous =
-      GeneratedColumn<bool>('jealous', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("jealous" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
-  static const VerificationMeta _cheaterMeta =
-      const VerificationMeta('cheater');
-  @override
-  late final GeneratedColumn<bool> cheater =
-      GeneratedColumn<bool>('cheater', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("cheater" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        personId,
-        helpfulness,
-        daysToDateBeforeMarriage,
-        economical,
-        materialistic,
-        jealous,
-        cheater
-      ];
-  @override
-  String get aliasedName => _alias ?? 'relationship_traits';
-  @override
-  String get actualTableName => 'relationship_traits';
-  @override
-  VerificationContext validateIntegrity(Insertable<RelationshipTraits> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('person_id')) {
-      context.handle(_personIdMeta,
-          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
-    } else if (isInserting) {
-      context.missing(_personIdMeta);
-    }
-    if (data.containsKey('helpfulness')) {
-      context.handle(
-          _helpfulnessMeta,
-          helpfulness.isAcceptableOrUnknown(
-              data['helpfulness']!, _helpfulnessMeta));
-    } else if (isInserting) {
-      context.missing(_helpfulnessMeta);
-    }
-    if (data.containsKey('days_to_date_before_marriage')) {
-      context.handle(
-          _daysToDateBeforeMarriageMeta,
-          daysToDateBeforeMarriage.isAcceptableOrUnknown(
-              data['days_to_date_before_marriage']!,
-              _daysToDateBeforeMarriageMeta));
-    } else if (isInserting) {
-      context.missing(_daysToDateBeforeMarriageMeta);
-    }
-    if (data.containsKey('economical')) {
-      context.handle(
-          _economicalMeta,
-          economical.isAcceptableOrUnknown(
-              data['economical']!, _economicalMeta));
-    } else if (isInserting) {
-      context.missing(_economicalMeta);
-    }
-    if (data.containsKey('materialistic')) {
-      context.handle(
-          _materialisticMeta,
-          materialistic.isAcceptableOrUnknown(
-              data['materialistic']!, _materialisticMeta));
-    } else if (isInserting) {
-      context.missing(_materialisticMeta);
-    }
-    if (data.containsKey('jealous')) {
-      context.handle(_jealousMeta,
-          jealous.isAcceptableOrUnknown(data['jealous']!, _jealousMeta));
-    } else if (isInserting) {
-      context.missing(_jealousMeta);
-    }
-    if (data.containsKey('cheater')) {
-      context.handle(_cheaterMeta,
-          cheater.isAcceptableOrUnknown(data['cheater']!, _cheaterMeta));
-    } else if (isInserting) {
-      context.missing(_cheaterMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  RelationshipTraits map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return RelationshipTraits(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      personId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
-      helpfulness: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}helpfulness'])!,
-      daysToDateBeforeMarriage: attachedDatabase.typeMapping.read(
-          DriftSqlType.int,
-          data['${effectivePrefix}days_to_date_before_marriage'])!,
-      economical: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}economical'])!,
-      materialistic: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}materialistic'])!,
-      jealous: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}jealous'])!,
-      cheater: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}cheater'])!,
-    );
-  }
-
-  @override
-  $RelationshipTraitsTableTable createAlias(String alias) {
-    return $RelationshipTraitsTableTable(attachedDatabase, alias);
-  }
-}
-
-class RelationshipTraits extends DataClass
-    implements Insertable<RelationshipTraits> {
-  final int id;
-  final int personId;
-  final int helpfulness;
-  final int daysToDateBeforeMarriage;
-  final bool economical;
-  final bool materialistic;
-  final bool jealous;
-  final bool cheater;
-  const RelationshipTraits(
-      {required this.id,
-      required this.personId,
-      required this.helpfulness,
-      required this.daysToDateBeforeMarriage,
-      required this.economical,
-      required this.materialistic,
-      required this.jealous,
-      required this.cheater});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['person_id'] = Variable<int>(personId);
-    map['helpfulness'] = Variable<int>(helpfulness);
-    map['days_to_date_before_marriage'] =
-        Variable<int>(daysToDateBeforeMarriage);
-    map['economical'] = Variable<bool>(economical);
-    map['materialistic'] = Variable<bool>(materialistic);
-    map['jealous'] = Variable<bool>(jealous);
-    map['cheater'] = Variable<bool>(cheater);
-    return map;
-  }
-
-  RelationshipTraitsTableCompanion toCompanion(bool nullToAbsent) {
-    return RelationshipTraitsTableCompanion(
-      id: Value(id),
-      personId: Value(personId),
-      helpfulness: Value(helpfulness),
-      daysToDateBeforeMarriage: Value(daysToDateBeforeMarriage),
-      economical: Value(economical),
-      materialistic: Value(materialistic),
-      jealous: Value(jealous),
-      cheater: Value(cheater),
-    );
-  }
-
-  factory RelationshipTraits.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return RelationshipTraits(
-      id: serializer.fromJson<int>(json['id']),
-      personId: serializer.fromJson<int>(json['personId']),
-      helpfulness: serializer.fromJson<int>(json['helpfulness']),
-      daysToDateBeforeMarriage:
-          serializer.fromJson<int>(json['daysToDateBeforeMarriage']),
-      economical: serializer.fromJson<bool>(json['economical']),
-      materialistic: serializer.fromJson<bool>(json['materialistic']),
-      jealous: serializer.fromJson<bool>(json['jealous']),
-      cheater: serializer.fromJson<bool>(json['cheater']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'personId': serializer.toJson<int>(personId),
-      'helpfulness': serializer.toJson<int>(helpfulness),
-      'daysToDateBeforeMarriage':
-          serializer.toJson<int>(daysToDateBeforeMarriage),
-      'economical': serializer.toJson<bool>(economical),
-      'materialistic': serializer.toJson<bool>(materialistic),
-      'jealous': serializer.toJson<bool>(jealous),
-      'cheater': serializer.toJson<bool>(cheater),
-    };
-  }
-
-  RelationshipTraits copyWith(
-          {int? id,
-          int? personId,
-          int? helpfulness,
-          int? daysToDateBeforeMarriage,
-          bool? economical,
-          bool? materialistic,
-          bool? jealous,
-          bool? cheater}) =>
-      RelationshipTraits(
-        id: id ?? this.id,
-        personId: personId ?? this.personId,
-        helpfulness: helpfulness ?? this.helpfulness,
-        daysToDateBeforeMarriage:
-            daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
-        economical: economical ?? this.economical,
-        materialistic: materialistic ?? this.materialistic,
-        jealous: jealous ?? this.jealous,
-        cheater: cheater ?? this.cheater,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('RelationshipTraits(')
-          ..write('id: $id, ')
-          ..write('personId: $personId, ')
-          ..write('helpfulness: $helpfulness, ')
-          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
-          ..write('economical: $economical, ')
-          ..write('materialistic: $materialistic, ')
-          ..write('jealous: $jealous, ')
-          ..write('cheater: $cheater')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, personId, helpfulness,
-      daysToDateBeforeMarriage, economical, materialistic, jealous, cheater);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is RelationshipTraits &&
-          other.id == this.id &&
-          other.personId == this.personId &&
-          other.helpfulness == this.helpfulness &&
-          other.daysToDateBeforeMarriage == this.daysToDateBeforeMarriage &&
-          other.economical == this.economical &&
-          other.materialistic == this.materialistic &&
-          other.jealous == this.jealous &&
-          other.cheater == this.cheater);
-}
-
-class RelationshipTraitsTableCompanion
-    extends UpdateCompanion<RelationshipTraits> {
-  final Value<int> id;
-  final Value<int> personId;
-  final Value<int> helpfulness;
-  final Value<int> daysToDateBeforeMarriage;
-  final Value<bool> economical;
-  final Value<bool> materialistic;
-  final Value<bool> jealous;
-  final Value<bool> cheater;
-  const RelationshipTraitsTableCompanion({
-    this.id = const Value.absent(),
-    this.personId = const Value.absent(),
-    this.helpfulness = const Value.absent(),
-    this.daysToDateBeforeMarriage = const Value.absent(),
-    this.economical = const Value.absent(),
-    this.materialistic = const Value.absent(),
-    this.jealous = const Value.absent(),
-    this.cheater = const Value.absent(),
-  });
-  RelationshipTraitsTableCompanion.insert({
-    this.id = const Value.absent(),
-    required int personId,
-    required int helpfulness,
-    required int daysToDateBeforeMarriage,
-    required bool economical,
-    required bool materialistic,
-    required bool jealous,
-    required bool cheater,
-  })  : personId = Value(personId),
-        helpfulness = Value(helpfulness),
-        daysToDateBeforeMarriage = Value(daysToDateBeforeMarriage),
-        economical = Value(economical),
-        materialistic = Value(materialistic),
-        jealous = Value(jealous),
-        cheater = Value(cheater);
-  static Insertable<RelationshipTraits> custom({
-    Expression<int>? id,
-    Expression<int>? personId,
-    Expression<int>? helpfulness,
-    Expression<int>? daysToDateBeforeMarriage,
-    Expression<bool>? economical,
-    Expression<bool>? materialistic,
-    Expression<bool>? jealous,
-    Expression<bool>? cheater,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (personId != null) 'person_id': personId,
-      if (helpfulness != null) 'helpfulness': helpfulness,
-      if (daysToDateBeforeMarriage != null)
-        'days_to_date_before_marriage': daysToDateBeforeMarriage,
-      if (economical != null) 'economical': economical,
-      if (materialistic != null) 'materialistic': materialistic,
-      if (jealous != null) 'jealous': jealous,
-      if (cheater != null) 'cheater': cheater,
-    });
-  }
-
-  RelationshipTraitsTableCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? personId,
-      Value<int>? helpfulness,
-      Value<int>? daysToDateBeforeMarriage,
-      Value<bool>? economical,
-      Value<bool>? materialistic,
-      Value<bool>? jealous,
-      Value<bool>? cheater}) {
-    return RelationshipTraitsTableCompanion(
-      id: id ?? this.id,
-      personId: personId ?? this.personId,
-      helpfulness: helpfulness ?? this.helpfulness,
-      daysToDateBeforeMarriage:
-          daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
-      economical: economical ?? this.economical,
-      materialistic: materialistic ?? this.materialistic,
-      jealous: jealous ?? this.jealous,
-      cheater: cheater ?? this.cheater,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (personId.present) {
-      map['person_id'] = Variable<int>(personId.value);
-    }
-    if (helpfulness.present) {
-      map['helpfulness'] = Variable<int>(helpfulness.value);
-    }
-    if (daysToDateBeforeMarriage.present) {
-      map['days_to_date_before_marriage'] =
-          Variable<int>(daysToDateBeforeMarriage.value);
-    }
-    if (economical.present) {
-      map['economical'] = Variable<bool>(economical.value);
-    }
-    if (materialistic.present) {
-      map['materialistic'] = Variable<bool>(materialistic.value);
-    }
-    if (jealous.present) {
-      map['jealous'] = Variable<bool>(jealous.value);
-    }
-    if (cheater.present) {
-      map['cheater'] = Variable<bool>(cheater.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('RelationshipTraitsTableCompanion(')
-          ..write('id: $id, ')
-          ..write('personId: $personId, ')
-          ..write('helpfulness: $helpfulness, ')
-          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
-          ..write('economical: $economical, ')
-          ..write('materialistic: $materialistic, ')
-          ..write('jealous: $jealous, ')
-          ..write('cheater: $cheater')
           ..write(')'))
         .toString();
   }
@@ -6855,6 +6450,12 @@ class $PartnerTableTable extends PartnerTable
   late final GeneratedColumn<int> endDay = GeneratedColumn<int>(
       'end_day', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _daysToDateBeforeMarriageMeta =
+      const VerificationMeta('daysToDateBeforeMarriage');
+  @override
+  late final GeneratedColumn<int> daysToDateBeforeMarriage =
+      GeneratedColumn<int>('days_to_date_before_marriage', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _isCoParentMeta =
       const VerificationMeta('isCoParent');
   @override
@@ -6899,6 +6500,7 @@ class $PartnerTableTable extends PartnerTable
         jointMoney,
         startDay,
         endDay,
+        daysToDateBeforeMarriage,
         isCoParent,
         metAt,
         relationship,
@@ -6962,6 +6564,15 @@ class $PartnerTableTable extends PartnerTable
     } else if (isInserting) {
       context.missing(_endDayMeta);
     }
+    if (data.containsKey('days_to_date_before_marriage')) {
+      context.handle(
+          _daysToDateBeforeMarriageMeta,
+          daysToDateBeforeMarriage.isAcceptableOrUnknown(
+              data['days_to_date_before_marriage']!,
+              _daysToDateBeforeMarriageMeta));
+    } else if (isInserting) {
+      context.missing(_daysToDateBeforeMarriageMeta);
+    }
     if (data.containsKey('is_co_parent')) {
       context.handle(
           _isCoParentMeta,
@@ -7017,6 +6628,9 @@ class $PartnerTableTable extends PartnerTable
           .read(DriftSqlType.int, data['${effectivePrefix}start_day'])!,
       endDay: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}end_day'])!,
+      daysToDateBeforeMarriage: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}days_to_date_before_marriage'])!,
       isCoParent: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_co_parent'])!,
       metAt: attachedDatabase.typeMapping
@@ -7043,6 +6657,7 @@ class Partner extends DataClass implements Insertable<Partner> {
   final int jointMoney;
   final int startDay;
   final int endDay;
+  final int daysToDateBeforeMarriage;
   final bool isCoParent;
   final String metAt;
   final int relationship;
@@ -7055,6 +6670,7 @@ class Partner extends DataClass implements Insertable<Partner> {
       required this.jointMoney,
       required this.startDay,
       required this.endDay,
+      required this.daysToDateBeforeMarriage,
       required this.isCoParent,
       required this.metAt,
       required this.relationship,
@@ -7070,6 +6686,8 @@ class Partner extends DataClass implements Insertable<Partner> {
     map['joint_money'] = Variable<int>(jointMoney);
     map['start_day'] = Variable<int>(startDay);
     map['end_day'] = Variable<int>(endDay);
+    map['days_to_date_before_marriage'] =
+        Variable<int>(daysToDateBeforeMarriage);
     map['is_co_parent'] = Variable<bool>(isCoParent);
     map['met_at'] = Variable<String>(metAt);
     map['relationship'] = Variable<int>(relationship);
@@ -7087,6 +6705,7 @@ class Partner extends DataClass implements Insertable<Partner> {
       jointMoney: Value(jointMoney),
       startDay: Value(startDay),
       endDay: Value(endDay),
+      daysToDateBeforeMarriage: Value(daysToDateBeforeMarriage),
       isCoParent: Value(isCoParent),
       metAt: Value(metAt),
       relationship: Value(relationship),
@@ -7106,6 +6725,8 @@ class Partner extends DataClass implements Insertable<Partner> {
       jointMoney: serializer.fromJson<int>(json['jointMoney']),
       startDay: serializer.fromJson<int>(json['startDay']),
       endDay: serializer.fromJson<int>(json['endDay']),
+      daysToDateBeforeMarriage:
+          serializer.fromJson<int>(json['daysToDateBeforeMarriage']),
       isCoParent: serializer.fromJson<bool>(json['isCoParent']),
       metAt: serializer.fromJson<String>(json['metAt']),
       relationship: serializer.fromJson<int>(json['relationship']),
@@ -7125,6 +6746,8 @@ class Partner extends DataClass implements Insertable<Partner> {
       'jointMoney': serializer.toJson<int>(jointMoney),
       'startDay': serializer.toJson<int>(startDay),
       'endDay': serializer.toJson<int>(endDay),
+      'daysToDateBeforeMarriage':
+          serializer.toJson<int>(daysToDateBeforeMarriage),
       'isCoParent': serializer.toJson<bool>(isCoParent),
       'metAt': serializer.toJson<String>(metAt),
       'relationship': serializer.toJson<int>(relationship),
@@ -7141,6 +6764,7 @@ class Partner extends DataClass implements Insertable<Partner> {
           int? jointMoney,
           int? startDay,
           int? endDay,
+          int? daysToDateBeforeMarriage,
           bool? isCoParent,
           String? metAt,
           int? relationship,
@@ -7154,6 +6778,8 @@ class Partner extends DataClass implements Insertable<Partner> {
         jointMoney: jointMoney ?? this.jointMoney,
         startDay: startDay ?? this.startDay,
         endDay: endDay ?? this.endDay,
+        daysToDateBeforeMarriage:
+            daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
         isCoParent: isCoParent ?? this.isCoParent,
         metAt: metAt ?? this.metAt,
         relationship: relationship ?? this.relationship,
@@ -7170,6 +6796,7 @@ class Partner extends DataClass implements Insertable<Partner> {
           ..write('jointMoney: $jointMoney, ')
           ..write('startDay: $startDay, ')
           ..write('endDay: $endDay, ')
+          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
           ..write('isCoParent: $isCoParent, ')
           ..write('metAt: $metAt, ')
           ..write('relationship: $relationship, ')
@@ -7187,6 +6814,7 @@ class Partner extends DataClass implements Insertable<Partner> {
       jointMoney,
       startDay,
       endDay,
+      daysToDateBeforeMarriage,
       isCoParent,
       metAt,
       relationship,
@@ -7202,6 +6830,7 @@ class Partner extends DataClass implements Insertable<Partner> {
           other.jointMoney == this.jointMoney &&
           other.startDay == this.startDay &&
           other.endDay == this.endDay &&
+          other.daysToDateBeforeMarriage == this.daysToDateBeforeMarriage &&
           other.isCoParent == this.isCoParent &&
           other.metAt == this.metAt &&
           other.relationship == this.relationship &&
@@ -7216,6 +6845,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
   final Value<int> jointMoney;
   final Value<int> startDay;
   final Value<int> endDay;
+  final Value<int> daysToDateBeforeMarriage;
   final Value<bool> isCoParent;
   final Value<String> metAt;
   final Value<int> relationship;
@@ -7229,6 +6859,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     this.jointMoney = const Value.absent(),
     this.startDay = const Value.absent(),
     this.endDay = const Value.absent(),
+    this.daysToDateBeforeMarriage = const Value.absent(),
     this.isCoParent = const Value.absent(),
     this.metAt = const Value.absent(),
     this.relationship = const Value.absent(),
@@ -7243,6 +6874,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     required int jointMoney,
     required int startDay,
     required int endDay,
+    required int daysToDateBeforeMarriage,
     required bool isCoParent,
     required String metAt,
     required int relationship,
@@ -7255,6 +6887,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
         jointMoney = Value(jointMoney),
         startDay = Value(startDay),
         endDay = Value(endDay),
+        daysToDateBeforeMarriage = Value(daysToDateBeforeMarriage),
         isCoParent = Value(isCoParent),
         metAt = Value(metAt),
         relationship = Value(relationship),
@@ -7267,6 +6900,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     Expression<int>? jointMoney,
     Expression<int>? startDay,
     Expression<int>? endDay,
+    Expression<int>? daysToDateBeforeMarriage,
     Expression<bool>? isCoParent,
     Expression<String>? metAt,
     Expression<int>? relationship,
@@ -7282,6 +6916,8 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       if (jointMoney != null) 'joint_money': jointMoney,
       if (startDay != null) 'start_day': startDay,
       if (endDay != null) 'end_day': endDay,
+      if (daysToDateBeforeMarriage != null)
+        'days_to_date_before_marriage': daysToDateBeforeMarriage,
       if (isCoParent != null) 'is_co_parent': isCoParent,
       if (metAt != null) 'met_at': metAt,
       if (relationship != null) 'relationship': relationship,
@@ -7299,6 +6935,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       Value<int>? jointMoney,
       Value<int>? startDay,
       Value<int>? endDay,
+      Value<int>? daysToDateBeforeMarriage,
       Value<bool>? isCoParent,
       Value<String>? metAt,
       Value<int>? relationship,
@@ -7313,6 +6950,8 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
       jointMoney: jointMoney ?? this.jointMoney,
       startDay: startDay ?? this.startDay,
       endDay: endDay ?? this.endDay,
+      daysToDateBeforeMarriage:
+          daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
       isCoParent: isCoParent ?? this.isCoParent,
       metAt: metAt ?? this.metAt,
       relationship: relationship ?? this.relationship,
@@ -7347,6 +6986,10 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
     if (endDay.present) {
       map['end_day'] = Variable<int>(endDay.value);
     }
+    if (daysToDateBeforeMarriage.present) {
+      map['days_to_date_before_marriage'] =
+          Variable<int>(daysToDateBeforeMarriage.value);
+    }
     if (isCoParent.present) {
       map['is_co_parent'] = Variable<bool>(isCoParent.value);
     }
@@ -7376,6 +7019,7 @@ class PartnerTableCompanion extends UpdateCompanion<Partner> {
           ..write('jointMoney: $jointMoney, ')
           ..write('startDay: $startDay, ')
           ..write('endDay: $endDay, ')
+          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
           ..write('isCoParent: $isCoParent, ')
           ..write('metAt: $metAt, ')
           ..write('relationship: $relationship, ')
@@ -17741,8 +17385,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $StanceTableTable stanceTable = $StanceTableTable(this);
   late final $BabyTraitsTableTable babyTraitsTable =
       $BabyTraitsTableTable(this);
-  late final $RelationshipTraitsTableTable relationshipTraitsTable =
-      $RelationshipTraitsTableTable(this);
   late final $AcquaintanceTableTable acquaintanceTable =
       $AcquaintanceTableTable(this);
   late final $ChildTableTable childTable = $ChildTableTable(this);
@@ -17789,8 +17431,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       StanceDaoImpl(this as DatabaseProvider);
   late final BabyTraitsDaoImpl babyTraitsDaoImpl =
       BabyTraitsDaoImpl(this as DatabaseProvider);
-  late final RelationshipTraitsDaoImpl relationshipTraitsDaoImpl =
-      RelationshipTraitsDaoImpl(this as DatabaseProvider);
   late final AcquaintanceDaoImpl acquaintanceDaoImpl =
       AcquaintanceDaoImpl(this as DatabaseProvider);
   late final ChildDaoImpl childDaoImpl = ChildDaoImpl(this as DatabaseProvider);
@@ -17847,7 +17487,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         depleteStatsFlagTable,
         stanceTable,
         babyTraitsTable,
-        relationshipTraitsTable,
         acquaintanceTable,
         childTable,
         friendTable,
@@ -17947,20 +17586,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('baby_traits', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('relationship_traits', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('relationship_traits', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(

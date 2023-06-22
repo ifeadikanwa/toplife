@@ -14,6 +14,7 @@ class StanceTable extends Table {
         onDelete: KeyAction.cascade,
       )();
   BoolColumn get openToAdoption => boolean()();
+  BoolColumn get openToMarriage => boolean()();
   BoolColumn get openToSexWorkerPartner => boolean()();
   BoolColumn get openToAbortion => boolean()();
   BoolColumn get openToSurrogacy => boolean()();

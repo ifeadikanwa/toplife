@@ -2,6 +2,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_all_partner_relationship_not_involving_a_certain_person_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_valid_random_days_to_date_before_marriage_value.dart';
 
 class CreateExclusiveRomanticRelationshipUsecase {
   final RelationshipRepositories _relationshipRepositories;
@@ -79,6 +80,7 @@ class CreateExclusiveRomanticRelationshipUsecase {
         partnerRelationshipType: partnerRelationshipType.name,
         isActive: true,
         startDay: currentDay,
+        daysToDateBeforeMarriage: getValidRandomDaysToDateBeforeMarriageValue(),
         isCoParent: false,
         metAt: metAt,
         relationship: 100,

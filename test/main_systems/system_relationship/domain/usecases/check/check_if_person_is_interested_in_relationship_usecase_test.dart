@@ -168,6 +168,7 @@ void main() {
             jointMoney: 0,
             startDay: 0,
             endDay: 0,
+            daysToDateBeforeMarriage: 9,
             isCoParent: false,
             metAt: "metAt",
             relationship: 7,

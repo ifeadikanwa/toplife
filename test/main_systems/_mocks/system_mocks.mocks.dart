@@ -3708,6 +3708,11 @@ class MockStance extends _i1.Mock implements _i2.Stance {
         returnValue: false,
       ) as bool);
   @override
+  bool get openToMarriage => (super.noSuchMethod(
+        Invocation.getter(#openToMarriage),
+        returnValue: false,
+      ) as bool);
+  @override
   bool get openToSexWorkerPartner => (super.noSuchMethod(
         Invocation.getter(#openToSexWorkerPartner),
         returnValue: false,
@@ -3826,6 +3831,7 @@ class MockStance extends _i1.Mock implements _i2.Stance {
     int? id,
     int? personId,
     bool? openToAdoption,
+    bool? openToMarriage,
     bool? openToSexWorkerPartner,
     bool? openToAbortion,
     bool? openToSurrogacy,
@@ -3851,6 +3857,7 @@ class MockStance extends _i1.Mock implements _i2.Stance {
             #id: id,
             #personId: personId,
             #openToAdoption: openToAdoption,
+            #openToMarriage: openToMarriage,
             #openToSexWorkerPartner: openToSexWorkerPartner,
             #openToAbortion: openToAbortion,
             #openToSurrogacy: openToSurrogacy,
@@ -3880,6 +3887,7 @@ class MockStance extends _i1.Mock implements _i2.Stance {
               #id: id,
               #personId: personId,
               #openToAdoption: openToAdoption,
+              #openToMarriage: openToMarriage,
               #openToSexWorkerPartner: openToSexWorkerPartner,
               #openToAbortion: openToAbortion,
               #openToSurrogacy: openToSurrogacy,

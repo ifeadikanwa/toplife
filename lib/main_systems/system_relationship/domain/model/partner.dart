@@ -23,6 +23,7 @@ class PartnerTable extends Table {
   IntColumn get jointMoney => integer()();
   IntColumn get startDay => integer()();
   IntColumn get endDay => integer()();
+  IntColumn get daysToDateBeforeMarriage => integer()();
   BoolColumn get isCoParent => boolean()();
   TextColumn get metAt => text()();
   IntColumn get relationship => integer()();

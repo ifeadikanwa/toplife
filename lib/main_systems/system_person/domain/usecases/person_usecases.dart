@@ -70,8 +70,6 @@ class PersonUsecases {
       CreateAdultPersonUsecase(
         personRepository: _personRepositories.personRepositoryImpl,
         statsRepository: _personRepositories.statsRepositoryImpl,
-        relationshipTraitsRepository:
-            _personRepositories.relationshipTraitsRepositoryImpl,
         stanceRepositoryImpl: _personRepositories.stanceRepositoryImpl,
       );
 
@@ -79,8 +77,6 @@ class PersonUsecases {
       CreateChildPersonUsecase(
         personRepository: _personRepositories.personRepositoryImpl,
         statsRepository: _personRepositories.statsRepositoryImpl,
-        relationshipTraitsRepository:
-            _personRepositories.relationshipTraitsRepositoryImpl,
         babyTraitsRepository: _personRepositories.babyTraitsRepositoryImpl,
         stanceRepositoryImpl: _personRepositories.stanceRepositoryImpl,
       );

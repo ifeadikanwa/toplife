@@ -16,14 +16,12 @@ import 'package:toplife/main_systems/system_job/domain/model/job_relationship.da
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_person/data/dao/deplete_stats_flag_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/relationship_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/domain/model/baby_traits.dart';
 import 'package:toplife/main_systems/system_person/domain/model/deplete_stats_flag.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_person/domain/model/relationship_traits.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stance.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
@@ -85,7 +83,6 @@ part 'database_provider.g.dart';
     DepleteStatsFlagTable,
     StanceTable,
     BabyTraitsTable,
-    RelationshipTraitsTable,
     AcquaintanceTable,
     ChildTable,
     FriendTable,
@@ -121,7 +118,6 @@ part 'database_provider.g.dart';
     DepleteStatsFlagDaoImpl,
     StanceDaoImpl,
     BabyTraitsDaoImpl,
-    RelationshipTraitsDaoImpl,
     AcquaintanceDaoImpl,
     ChildDaoImpl,
     FriendDaoImpl,
