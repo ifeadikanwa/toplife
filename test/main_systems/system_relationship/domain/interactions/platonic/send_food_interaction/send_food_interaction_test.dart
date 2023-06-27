@@ -42,7 +42,6 @@ void main() {
         onBirthControl: false,
         isSterile: false,
         sickly: false,
-        rebellious: false,
         dead: false,
       );
     });

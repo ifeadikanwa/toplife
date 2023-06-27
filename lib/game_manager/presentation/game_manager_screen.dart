@@ -45,7 +45,6 @@ class GameManagerScreen extends ConsumerWidget {
                     onBirthControl: false,
                     isSterile: false,
                     sickly: false,
-                    rebellious: true,
                     dead: false,
                   ));
             },
@@ -76,7 +75,6 @@ class GameManagerScreen extends ConsumerWidget {
                       onBirthControl: false,
                       isSterile: false,
                       sickly: false,
-                      rebellious: true,
                       dead: false,
                     ),
                   );

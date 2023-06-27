@@ -37,7 +37,6 @@ void main() {
       onBirthControl: true,
       isSterile: true,
       sickly: true,
-      rebellious: true,
       dead: false,
     );
 

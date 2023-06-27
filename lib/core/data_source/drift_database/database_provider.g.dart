@@ -559,18 +559,6 @@ class $PersonTableTable extends PersonTable
             SqlDialect.mysql: '',
             SqlDialect.postgres: '',
           }));
-  static const VerificationMeta _rebelliousMeta =
-      const VerificationMeta('rebellious');
-  @override
-  late final GeneratedColumn<bool> rebellious =
-      GeneratedColumn<bool>('rebellious', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("rebellious" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
   static const VerificationMeta _deadMeta = const VerificationMeta('dead');
   @override
   late final GeneratedColumn<bool> dead =
@@ -606,7 +594,6 @@ class $PersonTableTable extends PersonTable
         onBirthControl,
         isSterile,
         sickly,
-        rebellious,
         dead
       ];
   @override
@@ -773,14 +760,6 @@ class $PersonTableTable extends PersonTable
     } else if (isInserting) {
       context.missing(_sicklyMeta);
     }
-    if (data.containsKey('rebellious')) {
-      context.handle(
-          _rebelliousMeta,
-          rebellious.isAcceptableOrUnknown(
-              data['rebellious']!, _rebelliousMeta));
-    } else if (isInserting) {
-      context.missing(_rebelliousMeta);
-    }
     if (data.containsKey('dead')) {
       context.handle(
           _deadMeta, dead.isAcceptableOrUnknown(data['dead']!, _deadMeta));
@@ -840,8 +819,6 @@ class $PersonTableTable extends PersonTable
           .read(DriftSqlType.bool, data['${effectivePrefix}is_sterile'])!,
       sickly: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}sickly'])!,
-      rebellious: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}rebellious'])!,
       dead: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}dead'])!,
     );
@@ -876,7 +853,6 @@ class Person extends DataClass implements Insertable<Person> {
   final bool onBirthControl;
   final bool isSterile;
   final bool sickly;
-  final bool rebellious;
   final bool dead;
   const Person(
       {required this.id,
@@ -901,7 +877,6 @@ class Person extends DataClass implements Insertable<Person> {
       required this.onBirthControl,
       required this.isSterile,
       required this.sickly,
-      required this.rebellious,
       required this.dead});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -928,7 +903,6 @@ class Person extends DataClass implements Insertable<Person> {
     map['on_birth_control'] = Variable<bool>(onBirthControl);
     map['is_sterile'] = Variable<bool>(isSterile);
     map['sickly'] = Variable<bool>(sickly);
-    map['rebellious'] = Variable<bool>(rebellious);
     map['dead'] = Variable<bool>(dead);
     return map;
   }
@@ -957,7 +931,6 @@ class Person extends DataClass implements Insertable<Person> {
       onBirthControl: Value(onBirthControl),
       isSterile: Value(isSterile),
       sickly: Value(sickly),
-      rebellious: Value(rebellious),
       dead: Value(dead),
     );
   }
@@ -988,7 +961,6 @@ class Person extends DataClass implements Insertable<Person> {
       onBirthControl: serializer.fromJson<bool>(json['onBirthControl']),
       isSterile: serializer.fromJson<bool>(json['isSterile']),
       sickly: serializer.fromJson<bool>(json['sickly']),
-      rebellious: serializer.fromJson<bool>(json['rebellious']),
       dead: serializer.fromJson<bool>(json['dead']),
     );
   }
@@ -1018,7 +990,6 @@ class Person extends DataClass implements Insertable<Person> {
       'onBirthControl': serializer.toJson<bool>(onBirthControl),
       'isSterile': serializer.toJson<bool>(isSterile),
       'sickly': serializer.toJson<bool>(sickly),
-      'rebellious': serializer.toJson<bool>(rebellious),
       'dead': serializer.toJson<bool>(dead),
     };
   }
@@ -1046,7 +1017,6 @@ class Person extends DataClass implements Insertable<Person> {
           bool? onBirthControl,
           bool? isSterile,
           bool? sickly,
-          bool? rebellious,
           bool? dead}) =>
       Person(
         id: id ?? this.id,
@@ -1071,7 +1041,6 @@ class Person extends DataClass implements Insertable<Person> {
         onBirthControl: onBirthControl ?? this.onBirthControl,
         isSterile: isSterile ?? this.isSterile,
         sickly: sickly ?? this.sickly,
-        rebellious: rebellious ?? this.rebellious,
         dead: dead ?? this.dead,
       );
   @override
@@ -1099,7 +1068,6 @@ class Person extends DataClass implements Insertable<Person> {
           ..write('onBirthControl: $onBirthControl, ')
           ..write('isSterile: $isSterile, ')
           ..write('sickly: $sickly, ')
-          ..write('rebellious: $rebellious, ')
           ..write('dead: $dead')
           ..write(')'))
         .toString();
@@ -1129,7 +1097,6 @@ class Person extends DataClass implements Insertable<Person> {
         onBirthControl,
         isSterile,
         sickly,
-        rebellious,
         dead
       ]);
   @override
@@ -1158,7 +1125,6 @@ class Person extends DataClass implements Insertable<Person> {
           other.onBirthControl == this.onBirthControl &&
           other.isSterile == this.isSterile &&
           other.sickly == this.sickly &&
-          other.rebellious == this.rebellious &&
           other.dead == this.dead);
 }
 
@@ -1185,7 +1151,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
   final Value<bool> onBirthControl;
   final Value<bool> isSterile;
   final Value<bool> sickly;
-  final Value<bool> rebellious;
   final Value<bool> dead;
   const PersonTableCompanion({
     this.id = const Value.absent(),
@@ -1210,7 +1175,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     this.onBirthControl = const Value.absent(),
     this.isSterile = const Value.absent(),
     this.sickly = const Value.absent(),
-    this.rebellious = const Value.absent(),
     this.dead = const Value.absent(),
   });
   PersonTableCompanion.insert({
@@ -1236,7 +1200,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     required bool onBirthControl,
     required bool isSterile,
     required bool sickly,
-    required bool rebellious,
     required bool dead,
   })  : gameId = Value(gameId),
         firstName = Value(firstName),
@@ -1259,7 +1222,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
         onBirthControl = Value(onBirthControl),
         isSterile = Value(isSterile),
         sickly = Value(sickly),
-        rebellious = Value(rebellious),
         dead = Value(dead);
   static Insertable<Person> custom({
     Expression<int>? id,
@@ -1284,7 +1246,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     Expression<bool>? onBirthControl,
     Expression<bool>? isSterile,
     Expression<bool>? sickly,
-    Expression<bool>? rebellious,
     Expression<bool>? dead,
   }) {
     return RawValuesInsertable({
@@ -1311,7 +1272,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       if (onBirthControl != null) 'on_birth_control': onBirthControl,
       if (isSterile != null) 'is_sterile': isSterile,
       if (sickly != null) 'sickly': sickly,
-      if (rebellious != null) 'rebellious': rebellious,
       if (dead != null) 'dead': dead,
     });
   }
@@ -1339,7 +1299,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       Value<bool>? onBirthControl,
       Value<bool>? isSterile,
       Value<bool>? sickly,
-      Value<bool>? rebellious,
       Value<bool>? dead}) {
     return PersonTableCompanion(
       id: id ?? this.id,
@@ -1364,7 +1323,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       onBirthControl: onBirthControl ?? this.onBirthControl,
       isSterile: isSterile ?? this.isSterile,
       sickly: sickly ?? this.sickly,
-      rebellious: rebellious ?? this.rebellious,
       dead: dead ?? this.dead,
     );
   }
@@ -1438,9 +1396,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     if (sickly.present) {
       map['sickly'] = Variable<bool>(sickly.value);
     }
-    if (rebellious.present) {
-      map['rebellious'] = Variable<bool>(rebellious.value);
-    }
     if (dead.present) {
       map['dead'] = Variable<bool>(dead.value);
     }
@@ -1472,7 +1427,6 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
           ..write('onBirthControl: $onBirthControl, ')
           ..write('isSterile: $isSterile, ')
           ..write('sickly: $sickly, ')
-          ..write('rebellious: $rebellious, ')
           ..write('dead: $dead')
           ..write(')'))
         .toString();
@@ -2400,6 +2354,540 @@ class DepleteStatsFlagTableCompanion extends UpdateCompanion<DepleteStatsFlag> {
           ..write('health: $health, ')
           ..write('athleticism: $athleticism, ')
           ..write('sober: $sober, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PersonalityTableTable extends PersonalityTable
+    with TableInfo<$PersonalityTableTable, Personality> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PersonalityTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'UNIQUE REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _forgivingMeta =
+      const VerificationMeta('forgiving');
+  @override
+  late final GeneratedColumn<int> forgiving = GeneratedColumn<int>(
+      'forgiving', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _responsibleMeta =
+      const VerificationMeta('responsible');
+  @override
+  late final GeneratedColumn<int> responsible = GeneratedColumn<int>(
+      'responsible', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _generousMeta =
+      const VerificationMeta('generous');
+  @override
+  late final GeneratedColumn<int> generous = GeneratedColumn<int>(
+      'generous', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _libidoMeta = const VerificationMeta('libido');
+  @override
+  late final GeneratedColumn<int> libido = GeneratedColumn<int>(
+      'libido', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _politeMeta = const VerificationMeta('polite');
+  @override
+  late final GeneratedColumn<int> polite = GeneratedColumn<int>(
+      'polite', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _confrontationalMeta =
+      const VerificationMeta('confrontational');
+  @override
+  late final GeneratedColumn<int> confrontational = GeneratedColumn<int>(
+      'confrontational', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _rebelliousMeta =
+      const VerificationMeta('rebellious');
+  @override
+  late final GeneratedColumn<int> rebellious = GeneratedColumn<int>(
+      'rebellious', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _impulsiveMeta =
+      const VerificationMeta('impulsive');
+  @override
+  late final GeneratedColumn<int> impulsive = GeneratedColumn<int>(
+      'impulsive', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _loyalMeta = const VerificationMeta('loyal');
+  @override
+  late final GeneratedColumn<int> loyal = GeneratedColumn<int>(
+      'loyal', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _violentMeta =
+      const VerificationMeta('violent');
+  @override
+  late final GeneratedColumn<int> violent = GeneratedColumn<int>(
+      'violent', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        personId,
+        forgiving,
+        responsible,
+        generous,
+        libido,
+        polite,
+        confrontational,
+        rebellious,
+        impulsive,
+        loyal,
+        violent
+      ];
+  @override
+  String get aliasedName => _alias ?? 'personality';
+  @override
+  String get actualTableName => 'personality';
+  @override
+  VerificationContext validateIntegrity(Insertable<Personality> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('forgiving')) {
+      context.handle(_forgivingMeta,
+          forgiving.isAcceptableOrUnknown(data['forgiving']!, _forgivingMeta));
+    } else if (isInserting) {
+      context.missing(_forgivingMeta);
+    }
+    if (data.containsKey('responsible')) {
+      context.handle(
+          _responsibleMeta,
+          responsible.isAcceptableOrUnknown(
+              data['responsible']!, _responsibleMeta));
+    } else if (isInserting) {
+      context.missing(_responsibleMeta);
+    }
+    if (data.containsKey('generous')) {
+      context.handle(_generousMeta,
+          generous.isAcceptableOrUnknown(data['generous']!, _generousMeta));
+    } else if (isInserting) {
+      context.missing(_generousMeta);
+    }
+    if (data.containsKey('libido')) {
+      context.handle(_libidoMeta,
+          libido.isAcceptableOrUnknown(data['libido']!, _libidoMeta));
+    } else if (isInserting) {
+      context.missing(_libidoMeta);
+    }
+    if (data.containsKey('polite')) {
+      context.handle(_politeMeta,
+          polite.isAcceptableOrUnknown(data['polite']!, _politeMeta));
+    } else if (isInserting) {
+      context.missing(_politeMeta);
+    }
+    if (data.containsKey('confrontational')) {
+      context.handle(
+          _confrontationalMeta,
+          confrontational.isAcceptableOrUnknown(
+              data['confrontational']!, _confrontationalMeta));
+    } else if (isInserting) {
+      context.missing(_confrontationalMeta);
+    }
+    if (data.containsKey('rebellious')) {
+      context.handle(
+          _rebelliousMeta,
+          rebellious.isAcceptableOrUnknown(
+              data['rebellious']!, _rebelliousMeta));
+    } else if (isInserting) {
+      context.missing(_rebelliousMeta);
+    }
+    if (data.containsKey('impulsive')) {
+      context.handle(_impulsiveMeta,
+          impulsive.isAcceptableOrUnknown(data['impulsive']!, _impulsiveMeta));
+    } else if (isInserting) {
+      context.missing(_impulsiveMeta);
+    }
+    if (data.containsKey('loyal')) {
+      context.handle(
+          _loyalMeta, loyal.isAcceptableOrUnknown(data['loyal']!, _loyalMeta));
+    } else if (isInserting) {
+      context.missing(_loyalMeta);
+    }
+    if (data.containsKey('violent')) {
+      context.handle(_violentMeta,
+          violent.isAcceptableOrUnknown(data['violent']!, _violentMeta));
+    } else if (isInserting) {
+      context.missing(_violentMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  Personality map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Personality(
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      forgiving: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}forgiving'])!,
+      responsible: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}responsible'])!,
+      generous: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}generous'])!,
+      libido: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}libido'])!,
+      polite: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}polite'])!,
+      confrontational: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}confrontational'])!,
+      rebellious: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}rebellious'])!,
+      impulsive: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}impulsive'])!,
+      loyal: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}loyal'])!,
+      violent: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}violent'])!,
+    );
+  }
+
+  @override
+  $PersonalityTableTable createAlias(String alias) {
+    return $PersonalityTableTable(attachedDatabase, alias);
+  }
+}
+
+class Personality extends DataClass implements Insertable<Personality> {
+  final int personId;
+  final int forgiving;
+  final int responsible;
+  final int generous;
+  final int libido;
+  final int polite;
+  final int confrontational;
+  final int rebellious;
+  final int impulsive;
+  final int loyal;
+  final int violent;
+  const Personality(
+      {required this.personId,
+      required this.forgiving,
+      required this.responsible,
+      required this.generous,
+      required this.libido,
+      required this.polite,
+      required this.confrontational,
+      required this.rebellious,
+      required this.impulsive,
+      required this.loyal,
+      required this.violent});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['person_id'] = Variable<int>(personId);
+    map['forgiving'] = Variable<int>(forgiving);
+    map['responsible'] = Variable<int>(responsible);
+    map['generous'] = Variable<int>(generous);
+    map['libido'] = Variable<int>(libido);
+    map['polite'] = Variable<int>(polite);
+    map['confrontational'] = Variable<int>(confrontational);
+    map['rebellious'] = Variable<int>(rebellious);
+    map['impulsive'] = Variable<int>(impulsive);
+    map['loyal'] = Variable<int>(loyal);
+    map['violent'] = Variable<int>(violent);
+    return map;
+  }
+
+  PersonalityTableCompanion toCompanion(bool nullToAbsent) {
+    return PersonalityTableCompanion(
+      personId: Value(personId),
+      forgiving: Value(forgiving),
+      responsible: Value(responsible),
+      generous: Value(generous),
+      libido: Value(libido),
+      polite: Value(polite),
+      confrontational: Value(confrontational),
+      rebellious: Value(rebellious),
+      impulsive: Value(impulsive),
+      loyal: Value(loyal),
+      violent: Value(violent),
+    );
+  }
+
+  factory Personality.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Personality(
+      personId: serializer.fromJson<int>(json['personId']),
+      forgiving: serializer.fromJson<int>(json['forgiving']),
+      responsible: serializer.fromJson<int>(json['responsible']),
+      generous: serializer.fromJson<int>(json['generous']),
+      libido: serializer.fromJson<int>(json['libido']),
+      polite: serializer.fromJson<int>(json['polite']),
+      confrontational: serializer.fromJson<int>(json['confrontational']),
+      rebellious: serializer.fromJson<int>(json['rebellious']),
+      impulsive: serializer.fromJson<int>(json['impulsive']),
+      loyal: serializer.fromJson<int>(json['loyal']),
+      violent: serializer.fromJson<int>(json['violent']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'personId': serializer.toJson<int>(personId),
+      'forgiving': serializer.toJson<int>(forgiving),
+      'responsible': serializer.toJson<int>(responsible),
+      'generous': serializer.toJson<int>(generous),
+      'libido': serializer.toJson<int>(libido),
+      'polite': serializer.toJson<int>(polite),
+      'confrontational': serializer.toJson<int>(confrontational),
+      'rebellious': serializer.toJson<int>(rebellious),
+      'impulsive': serializer.toJson<int>(impulsive),
+      'loyal': serializer.toJson<int>(loyal),
+      'violent': serializer.toJson<int>(violent),
+    };
+  }
+
+  Personality copyWith(
+          {int? personId,
+          int? forgiving,
+          int? responsible,
+          int? generous,
+          int? libido,
+          int? polite,
+          int? confrontational,
+          int? rebellious,
+          int? impulsive,
+          int? loyal,
+          int? violent}) =>
+      Personality(
+        personId: personId ?? this.personId,
+        forgiving: forgiving ?? this.forgiving,
+        responsible: responsible ?? this.responsible,
+        generous: generous ?? this.generous,
+        libido: libido ?? this.libido,
+        polite: polite ?? this.polite,
+        confrontational: confrontational ?? this.confrontational,
+        rebellious: rebellious ?? this.rebellious,
+        impulsive: impulsive ?? this.impulsive,
+        loyal: loyal ?? this.loyal,
+        violent: violent ?? this.violent,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Personality(')
+          ..write('personId: $personId, ')
+          ..write('forgiving: $forgiving, ')
+          ..write('responsible: $responsible, ')
+          ..write('generous: $generous, ')
+          ..write('libido: $libido, ')
+          ..write('polite: $polite, ')
+          ..write('confrontational: $confrontational, ')
+          ..write('rebellious: $rebellious, ')
+          ..write('impulsive: $impulsive, ')
+          ..write('loyal: $loyal, ')
+          ..write('violent: $violent')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(personId, forgiving, responsible, generous,
+      libido, polite, confrontational, rebellious, impulsive, loyal, violent);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Personality &&
+          other.personId == this.personId &&
+          other.forgiving == this.forgiving &&
+          other.responsible == this.responsible &&
+          other.generous == this.generous &&
+          other.libido == this.libido &&
+          other.polite == this.polite &&
+          other.confrontational == this.confrontational &&
+          other.rebellious == this.rebellious &&
+          other.impulsive == this.impulsive &&
+          other.loyal == this.loyal &&
+          other.violent == this.violent);
+}
+
+class PersonalityTableCompanion extends UpdateCompanion<Personality> {
+  final Value<int> personId;
+  final Value<int> forgiving;
+  final Value<int> responsible;
+  final Value<int> generous;
+  final Value<int> libido;
+  final Value<int> polite;
+  final Value<int> confrontational;
+  final Value<int> rebellious;
+  final Value<int> impulsive;
+  final Value<int> loyal;
+  final Value<int> violent;
+  final Value<int> rowid;
+  const PersonalityTableCompanion({
+    this.personId = const Value.absent(),
+    this.forgiving = const Value.absent(),
+    this.responsible = const Value.absent(),
+    this.generous = const Value.absent(),
+    this.libido = const Value.absent(),
+    this.polite = const Value.absent(),
+    this.confrontational = const Value.absent(),
+    this.rebellious = const Value.absent(),
+    this.impulsive = const Value.absent(),
+    this.loyal = const Value.absent(),
+    this.violent = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PersonalityTableCompanion.insert({
+    required int personId,
+    required int forgiving,
+    required int responsible,
+    required int generous,
+    required int libido,
+    required int polite,
+    required int confrontational,
+    required int rebellious,
+    required int impulsive,
+    required int loyal,
+    required int violent,
+    this.rowid = const Value.absent(),
+  })  : personId = Value(personId),
+        forgiving = Value(forgiving),
+        responsible = Value(responsible),
+        generous = Value(generous),
+        libido = Value(libido),
+        polite = Value(polite),
+        confrontational = Value(confrontational),
+        rebellious = Value(rebellious),
+        impulsive = Value(impulsive),
+        loyal = Value(loyal),
+        violent = Value(violent);
+  static Insertable<Personality> custom({
+    Expression<int>? personId,
+    Expression<int>? forgiving,
+    Expression<int>? responsible,
+    Expression<int>? generous,
+    Expression<int>? libido,
+    Expression<int>? polite,
+    Expression<int>? confrontational,
+    Expression<int>? rebellious,
+    Expression<int>? impulsive,
+    Expression<int>? loyal,
+    Expression<int>? violent,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (personId != null) 'person_id': personId,
+      if (forgiving != null) 'forgiving': forgiving,
+      if (responsible != null) 'responsible': responsible,
+      if (generous != null) 'generous': generous,
+      if (libido != null) 'libido': libido,
+      if (polite != null) 'polite': polite,
+      if (confrontational != null) 'confrontational': confrontational,
+      if (rebellious != null) 'rebellious': rebellious,
+      if (impulsive != null) 'impulsive': impulsive,
+      if (loyal != null) 'loyal': loyal,
+      if (violent != null) 'violent': violent,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PersonalityTableCompanion copyWith(
+      {Value<int>? personId,
+      Value<int>? forgiving,
+      Value<int>? responsible,
+      Value<int>? generous,
+      Value<int>? libido,
+      Value<int>? polite,
+      Value<int>? confrontational,
+      Value<int>? rebellious,
+      Value<int>? impulsive,
+      Value<int>? loyal,
+      Value<int>? violent,
+      Value<int>? rowid}) {
+    return PersonalityTableCompanion(
+      personId: personId ?? this.personId,
+      forgiving: forgiving ?? this.forgiving,
+      responsible: responsible ?? this.responsible,
+      generous: generous ?? this.generous,
+      libido: libido ?? this.libido,
+      polite: polite ?? this.polite,
+      confrontational: confrontational ?? this.confrontational,
+      rebellious: rebellious ?? this.rebellious,
+      impulsive: impulsive ?? this.impulsive,
+      loyal: loyal ?? this.loyal,
+      violent: violent ?? this.violent,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (forgiving.present) {
+      map['forgiving'] = Variable<int>(forgiving.value);
+    }
+    if (responsible.present) {
+      map['responsible'] = Variable<int>(responsible.value);
+    }
+    if (generous.present) {
+      map['generous'] = Variable<int>(generous.value);
+    }
+    if (libido.present) {
+      map['libido'] = Variable<int>(libido.value);
+    }
+    if (polite.present) {
+      map['polite'] = Variable<int>(polite.value);
+    }
+    if (confrontational.present) {
+      map['confrontational'] = Variable<int>(confrontational.value);
+    }
+    if (rebellious.present) {
+      map['rebellious'] = Variable<int>(rebellious.value);
+    }
+    if (impulsive.present) {
+      map['impulsive'] = Variable<int>(impulsive.value);
+    }
+    if (loyal.present) {
+      map['loyal'] = Variable<int>(loyal.value);
+    }
+    if (violent.present) {
+      map['violent'] = Variable<int>(violent.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PersonalityTableCompanion(')
+          ..write('personId: $personId, ')
+          ..write('forgiving: $forgiving, ')
+          ..write('responsible: $responsible, ')
+          ..write('generous: $generous, ')
+          ..write('libido: $libido, ')
+          ..write('polite: $polite, ')
+          ..write('confrontational: $confrontational, ')
+          ..write('rebellious: $rebellious, ')
+          ..write('impulsive: $impulsive, ')
+          ..write('loyal: $loyal, ')
+          ..write('violent: $violent, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -17382,6 +17870,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $StatsTableTable statsTable = $StatsTableTable(this);
   late final $DepleteStatsFlagTableTable depleteStatsFlagTable =
       $DepleteStatsFlagTableTable(this);
+  late final $PersonalityTableTable personalityTable =
+      $PersonalityTableTable(this);
   late final $StanceTableTable stanceTable = $StanceTableTable(this);
   late final $BabyTraitsTableTable babyTraitsTable =
       $BabyTraitsTableTable(this);
@@ -17429,6 +17919,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       DepleteStatsFlagDaoImpl(this as DatabaseProvider);
   late final StanceDaoImpl stanceDaoImpl =
       StanceDaoImpl(this as DatabaseProvider);
+  late final PersonalityDaoImpl personalityDaoImpl =
+      PersonalityDaoImpl(this as DatabaseProvider);
   late final BabyTraitsDaoImpl babyTraitsDaoImpl =
       BabyTraitsDaoImpl(this as DatabaseProvider);
   late final AcquaintanceDaoImpl acquaintanceDaoImpl =
@@ -17485,6 +17977,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         personTable,
         statsTable,
         depleteStatsFlagTable,
+        personalityTable,
         stanceTable,
         babyTraitsTable,
         acquaintanceTable,
@@ -17558,6 +18051,20 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('deplete_stats_flag', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('personality', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('personality', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(

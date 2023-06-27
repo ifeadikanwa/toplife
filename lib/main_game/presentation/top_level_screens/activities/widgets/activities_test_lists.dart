@@ -43,7 +43,6 @@ class ActivitiesTestList {
     onBirthControl: false,
     isSterile: false,
     sickly: false,
-    rebellious: true,
     dead: false,
   );
 

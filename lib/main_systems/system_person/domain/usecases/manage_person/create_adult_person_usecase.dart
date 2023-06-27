@@ -1,70 +1,54 @@
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
-import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
-import 'package:toplife/main_systems/system_person/constants/stance_constants.dart';
-import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
-import 'package:toplife/main_systems/system_person/data/repository/stance_repository_impl.dart';
+import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_personality_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_stance_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_stats_usecase.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_person/domain/repository/person_repository.dart';
-import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 
 class CreateAdultPersonUsecase {
-  final PersonRepository _personRepository;
-  final StatsRepository _statsRepository;
-  final StanceRepositoryImpl _stanceRepositoryImpl;
+  final PersonRepositories _personRepositories;
+  final GeneratePersonalityUsecase _generatePersonalityUsecase;
+  final GenerateStatsUsecase _generateStatsUsecase;
+  final GenerateStanceUsecase _generateStanceUsecase;
 
   const CreateAdultPersonUsecase({
-    required PersonRepository personRepository,
-    required StatsRepository statsRepository,
-    required StanceRepositoryImpl stanceRepositoryImpl,
-  })  : _personRepository = personRepository,
-        _statsRepository = statsRepository,
-        _stanceRepositoryImpl = stanceRepositoryImpl;
+    required PersonRepositories personRepositories,
+    required GeneratePersonalityUsecase generatePersonalityUsecase,
+    required GenerateStatsUsecase generateStatsUsecase,
+    required GenerateStanceUsecase generateStanceUsecase,
+  })  : _personRepositories = personRepositories,
+        _generatePersonalityUsecase = generatePersonalityUsecase,
+        _generateStatsUsecase = generateStatsUsecase,
+        _generateStanceUsecase = generateStanceUsecase;
 
   Future<Person> execute({required Person person}) async {
-    final createdPerson = await _personRepository.createPerson(person);
+    //Person
+    final Person createdPerson =
+        await _personRepositories.personRepositoryImpl.createPerson(person);
 
-    final createdPersonStats = Stats(
-      id: DatabaseConstants.dummyId,
-      personId: createdPerson.id,
-      energy: StatsConstants.getValidEnergyorHungerStatsValue(),
-      hunger: StatsConstants.getValidEnergyorHungerStatsValue(),
-      mood: getValidRandomStatsValue(),
-      health: defaultMaxStatsValue,
-      sober: defaultMaxStatsValue,
-      looks: getValidRandomStatsValue(),
-      intellect: getValidRandomStatsValue(),
-      athleticism: getValidRandomStatsValue(),
-      alcoholTolerance: StatsConstants.getValidAlcoholToleranceStatsValue(),
+    //Stats
+    final Stats createdPersonStats = _generateStatsUsecase.execute(
+      personID: createdPerson.id,
     );
 
-    await _statsRepository.createStats(createdPersonStats);
+    await _personRepositories.statsRepositoryImpl
+        .createStats(createdPersonStats);
 
-    final createdPersonStance = Stance(
-      id: DatabaseConstants.dummyId,
-      personId: createdPerson.id,
-      openToAdoption: StanceConstants.getValidStanceValue(),
-      openToMarriage: StanceConstants.getValidStanceValue(biggerChance: true),
-      openToSexWorkerPartner: StanceConstants.getValidStanceValue(),
-      openToAbortion: StanceConstants.getValidStanceValue(),
-      openToSurrogacy: StanceConstants.getValidStanceValue(),
-      openToAlternativeFertilityMethods: StanceConstants.getValidStanceValue(),
-      openToSigningPrenup: StanceConstants.getValidStanceValue(),
-      wantsPartnerToSignPrenup: StanceConstants.getValidStanceValue(),
-      openToCrimes: StanceConstants.getValidStanceValue(),
-      openToStayAtHomeParenting: StanceConstants.getValidStanceValue(),
-      openToPremaritalSex: StanceConstants.getValidStanceValue(),
-      openToBeingPregnant: StanceConstants.getValidStanceValue(),
-      openToCheating: StanceConstants.getValidStanceValue(),
-      openToHavingChildren: StanceConstants.getValidStanceValue(),
-      openToHavingChildrenOutsideAMarriage:
-          StanceConstants.getValidStanceValue(),
-      openToHavingMultipleCoparents: StanceConstants.getValidStanceValue(),
-      openToWorkingAJob: StanceConstants.getValidStanceValue(),
-      openToGayPeople: StanceConstants.getValidStanceValue(),
+    //Personality
+    final Personality createdPersonPersonality =
+        _generatePersonalityUsecase.execute(
+      personID: createdPerson.id,
     );
 
-    await _stanceRepositoryImpl.createStance(createdPersonStance);
+    await _personRepositories.personalityRepositoryImpl
+        .createOrUpdatePersonality(createdPersonPersonality);
+
+    //Stance
+    final Stance createdPersonStance = _generateStanceUsecase.execute(
+      personID: createdPerson.id,
+    );
+
+    await _personRepositories.stanceRepositoryImpl
+        .createStance(createdPersonStance);
 
     return createdPerson;
   }

@@ -12,6 +12,10 @@ import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_adult_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_child_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/delete_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_baby_traits_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_personality_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_stance_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/npc/deplete_baby_energy_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/npc/deplete_baby_hunger_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/deplete/deplete_main_player_athleticism_usecase.dart';
@@ -66,19 +70,31 @@ class PersonUsecases {
         generateAPersonUsecase: generateAPersonUsecase,
       );
 
+  GeneratePersonalityUsecase get generatePersonalityUsecase =>
+      GeneratePersonalityUsecase();
+
+  GenerateStatsUsecase get generateStatsUsecase => GenerateStatsUsecase();
+
+  GenerateStanceUsecase get generateStanceUsecase => GenerateStanceUsecase();
+
+  GenerateBabyTraitsUsecase get generateBabyTraitsUsecase =>
+      GenerateBabyTraitsUsecase();
+
   CreateAdultPersonUsecase get createAdultPersonUsecase =>
       CreateAdultPersonUsecase(
-        personRepository: _personRepositories.personRepositoryImpl,
-        statsRepository: _personRepositories.statsRepositoryImpl,
-        stanceRepositoryImpl: _personRepositories.stanceRepositoryImpl,
+        personRepositories: _personRepositories,
+        generatePersonalityUsecase: generatePersonalityUsecase,
+        generateStanceUsecase: generateStanceUsecase,
+        generateStatsUsecase: generateStatsUsecase,
       );
 
   CreateChildPersonUsecase get createChildPersonUsecase =>
       CreateChildPersonUsecase(
-        personRepository: _personRepositories.personRepositoryImpl,
-        statsRepository: _personRepositories.statsRepositoryImpl,
-        babyTraitsRepository: _personRepositories.babyTraitsRepositoryImpl,
-        stanceRepositoryImpl: _personRepositories.stanceRepositoryImpl,
+        personRepositories: _personRepositories,
+        generatePersonalityUsecase: generatePersonalityUsecase,
+        generateStanceUsecase: generateStanceUsecase,
+        generateStatsUsecase: generateStatsUsecase,
+        generateBabyTraitsUsecase: generateBabyTraitsUsecase,
       );
 
   DepleteBabyEnergyUsecase get depleteBabyEnergyUsecase =>

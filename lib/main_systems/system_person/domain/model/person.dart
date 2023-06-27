@@ -33,6 +33,5 @@ class PersonTable extends Table {
   BoolColumn get onBirthControl => boolean()();
   BoolColumn get isSterile => boolean()();
   BoolColumn get sickly => boolean()();
-  BoolColumn get rebellious => boolean()();
   BoolColumn get dead => boolean()();
 }

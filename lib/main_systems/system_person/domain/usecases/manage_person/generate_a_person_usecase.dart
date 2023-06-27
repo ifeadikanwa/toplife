@@ -110,7 +110,6 @@ class GenerateAPersonUsecase {
       sickly: Chance.getTrueOrFalseBasedOnPercentageChance(
         trueChancePercentage: 20,
       ),
-      rebellious: Chance.getTrueOrFalse(),
       dead: isDead,
     );
   }
