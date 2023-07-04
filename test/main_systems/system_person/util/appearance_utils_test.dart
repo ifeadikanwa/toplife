@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
+import 'package:toplife/main_systems/system_location/countries/north_america/canada.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/female_hairstyle.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/height_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/male_hairstyle.dart';
@@ -9,6 +10,15 @@ import 'package:toplife/main_systems/system_person/util/appearance_utils.dart';
 
 void main() {
   group("Appearance Utils:", () {
+    group("Constants:", () {
+      test("dominantSkinColorChance is 20", () {
+        expect(
+          AppearanceUtils.dominantSkinColorChance,
+          20,
+        );
+      });
+    });
+
     group("Get valid current height:", () {
       test(
           "given baby lifestage we get a random value between baby height min - max",
@@ -299,6 +309,15 @@ void main() {
           SkinColor.espresso,
         ),
       );
+    });
+
+    group("Get valid native skin color:", () {
+      test("returns a skin color", () {
+        expect(
+          AppearanceUtils.getValidNativeSkinColor(nativeCountry: Canada()).runtimeType,
+          SkinColor,
+        );
+      });
     });
   });
 }

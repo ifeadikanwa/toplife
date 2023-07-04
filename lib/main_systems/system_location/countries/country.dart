@@ -1,11 +1,14 @@
 import 'dart:collection';
 
+import 'package:toplife/main_systems/system_person/constants/appearance/skin_color.dart';
+
 abstract class Country {
   String get name;
   List<String> get states;
   String get randomState;
   String get currency;
   int get economy;
+  HashSet<SkinColor> get dominantSkinColors;
   bool get abortionLaw;
   bool get hasFreeEducation;
   int get taxPercentage;

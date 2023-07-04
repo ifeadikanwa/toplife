@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:toplife/core/utils/chance.dart';
+import 'package:toplife/core/utils/get_random_value_from_collections.dart';
 import 'package:toplife/core/utils/numbers/get_random_int_in_positive_range.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
+import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/female_hairstyle.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/height_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/male_hairstyle.dart';
@@ -11,6 +13,9 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/util/get_skin_color_enum_from_string.dart';
 
 class AppearanceUtils {
+  //Chance for generating a dominant skin color
+  static const dominantSkinColorChance = 80;
+
   //Current Height
   static int getValidCurrentHeight({
     required LifeStage currentLifeStage,
@@ -210,6 +215,35 @@ class AppearanceUtils {
     else {
       //return a random color
       return SkinColor.values[Random().nextInt(SkinColor.values.length)];
+    }
+  }
+
+  static SkinColor getValidNativeSkinColor({
+    required Country nativeCountry,
+  }) {
+    final bool hasDominantSkinColor =
+        Chance.getTrueOrFalseBasedOnPercentageChance(
+      trueChancePercentage: dominantSkinColorChance,
+    );
+
+    if (hasDominantSkinColor) {
+      //choose a random dominant skin color
+      return getRandomValueFromSet<SkinColor>(
+        set: nativeCountry.dominantSkinColors,
+      );
+    } else {
+      //get all skin colors
+      List<SkinColor> nonDominantSkinColors = [...SkinColor.values];
+
+      //remove the dominant ones
+      for (var dominantSkinColor in nativeCountry.dominantSkinColors) {
+        nonDominantSkinColors.remove(dominantSkinColor);
+      }
+
+      //choose a random non-dominant skin color
+      return getRandomValueFromList<SkinColor>(
+        list: nonDominantSkinColors,
+      );
     }
   }
 }

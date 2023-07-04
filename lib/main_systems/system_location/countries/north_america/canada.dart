@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:toplife/main_systems/system_location/constants/default.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/core/utils/get_random_value_from_collections.dart';
+import 'package:toplife/main_systems/system_person/constants/appearance/skin_color.dart';
 
 class Canada implements Country {
   @override
@@ -16,6 +17,10 @@ class Canada implements Country {
 
   @override
   int get economy => 2;
+
+  @override
+  HashSet<SkinColor> get dominantSkinColors =>
+      Default.canadaAndUSDominantSkinColors;
 
   @override
   String get randomState {
@@ -49,13 +54,13 @@ class Canada implements Country {
 
   @override
   bool get requiresCarInsurance => true;
-  
+
   @override
   bool get abortionLaw => true;
-  
+
   @override
   bool get hasFreeEducation => false;
-  
+
   @override
   int get taxPercentage => 15;
 }
