@@ -14,12 +14,14 @@ import 'package:toplife/main_systems/system_job/data/dao/job_relationship_dao_im
 import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job_relationship.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
+import 'package:toplife/main_systems/system_person/data/dao/appearance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/deplete_stats_flag_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/personality_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/domain/model/appearance.dart';
 import 'package:toplife/main_systems/system_person/domain/model/baby_traits.dart';
 import 'package:toplife/main_systems/system_person/domain/model/deplete_stats_flag.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
@@ -81,6 +83,7 @@ part 'database_provider.g.dart';
   tables: [
     GameTable,
     PersonTable,
+    AppearanceTable,
     StatsTable,
     DepleteStatsFlagTable,
     PersonalityTable,
@@ -117,6 +120,7 @@ part 'database_provider.g.dart';
   daos: [
     GameDaoImpl,
     PersonDaoImpl,
+    AppearanceDaoImpl,
     StatsDaoImpl,
     DepleteStatsFlagDaoImpl,
     StanceDaoImpl,

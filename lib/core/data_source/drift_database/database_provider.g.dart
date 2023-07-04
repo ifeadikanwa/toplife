@@ -1433,6 +1433,490 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
   }
 }
 
+class $AppearanceTableTable extends AppearanceTable
+    with TableInfo<$AppearanceTableTable, Appearance> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AppearanceTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'UNIQUE REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _skinColorMeta =
+      const VerificationMeta('skinColor');
+  @override
+  late final GeneratedColumn<String> skinColor = GeneratedColumn<String>(
+      'skin_color', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _eyeColorMeta =
+      const VerificationMeta('eyeColor');
+  @override
+  late final GeneratedColumn<String> eyeColor = GeneratedColumn<String>(
+      'eye_color', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _hairstyleMeta =
+      const VerificationMeta('hairstyle');
+  @override
+  late final GeneratedColumn<String> hairstyle = GeneratedColumn<String>(
+      'hairstyle', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _naturalHairColorMeta =
+      const VerificationMeta('naturalHairColor');
+  @override
+  late final GeneratedColumn<String> naturalHairColor = GeneratedColumn<String>(
+      'natural_hair_color', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dyeHairColorMeta =
+      const VerificationMeta('dyeHairColor');
+  @override
+  late final GeneratedColumn<String> dyeHairColor = GeneratedColumn<String>(
+      'dye_hair_color', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _currentHeightInInchesMeta =
+      const VerificationMeta('currentHeightInInches');
+  @override
+  late final GeneratedColumn<int> currentHeightInInches = GeneratedColumn<int>(
+      'current_height_in_inches', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _maxHeightInInchesMeta =
+      const VerificationMeta('maxHeightInInches');
+  @override
+  late final GeneratedColumn<int> maxHeightInInches = GeneratedColumn<int>(
+      'max_height_in_inches', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _hasBeardsMeta =
+      const VerificationMeta('hasBeards');
+  @override
+  late final GeneratedColumn<bool> hasBeards =
+      GeneratedColumn<bool>('has_beards', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("has_beards" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns => [
+        personId,
+        skinColor,
+        eyeColor,
+        hairstyle,
+        naturalHairColor,
+        dyeHairColor,
+        currentHeightInInches,
+        maxHeightInInches,
+        hasBeards
+      ];
+  @override
+  String get aliasedName => _alias ?? 'appearance';
+  @override
+  String get actualTableName => 'appearance';
+  @override
+  VerificationContext validateIntegrity(Insertable<Appearance> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('skin_color')) {
+      context.handle(_skinColorMeta,
+          skinColor.isAcceptableOrUnknown(data['skin_color']!, _skinColorMeta));
+    } else if (isInserting) {
+      context.missing(_skinColorMeta);
+    }
+    if (data.containsKey('eye_color')) {
+      context.handle(_eyeColorMeta,
+          eyeColor.isAcceptableOrUnknown(data['eye_color']!, _eyeColorMeta));
+    } else if (isInserting) {
+      context.missing(_eyeColorMeta);
+    }
+    if (data.containsKey('hairstyle')) {
+      context.handle(_hairstyleMeta,
+          hairstyle.isAcceptableOrUnknown(data['hairstyle']!, _hairstyleMeta));
+    } else if (isInserting) {
+      context.missing(_hairstyleMeta);
+    }
+    if (data.containsKey('natural_hair_color')) {
+      context.handle(
+          _naturalHairColorMeta,
+          naturalHairColor.isAcceptableOrUnknown(
+              data['natural_hair_color']!, _naturalHairColorMeta));
+    } else if (isInserting) {
+      context.missing(_naturalHairColorMeta);
+    }
+    if (data.containsKey('dye_hair_color')) {
+      context.handle(
+          _dyeHairColorMeta,
+          dyeHairColor.isAcceptableOrUnknown(
+              data['dye_hair_color']!, _dyeHairColorMeta));
+    } else if (isInserting) {
+      context.missing(_dyeHairColorMeta);
+    }
+    if (data.containsKey('current_height_in_inches')) {
+      context.handle(
+          _currentHeightInInchesMeta,
+          currentHeightInInches.isAcceptableOrUnknown(
+              data['current_height_in_inches']!, _currentHeightInInchesMeta));
+    } else if (isInserting) {
+      context.missing(_currentHeightInInchesMeta);
+    }
+    if (data.containsKey('max_height_in_inches')) {
+      context.handle(
+          _maxHeightInInchesMeta,
+          maxHeightInInches.isAcceptableOrUnknown(
+              data['max_height_in_inches']!, _maxHeightInInchesMeta));
+    } else if (isInserting) {
+      context.missing(_maxHeightInInchesMeta);
+    }
+    if (data.containsKey('has_beards')) {
+      context.handle(_hasBeardsMeta,
+          hasBeards.isAcceptableOrUnknown(data['has_beards']!, _hasBeardsMeta));
+    } else if (isInserting) {
+      context.missing(_hasBeardsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  Appearance map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Appearance(
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      skinColor: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}skin_color'])!,
+      eyeColor: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}eye_color'])!,
+      hairstyle: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}hairstyle'])!,
+      naturalHairColor: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}natural_hair_color'])!,
+      dyeHairColor: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}dye_hair_color'])!,
+      currentHeightInInches: attachedDatabase.typeMapping.read(DriftSqlType.int,
+          data['${effectivePrefix}current_height_in_inches'])!,
+      maxHeightInInches: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}max_height_in_inches'])!,
+      hasBeards: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}has_beards'])!,
+    );
+  }
+
+  @override
+  $AppearanceTableTable createAlias(String alias) {
+    return $AppearanceTableTable(attachedDatabase, alias);
+  }
+}
+
+class Appearance extends DataClass implements Insertable<Appearance> {
+  final int personId;
+  final String skinColor;
+  final String eyeColor;
+  final String hairstyle;
+  final String naturalHairColor;
+  final String dyeHairColor;
+  final int currentHeightInInches;
+  final int maxHeightInInches;
+  final bool hasBeards;
+  const Appearance(
+      {required this.personId,
+      required this.skinColor,
+      required this.eyeColor,
+      required this.hairstyle,
+      required this.naturalHairColor,
+      required this.dyeHairColor,
+      required this.currentHeightInInches,
+      required this.maxHeightInInches,
+      required this.hasBeards});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['person_id'] = Variable<int>(personId);
+    map['skin_color'] = Variable<String>(skinColor);
+    map['eye_color'] = Variable<String>(eyeColor);
+    map['hairstyle'] = Variable<String>(hairstyle);
+    map['natural_hair_color'] = Variable<String>(naturalHairColor);
+    map['dye_hair_color'] = Variable<String>(dyeHairColor);
+    map['current_height_in_inches'] = Variable<int>(currentHeightInInches);
+    map['max_height_in_inches'] = Variable<int>(maxHeightInInches);
+    map['has_beards'] = Variable<bool>(hasBeards);
+    return map;
+  }
+
+  AppearanceTableCompanion toCompanion(bool nullToAbsent) {
+    return AppearanceTableCompanion(
+      personId: Value(personId),
+      skinColor: Value(skinColor),
+      eyeColor: Value(eyeColor),
+      hairstyle: Value(hairstyle),
+      naturalHairColor: Value(naturalHairColor),
+      dyeHairColor: Value(dyeHairColor),
+      currentHeightInInches: Value(currentHeightInInches),
+      maxHeightInInches: Value(maxHeightInInches),
+      hasBeards: Value(hasBeards),
+    );
+  }
+
+  factory Appearance.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Appearance(
+      personId: serializer.fromJson<int>(json['personId']),
+      skinColor: serializer.fromJson<String>(json['skinColor']),
+      eyeColor: serializer.fromJson<String>(json['eyeColor']),
+      hairstyle: serializer.fromJson<String>(json['hairstyle']),
+      naturalHairColor: serializer.fromJson<String>(json['naturalHairColor']),
+      dyeHairColor: serializer.fromJson<String>(json['dyeHairColor']),
+      currentHeightInInches:
+          serializer.fromJson<int>(json['currentHeightInInches']),
+      maxHeightInInches: serializer.fromJson<int>(json['maxHeightInInches']),
+      hasBeards: serializer.fromJson<bool>(json['hasBeards']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'personId': serializer.toJson<int>(personId),
+      'skinColor': serializer.toJson<String>(skinColor),
+      'eyeColor': serializer.toJson<String>(eyeColor),
+      'hairstyle': serializer.toJson<String>(hairstyle),
+      'naturalHairColor': serializer.toJson<String>(naturalHairColor),
+      'dyeHairColor': serializer.toJson<String>(dyeHairColor),
+      'currentHeightInInches': serializer.toJson<int>(currentHeightInInches),
+      'maxHeightInInches': serializer.toJson<int>(maxHeightInInches),
+      'hasBeards': serializer.toJson<bool>(hasBeards),
+    };
+  }
+
+  Appearance copyWith(
+          {int? personId,
+          String? skinColor,
+          String? eyeColor,
+          String? hairstyle,
+          String? naturalHairColor,
+          String? dyeHairColor,
+          int? currentHeightInInches,
+          int? maxHeightInInches,
+          bool? hasBeards}) =>
+      Appearance(
+        personId: personId ?? this.personId,
+        skinColor: skinColor ?? this.skinColor,
+        eyeColor: eyeColor ?? this.eyeColor,
+        hairstyle: hairstyle ?? this.hairstyle,
+        naturalHairColor: naturalHairColor ?? this.naturalHairColor,
+        dyeHairColor: dyeHairColor ?? this.dyeHairColor,
+        currentHeightInInches:
+            currentHeightInInches ?? this.currentHeightInInches,
+        maxHeightInInches: maxHeightInInches ?? this.maxHeightInInches,
+        hasBeards: hasBeards ?? this.hasBeards,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Appearance(')
+          ..write('personId: $personId, ')
+          ..write('skinColor: $skinColor, ')
+          ..write('eyeColor: $eyeColor, ')
+          ..write('hairstyle: $hairstyle, ')
+          ..write('naturalHairColor: $naturalHairColor, ')
+          ..write('dyeHairColor: $dyeHairColor, ')
+          ..write('currentHeightInInches: $currentHeightInInches, ')
+          ..write('maxHeightInInches: $maxHeightInInches, ')
+          ..write('hasBeards: $hasBeards')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      personId,
+      skinColor,
+      eyeColor,
+      hairstyle,
+      naturalHairColor,
+      dyeHairColor,
+      currentHeightInInches,
+      maxHeightInInches,
+      hasBeards);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Appearance &&
+          other.personId == this.personId &&
+          other.skinColor == this.skinColor &&
+          other.eyeColor == this.eyeColor &&
+          other.hairstyle == this.hairstyle &&
+          other.naturalHairColor == this.naturalHairColor &&
+          other.dyeHairColor == this.dyeHairColor &&
+          other.currentHeightInInches == this.currentHeightInInches &&
+          other.maxHeightInInches == this.maxHeightInInches &&
+          other.hasBeards == this.hasBeards);
+}
+
+class AppearanceTableCompanion extends UpdateCompanion<Appearance> {
+  final Value<int> personId;
+  final Value<String> skinColor;
+  final Value<String> eyeColor;
+  final Value<String> hairstyle;
+  final Value<String> naturalHairColor;
+  final Value<String> dyeHairColor;
+  final Value<int> currentHeightInInches;
+  final Value<int> maxHeightInInches;
+  final Value<bool> hasBeards;
+  final Value<int> rowid;
+  const AppearanceTableCompanion({
+    this.personId = const Value.absent(),
+    this.skinColor = const Value.absent(),
+    this.eyeColor = const Value.absent(),
+    this.hairstyle = const Value.absent(),
+    this.naturalHairColor = const Value.absent(),
+    this.dyeHairColor = const Value.absent(),
+    this.currentHeightInInches = const Value.absent(),
+    this.maxHeightInInches = const Value.absent(),
+    this.hasBeards = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AppearanceTableCompanion.insert({
+    required int personId,
+    required String skinColor,
+    required String eyeColor,
+    required String hairstyle,
+    required String naturalHairColor,
+    required String dyeHairColor,
+    required int currentHeightInInches,
+    required int maxHeightInInches,
+    required bool hasBeards,
+    this.rowid = const Value.absent(),
+  })  : personId = Value(personId),
+        skinColor = Value(skinColor),
+        eyeColor = Value(eyeColor),
+        hairstyle = Value(hairstyle),
+        naturalHairColor = Value(naturalHairColor),
+        dyeHairColor = Value(dyeHairColor),
+        currentHeightInInches = Value(currentHeightInInches),
+        maxHeightInInches = Value(maxHeightInInches),
+        hasBeards = Value(hasBeards);
+  static Insertable<Appearance> custom({
+    Expression<int>? personId,
+    Expression<String>? skinColor,
+    Expression<String>? eyeColor,
+    Expression<String>? hairstyle,
+    Expression<String>? naturalHairColor,
+    Expression<String>? dyeHairColor,
+    Expression<int>? currentHeightInInches,
+    Expression<int>? maxHeightInInches,
+    Expression<bool>? hasBeards,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (personId != null) 'person_id': personId,
+      if (skinColor != null) 'skin_color': skinColor,
+      if (eyeColor != null) 'eye_color': eyeColor,
+      if (hairstyle != null) 'hairstyle': hairstyle,
+      if (naturalHairColor != null) 'natural_hair_color': naturalHairColor,
+      if (dyeHairColor != null) 'dye_hair_color': dyeHairColor,
+      if (currentHeightInInches != null)
+        'current_height_in_inches': currentHeightInInches,
+      if (maxHeightInInches != null) 'max_height_in_inches': maxHeightInInches,
+      if (hasBeards != null) 'has_beards': hasBeards,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AppearanceTableCompanion copyWith(
+      {Value<int>? personId,
+      Value<String>? skinColor,
+      Value<String>? eyeColor,
+      Value<String>? hairstyle,
+      Value<String>? naturalHairColor,
+      Value<String>? dyeHairColor,
+      Value<int>? currentHeightInInches,
+      Value<int>? maxHeightInInches,
+      Value<bool>? hasBeards,
+      Value<int>? rowid}) {
+    return AppearanceTableCompanion(
+      personId: personId ?? this.personId,
+      skinColor: skinColor ?? this.skinColor,
+      eyeColor: eyeColor ?? this.eyeColor,
+      hairstyle: hairstyle ?? this.hairstyle,
+      naturalHairColor: naturalHairColor ?? this.naturalHairColor,
+      dyeHairColor: dyeHairColor ?? this.dyeHairColor,
+      currentHeightInInches:
+          currentHeightInInches ?? this.currentHeightInInches,
+      maxHeightInInches: maxHeightInInches ?? this.maxHeightInInches,
+      hasBeards: hasBeards ?? this.hasBeards,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (skinColor.present) {
+      map['skin_color'] = Variable<String>(skinColor.value);
+    }
+    if (eyeColor.present) {
+      map['eye_color'] = Variable<String>(eyeColor.value);
+    }
+    if (hairstyle.present) {
+      map['hairstyle'] = Variable<String>(hairstyle.value);
+    }
+    if (naturalHairColor.present) {
+      map['natural_hair_color'] = Variable<String>(naturalHairColor.value);
+    }
+    if (dyeHairColor.present) {
+      map['dye_hair_color'] = Variable<String>(dyeHairColor.value);
+    }
+    if (currentHeightInInches.present) {
+      map['current_height_in_inches'] =
+          Variable<int>(currentHeightInInches.value);
+    }
+    if (maxHeightInInches.present) {
+      map['max_height_in_inches'] = Variable<int>(maxHeightInInches.value);
+    }
+    if (hasBeards.present) {
+      map['has_beards'] = Variable<bool>(hasBeards.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AppearanceTableCompanion(')
+          ..write('personId: $personId, ')
+          ..write('skinColor: $skinColor, ')
+          ..write('eyeColor: $eyeColor, ')
+          ..write('hairstyle: $hairstyle, ')
+          ..write('naturalHairColor: $naturalHairColor, ')
+          ..write('dyeHairColor: $dyeHairColor, ')
+          ..write('currentHeightInInches: $currentHeightInInches, ')
+          ..write('maxHeightInInches: $maxHeightInInches, ')
+          ..write('hasBeards: $hasBeards, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $StatsTableTable extends StatsTable
     with TableInfo<$StatsTableTable, Stats> {
   @override
@@ -17867,6 +18351,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(e);
   late final $GameTableTable gameTable = $GameTableTable(this);
   late final $PersonTableTable personTable = $PersonTableTable(this);
+  late final $AppearanceTableTable appearanceTable =
+      $AppearanceTableTable(this);
   late final $StatsTableTable statsTable = $StatsTableTable(this);
   late final $DepleteStatsFlagTableTable depleteStatsFlagTable =
       $DepleteStatsFlagTableTable(this);
@@ -17914,6 +18400,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
+  late final AppearanceDaoImpl appearanceDaoImpl =
+      AppearanceDaoImpl(this as DatabaseProvider);
   late final StatsDaoImpl statsDaoImpl = StatsDaoImpl(this as DatabaseProvider);
   late final DepleteStatsFlagDaoImpl depleteStatsFlagDaoImpl =
       DepleteStatsFlagDaoImpl(this as DatabaseProvider);
@@ -17975,6 +18463,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         gameTable,
         personTable,
+        appearanceTable,
         statsTable,
         depleteStatsFlagTable,
         personalityTable,
@@ -18023,6 +18512,20 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('person', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('appearance', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('appearance', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(
