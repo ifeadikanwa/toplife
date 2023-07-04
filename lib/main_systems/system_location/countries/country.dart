@@ -9,6 +9,7 @@ abstract class Country {
   String get currency;
   int get economy;
   HashSet<SkinColor> get dominantSkinColors;
+  int get diversityChance; //chance a generated person was not born in this country
   bool get abortionLaw;
   bool get hasFreeEducation;
   int get taxPercentage;

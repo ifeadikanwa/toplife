@@ -31,9 +31,10 @@ class CreateNewPlayerFamilyUsecase {
     final Person maleParent = personUsecases.generateAPersonUsecase.execute(
       currentGameID: currentPlayer.gameId,
       currentDay: currentDay,
-      currentCountry: currentPlayer.currentCountry,
-      currentState: currentPlayer.currentState,
+      currentCountryString: currentPlayer.currentCountry,
+      currentStateString: currentPlayer.currentState,
       lastName: currentPlayer.lastName,
+      parentBirthCountryString: null, //can have random birth country
       gender: Gender.Male,
       sexuallity: Sexuality.Straight,
       canBeAdult: true,
@@ -43,9 +44,10 @@ class CreateNewPlayerFamilyUsecase {
     final Person femaleParent = personUsecases.generateAPersonUsecase.execute(
       currentGameID: currentPlayer.gameId,
       currentDay: currentDay,
-      currentCountry: currentPlayer.currentCountry,
-      currentState: currentPlayer.currentState,
+      currentCountryString: currentPlayer.currentCountry,
+      currentStateString: currentPlayer.currentState,
       lastName: currentPlayer.lastName,
+      parentBirthCountryString: null, //can have random birth country
       gender: Gender.Female,
       sexuallity: Sexuality.Straight,
       canBeAdult: true,
@@ -80,6 +82,7 @@ class CreateNewPlayerFamilyUsecase {
       currentCountry: currentPlayer.currentCountry,
       currentState: currentPlayer.currentState,
       lastName: currentPlayer.lastName,
+      parentBirthCountryString: currentPlayer.birthCountry, //have player birth country
       canBeChild: true,
       canBeTeen: true,
       canBeYoungAdult: true,

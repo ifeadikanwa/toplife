@@ -23,6 +23,9 @@ class Canada implements Country {
       Default.canadaAndUSDominantSkinColors;
 
   @override
+  int get diversityChance => 30;
+
+  @override
   String get randomState {
     return getRandomValueFromList(list: states);
   }
