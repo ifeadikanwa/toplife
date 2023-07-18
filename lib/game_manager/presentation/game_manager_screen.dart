@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
@@ -49,37 +48,6 @@ class GameManagerScreen extends ConsumerWidget {
                   ));
             },
             child: const Text("Create Game")),
-        ElevatedButton(
-            onPressed: () {
-              ref.read(personUsecasesProvider).createChildPersonUsecase.execute(
-                    person: Person(
-                      id: DatabaseConstants.dummyId,
-                      gameId: DatabaseConstants.dummyId,
-                      firstName: "Stella",
-                      lastName: "Baker",
-                      dayOfBirth: -23,
-                      gender: Gender.Female.name,
-                      subjectPronoun: Gender.Female.subjectPronoun,
-                      objectPronoun: Gender.Female.objectPronoun,
-                      possessivePronoun: Gender.Female.possessivepronoun,
-                      sexuality: Sexuality.Straight.name,
-                      birthState: "Ontario",
-                      birthCountry: "Canada",
-                      currentState: "Ontario",
-                      currentCountry: "Canada",
-                      money: 3000,
-                      zodiacSign: ZodiacSign.Capricorn.name,
-                      hasDriversLicense: false,
-                      transportMode: "bus",
-                      hasFertilityIssues: false,
-                      onBirthControl: false,
-                      isSterile: false,
-                      sickly: false,
-                      dead: false,
-                    ),
-                  );
-            },
-            child: const Text("create person")),
         ElevatedButton(
             onPressed: () async {
               // await ref.read(gameManagerViewModel.notifier).getGame(1);

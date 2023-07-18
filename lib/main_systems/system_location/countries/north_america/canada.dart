@@ -3,6 +3,7 @@ import 'package:toplife/main_systems/system_location/constants/default.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/core/utils/get_random_value_from_collections.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/skin_color.dart';
+import 'package:toplife/main_systems/system_person/constants/piercing/piercing_body_location.dart';
 
 class Canada implements Country {
   @override
@@ -24,6 +25,22 @@ class Canada implements Country {
 
   @override
   int get diversityChance => 30;
+
+  @override
+  int get chanceAnyPersonHasTattoo =>
+      Default.canadaAndUSChanceAnyPersonHasTattoo;
+
+  @override
+  int get chanceFemalePersonHasPiercing =>
+      Default.canadaAndUSChanceFemalePersonHasPiercing;
+
+  @override
+  int get chanceMalePersonHasPiercing =>
+      Default.canadaAndUSChanceMalePersonHasPiercing;
+
+  @override
+  List<PiercingBodyLocation> get culturallyPopularPiercingLocations =>
+      Default.canadaAndUSCulturallyPopularPiercingLocations;
 
   @override
   String get randomState {

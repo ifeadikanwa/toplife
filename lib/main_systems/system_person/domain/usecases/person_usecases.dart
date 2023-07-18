@@ -9,10 +9,13 @@ import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplet
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/toggle_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/add_money_to_player_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/check_if_player_can_afford_it_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_adult_person_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_child_person_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_person_with_attributes_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/delete_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_baby_traits_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_person_appearance_from_parents_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_person_appearance_from_scratch_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_person_piercings_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_person_tattoos_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_personality_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_stance_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_stats_usecase.dart';
@@ -80,21 +83,34 @@ class PersonUsecases {
   GenerateBabyTraitsUsecase get generateBabyTraitsUsecase =>
       GenerateBabyTraitsUsecase();
 
-  CreateAdultPersonUsecase get createAdultPersonUsecase =>
-      CreateAdultPersonUsecase(
-        personRepositories: _personRepositories,
-        generatePersonalityUsecase: generatePersonalityUsecase,
-        generateStanceUsecase: generateStanceUsecase,
-        generateStatsUsecase: generateStatsUsecase,
-      );
+  GeneratePersonAppearanceFromParentsUsecase
+      get generatePersonAppearanceFromParentsUsecase =>
+          GeneratePersonAppearanceFromParentsUsecase();
 
-  CreateChildPersonUsecase get createChildPersonUsecase =>
-      CreateChildPersonUsecase(
+  GeneratePersonAppearanceFromScratchUsecase
+      get generatePersonAppearanceFromScratchUsecase =>
+          GeneratePersonAppearanceFromScratchUsecase();
+
+  GeneratePersonTattooUsecase get generatePersonTattooUsecase =>
+      GeneratePersonTattooUsecase();
+
+  GeneratePersonPiercingsUsecase get generatePersonPiercingsUsecase =>
+      GeneratePersonPiercingsUsecase();
+
+  CreatePersonWithAttributesUsecase get createPersonWithAttributesUsecase =>
+      CreatePersonWithAttributesUsecase(
         personRepositories: _personRepositories,
+        ageUsecases: _ageUsecases,
         generatePersonalityUsecase: generatePersonalityUsecase,
-        generateStanceUsecase: generateStanceUsecase,
         generateStatsUsecase: generateStatsUsecase,
+        generateStanceUsecase: generateStanceUsecase,
         generateBabyTraitsUsecase: generateBabyTraitsUsecase,
+        generatePersonAppearanceFromParentsUsecase:
+            generatePersonAppearanceFromParentsUsecase,
+        generatePersonAppearanceFromScratchUsecase:
+            generatePersonAppearanceFromScratchUsecase,
+        generatePersonTattooUsecase: generatePersonTattooUsecase,
+        generatePersonPiercingsUsecase: generatePersonPiercingsUsecase,
       );
 
   DepleteBabyEnergyUsecase get depleteBabyEnergyUsecase =>

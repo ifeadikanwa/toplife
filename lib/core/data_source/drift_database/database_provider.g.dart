@@ -4481,6 +4481,676 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
   }
 }
 
+class $TattooTableTable extends TattooTable
+    with TableInfo<$TattooTableTable, Tattoo> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TattooTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _locationMeta =
+      const VerificationMeta('location');
+  @override
+  late final GeneratedColumn<String> location = GeneratedColumn<String>(
+      'location', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sizeMeta = const VerificationMeta('size');
+  @override
+  late final GeneratedColumn<String> size = GeneratedColumn<String>(
+      'size', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dayObtainedMeta =
+      const VerificationMeta('dayObtained');
+  @override
+  late final GeneratedColumn<int> dayObtained = GeneratedColumn<int>(
+      'day_obtained', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _isColoredMeta =
+      const VerificationMeta('isColored');
+  @override
+  late final GeneratedColumn<bool> isColored =
+      GeneratedColumn<bool>('is_colored', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_colored" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _qualityMeta =
+      const VerificationMeta('quality');
+  @override
+  late final GeneratedColumn<String> quality = GeneratedColumn<String>(
+      'quality', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        personId,
+        description,
+        location,
+        size,
+        dayObtained,
+        isColored,
+        quality
+      ];
+  @override
+  String get aliasedName => _alias ?? 'tattoo';
+  @override
+  String get actualTableName => 'tattoo';
+  @override
+  VerificationContext validateIntegrity(Insertable<Tattoo> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('location')) {
+      context.handle(_locationMeta,
+          location.isAcceptableOrUnknown(data['location']!, _locationMeta));
+    } else if (isInserting) {
+      context.missing(_locationMeta);
+    }
+    if (data.containsKey('size')) {
+      context.handle(
+          _sizeMeta, size.isAcceptableOrUnknown(data['size']!, _sizeMeta));
+    } else if (isInserting) {
+      context.missing(_sizeMeta);
+    }
+    if (data.containsKey('day_obtained')) {
+      context.handle(
+          _dayObtainedMeta,
+          dayObtained.isAcceptableOrUnknown(
+              data['day_obtained']!, _dayObtainedMeta));
+    } else if (isInserting) {
+      context.missing(_dayObtainedMeta);
+    }
+    if (data.containsKey('is_colored')) {
+      context.handle(_isColoredMeta,
+          isColored.isAcceptableOrUnknown(data['is_colored']!, _isColoredMeta));
+    } else if (isInserting) {
+      context.missing(_isColoredMeta);
+    }
+    if (data.containsKey('quality')) {
+      context.handle(_qualityMeta,
+          quality.isAcceptableOrUnknown(data['quality']!, _qualityMeta));
+    } else if (isInserting) {
+      context.missing(_qualityMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Tattoo map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Tattoo(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      location: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}location'])!,
+      size: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}size'])!,
+      dayObtained: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}day_obtained'])!,
+      isColored: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_colored'])!,
+      quality: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}quality'])!,
+    );
+  }
+
+  @override
+  $TattooTableTable createAlias(String alias) {
+    return $TattooTableTable(attachedDatabase, alias);
+  }
+}
+
+class Tattoo extends DataClass implements Insertable<Tattoo> {
+  final int id;
+  final int personId;
+  final String description;
+  final String location;
+  final String size;
+  final int dayObtained;
+  final bool isColored;
+  final String quality;
+  const Tattoo(
+      {required this.id,
+      required this.personId,
+      required this.description,
+      required this.location,
+      required this.size,
+      required this.dayObtained,
+      required this.isColored,
+      required this.quality});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person_id'] = Variable<int>(personId);
+    map['description'] = Variable<String>(description);
+    map['location'] = Variable<String>(location);
+    map['size'] = Variable<String>(size);
+    map['day_obtained'] = Variable<int>(dayObtained);
+    map['is_colored'] = Variable<bool>(isColored);
+    map['quality'] = Variable<String>(quality);
+    return map;
+  }
+
+  TattooTableCompanion toCompanion(bool nullToAbsent) {
+    return TattooTableCompanion(
+      id: Value(id),
+      personId: Value(personId),
+      description: Value(description),
+      location: Value(location),
+      size: Value(size),
+      dayObtained: Value(dayObtained),
+      isColored: Value(isColored),
+      quality: Value(quality),
+    );
+  }
+
+  factory Tattoo.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Tattoo(
+      id: serializer.fromJson<int>(json['id']),
+      personId: serializer.fromJson<int>(json['personId']),
+      description: serializer.fromJson<String>(json['description']),
+      location: serializer.fromJson<String>(json['location']),
+      size: serializer.fromJson<String>(json['size']),
+      dayObtained: serializer.fromJson<int>(json['dayObtained']),
+      isColored: serializer.fromJson<bool>(json['isColored']),
+      quality: serializer.fromJson<String>(json['quality']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'personId': serializer.toJson<int>(personId),
+      'description': serializer.toJson<String>(description),
+      'location': serializer.toJson<String>(location),
+      'size': serializer.toJson<String>(size),
+      'dayObtained': serializer.toJson<int>(dayObtained),
+      'isColored': serializer.toJson<bool>(isColored),
+      'quality': serializer.toJson<String>(quality),
+    };
+  }
+
+  Tattoo copyWith(
+          {int? id,
+          int? personId,
+          String? description,
+          String? location,
+          String? size,
+          int? dayObtained,
+          bool? isColored,
+          String? quality}) =>
+      Tattoo(
+        id: id ?? this.id,
+        personId: personId ?? this.personId,
+        description: description ?? this.description,
+        location: location ?? this.location,
+        size: size ?? this.size,
+        dayObtained: dayObtained ?? this.dayObtained,
+        isColored: isColored ?? this.isColored,
+        quality: quality ?? this.quality,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Tattoo(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('description: $description, ')
+          ..write('location: $location, ')
+          ..write('size: $size, ')
+          ..write('dayObtained: $dayObtained, ')
+          ..write('isColored: $isColored, ')
+          ..write('quality: $quality')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, personId, description, location, size,
+      dayObtained, isColored, quality);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Tattoo &&
+          other.id == this.id &&
+          other.personId == this.personId &&
+          other.description == this.description &&
+          other.location == this.location &&
+          other.size == this.size &&
+          other.dayObtained == this.dayObtained &&
+          other.isColored == this.isColored &&
+          other.quality == this.quality);
+}
+
+class TattooTableCompanion extends UpdateCompanion<Tattoo> {
+  final Value<int> id;
+  final Value<int> personId;
+  final Value<String> description;
+  final Value<String> location;
+  final Value<String> size;
+  final Value<int> dayObtained;
+  final Value<bool> isColored;
+  final Value<String> quality;
+  const TattooTableCompanion({
+    this.id = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.description = const Value.absent(),
+    this.location = const Value.absent(),
+    this.size = const Value.absent(),
+    this.dayObtained = const Value.absent(),
+    this.isColored = const Value.absent(),
+    this.quality = const Value.absent(),
+  });
+  TattooTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int personId,
+    required String description,
+    required String location,
+    required String size,
+    required int dayObtained,
+    required bool isColored,
+    required String quality,
+  })  : personId = Value(personId),
+        description = Value(description),
+        location = Value(location),
+        size = Value(size),
+        dayObtained = Value(dayObtained),
+        isColored = Value(isColored),
+        quality = Value(quality);
+  static Insertable<Tattoo> custom({
+    Expression<int>? id,
+    Expression<int>? personId,
+    Expression<String>? description,
+    Expression<String>? location,
+    Expression<String>? size,
+    Expression<int>? dayObtained,
+    Expression<bool>? isColored,
+    Expression<String>? quality,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (personId != null) 'person_id': personId,
+      if (description != null) 'description': description,
+      if (location != null) 'location': location,
+      if (size != null) 'size': size,
+      if (dayObtained != null) 'day_obtained': dayObtained,
+      if (isColored != null) 'is_colored': isColored,
+      if (quality != null) 'quality': quality,
+    });
+  }
+
+  TattooTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? personId,
+      Value<String>? description,
+      Value<String>? location,
+      Value<String>? size,
+      Value<int>? dayObtained,
+      Value<bool>? isColored,
+      Value<String>? quality}) {
+    return TattooTableCompanion(
+      id: id ?? this.id,
+      personId: personId ?? this.personId,
+      description: description ?? this.description,
+      location: location ?? this.location,
+      size: size ?? this.size,
+      dayObtained: dayObtained ?? this.dayObtained,
+      isColored: isColored ?? this.isColored,
+      quality: quality ?? this.quality,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (location.present) {
+      map['location'] = Variable<String>(location.value);
+    }
+    if (size.present) {
+      map['size'] = Variable<String>(size.value);
+    }
+    if (dayObtained.present) {
+      map['day_obtained'] = Variable<int>(dayObtained.value);
+    }
+    if (isColored.present) {
+      map['is_colored'] = Variable<bool>(isColored.value);
+    }
+    if (quality.present) {
+      map['quality'] = Variable<String>(quality.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TattooTableCompanion(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('description: $description, ')
+          ..write('location: $location, ')
+          ..write('size: $size, ')
+          ..write('dayObtained: $dayObtained, ')
+          ..write('isColored: $isColored, ')
+          ..write('quality: $quality')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PiercingTableTable extends PiercingTable
+    with TableInfo<$PiercingTableTable, Piercing> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PiercingTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _locationMeta =
+      const VerificationMeta('location');
+  @override
+  late final GeneratedColumn<String> location = GeneratedColumn<String>(
+      'location', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dayObtainedMeta =
+      const VerificationMeta('dayObtained');
+  @override
+  late final GeneratedColumn<int> dayObtained = GeneratedColumn<int>(
+      'day_obtained', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, personId, location, dayObtained];
+  @override
+  String get aliasedName => _alias ?? 'piercing';
+  @override
+  String get actualTableName => 'piercing';
+  @override
+  VerificationContext validateIntegrity(Insertable<Piercing> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('location')) {
+      context.handle(_locationMeta,
+          location.isAcceptableOrUnknown(data['location']!, _locationMeta));
+    } else if (isInserting) {
+      context.missing(_locationMeta);
+    }
+    if (data.containsKey('day_obtained')) {
+      context.handle(
+          _dayObtainedMeta,
+          dayObtained.isAcceptableOrUnknown(
+              data['day_obtained']!, _dayObtainedMeta));
+    } else if (isInserting) {
+      context.missing(_dayObtainedMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Piercing map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Piercing(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      location: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}location'])!,
+      dayObtained: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}day_obtained'])!,
+    );
+  }
+
+  @override
+  $PiercingTableTable createAlias(String alias) {
+    return $PiercingTableTable(attachedDatabase, alias);
+  }
+}
+
+class Piercing extends DataClass implements Insertable<Piercing> {
+  final int id;
+  final int personId;
+  final String location;
+  final int dayObtained;
+  const Piercing(
+      {required this.id,
+      required this.personId,
+      required this.location,
+      required this.dayObtained});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person_id'] = Variable<int>(personId);
+    map['location'] = Variable<String>(location);
+    map['day_obtained'] = Variable<int>(dayObtained);
+    return map;
+  }
+
+  PiercingTableCompanion toCompanion(bool nullToAbsent) {
+    return PiercingTableCompanion(
+      id: Value(id),
+      personId: Value(personId),
+      location: Value(location),
+      dayObtained: Value(dayObtained),
+    );
+  }
+
+  factory Piercing.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Piercing(
+      id: serializer.fromJson<int>(json['id']),
+      personId: serializer.fromJson<int>(json['personId']),
+      location: serializer.fromJson<String>(json['location']),
+      dayObtained: serializer.fromJson<int>(json['dayObtained']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'personId': serializer.toJson<int>(personId),
+      'location': serializer.toJson<String>(location),
+      'dayObtained': serializer.toJson<int>(dayObtained),
+    };
+  }
+
+  Piercing copyWith(
+          {int? id, int? personId, String? location, int? dayObtained}) =>
+      Piercing(
+        id: id ?? this.id,
+        personId: personId ?? this.personId,
+        location: location ?? this.location,
+        dayObtained: dayObtained ?? this.dayObtained,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Piercing(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('location: $location, ')
+          ..write('dayObtained: $dayObtained')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, personId, location, dayObtained);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Piercing &&
+          other.id == this.id &&
+          other.personId == this.personId &&
+          other.location == this.location &&
+          other.dayObtained == this.dayObtained);
+}
+
+class PiercingTableCompanion extends UpdateCompanion<Piercing> {
+  final Value<int> id;
+  final Value<int> personId;
+  final Value<String> location;
+  final Value<int> dayObtained;
+  const PiercingTableCompanion({
+    this.id = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.location = const Value.absent(),
+    this.dayObtained = const Value.absent(),
+  });
+  PiercingTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int personId,
+    required String location,
+    required int dayObtained,
+  })  : personId = Value(personId),
+        location = Value(location),
+        dayObtained = Value(dayObtained);
+  static Insertable<Piercing> custom({
+    Expression<int>? id,
+    Expression<int>? personId,
+    Expression<String>? location,
+    Expression<int>? dayObtained,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (personId != null) 'person_id': personId,
+      if (location != null) 'location': location,
+      if (dayObtained != null) 'day_obtained': dayObtained,
+    });
+  }
+
+  PiercingTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? personId,
+      Value<String>? location,
+      Value<int>? dayObtained}) {
+    return PiercingTableCompanion(
+      id: id ?? this.id,
+      personId: personId ?? this.personId,
+      location: location ?? this.location,
+      dayObtained: dayObtained ?? this.dayObtained,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (location.present) {
+      map['location'] = Variable<String>(location.value);
+    }
+    if (dayObtained.present) {
+      map['day_obtained'] = Variable<int>(dayObtained.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PiercingTableCompanion(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('location: $location, ')
+          ..write('dayObtained: $dayObtained')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $BabyTraitsTableTable extends BabyTraitsTable
     with TableInfo<$BabyTraitsTableTable, BabyTraits> {
   @override
@@ -18359,6 +19029,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $PersonalityTableTable personalityTable =
       $PersonalityTableTable(this);
   late final $StanceTableTable stanceTable = $StanceTableTable(this);
+  late final $TattooTableTable tattooTable = $TattooTableTable(this);
+  late final $PiercingTableTable piercingTable = $PiercingTableTable(this);
   late final $BabyTraitsTableTable babyTraitsTable =
       $BabyTraitsTableTable(this);
   late final $AcquaintanceTableTable acquaintanceTable =
@@ -18409,6 +19081,10 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       StanceDaoImpl(this as DatabaseProvider);
   late final PersonalityDaoImpl personalityDaoImpl =
       PersonalityDaoImpl(this as DatabaseProvider);
+  late final TattooDaoImpl tattooDaoImpl =
+      TattooDaoImpl(this as DatabaseProvider);
+  late final PiercingDaoImpl piercingDaoImpl =
+      PiercingDaoImpl(this as DatabaseProvider);
   late final BabyTraitsDaoImpl babyTraitsDaoImpl =
       BabyTraitsDaoImpl(this as DatabaseProvider);
   late final AcquaintanceDaoImpl acquaintanceDaoImpl =
@@ -18468,6 +19144,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         depleteStatsFlagTable,
         personalityTable,
         stanceTable,
+        tattooTable,
+        piercingTable,
         babyTraitsTable,
         acquaintanceTable,
         childTable,
@@ -18582,6 +19260,34 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('stance', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('tattoo', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('tattoo', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('piercing', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('piercing', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(

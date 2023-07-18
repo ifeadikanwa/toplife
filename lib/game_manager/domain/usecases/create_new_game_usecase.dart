@@ -48,9 +48,13 @@ class CreateNewGameUsecase {
           daysLived: Age.newYoungAdultDaysLived,
         ));
 
-    //Create a new person for the new game.
-    final createdCurrentPlayer = await _personUsecases.createAdultPersonUsecase
-        .execute(person: youngAdultPerson);
+    //create player and player family
+   final Person createdCurrentPlayer = await _relationshipUsecases.createNewPlayerFamilyUsecase.execute(
+      personUsecases: _personUsecases,
+      uncreatedCurrentPlayerPerson: youngAdultPerson,
+      gameID: createdGame.id,
+      currentDay: createdGame.currentDay,
+    );
 
     //Now that we have a main player
     //update the game with the main player ID so they are attached to the current game.
@@ -58,13 +62,6 @@ class CreateNewGameUsecase {
       currentPlayerID: createdCurrentPlayer.id,
     );
     await _gameRepository.updateGame(updatedCreatedGame);
-
-    //create players family
-    await _relationshipUsecases.createNewPlayerFamilyUsecase.execute(
-      _personUsecases,
-      createdCurrentPlayer,
-      newGameDay,
-    );
 
     return updatedCreatedGame;
   }

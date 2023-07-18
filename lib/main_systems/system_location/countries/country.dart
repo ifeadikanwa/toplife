@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:toplife/main_systems/system_person/constants/appearance/skin_color.dart';
+import 'package:toplife/main_systems/system_person/constants/piercing/piercing_body_location.dart';
 
 abstract class Country {
   String get name;
@@ -10,6 +11,10 @@ abstract class Country {
   int get economy;
   HashSet<SkinColor> get dominantSkinColors;
   int get diversityChance; //chance a generated person was not born in this country
+  int get chanceAnyPersonHasTattoo; //chance a generated person has tattoo
+  int get chanceFemalePersonHasPiercing; //chance a generated female person has tattoo
+  int get chanceMalePersonHasPiercing; //chance a generated male person has tattoo
+  List<PiercingBodyLocation> get culturallyPopularPiercingLocations;
   bool get abortionLaw;
   bool get hasFreeEducation;
   int get taxPercentage;

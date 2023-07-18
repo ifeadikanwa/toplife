@@ -19,15 +19,19 @@ import 'package:toplife/main_systems/system_person/data/dao/deplete_stats_flag_d
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/personality_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/piercing_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/tattoo_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/domain/model/appearance.dart';
 import 'package:toplife/main_systems/system_person/domain/model/baby_traits.dart';
 import 'package:toplife/main_systems/system_person/domain/model/deplete_stats_flag.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/model/personality.dart';
+import 'package:toplife/main_systems/system_person/domain/model/piercing.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stance.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
+import 'package:toplife/main_systems/system_person/domain/model/tattoo.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
@@ -88,6 +92,8 @@ part 'database_provider.g.dart';
     DepleteStatsFlagTable,
     PersonalityTable,
     StanceTable,
+    TattooTable,
+    PiercingTable,
     BabyTraitsTable,
     AcquaintanceTable,
     ChildTable,
@@ -125,6 +131,8 @@ part 'database_provider.g.dart';
     DepleteStatsFlagDaoImpl,
     StanceDaoImpl,
     PersonalityDaoImpl,
+    TattooDaoImpl,
+    PiercingDaoImpl,
     BabyTraitsDaoImpl,
     AcquaintanceDaoImpl,
     ChildDaoImpl,

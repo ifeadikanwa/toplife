@@ -14,7 +14,7 @@ class GeneratePersonAppearanceFromScratchUsecase {
     required int personId,
     required Gender gender,
     required LifeStage lifeStage,
-    required Country nativeCountry,
+    required Country nativeCountry, //birth country
   }) {
     //skincolor
     final SkinColor personSkinColor = AppearanceUtils.getValidNativeSkinColor(
