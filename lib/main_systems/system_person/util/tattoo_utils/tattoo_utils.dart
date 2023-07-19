@@ -9,6 +9,7 @@ import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_body_
 import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_quality.dart';
 import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_shop.dart';
 import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_size.dart';
+import 'package:toplife/main_systems/system_person/util/tattoo_utils/tattoo_descriptions/get_emoji_tattoo_description.dart';
 import 'package:toplife/main_systems/system_person/util/tattoo_utils/tattoo_descriptions/get_person_name_tattoo_description.dart';
 import 'package:toplife/main_systems/system_person/util/tattoo_utils/tattoo_descriptions/get_quote_tattoo_description.dart';
 import 'package:toplife/main_systems/system_person/util/tattoo_utils/tattoo_descriptions/get_thing_name_tattoo_description.dart';
@@ -46,6 +47,7 @@ class TattooUtils {
       getPersonNameTattooDecription(country: country),
       getThingNameTattooDescription(),
       getQuoteTattooDescription(),
+      getEmojiTattooDescription(),
     ];
 
     //return a random desc
