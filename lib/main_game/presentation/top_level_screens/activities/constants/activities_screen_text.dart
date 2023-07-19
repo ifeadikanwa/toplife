@@ -22,11 +22,8 @@ class ActivitiesScreenText {
   static const throwAParty = "Throw a Party";
   static const throwAPartyDesc = "There is always a reason to celebrate";
 
-  static const funInTheCity = "Fun in the City";
-  static const funInTheCityDesc = "Blow off steam alone or with company";
-
-  static const funWithFamily = "Fun with Family";
-  static const funWithFamilyDesc = "Spend some time with the people you love";
+  static const neighborhood = "Neighborhood";
+  static const neighborhoodDesc = "Go outside and live";
 
   static const relocate = "Relocate";
   static const relocateDesc = "A new beginning in a new place";

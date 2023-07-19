@@ -73,7 +73,6 @@ class RentHouseUsecase {
         relationshipUsecases: _relationshipUsecases,
         personID: personID,
         basePrice: baseHouseRentPrice,
-        country: person.currentCountry,
         adjustToEconomy: true,
       );
 

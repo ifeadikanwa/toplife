@@ -5,7 +5,7 @@ void main() {
   group("Tattoo shop:", () {
     test("one star has correct information", () {
       expect(
-        TattooShop.oneStar.presentationtName,
+        TattooShop.oneStar.presentationName,
         "☆",
         reason: "Cause: presentation name",
       );
@@ -31,7 +31,7 @@ void main() {
 
     test("two stars has correct information", () {
       expect(
-        TattooShop.twoStars.presentationtName,
+        TattooShop.twoStars.presentationName,
         "☆☆",
         reason: "Cause: presentation name",
       );
@@ -57,7 +57,7 @@ void main() {
 
     test("three stars has correct information", () {
       expect(
-        TattooShop.threeStars.presentationtName,
+        TattooShop.threeStars.presentationName,
         "☆☆☆",
         reason: "Cause: presentation name",
       );
@@ -83,7 +83,7 @@ void main() {
 
     test("four stars has correct information", () {
       expect(
-        TattooShop.fourStars.presentationtName,
+        TattooShop.fourStars.presentationName,
         "☆☆☆☆",
         reason: "Cause: presentation name",
       );
@@ -109,7 +109,7 @@ void main() {
 
     test("five stars has correct information", () {
       expect(
-        TattooShop.fiveStars.presentationtName,
+        TattooShop.fiveStars.presentationName,
         "☆☆☆☆☆",
         reason: "Cause: presentation name",
       );

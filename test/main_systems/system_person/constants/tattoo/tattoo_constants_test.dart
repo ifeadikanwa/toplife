@@ -16,12 +16,5 @@ void main() {
         300,
       );
     });
-
-    test("coloredTattooPriceIncreasePercentage is 25", () {
-      expect(
-        TattooConstants.coloredTattooPriceIncreasePercentage,
-        25,
-      );
-    });
   });
 }

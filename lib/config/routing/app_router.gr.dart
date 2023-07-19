@@ -11,13 +11,15 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i38;
+import 'package:auto_route/auto_route.dart' as _i39;
 import 'package:auto_route/empty_router_widgets.dart' as _i3;
-import 'package:drift/drift.dart' as _i40;
+import 'package:drift/drift.dart' as _i41;
 import 'package:drift_db_viewer/drift_db_viewer.dart' as _i7;
-import 'package:flutter/material.dart' as _i39;
+import 'package:flutter/material.dart' as _i40;
 
 import '../../game_manager/presentation/game_manager_screen.dart' as _i2;
+import '../../main_game/presentation/inner_level_screens/activities/neighborhood/neighborhood_screen.dart'
+    as _i38;
 import '../../main_game/presentation/main_game_screen.dart' as _i1;
 import '../../main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart'
     as _i37;
@@ -86,514 +88,528 @@ import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/
 import '../../main_game/presentation/top_level_screens/work/widgets/work_screen.dart'
     as _i5;
 
-class AppRouter extends _i38.RootStackRouter {
-  AppRouter([_i39.GlobalKey<_i39.NavigatorState>? navigatorKey])
+class AppRouter extends _i39.RootStackRouter {
+  AppRouter([_i40.GlobalKey<_i40.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i38.PageFactory> pagesMap = {
+  final Map<String, _i39.PageFactory> pagesMap = {
     MainGameRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.MainGameScreen(),
       );
     },
     GameManagerRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.GameManagerScreen(),
       );
     },
     PlayerRouter.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.EmptyRouterPage(),
       );
     },
     WorkRouter.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.EmptyRouterPage(),
       );
     },
     ShopRouter.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.EmptyRouterPage(),
       );
     },
     RelationshipRouter.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.EmptyRouterPage(),
       );
     },
     ActivitiesRouter.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.EmptyRouterPage(),
       );
     },
     PlayerRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.PlayerScreen(),
       );
     },
     WorkRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.WorkScreen(),
       );
     },
     ShopRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i6.ShopScreen(),
       );
     },
     DriftDbViewer.name: (routeData) {
       final args = routeData.argsAs<DriftDbViewerArgs>();
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i7.DriftDbViewer(args.db),
       );
     },
     FoodShopRoute.name: (routeData) {
-      return _i38.CustomPage<dynamic>(
+      return _i39.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i8.FoodShopScreen(),
-        transitionsBuilder: _i38.TransitionsBuilders.slideLeft,
+        transitionsBuilder: _i39.TransitionsBuilders.slideLeft,
         opaque: true,
         barrierDismissible: false,
       );
     },
     CarShopRoute.name: (routeData) {
-      return _i38.CustomPage<dynamic>(
+      return _i39.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i9.CarShopScreen(),
-        transitionsBuilder: _i38.TransitionsBuilders.slideLeft,
+        transitionsBuilder: _i39.TransitionsBuilders.slideLeft,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ChildrenShopRoute.name: (routeData) {
-      return _i38.CustomPage<dynamic>(
+      return _i39.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i10.ChildrenShopScreen(),
-        transitionsBuilder: _i38.TransitionsBuilders.slideLeft,
+        transitionsBuilder: _i39.TransitionsBuilders.slideLeft,
         opaque: true,
         barrierDismissible: false,
       );
     },
     HouseShopRoute.name: (routeData) {
-      return _i38.CustomPage<dynamic>(
+      return _i39.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i11.HouseShopScreen(),
-        transitionsBuilder: _i38.TransitionsBuilders.slideLeft,
+        transitionsBuilder: _i39.TransitionsBuilders.slideLeft,
         opaque: true,
         barrierDismissible: false,
       );
     },
     JewelryShopRoute.name: (routeData) {
-      return _i38.CustomPage<dynamic>(
+      return _i39.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i12.JewelryShopScreen(),
-        transitionsBuilder: _i38.TransitionsBuilders.slideLeft,
+        transitionsBuilder: _i39.TransitionsBuilders.slideLeft,
         opaque: true,
         barrierDismissible: false,
       );
     },
     SuppliesShopRoute.name: (routeData) {
-      return _i38.CustomPage<dynamic>(
+      return _i39.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i13.SuppliesShopScreen(),
-        transitionsBuilder: _i38.TransitionsBuilders.slideLeft,
+        transitionsBuilder: _i39.TransitionsBuilders.slideLeft,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ReadyMealRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i14.ReadyMealScreen(),
       );
     },
     IngredientsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i15.IngredientsScreen(),
       );
     },
     DrinksRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i16.DrinksScreen(),
       );
     },
     SweetsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i17.SweetsScreen(),
       );
     },
     NewCarsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i18.NewCarsScreen(),
       );
     },
     UsedCarsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i19.UsedCarsScreen(),
       );
     },
     ChildrenFoodRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i20.ChildrenFoodScreen(),
       );
     },
     ChildrenItemsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i21.ChildrenItemsScreen(),
       );
     },
     RentalHousesRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i22.RentalHousesScreen(),
       );
     },
     PurchaseHousesRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i23.PurchaseHousesScreen(),
       );
     },
     NaturalJewelryRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i24.NaturalJewelryScreen(),
       );
     },
     SyntheticJewelryRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i25.SyntheticJewelryScreen(),
       );
     },
     RelationshipRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i26.RelationshipScreen(),
       );
     },
     RelationshipActionsRoute.name: (routeData) {
-      return _i38.CustomPage<dynamic>(
+      return _i39.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i27.RelationshipActionsScreen(),
-        transitionsBuilder: _i38.TransitionsBuilders.slideLeftWithFade,
+        transitionsBuilder: _i39.TransitionsBuilders.slideLeftWithFade,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ParentsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i28.ParentsScreen(),
       );
     },
     SiblingsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i29.SiblingsScreen(),
       );
     },
     PartnersRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i30.PartnersScreen(),
       );
     },
     ChildrenRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i31.ChildrenScreen(),
       );
     },
     RelativesRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i32.RelativesScreen(),
       );
     },
     InLawsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i33.InLawsScreen(),
       );
     },
     FriendsRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i34.FriendsScreen(),
       );
     },
     ExesRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i35.ExesScreen(),
       );
     },
     GravesRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i36.GravesScreen(),
       );
     },
     ActivitiesRoute.name: (routeData) {
-      return _i38.MaterialPageX<dynamic>(
+      return _i39.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i37.ActivitiesScreen(),
+      );
+    },
+    NeighborhoodRoute.name: (routeData) {
+      return _i39.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i38.NeighborhoodScreen(),
+        transitionsBuilder: _i39.TransitionsBuilders.slideLeft,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
   };
 
   @override
-  List<_i38.RouteConfig> get routes => [
-        _i38.RouteConfig(
+  List<_i39.RouteConfig> get routes => [
+        _i39.RouteConfig(
           '/#redirect',
           path: '/',
           redirectTo: '/maingame',
           fullMatch: true,
         ),
-        _i38.RouteConfig(
+        _i39.RouteConfig(
           MainGameRoute.name,
           path: '/maingame',
           children: [
-            _i38.RouteConfig(
+            _i39.RouteConfig(
               PlayerRouter.name,
               path: 'player',
               parent: MainGameRoute.name,
               children: [
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   PlayerRoute.name,
                   path: '',
                   parent: PlayerRouter.name,
                 )
               ],
             ),
-            _i38.RouteConfig(
+            _i39.RouteConfig(
               WorkRouter.name,
               path: 'work',
               parent: MainGameRoute.name,
               children: [
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   WorkRoute.name,
                   path: '',
                   parent: WorkRouter.name,
                 )
               ],
             ),
-            _i38.RouteConfig(
+            _i39.RouteConfig(
               ShopRouter.name,
               path: 'shop',
               parent: MainGameRoute.name,
               children: [
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   ShopRoute.name,
                   path: '',
                   parent: ShopRouter.name,
                 ),
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   DriftDbViewer.name,
                   path: 'database_viewer',
                   parent: ShopRouter.name,
                 ),
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   FoodShopRoute.name,
                   path: 'food_shop',
                   parent: ShopRouter.name,
                   children: [
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       ReadyMealRoute.name,
                       path: 'ready_meals',
                       parent: FoodShopRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       IngredientsRoute.name,
                       path: 'ingredients',
                       parent: FoodShopRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       DrinksRoute.name,
                       path: 'drinks',
                       parent: FoodShopRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       SweetsRoute.name,
                       path: 'sweets',
                       parent: FoodShopRoute.name,
                     ),
                   ],
                 ),
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   CarShopRoute.name,
                   path: 'car_shop',
                   parent: ShopRouter.name,
                   children: [
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       NewCarsRoute.name,
                       path: 'new_cars',
                       parent: CarShopRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       UsedCarsRoute.name,
                       path: 'used_cars',
                       parent: CarShopRoute.name,
                     ),
                   ],
                 ),
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   ChildrenShopRoute.name,
                   path: 'children_shop',
                   parent: ShopRouter.name,
                   children: [
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       ChildrenFoodRoute.name,
                       path: 'children_food',
                       parent: ChildrenShopRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       ChildrenItemsRoute.name,
                       path: 'children_items',
                       parent: ChildrenShopRoute.name,
                     ),
                   ],
                 ),
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   HouseShopRoute.name,
                   path: 'house_shop',
                   parent: ShopRouter.name,
                   children: [
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       RentalHousesRoute.name,
                       path: 'rental_houses',
                       parent: HouseShopRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       PurchaseHousesRoute.name,
                       path: 'purchase_houses',
                       parent: HouseShopRoute.name,
                     ),
                   ],
                 ),
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   JewelryShopRoute.name,
                   path: 'jewelry_shop',
                   parent: ShopRouter.name,
                   children: [
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       NaturalJewelryRoute.name,
                       path: 'natural_jewelry',
                       parent: JewelryShopRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       SyntheticJewelryRoute.name,
                       path: 'synthetic_jewelry',
                       parent: JewelryShopRoute.name,
                     ),
                   ],
                 ),
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   SuppliesShopRoute.name,
                   path: 'supplies',
                   parent: ShopRouter.name,
                 ),
               ],
             ),
-            _i38.RouteConfig(
+            _i39.RouteConfig(
               RelationshipRouter.name,
               path: 'relationship',
               parent: MainGameRoute.name,
               children: [
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   RelationshipRoute.name,
                   path: '',
                   parent: RelationshipRouter.name,
                   children: [
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       ParentsRoute.name,
                       path: 'parents',
                       parent: RelationshipRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       SiblingsRoute.name,
                       path: 'siblings',
                       parent: RelationshipRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       PartnersRoute.name,
                       path: 'partners',
                       parent: RelationshipRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       ChildrenRoute.name,
                       path: 'children',
                       parent: RelationshipRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       RelativesRoute.name,
                       path: 'relatives',
                       parent: RelationshipRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       InLawsRoute.name,
                       path: 'inlaws',
                       parent: RelationshipRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       FriendsRoute.name,
                       path: 'friends',
                       parent: RelationshipRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       ExesRoute.name,
                       path: 'exes',
                       parent: RelationshipRoute.name,
                     ),
-                    _i38.RouteConfig(
+                    _i39.RouteConfig(
                       GravesRoute.name,
                       path: 'grave',
                       parent: RelationshipRoute.name,
                     ),
                   ],
                 ),
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   RelationshipActionsRoute.name,
                   path: 'relationship_actions',
                   parent: RelationshipRouter.name,
                 ),
               ],
             ),
-            _i38.RouteConfig(
+            _i39.RouteConfig(
               ActivitiesRouter.name,
               path: 'activities',
               parent: MainGameRoute.name,
               children: [
-                _i38.RouteConfig(
+                _i39.RouteConfig(
                   ActivitiesRoute.name,
                   path: '',
                   parent: ActivitiesRouter.name,
-                )
+                ),
+                _i39.RouteConfig(
+                  NeighborhoodRoute.name,
+                  path: 'neighborhood',
+                  parent: ActivitiesRouter.name,
+                ),
               ],
             ),
           ],
         ),
-        _i38.RouteConfig(
+        _i39.RouteConfig(
           GameManagerRoute.name,
           path: '/manager',
         ),
@@ -602,8 +618,8 @@ class AppRouter extends _i38.RootStackRouter {
 
 /// generated route for
 /// [_i1.MainGameScreen]
-class MainGameRoute extends _i38.PageRouteInfo<void> {
-  const MainGameRoute({List<_i38.PageRouteInfo>? children})
+class MainGameRoute extends _i39.PageRouteInfo<void> {
+  const MainGameRoute({List<_i39.PageRouteInfo>? children})
       : super(
           MainGameRoute.name,
           path: '/maingame',
@@ -615,7 +631,7 @@ class MainGameRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.GameManagerScreen]
-class GameManagerRoute extends _i38.PageRouteInfo<void> {
+class GameManagerRoute extends _i39.PageRouteInfo<void> {
   const GameManagerRoute()
       : super(
           GameManagerRoute.name,
@@ -627,8 +643,8 @@ class GameManagerRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.EmptyRouterPage]
-class PlayerRouter extends _i38.PageRouteInfo<void> {
-  const PlayerRouter({List<_i38.PageRouteInfo>? children})
+class PlayerRouter extends _i39.PageRouteInfo<void> {
+  const PlayerRouter({List<_i39.PageRouteInfo>? children})
       : super(
           PlayerRouter.name,
           path: 'player',
@@ -640,8 +656,8 @@ class PlayerRouter extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.EmptyRouterPage]
-class WorkRouter extends _i38.PageRouteInfo<void> {
-  const WorkRouter({List<_i38.PageRouteInfo>? children})
+class WorkRouter extends _i39.PageRouteInfo<void> {
+  const WorkRouter({List<_i39.PageRouteInfo>? children})
       : super(
           WorkRouter.name,
           path: 'work',
@@ -653,8 +669,8 @@ class WorkRouter extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.EmptyRouterPage]
-class ShopRouter extends _i38.PageRouteInfo<void> {
-  const ShopRouter({List<_i38.PageRouteInfo>? children})
+class ShopRouter extends _i39.PageRouteInfo<void> {
+  const ShopRouter({List<_i39.PageRouteInfo>? children})
       : super(
           ShopRouter.name,
           path: 'shop',
@@ -666,8 +682,8 @@ class ShopRouter extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.EmptyRouterPage]
-class RelationshipRouter extends _i38.PageRouteInfo<void> {
-  const RelationshipRouter({List<_i38.PageRouteInfo>? children})
+class RelationshipRouter extends _i39.PageRouteInfo<void> {
+  const RelationshipRouter({List<_i39.PageRouteInfo>? children})
       : super(
           RelationshipRouter.name,
           path: 'relationship',
@@ -679,8 +695,8 @@ class RelationshipRouter extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.EmptyRouterPage]
-class ActivitiesRouter extends _i38.PageRouteInfo<void> {
-  const ActivitiesRouter({List<_i38.PageRouteInfo>? children})
+class ActivitiesRouter extends _i39.PageRouteInfo<void> {
+  const ActivitiesRouter({List<_i39.PageRouteInfo>? children})
       : super(
           ActivitiesRouter.name,
           path: 'activities',
@@ -692,7 +708,7 @@ class ActivitiesRouter extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.PlayerScreen]
-class PlayerRoute extends _i38.PageRouteInfo<void> {
+class PlayerRoute extends _i39.PageRouteInfo<void> {
   const PlayerRoute()
       : super(
           PlayerRoute.name,
@@ -704,7 +720,7 @@ class PlayerRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.WorkScreen]
-class WorkRoute extends _i38.PageRouteInfo<void> {
+class WorkRoute extends _i39.PageRouteInfo<void> {
   const WorkRoute()
       : super(
           WorkRoute.name,
@@ -716,7 +732,7 @@ class WorkRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.ShopScreen]
-class ShopRoute extends _i38.PageRouteInfo<void> {
+class ShopRoute extends _i39.PageRouteInfo<void> {
   const ShopRoute()
       : super(
           ShopRoute.name,
@@ -728,8 +744,8 @@ class ShopRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.DriftDbViewer]
-class DriftDbViewer extends _i38.PageRouteInfo<DriftDbViewerArgs> {
-  DriftDbViewer({required _i40.GeneratedDatabase db})
+class DriftDbViewer extends _i39.PageRouteInfo<DriftDbViewerArgs> {
+  DriftDbViewer({required _i41.GeneratedDatabase db})
       : super(
           DriftDbViewer.name,
           path: 'database_viewer',
@@ -742,7 +758,7 @@ class DriftDbViewer extends _i38.PageRouteInfo<DriftDbViewerArgs> {
 class DriftDbViewerArgs {
   const DriftDbViewerArgs({required this.db});
 
-  final _i40.GeneratedDatabase db;
+  final _i41.GeneratedDatabase db;
 
   @override
   String toString() {
@@ -752,8 +768,8 @@ class DriftDbViewerArgs {
 
 /// generated route for
 /// [_i8.FoodShopScreen]
-class FoodShopRoute extends _i38.PageRouteInfo<void> {
-  const FoodShopRoute({List<_i38.PageRouteInfo>? children})
+class FoodShopRoute extends _i39.PageRouteInfo<void> {
+  const FoodShopRoute({List<_i39.PageRouteInfo>? children})
       : super(
           FoodShopRoute.name,
           path: 'food_shop',
@@ -765,8 +781,8 @@ class FoodShopRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.CarShopScreen]
-class CarShopRoute extends _i38.PageRouteInfo<void> {
-  const CarShopRoute({List<_i38.PageRouteInfo>? children})
+class CarShopRoute extends _i39.PageRouteInfo<void> {
+  const CarShopRoute({List<_i39.PageRouteInfo>? children})
       : super(
           CarShopRoute.name,
           path: 'car_shop',
@@ -778,8 +794,8 @@ class CarShopRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.ChildrenShopScreen]
-class ChildrenShopRoute extends _i38.PageRouteInfo<void> {
-  const ChildrenShopRoute({List<_i38.PageRouteInfo>? children})
+class ChildrenShopRoute extends _i39.PageRouteInfo<void> {
+  const ChildrenShopRoute({List<_i39.PageRouteInfo>? children})
       : super(
           ChildrenShopRoute.name,
           path: 'children_shop',
@@ -791,8 +807,8 @@ class ChildrenShopRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.HouseShopScreen]
-class HouseShopRoute extends _i38.PageRouteInfo<void> {
-  const HouseShopRoute({List<_i38.PageRouteInfo>? children})
+class HouseShopRoute extends _i39.PageRouteInfo<void> {
+  const HouseShopRoute({List<_i39.PageRouteInfo>? children})
       : super(
           HouseShopRoute.name,
           path: 'house_shop',
@@ -804,8 +820,8 @@ class HouseShopRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i12.JewelryShopScreen]
-class JewelryShopRoute extends _i38.PageRouteInfo<void> {
-  const JewelryShopRoute({List<_i38.PageRouteInfo>? children})
+class JewelryShopRoute extends _i39.PageRouteInfo<void> {
+  const JewelryShopRoute({List<_i39.PageRouteInfo>? children})
       : super(
           JewelryShopRoute.name,
           path: 'jewelry_shop',
@@ -817,7 +833,7 @@ class JewelryShopRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i13.SuppliesShopScreen]
-class SuppliesShopRoute extends _i38.PageRouteInfo<void> {
+class SuppliesShopRoute extends _i39.PageRouteInfo<void> {
   const SuppliesShopRoute()
       : super(
           SuppliesShopRoute.name,
@@ -829,7 +845,7 @@ class SuppliesShopRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i14.ReadyMealScreen]
-class ReadyMealRoute extends _i38.PageRouteInfo<void> {
+class ReadyMealRoute extends _i39.PageRouteInfo<void> {
   const ReadyMealRoute()
       : super(
           ReadyMealRoute.name,
@@ -841,7 +857,7 @@ class ReadyMealRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i15.IngredientsScreen]
-class IngredientsRoute extends _i38.PageRouteInfo<void> {
+class IngredientsRoute extends _i39.PageRouteInfo<void> {
   const IngredientsRoute()
       : super(
           IngredientsRoute.name,
@@ -853,7 +869,7 @@ class IngredientsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i16.DrinksScreen]
-class DrinksRoute extends _i38.PageRouteInfo<void> {
+class DrinksRoute extends _i39.PageRouteInfo<void> {
   const DrinksRoute()
       : super(
           DrinksRoute.name,
@@ -865,7 +881,7 @@ class DrinksRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i17.SweetsScreen]
-class SweetsRoute extends _i38.PageRouteInfo<void> {
+class SweetsRoute extends _i39.PageRouteInfo<void> {
   const SweetsRoute()
       : super(
           SweetsRoute.name,
@@ -877,7 +893,7 @@ class SweetsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i18.NewCarsScreen]
-class NewCarsRoute extends _i38.PageRouteInfo<void> {
+class NewCarsRoute extends _i39.PageRouteInfo<void> {
   const NewCarsRoute()
       : super(
           NewCarsRoute.name,
@@ -889,7 +905,7 @@ class NewCarsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i19.UsedCarsScreen]
-class UsedCarsRoute extends _i38.PageRouteInfo<void> {
+class UsedCarsRoute extends _i39.PageRouteInfo<void> {
   const UsedCarsRoute()
       : super(
           UsedCarsRoute.name,
@@ -901,7 +917,7 @@ class UsedCarsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i20.ChildrenFoodScreen]
-class ChildrenFoodRoute extends _i38.PageRouteInfo<void> {
+class ChildrenFoodRoute extends _i39.PageRouteInfo<void> {
   const ChildrenFoodRoute()
       : super(
           ChildrenFoodRoute.name,
@@ -913,7 +929,7 @@ class ChildrenFoodRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i21.ChildrenItemsScreen]
-class ChildrenItemsRoute extends _i38.PageRouteInfo<void> {
+class ChildrenItemsRoute extends _i39.PageRouteInfo<void> {
   const ChildrenItemsRoute()
       : super(
           ChildrenItemsRoute.name,
@@ -925,7 +941,7 @@ class ChildrenItemsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i22.RentalHousesScreen]
-class RentalHousesRoute extends _i38.PageRouteInfo<void> {
+class RentalHousesRoute extends _i39.PageRouteInfo<void> {
   const RentalHousesRoute()
       : super(
           RentalHousesRoute.name,
@@ -937,7 +953,7 @@ class RentalHousesRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i23.PurchaseHousesScreen]
-class PurchaseHousesRoute extends _i38.PageRouteInfo<void> {
+class PurchaseHousesRoute extends _i39.PageRouteInfo<void> {
   const PurchaseHousesRoute()
       : super(
           PurchaseHousesRoute.name,
@@ -949,7 +965,7 @@ class PurchaseHousesRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i24.NaturalJewelryScreen]
-class NaturalJewelryRoute extends _i38.PageRouteInfo<void> {
+class NaturalJewelryRoute extends _i39.PageRouteInfo<void> {
   const NaturalJewelryRoute()
       : super(
           NaturalJewelryRoute.name,
@@ -961,7 +977,7 @@ class NaturalJewelryRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i25.SyntheticJewelryScreen]
-class SyntheticJewelryRoute extends _i38.PageRouteInfo<void> {
+class SyntheticJewelryRoute extends _i39.PageRouteInfo<void> {
   const SyntheticJewelryRoute()
       : super(
           SyntheticJewelryRoute.name,
@@ -973,8 +989,8 @@ class SyntheticJewelryRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i26.RelationshipScreen]
-class RelationshipRoute extends _i38.PageRouteInfo<void> {
-  const RelationshipRoute({List<_i38.PageRouteInfo>? children})
+class RelationshipRoute extends _i39.PageRouteInfo<void> {
+  const RelationshipRoute({List<_i39.PageRouteInfo>? children})
       : super(
           RelationshipRoute.name,
           path: '',
@@ -986,7 +1002,7 @@ class RelationshipRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i27.RelationshipActionsScreen]
-class RelationshipActionsRoute extends _i38.PageRouteInfo<void> {
+class RelationshipActionsRoute extends _i39.PageRouteInfo<void> {
   const RelationshipActionsRoute()
       : super(
           RelationshipActionsRoute.name,
@@ -998,7 +1014,7 @@ class RelationshipActionsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i28.ParentsScreen]
-class ParentsRoute extends _i38.PageRouteInfo<void> {
+class ParentsRoute extends _i39.PageRouteInfo<void> {
   const ParentsRoute()
       : super(
           ParentsRoute.name,
@@ -1010,7 +1026,7 @@ class ParentsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i29.SiblingsScreen]
-class SiblingsRoute extends _i38.PageRouteInfo<void> {
+class SiblingsRoute extends _i39.PageRouteInfo<void> {
   const SiblingsRoute()
       : super(
           SiblingsRoute.name,
@@ -1022,7 +1038,7 @@ class SiblingsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i30.PartnersScreen]
-class PartnersRoute extends _i38.PageRouteInfo<void> {
+class PartnersRoute extends _i39.PageRouteInfo<void> {
   const PartnersRoute()
       : super(
           PartnersRoute.name,
@@ -1034,7 +1050,7 @@ class PartnersRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i31.ChildrenScreen]
-class ChildrenRoute extends _i38.PageRouteInfo<void> {
+class ChildrenRoute extends _i39.PageRouteInfo<void> {
   const ChildrenRoute()
       : super(
           ChildrenRoute.name,
@@ -1046,7 +1062,7 @@ class ChildrenRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i32.RelativesScreen]
-class RelativesRoute extends _i38.PageRouteInfo<void> {
+class RelativesRoute extends _i39.PageRouteInfo<void> {
   const RelativesRoute()
       : super(
           RelativesRoute.name,
@@ -1058,7 +1074,7 @@ class RelativesRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i33.InLawsScreen]
-class InLawsRoute extends _i38.PageRouteInfo<void> {
+class InLawsRoute extends _i39.PageRouteInfo<void> {
   const InLawsRoute()
       : super(
           InLawsRoute.name,
@@ -1070,7 +1086,7 @@ class InLawsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i34.FriendsScreen]
-class FriendsRoute extends _i38.PageRouteInfo<void> {
+class FriendsRoute extends _i39.PageRouteInfo<void> {
   const FriendsRoute()
       : super(
           FriendsRoute.name,
@@ -1082,7 +1098,7 @@ class FriendsRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i35.ExesScreen]
-class ExesRoute extends _i38.PageRouteInfo<void> {
+class ExesRoute extends _i39.PageRouteInfo<void> {
   const ExesRoute()
       : super(
           ExesRoute.name,
@@ -1094,7 +1110,7 @@ class ExesRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i36.GravesScreen]
-class GravesRoute extends _i38.PageRouteInfo<void> {
+class GravesRoute extends _i39.PageRouteInfo<void> {
   const GravesRoute()
       : super(
           GravesRoute.name,
@@ -1106,7 +1122,7 @@ class GravesRoute extends _i38.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i37.ActivitiesScreen]
-class ActivitiesRoute extends _i38.PageRouteInfo<void> {
+class ActivitiesRoute extends _i39.PageRouteInfo<void> {
   const ActivitiesRoute()
       : super(
           ActivitiesRoute.name,
@@ -1114,4 +1130,16 @@ class ActivitiesRoute extends _i38.PageRouteInfo<void> {
         );
 
   static const String name = 'ActivitiesRoute';
+}
+
+/// generated route for
+/// [_i38.NeighborhoodScreen]
+class NeighborhoodRoute extends _i39.PageRouteInfo<void> {
+  const NeighborhoodRoute()
+      : super(
+          NeighborhoodRoute.name,
+          path: 'neighborhood',
+        );
+
+  static const String name = 'NeighborhoodRoute';
 }

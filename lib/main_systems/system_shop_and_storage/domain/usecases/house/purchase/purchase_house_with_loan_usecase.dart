@@ -69,7 +69,6 @@ class PurchaseHouseWithLoanUsecase {
         relationshipUsecases: _relationshipUsecases,
         personID: personID,
         basePrice: baseDownPayment,
-        country: person.currentCountry,
         adjustToEconomy: true,
       );
 
@@ -124,7 +123,6 @@ class PurchaseHouseWithLoanUsecase {
             relationshipUsecases: _relationshipUsecases,
             personID: personID,
             basePrice: baseAllExpectedAmount,
-            country: person.currentCountry,
             adjustToEconomy: true,
           );
 

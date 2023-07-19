@@ -8,6 +8,9 @@ class DialogConstants {
   static const double horizontalContentPadding = 18.0;
   static const double verticalContentPadding = 24.0;
 
+  static const double defaultWidgetSpacing = 8.0;
+  static const double doubleDefaultWidgetSpacing = defaultWidgetSpacing * 2;
+
   static const double verticalChoiceButtonSpacing = 4.0;
   static const double verticalDescriptionButtonSpacing = 16.0;
   static const double verticalDropdownSpacing = 16.0;
@@ -22,5 +25,4 @@ class DialogConstants {
   );
 
   static const dropdownMenuMaxHeight = 180.0;
-
 }

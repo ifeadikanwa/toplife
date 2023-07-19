@@ -62,4 +62,9 @@ class RouteName {
   static const syntheticJewelryPath = "synthetic_jewelry";
   //--supplies
   static const suppliesPath = "supplies";
+
+  //-activities
+  //--neighborhood
+  static const neighborhoodPath = "neighborhood";
+
 }

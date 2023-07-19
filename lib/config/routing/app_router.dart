@@ -3,6 +3,7 @@ import 'package:auto_route/empty_router_widgets.dart';
 import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:toplife/config/routing/route_name.dart';
 import 'package:toplife/game_manager/presentation/game_manager_screen.dart';
+import 'package:toplife/main_game/presentation/inner_level_screens/activities/neighborhood/neighborhood_screen.dart';
 import 'package:toplife/main_game/presentation/main_game_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/player_screen.dart';
@@ -193,7 +194,6 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
           name: RouteName.relationshipRouter,
           page: EmptyRouterPage,
           children: [
-            
             //all screens under relationship tab
             AutoRoute(
               path: RouteName.emptyPath,
@@ -213,11 +213,10 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
             ),
 
             //other screens that can be navigated to under relationship tab
-             CustomRoute(
-              path: RouteName.relationshipActionsPath,
-              page: RelationshipActionsScreen,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade
-            ),
+            CustomRoute(
+                path: RouteName.relationshipActionsPath,
+                page: RelationshipActionsScreen,
+                transitionsBuilder: TransitionsBuilders.slideLeftWithFade),
           ],
         ),
         AutoRoute(
@@ -230,6 +229,12 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
               path: RouteName.emptyPath,
               page: ActivitiesScreen,
             ),
+
+            CustomRoute(
+              path: RouteName.neighborhoodPath,
+              page: NeighborhoodScreen,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            )
           ],
         ),
       ],

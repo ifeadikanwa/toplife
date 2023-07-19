@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_widgets/list_templates/action_list_item.dart';
 import 'package:toplife/core/common_widgets/list_templates/section.dart';
 import 'package:toplife/core/text_constants.dart';
@@ -59,16 +61,10 @@ class ActivitiesSection extends ConsumerWidget {
           onTap: () {},
         ),
         ActionListItem(
-          icon: Icons.diversity_1_outlined,
-          actionTitle: ActivitiesScreenText.funWithFamily,
-          actionDescription: ActivitiesScreenText.funWithFamilyDesc,
-          onTap: () {},
-        ),
-        ActionListItem(
-          icon: Icons.nightlife,
-          actionTitle: ActivitiesScreenText.funInTheCity,
-          actionDescription: ActivitiesScreenText.funInTheCityDesc,
-          onTap: () {},
+          icon: Icons.home_work_outlined,
+          actionTitle: ActivitiesScreenText.neighborhood,
+          actionDescription: ActivitiesScreenText.neighborhoodDesc,
+          onTap: () => AutoRouter.of(context).push(const NeighborhoodRoute()),
         ),
         ActionListItem(
           icon: Icons.sports_martial_arts_outlined,

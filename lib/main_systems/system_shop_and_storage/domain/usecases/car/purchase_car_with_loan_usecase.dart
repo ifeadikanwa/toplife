@@ -83,7 +83,6 @@ class PurchaseCarWithLoanUsecase {
           relationshipUsecases: _relationshipUsecases,
           personID: personID,
           basePrice: baseDownPayment,
-          country: person.currentCountry,
           adjustToEconomy: true,
         );
 

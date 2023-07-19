@@ -18,6 +18,5 @@ class TattooTable extends Table {
   TextColumn get location => text()();
   TextColumn get size => text()();
   IntColumn get dayObtained => integer()();
-  BoolColumn get isColored => boolean()();
   TextColumn get quality => text()();
 }

@@ -45,8 +45,6 @@ class SendMoneyDialogWidgetState extends ConsumerState<SendMoneyDialogWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //app theme
-    final ThemeData appTheme = Theme.of(context);
     //view model
     final SendMoneyDialogViewModel sendMoneyDialogViewModel =
         ref.watch(sendMoneyDialogViewModelProvider);
@@ -77,12 +75,6 @@ class SendMoneyDialogWidgetState extends ConsumerState<SendMoneyDialogWidget> {
           keyboardType: TextInputType.number,
           maxLength: sendMoneyDialogViewModel.getMaxNumbersAllowed(),
           decoration: InputDecoration(
-            border: const UnderlineInputBorder(),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: appTheme.colorScheme.tertiary,
-              ),
-            ),
             hintText: sendMoneyDialogViewModel.getHint(),
           ),
           style: DialogConstants.defaultBodyTextStyle,

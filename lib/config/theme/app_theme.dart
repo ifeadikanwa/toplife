@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/config/theme/colors.dart';
+import 'package:toplife/config/theme/theme_utils.dart';
 
 class AppTheme {
   static const appFont = 'Ubuntu';
@@ -67,6 +68,9 @@ class AppTheme {
         side: const BorderSide(color: darkPink),
       ),
     ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: darkPink,
+    ),
     iconTheme: const IconThemeData(color: Colors.black),
     colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
@@ -99,6 +103,9 @@ class AppTheme {
         foregroundColor: Colors.black,
         side: const BorderSide(color: matteOrange),
       ),
+    ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: matteOrange,
     ),
     iconTheme: const IconThemeData(color: Colors.black),
     colorScheme: const ColorScheme.light(
@@ -133,6 +140,9 @@ class AppTheme {
         side: const BorderSide(color: deepSkyBlue),
       ),
     ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: deepSkyBlue,
+    ),
     iconTheme: const IconThemeData(color: Colors.black),
     colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
@@ -165,6 +175,9 @@ class AppTheme {
         foregroundColor: Colors.black,
         side: const BorderSide(color: darkCambridgeBlue),
       ),
+    ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: darkCambridgeBlue,
     ),
     iconTheme: const IconThemeData(color: Colors.black),
     colorScheme: const ColorScheme.light(
@@ -199,6 +212,9 @@ class AppTheme {
         side: const BorderSide(color: darkCeruleanBlue),
       ),
     ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: darkCeruleanBlue,
+    ),
     iconTheme: const IconThemeData(color: Colors.black),
     colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
@@ -231,6 +247,9 @@ class AppTheme {
         foregroundColor: Colors.black,
         side: const BorderSide(color: firebrickRed),
       ),
+    ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: firebrickRed,
     ),
     iconTheme: const IconThemeData(color: Colors.black),
     colorScheme: const ColorScheme.light(
@@ -265,6 +284,9 @@ class AppTheme {
         side: const BorderSide(color: paradisePink),
       ),
     ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: paradisePink,
+    ),
     iconTheme: const IconThemeData(color: Colors.black),
     colorScheme: const ColorScheme.light(
       brightness: Brightness.light,
@@ -297,6 +319,9 @@ class AppTheme {
         foregroundColor: Colors.black,
         side: const BorderSide(color: jungleGreen),
       ),
+    ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: jungleGreen,
     ),
     iconTheme: const IconThemeData(color: Colors.black),
     colorScheme: const ColorScheme.light(
@@ -364,6 +389,9 @@ class AppTheme {
         side: const BorderSide(color: matteOrange),
       ),
     ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: matteOrange,
+    ),
   );
   //approved
   static final darkPinkTheme = darkThemeBlueprint.copyWith(
@@ -380,6 +408,9 @@ class AppTheme {
         foregroundColor: Colors.white,
         side: const BorderSide(color: mattePink),
       ),
+    ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: mattePink,
     ),
   );
 
@@ -398,6 +429,9 @@ class AppTheme {
         foregroundColor: Colors.white,
         side: const BorderSide(color: deepSkyBlue),
       ),
+    ),
+    inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
+      tertiaryColor: deepSkyBlue,
     ),
   );
 

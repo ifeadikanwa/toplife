@@ -114,7 +114,6 @@ class SendMoneyInteraction extends RelationshipInteraction {
         relationshipUsecases: _relationshipUsecases,
         personID: currentPlayer.id,
         basePrice: chosenMoneyAmount,
-        country: currentPlayer.currentCountry,
         adjustToEconomy: false,
       );
 

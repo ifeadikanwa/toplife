@@ -4528,18 +4528,6 @@ class $TattooTableTable extends TattooTable
   late final GeneratedColumn<int> dayObtained = GeneratedColumn<int>(
       'day_obtained', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _isColoredMeta =
-      const VerificationMeta('isColored');
-  @override
-  late final GeneratedColumn<bool> isColored =
-      GeneratedColumn<bool>('is_colored', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_colored" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
   static const VerificationMeta _qualityMeta =
       const VerificationMeta('quality');
   @override
@@ -4547,16 +4535,8 @@ class $TattooTableTable extends TattooTable
       'quality', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        personId,
-        description,
-        location,
-        size,
-        dayObtained,
-        isColored,
-        quality
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, personId, description, location, size, dayObtained, quality];
   @override
   String get aliasedName => _alias ?? 'tattoo';
   @override
@@ -4603,12 +4583,6 @@ class $TattooTableTable extends TattooTable
     } else if (isInserting) {
       context.missing(_dayObtainedMeta);
     }
-    if (data.containsKey('is_colored')) {
-      context.handle(_isColoredMeta,
-          isColored.isAcceptableOrUnknown(data['is_colored']!, _isColoredMeta));
-    } else if (isInserting) {
-      context.missing(_isColoredMeta);
-    }
     if (data.containsKey('quality')) {
       context.handle(_qualityMeta,
           quality.isAcceptableOrUnknown(data['quality']!, _qualityMeta));
@@ -4636,8 +4610,6 @@ class $TattooTableTable extends TattooTable
           .read(DriftSqlType.string, data['${effectivePrefix}size'])!,
       dayObtained: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}day_obtained'])!,
-      isColored: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_colored'])!,
       quality: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}quality'])!,
     );
@@ -4656,7 +4628,6 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
   final String location;
   final String size;
   final int dayObtained;
-  final bool isColored;
   final String quality;
   const Tattoo(
       {required this.id,
@@ -4665,7 +4636,6 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
       required this.location,
       required this.size,
       required this.dayObtained,
-      required this.isColored,
       required this.quality});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -4676,7 +4646,6 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
     map['location'] = Variable<String>(location);
     map['size'] = Variable<String>(size);
     map['day_obtained'] = Variable<int>(dayObtained);
-    map['is_colored'] = Variable<bool>(isColored);
     map['quality'] = Variable<String>(quality);
     return map;
   }
@@ -4689,7 +4658,6 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
       location: Value(location),
       size: Value(size),
       dayObtained: Value(dayObtained),
-      isColored: Value(isColored),
       quality: Value(quality),
     );
   }
@@ -4704,7 +4672,6 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
       location: serializer.fromJson<String>(json['location']),
       size: serializer.fromJson<String>(json['size']),
       dayObtained: serializer.fromJson<int>(json['dayObtained']),
-      isColored: serializer.fromJson<bool>(json['isColored']),
       quality: serializer.fromJson<String>(json['quality']),
     );
   }
@@ -4718,7 +4685,6 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
       'location': serializer.toJson<String>(location),
       'size': serializer.toJson<String>(size),
       'dayObtained': serializer.toJson<int>(dayObtained),
-      'isColored': serializer.toJson<bool>(isColored),
       'quality': serializer.toJson<String>(quality),
     };
   }
@@ -4730,7 +4696,6 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
           String? location,
           String? size,
           int? dayObtained,
-          bool? isColored,
           String? quality}) =>
       Tattoo(
         id: id ?? this.id,
@@ -4739,7 +4704,6 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
         location: location ?? this.location,
         size: size ?? this.size,
         dayObtained: dayObtained ?? this.dayObtained,
-        isColored: isColored ?? this.isColored,
         quality: quality ?? this.quality,
       );
   @override
@@ -4751,15 +4715,14 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
           ..write('location: $location, ')
           ..write('size: $size, ')
           ..write('dayObtained: $dayObtained, ')
-          ..write('isColored: $isColored, ')
           ..write('quality: $quality')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, personId, description, location, size,
-      dayObtained, isColored, quality);
+  int get hashCode => Object.hash(
+      id, personId, description, location, size, dayObtained, quality);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4770,7 +4733,6 @@ class Tattoo extends DataClass implements Insertable<Tattoo> {
           other.location == this.location &&
           other.size == this.size &&
           other.dayObtained == this.dayObtained &&
-          other.isColored == this.isColored &&
           other.quality == this.quality);
 }
 
@@ -4781,7 +4743,6 @@ class TattooTableCompanion extends UpdateCompanion<Tattoo> {
   final Value<String> location;
   final Value<String> size;
   final Value<int> dayObtained;
-  final Value<bool> isColored;
   final Value<String> quality;
   const TattooTableCompanion({
     this.id = const Value.absent(),
@@ -4790,7 +4751,6 @@ class TattooTableCompanion extends UpdateCompanion<Tattoo> {
     this.location = const Value.absent(),
     this.size = const Value.absent(),
     this.dayObtained = const Value.absent(),
-    this.isColored = const Value.absent(),
     this.quality = const Value.absent(),
   });
   TattooTableCompanion.insert({
@@ -4800,14 +4760,12 @@ class TattooTableCompanion extends UpdateCompanion<Tattoo> {
     required String location,
     required String size,
     required int dayObtained,
-    required bool isColored,
     required String quality,
   })  : personId = Value(personId),
         description = Value(description),
         location = Value(location),
         size = Value(size),
         dayObtained = Value(dayObtained),
-        isColored = Value(isColored),
         quality = Value(quality);
   static Insertable<Tattoo> custom({
     Expression<int>? id,
@@ -4816,7 +4774,6 @@ class TattooTableCompanion extends UpdateCompanion<Tattoo> {
     Expression<String>? location,
     Expression<String>? size,
     Expression<int>? dayObtained,
-    Expression<bool>? isColored,
     Expression<String>? quality,
   }) {
     return RawValuesInsertable({
@@ -4826,7 +4783,6 @@ class TattooTableCompanion extends UpdateCompanion<Tattoo> {
       if (location != null) 'location': location,
       if (size != null) 'size': size,
       if (dayObtained != null) 'day_obtained': dayObtained,
-      if (isColored != null) 'is_colored': isColored,
       if (quality != null) 'quality': quality,
     });
   }
@@ -4838,7 +4794,6 @@ class TattooTableCompanion extends UpdateCompanion<Tattoo> {
       Value<String>? location,
       Value<String>? size,
       Value<int>? dayObtained,
-      Value<bool>? isColored,
       Value<String>? quality}) {
     return TattooTableCompanion(
       id: id ?? this.id,
@@ -4847,7 +4802,6 @@ class TattooTableCompanion extends UpdateCompanion<Tattoo> {
       location: location ?? this.location,
       size: size ?? this.size,
       dayObtained: dayObtained ?? this.dayObtained,
-      isColored: isColored ?? this.isColored,
       quality: quality ?? this.quality,
     );
   }
@@ -4873,9 +4827,6 @@ class TattooTableCompanion extends UpdateCompanion<Tattoo> {
     if (dayObtained.present) {
       map['day_obtained'] = Variable<int>(dayObtained.value);
     }
-    if (isColored.present) {
-      map['is_colored'] = Variable<bool>(isColored.value);
-    }
     if (quality.present) {
       map['quality'] = Variable<String>(quality.value);
     }
@@ -4891,7 +4842,6 @@ class TattooTableCompanion extends UpdateCompanion<Tattoo> {
           ..write('location: $location, ')
           ..write('size: $size, ')
           ..write('dayObtained: $dayObtained, ')
-          ..write('isColored: $isColored, ')
           ..write('quality: $quality')
           ..write(')'))
         .toString();

@@ -9,5 +9,12 @@ void main() {
         100,
       );
     });
+
+    test("piercing duration in minutes is 60", () {
+      expect(
+        PiercingConstants.piercingDurationInMinutes,
+        60,
+      );
+    });
   });
 }

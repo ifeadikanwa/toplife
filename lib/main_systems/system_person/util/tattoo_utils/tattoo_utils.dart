@@ -2,12 +2,10 @@ import 'dart:math';
 
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/get_random_value_from_collections.dart';
 import 'package:toplife/core/utils/numbers/fluctuate_number.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_body_location.dart';
-import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_quality.dart';
 import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_shop.dart';
 import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_size.dart';
@@ -21,7 +19,6 @@ class TattooUtils {
     required TattooBodyLocation tattooBodyLocation,
     required TattooSize tattooSize,
     required TattooShop tattooShop,
-    required bool isColored,
   }) {
     //calculate base price:
     //tattooo price = (location base price + size base price) * [(100 - shop discount)/100]
@@ -30,17 +27,9 @@ class TattooUtils {
         (tattooBodyLocation.basePrice + tattooSize.basePrice) *
             ((100 - tattooShop.discountPercentage) / 100);
 
-    //if colored, increase price by 25%
-    //if it is not colored, price doesn't change
-    final double tattooColorAdjustedBasePrice = isColored
-        ? tattooBasePrice +
-            (tattooBasePrice *
-                (TattooConstants.coloredTattooPriceIncreasePercentage / 100))
-        : tattooBasePrice;
-
     //fluctuate color adjusted base price:
     final int fluctuatedBasePrice = fluctuateNumber(
-      number: tattooColorAdjustedBasePrice,
+      number: tattooBasePrice,
       maxPercentage: 5,
       canBeNegativeFluctuation: true,
     ).ceil();
@@ -77,7 +66,6 @@ class TattooUtils {
       location: getRandomValueFromList(list: TattooBodyLocation.values).name,
       size: getRandomValueFromList(list: TattooSize.values).name,
       dayObtained: dayObtained,
-      isColored: Chance.getTrueOrFalse(),
       quality: getRandomValueFromList(list: TattooQuality.values).name,
     );
   }

@@ -39,6 +39,19 @@ void main() {
       );
     });
 
+    test("default widget spacing is correct", () {
+      expect(
+        DialogConstants.defaultWidgetSpacing,
+        8.0,
+      );
+    });
+
+    test("double default widget spacing is correct", () {
+      expect(
+        DialogConstants.doubleDefaultWidgetSpacing,
+        16.0,
+      );
+    });
     test("vertical choice button spacing is correct", () {
       expect(
         DialogConstants.verticalChoiceButtonSpacing,

@@ -17,6 +17,9 @@ class TextConstants {
   static const send = "Send";
   static const none = "None";
   static const close = "Close";
+  static const cost = "Cost";
+  static const duration = "Duration";
+  static const getUppercase = "GET";
 
   //player
   static const babyMonitor = "Baby Monitor";

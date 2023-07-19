@@ -1,8 +1,11 @@
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_available_piercing_locations_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_deplete_stats_flag_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_piercing_from_shop_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_player_information_from_data_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_tattoo_from_shop_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/create_or_update_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/delete_person_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/reset_deplete_stats_flag_usecase.dart';
@@ -111,6 +114,28 @@ class PersonUsecases {
             generatePersonAppearanceFromScratchUsecase,
         generatePersonTattooUsecase: generatePersonTattooUsecase,
         generatePersonPiercingsUsecase: generatePersonPiercingsUsecase,
+      );
+
+  GetPersonAvailablePiercingLocationsUsecase
+      get getPersonAvailablePiercingLocationsUsecase =>
+          GetPersonAvailablePiercingLocationsUsecase(
+            _personRepositories.piercingRepositoryImpl,
+          );
+
+  GetPiercingFromShopUsecase get getPiercingFromShopUsecase =>
+      GetPiercingFromShopUsecase(
+        _personRepositories.piercingRepositoryImpl,
+        checkIfPlayerCanAffordItUsecase,
+        takeMoneyFromPlayerUsecase,
+        _journalUsecases,
+      );
+
+  GetTattooFromShopUsecase get getTattooFromShopUsecase =>
+      GetTattooFromShopUsecase(
+        _personRepositories.tattooRepositoryImpl,
+        checkIfPlayerCanAffordItUsecase,
+        takeMoneyFromPlayerUsecase,
+        _journalUsecases,
       );
 
   DepleteBabyEnergyUsecase get depleteBabyEnergyUsecase =>
@@ -272,6 +297,7 @@ class PersonUsecases {
   CheckIfPlayerCanAffordItUsecase get checkIfPlayerCanAffordItUsecase =>
       CheckIfPlayerCanAffordItUsecase(
         getPlayerMoneyUsecase: getPlayerMoneyUsecase,
+        personRepository: _personRepositories.personRepositoryImpl,
       );
 
   WatchPersonUsecase get watchPersonUsecase => WatchPersonUsecase(
