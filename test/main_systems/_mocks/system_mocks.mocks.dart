@@ -3470,6 +3470,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
         returnValue: 0,
       ) as int);
   @override
+  String get emotionalState => (super.noSuchMethod(
+        Invocation.getter(#emotionalState),
+        returnValue: '',
+      ) as String);
+  @override
   String get zodiacSign => (super.noSuchMethod(
         Invocation.getter(#zodiacSign),
         returnValue: '',
@@ -3560,6 +3565,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
     String? birthState,
     String? birthCountry,
     int? money,
+    String? emotionalState,
     String? zodiacSign,
     bool? hasDriversLicense,
     String? transportMode,
@@ -3589,6 +3595,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
             #birthState: birthState,
             #birthCountry: birthCountry,
             #money: money,
+            #emotionalState: emotionalState,
             #zodiacSign: zodiacSign,
             #hasDriversLicense: hasDriversLicense,
             #transportMode: transportMode,
@@ -3620,6 +3627,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
               #birthState: birthState,
               #birthCountry: birthCountry,
               #money: money,
+              #emotionalState: emotionalState,
               #zodiacSign: zodiacSign,
               #hasDriversLicense: hasDriversLicense,
               #transportMode: transportMode,

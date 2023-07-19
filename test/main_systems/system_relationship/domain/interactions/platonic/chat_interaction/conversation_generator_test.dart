@@ -321,6 +321,7 @@ void main() {
       currentState: "Michigan",
       currentCountry: "United States",
       money: 864000,
+      emotionalState: "normal",
       zodiacSign: ZodiacSign.Libra.name,
       transportMode: "bus",
       hasDriversLicense: false,

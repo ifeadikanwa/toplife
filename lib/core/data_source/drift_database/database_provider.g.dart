@@ -488,6 +488,12 @@ class $PersonTableTable extends PersonTable
   late final GeneratedColumn<int> money = GeneratedColumn<int>(
       'money', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _emotionalStateMeta =
+      const VerificationMeta('emotionalState');
+  @override
+  late final GeneratedColumn<String> emotionalState = GeneratedColumn<String>(
+      'emotional_state', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _zodiacSignMeta =
       const VerificationMeta('zodiacSign');
   @override
@@ -587,6 +593,7 @@ class $PersonTableTable extends PersonTable
         birthState,
         birthCountry,
         money,
+        emotionalState,
         zodiacSign,
         hasDriversLicense,
         transportMode,
@@ -708,6 +715,14 @@ class $PersonTableTable extends PersonTable
     } else if (isInserting) {
       context.missing(_moneyMeta);
     }
+    if (data.containsKey('emotional_state')) {
+      context.handle(
+          _emotionalStateMeta,
+          emotionalState.isAcceptableOrUnknown(
+              data['emotional_state']!, _emotionalStateMeta));
+    } else if (isInserting) {
+      context.missing(_emotionalStateMeta);
+    }
     if (data.containsKey('zodiac_sign')) {
       context.handle(
           _zodiacSignMeta,
@@ -805,6 +820,8 @@ class $PersonTableTable extends PersonTable
           .read(DriftSqlType.string, data['${effectivePrefix}birth_country'])!,
       money: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}money'])!,
+      emotionalState: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}emotional_state'])!,
       zodiacSign: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}zodiac_sign'])!,
       hasDriversLicense: attachedDatabase.typeMapping.read(
@@ -846,6 +863,7 @@ class Person extends DataClass implements Insertable<Person> {
   final String birthState;
   final String birthCountry;
   final int money;
+  final String emotionalState;
   final String zodiacSign;
   final bool hasDriversLicense;
   final String transportMode;
@@ -870,6 +888,7 @@ class Person extends DataClass implements Insertable<Person> {
       required this.birthState,
       required this.birthCountry,
       required this.money,
+      required this.emotionalState,
       required this.zodiacSign,
       required this.hasDriversLicense,
       required this.transportMode,
@@ -896,6 +915,7 @@ class Person extends DataClass implements Insertable<Person> {
     map['birth_state'] = Variable<String>(birthState);
     map['birth_country'] = Variable<String>(birthCountry);
     map['money'] = Variable<int>(money);
+    map['emotional_state'] = Variable<String>(emotionalState);
     map['zodiac_sign'] = Variable<String>(zodiacSign);
     map['has_drivers_license'] = Variable<bool>(hasDriversLicense);
     map['transport_mode'] = Variable<String>(transportMode);
@@ -924,6 +944,7 @@ class Person extends DataClass implements Insertable<Person> {
       birthState: Value(birthState),
       birthCountry: Value(birthCountry),
       money: Value(money),
+      emotionalState: Value(emotionalState),
       zodiacSign: Value(zodiacSign),
       hasDriversLicense: Value(hasDriversLicense),
       transportMode: Value(transportMode),
@@ -954,6 +975,7 @@ class Person extends DataClass implements Insertable<Person> {
       birthState: serializer.fromJson<String>(json['birthState']),
       birthCountry: serializer.fromJson<String>(json['birthCountry']),
       money: serializer.fromJson<int>(json['money']),
+      emotionalState: serializer.fromJson<String>(json['emotionalState']),
       zodiacSign: serializer.fromJson<String>(json['zodiacSign']),
       hasDriversLicense: serializer.fromJson<bool>(json['hasDriversLicense']),
       transportMode: serializer.fromJson<String>(json['transportMode']),
@@ -983,6 +1005,7 @@ class Person extends DataClass implements Insertable<Person> {
       'birthState': serializer.toJson<String>(birthState),
       'birthCountry': serializer.toJson<String>(birthCountry),
       'money': serializer.toJson<int>(money),
+      'emotionalState': serializer.toJson<String>(emotionalState),
       'zodiacSign': serializer.toJson<String>(zodiacSign),
       'hasDriversLicense': serializer.toJson<bool>(hasDriversLicense),
       'transportMode': serializer.toJson<String>(transportMode),
@@ -1010,6 +1033,7 @@ class Person extends DataClass implements Insertable<Person> {
           String? birthState,
           String? birthCountry,
           int? money,
+          String? emotionalState,
           String? zodiacSign,
           bool? hasDriversLicense,
           String? transportMode,
@@ -1034,6 +1058,7 @@ class Person extends DataClass implements Insertable<Person> {
         birthState: birthState ?? this.birthState,
         birthCountry: birthCountry ?? this.birthCountry,
         money: money ?? this.money,
+        emotionalState: emotionalState ?? this.emotionalState,
         zodiacSign: zodiacSign ?? this.zodiacSign,
         hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
         transportMode: transportMode ?? this.transportMode,
@@ -1061,6 +1086,7 @@ class Person extends DataClass implements Insertable<Person> {
           ..write('birthState: $birthState, ')
           ..write('birthCountry: $birthCountry, ')
           ..write('money: $money, ')
+          ..write('emotionalState: $emotionalState, ')
           ..write('zodiacSign: $zodiacSign, ')
           ..write('hasDriversLicense: $hasDriversLicense, ')
           ..write('transportMode: $transportMode, ')
@@ -1090,6 +1116,7 @@ class Person extends DataClass implements Insertable<Person> {
         birthState,
         birthCountry,
         money,
+        emotionalState,
         zodiacSign,
         hasDriversLicense,
         transportMode,
@@ -1118,6 +1145,7 @@ class Person extends DataClass implements Insertable<Person> {
           other.birthState == this.birthState &&
           other.birthCountry == this.birthCountry &&
           other.money == this.money &&
+          other.emotionalState == this.emotionalState &&
           other.zodiacSign == this.zodiacSign &&
           other.hasDriversLicense == this.hasDriversLicense &&
           other.transportMode == this.transportMode &&
@@ -1144,6 +1172,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
   final Value<String> birthState;
   final Value<String> birthCountry;
   final Value<int> money;
+  final Value<String> emotionalState;
   final Value<String> zodiacSign;
   final Value<bool> hasDriversLicense;
   final Value<String> transportMode;
@@ -1168,6 +1197,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     this.birthState = const Value.absent(),
     this.birthCountry = const Value.absent(),
     this.money = const Value.absent(),
+    this.emotionalState = const Value.absent(),
     this.zodiacSign = const Value.absent(),
     this.hasDriversLicense = const Value.absent(),
     this.transportMode = const Value.absent(),
@@ -1193,6 +1223,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     required String birthState,
     required String birthCountry,
     required int money,
+    required String emotionalState,
     required String zodiacSign,
     required bool hasDriversLicense,
     required String transportMode,
@@ -1215,6 +1246,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
         birthState = Value(birthState),
         birthCountry = Value(birthCountry),
         money = Value(money),
+        emotionalState = Value(emotionalState),
         zodiacSign = Value(zodiacSign),
         hasDriversLicense = Value(hasDriversLicense),
         transportMode = Value(transportMode),
@@ -1239,6 +1271,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     Expression<String>? birthState,
     Expression<String>? birthCountry,
     Expression<int>? money,
+    Expression<String>? emotionalState,
     Expression<String>? zodiacSign,
     Expression<bool>? hasDriversLicense,
     Expression<String>? transportMode,
@@ -1264,6 +1297,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       if (birthState != null) 'birth_state': birthState,
       if (birthCountry != null) 'birth_country': birthCountry,
       if (money != null) 'money': money,
+      if (emotionalState != null) 'emotional_state': emotionalState,
       if (zodiacSign != null) 'zodiac_sign': zodiacSign,
       if (hasDriversLicense != null) 'has_drivers_license': hasDriversLicense,
       if (transportMode != null) 'transport_mode': transportMode,
@@ -1292,6 +1326,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       Value<String>? birthState,
       Value<String>? birthCountry,
       Value<int>? money,
+      Value<String>? emotionalState,
       Value<String>? zodiacSign,
       Value<bool>? hasDriversLicense,
       Value<String>? transportMode,
@@ -1316,6 +1351,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       birthState: birthState ?? this.birthState,
       birthCountry: birthCountry ?? this.birthCountry,
       money: money ?? this.money,
+      emotionalState: emotionalState ?? this.emotionalState,
       zodiacSign: zodiacSign ?? this.zodiacSign,
       hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
       transportMode: transportMode ?? this.transportMode,
@@ -1375,6 +1411,9 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     if (money.present) {
       map['money'] = Variable<int>(money.value);
     }
+    if (emotionalState.present) {
+      map['emotional_state'] = Variable<String>(emotionalState.value);
+    }
     if (zodiacSign.present) {
       map['zodiac_sign'] = Variable<String>(zodiacSign.value);
     }
@@ -1420,6 +1459,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
           ..write('birthState: $birthState, ')
           ..write('birthCountry: $birthCountry, ')
           ..write('money: $money, ')
+          ..write('emotionalState: $emotionalState, ')
           ..write('zodiacSign: $zodiacSign, ')
           ..write('hasDriversLicense: $hasDriversLicense, ')
           ..write('transportMode: $transportMode, ')

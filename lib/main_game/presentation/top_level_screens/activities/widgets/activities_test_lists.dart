@@ -3,6 +3,7 @@ import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
+import 'package:toplife/main_systems/system_person/constants/emotional_state.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
@@ -36,6 +37,7 @@ class ActivitiesTestList {
     currentState: "Ontario",
     currentCountry: "Canada",
     money: 120,
+    emotionalState: EmotionalState.normal.name,
     zodiacSign: ZodiacSign.Libra.name,
     transportMode: "bus",
     hasDriversLicense: true,
@@ -49,7 +51,7 @@ class ActivitiesTestList {
   static final eventPersonPairsList = [
     EventPersonPair(
       event: testEvent.copyWith(
-        startTime:const Value (ClockTimeInMinutes.oneAM),
+        startTime: const Value(ClockTimeInMinutes.oneAM),
         endTime: const Value(ClockTimeInMinutes.twelvePM),
       ),
       person: testPerson.copyWith(firstName: "Sandra"),
@@ -65,7 +67,7 @@ class ActivitiesTestList {
     EventPersonPair(
       event: testEvent.copyWith(
         startTime: const Value(ClockTimeInMinutes.twelveAM),
-        endTime:const Value (ClockTimeInMinutes.nineAM),
+        endTime: const Value(ClockTimeInMinutes.nineAM),
         eventType: EventType.graduation.name,
       ),
       person: testPerson.copyWith(firstName: "Augustine"),

@@ -7,6 +7,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/relationship/wi
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/list_item/relationship_list_item_with_header.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/parents_screen/parents_screen_view_model.dart';
+import 'package:toplife/main_systems/system_person/constants/emotional_state.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
@@ -148,6 +149,7 @@ final dummyPlayer = Person(
   currentState: "Michigan",
   currentCountry: "United States",
   money: 864000,
+  emotionalState: EmotionalState.normal.name,
   zodiacSign: ZodiacSign.Libra.name,
   transportMode: "bus",
   hasDriversLicense: false,

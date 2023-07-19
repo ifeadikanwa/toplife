@@ -31,6 +31,7 @@ void main() {
       currentState: "Ontario",
       currentCountry: "Canada",
       money: 130,
+      emotionalState: "normal",
       zodiacSign: "zodiacSign",
       transportMode: "bus",
       hasFertilityIssues: true,

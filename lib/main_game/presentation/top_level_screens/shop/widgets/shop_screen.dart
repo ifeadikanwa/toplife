@@ -13,6 +13,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/inner_level_screens/activities/neighborhood/tattoo_shop/widgets/tattoo_shop_dialog_widget.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
+import 'package:toplife/main_systems/system_person/constants/emotional_state.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
@@ -207,6 +208,7 @@ class ShopScreen extends ConsumerWidget {
                   currentState: "Michigan",
                   currentCountry: "United States",
                   money: 864000,
+                  emotionalState: EmotionalState.normal.name,
                   zodiacSign: ZodiacSign.Libra.name,
                   transportMode: "bus",
                   hasDriversLicense: false,

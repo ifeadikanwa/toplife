@@ -26,6 +26,7 @@ class PersonTable extends Table {
   TextColumn get birthState => text()();
   TextColumn get birthCountry => text()();
   IntColumn get money => integer()();
+  TextColumn get emotionalState => text()();
   TextColumn get zodiacSign => text()();
   BoolColumn get hasDriversLicense => boolean()();
   TextColumn get transportMode => text()();

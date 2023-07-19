@@ -33,6 +33,7 @@ void main() {
       currentState: "Ontario",
       currentCountry: "Canada",
       money: 120,
+        emotionalState: "normal",
       zodiacSign: "",
       hasDriversLicense: true,
       transportMode: "bus",

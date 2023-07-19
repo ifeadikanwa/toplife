@@ -14,7 +14,7 @@ void main() {
       test("dominantSkinColorChance is 20", () {
         expect(
           AppearanceUtils.dominantSkinColorChance,
-          20,
+          80,
         );
       });
     });

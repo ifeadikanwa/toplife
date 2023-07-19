@@ -4,6 +4,7 @@ import 'package:toplife/core/common_states/dependencies/data_source_dependencies
 import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/constants/emotional_state.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
@@ -37,6 +38,7 @@ class GameManagerScreen extends ConsumerWidget {
                     currentState: "Ontario",
                     currentCountry: "Canada",
                     money: 12000,
+                    emotionalState: EmotionalState.normal.name,
                     zodiacSign: ZodiacSign.Libra.name,
                     transportMode: "bus",
                     hasDriversLicense: false,

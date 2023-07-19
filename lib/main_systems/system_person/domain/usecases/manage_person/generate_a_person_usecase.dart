@@ -5,6 +5,7 @@ import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
+import 'package:toplife/main_systems/system_person/constants/emotional_state.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
@@ -141,6 +142,7 @@ class GenerateAPersonUsecase {
       currentState: currentStateString,
       currentCountry: currentCountryString,
       money: Random().nextInt(60) + 40, //random amount in 40-100
+      emotionalState: EmotionalState.normal.name,
       zodiacSign: personZodiacSign.name,
       transportMode: TransportMode.bus.name,
       hasDriversLicense: false,

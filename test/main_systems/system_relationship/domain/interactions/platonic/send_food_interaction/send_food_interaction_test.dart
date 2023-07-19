@@ -35,6 +35,7 @@ void main() {
         birthState: "birthState",
         birthCountry: "birthCountry",
         money: 0,
+        emotionalState: "normal",
         zodiacSign: "zodiacSign",
         hasDriversLicense: true,
         transportMode: "transportMode",
