@@ -12,6 +12,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_gender.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_sexuality.dart';
 import 'package:toplife/main_systems/system_person/util/get_random_zodiac_sign.dart';
+import 'package:toplife/main_systems/system_transportation/constants/driving_mode.dart';
 import 'package:toplife/main_systems/system_transportation/constants/transport_mode.dart';
 
 class GenerateAPersonUsecase {
@@ -145,6 +146,7 @@ class GenerateAPersonUsecase {
       emotionalState: EmotionalState.normal.name,
       zodiacSign: personZodiacSign.name,
       transportMode: TransportMode.bus.name,
+      drivingMode: DrivingMode.normal.name,
       hasDriversLicense: false,
       hasFertilityIssues: Chance.getTrueOrFalseBasedOnPercentageChance(
         trueChancePercentage: 10,

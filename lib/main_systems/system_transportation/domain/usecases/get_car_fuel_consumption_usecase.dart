@@ -7,6 +7,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_settlement_enum.dart';
 import 'package:toplife/main_systems/system_transportation/constants/default_road_commute_fuel_consumption.dart';
 import 'package:toplife/main_systems/system_transportation/constants/transportation_default.dart';
+import 'package:toplife/main_systems/system_transportation/domain/model/travel_detail.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_commute_fuel_consumption_between_two_settlements_usecase.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_traveller_settlement.dart';
 
@@ -24,9 +25,7 @@ class GetCarFuelConsumptionUsecase {
 
   Future<int> execute({
     required int travellerPersonID,
-    required String destinationCountryString,
-    required String destinationStateString,
-    required String? destinationSettlementString,
+    required TravelDetail travelDetail,
   }) async {
     final Person? travellerPerson = await _personUsecases.getPersonUsecase
         .execute(personID: travellerPersonID);
@@ -45,23 +44,21 @@ class GetCarFuelConsumptionUsecase {
 
       //get destination settlement enum
       final Settlement destinationSettlementEnum =
-          (destinationSettlementString == null)
-              ? TransportationDefault.destinationSettlement
-              : getSettlementEnum(destinationSettlementString) ??
-                  TransportationDefault.destinationSettlement;
+          getSettlementEnum(travelDetail.destinationSettlementString) ??
+              TransportationDefault.destinationSettlement;
 
       //-Get Default Fuel Consumtion
       late final int defaultFuelConsumption;
 
       //different country travel
-      if (travellersCountryString != destinationCountryString) {
+      if (travellersCountryString != travelDetail.destinationCountryString) {
         //car travel is not possible
         //end here
         return 0;
       }
 
       //different state travel
-      else if (travellerStateString != destinationStateString) {
+      else if (travellerStateString != travelDetail.destinationStateString) {
         //default fuel consumption is:
         //fuel it takes to go from Travellers Settlement -> CITY + fuel it takes to get from Travellers Settlement -> Destination Settlement
         final int travellerSettlementToCity =

@@ -5,6 +5,8 @@ import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/use
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/shop_and_storage_repositories.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_is_not_dead_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/check_if_car_has_problems_usecase.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/create_car_problem_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/drive_car_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_car_max_condition.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_current_car_usecase.dart';
@@ -101,7 +103,18 @@ class ShopAndStorageUsecases {
 
   DriveCarUsecase get driveCarUsecase => DriveCarUsecase(
         _shopAndStorageRepositories.carRepositoryImpl,
+        createCarProblemUsecase,
         getCarMaxConditionUsecase,
+      );
+
+  CreateCarProblemUsecase get createCarProblemUsecase =>
+      CreateCarProblemUsecase(
+        _shopAndStorageRepositories.carProblemRepositoryImpl,
+      );
+
+  CheckIfCarHasProblemUsecase get checkIfCarHasProblemUsecase =>
+      CheckIfCarHasProblemUsecase(
+        _shopAndStorageRepositories.carProblemRepositoryImpl,
       );
 
   CarIsNotDeadUsecase get carIsNotDeadUsecase =>

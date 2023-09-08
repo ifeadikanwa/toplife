@@ -9,6 +9,7 @@ import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
+import 'package:toplife/main_systems/system_transportation/constants/driving_mode.dart';
 
 class ActivitiesTestList {
   static final testEvent = Event(
@@ -40,6 +41,7 @@ class ActivitiesTestList {
     emotionalState: EmotionalState.normal.name,
     zodiacSign: ZodiacSign.Libra.name,
     transportMode: "bus",
+    drivingMode: DrivingMode.normal.name,
     hasDriversLicense: true,
     hasFertilityIssues: false,
     onBirthControl: false,

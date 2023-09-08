@@ -30,6 +30,7 @@ class PersonTable extends Table {
   TextColumn get zodiacSign => text()();
   BoolColumn get hasDriversLicense => boolean()();
   TextColumn get transportMode => text()();
+  TextColumn get drivingMode => text()();
   BoolColumn get hasFertilityIssues => boolean()();
   BoolColumn get onBirthControl => boolean()();
   BoolColumn get isSterile => boolean()();

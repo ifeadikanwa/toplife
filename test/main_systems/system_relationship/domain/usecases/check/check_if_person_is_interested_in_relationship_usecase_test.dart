@@ -28,6 +28,7 @@ void main() {
       emotionalState: "normal",
       zodiacSign: ZodiacSign.Libra.name,
       transportMode: "bus",
+      drivingMode: "drivingMode",
       hasDriversLicense: false,
       hasFertilityIssues: false,
       onBirthControl: false,

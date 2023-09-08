@@ -49,12 +49,6 @@ void main() {
         );
 
         expect(
-          carTemplate.problem,
-          "noProblem",
-          reason: "Cause: problem",
-        );
-
-        expect(
           carTemplate.useCondition,
           100,
           reason: "Cause: use condition",

@@ -30,5 +30,12 @@ class StanceTable extends Table {
   BoolColumn get openToHavingChildrenOutsideAMarriage => boolean()();
   BoolColumn get openToHavingMultipleCoparents => boolean()();
   BoolColumn get openToCheating => boolean()();
+
+  //  
+  //A gay person that is not open to gay people will be agree to a sexual relationship but not an exclusive relationship
+  //That means they might have sex with other gay people but they will never date or marry a gay person unless they change their stance.
+  //These are the people that end up in a fake straight relationship.
+  //
+  //A straight person with this stance will just have a hard time building a relationship with gay people
   BoolColumn get openToGayPeople => boolean()();
 }

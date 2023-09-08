@@ -34,6 +34,7 @@ void main() {
       emotionalState: "normal",
       zodiacSign: "zodiacSign",
       transportMode: "bus",
+      drivingMode: "drivingMode",
       hasFertilityIssues: true,
       onBirthControl: true,
       isSterile: true,

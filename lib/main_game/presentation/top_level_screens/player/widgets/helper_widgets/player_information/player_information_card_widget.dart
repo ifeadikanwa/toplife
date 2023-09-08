@@ -21,10 +21,10 @@ class PlayerInformationCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
-    final playerInformationCarViewModel =
+    final playerInformationCardViewModel =
         ref.watch(playerInformationCardViewModelProvider);
 
-    return playerInformationCarViewModel.when(
+    return playerInformationCardViewModel.when(
       data: (playerInformation) {
         return playerInformationCardWidget(
           playerInformation,

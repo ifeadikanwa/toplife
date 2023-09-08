@@ -10,6 +10,7 @@ class StatsConstants {
   //thresholds
   static const healthDepletionThreshold = 65;
   static const maxEnergyForChanceToOversleep = 65;
+  static const lowStatThreshold = 20;
 
   //gain rates
   static const soberIncreaseRatePerHour = 10;

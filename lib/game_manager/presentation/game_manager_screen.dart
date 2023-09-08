@@ -41,6 +41,7 @@ class GameManagerScreen extends ConsumerWidget {
                     emotionalState: EmotionalState.normal.name,
                     zodiacSign: ZodiacSign.Libra.name,
                     transportMode: "bus",
+                    drivingMode: "normal",
                     hasDriversLicense: false,
                     hasFertilityIssues: false,
                     onBirthControl: false,

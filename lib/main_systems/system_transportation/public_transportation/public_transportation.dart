@@ -1,6 +1,5 @@
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/car_problem.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_type.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
@@ -17,7 +16,6 @@ class PublicTransportation {
     basePrice: 15,
     dayOfPurchase: 1,
     fuelTank: 100,
-    problem: CarProblem.noProblem.name,
     useCondition: defaultMaxStatsValue,
     maxConditionAtPurchase: defaultMaxStatsValue,
     currentlyDriving: false,
@@ -37,7 +35,6 @@ class PublicTransportation {
     basePrice: 40,
     dayOfPurchase: 1,
     fuelTank: 100,
-    problem: CarProblem.noProblem.name,
     useCondition: defaultMaxStatsValue,
     maxConditionAtPurchase: defaultMaxStatsValue,
     currentlyDriving: false,
@@ -57,7 +54,6 @@ class PublicTransportation {
     basePrice: 10,
     dayOfPurchase: 1,
     fuelTank: 100,
-    problem: CarProblem.noProblem.name,
     useCondition: defaultMaxStatsValue,
     maxConditionAtPurchase: defaultMaxStatsValue,
     currentlyDriving: false,

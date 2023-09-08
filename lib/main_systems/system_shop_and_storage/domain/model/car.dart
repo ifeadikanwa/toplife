@@ -20,7 +20,6 @@ class CarTable extends Table {
   IntColumn get basePrice => integer()();
   IntColumn get dayOfPurchase => integer()();
   IntColumn get fuelTank => integer()();
-  TextColumn get problem => text()();
   IntColumn get useCondition => integer()();
   IntColumn get maxConditionAtPurchase => integer()();
   BoolColumn get fullyPaidFor => boolean()();

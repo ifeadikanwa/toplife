@@ -3,10 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i249;
+import 'dart:async' as _i250;
 
-import 'package:drift/drift.dart' as _i242;
-import 'package:flutter/material.dart' as _i250;
+import 'package:drift/drift.dart' as _i243;
+import 'package:flutter/material.dart' as _i251;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:toplife/core/data_source/drift_database/database_provider.dart'
     as _i2;
@@ -21,7 +21,7 @@ import 'package:toplife/game_manager/domain/usecases/create_new_game_usecase.dar
 import 'package:toplife/game_manager/domain/usecases/delete_game_usecase.dart'
     as _i58;
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart'
-    as _i244;
+    as _i245;
 import 'package:toplife/game_manager/domain/usecases/get_all_active_games_usecase.dart'
     as _i59;
 import 'package:toplife/game_manager/domain/usecases/get_current_game_and_player_usecase.dart'
@@ -43,9 +43,9 @@ import 'package:toplife/game_manager/domain/usecases/update_game_usecase.dart'
 import 'package:toplife/game_manager/domain/usecases/watch_last_played_active_game_usecase.dart'
     as _i68;
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart'
-    as _i251;
+    as _i252;
 import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart'
-    as _i248;
+    as _i249;
 import 'package:toplife/main_systems/system_event/event_manager/manage_events/manage_events.dart'
     as _i118;
 import 'package:toplife/main_systems/system_job/domain/usecases/add_location_to_jobs_list._usecase.dart'
@@ -63,7 +63,7 @@ import 'package:toplife/main_systems/system_job/domain/usecases/get/get_job_titl
 import 'package:toplife/main_systems/system_job/domain/usecases/get_a_valid_list_of_fulltime_jobs_usecase.dart'
     as _i74;
 import 'package:toplife/main_systems/system_job/domain/usecases/job_usecases.dart'
-    as _i245;
+    as _i246;
 import 'package:toplife/main_systems/system_job/domain/usecases/watch/watch_active_employments_usecase.dart'
     as _i75;
 import 'package:toplife/main_systems/system_journal/domain/usecases/add_to_journal_usecase.dart'
@@ -73,7 +73,7 @@ import 'package:toplife/main_systems/system_journal/domain/usecases/get_players_
 import 'package:toplife/main_systems/system_journal/domain/usecases/get_todays_journal_usecase.dart'
     as _i116;
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart'
-    as _i247;
+    as _i248;
 import 'package:toplife/main_systems/system_journal/domain/usecases/prepare_journal_entry_usecase.dart'
     as _i114;
 import 'package:toplife/main_systems/system_journal/domain/usecases/watch_journal_usecase.dart'
@@ -161,7 +161,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/manage_surviv
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/side_effects/energy_and_hunger_emergency_mode_side_effects_usecase.dart'
     as _i55;
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart'
-    as _i243;
+    as _i244;
 import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_person_usecase.dart'
     as _i30;
 import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_stats_usecase.dart'
@@ -223,7 +223,7 @@ import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/use
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/school/student_loan_recurring_payment_calculator_usecase.dart'
     as _i134;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart'
-    as _i252;
+    as _i253;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/regular/add_rent_to_bills_usecase.dart'
     as _i119;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/regular/remove_rent_from_bills_usecase.dart'
@@ -289,7 +289,7 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/get_spe
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_sibling_relationship_pair_usecase.dart'
     as _i196;
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart'
-    as _i253;
+    as _i254;
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/create_exclusive_romantic_relationship_usecase.dart'
     as _i142;
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_all_partner_relationship_not_involving_a_certain_person_usecase.dart'
@@ -419,10 +419,12 @@ import 'package:toplife/main_systems/system_school/domain/usecases/get_school_pa
 import 'package:toplife/main_systems/system_school/domain/usecases/graduation/graduate_usecase.dart'
     as _i112;
 import 'package:toplife/main_systems/system_school/domain/usecases/school_usecases.dart'
-    as _i246;
+    as _i247;
 import 'package:toplife/main_systems/system_school/domain/usecases/watch/watch_active_school_usecase.dart'
     as _i85;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_is_not_dead_usecase.dart'
+    as _i208;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/create_car_problem_usecase.dart'
     as _i207;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/drive_car_usecase.dart'
     as _i206;
@@ -431,83 +433,83 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_current_car_usecase.dart'
     as _i203;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/purchase_car_fully_paid_usecase.dart'
-    as _i210;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/purchase_car_with_loan_usecase.dart'
-    as _i229;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/set_all_person_cars_to_not_currently_driving_usecase.dart'
-    as _i208;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/update_car_usecase.dart'
-    as _i209;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/add_food_to_fridge_usecase.dart'
     as _i211;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_all_person_fridge_food_pairs_usecase.dart'
-    as _i228;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_food_record_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/purchase_car_with_loan_usecase.dart'
+    as _i230;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/set_all_person_cars_to_not_currently_driving_usecase.dart'
+    as _i209;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/update_car_usecase.dart'
+    as _i210;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/add_food_to_fridge_usecase.dart'
     as _i212;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_fridge_food_count_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_all_person_fridge_food_pairs_usecase.dart'
+    as _i229;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_food_record_usecase.dart'
     as _i213;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/purchase_food_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_fridge_food_count_usecase.dart'
     as _i214;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/use_food_usecase.dart'
-    as _i227;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/delete_current_home_usecase.dart'
-    as _i236;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_all_people_in_a_house_usecase.dart'
-    as _i237;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_current_home_usecase.dart'
-    as _i238;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/set_current_home_usecase.dart'
-    as _i239;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_all_people_in_a_house_usecase.dart'
-    as _i240;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_current_home_usecase.dart'
-    as _i241;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/add_location_to_building_usecase.dart'
-    as _i232;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_purchase_houses_usecase.dart'
-    as _i233;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_rental_houses_usecase.dart'
-    as _i234;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_storage_space_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/purchase_food_usecase.dart'
     as _i215;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/use_food_usecase.dart'
+    as _i228;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/delete_current_home_usecase.dart'
+    as _i237;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_all_people_in_a_house_usecase.dart'
+    as _i238;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_current_home_usecase.dart'
+    as _i239;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/set_current_home_usecase.dart'
+    as _i240;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_all_people_in_a_house_usecase.dart'
+    as _i241;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_current_home_usecase.dart'
+    as _i242;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/add_location_to_building_usecase.dart'
+    as _i233;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_purchase_houses_usecase.dart'
+    as _i234;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_rental_houses_usecase.dart'
+    as _i235;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_storage_space_usecase.dart'
+    as _i216;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_usecase.dart'
     as _i204;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_into_new_house_usecase.dart'
-    as _i235;
+    as _i236;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_storage_to_new_house_usecase.dart'
-    as _i226;
+    as _i227;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_fully_paid_usecase.dart'
-    as _i216;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_with_loan_usecase.dart'
-    as _i230;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/sign_mortgage_loan_contract.dart'
-    as _i231;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/break_old_lease_sign_new_lease_usecase.dart'
-    as _i223;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/end_lease_usecase.dart'
-    as _i224;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/rent_house_usecase.dart'
-    as _i222;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/sign_lease_for_rental_usecase.dart'
-    as _i225;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/add_item_to_storeroom_usecase.dart'
     as _i217;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_with_loan_usecase.dart'
+    as _i231;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/sign_mortgage_loan_contract.dart'
+    as _i232;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/break_old_lease_sign_new_lease_usecase.dart'
+    as _i224;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/end_lease_usecase.dart'
+    as _i225;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/rent_house_usecase.dart'
+    as _i223;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/sign_lease_for_rental_usecase.dart'
+    as _i226;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/add_item_to_storeroom_usecase.dart'
+    as _i218;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_available_storeroom_items_usecase.dart'
     as _i201;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_item_record_usecase.dart'
-    as _i218;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_storeroom_item_count_usecase.dart'
     as _i219;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_storeroom_item_count_usecase.dart'
+    as _i220;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_storeroom_item_pairs_usecase.dart'
     as _i200;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/purchase_item_usecase.dart'
-    as _i220;
+    as _i221;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/use_storeroom_item_usecase.dart'
     as _i202;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/jewelry/purchase_jewelry_usecase.dart'
-    as _i221;
+    as _i222;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart'
-    as _i254;
+    as _i255;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -3001,9 +3003,9 @@ class _FakeDriveCarUsecase_225 extends _i1.SmartFake
         );
 }
 
-class _FakeCarIsNotDeadUsecase_226 extends _i1.SmartFake
-    implements _i207.CarIsNotDeadUsecase {
-  _FakeCarIsNotDeadUsecase_226(
+class _FakeCreateCarProblemUsecase_226 extends _i1.SmartFake
+    implements _i207.CreateCarProblemUsecase {
+  _FakeCreateCarProblemUsecase_226(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3012,9 +3014,9 @@ class _FakeCarIsNotDeadUsecase_226 extends _i1.SmartFake
         );
 }
 
-class _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_227 extends _i1
-    .SmartFake implements _i208.SetAllPersonCarsToNotCurrentlyDrivingUsecase {
-  _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_227(
+class _FakeCarIsNotDeadUsecase_227 extends _i1.SmartFake
+    implements _i208.CarIsNotDeadUsecase {
+  _FakeCarIsNotDeadUsecase_227(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3023,9 +3025,9 @@ class _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_227 extends _i1
         );
 }
 
-class _FakeUpdateCarUsecase_228 extends _i1.SmartFake
-    implements _i209.UpdateCarUsecase {
-  _FakeUpdateCarUsecase_228(
+class _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_228 extends _i1
+    .SmartFake implements _i209.SetAllPersonCarsToNotCurrentlyDrivingUsecase {
+  _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_228(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3034,9 +3036,9 @@ class _FakeUpdateCarUsecase_228 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseCarFullyPaidUsecase_229 extends _i1.SmartFake
-    implements _i210.PurchaseCarFullyPaidUsecase {
-  _FakePurchaseCarFullyPaidUsecase_229(
+class _FakeUpdateCarUsecase_229 extends _i1.SmartFake
+    implements _i210.UpdateCarUsecase {
+  _FakeUpdateCarUsecase_229(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3045,9 +3047,9 @@ class _FakePurchaseCarFullyPaidUsecase_229 extends _i1.SmartFake
         );
 }
 
-class _FakeAddFoodToFridgeUsecase_230 extends _i1.SmartFake
-    implements _i211.AddFoodToFridgeUsecase {
-  _FakeAddFoodToFridgeUsecase_230(
+class _FakePurchaseCarFullyPaidUsecase_230 extends _i1.SmartFake
+    implements _i211.PurchaseCarFullyPaidUsecase {
+  _FakePurchaseCarFullyPaidUsecase_230(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3056,9 +3058,9 @@ class _FakeAddFoodToFridgeUsecase_230 extends _i1.SmartFake
         );
 }
 
-class _FakeGetFoodRecordUsecase_231 extends _i1.SmartFake
-    implements _i212.GetFoodRecordUsecase {
-  _FakeGetFoodRecordUsecase_231(
+class _FakeAddFoodToFridgeUsecase_231 extends _i1.SmartFake
+    implements _i212.AddFoodToFridgeUsecase {
+  _FakeAddFoodToFridgeUsecase_231(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3067,9 +3069,9 @@ class _FakeGetFoodRecordUsecase_231 extends _i1.SmartFake
         );
 }
 
-class _FakeGetFridgeFoodCountUsecase_232 extends _i1.SmartFake
-    implements _i213.GetFridgeFoodCountUsecase {
-  _FakeGetFridgeFoodCountUsecase_232(
+class _FakeGetFoodRecordUsecase_232 extends _i1.SmartFake
+    implements _i213.GetFoodRecordUsecase {
+  _FakeGetFoodRecordUsecase_232(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3078,9 +3080,9 @@ class _FakeGetFridgeFoodCountUsecase_232 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseFoodUsecase_233 extends _i1.SmartFake
-    implements _i214.PurchaseFoodUsecase {
-  _FakePurchaseFoodUsecase_233(
+class _FakeGetFridgeFoodCountUsecase_233 extends _i1.SmartFake
+    implements _i214.GetFridgeFoodCountUsecase {
+  _FakeGetFridgeFoodCountUsecase_233(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3089,9 +3091,9 @@ class _FakePurchaseFoodUsecase_233 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCurrentHouseStorageSpaceUsecase_234 extends _i1.SmartFake
-    implements _i215.GetCurrentHouseStorageSpaceUsecase {
-  _FakeGetCurrentHouseStorageSpaceUsecase_234(
+class _FakePurchaseFoodUsecase_234 extends _i1.SmartFake
+    implements _i215.PurchaseFoodUsecase {
+  _FakePurchaseFoodUsecase_234(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3100,9 +3102,9 @@ class _FakeGetCurrentHouseStorageSpaceUsecase_234 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseHouseFullyPaidUsecase_235 extends _i1.SmartFake
-    implements _i216.PurchaseHouseFullyPaidUsecase {
-  _FakePurchaseHouseFullyPaidUsecase_235(
+class _FakeGetCurrentHouseStorageSpaceUsecase_235 extends _i1.SmartFake
+    implements _i216.GetCurrentHouseStorageSpaceUsecase {
+  _FakeGetCurrentHouseStorageSpaceUsecase_235(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3111,9 +3113,9 @@ class _FakePurchaseHouseFullyPaidUsecase_235 extends _i1.SmartFake
         );
 }
 
-class _FakeAddItemToStoreroomUsecase_236 extends _i1.SmartFake
-    implements _i217.AddItemToStoreroomUsecase {
-  _FakeAddItemToStoreroomUsecase_236(
+class _FakePurchaseHouseFullyPaidUsecase_236 extends _i1.SmartFake
+    implements _i217.PurchaseHouseFullyPaidUsecase {
+  _FakePurchaseHouseFullyPaidUsecase_236(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3122,9 +3124,9 @@ class _FakeAddItemToStoreroomUsecase_236 extends _i1.SmartFake
         );
 }
 
-class _FakeGetItemRecordUsecase_237 extends _i1.SmartFake
-    implements _i218.GetItemRecordUsecase {
-  _FakeGetItemRecordUsecase_237(
+class _FakeAddItemToStoreroomUsecase_237 extends _i1.SmartFake
+    implements _i218.AddItemToStoreroomUsecase {
+  _FakeAddItemToStoreroomUsecase_237(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3133,9 +3135,9 @@ class _FakeGetItemRecordUsecase_237 extends _i1.SmartFake
         );
 }
 
-class _FakeGetStoreroomItemCountUsecase_238 extends _i1.SmartFake
-    implements _i219.GetStoreroomItemCountUsecase {
-  _FakeGetStoreroomItemCountUsecase_238(
+class _FakeGetItemRecordUsecase_238 extends _i1.SmartFake
+    implements _i219.GetItemRecordUsecase {
+  _FakeGetItemRecordUsecase_238(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3144,9 +3146,9 @@ class _FakeGetStoreroomItemCountUsecase_238 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseItemUsecase_239 extends _i1.SmartFake
-    implements _i220.PurchaseItemUsecase {
-  _FakePurchaseItemUsecase_239(
+class _FakeGetStoreroomItemCountUsecase_239 extends _i1.SmartFake
+    implements _i220.GetStoreroomItemCountUsecase {
+  _FakeGetStoreroomItemCountUsecase_239(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3155,9 +3157,9 @@ class _FakePurchaseItemUsecase_239 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseJewelryUsecase_240 extends _i1.SmartFake
-    implements _i221.PurchaseJewelryUsecase {
-  _FakePurchaseJewelryUsecase_240(
+class _FakePurchaseItemUsecase_240 extends _i1.SmartFake
+    implements _i221.PurchaseItemUsecase {
+  _FakePurchaseItemUsecase_240(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3166,9 +3168,9 @@ class _FakePurchaseJewelryUsecase_240 extends _i1.SmartFake
         );
 }
 
-class _FakeRentHouseUsecase_241 extends _i1.SmartFake
-    implements _i222.RentHouseUsecase {
-  _FakeRentHouseUsecase_241(
+class _FakePurchaseJewelryUsecase_241 extends _i1.SmartFake
+    implements _i222.PurchaseJewelryUsecase {
+  _FakePurchaseJewelryUsecase_241(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3177,9 +3179,9 @@ class _FakeRentHouseUsecase_241 extends _i1.SmartFake
         );
 }
 
-class _FakeBreakOldLeaseSignNewLease_242 extends _i1.SmartFake
-    implements _i223.BreakOldLeaseSignNewLease {
-  _FakeBreakOldLeaseSignNewLease_242(
+class _FakeRentHouseUsecase_242 extends _i1.SmartFake
+    implements _i223.RentHouseUsecase {
+  _FakeRentHouseUsecase_242(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3188,9 +3190,9 @@ class _FakeBreakOldLeaseSignNewLease_242 extends _i1.SmartFake
         );
 }
 
-class _FakeEndLeaseUsecase_243 extends _i1.SmartFake
-    implements _i224.EndLeaseUsecase {
-  _FakeEndLeaseUsecase_243(
+class _FakeBreakOldLeaseSignNewLease_243 extends _i1.SmartFake
+    implements _i224.BreakOldLeaseSignNewLease {
+  _FakeBreakOldLeaseSignNewLease_243(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3199,9 +3201,9 @@ class _FakeEndLeaseUsecase_243 extends _i1.SmartFake
         );
 }
 
-class _FakeSignLeaseForRentalUsecase_244 extends _i1.SmartFake
-    implements _i225.SignLeaseForRentalUsecase {
-  _FakeSignLeaseForRentalUsecase_244(
+class _FakeEndLeaseUsecase_244 extends _i1.SmartFake
+    implements _i225.EndLeaseUsecase {
+  _FakeEndLeaseUsecase_244(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3210,9 +3212,9 @@ class _FakeSignLeaseForRentalUsecase_244 extends _i1.SmartFake
         );
 }
 
-class _FakeMoveStorageToNewHouseUsecase_245 extends _i1.SmartFake
-    implements _i226.MoveStorageToNewHouseUsecase {
-  _FakeMoveStorageToNewHouseUsecase_245(
+class _FakeSignLeaseForRentalUsecase_245 extends _i1.SmartFake
+    implements _i226.SignLeaseForRentalUsecase {
+  _FakeSignLeaseForRentalUsecase_245(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3221,9 +3223,9 @@ class _FakeMoveStorageToNewHouseUsecase_245 extends _i1.SmartFake
         );
 }
 
-class _FakeUseFoodUsecase_246 extends _i1.SmartFake
-    implements _i227.UseFoodUsecase {
-  _FakeUseFoodUsecase_246(
+class _FakeMoveStorageToNewHouseUsecase_246 extends _i1.SmartFake
+    implements _i227.MoveStorageToNewHouseUsecase {
+  _FakeMoveStorageToNewHouseUsecase_246(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3232,9 +3234,9 @@ class _FakeUseFoodUsecase_246 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllPersonFridgeFoodPairsUsecase_247 extends _i1.SmartFake
-    implements _i228.GetAllPersonFridgeFoodPairsUsecase {
-  _FakeGetAllPersonFridgeFoodPairsUsecase_247(
+class _FakeUseFoodUsecase_247 extends _i1.SmartFake
+    implements _i228.UseFoodUsecase {
+  _FakeUseFoodUsecase_247(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3243,9 +3245,9 @@ class _FakeGetAllPersonFridgeFoodPairsUsecase_247 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseCarWithLoanUsecase_248 extends _i1.SmartFake
-    implements _i229.PurchaseCarWithLoanUsecase {
-  _FakePurchaseCarWithLoanUsecase_248(
+class _FakeGetAllPersonFridgeFoodPairsUsecase_248 extends _i1.SmartFake
+    implements _i229.GetAllPersonFridgeFoodPairsUsecase {
+  _FakeGetAllPersonFridgeFoodPairsUsecase_248(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3254,9 +3256,9 @@ class _FakePurchaseCarWithLoanUsecase_248 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseHouseWithLoanUsecase_249 extends _i1.SmartFake
-    implements _i230.PurchaseHouseWithLoanUsecase {
-  _FakePurchaseHouseWithLoanUsecase_249(
+class _FakePurchaseCarWithLoanUsecase_249 extends _i1.SmartFake
+    implements _i230.PurchaseCarWithLoanUsecase {
+  _FakePurchaseCarWithLoanUsecase_249(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3265,9 +3267,9 @@ class _FakePurchaseHouseWithLoanUsecase_249 extends _i1.SmartFake
         );
 }
 
-class _FakeSignMortgageLoanContract_250 extends _i1.SmartFake
-    implements _i231.SignMortgageLoanContract {
-  _FakeSignMortgageLoanContract_250(
+class _FakePurchaseHouseWithLoanUsecase_250 extends _i1.SmartFake
+    implements _i231.PurchaseHouseWithLoanUsecase {
+  _FakePurchaseHouseWithLoanUsecase_250(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3276,9 +3278,9 @@ class _FakeSignMortgageLoanContract_250 extends _i1.SmartFake
         );
 }
 
-class _FakeAddLocationToBuildingsUsecase_251 extends _i1.SmartFake
-    implements _i232.AddLocationToBuildingsUsecase {
-  _FakeAddLocationToBuildingsUsecase_251(
+class _FakeSignMortgageLoanContract_251 extends _i1.SmartFake
+    implements _i232.SignMortgageLoanContract {
+  _FakeSignMortgageLoanContract_251(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3287,9 +3289,9 @@ class _FakeAddLocationToBuildingsUsecase_251 extends _i1.SmartFake
         );
 }
 
-class _FakeGetPurchaseHousesUsecase_252 extends _i1.SmartFake
-    implements _i233.GetPurchaseHousesUsecase {
-  _FakeGetPurchaseHousesUsecase_252(
+class _FakeAddLocationToBuildingsUsecase_252 extends _i1.SmartFake
+    implements _i233.AddLocationToBuildingsUsecase {
+  _FakeAddLocationToBuildingsUsecase_252(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3298,9 +3300,9 @@ class _FakeGetPurchaseHousesUsecase_252 extends _i1.SmartFake
         );
 }
 
-class _FakeGetRentalHousesUsecase_253 extends _i1.SmartFake
-    implements _i234.GetRentalHousesUsecase {
-  _FakeGetRentalHousesUsecase_253(
+class _FakeGetPurchaseHousesUsecase_253 extends _i1.SmartFake
+    implements _i234.GetPurchaseHousesUsecase {
+  _FakeGetPurchaseHousesUsecase_253(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3309,9 +3311,9 @@ class _FakeGetRentalHousesUsecase_253 extends _i1.SmartFake
         );
 }
 
-class _FakeMoveIntoNewHouseUsecase_254 extends _i1.SmartFake
-    implements _i235.MoveIntoNewHouseUsecase {
-  _FakeMoveIntoNewHouseUsecase_254(
+class _FakeGetRentalHousesUsecase_254 extends _i1.SmartFake
+    implements _i235.GetRentalHousesUsecase {
+  _FakeGetRentalHousesUsecase_254(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3320,9 +3322,9 @@ class _FakeMoveIntoNewHouseUsecase_254 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteCurrentHomeUsecase_255 extends _i1.SmartFake
-    implements _i236.DeleteCurrentHomeUsecase {
-  _FakeDeleteCurrentHomeUsecase_255(
+class _FakeMoveIntoNewHouseUsecase_255 extends _i1.SmartFake
+    implements _i236.MoveIntoNewHouseUsecase {
+  _FakeMoveIntoNewHouseUsecase_255(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3331,9 +3333,9 @@ class _FakeDeleteCurrentHomeUsecase_255 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllPeopleInAHouseUsecase_256 extends _i1.SmartFake
-    implements _i237.GetAllPeopleInAHouseUsecase {
-  _FakeGetAllPeopleInAHouseUsecase_256(
+class _FakeDeleteCurrentHomeUsecase_256 extends _i1.SmartFake
+    implements _i237.DeleteCurrentHomeUsecase {
+  _FakeDeleteCurrentHomeUsecase_256(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3342,9 +3344,9 @@ class _FakeGetAllPeopleInAHouseUsecase_256 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCurrentHomeUsecase_257 extends _i1.SmartFake
-    implements _i238.GetCurrentHomeUsecase {
-  _FakeGetCurrentHomeUsecase_257(
+class _FakeGetAllPeopleInAHouseUsecase_257 extends _i1.SmartFake
+    implements _i238.GetAllPeopleInAHouseUsecase {
+  _FakeGetAllPeopleInAHouseUsecase_257(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3353,9 +3355,9 @@ class _FakeGetCurrentHomeUsecase_257 extends _i1.SmartFake
         );
 }
 
-class _FakeSetCurrentHomeUsecase_258 extends _i1.SmartFake
-    implements _i239.SetCurrentHomeUsecase {
-  _FakeSetCurrentHomeUsecase_258(
+class _FakeGetCurrentHomeUsecase_258 extends _i1.SmartFake
+    implements _i239.GetCurrentHomeUsecase {
+  _FakeGetCurrentHomeUsecase_258(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3364,9 +3366,9 @@ class _FakeSetCurrentHomeUsecase_258 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchAllPeopleInAHouseUsecase_259 extends _i1.SmartFake
-    implements _i240.WatchAllPeopleInAHouseUsecase {
-  _FakeWatchAllPeopleInAHouseUsecase_259(
+class _FakeSetCurrentHomeUsecase_259 extends _i1.SmartFake
+    implements _i240.SetCurrentHomeUsecase {
+  _FakeSetCurrentHomeUsecase_259(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3375,9 +3377,20 @@ class _FakeWatchAllPeopleInAHouseUsecase_259 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchCurrentHomeUsecase_260 extends _i1.SmartFake
-    implements _i241.WatchCurrentHomeUsecase {
-  _FakeWatchCurrentHomeUsecase_260(
+class _FakeWatchAllPeopleInAHouseUsecase_260 extends _i1.SmartFake
+    implements _i241.WatchAllPeopleInAHouseUsecase {
+  _FakeWatchAllPeopleInAHouseUsecase_260(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeWatchCurrentHomeUsecase_261 extends _i1.SmartFake
+    implements _i242.WatchCurrentHomeUsecase {
+  _FakeWatchCurrentHomeUsecase_261(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3490,6 +3503,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
         returnValue: '',
       ) as String);
   @override
+  String get drivingMode => (super.noSuchMethod(
+        Invocation.getter(#drivingMode),
+        returnValue: '',
+      ) as String);
+  @override
   bool get hasFertilityIssues => (super.noSuchMethod(
         Invocation.getter(#hasFertilityIssues),
         returnValue: false,
@@ -3515,14 +3533,14 @@ class MockPerson extends _i1.Mock implements _i2.Person {
         returnValue: false,
       ) as bool);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.PersonTableCompanion toCompanion(bool? nullToAbsent) =>
       (super.noSuchMethod(
@@ -3539,7 +3557,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
         ),
       ) as _i2.PersonTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -3569,6 +3587,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
     String? zodiacSign,
     bool? hasDriversLicense,
     String? transportMode,
+    String? drivingMode,
     bool? hasFertilityIssues,
     bool? onBirthControl,
     bool? isSterile,
@@ -3599,6 +3618,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
             #zodiacSign: zodiacSign,
             #hasDriversLicense: hasDriversLicense,
             #transportMode: transportMode,
+            #drivingMode: drivingMode,
             #hasFertilityIssues: hasFertilityIssues,
             #onBirthControl: onBirthControl,
             #isSterile: isSterile,
@@ -3631,6 +3651,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
               #zodiacSign: zodiacSign,
               #hasDriversLicense: hasDriversLicense,
               #transportMode: transportMode,
+              #drivingMode: drivingMode,
               #hasFertilityIssues: hasFertilityIssues,
               #onBirthControl: onBirthControl,
               #isSterile: isSterile,
@@ -3641,7 +3662,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
         ),
       ) as _i2.Person);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -3716,14 +3737,14 @@ class MockStats extends _i1.Mock implements _i2.Stats {
         returnValue: 0,
       ) as int);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.StatsTableCompanion toCompanion(bool? nullToAbsent) =>
       (super.noSuchMethod(
@@ -3740,7 +3761,7 @@ class MockStats extends _i1.Mock implements _i2.Stats {
         ),
       ) as _i2.StatsTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -3803,7 +3824,7 @@ class MockStats extends _i1.Mock implements _i2.Stats {
         ),
       ) as _i2.Stats);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -3923,14 +3944,14 @@ class MockStance extends _i1.Mock implements _i2.Stance {
         returnValue: false,
       ) as bool);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.StanceTableCompanion toCompanion(bool? nullToAbsent) =>
       (super.noSuchMethod(
@@ -3947,7 +3968,7 @@ class MockStance extends _i1.Mock implements _i2.Stance {
         ),
       ) as _i2.StanceTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -4041,7 +4062,7 @@ class MockStance extends _i1.Mock implements _i2.Stance {
         ),
       ) as _i2.Stance);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -4055,7 +4076,7 @@ class MockStance extends _i1.Mock implements _i2.Stance {
 /// A class which mocks [PersonUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPersonUsecases extends _i1.Mock implements _i243.PersonUsecases {
+class MockPersonUsecases extends _i1.Mock implements _i244.PersonUsecases {
   MockPersonUsecases() {
     _i1.throwOnMissingStub(this);
   }
@@ -4569,14 +4590,14 @@ class MockGame extends _i1.Mock implements _i2.Game {
         returnValue: 0,
       ) as int);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.GameTableCompanion toCompanion(bool? nullToAbsent) => (super.noSuchMethod(
         Invocation.method(
@@ -4592,7 +4613,7 @@ class MockGame extends _i1.Mock implements _i2.Game {
         ),
       ) as _i2.GameTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -4643,7 +4664,7 @@ class MockGame extends _i1.Mock implements _i2.Game {
         ),
       ) as _i2.Game);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -4657,7 +4678,7 @@ class MockGame extends _i1.Mock implements _i2.Game {
 /// A class which mocks [GameUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGameUsecases extends _i1.Mock implements _i244.GameUsecases {
+class MockGameUsecases extends _i1.Mock implements _i245.GameUsecases {
   MockGameUsecases() {
     _i1.throwOnMissingStub(this);
   }
@@ -4877,14 +4898,14 @@ class MockJob extends _i1.Mock implements _i2.Job {
         returnValue: 0,
       ) as int);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.JobTableCompanion toCompanion(bool? nullToAbsent) => (super.noSuchMethod(
         Invocation.method(
@@ -4900,7 +4921,7 @@ class MockJob extends _i1.Mock implements _i2.Job {
         ),
       ) as _i2.JobTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -4975,7 +4996,7 @@ class MockJob extends _i1.Mock implements _i2.Job {
         ),
       ) as _i2.Job);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -4989,7 +5010,7 @@ class MockJob extends _i1.Mock implements _i2.Job {
 /// A class which mocks [JobUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockJobUsecases extends _i1.Mock implements _i245.JobUsecases {
+class MockJobUsecases extends _i1.Mock implements _i246.JobUsecases {
   MockJobUsecases() {
     _i1.throwOnMissingStub(this);
   }
@@ -5197,14 +5218,14 @@ class MockSchool extends _i1.Mock implements _i2.School {
         returnValue: false,
       ) as bool);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.SchoolTableCompanion toCompanion(bool? nullToAbsent) =>
       (super.noSuchMethod(
@@ -5221,7 +5242,7 @@ class MockSchool extends _i1.Mock implements _i2.School {
         ),
       ) as _i2.SchoolTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -5323,7 +5344,7 @@ class MockSchool extends _i1.Mock implements _i2.School {
         ),
       ) as _i2.School);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -5394,14 +5415,14 @@ class MockSchoolRelationship extends _i1.Mock
         returnValue: '',
       ) as String);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.SchoolRelationshipTableCompanion toCompanion(bool? nullToAbsent) =>
       (super.noSuchMethod(
@@ -5418,7 +5439,7 @@ class MockSchoolRelationship extends _i1.Mock
         ),
       ) as _i2.SchoolRelationshipTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -5478,7 +5499,7 @@ class MockSchoolRelationship extends _i1.Mock
         ),
       ) as _i2.SchoolRelationship);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -5538,14 +5559,14 @@ class MockSchoolProject extends _i1.Mock implements _i2.SchoolProject {
         returnValue: false,
       ) as bool);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.SchoolProjectTableCompanion toCompanion(bool? nullToAbsent) =>
       (super.noSuchMethod(
@@ -5562,7 +5583,7 @@ class MockSchoolProject extends _i1.Mock implements _i2.SchoolProject {
         ),
       ) as _i2.SchoolProjectTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -5618,7 +5639,7 @@ class MockSchoolProject extends _i1.Mock implements _i2.SchoolProject {
         ),
       ) as _i2.SchoolProject);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -5632,7 +5653,7 @@ class MockSchoolProject extends _i1.Mock implements _i2.SchoolProject {
 /// A class which mocks [SchoolUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSchoolUsecases extends _i1.Mock implements _i246.SchoolUsecases {
+class MockSchoolUsecases extends _i1.Mock implements _i247.SchoolUsecases {
   MockSchoolUsecases() {
     _i1.throwOnMissingStub(this);
   }
@@ -5981,14 +6002,14 @@ class MockJournal extends _i1.Mock implements _i2.Journal {
         returnValue: '',
       ) as String);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.JournalTableCompanion toCompanion(bool? nullToAbsent) =>
       (super.noSuchMethod(
@@ -6005,7 +6026,7 @@ class MockJournal extends _i1.Mock implements _i2.Journal {
         ),
       ) as _i2.JournalTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -6047,7 +6068,7 @@ class MockJournal extends _i1.Mock implements _i2.Journal {
         ),
       ) as _i2.Journal);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -6061,7 +6082,7 @@ class MockJournal extends _i1.Mock implements _i2.Journal {
 /// A class which mocks [JournalUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockJournalUsecases extends _i1.Mock implements _i247.JournalUsecases {
+class MockJournalUsecases extends _i1.Mock implements _i248.JournalUsecases {
   MockJournalUsecases() {
     _i1.throwOnMissingStub(this);
   }
@@ -6160,14 +6181,14 @@ class MockEvent extends _i1.Mock implements _i2.Event {
         returnValue: false,
       ) as bool);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.EventTableCompanion toCompanion(bool? nullToAbsent) =>
       (super.noSuchMethod(
@@ -6184,7 +6205,7 @@ class MockEvent extends _i1.Mock implements _i2.Event {
         ),
       ) as _i2.EventTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -6200,10 +6221,10 @@ class MockEvent extends _i1.Mock implements _i2.Event {
     String? eventType,
     int? eventDay,
     int? mainPersonId,
-    _i242.Value<int?>? otherPersonId = const _i242.Value.absent(),
+    _i243.Value<int?>? otherPersonId = const _i243.Value.absent(),
     String? relationshipToMainPlayer,
-    _i242.Value<int?>? startTime = const _i242.Value.absent(),
-    _i242.Value<int?>? endTime = const _i242.Value.absent(),
+    _i243.Value<int?>? startTime = const _i243.Value.absent(),
+    _i243.Value<int?>? endTime = const _i243.Value.absent(),
     bool? journalEntryOnly,
     bool? performed,
   }) =>
@@ -6247,7 +6268,7 @@ class MockEvent extends _i1.Mock implements _i2.Event {
         ),
       ) as _i2.Event);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -6261,7 +6282,7 @@ class MockEvent extends _i1.Mock implements _i2.Event {
 /// A class which mocks [EventManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEventManager extends _i1.Mock implements _i248.EventManager {
+class MockEventManager extends _i1.Mock implements _i249.EventManager {
   MockEventManager() {
     _i1.throwOnMissingStub(this);
   }
@@ -6275,10 +6296,10 @@ class MockEventManager extends _i1.Mock implements _i248.EventManager {
         ),
       ) as _i118.ManageEvents);
   @override
-  _i249.Future<void> runTestEvent(
+  _i250.Future<void> runTestEvent(
     int? mainPlayerID,
     _i2.Event? event,
-    _i250.BuildContext? context,
+    _i251.BuildContext? context,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -6289,14 +6310,14 @@ class MockEventManager extends _i1.Mock implements _i248.EventManager {
             context,
           ],
         ),
-        returnValue: _i249.Future<void>.value(),
-        returnValueForMissingStub: _i249.Future<void>.value(),
-      ) as _i249.Future<void>);
+        returnValue: _i250.Future<void>.value(),
+        returnValueForMissingStub: _i250.Future<void>.value(),
+      ) as _i250.Future<void>);
   @override
-  _i249.Future<void> runEvent(
+  _i250.Future<void> runEvent(
     int? mainPlayerID,
     _i2.Event? event,
-    _i250.BuildContext? context,
+    _i251.BuildContext? context,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -6307,11 +6328,11 @@ class MockEventManager extends _i1.Mock implements _i248.EventManager {
             context,
           ],
         ),
-        returnValue: _i249.Future<void>.value(),
-        returnValueForMissingStub: _i249.Future<void>.value(),
-      ) as _i249.Future<void>);
+        returnValue: _i250.Future<void>.value(),
+        returnValueForMissingStub: _i250.Future<void>.value(),
+      ) as _i250.Future<void>);
   @override
-  _i249.Future<List<_i251.EventPersonPair>> getTodaysAttendableEvents({
+  _i250.Future<List<_i252.EventPersonPair>> getTodaysAttendableEvents({
     required int? currentDay,
     required int? gameID,
   }) =>
@@ -6324,11 +6345,11 @@ class MockEventManager extends _i1.Mock implements _i248.EventManager {
             #gameID: gameID,
           },
         ),
-        returnValue: _i249.Future<List<_i251.EventPersonPair>>.value(
-            <_i251.EventPersonPair>[]),
-      ) as _i249.Future<List<_i251.EventPersonPair>>);
+        returnValue: _i250.Future<List<_i252.EventPersonPair>>.value(
+            <_i252.EventPersonPair>[]),
+      ) as _i250.Future<List<_i252.EventPersonPair>>);
   @override
-  _i249.Stream<List<_i251.EventPersonPair>> watchTodaysAttendableEvents({
+  _i250.Stream<List<_i252.EventPersonPair>> watchTodaysAttendableEvents({
     required int? currentDay,
     required int? gameID,
   }) =>
@@ -6341,8 +6362,8 @@ class MockEventManager extends _i1.Mock implements _i248.EventManager {
             #gameID: gameID,
           },
         ),
-        returnValue: _i249.Stream<List<_i251.EventPersonPair>>.empty(),
-      ) as _i249.Stream<List<_i251.EventPersonPair>>);
+        returnValue: _i250.Stream<List<_i252.EventPersonPair>>.empty(),
+      ) as _i250.Stream<List<_i252.EventPersonPair>>);
 }
 
 /// A class which mocks [RecurringBill].
@@ -6404,14 +6425,14 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
         returnValue: false,
       ) as bool);
   @override
-  Map<String, _i242.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i243.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i242.Expression<Object>>{},
-      ) as Map<String, _i242.Expression<Object>>);
+        returnValue: <String, _i243.Expression<Object>>{},
+      ) as Map<String, _i243.Expression<Object>>);
   @override
   _i2.RecurringBillTableCompanion toCompanion(bool? nullToAbsent) =>
       (super.noSuchMethod(
@@ -6428,7 +6449,7 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
         ),
       ) as _i2.RecurringBillTableCompanion);
   @override
-  Map<String, dynamic> toJson({_i242.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -6488,7 +6509,7 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
         ),
       ) as _i2.RecurringBill);
   @override
-  String toJsonString({_i242.ValueSerializer? serializer}) =>
+  String toJsonString({_i243.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
@@ -6503,7 +6524,7 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRecurringBillsUsecases extends _i1.Mock
-    implements _i252.RecurringBillsUsecases {
+    implements _i253.RecurringBillsUsecases {
   MockRecurringBillsUsecases() {
     _i1.throwOnMissingStub(this);
   }
@@ -6693,7 +6714,7 @@ class MockRecurringBillsUsecases extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRelationshipUsecases extends _i1.Mock
-    implements _i253.RelationshipUsecases {
+    implements _i254.RelationshipUsecases {
   MockRelationshipUsecases() {
     _i1.throwOnMissingStub(this);
   }
@@ -7256,7 +7277,7 @@ class MockRelationshipUsecases extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockShopAndStorageUsecases extends _i1.Mock
-    implements _i254.ShopAndStorageUsecases {
+    implements _i255.ShopAndStorageUsecases {
   MockShopAndStorageUsecases() {
     _i1.throwOnMissingStub(this);
   }
@@ -7323,307 +7344,316 @@ class MockShopAndStorageUsecases extends _i1.Mock
         ),
       ) as _i206.DriveCarUsecase);
   @override
-  _i207.CarIsNotDeadUsecase get carIsNotDeadUsecase => (super.noSuchMethod(
+  _i207.CreateCarProblemUsecase get createCarProblemUsecase =>
+      (super.noSuchMethod(
+        Invocation.getter(#createCarProblemUsecase),
+        returnValue: _FakeCreateCarProblemUsecase_226(
+          this,
+          Invocation.getter(#createCarProblemUsecase),
+        ),
+      ) as _i207.CreateCarProblemUsecase);
+  @override
+  _i208.CarIsNotDeadUsecase get carIsNotDeadUsecase => (super.noSuchMethod(
         Invocation.getter(#carIsNotDeadUsecase),
-        returnValue: _FakeCarIsNotDeadUsecase_226(
+        returnValue: _FakeCarIsNotDeadUsecase_227(
           this,
           Invocation.getter(#carIsNotDeadUsecase),
         ),
-      ) as _i207.CarIsNotDeadUsecase);
+      ) as _i208.CarIsNotDeadUsecase);
   @override
-  _i208.SetAllPersonCarsToNotCurrentlyDrivingUsecase
+  _i209.SetAllPersonCarsToNotCurrentlyDrivingUsecase
       get setAllPersonCarsToNotCurrentlyDrivingUsecase => (super.noSuchMethod(
             Invocation.getter(#setAllPersonCarsToNotCurrentlyDrivingUsecase),
-            returnValue: _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_227(
+            returnValue: _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_228(
               this,
               Invocation.getter(#setAllPersonCarsToNotCurrentlyDrivingUsecase),
             ),
-          ) as _i208.SetAllPersonCarsToNotCurrentlyDrivingUsecase);
+          ) as _i209.SetAllPersonCarsToNotCurrentlyDrivingUsecase);
   @override
-  _i209.UpdateCarUsecase get updateCarUsecase => (super.noSuchMethod(
+  _i210.UpdateCarUsecase get updateCarUsecase => (super.noSuchMethod(
         Invocation.getter(#updateCarUsecase),
-        returnValue: _FakeUpdateCarUsecase_228(
+        returnValue: _FakeUpdateCarUsecase_229(
           this,
           Invocation.getter(#updateCarUsecase),
         ),
-      ) as _i209.UpdateCarUsecase);
+      ) as _i210.UpdateCarUsecase);
   @override
-  _i210.PurchaseCarFullyPaidUsecase get purchaseCarFullyPaidUsecase =>
+  _i211.PurchaseCarFullyPaidUsecase get purchaseCarFullyPaidUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseCarFullyPaidUsecase),
-        returnValue: _FakePurchaseCarFullyPaidUsecase_229(
+        returnValue: _FakePurchaseCarFullyPaidUsecase_230(
           this,
           Invocation.getter(#purchaseCarFullyPaidUsecase),
         ),
-      ) as _i210.PurchaseCarFullyPaidUsecase);
+      ) as _i211.PurchaseCarFullyPaidUsecase);
   @override
-  _i211.AddFoodToFridgeUsecase get addFoodToFridgeUsecase =>
+  _i212.AddFoodToFridgeUsecase get addFoodToFridgeUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#addFoodToFridgeUsecase),
-        returnValue: _FakeAddFoodToFridgeUsecase_230(
+        returnValue: _FakeAddFoodToFridgeUsecase_231(
           this,
           Invocation.getter(#addFoodToFridgeUsecase),
         ),
-      ) as _i211.AddFoodToFridgeUsecase);
+      ) as _i212.AddFoodToFridgeUsecase);
   @override
-  _i212.GetFoodRecordUsecase get getFoodRecordUsecase => (super.noSuchMethod(
+  _i213.GetFoodRecordUsecase get getFoodRecordUsecase => (super.noSuchMethod(
         Invocation.getter(#getFoodRecordUsecase),
-        returnValue: _FakeGetFoodRecordUsecase_231(
+        returnValue: _FakeGetFoodRecordUsecase_232(
           this,
           Invocation.getter(#getFoodRecordUsecase),
         ),
-      ) as _i212.GetFoodRecordUsecase);
+      ) as _i213.GetFoodRecordUsecase);
   @override
-  _i213.GetFridgeFoodCountUsecase get getFridgeFoodCountUsecase =>
+  _i214.GetFridgeFoodCountUsecase get getFridgeFoodCountUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getFridgeFoodCountUsecase),
-        returnValue: _FakeGetFridgeFoodCountUsecase_232(
+        returnValue: _FakeGetFridgeFoodCountUsecase_233(
           this,
           Invocation.getter(#getFridgeFoodCountUsecase),
         ),
-      ) as _i213.GetFridgeFoodCountUsecase);
+      ) as _i214.GetFridgeFoodCountUsecase);
   @override
-  _i214.PurchaseFoodUsecase get purchaseFoodUsecase => (super.noSuchMethod(
+  _i215.PurchaseFoodUsecase get purchaseFoodUsecase => (super.noSuchMethod(
         Invocation.getter(#purchaseFoodUsecase),
-        returnValue: _FakePurchaseFoodUsecase_233(
+        returnValue: _FakePurchaseFoodUsecase_234(
           this,
           Invocation.getter(#purchaseFoodUsecase),
         ),
-      ) as _i214.PurchaseFoodUsecase);
+      ) as _i215.PurchaseFoodUsecase);
   @override
-  _i215.GetCurrentHouseStorageSpaceUsecase
+  _i216.GetCurrentHouseStorageSpaceUsecase
       get getCurrentHouseStorageSpaceUsecase => (super.noSuchMethod(
             Invocation.getter(#getCurrentHouseStorageSpaceUsecase),
-            returnValue: _FakeGetCurrentHouseStorageSpaceUsecase_234(
+            returnValue: _FakeGetCurrentHouseStorageSpaceUsecase_235(
               this,
               Invocation.getter(#getCurrentHouseStorageSpaceUsecase),
             ),
-          ) as _i215.GetCurrentHouseStorageSpaceUsecase);
+          ) as _i216.GetCurrentHouseStorageSpaceUsecase);
   @override
-  _i216.PurchaseHouseFullyPaidUsecase get purchaseHouseFullyPaidUsecase =>
+  _i217.PurchaseHouseFullyPaidUsecase get purchaseHouseFullyPaidUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseHouseFullyPaidUsecase),
-        returnValue: _FakePurchaseHouseFullyPaidUsecase_235(
+        returnValue: _FakePurchaseHouseFullyPaidUsecase_236(
           this,
           Invocation.getter(#purchaseHouseFullyPaidUsecase),
         ),
-      ) as _i216.PurchaseHouseFullyPaidUsecase);
+      ) as _i217.PurchaseHouseFullyPaidUsecase);
   @override
-  _i217.AddItemToStoreroomUsecase get addItemToStoreroomUsecase =>
+  _i218.AddItemToStoreroomUsecase get addItemToStoreroomUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#addItemToStoreroomUsecase),
-        returnValue: _FakeAddItemToStoreroomUsecase_236(
+        returnValue: _FakeAddItemToStoreroomUsecase_237(
           this,
           Invocation.getter(#addItemToStoreroomUsecase),
         ),
-      ) as _i217.AddItemToStoreroomUsecase);
+      ) as _i218.AddItemToStoreroomUsecase);
   @override
-  _i218.GetItemRecordUsecase get getItemRecordUsecase => (super.noSuchMethod(
+  _i219.GetItemRecordUsecase get getItemRecordUsecase => (super.noSuchMethod(
         Invocation.getter(#getItemRecordUsecase),
-        returnValue: _FakeGetItemRecordUsecase_237(
+        returnValue: _FakeGetItemRecordUsecase_238(
           this,
           Invocation.getter(#getItemRecordUsecase),
         ),
-      ) as _i218.GetItemRecordUsecase);
+      ) as _i219.GetItemRecordUsecase);
   @override
-  _i219.GetStoreroomItemCountUsecase get getStoreroomItemCountUsecase =>
+  _i220.GetStoreroomItemCountUsecase get getStoreroomItemCountUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getStoreroomItemCountUsecase),
-        returnValue: _FakeGetStoreroomItemCountUsecase_238(
+        returnValue: _FakeGetStoreroomItemCountUsecase_239(
           this,
           Invocation.getter(#getStoreroomItemCountUsecase),
         ),
-      ) as _i219.GetStoreroomItemCountUsecase);
+      ) as _i220.GetStoreroomItemCountUsecase);
   @override
-  _i220.PurchaseItemUsecase get purchaseItemUsecase => (super.noSuchMethod(
+  _i221.PurchaseItemUsecase get purchaseItemUsecase => (super.noSuchMethod(
         Invocation.getter(#purchaseItemUsecase),
-        returnValue: _FakePurchaseItemUsecase_239(
+        returnValue: _FakePurchaseItemUsecase_240(
           this,
           Invocation.getter(#purchaseItemUsecase),
         ),
-      ) as _i220.PurchaseItemUsecase);
+      ) as _i221.PurchaseItemUsecase);
   @override
-  _i221.PurchaseJewelryUsecase get purchaseJewelryUsecase =>
+  _i222.PurchaseJewelryUsecase get purchaseJewelryUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseJewelryUsecase),
-        returnValue: _FakePurchaseJewelryUsecase_240(
+        returnValue: _FakePurchaseJewelryUsecase_241(
           this,
           Invocation.getter(#purchaseJewelryUsecase),
         ),
-      ) as _i221.PurchaseJewelryUsecase);
+      ) as _i222.PurchaseJewelryUsecase);
   @override
-  _i222.RentHouseUsecase get rentHouseUsecase => (super.noSuchMethod(
+  _i223.RentHouseUsecase get rentHouseUsecase => (super.noSuchMethod(
         Invocation.getter(#rentHouseUsecase),
-        returnValue: _FakeRentHouseUsecase_241(
+        returnValue: _FakeRentHouseUsecase_242(
           this,
           Invocation.getter(#rentHouseUsecase),
         ),
-      ) as _i222.RentHouseUsecase);
+      ) as _i223.RentHouseUsecase);
   @override
-  _i223.BreakOldLeaseSignNewLease get breakOldLeaseSignNewLease =>
+  _i224.BreakOldLeaseSignNewLease get breakOldLeaseSignNewLease =>
       (super.noSuchMethod(
         Invocation.getter(#breakOldLeaseSignNewLease),
-        returnValue: _FakeBreakOldLeaseSignNewLease_242(
+        returnValue: _FakeBreakOldLeaseSignNewLease_243(
           this,
           Invocation.getter(#breakOldLeaseSignNewLease),
         ),
-      ) as _i223.BreakOldLeaseSignNewLease);
+      ) as _i224.BreakOldLeaseSignNewLease);
   @override
-  _i224.EndLeaseUsecase get endLeaseUsecase => (super.noSuchMethod(
+  _i225.EndLeaseUsecase get endLeaseUsecase => (super.noSuchMethod(
         Invocation.getter(#endLeaseUsecase),
-        returnValue: _FakeEndLeaseUsecase_243(
+        returnValue: _FakeEndLeaseUsecase_244(
           this,
           Invocation.getter(#endLeaseUsecase),
         ),
-      ) as _i224.EndLeaseUsecase);
+      ) as _i225.EndLeaseUsecase);
   @override
-  _i225.SignLeaseForRentalUsecase get signLeaseForRentalUsecase =>
+  _i226.SignLeaseForRentalUsecase get signLeaseForRentalUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#signLeaseForRentalUsecase),
-        returnValue: _FakeSignLeaseForRentalUsecase_244(
+        returnValue: _FakeSignLeaseForRentalUsecase_245(
           this,
           Invocation.getter(#signLeaseForRentalUsecase),
         ),
-      ) as _i225.SignLeaseForRentalUsecase);
+      ) as _i226.SignLeaseForRentalUsecase);
   @override
-  _i226.MoveStorageToNewHouseUsecase get moveStorageToNewHouseUsecase =>
+  _i227.MoveStorageToNewHouseUsecase get moveStorageToNewHouseUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#moveStorageToNewHouseUsecase),
-        returnValue: _FakeMoveStorageToNewHouseUsecase_245(
+        returnValue: _FakeMoveStorageToNewHouseUsecase_246(
           this,
           Invocation.getter(#moveStorageToNewHouseUsecase),
         ),
-      ) as _i226.MoveStorageToNewHouseUsecase);
+      ) as _i227.MoveStorageToNewHouseUsecase);
   @override
-  _i227.UseFoodUsecase get useFoodUsecase => (super.noSuchMethod(
+  _i228.UseFoodUsecase get useFoodUsecase => (super.noSuchMethod(
         Invocation.getter(#useFoodUsecase),
-        returnValue: _FakeUseFoodUsecase_246(
+        returnValue: _FakeUseFoodUsecase_247(
           this,
           Invocation.getter(#useFoodUsecase),
         ),
-      ) as _i227.UseFoodUsecase);
+      ) as _i228.UseFoodUsecase);
   @override
-  _i228.GetAllPersonFridgeFoodPairsUsecase
+  _i229.GetAllPersonFridgeFoodPairsUsecase
       get getAllPersonFridgeFoodPairsUsecase => (super.noSuchMethod(
             Invocation.getter(#getAllPersonFridgeFoodPairsUsecase),
-            returnValue: _FakeGetAllPersonFridgeFoodPairsUsecase_247(
+            returnValue: _FakeGetAllPersonFridgeFoodPairsUsecase_248(
               this,
               Invocation.getter(#getAllPersonFridgeFoodPairsUsecase),
             ),
-          ) as _i228.GetAllPersonFridgeFoodPairsUsecase);
+          ) as _i229.GetAllPersonFridgeFoodPairsUsecase);
   @override
-  _i229.PurchaseCarWithLoanUsecase get purchaseCarWithLoanUsecase =>
+  _i230.PurchaseCarWithLoanUsecase get purchaseCarWithLoanUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseCarWithLoanUsecase),
-        returnValue: _FakePurchaseCarWithLoanUsecase_248(
+        returnValue: _FakePurchaseCarWithLoanUsecase_249(
           this,
           Invocation.getter(#purchaseCarWithLoanUsecase),
         ),
-      ) as _i229.PurchaseCarWithLoanUsecase);
+      ) as _i230.PurchaseCarWithLoanUsecase);
   @override
-  _i230.PurchaseHouseWithLoanUsecase get purchaseHouseWithLoanUsecase =>
+  _i231.PurchaseHouseWithLoanUsecase get purchaseHouseWithLoanUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseHouseWithLoanUsecase),
-        returnValue: _FakePurchaseHouseWithLoanUsecase_249(
+        returnValue: _FakePurchaseHouseWithLoanUsecase_250(
           this,
           Invocation.getter(#purchaseHouseWithLoanUsecase),
         ),
-      ) as _i230.PurchaseHouseWithLoanUsecase);
+      ) as _i231.PurchaseHouseWithLoanUsecase);
   @override
-  _i231.SignMortgageLoanContract get signMortgageLoanContract =>
+  _i232.SignMortgageLoanContract get signMortgageLoanContract =>
       (super.noSuchMethod(
         Invocation.getter(#signMortgageLoanContract),
-        returnValue: _FakeSignMortgageLoanContract_250(
+        returnValue: _FakeSignMortgageLoanContract_251(
           this,
           Invocation.getter(#signMortgageLoanContract),
         ),
-      ) as _i231.SignMortgageLoanContract);
+      ) as _i232.SignMortgageLoanContract);
   @override
-  _i232.AddLocationToBuildingsUsecase get addLocationToBuildingsUsecase =>
+  _i233.AddLocationToBuildingsUsecase get addLocationToBuildingsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#addLocationToBuildingsUsecase),
-        returnValue: _FakeAddLocationToBuildingsUsecase_251(
+        returnValue: _FakeAddLocationToBuildingsUsecase_252(
           this,
           Invocation.getter(#addLocationToBuildingsUsecase),
         ),
-      ) as _i232.AddLocationToBuildingsUsecase);
+      ) as _i233.AddLocationToBuildingsUsecase);
   @override
-  _i233.GetPurchaseHousesUsecase get getPurchaseHousesUsecase =>
+  _i234.GetPurchaseHousesUsecase get getPurchaseHousesUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getPurchaseHousesUsecase),
-        returnValue: _FakeGetPurchaseHousesUsecase_252(
+        returnValue: _FakeGetPurchaseHousesUsecase_253(
           this,
           Invocation.getter(#getPurchaseHousesUsecase),
         ),
-      ) as _i233.GetPurchaseHousesUsecase);
+      ) as _i234.GetPurchaseHousesUsecase);
   @override
-  _i234.GetRentalHousesUsecase get getRentalHousesUsecase =>
+  _i235.GetRentalHousesUsecase get getRentalHousesUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getRentalHousesUsecase),
-        returnValue: _FakeGetRentalHousesUsecase_253(
+        returnValue: _FakeGetRentalHousesUsecase_254(
           this,
           Invocation.getter(#getRentalHousesUsecase),
         ),
-      ) as _i234.GetRentalHousesUsecase);
+      ) as _i235.GetRentalHousesUsecase);
   @override
-  _i235.MoveIntoNewHouseUsecase get moveIntoNewHouseUsecase =>
+  _i236.MoveIntoNewHouseUsecase get moveIntoNewHouseUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#moveIntoNewHouseUsecase),
-        returnValue: _FakeMoveIntoNewHouseUsecase_254(
+        returnValue: _FakeMoveIntoNewHouseUsecase_255(
           this,
           Invocation.getter(#moveIntoNewHouseUsecase),
         ),
-      ) as _i235.MoveIntoNewHouseUsecase);
+      ) as _i236.MoveIntoNewHouseUsecase);
   @override
-  _i236.DeleteCurrentHomeUsecase get deleteCurrentHomeUsecase =>
+  _i237.DeleteCurrentHomeUsecase get deleteCurrentHomeUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#deleteCurrentHomeUsecase),
-        returnValue: _FakeDeleteCurrentHomeUsecase_255(
+        returnValue: _FakeDeleteCurrentHomeUsecase_256(
           this,
           Invocation.getter(#deleteCurrentHomeUsecase),
         ),
-      ) as _i236.DeleteCurrentHomeUsecase);
+      ) as _i237.DeleteCurrentHomeUsecase);
   @override
-  _i237.GetAllPeopleInAHouseUsecase get getAllPeopleInAHouseUsecase =>
+  _i238.GetAllPeopleInAHouseUsecase get getAllPeopleInAHouseUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getAllPeopleInAHouseUsecase),
-        returnValue: _FakeGetAllPeopleInAHouseUsecase_256(
+        returnValue: _FakeGetAllPeopleInAHouseUsecase_257(
           this,
           Invocation.getter(#getAllPeopleInAHouseUsecase),
         ),
-      ) as _i237.GetAllPeopleInAHouseUsecase);
+      ) as _i238.GetAllPeopleInAHouseUsecase);
   @override
-  _i238.GetCurrentHomeUsecase get getCurrentHomeUsecase => (super.noSuchMethod(
+  _i239.GetCurrentHomeUsecase get getCurrentHomeUsecase => (super.noSuchMethod(
         Invocation.getter(#getCurrentHomeUsecase),
-        returnValue: _FakeGetCurrentHomeUsecase_257(
+        returnValue: _FakeGetCurrentHomeUsecase_258(
           this,
           Invocation.getter(#getCurrentHomeUsecase),
         ),
-      ) as _i238.GetCurrentHomeUsecase);
+      ) as _i239.GetCurrentHomeUsecase);
   @override
-  _i239.SetCurrentHomeUsecase get setCurrentHomeUsecase => (super.noSuchMethod(
+  _i240.SetCurrentHomeUsecase get setCurrentHomeUsecase => (super.noSuchMethod(
         Invocation.getter(#setCurrentHomeUsecase),
-        returnValue: _FakeSetCurrentHomeUsecase_258(
+        returnValue: _FakeSetCurrentHomeUsecase_259(
           this,
           Invocation.getter(#setCurrentHomeUsecase),
         ),
-      ) as _i239.SetCurrentHomeUsecase);
+      ) as _i240.SetCurrentHomeUsecase);
   @override
-  _i240.WatchAllPeopleInAHouseUsecase get watchAllPeopleInAHouseUsecase =>
+  _i241.WatchAllPeopleInAHouseUsecase get watchAllPeopleInAHouseUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#watchAllPeopleInAHouseUsecase),
-        returnValue: _FakeWatchAllPeopleInAHouseUsecase_259(
+        returnValue: _FakeWatchAllPeopleInAHouseUsecase_260(
           this,
           Invocation.getter(#watchAllPeopleInAHouseUsecase),
         ),
-      ) as _i240.WatchAllPeopleInAHouseUsecase);
+      ) as _i241.WatchAllPeopleInAHouseUsecase);
   @override
-  _i241.WatchCurrentHomeUsecase get watchCurrentHomeUsecase =>
+  _i242.WatchCurrentHomeUsecase get watchCurrentHomeUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#watchCurrentHomeUsecase),
-        returnValue: _FakeWatchCurrentHomeUsecase_260(
+        returnValue: _FakeWatchCurrentHomeUsecase_261(
           this,
           Invocation.getter(#watchCurrentHomeUsecase),
         ),
-      ) as _i241.WatchCurrentHomeUsecase);
+      ) as _i242.WatchCurrentHomeUsecase);
 }

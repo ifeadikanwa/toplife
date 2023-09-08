@@ -1,5 +1,4 @@
-enum CarProblem {
-  noProblem("", 0),
+enum CarProblemType {
   sputteringEngine("Sputtering Engine", 0),
   alternatorFailure("Alternator Failure", 0),
   faultyFuse("Faulty Fuse", 0),
@@ -10,7 +9,7 @@ enum CarProblem {
   overheating("Overheating", 0),
   faultyOilPump("Faulty Oil Pump", 0);
 
-  const CarProblem(
+  const CarProblemType(
     this.fullName,
     this.basePrice,
   );

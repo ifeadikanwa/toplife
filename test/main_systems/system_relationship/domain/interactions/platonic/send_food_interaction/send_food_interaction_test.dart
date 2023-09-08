@@ -39,6 +39,7 @@ void main() {
         zodiacSign: "zodiacSign",
         hasDriversLicense: true,
         transportMode: "transportMode",
+        drivingMode: "drivingMode",
         hasFertilityIssues: false,
         onBirthControl: false,
         isSterile: false,

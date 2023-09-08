@@ -6,6 +6,8 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_item.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart';
+import 'package:toplife/main_systems/system_transportation/constants/transportation_default.dart';
+import 'package:toplife/main_systems/system_transportation/domain/model/travel_detail.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_land_travel_time_usecase.dart';
 
 final eventSectionViewModelProvider =
@@ -43,9 +45,12 @@ final eventSectionViewModelProvider =
         //get the travel time for this specific event
         final int travelTime = await getLandTravelTimeUsecase.execute(
           travellerPersonID: currentGame.currentPlayerID,
-          destinationCountryString: attendableEvent.person.currentCountry,
-          destinationStateString: attendableEvent.person.currentState,
-          destinationSettlementString: null,
+          travelDetail: TravelDetail(
+            destinationCountryString: attendableEvent.person.currentCountry,
+            destinationStateString: attendableEvent.person.currentState,
+            destinationSettlementString:
+                TransportationDefault.destinationSettlement.name,
+          ),
         );
 
         //add the event item to list

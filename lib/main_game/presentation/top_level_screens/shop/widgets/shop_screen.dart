@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/transportation/transportation_dependencies_providers.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
@@ -18,6 +19,7 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
+import 'package:toplife/main_systems/system_transportation/domain/model/travel_detail.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -211,6 +213,7 @@ class ShopScreen extends ConsumerWidget {
                   emotionalState: EmotionalState.normal.name,
                   zodiacSign: ZodiacSign.Libra.name,
                   transportMode: "bus",
+                  drivingMode: "normal",
                   hasDriversLicense: false,
                   hasFertilityIssues: false,
                   onBirthControl: false,
@@ -264,6 +267,113 @@ class ShopScreen extends ConsumerWidget {
                 //       override: true,
                 //       energy: 20,
                 //     );
+
+                // final Car car = await CarDaoImpl(db).createCar(
+                //   trucks.last.copyWith(
+                //     personId: 3,
+                //     maxConditionAtPurchase: 80,
+                //     quality: CarQuality.high.name,
+                //     percentageOfTravelTime: 30,
+                //     insuranceCost: 500,
+                //     currentlyDriving: true,
+                //   ),
+                // );
+
+                // final Stats? playerStat = await StatsDaoImpl(db).getStats(3);
+                // if (playerStat != null) {
+                //   await StatsDaoImpl(db).updateStats(playerStat.copyWith(
+                //     energy: 100,
+                //   ));
+                // }
+
+                // final Car? car = await CarDaoImpl(db).getCar(2);
+                // if (car != null) {
+                //   await CarDaoImpl(db).updateCar(
+                //     car.copyWith(fuelTank: 100),
+                //   );
+                // }
+
+                // final Person? person2 = await PersonDaoImpl(db).getPerson(3);
+
+                // if (person2 != null) {
+                //   await PersonDaoImpl(db).updatePerson(
+                //     person2.copyWith(
+                //       transportMode: TransportMode.private.name,
+                //       drivingMode: "highSpeed",
+                //     ),
+                //   );
+                // }
+
+                // if (context.mounted) {
+                // final result = await ref
+                //     .watch(transportationUsecasesProvider)
+                //     .landTravelUsecase
+                //     .execute(
+                //       context: context,
+                //       currentGameID: 1,
+                //       travellerPersonID: 1,
+                //       npcPassengersPersonIDs: [],
+                //       eventStartTimeInMinutes: 100,
+                //       travelType: TravelType.oneWay,
+                //       travelDetail: const TravelDetail(
+                //         destinationCountryString: "United States",
+                //         destinationStateString: "Michigan",
+                //         destinationSettlementString: "Village",
+                //       ),
+                //     );
+
+                // print(result);
+                // }
+
+                // final ActionDetail actionDetail = ActionDetail(
+                //   actionDuration: ActionDuration.untimed(durationInMinutes: 60),
+                //   affectedByStats: LowStats(stats: {
+                //     PersonStats.intellect,
+                //   }),
+                //   gameAction: GameAction.doCustomOnLowPerformance(
+                //     defaultPerformance: () async {
+                //       print("****RUNNING DEFAULT PERFORMANCE****");
+                //       return const ActionResult(
+                //         isSuccessful: false,
+                //         reportActionFail: ReportActionFail.lowStats,
+                //       );
+                //     },
+                //     lowPerformance: () async {
+                //       print("****RUNNING LOW PERFORMANCE****");
+
+                //       return const ActionResult(
+                //         isSuccessful: true,
+                //         reportActionFail: ReportActionFail.none,
+                //       );
+                //     },
+                //   ),
+                // );
+
+                const TravelDetail travelDetail = TravelDetail(
+                  destinationCountryString: "United States",
+                  destinationStateString: "Michigan",
+                  destinationSettlementString: "Village",
+                );
+
+                // await ref
+                //     .watch(gameUsecasesProvider)
+                //     .actionRunner
+                //     .performTwoWayTravelAction(
+                //       context: context,
+                //       landTravelUsecase: ref
+                //           .watch(transportationUsecasesProvider)
+                //           .landTravelUsecase,
+                //       actionDetail: actionDetail,
+                //       travelDetail: travelDetail,
+                //     );
+
+                await ref
+                    .watch(transportationUsecasesProvider)
+                    .getLandTravelTimeUsecase
+                    .execute(
+                      travellerPersonID: 3,
+                      travelDetail: travelDetail,
+                    );
               },
               child: const Text("Run"),
             ),

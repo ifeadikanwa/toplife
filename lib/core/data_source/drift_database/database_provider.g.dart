@@ -518,6 +518,12 @@ class $PersonTableTable extends PersonTable
   late final GeneratedColumn<String> transportMode = GeneratedColumn<String>(
       'transport_mode', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _drivingModeMeta =
+      const VerificationMeta('drivingMode');
+  @override
+  late final GeneratedColumn<String> drivingMode = GeneratedColumn<String>(
+      'driving_mode', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _hasFertilityIssuesMeta =
       const VerificationMeta('hasFertilityIssues');
   @override
@@ -597,6 +603,7 @@ class $PersonTableTable extends PersonTable
         zodiacSign,
         hasDriversLicense,
         transportMode,
+        drivingMode,
         hasFertilityIssues,
         onBirthControl,
         isSterile,
@@ -747,6 +754,14 @@ class $PersonTableTable extends PersonTable
     } else if (isInserting) {
       context.missing(_transportModeMeta);
     }
+    if (data.containsKey('driving_mode')) {
+      context.handle(
+          _drivingModeMeta,
+          drivingMode.isAcceptableOrUnknown(
+              data['driving_mode']!, _drivingModeMeta));
+    } else if (isInserting) {
+      context.missing(_drivingModeMeta);
+    }
     if (data.containsKey('has_fertility_issues')) {
       context.handle(
           _hasFertilityIssuesMeta,
@@ -828,6 +843,8 @@ class $PersonTableTable extends PersonTable
           DriftSqlType.bool, data['${effectivePrefix}has_drivers_license'])!,
       transportMode: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}transport_mode'])!,
+      drivingMode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}driving_mode'])!,
       hasFertilityIssues: attachedDatabase.typeMapping.read(
           DriftSqlType.bool, data['${effectivePrefix}has_fertility_issues'])!,
       onBirthControl: attachedDatabase.typeMapping
@@ -867,6 +884,7 @@ class Person extends DataClass implements Insertable<Person> {
   final String zodiacSign;
   final bool hasDriversLicense;
   final String transportMode;
+  final String drivingMode;
   final bool hasFertilityIssues;
   final bool onBirthControl;
   final bool isSterile;
@@ -892,6 +910,7 @@ class Person extends DataClass implements Insertable<Person> {
       required this.zodiacSign,
       required this.hasDriversLicense,
       required this.transportMode,
+      required this.drivingMode,
       required this.hasFertilityIssues,
       required this.onBirthControl,
       required this.isSterile,
@@ -919,6 +938,7 @@ class Person extends DataClass implements Insertable<Person> {
     map['zodiac_sign'] = Variable<String>(zodiacSign);
     map['has_drivers_license'] = Variable<bool>(hasDriversLicense);
     map['transport_mode'] = Variable<String>(transportMode);
+    map['driving_mode'] = Variable<String>(drivingMode);
     map['has_fertility_issues'] = Variable<bool>(hasFertilityIssues);
     map['on_birth_control'] = Variable<bool>(onBirthControl);
     map['is_sterile'] = Variable<bool>(isSterile);
@@ -948,6 +968,7 @@ class Person extends DataClass implements Insertable<Person> {
       zodiacSign: Value(zodiacSign),
       hasDriversLicense: Value(hasDriversLicense),
       transportMode: Value(transportMode),
+      drivingMode: Value(drivingMode),
       hasFertilityIssues: Value(hasFertilityIssues),
       onBirthControl: Value(onBirthControl),
       isSterile: Value(isSterile),
@@ -979,6 +1000,7 @@ class Person extends DataClass implements Insertable<Person> {
       zodiacSign: serializer.fromJson<String>(json['zodiacSign']),
       hasDriversLicense: serializer.fromJson<bool>(json['hasDriversLicense']),
       transportMode: serializer.fromJson<String>(json['transportMode']),
+      drivingMode: serializer.fromJson<String>(json['drivingMode']),
       hasFertilityIssues: serializer.fromJson<bool>(json['hasFertilityIssues']),
       onBirthControl: serializer.fromJson<bool>(json['onBirthControl']),
       isSterile: serializer.fromJson<bool>(json['isSterile']),
@@ -1009,6 +1031,7 @@ class Person extends DataClass implements Insertable<Person> {
       'zodiacSign': serializer.toJson<String>(zodiacSign),
       'hasDriversLicense': serializer.toJson<bool>(hasDriversLicense),
       'transportMode': serializer.toJson<String>(transportMode),
+      'drivingMode': serializer.toJson<String>(drivingMode),
       'hasFertilityIssues': serializer.toJson<bool>(hasFertilityIssues),
       'onBirthControl': serializer.toJson<bool>(onBirthControl),
       'isSterile': serializer.toJson<bool>(isSterile),
@@ -1037,6 +1060,7 @@ class Person extends DataClass implements Insertable<Person> {
           String? zodiacSign,
           bool? hasDriversLicense,
           String? transportMode,
+          String? drivingMode,
           bool? hasFertilityIssues,
           bool? onBirthControl,
           bool? isSterile,
@@ -1062,6 +1086,7 @@ class Person extends DataClass implements Insertable<Person> {
         zodiacSign: zodiacSign ?? this.zodiacSign,
         hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
         transportMode: transportMode ?? this.transportMode,
+        drivingMode: drivingMode ?? this.drivingMode,
         hasFertilityIssues: hasFertilityIssues ?? this.hasFertilityIssues,
         onBirthControl: onBirthControl ?? this.onBirthControl,
         isSterile: isSterile ?? this.isSterile,
@@ -1090,6 +1115,7 @@ class Person extends DataClass implements Insertable<Person> {
           ..write('zodiacSign: $zodiacSign, ')
           ..write('hasDriversLicense: $hasDriversLicense, ')
           ..write('transportMode: $transportMode, ')
+          ..write('drivingMode: $drivingMode, ')
           ..write('hasFertilityIssues: $hasFertilityIssues, ')
           ..write('onBirthControl: $onBirthControl, ')
           ..write('isSterile: $isSterile, ')
@@ -1120,6 +1146,7 @@ class Person extends DataClass implements Insertable<Person> {
         zodiacSign,
         hasDriversLicense,
         transportMode,
+        drivingMode,
         hasFertilityIssues,
         onBirthControl,
         isSterile,
@@ -1149,6 +1176,7 @@ class Person extends DataClass implements Insertable<Person> {
           other.zodiacSign == this.zodiacSign &&
           other.hasDriversLicense == this.hasDriversLicense &&
           other.transportMode == this.transportMode &&
+          other.drivingMode == this.drivingMode &&
           other.hasFertilityIssues == this.hasFertilityIssues &&
           other.onBirthControl == this.onBirthControl &&
           other.isSterile == this.isSterile &&
@@ -1176,6 +1204,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
   final Value<String> zodiacSign;
   final Value<bool> hasDriversLicense;
   final Value<String> transportMode;
+  final Value<String> drivingMode;
   final Value<bool> hasFertilityIssues;
   final Value<bool> onBirthControl;
   final Value<bool> isSterile;
@@ -1201,6 +1230,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     this.zodiacSign = const Value.absent(),
     this.hasDriversLicense = const Value.absent(),
     this.transportMode = const Value.absent(),
+    this.drivingMode = const Value.absent(),
     this.hasFertilityIssues = const Value.absent(),
     this.onBirthControl = const Value.absent(),
     this.isSterile = const Value.absent(),
@@ -1227,6 +1257,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     required String zodiacSign,
     required bool hasDriversLicense,
     required String transportMode,
+    required String drivingMode,
     required bool hasFertilityIssues,
     required bool onBirthControl,
     required bool isSterile,
@@ -1250,6 +1281,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
         zodiacSign = Value(zodiacSign),
         hasDriversLicense = Value(hasDriversLicense),
         transportMode = Value(transportMode),
+        drivingMode = Value(drivingMode),
         hasFertilityIssues = Value(hasFertilityIssues),
         onBirthControl = Value(onBirthControl),
         isSterile = Value(isSterile),
@@ -1275,6 +1307,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     Expression<String>? zodiacSign,
     Expression<bool>? hasDriversLicense,
     Expression<String>? transportMode,
+    Expression<String>? drivingMode,
     Expression<bool>? hasFertilityIssues,
     Expression<bool>? onBirthControl,
     Expression<bool>? isSterile,
@@ -1301,6 +1334,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       if (zodiacSign != null) 'zodiac_sign': zodiacSign,
       if (hasDriversLicense != null) 'has_drivers_license': hasDriversLicense,
       if (transportMode != null) 'transport_mode': transportMode,
+      if (drivingMode != null) 'driving_mode': drivingMode,
       if (hasFertilityIssues != null)
         'has_fertility_issues': hasFertilityIssues,
       if (onBirthControl != null) 'on_birth_control': onBirthControl,
@@ -1330,6 +1364,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       Value<String>? zodiacSign,
       Value<bool>? hasDriversLicense,
       Value<String>? transportMode,
+      Value<String>? drivingMode,
       Value<bool>? hasFertilityIssues,
       Value<bool>? onBirthControl,
       Value<bool>? isSterile,
@@ -1355,6 +1390,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
       zodiacSign: zodiacSign ?? this.zodiacSign,
       hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
       transportMode: transportMode ?? this.transportMode,
+      drivingMode: drivingMode ?? this.drivingMode,
       hasFertilityIssues: hasFertilityIssues ?? this.hasFertilityIssues,
       onBirthControl: onBirthControl ?? this.onBirthControl,
       isSterile: isSterile ?? this.isSterile,
@@ -1423,6 +1459,9 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
     if (transportMode.present) {
       map['transport_mode'] = Variable<String>(transportMode.value);
     }
+    if (drivingMode.present) {
+      map['driving_mode'] = Variable<String>(drivingMode.value);
+    }
     if (hasFertilityIssues.present) {
       map['has_fertility_issues'] = Variable<bool>(hasFertilityIssues.value);
     }
@@ -1463,6 +1502,7 @@ class PersonTableCompanion extends UpdateCompanion<Person> {
           ..write('zodiacSign: $zodiacSign, ')
           ..write('hasDriversLicense: $hasDriversLicense, ')
           ..write('transportMode: $transportMode, ')
+          ..write('drivingMode: $drivingMode, ')
           ..write('hasFertilityIssues: $hasFertilityIssues, ')
           ..write('onBirthControl: $onBirthControl, ')
           ..write('isSterile: $isSterile, ')
@@ -10077,12 +10117,6 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
   late final GeneratedColumn<int> fuelTank = GeneratedColumn<int>(
       'fuel_tank', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _problemMeta =
-      const VerificationMeta('problem');
-  @override
-  late final GeneratedColumn<String> problem = GeneratedColumn<String>(
-      'problem', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _useConditionMeta =
       const VerificationMeta('useCondition');
   @override
@@ -10154,7 +10188,6 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
         basePrice,
         dayOfPurchase,
         fuelTank,
-        problem,
         useCondition,
         maxConditionAtPurchase,
         fullyPaidFor,
@@ -10226,12 +10259,6 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
           fuelTank.isAcceptableOrUnknown(data['fuel_tank']!, _fuelTankMeta));
     } else if (isInserting) {
       context.missing(_fuelTankMeta);
-    }
-    if (data.containsKey('problem')) {
-      context.handle(_problemMeta,
-          problem.isAcceptableOrUnknown(data['problem']!, _problemMeta));
-    } else if (isInserting) {
-      context.missing(_problemMeta);
     }
     if (data.containsKey('use_condition')) {
       context.handle(
@@ -10315,8 +10342,6 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
           .read(DriftSqlType.int, data['${effectivePrefix}day_of_purchase'])!,
       fuelTank: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}fuel_tank'])!,
-      problem: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}problem'])!,
       useCondition: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}use_condition'])!,
       maxConditionAtPurchase: attachedDatabase.typeMapping.read(
@@ -10351,7 +10376,6 @@ class Car extends DataClass implements Insertable<Car> {
   final int basePrice;
   final int dayOfPurchase;
   final int fuelTank;
-  final String problem;
   final int useCondition;
   final int maxConditionAtPurchase;
   final bool fullyPaidFor;
@@ -10369,7 +10393,6 @@ class Car extends DataClass implements Insertable<Car> {
       required this.basePrice,
       required this.dayOfPurchase,
       required this.fuelTank,
-      required this.problem,
       required this.useCondition,
       required this.maxConditionAtPurchase,
       required this.fullyPaidFor,
@@ -10389,7 +10412,6 @@ class Car extends DataClass implements Insertable<Car> {
     map['base_price'] = Variable<int>(basePrice);
     map['day_of_purchase'] = Variable<int>(dayOfPurchase);
     map['fuel_tank'] = Variable<int>(fuelTank);
-    map['problem'] = Variable<String>(problem);
     map['use_condition'] = Variable<int>(useCondition);
     map['max_condition_at_purchase'] = Variable<int>(maxConditionAtPurchase);
     map['fully_paid_for'] = Variable<bool>(fullyPaidFor);
@@ -10411,7 +10433,6 @@ class Car extends DataClass implements Insertable<Car> {
       basePrice: Value(basePrice),
       dayOfPurchase: Value(dayOfPurchase),
       fuelTank: Value(fuelTank),
-      problem: Value(problem),
       useCondition: Value(useCondition),
       maxConditionAtPurchase: Value(maxConditionAtPurchase),
       fullyPaidFor: Value(fullyPaidFor),
@@ -10436,7 +10457,6 @@ class Car extends DataClass implements Insertable<Car> {
       basePrice: serializer.fromJson<int>(json['basePrice']),
       dayOfPurchase: serializer.fromJson<int>(json['dayOfPurchase']),
       fuelTank: serializer.fromJson<int>(json['fuelTank']),
-      problem: serializer.fromJson<String>(json['problem']),
       useCondition: serializer.fromJson<int>(json['useCondition']),
       maxConditionAtPurchase:
           serializer.fromJson<int>(json['maxConditionAtPurchase']),
@@ -10460,7 +10480,6 @@ class Car extends DataClass implements Insertable<Car> {
       'basePrice': serializer.toJson<int>(basePrice),
       'dayOfPurchase': serializer.toJson<int>(dayOfPurchase),
       'fuelTank': serializer.toJson<int>(fuelTank),
-      'problem': serializer.toJson<String>(problem),
       'useCondition': serializer.toJson<int>(useCondition),
       'maxConditionAtPurchase': serializer.toJson<int>(maxConditionAtPurchase),
       'fullyPaidFor': serializer.toJson<bool>(fullyPaidFor),
@@ -10481,7 +10500,6 @@ class Car extends DataClass implements Insertable<Car> {
           int? basePrice,
           int? dayOfPurchase,
           int? fuelTank,
-          String? problem,
           int? useCondition,
           int? maxConditionAtPurchase,
           bool? fullyPaidFor,
@@ -10500,7 +10518,6 @@ class Car extends DataClass implements Insertable<Car> {
         basePrice: basePrice ?? this.basePrice,
         dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
         fuelTank: fuelTank ?? this.fuelTank,
-        problem: problem ?? this.problem,
         useCondition: useCondition ?? this.useCondition,
         maxConditionAtPurchase:
             maxConditionAtPurchase ?? this.maxConditionAtPurchase,
@@ -10522,7 +10539,6 @@ class Car extends DataClass implements Insertable<Car> {
           ..write('basePrice: $basePrice, ')
           ..write('dayOfPurchase: $dayOfPurchase, ')
           ..write('fuelTank: $fuelTank, ')
-          ..write('problem: $problem, ')
           ..write('useCondition: $useCondition, ')
           ..write('maxConditionAtPurchase: $maxConditionAtPurchase, ')
           ..write('fullyPaidFor: $fullyPaidFor, ')
@@ -10545,7 +10561,6 @@ class Car extends DataClass implements Insertable<Car> {
       basePrice,
       dayOfPurchase,
       fuelTank,
-      problem,
       useCondition,
       maxConditionAtPurchase,
       fullyPaidFor,
@@ -10566,7 +10581,6 @@ class Car extends DataClass implements Insertable<Car> {
           other.basePrice == this.basePrice &&
           other.dayOfPurchase == this.dayOfPurchase &&
           other.fuelTank == this.fuelTank &&
-          other.problem == this.problem &&
           other.useCondition == this.useCondition &&
           other.maxConditionAtPurchase == this.maxConditionAtPurchase &&
           other.fullyPaidFor == this.fullyPaidFor &&
@@ -10586,7 +10600,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
   final Value<int> basePrice;
   final Value<int> dayOfPurchase;
   final Value<int> fuelTank;
-  final Value<String> problem;
   final Value<int> useCondition;
   final Value<int> maxConditionAtPurchase;
   final Value<bool> fullyPaidFor;
@@ -10604,7 +10617,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
     this.basePrice = const Value.absent(),
     this.dayOfPurchase = const Value.absent(),
     this.fuelTank = const Value.absent(),
-    this.problem = const Value.absent(),
     this.useCondition = const Value.absent(),
     this.maxConditionAtPurchase = const Value.absent(),
     this.fullyPaidFor = const Value.absent(),
@@ -10623,7 +10635,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
     required int basePrice,
     required int dayOfPurchase,
     required int fuelTank,
-    required String problem,
     required int useCondition,
     required int maxConditionAtPurchase,
     required bool fullyPaidFor,
@@ -10639,7 +10650,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
         basePrice = Value(basePrice),
         dayOfPurchase = Value(dayOfPurchase),
         fuelTank = Value(fuelTank),
-        problem = Value(problem),
         useCondition = Value(useCondition),
         maxConditionAtPurchase = Value(maxConditionAtPurchase),
         fullyPaidFor = Value(fullyPaidFor),
@@ -10657,7 +10667,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
     Expression<int>? basePrice,
     Expression<int>? dayOfPurchase,
     Expression<int>? fuelTank,
-    Expression<String>? problem,
     Expression<int>? useCondition,
     Expression<int>? maxConditionAtPurchase,
     Expression<bool>? fullyPaidFor,
@@ -10677,7 +10686,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
       if (basePrice != null) 'base_price': basePrice,
       if (dayOfPurchase != null) 'day_of_purchase': dayOfPurchase,
       if (fuelTank != null) 'fuel_tank': fuelTank,
-      if (problem != null) 'problem': problem,
       if (useCondition != null) 'use_condition': useCondition,
       if (maxConditionAtPurchase != null)
         'max_condition_at_purchase': maxConditionAtPurchase,
@@ -10699,7 +10707,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
       Value<int>? basePrice,
       Value<int>? dayOfPurchase,
       Value<int>? fuelTank,
-      Value<String>? problem,
       Value<int>? useCondition,
       Value<int>? maxConditionAtPurchase,
       Value<bool>? fullyPaidFor,
@@ -10718,7 +10725,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
       basePrice: basePrice ?? this.basePrice,
       dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
       fuelTank: fuelTank ?? this.fuelTank,
-      problem: problem ?? this.problem,
       useCondition: useCondition ?? this.useCondition,
       maxConditionAtPurchase:
           maxConditionAtPurchase ?? this.maxConditionAtPurchase,
@@ -10761,9 +10767,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
     if (fuelTank.present) {
       map['fuel_tank'] = Variable<int>(fuelTank.value);
     }
-    if (problem.present) {
-      map['problem'] = Variable<String>(problem.value);
-    }
     if (useCondition.present) {
       map['use_condition'] = Variable<int>(useCondition.value);
     }
@@ -10801,7 +10804,6 @@ class CarTableCompanion extends UpdateCompanion<Car> {
           ..write('basePrice: $basePrice, ')
           ..write('dayOfPurchase: $dayOfPurchase, ')
           ..write('fuelTank: $fuelTank, ')
-          ..write('problem: $problem, ')
           ..write('useCondition: $useCondition, ')
           ..write('maxConditionAtPurchase: $maxConditionAtPurchase, ')
           ..write('fullyPaidFor: $fullyPaidFor, ')
@@ -10809,6 +10811,395 @@ class CarTableCompanion extends UpdateCompanion<Car> {
           ..write('isInsured: $isInsured, ')
           ..write('insuranceCost: $insuranceCost, ')
           ..write('insuranceType: $insuranceType')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CarProblemTableTable extends CarProblemTable
+    with TableInfo<$CarProblemTableTable, CarProblem> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CarProblemTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _carIdMeta = const VerificationMeta('carId');
+  @override
+  late final GeneratedColumn<int> carId = GeneratedColumn<int>(
+      'car_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES car (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _basePriceMeta =
+      const VerificationMeta('basePrice');
+  @override
+  late final GeneratedColumn<int> basePrice = GeneratedColumn<int>(
+      'base_price', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _originDayMeta =
+      const VerificationMeta('originDay');
+  @override
+  late final GeneratedColumn<int> originDay = GeneratedColumn<int>(
+      'origin_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fixDayMeta = const VerificationMeta('fixDay');
+  @override
+  late final GeneratedColumn<int> fixDay = GeneratedColumn<int>(
+      'fix_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _isRevealedMeta =
+      const VerificationMeta('isRevealed');
+  @override
+  late final GeneratedColumn<bool> isRevealed =
+      GeneratedColumn<bool>('is_revealed', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_revealed" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  static const VerificationMeta _isResolvedMeta =
+      const VerificationMeta('isResolved');
+  @override
+  late final GeneratedColumn<bool> isResolved =
+      GeneratedColumn<bool>('is_resolved', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
+            SqlDialect.sqlite: 'CHECK ("is_resolved" IN (0, 1))',
+            SqlDialect.mysql: '',
+            SqlDialect.postgres: '',
+          }));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [carId, type, basePrice, originDay, fixDay, isRevealed, isResolved];
+  @override
+  String get aliasedName => _alias ?? 'car_problem';
+  @override
+  String get actualTableName => 'car_problem';
+  @override
+  VerificationContext validateIntegrity(Insertable<CarProblem> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('car_id')) {
+      context.handle(
+          _carIdMeta, carId.isAcceptableOrUnknown(data['car_id']!, _carIdMeta));
+    } else if (isInserting) {
+      context.missing(_carIdMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('base_price')) {
+      context.handle(_basePriceMeta,
+          basePrice.isAcceptableOrUnknown(data['base_price']!, _basePriceMeta));
+    } else if (isInserting) {
+      context.missing(_basePriceMeta);
+    }
+    if (data.containsKey('origin_day')) {
+      context.handle(_originDayMeta,
+          originDay.isAcceptableOrUnknown(data['origin_day']!, _originDayMeta));
+    } else if (isInserting) {
+      context.missing(_originDayMeta);
+    }
+    if (data.containsKey('fix_day')) {
+      context.handle(_fixDayMeta,
+          fixDay.isAcceptableOrUnknown(data['fix_day']!, _fixDayMeta));
+    } else if (isInserting) {
+      context.missing(_fixDayMeta);
+    }
+    if (data.containsKey('is_revealed')) {
+      context.handle(
+          _isRevealedMeta,
+          isRevealed.isAcceptableOrUnknown(
+              data['is_revealed']!, _isRevealedMeta));
+    } else if (isInserting) {
+      context.missing(_isRevealedMeta);
+    }
+    if (data.containsKey('is_resolved')) {
+      context.handle(
+          _isResolvedMeta,
+          isResolved.isAcceptableOrUnknown(
+              data['is_resolved']!, _isResolvedMeta));
+    } else if (isInserting) {
+      context.missing(_isResolvedMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {carId, type};
+  @override
+  CarProblem map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CarProblem(
+      carId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}car_id'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      basePrice: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}base_price'])!,
+      originDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}origin_day'])!,
+      fixDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fix_day'])!,
+      isRevealed: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_revealed'])!,
+      isResolved: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_resolved'])!,
+    );
+  }
+
+  @override
+  $CarProblemTableTable createAlias(String alias) {
+    return $CarProblemTableTable(attachedDatabase, alias);
+  }
+}
+
+class CarProblem extends DataClass implements Insertable<CarProblem> {
+  final int carId;
+  final String type;
+  final int basePrice;
+  final int originDay;
+  final int fixDay;
+  final bool isRevealed;
+  final bool isResolved;
+  const CarProblem(
+      {required this.carId,
+      required this.type,
+      required this.basePrice,
+      required this.originDay,
+      required this.fixDay,
+      required this.isRevealed,
+      required this.isResolved});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['car_id'] = Variable<int>(carId);
+    map['type'] = Variable<String>(type);
+    map['base_price'] = Variable<int>(basePrice);
+    map['origin_day'] = Variable<int>(originDay);
+    map['fix_day'] = Variable<int>(fixDay);
+    map['is_revealed'] = Variable<bool>(isRevealed);
+    map['is_resolved'] = Variable<bool>(isResolved);
+    return map;
+  }
+
+  CarProblemTableCompanion toCompanion(bool nullToAbsent) {
+    return CarProblemTableCompanion(
+      carId: Value(carId),
+      type: Value(type),
+      basePrice: Value(basePrice),
+      originDay: Value(originDay),
+      fixDay: Value(fixDay),
+      isRevealed: Value(isRevealed),
+      isResolved: Value(isResolved),
+    );
+  }
+
+  factory CarProblem.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CarProblem(
+      carId: serializer.fromJson<int>(json['carId']),
+      type: serializer.fromJson<String>(json['type']),
+      basePrice: serializer.fromJson<int>(json['basePrice']),
+      originDay: serializer.fromJson<int>(json['originDay']),
+      fixDay: serializer.fromJson<int>(json['fixDay']),
+      isRevealed: serializer.fromJson<bool>(json['isRevealed']),
+      isResolved: serializer.fromJson<bool>(json['isResolved']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'carId': serializer.toJson<int>(carId),
+      'type': serializer.toJson<String>(type),
+      'basePrice': serializer.toJson<int>(basePrice),
+      'originDay': serializer.toJson<int>(originDay),
+      'fixDay': serializer.toJson<int>(fixDay),
+      'isRevealed': serializer.toJson<bool>(isRevealed),
+      'isResolved': serializer.toJson<bool>(isResolved),
+    };
+  }
+
+  CarProblem copyWith(
+          {int? carId,
+          String? type,
+          int? basePrice,
+          int? originDay,
+          int? fixDay,
+          bool? isRevealed,
+          bool? isResolved}) =>
+      CarProblem(
+        carId: carId ?? this.carId,
+        type: type ?? this.type,
+        basePrice: basePrice ?? this.basePrice,
+        originDay: originDay ?? this.originDay,
+        fixDay: fixDay ?? this.fixDay,
+        isRevealed: isRevealed ?? this.isRevealed,
+        isResolved: isResolved ?? this.isResolved,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('CarProblem(')
+          ..write('carId: $carId, ')
+          ..write('type: $type, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('originDay: $originDay, ')
+          ..write('fixDay: $fixDay, ')
+          ..write('isRevealed: $isRevealed, ')
+          ..write('isResolved: $isResolved')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      carId, type, basePrice, originDay, fixDay, isRevealed, isResolved);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CarProblem &&
+          other.carId == this.carId &&
+          other.type == this.type &&
+          other.basePrice == this.basePrice &&
+          other.originDay == this.originDay &&
+          other.fixDay == this.fixDay &&
+          other.isRevealed == this.isRevealed &&
+          other.isResolved == this.isResolved);
+}
+
+class CarProblemTableCompanion extends UpdateCompanion<CarProblem> {
+  final Value<int> carId;
+  final Value<String> type;
+  final Value<int> basePrice;
+  final Value<int> originDay;
+  final Value<int> fixDay;
+  final Value<bool> isRevealed;
+  final Value<bool> isResolved;
+  final Value<int> rowid;
+  const CarProblemTableCompanion({
+    this.carId = const Value.absent(),
+    this.type = const Value.absent(),
+    this.basePrice = const Value.absent(),
+    this.originDay = const Value.absent(),
+    this.fixDay = const Value.absent(),
+    this.isRevealed = const Value.absent(),
+    this.isResolved = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CarProblemTableCompanion.insert({
+    required int carId,
+    required String type,
+    required int basePrice,
+    required int originDay,
+    required int fixDay,
+    required bool isRevealed,
+    required bool isResolved,
+    this.rowid = const Value.absent(),
+  })  : carId = Value(carId),
+        type = Value(type),
+        basePrice = Value(basePrice),
+        originDay = Value(originDay),
+        fixDay = Value(fixDay),
+        isRevealed = Value(isRevealed),
+        isResolved = Value(isResolved);
+  static Insertable<CarProblem> custom({
+    Expression<int>? carId,
+    Expression<String>? type,
+    Expression<int>? basePrice,
+    Expression<int>? originDay,
+    Expression<int>? fixDay,
+    Expression<bool>? isRevealed,
+    Expression<bool>? isResolved,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (carId != null) 'car_id': carId,
+      if (type != null) 'type': type,
+      if (basePrice != null) 'base_price': basePrice,
+      if (originDay != null) 'origin_day': originDay,
+      if (fixDay != null) 'fix_day': fixDay,
+      if (isRevealed != null) 'is_revealed': isRevealed,
+      if (isResolved != null) 'is_resolved': isResolved,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CarProblemTableCompanion copyWith(
+      {Value<int>? carId,
+      Value<String>? type,
+      Value<int>? basePrice,
+      Value<int>? originDay,
+      Value<int>? fixDay,
+      Value<bool>? isRevealed,
+      Value<bool>? isResolved,
+      Value<int>? rowid}) {
+    return CarProblemTableCompanion(
+      carId: carId ?? this.carId,
+      type: type ?? this.type,
+      basePrice: basePrice ?? this.basePrice,
+      originDay: originDay ?? this.originDay,
+      fixDay: fixDay ?? this.fixDay,
+      isRevealed: isRevealed ?? this.isRevealed,
+      isResolved: isResolved ?? this.isResolved,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (carId.present) {
+      map['car_id'] = Variable<int>(carId.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (basePrice.present) {
+      map['base_price'] = Variable<int>(basePrice.value);
+    }
+    if (originDay.present) {
+      map['origin_day'] = Variable<int>(originDay.value);
+    }
+    if (fixDay.present) {
+      map['fix_day'] = Variable<int>(fixDay.value);
+    }
+    if (isRevealed.present) {
+      map['is_revealed'] = Variable<bool>(isRevealed.value);
+    }
+    if (isResolved.present) {
+      map['is_resolved'] = Variable<bool>(isResolved.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CarProblemTableCompanion(')
+          ..write('carId: $carId, ')
+          ..write('type: $type, ')
+          ..write('basePrice: $basePrice, ')
+          ..write('originDay: $originDay, ')
+          ..write('fixDay: $fixDay, ')
+          ..write('isRevealed: $isRevealed, ')
+          ..write('isResolved: $isResolved, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -19035,6 +19426,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $SiblingTableTable siblingTable = $SiblingTableTable(this);
   late final $EventTableTable eventTable = $EventTableTable(this);
   late final $CarTableTable carTable = $CarTableTable(this);
+  late final $CarProblemTableTable carProblemTable =
+      $CarProblemTableTable(this);
   late final $FoodTableTable foodTable = $FoodTableTable(this);
   late final $FridgeFoodTableTable fridgeFoodTable =
       $FridgeFoodTableTable(this);
@@ -19094,6 +19487,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       SiblingDaoImpl(this as DatabaseProvider);
   late final EventDaoImpl eventDaoImpl = EventDaoImpl(this as DatabaseProvider);
   late final CarDaoImpl carDaoImpl = CarDaoImpl(this as DatabaseProvider);
+  late final CarProblemDaoImpl carProblemDaoImpl =
+      CarProblemDaoImpl(this as DatabaseProvider);
   late final FoodDaoImpl foodDaoImpl = FoodDaoImpl(this as DatabaseProvider);
   late final FridgeFoodDaoImpl fridgeFoodDaoImpl =
       FridgeFoodDaoImpl(this as DatabaseProvider);
@@ -19148,6 +19543,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         siblingTable,
         eventTable,
         carTable,
+        carProblemTable,
         foodTable,
         fridgeFoodTable,
         houseTable,
@@ -19600,6 +19996,20 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('car', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('car',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('car_problem', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('car',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('car_problem', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(

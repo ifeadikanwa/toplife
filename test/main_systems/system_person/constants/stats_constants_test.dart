@@ -62,6 +62,13 @@ void main() {
     );
 
     test(
+      "lowStatThreshold is 20",
+      () {
+        expect(StatsConstants.lowStatThreshold, 20);
+      },
+    );
+
+    test(
       "percentageChanceToOversleep is 10",
       () {
         expect(StatsConstants.percentageChanceToOversleep, 10);
@@ -227,7 +234,7 @@ void main() {
       },
     );
 
-     test(
+    test(
       "getValidAlcoholToleranceStatsValue return a number in the range 0 - 100",
       () {
         expect(

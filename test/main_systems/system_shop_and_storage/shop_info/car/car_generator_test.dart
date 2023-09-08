@@ -233,7 +233,6 @@ void main() {
             basePrice: 300,
             dayOfPurchase: 0,
             fuelTank: 100,
-            problem: "problem",
             useCondition: 100,
             maxConditionAtPurchase: 100,
             currentlyDriving: false,

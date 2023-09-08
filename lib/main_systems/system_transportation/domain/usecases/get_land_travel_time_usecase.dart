@@ -3,8 +3,13 @@ import 'package:toplife/main_systems/system_shop_and_storage/constants/settlemen
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_settlement_enum.dart';
 import 'package:toplife/main_systems/system_transportation/constants/default_road_travel_time.dart';
+import 'package:toplife/main_systems/system_transportation/constants/driving_mode.dart';
+import 'package:toplife/main_systems/system_transportation/constants/transport_mode.dart';
 import 'package:toplife/main_systems/system_transportation/constants/transportation_default.dart';
+import 'package:toplife/main_systems/system_transportation/domain/model/travel_detail.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_current_transportation_usecase.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/get_driving_mode_usecase.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/get_transport_mode_usecase.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_traveller_settlement.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_travel_time_between_two_settlements_usecase.dart';
 
@@ -14,19 +19,21 @@ class GetLandTravelTimeUsecase {
   final PersonUsecases _personUsecases;
   final GetTravelTimeBetweenTwoSettlementsUsecase
       _getTravelTimeBetweenTwoSettlementsUsecase;
+  final GetTransportModeUsecase _getTransportModeUsecase;
+  final GetDrivingModeUsecase _getDrivingModeUsecase;
 
   const GetLandTravelTimeUsecase(
     this._getCurrentTransportationUsecase,
     this._getTransportSettlement,
     this._personUsecases,
     this._getTravelTimeBetweenTwoSettlementsUsecase,
+    this._getTransportModeUsecase,
+    this._getDrivingModeUsecase,
   );
 
   Future<int> execute({
     required int travellerPersonID,
-    required String destinationCountryString,
-    required String destinationStateString,
-    required String? destinationSettlementString,
+    required TravelDetail travelDetail,
   }) async {
     final Person? travellerPerson = await _personUsecases.getPersonUsecase
         .execute(personID: travellerPersonID);
@@ -45,23 +52,21 @@ class GetLandTravelTimeUsecase {
 
       //get destination settlement enum
       final Settlement destinationSettlementEnum =
-          (destinationSettlementString == null)
-              ? TransportationDefault.destinationSettlement
-              : getSettlementEnum(destinationSettlementString) ??
-                  TransportationDefault.destinationSettlement;
+          getSettlementEnum(travelDetail.destinationSettlementString) ??
+              TransportationDefault.destinationSettlement;
 
       //-Get Default Time
       late final int defaultTravelTime;
 
       //different country travel
-      if (travellersCountryString != destinationCountryString) {
+      if (travellersCountryString != travelDetail.destinationCountryString) {
         //land travel is not possible
         //end here
         return DefaultRoadTravelTime.notPossibleTimeInMinutes;
       }
 
       //different state travel
-      else if (travellerStateString != destinationStateString) {
+      else if (travellerStateString != travelDetail.destinationStateString) {
         //default travel time is:
         //time it takes to go from Travellers Settlement -> CITY + time it takes to get from Travellers Settlement -> Destination Settlement
         final int travellerSettlementToCity =
@@ -97,12 +102,37 @@ class GetLandTravelTimeUsecase {
           await _getCurrentTransportationUsecase.execute(
         personID: travellerPersonID,
       );
+      //get transport mode
+      final TransportMode transportMode =
+          await _getTransportModeUsecase.execute(
+        personID: travellerPersonID,
+      );
+      //get driving mode
+      final DrivingMode drivingMode = await _getDrivingModeUsecase.execute(
+        personID: travellerPersonID,
+      );
 
-      //travel time = (percentageOfTravelTime/100) * defautlt travel time
-      final travelTime = (currentTransportation.percentageOfTravelTime / 100) *
-          defaultTravelTime;
+      //transport travel time = (percentageOfTravelTime/100) * defautlt travel time
+      final double transportSpeedAdjustedTravelTime =
+          (currentTransportation.percentageOfTravelTime / 100) *
+              defaultTravelTime;
 
-      return travelTime.round();
+      //we need to apply driving mode effect if the player is driving their own car
+      late final double finalTransportTravelTime;
+
+      //add driving mode effect if the player is driving
+      if (transportMode == TransportMode.private) {
+        // = default time + (travel effect % of default time)
+        finalTransportTravelTime = (transportSpeedAdjustedTravelTime +
+            (transportSpeedAdjustedTravelTime *
+                (drivingMode.travelTimeEffect / 100)));
+      }
+      //no effects are added if the player isnt driving
+      else {
+        finalTransportTravelTime = transportSpeedAdjustedTravelTime;
+      }
+
+      return finalTransportTravelTime.round();
     }
 
     //traveller person is not vaild

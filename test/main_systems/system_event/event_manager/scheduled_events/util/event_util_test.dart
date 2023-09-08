@@ -24,6 +24,7 @@ void main() {
       zodiacSign: "sign",
       hasDriversLicense: true,
       transportMode: "bus",
+      drivingMode: "drivingMode",
       hasFertilityIssues: false,
       onBirthControl: false,
       isSterile: false,

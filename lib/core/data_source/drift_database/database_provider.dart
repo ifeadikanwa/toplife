@@ -61,8 +61,10 @@ import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_project.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_problem_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/current_home_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car_problem.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/current_home.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
@@ -106,6 +108,7 @@ part 'database_provider.g.dart';
     SiblingTable,
     EventTable,
     CarTable,
+    CarProblemTable,
     FoodTable,
     FridgeFoodTable,
     HouseTable,
@@ -145,6 +148,7 @@ part 'database_provider.g.dart';
     SiblingDaoImpl,
     EventDaoImpl,
     CarDaoImpl,
+    CarProblemDaoImpl,
     FoodDaoImpl,
     FridgeFoodDaoImpl,
     HouseDaoImpl,

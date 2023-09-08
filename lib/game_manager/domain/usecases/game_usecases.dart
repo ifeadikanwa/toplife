@@ -1,3 +1,4 @@
+import 'package:toplife/game_manager/action_runner/action_runner.dart';
 import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 import 'package:toplife/game_manager/domain/usecases/change_current_player_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/control_game/decay_and_alter_player_stats_usecase.dart';
@@ -33,6 +34,13 @@ class GameUsecases {
         _personUsecases = personUsecases,
         _relationshipUsecases = relationshipUsecases,
         _ageUsecases = ageUsecases;
+
+  ActionRunner get actionRunner => ActionRunner(
+        moveTimeForwardUsecase,
+        getGameUsecase,
+        getCurrentGameAndPlayerUsecase,
+        _personUsecases,
+      );
 
   CreateNewGameUsecase get createGameUsecase => CreateNewGameUsecase(
         gameRepository: _gameRepository,
