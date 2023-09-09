@@ -4,6 +4,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/person_usecas
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/shop_and_storage_repositories.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/add_purchased_car_to_storage_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_is_not_dead_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/check_if_car_has_problems_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/create_car_problem_usecase.dart';
@@ -129,10 +130,15 @@ class ShopAndStorageUsecases {
   UpdateCarUsecase get updateCarUsecase => UpdateCarUsecase(
         _shopAndStorageRepositories.carRepositoryImpl,
       );
-
+  AddPurchasedCarToStorageUsecase get addPurchasedCarToStorageUsecase =>
+      AddPurchasedCarToStorageUsecase(
+    _shopAndStorageRepositories.carRepositoryImpl,
+    createCarProblemUsecase,
+  );
+  
   PurchaseCarFullyPaidUsecase get purchaseCarFullyPaidUsecase =>
       PurchaseCarFullyPaidUsecase(
-        _shopAndStorageRepositories.carRepositoryImpl,
+        addPurchasedCarToStorageUsecase,
         _personUsecases,
         _journalUsecases,
         _gameUsecases,
@@ -262,7 +268,7 @@ class ShopAndStorageUsecases {
 
   PurchaseCarWithLoanUsecase get purchaseCarWithLoanUsecase =>
       PurchaseCarWithLoanUsecase(
-        _shopAndStorageRepositories.carRepositoryImpl,
+        addPurchasedCarToStorageUsecase,
         _personUsecases,
         _journalUsecases,
         _gameUsecases,

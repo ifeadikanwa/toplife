@@ -9,18 +9,18 @@ import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/car_repository.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/add_purchased_car_to_storage_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
 
 class PurchaseCarFullyPaidUsecase {
-  final CarRepository _carRepository;
+  final AddPurchasedCarToStorageUsecase _addPurchasedCarToStorageUsecase;
   final PersonUsecases _personUsecases;
   final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
   final RelationshipUsecases _relationshipUsecases;
 
   const PurchaseCarFullyPaidUsecase(
-    this._carRepository,
+    this._addPurchasedCarToStorageUsecase,
     this._personUsecases,
     this._journalUsecases,
     this._gameUsecases,
@@ -57,12 +57,11 @@ class PurchaseCarFullyPaidUsecase {
 
     //add to storage if successful
     if (paymentSuccessful && currentGame != null) {
-      await _carRepository.createCar(
-        car.copyWith(
-          personId: personID,
-          dayOfPurchase: currentGame.currentDay,
-          fullyPaidFor: true,
-        ),
+      await _addPurchasedCarToStorageUsecase.execute(
+        car: car,
+        personID: personID,
+        dayOfPurchase: currentGame.currentDay,
+        fullyPaidFor: true,
       );
 
       journalEntry = ShopResultConstants.purchaseSuccessfulJournalEntry(

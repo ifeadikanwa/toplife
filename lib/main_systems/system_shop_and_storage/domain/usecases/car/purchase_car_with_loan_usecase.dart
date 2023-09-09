@@ -10,11 +10,11 @@ import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usec
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/car_repository.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/add_purchased_car_to_storage_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
 
 class PurchaseCarWithLoanUsecase {
-  final CarRepository _carRepository;
+  final AddPurchasedCarToStorageUsecase _addPurchasedCarToStorageUsecase;
   final PersonUsecases _personUsecases;
   final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
@@ -22,7 +22,7 @@ class PurchaseCarWithLoanUsecase {
   final RelationshipUsecases _relationshipUsecases;
 
   const PurchaseCarWithLoanUsecase(
-    this._carRepository,
+    this._addPurchasedCarToStorageUsecase,
     this._personUsecases,
     this._journalUsecases,
     this._gameUsecases,
@@ -108,12 +108,11 @@ class PurchaseCarWithLoanUsecase {
           );
 
           //add car to storage
-          final Car createdCar = await _carRepository.createCar(
-            car.copyWith(
-              personId: personID,
-              dayOfPurchase: currentGame.currentDay,
-              fullyPaidFor: false,
-            ),
+          final Car createdCar = await _addPurchasedCarToStorageUsecase.execute(
+            car: car,
+            personID: personID,
+            dayOfPurchase: currentGame.currentDay,
+            fullyPaidFor: false,
           );
 
           //calculate the loan amount
