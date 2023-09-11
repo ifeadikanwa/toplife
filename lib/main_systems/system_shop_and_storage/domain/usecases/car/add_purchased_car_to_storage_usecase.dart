@@ -23,11 +23,27 @@ class AddPurchasedCarToStorageUsecase {
     required int dayOfPurchase,
     required bool fullyPaidFor,
   }) async {
-    //add car to storage with important information added
+    //-Depreciation fluctuator
+    //pick a random number between 0 - 5 to fluctuate car depreciation
+    final int chosenFluctuator = Random().nextInt(6);
+
+    //-Last known Condition
+    //this is equal to the condition at purchase
+    final int lastKnownCondition = car.maxConditionAtPurchase;
+
+    //-Last know maintenance day
+    //this is going to be the day of purchase
+    final int lastKnownMaintenanceDay = dayOfPurchase;
+
+    //-Add car
+    //add car to storage with overrided important information
     final Car purchasedCar = await _carRepository.createCar(
       car.copyWith(
         personId: personID,
         dayOfPurchase: dayOfPurchase,
+        depreciationFluctuator: chosenFluctuator,
+        lastKnownCondition: lastKnownCondition,
+        lastMaintenanceDay: lastKnownMaintenanceDay,
         fullyPaidFor: fullyPaidFor,
       ),
     );

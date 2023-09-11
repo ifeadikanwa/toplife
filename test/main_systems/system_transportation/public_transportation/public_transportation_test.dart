@@ -40,12 +40,6 @@ void main() {
         );
 
         expect(
-          PublicTransportation.bus.useCondition,
-          100,
-          reason: "Cause: use condition",
-        );
-
-        expect(
           PublicTransportation.bus.maxConditionAtPurchase,
           100,
           reason: "Cause: max condition",
@@ -87,12 +81,6 @@ void main() {
         );
 
         expect(
-          PublicTransportation.taxi.useCondition,
-          100,
-          reason: "Cause: use condition",
-        );
-
-        expect(
           PublicTransportation.taxi.maxConditionAtPurchase,
           100,
           reason: "Cause: max condition",
@@ -131,12 +119,6 @@ void main() {
           PublicTransportation.train.basePrice,
           10,
           reason: "Cause: base price",
-        );
-
-        expect(
-          PublicTransportation.train.useCondition,
-          100,
-          reason: "Cause: use condition",
         );
 
         expect(

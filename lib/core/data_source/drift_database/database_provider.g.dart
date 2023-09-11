@@ -10117,17 +10117,29 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
   late final GeneratedColumn<int> fuelTank = GeneratedColumn<int>(
       'fuel_tank', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _useConditionMeta =
-      const VerificationMeta('useCondition');
-  @override
-  late final GeneratedColumn<int> useCondition = GeneratedColumn<int>(
-      'use_condition', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _maxConditionAtPurchaseMeta =
       const VerificationMeta('maxConditionAtPurchase');
   @override
   late final GeneratedColumn<int> maxConditionAtPurchase = GeneratedColumn<int>(
       'max_condition_at_purchase', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _depreciationFluctuatorMeta =
+      const VerificationMeta('depreciationFluctuator');
+  @override
+  late final GeneratedColumn<int> depreciationFluctuator = GeneratedColumn<int>(
+      'depreciation_fluctuator', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lastKnownConditionMeta =
+      const VerificationMeta('lastKnownCondition');
+  @override
+  late final GeneratedColumn<int> lastKnownCondition = GeneratedColumn<int>(
+      'last_known_condition', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lastMaintenanceDayMeta =
+      const VerificationMeta('lastMaintenanceDay');
+  @override
+  late final GeneratedColumn<int> lastMaintenanceDay = GeneratedColumn<int>(
+      'last_maintenance_day', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _fullyPaidForMeta =
       const VerificationMeta('fullyPaidFor');
@@ -10188,8 +10200,10 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
         basePrice,
         dayOfPurchase,
         fuelTank,
-        useCondition,
         maxConditionAtPurchase,
+        depreciationFluctuator,
+        lastKnownCondition,
+        lastMaintenanceDay,
         fullyPaidFor,
         currentlyDriving,
         isInsured,
@@ -10260,14 +10274,6 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
     } else if (isInserting) {
       context.missing(_fuelTankMeta);
     }
-    if (data.containsKey('use_condition')) {
-      context.handle(
-          _useConditionMeta,
-          useCondition.isAcceptableOrUnknown(
-              data['use_condition']!, _useConditionMeta));
-    } else if (isInserting) {
-      context.missing(_useConditionMeta);
-    }
     if (data.containsKey('max_condition_at_purchase')) {
       context.handle(
           _maxConditionAtPurchaseMeta,
@@ -10275,6 +10281,30 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
               data['max_condition_at_purchase']!, _maxConditionAtPurchaseMeta));
     } else if (isInserting) {
       context.missing(_maxConditionAtPurchaseMeta);
+    }
+    if (data.containsKey('depreciation_fluctuator')) {
+      context.handle(
+          _depreciationFluctuatorMeta,
+          depreciationFluctuator.isAcceptableOrUnknown(
+              data['depreciation_fluctuator']!, _depreciationFluctuatorMeta));
+    } else if (isInserting) {
+      context.missing(_depreciationFluctuatorMeta);
+    }
+    if (data.containsKey('last_known_condition')) {
+      context.handle(
+          _lastKnownConditionMeta,
+          lastKnownCondition.isAcceptableOrUnknown(
+              data['last_known_condition']!, _lastKnownConditionMeta));
+    } else if (isInserting) {
+      context.missing(_lastKnownConditionMeta);
+    }
+    if (data.containsKey('last_maintenance_day')) {
+      context.handle(
+          _lastMaintenanceDayMeta,
+          lastMaintenanceDay.isAcceptableOrUnknown(
+              data['last_maintenance_day']!, _lastMaintenanceDayMeta));
+    } else if (isInserting) {
+      context.missing(_lastMaintenanceDayMeta);
     }
     if (data.containsKey('fully_paid_for')) {
       context.handle(
@@ -10342,11 +10372,15 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
           .read(DriftSqlType.int, data['${effectivePrefix}day_of_purchase'])!,
       fuelTank: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}fuel_tank'])!,
-      useCondition: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}use_condition'])!,
       maxConditionAtPurchase: attachedDatabase.typeMapping.read(
           DriftSqlType.int,
           data['${effectivePrefix}max_condition_at_purchase'])!,
+      depreciationFluctuator: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}depreciation_fluctuator'])!,
+      lastKnownCondition: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}last_known_condition'])!,
+      lastMaintenanceDay: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}last_maintenance_day'])!,
       fullyPaidFor: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}fully_paid_for'])!,
       currentlyDriving: attachedDatabase.typeMapping.read(
@@ -10376,8 +10410,10 @@ class Car extends DataClass implements Insertable<Car> {
   final int basePrice;
   final int dayOfPurchase;
   final int fuelTank;
-  final int useCondition;
   final int maxConditionAtPurchase;
+  final int depreciationFluctuator;
+  final int lastKnownCondition;
+  final int lastMaintenanceDay;
   final bool fullyPaidFor;
   final bool currentlyDriving;
   final bool isInsured;
@@ -10393,8 +10429,10 @@ class Car extends DataClass implements Insertable<Car> {
       required this.basePrice,
       required this.dayOfPurchase,
       required this.fuelTank,
-      required this.useCondition,
       required this.maxConditionAtPurchase,
+      required this.depreciationFluctuator,
+      required this.lastKnownCondition,
+      required this.lastMaintenanceDay,
       required this.fullyPaidFor,
       required this.currentlyDriving,
       required this.isInsured,
@@ -10412,8 +10450,10 @@ class Car extends DataClass implements Insertable<Car> {
     map['base_price'] = Variable<int>(basePrice);
     map['day_of_purchase'] = Variable<int>(dayOfPurchase);
     map['fuel_tank'] = Variable<int>(fuelTank);
-    map['use_condition'] = Variable<int>(useCondition);
     map['max_condition_at_purchase'] = Variable<int>(maxConditionAtPurchase);
+    map['depreciation_fluctuator'] = Variable<int>(depreciationFluctuator);
+    map['last_known_condition'] = Variable<int>(lastKnownCondition);
+    map['last_maintenance_day'] = Variable<int>(lastMaintenanceDay);
     map['fully_paid_for'] = Variable<bool>(fullyPaidFor);
     map['currently_driving'] = Variable<bool>(currentlyDriving);
     map['is_insured'] = Variable<bool>(isInsured);
@@ -10433,8 +10473,10 @@ class Car extends DataClass implements Insertable<Car> {
       basePrice: Value(basePrice),
       dayOfPurchase: Value(dayOfPurchase),
       fuelTank: Value(fuelTank),
-      useCondition: Value(useCondition),
       maxConditionAtPurchase: Value(maxConditionAtPurchase),
+      depreciationFluctuator: Value(depreciationFluctuator),
+      lastKnownCondition: Value(lastKnownCondition),
+      lastMaintenanceDay: Value(lastMaintenanceDay),
       fullyPaidFor: Value(fullyPaidFor),
       currentlyDriving: Value(currentlyDriving),
       isInsured: Value(isInsured),
@@ -10457,9 +10499,12 @@ class Car extends DataClass implements Insertable<Car> {
       basePrice: serializer.fromJson<int>(json['basePrice']),
       dayOfPurchase: serializer.fromJson<int>(json['dayOfPurchase']),
       fuelTank: serializer.fromJson<int>(json['fuelTank']),
-      useCondition: serializer.fromJson<int>(json['useCondition']),
       maxConditionAtPurchase:
           serializer.fromJson<int>(json['maxConditionAtPurchase']),
+      depreciationFluctuator:
+          serializer.fromJson<int>(json['depreciationFluctuator']),
+      lastKnownCondition: serializer.fromJson<int>(json['lastKnownCondition']),
+      lastMaintenanceDay: serializer.fromJson<int>(json['lastMaintenanceDay']),
       fullyPaidFor: serializer.fromJson<bool>(json['fullyPaidFor']),
       currentlyDriving: serializer.fromJson<bool>(json['currentlyDriving']),
       isInsured: serializer.fromJson<bool>(json['isInsured']),
@@ -10480,8 +10525,10 @@ class Car extends DataClass implements Insertable<Car> {
       'basePrice': serializer.toJson<int>(basePrice),
       'dayOfPurchase': serializer.toJson<int>(dayOfPurchase),
       'fuelTank': serializer.toJson<int>(fuelTank),
-      'useCondition': serializer.toJson<int>(useCondition),
       'maxConditionAtPurchase': serializer.toJson<int>(maxConditionAtPurchase),
+      'depreciationFluctuator': serializer.toJson<int>(depreciationFluctuator),
+      'lastKnownCondition': serializer.toJson<int>(lastKnownCondition),
+      'lastMaintenanceDay': serializer.toJson<int>(lastMaintenanceDay),
       'fullyPaidFor': serializer.toJson<bool>(fullyPaidFor),
       'currentlyDriving': serializer.toJson<bool>(currentlyDriving),
       'isInsured': serializer.toJson<bool>(isInsured),
@@ -10500,8 +10547,10 @@ class Car extends DataClass implements Insertable<Car> {
           int? basePrice,
           int? dayOfPurchase,
           int? fuelTank,
-          int? useCondition,
           int? maxConditionAtPurchase,
+          int? depreciationFluctuator,
+          int? lastKnownCondition,
+          int? lastMaintenanceDay,
           bool? fullyPaidFor,
           bool? currentlyDriving,
           bool? isInsured,
@@ -10518,9 +10567,12 @@ class Car extends DataClass implements Insertable<Car> {
         basePrice: basePrice ?? this.basePrice,
         dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
         fuelTank: fuelTank ?? this.fuelTank,
-        useCondition: useCondition ?? this.useCondition,
         maxConditionAtPurchase:
             maxConditionAtPurchase ?? this.maxConditionAtPurchase,
+        depreciationFluctuator:
+            depreciationFluctuator ?? this.depreciationFluctuator,
+        lastKnownCondition: lastKnownCondition ?? this.lastKnownCondition,
+        lastMaintenanceDay: lastMaintenanceDay ?? this.lastMaintenanceDay,
         fullyPaidFor: fullyPaidFor ?? this.fullyPaidFor,
         currentlyDriving: currentlyDriving ?? this.currentlyDriving,
         isInsured: isInsured ?? this.isInsured,
@@ -10539,8 +10591,10 @@ class Car extends DataClass implements Insertable<Car> {
           ..write('basePrice: $basePrice, ')
           ..write('dayOfPurchase: $dayOfPurchase, ')
           ..write('fuelTank: $fuelTank, ')
-          ..write('useCondition: $useCondition, ')
           ..write('maxConditionAtPurchase: $maxConditionAtPurchase, ')
+          ..write('depreciationFluctuator: $depreciationFluctuator, ')
+          ..write('lastKnownCondition: $lastKnownCondition, ')
+          ..write('lastMaintenanceDay: $lastMaintenanceDay, ')
           ..write('fullyPaidFor: $fullyPaidFor, ')
           ..write('currentlyDriving: $currentlyDriving, ')
           ..write('isInsured: $isInsured, ')
@@ -10561,8 +10615,10 @@ class Car extends DataClass implements Insertable<Car> {
       basePrice,
       dayOfPurchase,
       fuelTank,
-      useCondition,
       maxConditionAtPurchase,
+      depreciationFluctuator,
+      lastKnownCondition,
+      lastMaintenanceDay,
       fullyPaidFor,
       currentlyDriving,
       isInsured,
@@ -10581,8 +10637,10 @@ class Car extends DataClass implements Insertable<Car> {
           other.basePrice == this.basePrice &&
           other.dayOfPurchase == this.dayOfPurchase &&
           other.fuelTank == this.fuelTank &&
-          other.useCondition == this.useCondition &&
           other.maxConditionAtPurchase == this.maxConditionAtPurchase &&
+          other.depreciationFluctuator == this.depreciationFluctuator &&
+          other.lastKnownCondition == this.lastKnownCondition &&
+          other.lastMaintenanceDay == this.lastMaintenanceDay &&
           other.fullyPaidFor == this.fullyPaidFor &&
           other.currentlyDriving == this.currentlyDriving &&
           other.isInsured == this.isInsured &&
@@ -10600,8 +10658,10 @@ class CarTableCompanion extends UpdateCompanion<Car> {
   final Value<int> basePrice;
   final Value<int> dayOfPurchase;
   final Value<int> fuelTank;
-  final Value<int> useCondition;
   final Value<int> maxConditionAtPurchase;
+  final Value<int> depreciationFluctuator;
+  final Value<int> lastKnownCondition;
+  final Value<int> lastMaintenanceDay;
   final Value<bool> fullyPaidFor;
   final Value<bool> currentlyDriving;
   final Value<bool> isInsured;
@@ -10617,8 +10677,10 @@ class CarTableCompanion extends UpdateCompanion<Car> {
     this.basePrice = const Value.absent(),
     this.dayOfPurchase = const Value.absent(),
     this.fuelTank = const Value.absent(),
-    this.useCondition = const Value.absent(),
     this.maxConditionAtPurchase = const Value.absent(),
+    this.depreciationFluctuator = const Value.absent(),
+    this.lastKnownCondition = const Value.absent(),
+    this.lastMaintenanceDay = const Value.absent(),
     this.fullyPaidFor = const Value.absent(),
     this.currentlyDriving = const Value.absent(),
     this.isInsured = const Value.absent(),
@@ -10635,8 +10697,10 @@ class CarTableCompanion extends UpdateCompanion<Car> {
     required int basePrice,
     required int dayOfPurchase,
     required int fuelTank,
-    required int useCondition,
     required int maxConditionAtPurchase,
+    required int depreciationFluctuator,
+    required int lastKnownCondition,
+    required int lastMaintenanceDay,
     required bool fullyPaidFor,
     required bool currentlyDriving,
     required bool isInsured,
@@ -10650,8 +10714,10 @@ class CarTableCompanion extends UpdateCompanion<Car> {
         basePrice = Value(basePrice),
         dayOfPurchase = Value(dayOfPurchase),
         fuelTank = Value(fuelTank),
-        useCondition = Value(useCondition),
         maxConditionAtPurchase = Value(maxConditionAtPurchase),
+        depreciationFluctuator = Value(depreciationFluctuator),
+        lastKnownCondition = Value(lastKnownCondition),
+        lastMaintenanceDay = Value(lastMaintenanceDay),
         fullyPaidFor = Value(fullyPaidFor),
         currentlyDriving = Value(currentlyDriving),
         isInsured = Value(isInsured),
@@ -10667,8 +10733,10 @@ class CarTableCompanion extends UpdateCompanion<Car> {
     Expression<int>? basePrice,
     Expression<int>? dayOfPurchase,
     Expression<int>? fuelTank,
-    Expression<int>? useCondition,
     Expression<int>? maxConditionAtPurchase,
+    Expression<int>? depreciationFluctuator,
+    Expression<int>? lastKnownCondition,
+    Expression<int>? lastMaintenanceDay,
     Expression<bool>? fullyPaidFor,
     Expression<bool>? currentlyDriving,
     Expression<bool>? isInsured,
@@ -10686,9 +10754,14 @@ class CarTableCompanion extends UpdateCompanion<Car> {
       if (basePrice != null) 'base_price': basePrice,
       if (dayOfPurchase != null) 'day_of_purchase': dayOfPurchase,
       if (fuelTank != null) 'fuel_tank': fuelTank,
-      if (useCondition != null) 'use_condition': useCondition,
       if (maxConditionAtPurchase != null)
         'max_condition_at_purchase': maxConditionAtPurchase,
+      if (depreciationFluctuator != null)
+        'depreciation_fluctuator': depreciationFluctuator,
+      if (lastKnownCondition != null)
+        'last_known_condition': lastKnownCondition,
+      if (lastMaintenanceDay != null)
+        'last_maintenance_day': lastMaintenanceDay,
       if (fullyPaidFor != null) 'fully_paid_for': fullyPaidFor,
       if (currentlyDriving != null) 'currently_driving': currentlyDriving,
       if (isInsured != null) 'is_insured': isInsured,
@@ -10707,8 +10780,10 @@ class CarTableCompanion extends UpdateCompanion<Car> {
       Value<int>? basePrice,
       Value<int>? dayOfPurchase,
       Value<int>? fuelTank,
-      Value<int>? useCondition,
       Value<int>? maxConditionAtPurchase,
+      Value<int>? depreciationFluctuator,
+      Value<int>? lastKnownCondition,
+      Value<int>? lastMaintenanceDay,
       Value<bool>? fullyPaidFor,
       Value<bool>? currentlyDriving,
       Value<bool>? isInsured,
@@ -10725,9 +10800,12 @@ class CarTableCompanion extends UpdateCompanion<Car> {
       basePrice: basePrice ?? this.basePrice,
       dayOfPurchase: dayOfPurchase ?? this.dayOfPurchase,
       fuelTank: fuelTank ?? this.fuelTank,
-      useCondition: useCondition ?? this.useCondition,
       maxConditionAtPurchase:
           maxConditionAtPurchase ?? this.maxConditionAtPurchase,
+      depreciationFluctuator:
+          depreciationFluctuator ?? this.depreciationFluctuator,
+      lastKnownCondition: lastKnownCondition ?? this.lastKnownCondition,
+      lastMaintenanceDay: lastMaintenanceDay ?? this.lastMaintenanceDay,
       fullyPaidFor: fullyPaidFor ?? this.fullyPaidFor,
       currentlyDriving: currentlyDriving ?? this.currentlyDriving,
       isInsured: isInsured ?? this.isInsured,
@@ -10767,12 +10845,19 @@ class CarTableCompanion extends UpdateCompanion<Car> {
     if (fuelTank.present) {
       map['fuel_tank'] = Variable<int>(fuelTank.value);
     }
-    if (useCondition.present) {
-      map['use_condition'] = Variable<int>(useCondition.value);
-    }
     if (maxConditionAtPurchase.present) {
       map['max_condition_at_purchase'] =
           Variable<int>(maxConditionAtPurchase.value);
+    }
+    if (depreciationFluctuator.present) {
+      map['depreciation_fluctuator'] =
+          Variable<int>(depreciationFluctuator.value);
+    }
+    if (lastKnownCondition.present) {
+      map['last_known_condition'] = Variable<int>(lastKnownCondition.value);
+    }
+    if (lastMaintenanceDay.present) {
+      map['last_maintenance_day'] = Variable<int>(lastMaintenanceDay.value);
     }
     if (fullyPaidFor.present) {
       map['fully_paid_for'] = Variable<bool>(fullyPaidFor.value);
@@ -10804,8 +10889,10 @@ class CarTableCompanion extends UpdateCompanion<Car> {
           ..write('basePrice: $basePrice, ')
           ..write('dayOfPurchase: $dayOfPurchase, ')
           ..write('fuelTank: $fuelTank, ')
-          ..write('useCondition: $useCondition, ')
           ..write('maxConditionAtPurchase: $maxConditionAtPurchase, ')
+          ..write('depreciationFluctuator: $depreciationFluctuator, ')
+          ..write('lastKnownCondition: $lastKnownCondition, ')
+          ..write('lastMaintenanceDay: $lastMaintenanceDay, ')
           ..write('fullyPaidFor: $fullyPaidFor, ')
           ..write('currentlyDriving: $currentlyDriving, ')
           ..write('isInsured: $isInsured, ')

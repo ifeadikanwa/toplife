@@ -79,7 +79,6 @@ class LandTravelUsecase {
           await _getLandTravelTimeUsecase.execute(
         travellerPersonID: travellerPersonID,
         travelDetail: travelDetail,
-  
       );
 
       //if the travel is not possible - happens when the locations are in two different countries - we need to cancel.
@@ -295,12 +294,12 @@ class LandTravelUsecase {
       );
     }
 
-    //car has problem or use condition is 0
+    //car has problem
     final bool carHasProblems = await _shopAndStorageUsecases
         .checkIfCarHasProblemUsecase
         .execute(carID: currentTransportation.id);
 
-    if (carHasProblems || currentTransportation.useCondition <= 0) {
+    if (carHasProblems) {
       return const TravelResponse(
         isSuccesful: false,
         problem: TravelProblemTexts.carProblem,

@@ -24,10 +24,6 @@ class CarDaoImpl extends DatabaseAccessor<DatabaseProvider>
         stat: car.fuelTank,
         statsRange: StatsRangeConstants.defaultRange,
       ),
-      useCondition: crossCheckStat(
-        stat: car.useCondition,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
       maxConditionAtPurchase: crossCheckStat(
         stat: car.maxConditionAtPurchase,
         statsRange: StatsRangeConstants.defaultRange,
@@ -95,10 +91,6 @@ class CarDaoImpl extends DatabaseAccessor<DatabaseProvider>
       ),
       fuelTank: crossCheckStat(
         stat: car.fuelTank,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-      useCondition: crossCheckStat(
-        stat: car.useCondition,
         statsRange: StatsRangeConstants.defaultRange,
       ),
       maxConditionAtPurchase: crossCheckStat(

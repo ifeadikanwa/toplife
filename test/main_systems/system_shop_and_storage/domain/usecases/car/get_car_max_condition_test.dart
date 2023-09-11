@@ -17,8 +17,10 @@ void main() {
       basePrice: 300,
       dayOfPurchase: 0,
       fuelTank: 100,
-      useCondition: 100,
       maxConditionAtPurchase: 100,
+      lastKnownCondition: 0,
+      lastMaintenanceDay: 0,
+      depreciationFluctuator: 0,
       currentlyDriving: false,
       fullyPaidFor: true,
       isInsured: true,
@@ -26,12 +28,13 @@ void main() {
       insuranceType: "",
     );
     test(
-      "given a high quality car purchased on day 20 with max condition 100, if the current day is 54, the max condition is now 67",
+      "given a high quality car and depreciation fluctuator 4, purchased on day 20 with max condition 100, if the current day is 54, the max condition is now 79",
       () {
         final car = testCar.copyWith(
           quality: CarQuality.high.name,
           dayOfPurchase: 20,
           maxConditionAtPurchase: 100,
+          depreciationFluctuator: 4
         );
 
         expect(
@@ -39,18 +42,19 @@ void main() {
             car: car,
             currentDay: currentDay,
           ),
-          67,
+          79,
         );
       },
     );
 
     test(
-      "given a mid quality car purchased on day 20 with max condition 100, if the current day is 54, the max condition is now 58",
+      "given a mid quality car and depreciation fluctuator 1, purchased on day 20 with max condition 100, if the current day is 54, the max condition is now 61",
       () {
         final car = testCar.copyWith(
           quality: CarQuality.mid.name,
           dayOfPurchase: 20,
           maxConditionAtPurchase: 100,
+          depreciationFluctuator: 1,
         );
 
         expect(
@@ -58,18 +62,19 @@ void main() {
             car: car,
             currentDay: currentDay,
           ),
-          58,
+          61,
         );
       },
     );
 
     test(
-      "given a low quality car purchased on day 20 with max condition 100, if the current day is 54, the max condition is now 40",
+      "given a low quality car and depreciation fluctuator 0, purchased on day 20 with max condition 100, if the current day is 54, the max condition is now 40",
       () {
         final car = testCar.copyWith(
           quality: CarQuality.low.name,
           dayOfPurchase: 20,
           maxConditionAtPurchase: 100,
+          depreciationFluctuator: 0
         );
 
         expect(
@@ -83,12 +88,13 @@ void main() {
     );
 
     test(
-      "given a invalid quality car purchased on day 20 with max condition 100, if the current day is 54, the max condition is now 40 because low quality is used in calculations",
+      "given a invalid quality car and depreciation fluctuator 4, purchased on day 20 with max condition 100, if the current day is 54, the max condition is now 52 because low quality is used in calculations",
       () {
         final car = testCar.copyWith(
           quality: "wrong",
           dayOfPurchase: 20,
           maxConditionAtPurchase: 100,
+          depreciationFluctuator: 4
         );
 
         expect(
@@ -96,7 +102,7 @@ void main() {
             car: car,
             currentDay: currentDay,
           ),
-          40,
+          52,
         );
       },
     );

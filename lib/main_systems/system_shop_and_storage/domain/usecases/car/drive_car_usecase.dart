@@ -1,14 +1,11 @@
 import 'dart:math';
 
 import 'package:toplife/core/utils/chance.dart';
-import 'package:toplife/core/utils/numbers/get_negative_or_positive_multiplier.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_problem_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/car_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/create_car_problem_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_car_max_condition.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_quality_enum.dart';
 
 class DriveCarUsecase {
   final CarRepository _carRepository;
@@ -27,16 +24,7 @@ class DriveCarUsecase {
     required int fuelConsumption,
   }) async {
     //reduce fuel
-    //reduce condition
     //spin the wheel on generating a problem
-
-    final CarQuality carQuality =
-        getCarQualityEnum(car.quality) ?? CarQuality.low;
-
-    //maxDep + or - (0->4)
-    final int newUseCondition = car.useCondition -
-        (carQuality.maxDepreciation +
-            (getNegativeOrPositiveMultiplier() * Random().nextInt(4)).toInt());
 
     //fuelConsumption
     final newFuelTank = car.fuelTank - fuelConsumption;
@@ -79,7 +67,6 @@ class DriveCarUsecase {
     // update car
     await _carRepository.updateCar(
       car.copyWith(
-        useCondition: newUseCondition,
         fuelTank: newFuelTank,
       ),
     );

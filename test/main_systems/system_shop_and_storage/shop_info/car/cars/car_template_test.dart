@@ -49,15 +49,27 @@ void main() {
         );
 
         expect(
-          carTemplate.useCondition,
-          100,
-          reason: "Cause: use condition",
-        );
-
-        expect(
           carTemplate.maxConditionAtPurchase,
           100,
           reason: "Cause: max condition at purchase",
+        );
+
+        expect(
+          carTemplate.depreciationFluctuator,
+          0,
+          reason: "Cause: depreciation fluctuator",
+        );
+
+        expect(
+          carTemplate.lastKnownCondition,
+          0,
+          reason: "Cause: last known condition",
+        );
+
+        expect(
+          carTemplate.lastMaintenanceDay,
+          0,
+          reason: "Cause: last maintenance day",
         );
 
         expect(

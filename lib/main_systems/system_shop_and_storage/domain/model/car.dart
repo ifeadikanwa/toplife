@@ -20,8 +20,15 @@ class CarTable extends Table {
   IntColumn get basePrice => integer()();
   IntColumn get dayOfPurchase => integer()();
   IntColumn get fuelTank => integer()();
-  IntColumn get useCondition => integer()();
+  //this is the highest condition the car will ever have.
+  //the current condition is derived from the max condition
   IntColumn get maxConditionAtPurchase => integer()();
+  //used to fluctuate max depreciation when calculating the current condition.
+  IntColumn get depreciationFluctuator => integer()();
+  //shown to the player. Updated whenever maintenance is done.
+  IntColumn get lastKnownCondition => integer()();
+  //shown to the player so they know when the condition was last updated & maintenance was last done.
+  IntColumn get lastMaintenanceDay => integer()();
   BoolColumn get fullyPaidFor => boolean()();
   BoolColumn get currentlyDriving => boolean()();
   BoolColumn get isInsured => boolean()();

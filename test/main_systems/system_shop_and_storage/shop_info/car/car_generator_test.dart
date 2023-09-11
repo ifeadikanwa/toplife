@@ -63,15 +63,6 @@ void main() {
       );
 
       test(
-        "all cars have a use condition of 100",
-        () {
-          for (var newCar in result) {
-            expect(newCar.useCondition, 100);
-          }
-        },
-      );
-
-      test(
         "all cars are NOT insured",
         () {
           for (var newCar in result) {
@@ -126,15 +117,6 @@ void main() {
                 CarGenerator.maxUsedCarCondition,
               ),
             );
-          }
-        },
-      );
-
-      test(
-        "all cars have a use condition of 100",
-        () {
-          for (var usedCar in result) {
-            expect(usedCar.useCondition, 100);
           }
         },
       );
@@ -233,8 +215,10 @@ void main() {
             basePrice: 300,
             dayOfPurchase: 0,
             fuelTank: 100,
-            useCondition: 100,
             maxConditionAtPurchase: 100,
+            lastKnownCondition: 0,
+            lastMaintenanceDay: 0,
+            depreciationFluctuator: 0,
             currentlyDriving: false,
             fullyPaidFor: true,
             isInsured: true,

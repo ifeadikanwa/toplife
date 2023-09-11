@@ -11,7 +11,7 @@ class GetCarMaxConditionUsecase {
     required int currentDay,
   }) {
     //calculate the max condition of a car
-    //max condition = (max condition at purchase) - (max depreciation value * ((currentDay - day of purchase)/maxConditionDepreciationDaysLength) )
+    //max condition = (max condition at purchase) - ((max depreciation value - fluctuator) * ((currentDay - day of purchase)/maxConditionDepreciationDaysLength) )
 
     final int daysPassed = currentDay - car.dayOfPurchase;
 
@@ -22,7 +22,8 @@ class GetCarMaxConditionUsecase {
         getCarQualityEnum(car.quality) ?? CarQuality.low;
 
     final int maxCondition = car.maxConditionAtPurchase -
-        (carQuality.maxDepreciation * numberOfDepreciationCycles);
+        ((carQuality.maxDepreciation - car.depreciationFluctuator) *
+            numberOfDepreciationCycles);
 
     return maxCondition;
   }
