@@ -11,7 +11,6 @@ import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_size.
 import 'package:toplife/main_systems/system_person/domain/repository/tattoo_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/check_if_player_can_afford_it_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/take_money_from_player_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class GetTattooFromShopUsecase {
   final TattooRepository _tattooRepository;
@@ -36,7 +35,6 @@ class GetTattooFromShopUsecase {
     required TattooShop tattooShop,
     required TattooSize tattooSize,
     required String tattooDescription,
-    required RelationshipUsecases relationshipUsecases,
   }) async {
     //entries
     late final String resultTitle;
@@ -46,7 +44,6 @@ class GetTattooFromShopUsecase {
     //check if person can afford tattoo
     final bool playerCanAffordTattoo =
         await _checkIfPlayerCanAffordItUsecase.execute(
-      relationshipUsecases: relationshipUsecases,
       personID: personID,
       basePrice: economyAdjustedCost,
       adjustToEconomy: false,
@@ -65,7 +62,6 @@ class GetTattooFromShopUsecase {
     else {
       //take money
       await _takeMoneyFromPlayerUsecase.execute(
-        relationshipUsecases: relationshipUsecases,
         mainPlayerID: personID,
         baseAmountToTake: economyAdjustedCost,
         adjustToEconomy: false,

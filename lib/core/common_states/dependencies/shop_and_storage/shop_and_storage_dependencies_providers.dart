@@ -1,10 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/recurring_bill/recurring_bill_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_problem_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/current_home_dao_impl.dart';
@@ -35,11 +30,6 @@ final shopAndStorageRepositoriesProvider =
 
 final shopAndStorageUsecasesProvider = Provider<ShopAndStorageUsecases>((ref) {
   return ShopAndStorageUsecases(
-    shopAndStorageRepositories: ref.watch(shopAndStorageRepositoriesProvider),
-    personUsecases: ref.watch(personUsecasesProvider),
-    journalUsecases: ref.watch(journalUsecasesProvider),
-    gameUsecases: ref.watch(gameUsecasesProvider),
-    recurringBillsUsecases: ref.watch(recurringBillUsecasesProvider),
-    relationshipUsecases: ref.watch(relationshipUsecasesProvider),
+    ref: ref,
   );
 });

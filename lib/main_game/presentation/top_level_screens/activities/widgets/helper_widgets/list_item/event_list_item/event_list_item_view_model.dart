@@ -36,10 +36,10 @@ class EventListItemViewModel {
   ) async {
     final currentGame = await _getLastPlayedActiveGameUsecase.execute();
     if (currentGame != null && context.mounted) {
-      _eventManager.runEvent(
-        currentGame.currentPlayerID,
-        event,
-        context,
+      _eventManager.runEvent.execute(
+        mainPlayerID: currentGame.currentPlayerID,
+        event: event,
+        context: context,
       );
     }
   }

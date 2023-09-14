@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
@@ -15,13 +14,11 @@ import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_size.
 import 'package:toplife/main_systems/system_person/domain/model/info_models/tattoo_shop_details.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_person/util/tattoo_utils/tattoo_utils.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 final tattooShopDialogWidgetViewModelProvider = StateNotifierProvider<
     TattooShopDialogWidgetViewModel, AsyncValue<TattooShopDetails>>((ref) {
   return TattooShopDialogWidgetViewModel(
     personUsecases: ref.watch(personUsecasesProvider),
-    relationshipUsecases: ref.watch(relationshipUsecasesProvider),
     currentPlayerFuture: ref.watch(currentPlayerProvider.future),
     currentGameFuture: ref.watch(currentGameProvider.future),
   );
@@ -31,7 +28,6 @@ class TattooShopDialogWidgetViewModel
     extends StateNotifier<AsyncValue<TattooShopDetails>> {
   //
   final PersonUsecases _personUsecases;
-  final RelationshipUsecases _relationshipUsecases;
   //
   late final Game? _game;
   String _playerCountry = "";
@@ -39,11 +35,9 @@ class TattooShopDialogWidgetViewModel
 
   TattooShopDialogWidgetViewModel({
     required PersonUsecases personUsecases,
-    required RelationshipUsecases relationshipUsecases,
     required Future<Person?> currentPlayerFuture,
     required Future<Game?> currentGameFuture,
   })  : _personUsecases = personUsecases,
-        _relationshipUsecases = relationshipUsecases,
         super(const AsyncLoading()) {
     _fetch(
       currentPlayerFuture: currentPlayerFuture,
@@ -165,7 +159,6 @@ class TattooShopDialogWidgetViewModel
         tattooShop: tattooShopDetails.tattooShop,
         tattooSize: tattooShopDetails.tattooSize,
         tattooDescription: tattooDescription,
-        relationshipUsecases: _relationshipUsecases,
       );
     }
   }

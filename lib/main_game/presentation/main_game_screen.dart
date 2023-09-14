@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
-import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
@@ -27,7 +26,6 @@ class MainGameScreen extends ConsumerWidget {
             previousGameFuture: previousGameFuture,
             nextGameFuture: nextGameFuture,
             context: context,
-            eventManager: ref.watch(eventManagerProvider),
           );
     });
 

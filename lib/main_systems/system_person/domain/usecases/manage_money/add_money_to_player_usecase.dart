@@ -7,13 +7,15 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/relatio
 
 class AddMoneyToPlayerUsecase {
   final PersonRepositories _personRepositories;
+  final RelationshipUsecases _relationshipUsecases;
 
   const AddMoneyToPlayerUsecase({
     required PersonRepositories personRepositories,
-  }) : _personRepositories = personRepositories;
+    required RelationshipUsecases relationshipUsecases,
+  })  : _personRepositories = personRepositories,
+        _relationshipUsecases = relationshipUsecases;
 
   Future<void> execute({
-    required RelationshipUsecases relationshipUsecases,
     required int mainPlayerID,
     required int baseAmountToAdd,
     required bool adjustToEconomy,
@@ -24,7 +26,7 @@ class AddMoneyToPlayerUsecase {
       mainPlayerID,
     );
     //get partner
-    final currentPartner = await relationshipUsecases.getCurrentPartnerUsecase
+    final currentPartner = await _relationshipUsecases.getCurrentPartnerUsecase
         .execute(mainPlayerID);
 
     //if player is valid
@@ -46,7 +48,6 @@ class AddMoneyToPlayerUsecase {
           currentPartner.partnerRelationshipType ==
               PartnerRelationshipType.married.name) {
         return addMoneyToMarriedPlayer(
-          relationshipUsecases: relationshipUsecases,
           amountToAdd: finalAmountToAdd,
           currentPartner: currentPartner,
         );
@@ -62,7 +63,6 @@ class AddMoneyToPlayerUsecase {
   }
 
   Future<void> addMoneyToMarriedPlayer({
-    required RelationshipUsecases relationshipUsecases,
     required int amountToAdd,
     required Partner currentPartner,
   }) async {
@@ -70,7 +70,7 @@ class AddMoneyToPlayerUsecase {
 
     final int oldJointMoney = currentPartner.jointMoney;
 
-    await relationshipUsecases.updatePartnerRelationshipUsecase.execute(
+    await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
       currentPartner.copyWith(
         jointMoney: (oldJointMoney + amountToAdd),
       ),

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart';
+import 'package:toplife/main_systems/system_event/event_manager/manage_events/run_event.dart';
 
 class RunScheduledEventsForTheDay {
   final EventRepository _eventRepository;
-  final EventManager _eventManager;
+  final RunEvent _runEvent;
 
-  const RunScheduledEventsForTheDay(this._eventRepository, this._eventManager);
+  const RunScheduledEventsForTheDay(
+    this._eventRepository,
+    this._runEvent,
+  );
 
   Future<void> execute({
     required int gameID,
@@ -37,10 +40,10 @@ class RunScheduledEventsForTheDay {
     //run them all
     for (var event in journalOnlyEvents) {
       if (context.mounted) {
-        await _eventManager.runEvent(
-          playerID,
-          event.copyWith(eventDay: dayToLogEventTo),
-          context,
+        await _runEvent.execute(
+          mainPlayerID: playerID,
+          event: event.copyWith(eventDay: dayToLogEventTo),
+          context: context,
         );
       }
     }
@@ -56,10 +59,10 @@ class RunScheduledEventsForTheDay {
     //run them all
     for (var event in untimedNonJournalEvents) {
       if (context.mounted) {
-        await _eventManager.runEvent(
-          playerID,
-          event.copyWith(eventDay: dayToLogEventTo),
-          context,
+        await _runEvent.execute(
+          mainPlayerID: playerID,
+          event: event.copyWith(eventDay: dayToLogEventTo),
+          context: context,
         );
       }
     }
@@ -76,10 +79,10 @@ class RunScheduledEventsForTheDay {
     //run them all
     for (var event in startTimedNonJournalEvents) {
       if (context.mounted) {
-        await _eventManager.runEvent(
-          playerID,
-          event.copyWith(eventDay: dayToLogEventTo),
-          context,
+        await _runEvent.execute(
+          mainPlayerID: playerID,
+          event: event.copyWith(eventDay: dayToLogEventTo),
+          context: context,
         );
       }
     }

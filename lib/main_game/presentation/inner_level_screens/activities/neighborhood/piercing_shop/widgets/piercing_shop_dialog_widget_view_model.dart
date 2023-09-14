@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
@@ -13,7 +12,6 @@ import 'package:toplife/main_systems/system_person/constants/piercing/piercing_b
 import 'package:toplife/main_systems/system_person/constants/piercing/piercing_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/chosen_and_available_piercing_locations_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 final piercingShopDialogWidgetViewModelProvider =
     StateNotifierProvider.autoDispose<PiercingShopDialogWidgetViewModel,
@@ -21,7 +19,6 @@ final piercingShopDialogWidgetViewModelProvider =
   //
   return PiercingShopDialogWidgetViewModel(
     personUsecases: ref.watch(personUsecasesProvider),
-    relationshipUsecases: ref.watch(relationshipUsecasesProvider),
     currentPlayerFuture: ref.watch(currentPlayerProvider.future),
     currentGameFuture: ref.watch(currentGameProvider.future),
   );
@@ -31,7 +28,6 @@ class PiercingShopDialogWidgetViewModel extends StateNotifier<
     AsyncValue<ChosenAndAvailablePiercingLocationsPair?>> {
   //
   final PersonUsecases _personUsecases;
-  final RelationshipUsecases _relationshipUsecases;
   //
   late final Game? _game;
   String _playerCountry = "";
@@ -39,11 +35,9 @@ class PiercingShopDialogWidgetViewModel extends StateNotifier<
   //
   PiercingShopDialogWidgetViewModel({
     required PersonUsecases personUsecases,
-    required RelationshipUsecases relationshipUsecases,
     required Future<Person?> currentPlayerFuture,
     required Future<Game?> currentGameFuture,
   })  : _personUsecases = personUsecases,
-        _relationshipUsecases = relationshipUsecases,
         super(const AsyncLoading()) {
     //
     _fetch(
@@ -143,7 +137,6 @@ class PiercingShopDialogWidgetViewModel extends StateNotifier<
         gameID: _game!.id,
         currentDay: _game!.currentDay,
         chosenLocation: state.valueOrNull!.chosenPiercingLocation,
-        relationshipUsecases: _relationshipUsecases,
       );
     }
   }

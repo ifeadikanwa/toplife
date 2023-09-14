@@ -5,7 +5,6 @@ import 'package:toplife/game_manager/action_runner/constants/report_action_fail.
 import 'package:toplife/game_manager/action_runner/info_models/action_result.dart';
 import 'package:toplife/game_manager/action_runner/info_models/affected_by_stats.dart';
 import 'package:toplife/game_manager/domain/usecases/get_current_game_and_player_usecase.dart';
-import 'package:toplife/game_manager/domain/usecases/get_game_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/move_time_forward_usecase.dart';
 import 'package:toplife/main_systems/system_transportation/constants/travel_type.dart';
 import 'package:toplife/game_manager/action_runner/info_models/action_detail.dart';
@@ -16,29 +15,27 @@ import 'package:toplife/game_manager/domain/model/info_models/person_game_pair.d
 import 'package:toplife/main_systems/system_person/constants/person_stats.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_transportation/domain/model/travel_response.dart';
-import 'package:toplife/main_systems/system_transportation/domain/usecases/land_travel_usecase.dart';
+import 'package:toplife/main_systems/system_transportation/domain/usecases/transportation_usecases.dart';
 
 class ActionRunner {
   final MoveTimeForwardUsecase _moveTimeForwardUsecase;
-  final GetGameUsecase _getGameUsecase;
   final GetCurrentGameAndPlayerUsecase _getCurrentGameAndPlayerUsecase;
   final PersonUsecases _personUsecases;
+  final TransportationUsecases _transportationUsecases;
 
   const ActionRunner(
     this._moveTimeForwardUsecase,
-    this._getGameUsecase,
     this._getCurrentGameAndPlayerUsecase,
     this._personUsecases,
+    this._transportationUsecases,
   );
 
   Future<void> performNoTravelAction({
     required BuildContext context,
-    required LandTravelUsecase landTravelUsecase,
     required ActionDetail actionDetail,
   }) {
     return _perform(
       context: context,
-      landTravelUsecase: landTravelUsecase,
       actionDetail: actionDetail,
       travelDetail: null,
       travelType: TravelType.none,
@@ -48,13 +45,11 @@ class ActionRunner {
   //has no action duration
   Future<void> performOneWayTravelAction({
     required BuildContext context,
-    required LandTravelUsecase landTravelUsecase,
     required ActionDetail actionDetail,
     required TravelDetail travelDetail,
   }) {
     return _perform(
       context: context,
-      landTravelUsecase: landTravelUsecase,
       actionDetail: actionDetail.copyWith(
         actionDuration: ActionDuration.none(),
       ),
@@ -65,13 +60,11 @@ class ActionRunner {
 
   Future<void> performTwoWayTravelAction({
     required BuildContext context,
-    required LandTravelUsecase landTravelUsecase,
     required ActionDetail actionDetail,
     required TravelDetail travelDetail,
   }) {
     return _perform(
       context: context,
-      landTravelUsecase: landTravelUsecase,
       actionDetail: actionDetail,
       travelDetail: travelDetail,
       travelType: TravelType.twoWay,
@@ -81,7 +74,6 @@ class ActionRunner {
   //main
   Future<void> _perform({
     required BuildContext context,
-    required LandTravelUsecase landTravelUsecase,
     required ActionDetail actionDetail,
     required TravelDetail? travelDetail,
     required TravelType travelType,
@@ -117,10 +109,8 @@ class ActionRunner {
             if (context.mounted) {
               //travel
               final TravelResponse travelResponse =
-                  await landTravelUsecase.execute(
+                  await _transportationUsecases.landTravelUsecase.execute(
                 context: context,
-                moveTimeForwardUsecase: _moveTimeForwardUsecase,
-                getGameUsecase: _getGameUsecase,
                 currentGameID: currentGameAndPlayer.game.id,
                 travellerPersonID: currentGameAndPlayer.person.id,
                 npcPassengersPersonIDs: [],

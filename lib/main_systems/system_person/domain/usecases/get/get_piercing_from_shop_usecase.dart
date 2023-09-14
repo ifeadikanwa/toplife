@@ -7,7 +7,6 @@ import 'package:toplife/main_systems/system_person/constants/piercing/piercing_b
 import 'package:toplife/main_systems/system_person/domain/repository/piercing_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/check_if_player_can_afford_it_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/take_money_from_player_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class GetPiercingFromShopUsecase {
   final PiercingRepository _piercingRepository;
@@ -28,7 +27,6 @@ class GetPiercingFromShopUsecase {
     required int gameID,
     required int currentDay,
     required PiercingBodyLocation chosenLocation,
-    required RelationshipUsecases relationshipUsecases,
   }) async {
     //entries
     late final String resultTitle;
@@ -57,7 +55,6 @@ class GetPiercingFromShopUsecase {
       //check if person can afford piercing
       final bool playerCanAffordPiercing =
           await _checkIfPlayerCanAffordItUsecase.execute(
-        relationshipUsecases: relationshipUsecases,
         personID: personID,
         basePrice: chosenLocation.basePrice,
         adjustToEconomy: true,
@@ -76,7 +73,6 @@ class GetPiercingFromShopUsecase {
       else {
         //take money
         await _takeMoneyFromPlayerUsecase.execute(
-          relationshipUsecases: relationshipUsecases,
           mainPlayerID: personID,
           baseAmountToTake: chosenLocation.basePrice,
           adjustToEconomy: true,

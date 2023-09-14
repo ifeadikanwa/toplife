@@ -20,6 +20,6 @@ final schoolRepositoriesProvider = Provider<SchoolRepositories>((ref) {
 
 final schoolUsecasesProvider = Provider<SchoolUsecases>(
   (ref) => SchoolUsecases(
-    schoolRepositories: ref.watch(schoolRepositoriesProvider),
+    ref: ref,
   ),
 );

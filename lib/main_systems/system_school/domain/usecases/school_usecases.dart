@@ -1,4 +1,5 @@
-import 'package:toplife/main_systems/system_school/data/repository/school_repositories.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/school/school_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/admission/admit_into_doctorate_school_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/admission/admit_into_graduate_school_usecase.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/admission/admit_into_law_school_usecase.dart';
@@ -35,48 +36,50 @@ import 'package:toplife/main_systems/system_school/domain/usecases/graduation/gr
 import 'package:toplife/main_systems/system_school/domain/usecases/watch/watch_active_school_usecase.dart';
 
 class SchoolUsecases {
-  final SchoolRepositories _schoolRepositories;
+  final Ref _ref;
 
-  const SchoolUsecases({required SchoolRepositories schoolRepositories})
-      : _schoolRepositories = schoolRepositories;
+  const SchoolUsecases({required Ref ref}) : _ref = ref;
 
   GetCompletedDegreesUsecase get getCompletedDegreesUsecase =>
-      GetCompletedDegreesUsecase(schoolRepositories: _schoolRepositories);
+      GetCompletedDegreesUsecase(
+          schoolRepositories: _ref.read(schoolRepositoriesProvider));
 
   GetHighestAttainedDegreeLevelForACompletedDegreeUsecase
       get getHighestAttainedDegreeLevelForACompletedDegree =>
           GetHighestAttainedDegreeLevelForACompletedDegreeUsecase(
-              schoolRepositories: _schoolRepositories);
+              schoolRepositories: _ref.read(schoolRepositoriesProvider));
 
   EndAllActiveSchoolProgramsUsecase get endAllActiveSchoolProgramsUsecase =>
       EndAllActiveSchoolProgramsUsecase(
-          schoolRepositories: _schoolRepositories);
+          schoolRepositories: _ref.read(schoolRepositoriesProvider));
 
   GetGradeForCompletedSchoolUsecase get getGradeForCompletedSchoolUsecase =>
       GetGradeForCompletedSchoolUsecase(
-          schoolRepositories: _schoolRepositories);
+          schoolRepositories: _ref.read(schoolRepositoriesProvider));
 
   GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase
       get getHighestGradeForAnyCompletedSchoolInADisciplineUsecase =>
           GetHighestGradeForAnyCompletedSchoolInADisciplineUsecase(
-              schoolRepositories: _schoolRepositories);
+              schoolRepositories: _ref.read(schoolRepositoriesProvider));
 
   GetOrCreateDegreeUsecase get getOrCreateDegreeUsecase =>
-      GetOrCreateDegreeUsecase(schoolRepositories: _schoolRepositories);
+      GetOrCreateDegreeUsecase(
+          schoolRepositories: _ref.read(schoolRepositoriesProvider));
 
   WatchActiveSchoolUsecase get watchActiveSchoolUsecase =>
       WatchActiveSchoolUsecase(
-        schoolRepository: _schoolRepositories.schoolRepositoryImpl,
+        schoolRepository:
+            _ref.read(schoolRepositoriesProvider).schoolRepositoryImpl,
       );
 
   GetSchoolPairsFromSchoolsUsecase get getSchoolPairsFromSchoolsUsecase =>
       GetSchoolPairsFromSchoolsUsecase(
-        schoolRepositories: _schoolRepositories,
+        schoolRepositories: _ref.read(schoolRepositoriesProvider),
       );
 
   GetASchoolPairFromSchoolUsecase get getASchoolPairFromSchoolUsecase =>
       GetASchoolPairFromSchoolUsecase(
-        schoolRepositories: _schoolRepositories,
+        schoolRepositories: _ref.read(schoolRepositoriesProvider),
       );
 
   //degrees
@@ -87,12 +90,12 @@ class SchoolUsecases {
 
   GetValidListOfMasterDegreesUsecase get getValidListOfMasterDegreesUsecase =>
       GetValidListOfMasterDegreesUsecase(
-          schoolRepositories: _schoolRepositories);
+          schoolRepositories: _ref.read(schoolRepositoriesProvider));
 
   GetValidListOfDoctorateDegreesUsecase
       get getValidListOfDoctorateDegreesUsecase =>
           GetValidListOfDoctorateDegreesUsecase(
-              schoolRepositories: _schoolRepositories);
+              schoolRepositories: _ref.read(schoolRepositoriesProvider));
 
   GetValidListOfEducationDegreesUsecase
       get getValidListOfEducationDegreesUsecase =>
@@ -128,28 +131,28 @@ class SchoolUsecases {
 
   ApplyToLawSchoolUsecase get applyToLawSchoolUsecase =>
       ApplyToLawSchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           getOrCreateDegreeUsecase: getOrCreateDegreeUsecase,
           getHighestGradeForAnyCompletedSchoolInADisciplineUsecase:
               getHighestGradeForAnyCompletedSchoolInADisciplineUsecase);
 
   ApplyToMedicalSchoolUsecase get applyToMedicalSchoolUsecase =>
       ApplyToMedicalSchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           getOrCreateDegreeUsecase: getOrCreateDegreeUsecase,
           getHighestGradeForAnyCompletedSchoolInADisciplineUsecase:
               getHighestGradeForAnyCompletedSchoolInADisciplineUsecase);
 
   ApplyToNursingSchoolUsecase get applyToNursingSchoolUsecase =>
       ApplyToNursingSchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           getOrCreateDegreeUsecase: getOrCreateDegreeUsecase,
           getHighestGradeForAnyCompletedSchoolInADisciplineUsecase:
               getHighestGradeForAnyCompletedSchoolInADisciplineUsecase);
 
   ApplyToPharmacySchoolUsecase get applyToPharmacySchoolUsecase =>
       ApplyToPharmacySchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           getOrCreateDegreeUsecase: getOrCreateDegreeUsecase,
           getHighestGradeForAnyCompletedSchoolInADisciplineUsecase:
               getHighestGradeForAnyCompletedSchoolInADisciplineUsecase);
@@ -165,47 +168,47 @@ class SchoolUsecases {
   //admissions
   AdmitIntoDoctorateSchoolUsecase get admitIntoDoctorateSchoolUsecase =>
       AdmitIntoDoctorateSchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           endAllActiveSchoolProgramsUsecase: endAllActiveSchoolProgramsUsecase);
 
   AdmitIntoGraduateSchoolUsecase get admitIntoGraduateSchoolUsecase =>
       AdmitIntoGraduateSchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           endAllActiveSchoolProgramsUsecase: endAllActiveSchoolProgramsUsecase);
 
   AdmitIntoUndergraduateSchoolUsecase get admitIntoUndergraduateSchoolUsecase =>
       AdmitIntoUndergraduateSchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           endAllActiveSchoolProgramsUsecase: endAllActiveSchoolProgramsUsecase);
 
   AdmitIntoLawSchoolUsecase get admitIntoLawSchoolUsecase =>
       AdmitIntoLawSchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           endAllActiveSchoolProgramsUsecase: endAllActiveSchoolProgramsUsecase);
 
   AdmitIntoMedicalSchoolUsecase get admitIntoMedicalSchoolUsecase =>
       AdmitIntoMedicalSchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           endAllActiveSchoolProgramsUsecase: endAllActiveSchoolProgramsUsecase);
 
   AdmitIntoNursingSchoolUsecase get admitIntoNursingSchoolUsecase =>
       AdmitIntoNursingSchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           endAllActiveSchoolProgramsUsecase: endAllActiveSchoolProgramsUsecase);
 
   AdmitIntoPharmacySchoolUsecase get admitIntoPharmacySchoolUsecase =>
       AdmitIntoPharmacySchoolUsecase(
-          schoolRepositories: _schoolRepositories,
+          schoolRepositories: _ref.read(schoolRepositoriesProvider),
           endAllActiveSchoolProgramsUsecase: endAllActiveSchoolProgramsUsecase);
 
   AdmitIntoTeacherEducationProgramUsecase
       get admitIntoTeacherEducationProgramUsecase =>
           AdmitIntoTeacherEducationProgramUsecase(
-              schoolRepositories: _schoolRepositories,
+              schoolRepositories: _ref.read(schoolRepositoriesProvider),
               endAllActiveSchoolProgramsUsecase:
                   endAllActiveSchoolProgramsUsecase);
 
   //graduate
-  GraduateUsecase get graduateUsecase =>
-      GraduateUsecase(schoolRepositories: _schoolRepositories);
+  GraduateUsecase get graduateUsecase => GraduateUsecase(
+      schoolRepositories: _ref.read(schoolRepositoriesProvider));
 }

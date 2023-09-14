@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/transportation/transportation_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/event/current_attendable_events_for_today_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
@@ -14,10 +15,14 @@ final eventSectionViewModelProvider =
     FutureProvider.autoDispose<List<EventItem>>((ref) async {
   //get recent
   final Game? currentGame = await ref.watch(currentGameProvider.future);
+
   final List<EventPersonPair> attendableEventsForToday =
       await ref.watch(currentAttendableEventsForTodayProvider.future);
+
   final GetLandTravelTimeUsecase getLandTravelTimeUsecase =
       ref.watch(transportationUsecasesProvider).getLandTravelTimeUsecase;
+
+  final EventManager eventManager = ref.watch(eventManagerProvider);
 
   //await game
   //if game = null
@@ -57,14 +62,14 @@ final eventSectionViewModelProvider =
         eventItems.add(
           EventItem(
             eventPersonPair: attendableEvent,
-            eventIsOpen: EventManager.checkIfEventIsOpen(
+            eventIsOpen: eventManager.checkIfEventIsOpen.execute(
               startTime: attendableEvent.event.startTime!,
               endTime: attendableEvent.event.endTime!,
               travelTime: travelTime,
               currentTime: currentGame.currentTimeInMinutes,
             ),
             eventCanStillBeAttended:
-                EventManager.checkIfEventCanStillBeAttended(
+                eventManager.checkIfEventCanStillBeAttended.execute(
               startTime: attendableEvent.event.startTime!,
               endTime: attendableEvent.event.endTime!,
               travelTime: travelTime,

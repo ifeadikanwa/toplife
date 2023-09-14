@@ -109,7 +109,6 @@ class DeathEvent {
           _personUsecases,
           _eventScheduler,
           _journalUsecases,
-          _relationshipUsecases,
         );
         final FamilyPlannedFuneral familyPlannedFuneral = FamilyPlannedFuneral(
           _personUsecases,

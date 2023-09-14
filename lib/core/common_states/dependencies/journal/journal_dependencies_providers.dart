@@ -13,6 +13,6 @@ final journalRepositoryProvider = Provider<JournalRepositoryImpl>((ref) {
 
 final journalUsecasesProvider = Provider<JournalUsecases>((ref) {
   return JournalUsecases(
-    journalRepository: ref.watch(journalRepositoryProvider),
+    ref: ref,
   );
 });

@@ -8,16 +8,17 @@ import 'package:toplife/main_systems/system_event/event_manager/event_manager.da
 
 class GameControllerUsecase {
   final DecayAndAlterPlayerStatsUsecase _decayAndAlterPlayerStatsUsecase;
+  final EventManager _eventManager;
 
   const GameControllerUsecase(
     this._decayAndAlterPlayerStatsUsecase,
+    this._eventManager,
   );
 
   Future<void> execute({
     required Future<Game?>? previousGameFuture,
     required Future<Game?> nextGameFuture,
     required BuildContext context,
-    required EventManager eventManager,
   }) async {
     //Check if game controller actually needs to do work:
 
@@ -72,9 +73,7 @@ class GameControllerUsecase {
                 day < newGame.currentDay;
                 day++) {
               //report unattended events
-              await eventManager
-                  .manageEvents.reportUnattendedEventsToDaysJournal
-                  .execute(
+              await _eventManager.reportUnattendedEventsToDaysJournal.execute(
                 dayToCheckForEvents: day,
                 gameID: newGame.id,
                 mainPlayerID: newGame.currentPlayerID,
@@ -84,8 +83,7 @@ class GameControllerUsecase {
               //we check that the build contect is valid
               if (context.mounted) {
                 //run scheduled events
-                await eventManager.manageEvents.runScheduledEventsForTheDay
-                    .execute(
+                await _eventManager.runScheduledEventsForTheDay.execute(
                   gameID: newGame.id,
                   playerID: newGame.currentPlayerID,
                   dayToCheckForEvents: day,
@@ -101,7 +99,7 @@ class GameControllerUsecase {
           //PRESENT
           if (context.mounted) {
             //run scheduled events for the current day
-            await eventManager.manageEvents.runScheduledEventsForTheDay.execute(
+            await _eventManager.runScheduledEventsForTheDay.execute(
               gameID: newGame.id,
               playerID: newGame.currentPlayerID,
               dayToCheckForEvents: newGame.currentDay,

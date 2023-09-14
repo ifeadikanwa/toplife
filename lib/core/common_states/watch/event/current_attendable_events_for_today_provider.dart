@@ -12,7 +12,7 @@ final currentAttendableEventsForTodayProvider =
   //get recent events list if game is not null
   if (currentGame != null) {
     final todaysEventsStream =
-        ref.watch(eventManagerProvider).watchTodaysAttendableEvents(
+        ref.watch(eventManagerProvider).watchTodaysAttendableEvents.execute(
               currentDay: currentGame.currentDay,
               gameID: currentGame.id,
             );

@@ -1,7 +1,8 @@
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/change_transport_mode_usecase.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/check_and_handle_land_travel_accidents_usecase.dart';
 import 'package:toplife/main_systems/system_transportation/domain/usecases/get_car_fuel_consumption_usecase.dart';
@@ -15,66 +16,55 @@ import 'package:toplife/main_systems/system_transportation/domain/usecases/get_t
 import 'package:toplife/main_systems/system_transportation/domain/usecases/land_travel_usecase.dart';
 
 class TransportationUsecases {
-  final PersonUsecases _personUsecases;
-  final ShopAndStorageUsecases _shopAndStorageUsecases;
-  final RelationshipUsecases _relationshipUsecases;
-  final JournalUsecases _journalUsecases;
+  final Ref _ref;
 
-  const TransportationUsecases({
-    required PersonUsecases personUsecases,
-    required ShopAndStorageUsecases shopAndStorageUsecases,
-    required RelationshipUsecases relationshipUsecases,
-    required JournalUsecases journalUsecases,
-  })  : _personUsecases = personUsecases,
-        _shopAndStorageUsecases = shopAndStorageUsecases,
-        _relationshipUsecases = relationshipUsecases,
-        _journalUsecases = journalUsecases;
+  const TransportationUsecases({required Ref ref}) : _ref = ref;
 
   ChangeTransportModeUsecase get changeTransportModeUsecase =>
       ChangeTransportModeUsecase(
-        _personUsecases,
-        _shopAndStorageUsecases,
+        _ref.read(personUsecasesProvider),
+        _ref.read(shopAndStorageUsecasesProvider),
       );
 
   GetCurrentTransportationUsecase get getCurrentTransportationUsecase =>
       GetCurrentTransportationUsecase(
-          getTransportModeUsecase, _shopAndStorageUsecases);
+          getTransportModeUsecase, _ref.read(shopAndStorageUsecasesProvider));
 
   GetTransportModeUsecase get getTransportModeUsecase =>
-      GetTransportModeUsecase(_personUsecases);
+      GetTransportModeUsecase(_ref.read(personUsecasesProvider));
 
   GetDrivingModeUsecase get getDrivingModeUsecase =>
-      GetDrivingModeUsecase(_personUsecases);
+      GetDrivingModeUsecase(_ref.read(personUsecasesProvider));
 
   GetTravellerSettlement get getTravellerSettlement =>
-      GetTravellerSettlement(_shopAndStorageUsecases);
+      GetTravellerSettlement(_ref.read(shopAndStorageUsecasesProvider));
 
   CheckAndHandleLandTravelAccidentsUsecase
       get checkAndHandleLandTravelAccidentsUsecase =>
           CheckAndHandleLandTravelAccidentsUsecase(
-            _personUsecases,
-            _shopAndStorageUsecases,
-            _journalUsecases,
+            _ref.read(personUsecasesProvider),
+            _ref.read(shopAndStorageUsecasesProvider),
+            _ref.read(journalUsecasesProvider),
           );
 
   LandTravelUsecase get landTravelUsecase => LandTravelUsecase(
-        _personUsecases,
+        _ref.read(personUsecasesProvider),
         getLandTravelTimeUsecase,
         getTravellerSettlement,
         getTransportModeUsecase,
         getCurrentTransportationUsecase,
-        _shopAndStorageUsecases,
-        _relationshipUsecases,
+        _ref.read(shopAndStorageUsecasesProvider),
         getCarFuelConsumptionUsecase,
         checkAndHandleLandTravelAccidentsUsecase,
         getDrivingModeUsecase,
-        _journalUsecases,
+        _ref.read(journalUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
       );
 
   GetCarFuelConsumptionUsecase get getCarFuelConsumptionUsecase =>
       GetCarFuelConsumptionUsecase(
         getTravellerSettlement,
-        _personUsecases,
+        _ref.read(personUsecasesProvider),
         getCommuteFuelConsumptionBetweenTwoSettlementsUsecase,
       );
 
@@ -86,7 +76,7 @@ class TransportationUsecases {
       GetLandTravelTimeUsecase(
         getCurrentTransportationUsecase,
         getTravellerSettlement,
-        _personUsecases,
+        _ref.read(personUsecasesProvider),
         getTravelTimeBetweenTwoSettlementsUsecase,
         getTransportModeUsecase,
         getDrivingModeUsecase,

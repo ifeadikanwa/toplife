@@ -7,13 +7,15 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/relatio
 
 class TakeMoneyFromPlayerUsecase {
   final PersonRepositories _personRepositories;
+  final RelationshipUsecases _relationshipUsecases;
 
   const TakeMoneyFromPlayerUsecase({
     required PersonRepositories personRepositories,
-  }) : _personRepositories = personRepositories;
+    required RelationshipUsecases relationshipUsecases,
+  })  : _personRepositories = personRepositories,
+        _relationshipUsecases = relationshipUsecases;
 
   Future<bool> execute({
-    required RelationshipUsecases relationshipUsecases,
     required int mainPlayerID,
     required int baseAmountToTake,
     required bool adjustToEconomy,
@@ -39,7 +41,7 @@ class TakeMoneyFromPlayerUsecase {
       }
 
       //check if player is married
-      final currentPartner = await relationshipUsecases.getCurrentPartnerUsecase
+      final currentPartner = await _relationshipUsecases.getCurrentPartnerUsecase
           .execute(mainPlayerID);
 
       //player is married
@@ -47,7 +49,7 @@ class TakeMoneyFromPlayerUsecase {
           currentPartner.partnerRelationshipType ==
               PartnerRelationshipType.married.name) {
         return takeMoneyFromMarriedPlayer(
-          relationshipUsecases: relationshipUsecases,
+         
           mainPlayerPerson: mainPlayerPerson,
           amountToTake: finalAmountToTake,
           currentPartner: currentPartner,
@@ -67,7 +69,7 @@ class TakeMoneyFromPlayerUsecase {
   }
 
   Future<bool> takeMoneyFromMarriedPlayer({
-    required RelationshipUsecases relationshipUsecases,
+   
     required Person mainPlayerPerson,
     required int amountToTake,
     required Partner currentPartner,
@@ -88,7 +90,7 @@ class TakeMoneyFromPlayerUsecase {
 
         if (jointAccount >= amountRemaining) {
           //joint account has enough money
-          await relationshipUsecases.updatePartnerRelationshipUsecase.execute(
+          await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
             currentPartner.copyWith(
               jointMoney: (jointAccount - amountRemaining),
             ),
@@ -98,7 +100,7 @@ class TakeMoneyFromPlayerUsecase {
         //joint account doesnt have enough money
         else {
           //take whatever is in joint account
-          await relationshipUsecases.updatePartnerRelationshipUsecase.execute(
+          await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
             currentPartner.copyWith(
               jointMoney: 0,
             ),

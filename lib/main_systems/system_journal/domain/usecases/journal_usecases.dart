@@ -1,4 +1,5 @@
-import 'package:toplife/main_systems/system_journal/domain/repository/journal_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/add_to_journal_usecase.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/get_players_journals_usecase.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/get_todays_journal_usecase.dart';
@@ -6,14 +7,12 @@ import 'package:toplife/main_systems/system_journal/domain/usecases/prepare_jour
 import 'package:toplife/main_systems/system_journal/domain/usecases/watch_journal_usecase.dart';
 
 class JournalUsecases {
-  final JournalRepository _journalRepository;
+  final Ref _ref;
 
-  const JournalUsecases({
-    required JournalRepository journalRepository,
-  }) : _journalRepository = journalRepository;
+  const JournalUsecases({required Ref ref}) : _ref = ref;
 
   AddToJournalUsecase get addToJournalUsecase => AddToJournalUsecase(
-        journalRepository: _journalRepository,
+        journalRepository: _ref.read(journalRepositoryProvider),
         prepareJournalEntryUsecase: prepareJournalEntryUsecase,
       );
 
@@ -21,12 +20,14 @@ class JournalUsecases {
       PrepareJournalEntryUsecase();
 
   GetPlayersJournalsUsecase get getPlayersJournalsUsecase =>
-      GetPlayersJournalsUsecase(journalRepository: _journalRepository);
+      GetPlayersJournalsUsecase(
+          journalRepository: _ref.read(journalRepositoryProvider));
 
   GetTodaysJournalUsecase get getTodaysJournalUsecase =>
-      GetTodaysJournalUsecase(journalRepository: _journalRepository);
+      GetTodaysJournalUsecase(
+          journalRepository: _ref.read(journalRepositoryProvider));
 
   WatchJournalUsecase get watchJournalUsecase => WatchJournalUsecase(
-        journalRepository: _journalRepository,
+        journalRepository: _ref.read(journalRepositoryProvider),
       );
 }

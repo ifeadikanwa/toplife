@@ -44,8 +44,8 @@ class AttendParty {
     //increase relationship w/ host, wellbeing and hunger
     await _personUsecases.updateHungerStatsUsecase.execute(
       mainPersonID: mainPlayerID,
-      change: (Random().nextInt(30)), 
-      override: false,//1-30
+      change: (Random().nextInt(30)),
+      override: false, //1-30
     );
 
     await _personUsecases.updateMoodStatsUsecase.execute(
@@ -71,7 +71,6 @@ class AttendParty {
 
     //remove chosen money gift from account
     await _personUsecases.takeMoneyFromPlayerUsecase.execute(
-      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: mainPlayerID,
       baseAmountToTake: chosenMoneyGiftAmount.toInt(),
       adjustToEconomy: false,

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/result_dialog.dart';
-import 'package:toplife/game_manager/domain/usecases/get_game_usecase.dart';
-import 'package:toplife/game_manager/domain/usecases/move_time_forward_usecase.dart';
+import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 import 'package:toplife/main_systems/system_transportation/constants/arrival_status.dart';
@@ -31,12 +29,12 @@ class LandTravelUsecase {
   final GetCurrentTransportationUsecase _getCurrentTransportationUsecase;
   final GetTravellerSettlement _getTravellerSettlement;
   final ShopAndStorageUsecases _shopAndStorageUsecases;
-  final RelationshipUsecases _relationshipUsecases;
   final GetCarFuelConsumptionUsecase _getCarFuelConsumptionUsecase;
   final CheckAndHandleLandTravelAccidentsUsecase
       _checkAndHandleLandTravelAccidentsUsecase;
   final GetDrivingModeUsecase _getDrivingModeUsecase;
   final JournalUsecases _journalUsecases;
+  final GameUsecases _gameUsecases;
 
   const LandTravelUsecase(
     this._personUsecases,
@@ -45,18 +43,16 @@ class LandTravelUsecase {
     this._getTransportModeUsecase,
     this._getCurrentTransportationUsecase,
     this._shopAndStorageUsecases,
-    this._relationshipUsecases,
     this._getCarFuelConsumptionUsecase,
     this._checkAndHandleLandTravelAccidentsUsecase,
     this._getDrivingModeUsecase,
     this._journalUsecases,
+    this._gameUsecases,
   );
 
   //travels based on transportation and settlement
   Future<TravelResponse> execute({
     required BuildContext context,
-    required GetGameUsecase getGameUsecase,
-    required MoveTimeForwardUsecase moveTimeForwardUsecase,
     required int currentGameID,
     required int travellerPersonID,
     required List<int> npcPassengersPersonIDs,
@@ -72,7 +68,8 @@ class LandTravelUsecase {
       personID: travellerPersonID,
     );
 
-    final Game? currentGame = await getGameUsecase.execute(currentGameID);
+    final Game? currentGame =
+        await _gameUsecases.getGameUsecase.execute(currentGameID);
 
     if (person != null && currentGame != null) {
       final int transportAdjustedTravelTime =
@@ -119,7 +116,6 @@ class LandTravelUsecase {
             if (context.mounted) {
               travelResponse = await _takePublicTransport(
                 context: context,
-                moveTimeForwardUsecase: moveTimeForwardUsecase,
                 transportMode: transportMode,
                 drivingMode: drivingMode,
                 currentTransportation: currentTransportation,
@@ -136,7 +132,6 @@ class LandTravelUsecase {
             if (context.mounted) {
               travelResponse = await _takePrivateTransport(
                 context: context,
-                moveTimeForwardUsecase: moveTimeForwardUsecase,
                 transportMode: transportMode,
                 drivingMode: drivingMode,
                 currentTransportation: currentTransportation,
@@ -191,7 +186,6 @@ class LandTravelUsecase {
 
   Future<TravelResponse> _takePublicTransport({
     required BuildContext context,
-    required MoveTimeForwardUsecase moveTimeForwardUsecase,
     required TransportMode transportMode,
     required DrivingMode drivingMode,
     required Car currentTransportation,
@@ -204,7 +198,6 @@ class LandTravelUsecase {
   }) async {
     final bool paymentSuccessful =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
-      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: traveller.id,
       baseAmountToTake: currentTransportation.basePrice,
       adjustToEconomy: true,
@@ -241,7 +234,6 @@ class LandTravelUsecase {
       //if there is no accident, travel
       else {
         return await _performLandTravel(
-          moveTimeForwardUsecase: moveTimeForwardUsecase,
           currentGame: currentGame,
           eventStartTimeInMinutes: eventStartTimeInMinutes,
           travelTime: travelTime,
@@ -259,7 +251,6 @@ class LandTravelUsecase {
 
   Future<TravelResponse> _takePrivateTransport({
     required BuildContext context,
-    required MoveTimeForwardUsecase moveTimeForwardUsecase,
     required TransportMode transportMode,
     required DrivingMode drivingMode,
     required Car currentTransportation,
@@ -357,7 +348,6 @@ class LandTravelUsecase {
         currentDay: currentGame.currentDay,
       );
       return await _performLandTravel(
-        moveTimeForwardUsecase: moveTimeForwardUsecase,
         currentGame: currentGame,
         eventStartTimeInMinutes: eventStartTimeInMinutes,
         travelTime: travelTime,
@@ -367,7 +357,6 @@ class LandTravelUsecase {
   }
 
   Future<TravelResponse> _performLandTravel({
-    required MoveTimeForwardUsecase moveTimeForwardUsecase,
     required Game currentGame,
     required int? eventStartTimeInMinutes,
     required int travelTime,
@@ -413,7 +402,7 @@ class LandTravelUsecase {
         ? travelTime
         : (travelTime * 2) + extraTimeAfterTravelArrival;
 
-    await moveTimeForwardUsecase.execute(
+    await _gameUsecases.moveTimeForwardUsecase.execute(
       gameID: currentGame.id,
       timeInMinutes: fullTravelTime,
     );

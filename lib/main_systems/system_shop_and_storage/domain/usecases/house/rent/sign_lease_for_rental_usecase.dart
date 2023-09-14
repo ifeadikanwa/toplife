@@ -2,7 +2,6 @@ import 'package:toplife/main_systems/system_location/util/get_country_economy_ad
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/house_repository.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_into_new_house_usecase.dart';
 
@@ -11,14 +10,12 @@ class SignLeaseForRentalUsecase {
   final RecurringBillsUsecases _recurringBillsUsecases;
   final MoveIntoNewHouseUsecase _moveIntoNewHouseUsecase;
   final PersonUsecases _personUsecases;
-  final RelationshipUsecases _relationshipUsecases;
 
   const SignLeaseForRentalUsecase(
     this._houseRepository,
     this._recurringBillsUsecases,
     this._moveIntoNewHouseUsecase,
     this._personUsecases,
-    this._relationshipUsecases,
   );
 
   Future<String> execute({
@@ -39,7 +36,6 @@ class SignLeaseForRentalUsecase {
 
     //pay rent + security deposit
     await _personUsecases.takeMoneyFromPlayerUsecase.execute(
-      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: personID,
       baseAmountToTake: economyAdjustedRentPrice * 2,
       adjustToEconomy: false,

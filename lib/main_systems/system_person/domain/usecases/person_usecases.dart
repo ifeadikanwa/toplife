@@ -1,6 +1,8 @@
-import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_available_piercing_locations_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_piercing_from_shop_usecase.dart';
@@ -56,20 +58,12 @@ import 'package:toplife/main_systems/system_person/domain/usecases/watch/watch_p
 import 'package:toplife/main_systems/system_person/domain/usecases/watch/watch_person_usecase.dart';
 
 class PersonUsecases {
-  final PersonRepositories _personRepositories;
-  final AgeUsecases _ageUsecases;
-  final JournalUsecases _journalUsecases;
+  final Ref _ref;
 
-  const PersonUsecases({
-    required PersonRepositories personRepositories,
-    required AgeUsecases ageUsecases,
-    required JournalUsecases journalUsecases,
-  })  : _personRepositories = personRepositories,
-        _ageUsecases = ageUsecases,
-        _journalUsecases = journalUsecases;
+  const PersonUsecases({required Ref ref}) : _ref = ref;
 
   GenerateAPersonUsecase get generateAPersonUsecase =>
-      GenerateAPersonUsecase(ageUsecases: _ageUsecases);
+      GenerateAPersonUsecase(ageUsecases: _ref.read(ageUsecasesProvider));
 
   GenerateListOfPersonUsecase get generateListOfPersonUsecase =>
       GenerateListOfPersonUsecase(
@@ -102,8 +96,8 @@ class PersonUsecases {
 
   CreatePersonWithAttributesUsecase get createPersonWithAttributesUsecase =>
       CreatePersonWithAttributesUsecase(
-        personRepositories: _personRepositories,
-        ageUsecases: _ageUsecases,
+        personRepositories: _ref.read(personRepositoriesProvider),
+        ageUsecases: _ref.read(ageUsecasesProvider),
         generatePersonalityUsecase: generatePersonalityUsecase,
         generateStatsUsecase: generateStatsUsecase,
         generateStanceUsecase: generateStanceUsecase,
@@ -119,123 +113,141 @@ class PersonUsecases {
   GetPersonAvailablePiercingLocationsUsecase
       get getPersonAvailablePiercingLocationsUsecase =>
           GetPersonAvailablePiercingLocationsUsecase(
-            _personRepositories.piercingRepositoryImpl,
+            _ref.read(personRepositoriesProvider).piercingRepositoryImpl,
           );
 
   GetPiercingFromShopUsecase get getPiercingFromShopUsecase =>
       GetPiercingFromShopUsecase(
-        _personRepositories.piercingRepositoryImpl,
+        _ref.read(personRepositoriesProvider).piercingRepositoryImpl,
         checkIfPlayerCanAffordItUsecase,
         takeMoneyFromPlayerUsecase,
-        _journalUsecases,
+        _ref.read(journalUsecasesProvider),
       );
 
   GetTattooFromShopUsecase get getTattooFromShopUsecase =>
       GetTattooFromShopUsecase(
-        _personRepositories.tattooRepositoryImpl,
+        _ref.read(personRepositoriesProvider).tattooRepositoryImpl,
         checkIfPlayerCanAffordItUsecase,
         takeMoneyFromPlayerUsecase,
-        _journalUsecases,
+        _ref.read(journalUsecasesProvider),
       );
 
   DepleteBabyEnergyUsecase get depleteBabyEnergyUsecase =>
       DepleteBabyEnergyUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   DepleteBabyHungerUsecase get depleteBabyHungerUsecase =>
       DepleteBabyHungerUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
-        babyTraitsRepository: _personRepositories.babyTraitsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
+        babyTraitsRepository:
+            _ref.read(personRepositoriesProvider).babyTraitsRepositoryImpl,
       );
 
   DepleteMainPlayerEnergyUsecase get depleteMainPlayerEnergyUsecase =>
       DepleteMainPlayerEnergyUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         energyAndHungerEmergencyModeSideEffectUsecase:
             energyAndHungerEmergencyModeSideEffectUsecase,
       );
 
   DepleteMainPlayerHungerUsecase get depleteMainPlayerHungerUsecase =>
       DepleteMainPlayerHungerUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         energyAndHungerEmergencyModeSideEffectUsecase:
             energyAndHungerEmergencyModeSideEffectUsecase,
       );
 
   DepleteMainPlayerHealthUsecase get depleteMainPlayerHealthUsecase =>
       DepleteMainPlayerHealthUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   DepleteMainPlayerMoodUsecase get depleteMainPlayerMoodUsecase =>
       DepleteMainPlayerMoodUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   DepleteMainPlayerAthleticismUsecase get depleteMainPlayerAthleticismUsecase =>
       DepleteMainPlayerAthleticismUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   IncreaseMainPlayerSobernessUsecase get increaseMainPlayerSobernessUsecase =>
       IncreaseMainPlayerSobernessUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   DepleteNonPlayerHungerUsecase get depleteNonPlayerHungerUsecase =>
       DepleteNonPlayerHungerUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   EatUsecase get eatUsecase => EatUsecase(
-        _personRepositories.statsRepositoryImpl,
+        _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         updateHungerStatsUsecase,
-        _journalUsecases,
+        _ref.read(journalUsecasesProvider),
       );
 
   QuickEatUsecase get quickEatUsecase => QuickEatUsecase(
-        _personRepositories.statsRepositoryImpl,
+        _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         eatUsecase,
       );
 
   SleepUsecase get sleepUsecase => SleepUsecase(
         updateEnergyStatsUsecase,
-        _personRepositories.statsRepositoryImpl,
-        _journalUsecases,
+        _ref.read(personRepositoriesProvider).statsRepositoryImpl,
+        _ref.read(journalUsecasesProvider),
       );
 
   MakeNonPlayerHungryUsecase get makeNonPlayerHungryUsecase =>
       MakeNonPlayerHungryUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   UpdatePersonUsecase get updatePersonUsecase => UpdatePersonUsecase(
-        personRepository: _personRepositories.personRepositoryImpl,
+        personRepository:
+            _ref.read(personRepositoriesProvider).personRepositoryImpl,
       );
 
   DeletePersonUsecase get deletePersonUsecase => DeletePersonUsecase(
-        personRepository: _personRepositories.personRepositoryImpl,
+        personRepository:
+            _ref.read(personRepositoriesProvider).personRepositoryImpl,
       );
 
   GetPersonStatsUsecase get getPersonStatsUsecase => GetPersonStatsUsecase(
-      statsRepository: _personRepositories.statsRepositoryImpl);
+      statsRepository:
+          _ref.read(personRepositoriesProvider).statsRepositoryImpl);
 
   GetPersonUsecase get getPersonUsecase => GetPersonUsecase(
-      personRepository: _personRepositories.personRepositoryImpl);
+      personRepository:
+          _ref.read(personRepositoriesProvider).personRepositoryImpl);
 
   GetPlayerMoneyUsecase get getPlayerMoneyUsecase => GetPlayerMoneyUsecase(
-        personRepositories: _personRepositories,
+        personRepositories: _ref.read(personRepositoriesProvider),
+        relationshipUsecases: _ref.read(relationshipUsecasesProvider),
       );
 
   TakeMoneyFromPlayerUsecase get takeMoneyFromPlayerUsecase =>
       TakeMoneyFromPlayerUsecase(
-        personRepositories: _personRepositories,
+        personRepositories: _ref.read(personRepositoriesProvider),
+        relationshipUsecases: _ref.read(relationshipUsecasesProvider),
       );
 
   AddMoneyToPlayerUsecase get addMoneyToPlayerUsecase =>
       AddMoneyToPlayerUsecase(
-        personRepositories: _personRepositories,
+        personRepositories: _ref.read(personRepositoriesProvider),
+        relationshipUsecases: _ref.read(relationshipUsecasesProvider),
       );
 
   UpdateStatsUsecase get updateStatsUsecase => UpdateStatsUsecase(
@@ -250,104 +262,121 @@ class PersonUsecases {
       );
 
   UpdateMoodStatsUsecase get updateMoodStatsUsecase => UpdateMoodStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
       );
 
   UpdateHealthStatsUsecase get updateHealthStatsUsecase =>
       UpdateHealthStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
       );
 
   UpdateHungerStatsUsecase get updateHungerStatsUsecase =>
       UpdateHungerStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
       );
 
   UpdateEnergyStatsUsecase get updateEnergyStatsUsecase =>
       UpdateEnergyStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
       );
 
   UpdateLooksStatsUsecase get updateLooksStatsUsecase =>
       UpdateLooksStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   UpdateSoberStatsUsecase get updateSoberStatsUsecase =>
       UpdateSoberStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
       );
 
   UpdateIntellectStatsUsecase get updateIntellectStatsUsecase =>
       UpdateIntellectStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   UpdateAthleticismStatsUsecase get updateAthleticismStatsUsecase =>
       UpdateAthleticismStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         toggleDepleteStatsFlagUsecase: toggleDepleteStatsFlagUsecase,
       );
 
   CheckIfPlayerCanAffordItUsecase get checkIfPlayerCanAffordItUsecase =>
       CheckIfPlayerCanAffordItUsecase(
         getPlayerMoneyUsecase: getPlayerMoneyUsecase,
-        personRepository: _personRepositories.personRepositoryImpl,
+        personRepository:
+            _ref.read(personRepositoriesProvider).personRepositoryImpl,
       );
 
   WatchPersonUsecase get watchPersonUsecase => WatchPersonUsecase(
-        personRepository: _personRepositories.personRepositoryImpl,
+        personRepository:
+            _ref.read(personRepositoriesProvider).personRepositoryImpl,
       );
 
   WatchPersonStatsUsecase get watchPersonStatsUsecase =>
       WatchPersonStatsUsecase(
-        statsRepository: _personRepositories.statsRepositoryImpl,
+        statsRepository:
+            _ref.read(personRepositoriesProvider).statsRepositoryImpl,
       );
 
   GetPlayerInformationFromDataUsecase get getPlayerInformationFromDataUsecase =>
       GetPlayerInformationFromDataUsecase(
-        _ageUsecases,
+        _ref.read(ageUsecasesProvider),
       );
 
   GetPersonDepleteStatsFlagUsecase get getPersonDepleteStatsFlagUsecase =>
       GetPersonDepleteStatsFlagUsecase(
-        depleteStatsFlagRepository:
-            _personRepositories.depleteStatsFlagRepositoryImpl,
+        depleteStatsFlagRepository: _ref
+            .read(personRepositoriesProvider)
+            .depleteStatsFlagRepositoryImpl,
       );
 
   CreateOrUpdateDepleteStatsFlagUsecase
       get createOrUpdateDepleteStatsFlagUsecase =>
           CreateOrUpdateDepleteStatsFlagUsecase(
-            depleteStatsFlagRepository:
-                _personRepositories.depleteStatsFlagRepositoryImpl,
+            depleteStatsFlagRepository: _ref
+                .read(personRepositoriesProvider)
+                .depleteStatsFlagRepositoryImpl,
           );
 
   DeletePersonDepleteStatsFlagUsecase get deletePersonDepleteStatsFlagUsecase =>
       DeletePersonDepleteStatsFlagUsecase(
-        depleteStatsFlagRepository:
-            _personRepositories.depleteStatsFlagRepositoryImpl,
+        depleteStatsFlagRepository: _ref
+            .read(personRepositoriesProvider)
+            .depleteStatsFlagRepositoryImpl,
       );
 
   ToggleDepleteStatsFlagUsecase get toggleDepleteStatsFlagUsecase =>
       ToggleDepleteStatsFlagUsecase(
-        depleteStatsFlagRepository:
-            _personRepositories.depleteStatsFlagRepositoryImpl,
+        depleteStatsFlagRepository: _ref
+            .read(personRepositoriesProvider)
+            .depleteStatsFlagRepositoryImpl,
       );
 
   ResetDepleteStatsFlagUsecase get resetDepleteStatsFlagUsecase =>
       ResetDepleteStatsFlagUsecase(
-        depleteStatsFlagRepository:
-            _personRepositories.depleteStatsFlagRepositoryImpl,
+        depleteStatsFlagRepository: _ref
+            .read(personRepositoriesProvider)
+            .depleteStatsFlagRepositoryImpl,
       );
 
   EnergyAndHungerEmergencyModeSideEffectUsecase
       get energyAndHungerEmergencyModeSideEffectUsecase =>
           EnergyAndHungerEmergencyModeSideEffectUsecase(
-            statsRepository: _personRepositories.statsRepositoryImpl,
+            statsRepository:
+                _ref.read(personRepositoriesProvider).statsRepositoryImpl,
           );
 }

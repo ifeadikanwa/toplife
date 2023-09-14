@@ -9,7 +9,6 @@ import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usec
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/sign_mortgage_loan_contract.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_name.dart';
@@ -20,7 +19,6 @@ class PurchaseHouseWithLoanUsecase {
   final GameUsecases _gameUsecases;
   final RecurringBillsUsecases _recurringBillsUsecases;
   final SignMortgageLoanContract _signMortgageLoanContract;
-  final RelationshipUsecases _relationshipUsecases;
 
   const PurchaseHouseWithLoanUsecase(
     this._personUsecases,
@@ -28,7 +26,6 @@ class PurchaseHouseWithLoanUsecase {
     this._gameUsecases,
     this._recurringBillsUsecases,
     this._signMortgageLoanContract,
-    this._relationshipUsecases,
   );
 
   Future<bool> execute({
@@ -66,7 +63,6 @@ class PurchaseHouseWithLoanUsecase {
       //check if player can afford to pay down payment
       final bool canAffordDownPayment =
           await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
-        relationshipUsecases: _relationshipUsecases,
         personID: personID,
         basePrice: baseDownPayment,
         adjustToEconomy: true,
@@ -120,7 +116,6 @@ class PurchaseHouseWithLoanUsecase {
           //checking
           final bool hasEnoughInReserve =
               await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
-            relationshipUsecases: _relationshipUsecases,
             personID: personID,
             basePrice: baseAllExpectedAmount,
             adjustToEconomy: true,

@@ -140,7 +140,6 @@ class FamilyPlannedFuneral {
 
     final bool playerCanAffordToContribute =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
-      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: mainPlayerID,
       baseAmountToTake: contribution,
       adjustToEconomy: false,

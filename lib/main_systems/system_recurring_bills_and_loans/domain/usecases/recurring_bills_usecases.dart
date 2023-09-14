@@ -1,6 +1,7 @@
-import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/repository/recurring_bill_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/recurring_bill/recurring_bill_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/base_loan_amount_calculator.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/add_car_loan_to_bills_usecase.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/car_loan_calculator_usecase.dart';
@@ -23,72 +24,67 @@ import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/use
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/regular/remove_rent_from_bills_usecase.dart';
 
 class RecurringBillsUsecases {
-  final RecurringBillRepository _recurringBillRepository;
-  final GameUsecases _gameUsecases;
-  final PersonUsecases _personUsecases;
+  final Ref _ref;
 
-  const RecurringBillsUsecases({
-    required RecurringBillRepository recurringBillRepository,
-    required GameUsecases gameUsecases,
-    required PersonUsecases personUsecases,
-  })  : _recurringBillRepository = recurringBillRepository,
-        _gameUsecases = gameUsecases,
-        _personUsecases = personUsecases;
+  const RecurringBillsUsecases({required Ref ref}) : _ref = ref;
 
   AddRentToBillsUsecase get addRentToBillsUsecase => AddRentToBillsUsecase(
-        _recurringBillRepository,
-        _gameUsecases,
+        _ref.read(recurringBillRepositoryProvider),
+        _ref.read(gameUsecasesProvider),
       );
 
   RemoveRentFromBillsUsecase get removeRentFromBillsUsecase =>
       RemoveRentFromBillsUsecase(
-        _recurringBillRepository,
+        _ref.read(recurringBillRepositoryProvider),
       );
 
   AddCarLoanToBillsUsecase get addCarLoanToBillsUsecase =>
       AddCarLoanToBillsUsecase(
-        _recurringBillRepository,
-        _personUsecases,
-        _gameUsecases,
+        _ref.read(recurringBillRepositoryProvider),
+        _ref.read(personUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
         carLoanCalculatorUsecase,
         carLoanRecurringPaymentCalculatorUsecase,
       );
 
   RemoveCarLoanFromBillsUsecase get removeCarLoanFromBillsUsecase =>
-      RemoveCarLoanFromBillsUsecase(_recurringBillRepository);
+      RemoveCarLoanFromBillsUsecase(_ref.read(recurringBillRepositoryProvider));
 
   AddMortgageLoanToBillsUsecase get addMortgageLoanToBillsUsecase =>
       AddMortgageLoanToBillsUsecase(
-        _recurringBillRepository,
-        _personUsecases,
-        _gameUsecases,
+        _ref.read(recurringBillRepositoryProvider),
+        _ref.read(personUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
         mortgageLoanCalculatorUsecase,
         mortgageLoanRecurringPaymentCalculatorUsecase,
       );
 
   RemoveMortgageLoanFromBillsUsecase get removeMortgageLoanFromBillsUsecase =>
-      RemoveMortgageLoanFromBillsUsecase(_recurringBillRepository);
+      RemoveMortgageLoanFromBillsUsecase(
+          _ref.read(recurringBillRepositoryProvider));
 
   AddPropertyTaxToBillsUsecase get addPropertyTaxToBillsUsecase =>
       AddPropertyTaxToBillsUsecase(
-        _recurringBillRepository,
-        _gameUsecases,
+        _ref.read(recurringBillRepositoryProvider),
+        _ref.read(gameUsecasesProvider),
       );
 
   RemovePropertyTaxFromBillsUsecase get removePropertyTaxFromBillsUsecase =>
-      RemovePropertyTaxFromBillsUsecase(_recurringBillRepository);
+      RemovePropertyTaxFromBillsUsecase(
+          _ref.read(recurringBillRepositoryProvider));
 
   AddStudentLoanToBillsUsecase get addStudentLoanToBillsUsecase =>
       AddStudentLoanToBillsUsecase(
-        _recurringBillRepository,
-        _personUsecases,
-        _gameUsecases,
+        _ref.read(recurringBillRepositoryProvider),
+        _ref.read(personUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
         studentLoanCalculatorUsecase,
         studentLoanRecurringPaymentCalculatorUsecase,
       );
 
   RemoveStudentLoanFromBillsUsecase get removeStudentLoanFromBillsUsecase =>
-      RemoveStudentLoanFromBillsUsecase(_recurringBillRepository);
+      RemoveStudentLoanFromBillsUsecase(
+          _ref.read(recurringBillRepositoryProvider));
 
   CarLoanCalculatorUsecase get carLoanCalculatorUsecase =>
       CarLoanCalculatorUsecase();
@@ -116,13 +112,13 @@ class RecurringBillsUsecases {
   CheckIfThereIsAnExistingCarLoanUsecase
       get checkIfThereIsAnExistingCarLoanUsecase =>
           CheckIfThereIsAnExistingCarLoanUsecase(
-            _recurringBillRepository,
+            _ref.read(recurringBillRepositoryProvider),
           );
 
   CheckIfThereIsAnExistingMortgageLoanUsecase
       get checkIfThereIsAnExistingMortgageLoanUsecase =>
           CheckIfThereIsAnExistingMortgageLoanUsecase(
-            _recurringBillRepository,
+            _ref.read(recurringBillRepositoryProvider),
           );
 
   BaseDownPaymentCalculatorUsecase get baseDownPaymentCalculatorUsecase =>

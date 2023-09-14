@@ -1,7 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/school/school_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_job/data/dao/employment_dao_impl.dart';
 import 'package:toplife/main_systems/system_job/data/dao/job_dao_impl.dart';
 import 'package:toplife/main_systems/system_job/data/dao/job_relationship_dao_impl.dart';
@@ -18,7 +16,5 @@ final jobRepositoriesProvider = Provider<JobRepositories>((ref) {
 });
 
 final jobUsecasesProvider = Provider((ref) => JobUsecases(
-      jobRepositories: ref.watch(jobRepositoriesProvider),
-      schoolUsecases: ref.watch(schoolUsecasesProvider),
-      personUsecases: ref.watch(personUsecasesProvider),
+      ref: ref,
     ));

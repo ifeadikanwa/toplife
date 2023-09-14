@@ -8,7 +8,6 @@ import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/add_purchased_car_to_storage_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
 
@@ -17,14 +16,12 @@ class PurchaseCarFullyPaidUsecase {
   final PersonUsecases _personUsecases;
   final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
-  final RelationshipUsecases _relationshipUsecases;
 
   const PurchaseCarFullyPaidUsecase(
     this._addPurchasedCarToStorageUsecase,
     this._personUsecases,
     this._journalUsecases,
     this._gameUsecases,
-    this._relationshipUsecases,
   );
 
   Future<bool> execute({
@@ -49,7 +46,6 @@ class PurchaseCarFullyPaidUsecase {
 
     final bool paymentSuccessful =
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
-      relationshipUsecases: _relationshipUsecases,
       mainPlayerID: personID,
       baseAmountToTake: car.basePrice,
       adjustToEconomy: true,

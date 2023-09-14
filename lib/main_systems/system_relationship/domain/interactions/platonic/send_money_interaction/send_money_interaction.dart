@@ -111,7 +111,6 @@ class SendMoneyInteraction extends RelationshipInteraction {
       //check if player has enough money
       final bool playerHasEnoughMoney =
           await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
-        relationshipUsecases: _relationshipUsecases,
         personID: currentPlayer.id,
         basePrice: chosenMoneyAmount,
         adjustToEconomy: false,
@@ -161,7 +160,6 @@ class SendMoneyInteraction extends RelationshipInteraction {
 
         //remove the money from players account
         await _personUsecases.takeMoneyFromPlayerUsecase.execute(
-          relationshipUsecases: _relationshipUsecases,
           mainPlayerID: currentPlayer.id,
           baseAmountToTake: chosenMoneyAmount,
           adjustToEconomy: false,

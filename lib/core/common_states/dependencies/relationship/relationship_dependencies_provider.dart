@@ -1,8 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
@@ -34,8 +31,7 @@ final relationshipRepositoriesProvider =
 
 final relationshipUsecasesProvider = Provider<RelationshipUsecases>((ref) {
   return RelationshipUsecases(
-    relationshipRepositories: ref.watch(relationshipRepositoriesProvider),
-    personUsecases: ref.watch(personUsecasesProvider),
+    ref: ref,
   );
 });
 
@@ -43,9 +39,6 @@ final relationshipUsecasesProvider = Provider<RelationshipUsecases>((ref) {
 final gameRelationshipInteractionsProvider =
     Provider<GameRelationshipInteractions>((ref) {
   return GameRelationshipInteractions(
-    ref.watch(relationshipUsecasesProvider),
-    ref.watch(journalUsecasesProvider),
-    ref.watch(personUsecasesProvider),
-    ref.watch(shopAndStorageUsecasesProvider),
+    ref: ref,
   );
 });

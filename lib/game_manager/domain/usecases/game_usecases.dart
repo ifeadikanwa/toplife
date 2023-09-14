@@ -1,5 +1,11 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
+import 'package:toplife/core/common_states/dependencies/transportation/transportation_dependencies_providers.dart';
 import 'package:toplife/game_manager/action_runner/action_runner.dart';
-import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 import 'package:toplife/game_manager/domain/usecases/change_current_player_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/control_game/decay_and_alter_player_stats_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/control_game/game_controller_usecase.dart';
@@ -15,68 +21,59 @@ import 'package:toplife/game_manager/domain/usecases/move_time_forward_usecase.d
 import 'package:toplife/game_manager/domain/usecases/set_last_played_active_game_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/update_game_usecase.dart';
 import 'package:toplife/game_manager/domain/usecases/watch_last_played_active_game_usecase.dart';
-import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class GameUsecases {
-  final GameRepository _gameRepository;
-  final PersonUsecases _personUsecases;
-  final RelationshipUsecases _relationshipUsecases;
-  final AgeUsecases _ageUsecases;
+  final Ref _ref;
 
-  const GameUsecases(
-    GameRepository gameRepository,
-    PersonUsecases personUsecases,
-    RelationshipUsecases relationshipUsecases,
-    AgeUsecases ageUsecases,
-  )   : _gameRepository = gameRepository,
-        _personUsecases = personUsecases,
-        _relationshipUsecases = relationshipUsecases,
-        _ageUsecases = ageUsecases;
+  const GameUsecases({required Ref ref}) : _ref = ref;
 
   ActionRunner get actionRunner => ActionRunner(
         moveTimeForwardUsecase,
-        getGameUsecase,
         getCurrentGameAndPlayerUsecase,
-        _personUsecases,
+        _ref.read(personUsecasesProvider),
+        _ref.read(transportationUsecasesProvider),
       );
 
   CreateNewGameUsecase get createGameUsecase => CreateNewGameUsecase(
-        gameRepository: _gameRepository,
-        personUsecases: _personUsecases,
-        relationshipUsecases: _relationshipUsecases,
-        ageUsecases: _ageUsecases,
+        gameRepository: _ref.read(gameRepositoryProvider),
+        personUsecases: _ref.read(personUsecasesProvider),
+        relationshipUsecases: _ref.read(relationshipUsecasesProvider),
+        ageUsecases: _ref.read(ageUsecasesProvider),
       );
 
-  UpdateGameUsecase get updateGameUsecase =>
-      UpdateGameUsecase(gameRepository: _gameRepository);
+  UpdateGameUsecase get updateGameUsecase => UpdateGameUsecase(
+        gameRepository: _ref.read(gameRepositoryProvider),
+      );
 
   DeleteGameUsecase get deleteGameUsecase =>
-      DeleteGameUsecase(gameRepository: _gameRepository);
+      DeleteGameUsecase(gameRepository: _ref.read(gameRepositoryProvider));
 
   GetAllActiveGamesUsecase get getAllActiveGamesUsecase =>
-      GetAllActiveGamesUsecase(gameRepository: _gameRepository);
+      GetAllActiveGamesUsecase(
+          gameRepository: _ref.read(gameRepositoryProvider));
 
   GetGameUsecase get getGameUsecase =>
-      GetGameUsecase(gameRepository: _gameRepository);
+      GetGameUsecase(gameRepository: _ref.read(gameRepositoryProvider));
 
   GetLastPlayedActiveGameUsecase get getLastPlayedActiveGameUsecase =>
-      GetLastPlayedActiveGameUsecase(gameRepository: _gameRepository);
+      GetLastPlayedActiveGameUsecase(
+          gameRepository: _ref.read(gameRepositoryProvider));
 
   ChangeCurrentPlayerUsecase get changeCurrentPlayerUsecase =>
-      ChangeCurrentPlayerUsecase(gameRepository: _gameRepository);
+      ChangeCurrentPlayerUsecase(
+          gameRepository: _ref.read(gameRepositoryProvider));
 
   MoveTimeForwardUsecase get moveTimeForwardUsecase =>
-      MoveTimeForwardUsecase(gameRepository: _gameRepository);
+      MoveTimeForwardUsecase(gameRepository: _ref.read(gameRepositoryProvider));
 
   SetLastPlayedActiveGameUsecase get setLastPlayedActiveGameUsecase =>
-      SetLastPlayedActiveGameUsecase(gameRepository: _gameRepository);
+      SetLastPlayedActiveGameUsecase(
+          gameRepository: _ref.read(gameRepositoryProvider));
 
   GetCurrentGameAndPlayerUsecase get getCurrentGameAndPlayerUsecase =>
       GetCurrentGameAndPlayerUsecase(
         getLastPlayedActiveGameUsecase,
-        _personUsecases,
+        _ref.read(personUsecasesProvider),
       );
 
   GetPlayerBarInfoUsecase get getPlayerBarInfoUsecase =>
@@ -87,19 +84,19 @@ class GameUsecases {
 
   GetPlayerBarInfoFromDataUsecase get getPlayerBarInfoFromDataUsecase =>
       GetPlayerBarInfoFromDataUsecase(
-        _personUsecases,
-        _relationshipUsecases,
+        _ref.read(personUsecasesProvider),
       );
 
   WatchLastPlayedActiveGameUsecase get watchLastPlayedActiveGameUsecase =>
       WatchLastPlayedActiveGameUsecase(
-        gameRepository: _gameRepository,
+        gameRepository: _ref.read(gameRepositoryProvider),
       );
 
   GameControllerUsecase get gameControllerUsecase => GameControllerUsecase(
         decayAndAlterPlayerStatsUsecase,
+        _ref.read(eventManagerProvider),
       );
 
   DecayAndAlterPlayerStatsUsecase get decayAndAlterPlayerStatsUsecase =>
-      DecayAndAlterPlayerStatsUsecase(_personUsecases);
+      DecayAndAlterPlayerStatsUsecase(_ref.read(personUsecasesProvider));
 }

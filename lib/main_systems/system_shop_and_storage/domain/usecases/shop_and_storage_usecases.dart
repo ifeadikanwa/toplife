@@ -1,9 +1,9 @@
-import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/repository/shop_and_storage_repositories.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/recurring_bill/recurring_bill_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/add_purchased_car_to_storage_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_is_not_dead_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/check_if_car_has_problems_usecase.dart';
@@ -51,71 +51,57 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/ite
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/jewelry/purchase_jewelry_usecase.dart';
 
 class ShopAndStorageUsecases {
-  final ShopAndStorageRepositories _shopAndStorageRepositories;
-  final PersonUsecases _personUsecases;
-  final JournalUsecases _journalUsecases;
-  final GameUsecases _gameUsecases;
-  final RecurringBillsUsecases _recurringBillsUsecases;
-  final RelationshipUsecases _relationshipUsecases;
+  final Ref _ref;
 
-  const ShopAndStorageUsecases({
-    required ShopAndStorageRepositories shopAndStorageRepositories,
-    required PersonUsecases personUsecases,
-    required JournalUsecases journalUsecases,
-    required GameUsecases gameUsecases,
-    required RecurringBillsUsecases recurringBillsUsecases,
-    required RelationshipUsecases relationshipUsecases,
-  })  : _shopAndStorageRepositories = shopAndStorageRepositories,
-        _personUsecases = personUsecases,
-        _journalUsecases = journalUsecases,
-        _gameUsecases = gameUsecases,
-        _recurringBillsUsecases = recurringBillsUsecases,
-        _relationshipUsecases = relationshipUsecases;
+  const ShopAndStorageUsecases({required Ref ref}) : _ref = ref;
 
   GetStoreroomItemPairsUsecase get getStoreroomItemPairsUsecase =>
       GetStoreroomItemPairsUsecase(
-        itemRepository: _shopAndStorageRepositories.itemRepositoryImpl,
+        itemRepository:
+            _ref.read(shopAndStorageRepositoriesProvider).itemRepositoryImpl,
         getAvailbleStoreroomItemUsecase: getAvailbleStoreroomItemUsecase,
       );
 
   GetAvailbleStoreroomItemUsecase get getAvailbleStoreroomItemUsecase =>
       GetAvailbleStoreroomItemUsecase(
-        storeroomItemRepository:
-            _shopAndStorageRepositories.storeroomItemRepositoryImpl,
+        storeroomItemRepository: _ref
+            .read(shopAndStorageRepositoriesProvider)
+            .storeroomItemRepositoryImpl,
       );
 
   UseStoreroomItemUsecase get useStoreroomItemUsecase =>
       UseStoreroomItemUsecase(
-        storeroomItemRepository:
-            _shopAndStorageRepositories.storeroomItemRepositoryImpl,
+        storeroomItemRepository: _ref
+            .read(shopAndStorageRepositoriesProvider)
+            .storeroomItemRepositoryImpl,
       );
 
   GetCurrentCarUsecase get getCurrentCarUsecase => GetCurrentCarUsecase(
-        _shopAndStorageRepositories.carRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).carRepositoryImpl,
       );
 
   GetCurrentHouseUsecase get getCurrentHouseUsecase => GetCurrentHouseUsecase(
-        _shopAndStorageRepositories.houseRepositoryImpl,
-        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).houseRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).currentHomeRepositoryImpl,
       );
 
   GetCarMaxConditionUsecase get getCarMaxConditionUsecase =>
       const GetCarMaxConditionUsecase();
 
   DriveCarUsecase get driveCarUsecase => DriveCarUsecase(
-        _shopAndStorageRepositories.carRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).carRepositoryImpl,
         createCarProblemUsecase,
         getCarMaxConditionUsecase,
       );
 
   CreateCarProblemUsecase get createCarProblemUsecase =>
       CreateCarProblemUsecase(
-        _shopAndStorageRepositories.carProblemRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).carProblemRepositoryImpl,
       );
 
   CheckIfCarHasProblemUsecase get checkIfCarHasProblemUsecase =>
       CheckIfCarHasProblemUsecase(
-        _shopAndStorageRepositories.carProblemRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).carProblemRepositoryImpl,
       );
 
   CarIsNotDeadUsecase get carIsNotDeadUsecase =>
@@ -124,36 +110,36 @@ class ShopAndStorageUsecases {
   SetAllPersonCarsToNotCurrentlyDrivingUsecase
       get setAllPersonCarsToNotCurrentlyDrivingUsecase =>
           SetAllPersonCarsToNotCurrentlyDrivingUsecase(
-            _shopAndStorageRepositories.carRepositoryImpl,
+            _ref.read(shopAndStorageRepositoriesProvider).carRepositoryImpl,
           );
 
   UpdateCarUsecase get updateCarUsecase => UpdateCarUsecase(
-        _shopAndStorageRepositories.carRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).carRepositoryImpl,
       );
   AddPurchasedCarToStorageUsecase get addPurchasedCarToStorageUsecase =>
       AddPurchasedCarToStorageUsecase(
-    _shopAndStorageRepositories.carRepositoryImpl,
-    createCarProblemUsecase,
-  );
-  
+        _ref.read(shopAndStorageRepositoriesProvider).carRepositoryImpl,
+        createCarProblemUsecase,
+      );
+
   PurchaseCarFullyPaidUsecase get purchaseCarFullyPaidUsecase =>
       PurchaseCarFullyPaidUsecase(
         addPurchasedCarToStorageUsecase,
-        _personUsecases,
-        _journalUsecases,
-        _gameUsecases,
-        _relationshipUsecases,
+        _ref.read(personUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
       );
 
   AddFoodToFridgeUsecase get addFoodToFridgeUsecase => AddFoodToFridgeUsecase(
-      _shopAndStorageRepositories.fridgeFoodRepositoryImpl, _gameUsecases);
+      _ref.read(shopAndStorageRepositoriesProvider).fridgeFoodRepositoryImpl,
+      _ref.read(gameUsecasesProvider));
 
-  GetFoodRecordUsecase get getFoodRecordUsecase =>
-      GetFoodRecordUsecase(_shopAndStorageRepositories.foodRepositoryImpl);
+  GetFoodRecordUsecase get getFoodRecordUsecase => GetFoodRecordUsecase(
+      _ref.read(shopAndStorageRepositoriesProvider).foodRepositoryImpl);
 
   GetFridgeFoodCountUsecase get getFridgeFoodCountUsecase =>
       GetFridgeFoodCountUsecase(
-        _shopAndStorageRepositories.fridgeFoodRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).fridgeFoodRepositoryImpl,
       );
 
   PurchaseFoodUsecase get purchaseFoodUsecase => PurchaseFoodUsecase(
@@ -161,10 +147,9 @@ class ShopAndStorageUsecases {
         getFoodRecordUsecase,
         getCurrentHouseStorageSpaceUsecase,
         getFridgeFoodCountUsecase,
-        _personUsecases,
-        _journalUsecases,
-        _gameUsecases,
-        _relationshipUsecases,
+        _ref.read(personUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
       );
 
   GetCurrentHouseStorageSpaceUsecase get getCurrentHouseStorageSpaceUsecase =>
@@ -174,129 +159,124 @@ class ShopAndStorageUsecases {
 
   PurchaseHouseFullyPaidUsecase get purchaseHouseFullyPaidUsecase =>
       PurchaseHouseFullyPaidUsecase(
-        _shopAndStorageRepositories.houseRepositoryImpl,
-        _personUsecases,
-        _journalUsecases,
-        _gameUsecases,
-        _relationshipUsecases,
+        _ref.read(shopAndStorageRepositoriesProvider).houseRepositoryImpl,
+        _ref.read(personUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
       );
 
   AddItemToStoreroomUsecase get addItemToStoreroomUsecase =>
       AddItemToStoreroomUsecase(
-        _shopAndStorageRepositories.storeroomItemRepositoryImpl,
+        _ref
+            .read(shopAndStorageRepositoriesProvider)
+            .storeroomItemRepositoryImpl,
       );
 
-  GetItemRecordUsecase get getItemRecordUsecase =>
-      GetItemRecordUsecase(_shopAndStorageRepositories.itemRepositoryImpl);
+  GetItemRecordUsecase get getItemRecordUsecase => GetItemRecordUsecase(
+      _ref.read(shopAndStorageRepositoriesProvider).itemRepositoryImpl);
 
   GetStoreroomItemCountUsecase get getStoreroomItemCountUsecase =>
       GetStoreroomItemCountUsecase(
-        _shopAndStorageRepositories.storeroomItemRepositoryImpl,
+        _ref
+            .read(shopAndStorageRepositoriesProvider)
+            .storeroomItemRepositoryImpl,
       );
 
   PurchaseItemUsecase get purchaseItemUsecase => PurchaseItemUsecase(
         getItemRecordUsecase,
         getStoreroomItemCountUsecase,
         getCurrentHouseStorageSpaceUsecase,
-        _personUsecases,
+        _ref.read(personUsecasesProvider),
         addItemToStoreroomUsecase,
-        _gameUsecases,
-        _journalUsecases,
-        _relationshipUsecases,
+        _ref.read(gameUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
       );
 
   PurchaseJewelryUsecase get purchaseJewelryUsecase => PurchaseJewelryUsecase(
-        _shopAndStorageRepositories.jewelryRepositoryImpl,
-        _personUsecases,
-        _journalUsecases,
-        _gameUsecases,
-        _relationshipUsecases,
+        _ref.read(shopAndStorageRepositoriesProvider).jewelryRepositoryImpl,
+        _ref.read(personUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
       );
 
   RentHouseUsecase get rentHouseUsecase => RentHouseUsecase(
-        _shopAndStorageRepositories.houseRepositoryImpl,
-        _personUsecases,
-        _gameUsecases,
+        _ref.read(shopAndStorageRepositoriesProvider).houseRepositoryImpl,
+        _ref.read(personUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
         endLeaseUsecase,
         signLeaseForRentalUsecase,
-        _journalUsecases,
+        _ref.read(journalUsecasesProvider),
         breakOldLeaseSignNewLease,
-        _relationshipUsecases,
       );
 
   BreakOldLeaseSignNewLease get breakOldLeaseSignNewLease =>
       BreakOldLeaseSignNewLease(
         endLeaseUsecase,
         signLeaseForRentalUsecase,
-        _journalUsecases,
+        _ref.read(journalUsecasesProvider),
       );
 
   EndLeaseUsecase get endLeaseUsecase => EndLeaseUsecase(
-        _shopAndStorageRepositories.houseRepositoryImpl,
-        _personUsecases,
-        _recurringBillsUsecases,
-        _relationshipUsecases,
+        _ref.read(shopAndStorageRepositoriesProvider).houseRepositoryImpl,
+        _ref.read(personUsecasesProvider),
+        _ref.read(recurringBillUsecasesProvider),
       );
 
   SignLeaseForRentalUsecase get signLeaseForRentalUsecase =>
       SignLeaseForRentalUsecase(
-        _shopAndStorageRepositories.houseRepositoryImpl,
-        _recurringBillsUsecases,
+        _ref.read(shopAndStorageRepositoriesProvider).houseRepositoryImpl,
+        _ref.read(recurringBillUsecasesProvider),
         moveIntoNewHouseUsecase,
-        _personUsecases,
-        _relationshipUsecases,
+        _ref.read(personUsecasesProvider),
       );
 
   MoveStorageToNewHouseUsecase get moveStorageToNewHouseUsecase =>
       MoveStorageToNewHouseUsecase(
         getAvailbleStoreroomItemUsecase,
         getStoreroomItemPairsUsecase,
-        _shopAndStorageRepositories.fridgeFoodRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).fridgeFoodRepositoryImpl,
         useFoodUsecase,
         useStoreroomItemUsecase,
       );
 
   UseFoodUsecase get useFoodUsecase => UseFoodUsecase(
-        _shopAndStorageRepositories.fridgeFoodRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).fridgeFoodRepositoryImpl,
       );
 
   GetAllPersonFridgeFoodPairsUsecase get getAllPersonFridgeFoodPairsUsecase =>
       GetAllPersonFridgeFoodPairsUsecase(
-        _shopAndStorageRepositories.fridgeFoodRepositoryImpl,
-        _shopAndStorageRepositories.foodRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).fridgeFoodRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).foodRepositoryImpl,
       );
 
   PurchaseCarWithLoanUsecase get purchaseCarWithLoanUsecase =>
       PurchaseCarWithLoanUsecase(
         addPurchasedCarToStorageUsecase,
-        _personUsecases,
-        _journalUsecases,
-        _gameUsecases,
-        _recurringBillsUsecases,
-        _relationshipUsecases,
+        _ref.read(personUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
+        _ref.read(recurringBillUsecasesProvider),
       );
 
   PurchaseHouseWithLoanUsecase get purchaseHouseWithLoanUsecase =>
       PurchaseHouseWithLoanUsecase(
-        _personUsecases,
-        _journalUsecases,
-        _gameUsecases,
-        _recurringBillsUsecases,
+        _ref.read(personUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(gameUsecasesProvider),
+        _ref.read(recurringBillUsecasesProvider),
         signMortgageLoanContract,
-        _relationshipUsecases,
       );
 
   SignMortgageLoanContract get signMortgageLoanContract =>
       SignMortgageLoanContract(
-        _shopAndStorageRepositories.houseRepositoryImpl,
-        _personUsecases,
-        _journalUsecases,
-        _recurringBillsUsecases,
-        _relationshipUsecases,
+        _ref.read(shopAndStorageRepositoriesProvider).houseRepositoryImpl,
+        _ref.read(personUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(recurringBillUsecasesProvider),
       );
 
   AddLocationToBuildingsUsecase get addLocationToBuildingsUsecase =>
-      AddLocationToBuildingsUsecase(_personUsecases);
+      AddLocationToBuildingsUsecase(_ref.read(personUsecasesProvider));
 
   GetPurchaseHousesUsecase get getPurchaseHousesUsecase =>
       GetPurchaseHousesUsecase(addLocationToBuildingsUsecase);
@@ -306,36 +286,36 @@ class ShopAndStorageUsecases {
 
   MoveIntoNewHouseUsecase get moveIntoNewHouseUsecase =>
       MoveIntoNewHouseUsecase(
-        _personUsecases,
+        _ref.read(personUsecasesProvider),
         moveStorageToNewHouseUsecase,
         setCurrentHomeUsecase,
       );
 
   DeleteCurrentHomeUsecase get deleteCurrentHomeUsecase =>
       DeleteCurrentHomeUsecase(
-        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).currentHomeRepositoryImpl,
       );
 
   GetAllPeopleInAHouseUsecase get getAllPeopleInAHouseUsecase =>
       GetAllPeopleInAHouseUsecase(
-        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).currentHomeRepositoryImpl,
       );
 
   GetCurrentHomeUsecase get getCurrentHomeUsecase => GetCurrentHomeUsecase(
-        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).currentHomeRepositoryImpl,
       );
 
   SetCurrentHomeUsecase get setCurrentHomeUsecase => SetCurrentHomeUsecase(
-        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).currentHomeRepositoryImpl,
       );
 
   WatchAllPeopleInAHouseUsecase get watchAllPeopleInAHouseUsecase =>
       WatchAllPeopleInAHouseUsecase(
-        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).currentHomeRepositoryImpl,
       );
 
   WatchCurrentHomeUsecase get watchCurrentHomeUsecase =>
       WatchCurrentHomeUsecase(
-        _shopAndStorageRepositories.currentHomeRepositoryImpl,
+        _ref.read(shopAndStorageRepositoriesProvider).currentHomeRepositoryImpl,
       );
 }
