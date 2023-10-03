@@ -27,7 +27,12 @@ class StanceTable extends Table {
   BoolColumn get openToWorkingAJob => boolean()();
   BoolColumn get openToBeingPregnant => boolean()();
   BoolColumn get openToHavingChildren => boolean()();
+  //
+  //partner: will demand marriage if the player gets pregnant(female player) or the partner gets pregnant(male player)
+  //parents: will kick player out if player gets pregnant or their female partner gets pregnant. we can schedule an event where the parents basically come around and ask to see their grandchild.
   BoolColumn get openToHavingChildrenOutsideAMarriage => boolean()();
+  //
+  //partner: if they had their first child with the player without being in a relationship, we schedule events where they basically want to have another kid and ask the player to make one with them.
   BoolColumn get openToHavingMultipleCoparents => boolean()();
   BoolColumn get openToCheating => boolean()();
 

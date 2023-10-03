@@ -26,15 +26,12 @@ class $GameTableTable extends GameTable with TableInfo<$GameTableTable, Game> {
   static const VerificationMeta _isActiveMeta =
       const VerificationMeta('isActive');
   @override
-  late final GeneratedColumn<bool> isActive =
-      GeneratedColumn<bool>('is_active', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_active" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
   static const VerificationMeta _lastPlayedTimeMeta =
       const VerificationMeta('lastPlayedTime');
   @override
@@ -70,9 +67,10 @@ class $GameTableTable extends GameTable with TableInfo<$GameTableTable, Game> {
         generation
       ];
   @override
-  String get aliasedName => _alias ?? 'game';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'game';
+  String get actualTableName => $name;
+  static const String $name = 'game';
   @override
   VerificationContext validateIntegrity(Insertable<Game> instance,
       {bool isInserting = false}) {
@@ -503,15 +501,12 @@ class $PersonTableTable extends PersonTable
   static const VerificationMeta _hasDriversLicenseMeta =
       const VerificationMeta('hasDriversLicense');
   @override
-  late final GeneratedColumn<bool> hasDriversLicense =
-      GeneratedColumn<bool>('has_drivers_license', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("has_drivers_license" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> hasDriversLicense = GeneratedColumn<bool>(
+      'has_drivers_license', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("has_drivers_license" IN (0, 1))'));
   static const VerificationMeta _transportModeMeta =
       const VerificationMeta('transportMode');
   @override
@@ -527,61 +522,46 @@ class $PersonTableTable extends PersonTable
   static const VerificationMeta _hasFertilityIssuesMeta =
       const VerificationMeta('hasFertilityIssues');
   @override
-  late final GeneratedColumn<bool> hasFertilityIssues =
-      GeneratedColumn<bool>('has_fertility_issues', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("has_fertility_issues" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> hasFertilityIssues = GeneratedColumn<bool>(
+      'has_fertility_issues', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("has_fertility_issues" IN (0, 1))'));
   static const VerificationMeta _onBirthControlMeta =
       const VerificationMeta('onBirthControl');
   @override
-  late final GeneratedColumn<bool> onBirthControl =
-      GeneratedColumn<bool>('on_birth_control', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("on_birth_control" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> onBirthControl = GeneratedColumn<bool>(
+      'on_birth_control', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("on_birth_control" IN (0, 1))'));
   static const VerificationMeta _isSterileMeta =
       const VerificationMeta('isSterile');
   @override
-  late final GeneratedColumn<bool> isSterile =
-      GeneratedColumn<bool>('is_sterile', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_sterile" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isSterile = GeneratedColumn<bool>(
+      'is_sterile', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_sterile" IN (0, 1))'));
   static const VerificationMeta _sicklyMeta = const VerificationMeta('sickly');
   @override
-  late final GeneratedColumn<bool> sickly =
-      GeneratedColumn<bool>('sickly', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sickly" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> sickly = GeneratedColumn<bool>(
+      'sickly', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("sickly" IN (0, 1))'));
   static const VerificationMeta _deadMeta = const VerificationMeta('dead');
   @override
-  late final GeneratedColumn<bool> dead =
-      GeneratedColumn<bool>('dead', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("dead" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> dead = GeneratedColumn<bool>(
+      'dead', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("dead" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -611,9 +591,10 @@ class $PersonTableTable extends PersonTable
         dead
       ];
   @override
-  String get aliasedName => _alias ?? 'person';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'person';
+  String get actualTableName => $name;
+  static const String $name = 'person';
   @override
   VerificationContext validateIntegrity(Insertable<Person> instance,
       {bool isInserting = false}) {
@@ -1573,15 +1554,12 @@ class $AppearanceTableTable extends AppearanceTable
   static const VerificationMeta _hasBeardsMeta =
       const VerificationMeta('hasBeards');
   @override
-  late final GeneratedColumn<bool> hasBeards =
-      GeneratedColumn<bool>('has_beards', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("has_beards" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> hasBeards = GeneratedColumn<bool>(
+      'has_beards', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("has_beards" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         personId,
@@ -1595,9 +1573,10 @@ class $AppearanceTableTable extends AppearanceTable
         hasBeards
       ];
   @override
-  String get aliasedName => _alias ?? 'appearance';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'appearance';
+  String get actualTableName => $name;
+  static const String $name = 'appearance';
   @override
   VerificationContext validateIntegrity(Insertable<Appearance> instance,
       {bool isInserting = false}) {
@@ -2084,9 +2063,10 @@ class $StatsTableTable extends StatsTable
         alcoholTolerance
       ];
   @override
-  String get aliasedName => _alias ?? 'stats';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'stats';
+  String get actualTableName => $name;
+  static const String $name = 'stats';
   @override
   VerificationContext validateIntegrity(Insertable<Stats> instance,
       {bool isInserting = false}) {
@@ -2531,78 +2511,61 @@ class $DepleteStatsFlagTableTable extends DepleteStatsFlagTable
           'UNIQUE REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _energyMeta = const VerificationMeta('energy');
   @override
-  late final GeneratedColumn<bool> energy =
-      GeneratedColumn<bool>('energy', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("energy" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> energy = GeneratedColumn<bool>(
+      'energy', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("energy" IN (0, 1))'));
   static const VerificationMeta _hungerMeta = const VerificationMeta('hunger');
   @override
-  late final GeneratedColumn<bool> hunger =
-      GeneratedColumn<bool>('hunger', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("hunger" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> hunger = GeneratedColumn<bool>(
+      'hunger', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("hunger" IN (0, 1))'));
   static const VerificationMeta _moodMeta = const VerificationMeta('mood');
   @override
-  late final GeneratedColumn<bool> mood =
-      GeneratedColumn<bool>('mood', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("mood" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> mood = GeneratedColumn<bool>(
+      'mood', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("mood" IN (0, 1))'));
   static const VerificationMeta _healthMeta = const VerificationMeta('health');
   @override
-  late final GeneratedColumn<bool> health =
-      GeneratedColumn<bool>('health', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("health" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> health = GeneratedColumn<bool>(
+      'health', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("health" IN (0, 1))'));
   static const VerificationMeta _athleticismMeta =
       const VerificationMeta('athleticism');
   @override
-  late final GeneratedColumn<bool> athleticism =
-      GeneratedColumn<bool>('athleticism', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("athleticism" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> athleticism = GeneratedColumn<bool>(
+      'athleticism', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("athleticism" IN (0, 1))'));
   static const VerificationMeta _soberMeta = const VerificationMeta('sober');
   @override
-  late final GeneratedColumn<bool> sober =
-      GeneratedColumn<bool>('sober', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("sober" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> sober = GeneratedColumn<bool>(
+      'sober', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("sober" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns =>
       [personId, energy, hunger, mood, health, athleticism, sober];
   @override
-  String get aliasedName => _alias ?? 'deplete_stats_flag';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'deplete_stats_flag';
+  String get actualTableName => $name;
+  static const String $name = 'deplete_stats_flag';
   @override
   VerificationContext validateIntegrity(Insertable<DepleteStatsFlag> instance,
       {bool isInserting = false}) {
@@ -3011,9 +2974,10 @@ class $PersonalityTableTable extends PersonalityTable
         violent
       ];
   @override
-  String get aliasedName => _alias ?? 'personality';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'personality';
+  String get actualTableName => $name;
+  static const String $name = 'personality';
   @override
   VerificationContext validateIntegrity(Insertable<Personality> instance,
       {bool isInserting = false}) {
@@ -3485,27 +3449,21 @@ class $StanceTableTable extends StanceTable
   static const VerificationMeta _openToAdoptionMeta =
       const VerificationMeta('openToAdoption');
   @override
-  late final GeneratedColumn<bool> openToAdoption =
-      GeneratedColumn<bool>('open_to_adoption', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_adoption" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToAdoption = GeneratedColumn<bool>(
+      'open_to_adoption', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_adoption" IN (0, 1))'));
   static const VerificationMeta _openToMarriageMeta =
       const VerificationMeta('openToMarriage');
   @override
-  late final GeneratedColumn<bool> openToMarriage =
-      GeneratedColumn<bool>('open_to_marriage', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_marriage" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToMarriage = GeneratedColumn<bool>(
+      'open_to_marriage', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_marriage" IN (0, 1))'));
   static const VerificationMeta _openToSexWorkerPartnerMeta =
       const VerificationMeta('openToSexWorkerPartner');
   @override
@@ -3513,35 +3471,26 @@ class $StanceTableTable extends StanceTable
       GeneratedColumn<bool>('open_to_sex_worker_partner', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_sex_worker_partner" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("open_to_sex_worker_partner" IN (0, 1))'));
   static const VerificationMeta _openToAbortionMeta =
       const VerificationMeta('openToAbortion');
   @override
-  late final GeneratedColumn<bool> openToAbortion =
-      GeneratedColumn<bool>('open_to_abortion', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_abortion" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToAbortion = GeneratedColumn<bool>(
+      'open_to_abortion', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_abortion" IN (0, 1))'));
   static const VerificationMeta _openToSurrogacyMeta =
       const VerificationMeta('openToSurrogacy');
   @override
-  late final GeneratedColumn<bool> openToSurrogacy =
-      GeneratedColumn<bool>('open_to_surrogacy', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_surrogacy" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToSurrogacy = GeneratedColumn<bool>(
+      'open_to_surrogacy', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_surrogacy" IN (0, 1))'));
   static const VerificationMeta _openToAlternativeFertilityMethodsMeta =
       const VerificationMeta('openToAlternativeFertilityMethods');
   @override
@@ -3550,49 +3499,36 @@ class $StanceTableTable extends StanceTable
           'open_to_alternative_fertility_methods', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite:
-                'CHECK ("open_to_alternative_fertility_methods" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("open_to_alternative_fertility_methods" IN (0, 1))'));
   static const VerificationMeta _openToSigningPrenupMeta =
       const VerificationMeta('openToSigningPrenup');
   @override
-  late final GeneratedColumn<bool> openToSigningPrenup =
-      GeneratedColumn<bool>('open_to_signing_prenup', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_signing_prenup" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToSigningPrenup = GeneratedColumn<bool>(
+      'open_to_signing_prenup', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_signing_prenup" IN (0, 1))'));
   static const VerificationMeta _wantsPartnerToSignPrenupMeta =
       const VerificationMeta('wantsPartnerToSignPrenup');
   @override
   late final GeneratedColumn<bool> wantsPartnerToSignPrenup =
-      GeneratedColumn<bool>('wants_partner_to_sign_prenup', aliasedName, false,
+      GeneratedColumn<bool>(
+          'wants_partner_to_sign_prenup', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite:
-                'CHECK ("wants_partner_to_sign_prenup" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("wants_partner_to_sign_prenup" IN (0, 1))'));
   static const VerificationMeta _openToCrimesMeta =
       const VerificationMeta('openToCrimes');
   @override
-  late final GeneratedColumn<bool> openToCrimes =
-      GeneratedColumn<bool>('open_to_crimes', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_crimes" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToCrimes = GeneratedColumn<bool>(
+      'open_to_crimes', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_crimes" IN (0, 1))'));
   static const VerificationMeta _openToStayAtHomeParentingMeta =
       const VerificationMeta('openToStayAtHomeParenting');
   @override
@@ -3601,74 +3537,55 @@ class $StanceTableTable extends StanceTable
           'open_to_stay_at_home_parenting', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite:
-                'CHECK ("open_to_stay_at_home_parenting" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("open_to_stay_at_home_parenting" IN (0, 1))'));
   static const VerificationMeta _openToPremaritalSexMeta =
       const VerificationMeta('openToPremaritalSex');
   @override
-  late final GeneratedColumn<bool> openToPremaritalSex =
-      GeneratedColumn<bool>('open_to_premarital_sex', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_premarital_sex" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToPremaritalSex = GeneratedColumn<bool>(
+      'open_to_premarital_sex', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_premarital_sex" IN (0, 1))'));
   static const VerificationMeta _openToWorkingAJobMeta =
       const VerificationMeta('openToWorkingAJob');
   @override
-  late final GeneratedColumn<bool> openToWorkingAJob =
-      GeneratedColumn<bool>('open_to_working_a_job', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_working_a_job" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToWorkingAJob = GeneratedColumn<bool>(
+      'open_to_working_a_job', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_working_a_job" IN (0, 1))'));
   static const VerificationMeta _openToBeingPregnantMeta =
       const VerificationMeta('openToBeingPregnant');
   @override
-  late final GeneratedColumn<bool> openToBeingPregnant =
-      GeneratedColumn<bool>('open_to_being_pregnant', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_being_pregnant" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToBeingPregnant = GeneratedColumn<bool>(
+      'open_to_being_pregnant', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_being_pregnant" IN (0, 1))'));
   static const VerificationMeta _openToHavingChildrenMeta =
       const VerificationMeta('openToHavingChildren');
   @override
-  late final GeneratedColumn<bool> openToHavingChildren =
-      GeneratedColumn<bool>('open_to_having_children', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_having_children" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToHavingChildren = GeneratedColumn<bool>(
+      'open_to_having_children', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_having_children" IN (0, 1))'));
   static const VerificationMeta _openToHavingChildrenOutsideAMarriageMeta =
       const VerificationMeta('openToHavingChildrenOutsideAMarriage');
   @override
-  late final GeneratedColumn<bool> openToHavingChildrenOutsideAMarriage =
-      GeneratedColumn<bool>(
-          'open_to_having_children_outside_a_marriage', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite:
-                'CHECK ("open_to_having_children_outside_a_marriage" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<
+      bool> openToHavingChildrenOutsideAMarriage = GeneratedColumn<
+          bool>(
+      'open_to_having_children_outside_a_marriage', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_having_children_outside_a_marriage" IN (0, 1))'));
   static const VerificationMeta _openToHavingMultipleCoparentsMeta =
       const VerificationMeta('openToHavingMultipleCoparents');
   @override
@@ -3677,36 +3594,26 @@ class $StanceTableTable extends StanceTable
           'open_to_having_multiple_coparents', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite:
-                'CHECK ("open_to_having_multiple_coparents" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("open_to_having_multiple_coparents" IN (0, 1))'));
   static const VerificationMeta _openToCheatingMeta =
       const VerificationMeta('openToCheating');
   @override
-  late final GeneratedColumn<bool> openToCheating =
-      GeneratedColumn<bool>('open_to_cheating', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_cheating" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToCheating = GeneratedColumn<bool>(
+      'open_to_cheating', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_cheating" IN (0, 1))'));
   static const VerificationMeta _openToGayPeopleMeta =
       const VerificationMeta('openToGayPeople');
   @override
-  late final GeneratedColumn<bool> openToGayPeople =
-      GeneratedColumn<bool>('open_to_gay_people', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("open_to_gay_people" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> openToGayPeople = GeneratedColumn<bool>(
+      'open_to_gay_people', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("open_to_gay_people" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -3731,9 +3638,10 @@ class $StanceTableTable extends StanceTable
         openToGayPeople
       ];
   @override
-  String get aliasedName => _alias ?? 'stance';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'stance';
+  String get actualTableName => $name;
+  static const String $name = 'stance';
   @override
   VerificationContext validateIntegrity(Insertable<Stance> instance,
       {bool isInserting = false}) {
@@ -4618,9 +4526,10 @@ class $TattooTableTable extends TattooTable
   List<GeneratedColumn> get $columns =>
       [id, personId, description, location, size, dayObtained, quality];
   @override
-  String get aliasedName => _alias ?? 'tattoo';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'tattoo';
+  String get actualTableName => $name;
+  static const String $name = 'tattoo';
   @override
   VerificationContext validateIntegrity(Insertable<Tattoo> instance,
       {bool isInserting = false}) {
@@ -4967,9 +4876,10 @@ class $PiercingTableTable extends PiercingTable
   @override
   List<GeneratedColumn> get $columns => [id, personId, location, dayObtained];
   @override
-  String get aliasedName => _alias ?? 'piercing';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'piercing';
+  String get actualTableName => $name;
+  static const String $name = 'piercing';
   @override
   VerificationContext validateIntegrity(Insertable<Piercing> instance,
       {bool isInserting = false}) {
@@ -5220,22 +5130,20 @@ class $BabyTraitsTableTable extends BabyTraitsTable
   static const VerificationMeta _needsChangingMeta =
       const VerificationMeta('needsChanging');
   @override
-  late final GeneratedColumn<bool> needsChanging =
-      GeneratedColumn<bool>('needs_changing', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("needs_changing" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> needsChanging = GeneratedColumn<bool>(
+      'needs_changing', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("needs_changing" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns =>
       [id, personId, fussiness, appetite, needsChanging];
   @override
-  String get aliasedName => _alias ?? 'baby_traits';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'baby_traits';
+  String get actualTableName => $name;
+  static const String $name = 'baby_traits';
   @override
   VerificationContext validateIntegrity(Insertable<BabyTraits> instance,
       {bool isInserting = false}) {
@@ -5520,14 +5428,12 @@ class $AcquaintanceTableTable extends AcquaintanceTable
       const VerificationMeta('interestedInRelationship');
   @override
   late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>('interested_in_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'interested_in_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("interested_in_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("interested_in_relationship" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         mainPersonId,
@@ -5537,9 +5443,10 @@ class $AcquaintanceTableTable extends AcquaintanceTable
         interestedInRelationship
       ];
   @override
-  String get aliasedName => _alias ?? 'acquaintance';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'acquaintance';
+  String get actualTableName => $name;
+  static const String $name = 'acquaintance';
   @override
   VerificationContext validateIntegrity(Insertable<Acquaintance> instance,
       {bool isInserting = false}) {
@@ -5842,15 +5749,12 @@ class $ChildTableTable extends ChildTable
   static const VerificationMeta _inYourCustodyMeta =
       const VerificationMeta('inYourCustody');
   @override
-  late final GeneratedColumn<bool> inYourCustody =
-      GeneratedColumn<bool>('in_your_custody', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("in_your_custody" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> inYourCustody = GeneratedColumn<bool>(
+      'in_your_custody', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("in_your_custody" IN (0, 1))'));
   static const VerificationMeta _childRelationshipTypeMeta =
       const VerificationMeta('childRelationshipType');
   @override
@@ -5859,27 +5763,21 @@ class $ChildTableTable extends ChildTable
           type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _hiddenMeta = const VerificationMeta('hidden');
   @override
-  late final GeneratedColumn<bool> hidden =
-      GeneratedColumn<bool>('hidden', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("hidden" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> hidden = GeneratedColumn<bool>(
+      'hidden', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("hidden" IN (0, 1))'));
   static const VerificationMeta _paternityFraudMeta =
       const VerificationMeta('paternityFraud');
   @override
-  late final GeneratedColumn<bool> paternityFraud =
-      GeneratedColumn<bool>('paternity_fraud', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("paternity_fraud" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> paternityFraud = GeneratedColumn<bool>(
+      'paternity_fraud', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("paternity_fraud" IN (0, 1))'));
   static const VerificationMeta _assumedRelationshipTypeMeta =
       const VerificationMeta('assumedRelationshipType');
   @override
@@ -5896,14 +5794,12 @@ class $ChildTableTable extends ChildTable
       const VerificationMeta('interestedInRelationship');
   @override
   late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>('interested_in_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'interested_in_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("interested_in_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("interested_in_relationship" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         mainPersonId,
@@ -5917,9 +5813,10 @@ class $ChildTableTable extends ChildTable
         interestedInRelationship
       ];
   @override
-  String get aliasedName => _alias ?? 'child';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'child';
+  String get actualTableName => $name;
+  static const String $name = 'child';
   @override
   VerificationContext validateIntegrity(Insertable<Child> instance,
       {bool isInserting = false}) {
@@ -6377,14 +6274,12 @@ class $FriendTableTable extends FriendTable
       const VerificationMeta('haveRomanticRelationship');
   @override
   late final GeneratedColumn<bool> haveRomanticRelationship =
-      GeneratedColumn<bool>('have_romantic_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'have_romantic_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("have_romantic_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("have_romantic_relationship" IN (0, 1))'));
   static const VerificationMeta _relationshipMeta =
       const VerificationMeta('relationship');
   @override
@@ -6395,14 +6290,12 @@ class $FriendTableTable extends FriendTable
       const VerificationMeta('interestedInRelationship');
   @override
   late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>('interested_in_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'interested_in_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("interested_in_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("interested_in_relationship" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         mainPersonId,
@@ -6413,9 +6306,10 @@ class $FriendTableTable extends FriendTable
         interestedInRelationship
       ];
   @override
-  String get aliasedName => _alias ?? 'friend';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'friend';
+  String get actualTableName => $name;
+  static const String $name = 'friend';
   @override
   VerificationContext validateIntegrity(Insertable<Friend> instance,
       {bool isInserting = false}) {
@@ -6788,9 +6682,10 @@ class $GraveTableTable extends GraveTable
         ageAtDeath
       ];
   @override
-  String get aliasedName => _alias ?? 'grave';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'grave';
+  String get actualTableName => $name;
+  static const String $name = 'grave';
   @override
   VerificationContext validateIntegrity(Insertable<Grave> instance,
       {bool isInserting = false}) {
@@ -7116,15 +7011,12 @@ class $InLawTableTable extends InLawTable
   static const VerificationMeta _likesMainPersonMeta =
       const VerificationMeta('likesMainPerson');
   @override
-  late final GeneratedColumn<bool> likesMainPerson =
-      GeneratedColumn<bool>('likes_main_person', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("likes_main_person" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> likesMainPerson = GeneratedColumn<bool>(
+      'likes_main_person', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("likes_main_person" IN (0, 1))'));
   static const VerificationMeta _inLawRelationshipTypeMeta =
       const VerificationMeta('inLawRelationshipType');
   @override
@@ -7135,14 +7027,12 @@ class $InLawTableTable extends InLawTable
       const VerificationMeta('haveRomanticRelationship');
   @override
   late final GeneratedColumn<bool> haveRomanticRelationship =
-      GeneratedColumn<bool>('have_romantic_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'have_romantic_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("have_romantic_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("have_romantic_relationship" IN (0, 1))'));
   static const VerificationMeta _relationshipMeta =
       const VerificationMeta('relationship');
   @override
@@ -7153,14 +7043,12 @@ class $InLawTableTable extends InLawTable
       const VerificationMeta('interestedInRelationship');
   @override
   late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>('interested_in_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'interested_in_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("interested_in_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("interested_in_relationship" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         mainPersonId,
@@ -7172,9 +7060,10 @@ class $InLawTableTable extends InLawTable
         interestedInRelationship
       ];
   @override
-  String get aliasedName => _alias ?? 'inlaw';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'inlaw';
+  String get actualTableName => $name;
+  static const String $name = 'inlaw';
   @override
   VerificationContext validateIntegrity(Insertable<InLaw> instance,
       {bool isInserting = false}) {
@@ -7567,27 +7456,21 @@ class $ParentTableTable extends ParentTable
           type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _hiddenMeta = const VerificationMeta('hidden');
   @override
-  late final GeneratedColumn<bool> hidden =
-      GeneratedColumn<bool>('hidden', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("hidden" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> hidden = GeneratedColumn<bool>(
+      'hidden', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("hidden" IN (0, 1))'));
   static const VerificationMeta _paternityFraudMeta =
       const VerificationMeta('paternityFraud');
   @override
-  late final GeneratedColumn<bool> paternityFraud =
-      GeneratedColumn<bool>('paternity_fraud', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("paternity_fraud" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> paternityFraud = GeneratedColumn<bool>(
+      'paternity_fraud', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("paternity_fraud" IN (0, 1))'));
   static const VerificationMeta _assumedRelationshipTypeMeta =
       const VerificationMeta('assumedRelationshipType');
   @override
@@ -7603,27 +7486,22 @@ class $ParentTableTable extends ParentTable
   static const VerificationMeta _isActiveMeta =
       const VerificationMeta('isActive');
   @override
-  late final GeneratedColumn<bool> isActive =
-      GeneratedColumn<bool>('is_active', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_active" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
   static const VerificationMeta _interestedInRelationshipMeta =
       const VerificationMeta('interestedInRelationship');
   @override
   late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>('interested_in_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'interested_in_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("interested_in_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("interested_in_relationship" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         mainPersonId,
@@ -7637,9 +7515,10 @@ class $ParentTableTable extends ParentTable
         interestedInRelationship
       ];
   @override
-  String get aliasedName => _alias ?? 'parent';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'parent';
+  String get actualTableName => $name;
+  static const String $name = 'parent';
   @override
   VerificationContext validateIntegrity(Insertable<Parent> instance,
       {bool isInserting = false}) {
@@ -8096,15 +7975,12 @@ class $PartnerTableTable extends PartnerTable
   static const VerificationMeta _isActiveMeta =
       const VerificationMeta('isActive');
   @override
-  late final GeneratedColumn<bool> isActive =
-      GeneratedColumn<bool>('is_active', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_active" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
   static const VerificationMeta _jointMoneyMeta =
       const VerificationMeta('jointMoney');
   @override
@@ -8131,15 +8007,12 @@ class $PartnerTableTable extends PartnerTable
   static const VerificationMeta _isCoParentMeta =
       const VerificationMeta('isCoParent');
   @override
-  late final GeneratedColumn<bool> isCoParent =
-      GeneratedColumn<bool>('is_co_parent', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_co_parent" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isCoParent = GeneratedColumn<bool>(
+      'is_co_parent', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_co_parent" IN (0, 1))'));
   static const VerificationMeta _metAtMeta = const VerificationMeta('metAt');
   @override
   late final GeneratedColumn<String> metAt = GeneratedColumn<String>(
@@ -8155,14 +8028,12 @@ class $PartnerTableTable extends PartnerTable
       const VerificationMeta('interestedInRelationship');
   @override
   late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>('interested_in_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'interested_in_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("interested_in_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("interested_in_relationship" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         mainPersonId,
@@ -8179,9 +8050,10 @@ class $PartnerTableTable extends PartnerTable
         interestedInRelationship
       ];
   @override
-  String get aliasedName => _alias ?? 'partner';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'partner';
+  String get actualTableName => $name;
+  static const String $name = 'partner';
   @override
   VerificationContext validateIntegrity(Insertable<Partner> instance,
       {bool isInserting = false}) {
@@ -8729,15 +8601,12 @@ class $RelativeTableTable extends RelativeTable
   static const VerificationMeta _inYourCustodyMeta =
       const VerificationMeta('inYourCustody');
   @override
-  late final GeneratedColumn<bool> inYourCustody =
-      GeneratedColumn<bool>('in_your_custody', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("in_your_custody" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> inYourCustody = GeneratedColumn<bool>(
+      'in_your_custody', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("in_your_custody" IN (0, 1))'));
   static const VerificationMeta _relativeRelationshipTypeMeta =
       const VerificationMeta('relativeRelationshipType');
   @override
@@ -8754,14 +8623,12 @@ class $RelativeTableTable extends RelativeTable
       const VerificationMeta('interestedInRelationship');
   @override
   late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>('interested_in_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'interested_in_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("interested_in_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("interested_in_relationship" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         mainPersonId,
@@ -8772,9 +8639,10 @@ class $RelativeTableTable extends RelativeTable
         interestedInRelationship
       ];
   @override
-  String get aliasedName => _alias ?? 'relative';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'relative';
+  String get actualTableName => $name;
+  static const String $name = 'relative';
   @override
   VerificationContext validateIntegrity(Insertable<Relative> instance,
       {bool isInserting = false}) {
@@ -9132,27 +9000,22 @@ class $SiblingTableTable extends SiblingTable
   static const VerificationMeta _inYourCustodyMeta =
       const VerificationMeta('inYourCustody');
   @override
-  late final GeneratedColumn<bool> inYourCustody =
-      GeneratedColumn<bool>('in_your_custody', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("in_your_custody" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> inYourCustody = GeneratedColumn<bool>(
+      'in_your_custody', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("in_your_custody" IN (0, 1))'));
   static const VerificationMeta _interestedInRelationshipMeta =
       const VerificationMeta('interestedInRelationship');
   @override
   late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>('interested_in_relationship', aliasedName, false,
+      GeneratedColumn<bool>(
+          'interested_in_relationship', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("interested_in_relationship" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("interested_in_relationship" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         mainPersonId,
@@ -9163,9 +9026,10 @@ class $SiblingTableTable extends SiblingTable
         interestedInRelationship
       ];
   @override
-  String get aliasedName => _alias ?? 'sibling';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'sibling';
+  String get actualTableName => $name;
+  static const String $name = 'sibling';
   @override
   VerificationContext validateIntegrity(Insertable<Sibling> instance,
       {bool isInserting = false}) {
@@ -9561,27 +9425,21 @@ class $EventTableTable extends EventTable
   static const VerificationMeta _journalEntryOnlyMeta =
       const VerificationMeta('journalEntryOnly');
   @override
-  late final GeneratedColumn<bool> journalEntryOnly =
-      GeneratedColumn<bool>('journal_entry_only', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("journal_entry_only" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> journalEntryOnly = GeneratedColumn<bool>(
+      'journal_entry_only', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("journal_entry_only" IN (0, 1))'));
   static const VerificationMeta _performedMeta =
       const VerificationMeta('performed');
   @override
-  late final GeneratedColumn<bool> performed =
-      GeneratedColumn<bool>('performed', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("performed" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> performed = GeneratedColumn<bool>(
+      'performed', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("performed" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -9597,9 +9455,10 @@ class $EventTableTable extends EventTable
         performed
       ];
   @override
-  String get aliasedName => _alias ?? 'event';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'event';
+  String get actualTableName => $name;
+  static const String $name = 'event';
   @override
   VerificationContext validateIntegrity(Insertable<Event> instance,
       {bool isInserting = false}) {
@@ -10144,39 +10003,30 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
   static const VerificationMeta _fullyPaidForMeta =
       const VerificationMeta('fullyPaidFor');
   @override
-  late final GeneratedColumn<bool> fullyPaidFor =
-      GeneratedColumn<bool>('fully_paid_for', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("fully_paid_for" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> fullyPaidFor = GeneratedColumn<bool>(
+      'fully_paid_for', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("fully_paid_for" IN (0, 1))'));
   static const VerificationMeta _currentlyDrivingMeta =
       const VerificationMeta('currentlyDriving');
   @override
-  late final GeneratedColumn<bool> currentlyDriving =
-      GeneratedColumn<bool>('currently_driving', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("currently_driving" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> currentlyDriving = GeneratedColumn<bool>(
+      'currently_driving', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("currently_driving" IN (0, 1))'));
   static const VerificationMeta _isInsuredMeta =
       const VerificationMeta('isInsured');
   @override
-  late final GeneratedColumn<bool> isInsured =
-      GeneratedColumn<bool>('is_insured', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_insured" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isInsured = GeneratedColumn<bool>(
+      'is_insured', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_insured" IN (0, 1))'));
   static const VerificationMeta _insuranceCostMeta =
       const VerificationMeta('insuranceCost');
   @override
@@ -10211,9 +10061,10 @@ class $CarTableTable extends CarTable with TableInfo<$CarTableTable, Car> {
         insuranceType
       ];
   @override
-  String get aliasedName => _alias ?? 'car';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'car';
+  String get actualTableName => $name;
+  static const String $name = 'car';
   @override
   VerificationContext validateIntegrity(Insertable<Car> instance,
       {bool isInserting = false}) {
@@ -10942,34 +10793,29 @@ class $CarProblemTableTable extends CarProblemTable
   static const VerificationMeta _isRevealedMeta =
       const VerificationMeta('isRevealed');
   @override
-  late final GeneratedColumn<bool> isRevealed =
-      GeneratedColumn<bool>('is_revealed', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_revealed" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isRevealed = GeneratedColumn<bool>(
+      'is_revealed', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_revealed" IN (0, 1))'));
   static const VerificationMeta _isResolvedMeta =
       const VerificationMeta('isResolved');
   @override
-  late final GeneratedColumn<bool> isResolved =
-      GeneratedColumn<bool>('is_resolved', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_resolved" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isResolved = GeneratedColumn<bool>(
+      'is_resolved', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_resolved" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns =>
       [carId, type, basePrice, originDay, fixDay, isRevealed, isResolved];
   @override
-  String get aliasedName => _alias ?? 'car_problem';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'car_problem';
+  String get actualTableName => $name;
+  static const String $name = 'car_problem';
   @override
   VerificationContext validateIntegrity(Insertable<CarProblem> instance,
       {bool isInserting = false}) {
@@ -11343,15 +11189,12 @@ class $FoodTableTable extends FoodTable with TableInfo<$FoodTableTable, Food> {
   static const VerificationMeta _isOrganicMeta =
       const VerificationMeta('isOrganic');
   @override
-  late final GeneratedColumn<bool> isOrganic =
-      GeneratedColumn<bool>('is_organic', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_organic" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isOrganic = GeneratedColumn<bool>(
+      'is_organic', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_organic" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -11364,9 +11207,10 @@ class $FoodTableTable extends FoodTable with TableInfo<$FoodTableTable, Food> {
         isOrganic
       ];
   @override
-  String get aliasedName => _alias ?? 'food';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'food';
+  String get actualTableName => $name;
+  static const String $name = 'food';
   @override
   VerificationContext validateIntegrity(Insertable<Food> instance,
       {bool isInserting = false}) {
@@ -11750,9 +11594,10 @@ class $FridgeFoodTableTable extends FridgeFoodTable
   List<GeneratedColumn> get $columns =>
       [id, personId, foodId, servingsLeft, expiryDay];
   @override
-  String get aliasedName => _alias ?? 'fridge_food';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'fridge_food';
+  String get actualTableName => $name;
+  static const String $name = 'fridge_food';
   @override
   VerificationContext validateIntegrity(Insertable<FridgeFood> instance,
       {bool isInserting = false}) {
@@ -12049,15 +11894,12 @@ class $HouseTableTable extends HouseTable
   static const VerificationMeta _isForRentMeta =
       const VerificationMeta('isForRent');
   @override
-  late final GeneratedColumn<bool> isForRent =
-      GeneratedColumn<bool>('is_for_rent', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_for_rent" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isForRent = GeneratedColumn<bool>(
+      'is_for_rent', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_for_rent" IN (0, 1))'));
   static const VerificationMeta _buildingTypeMeta =
       const VerificationMeta('buildingType');
   @override
@@ -12125,15 +11967,12 @@ class $HouseTableTable extends HouseTable
   static const VerificationMeta _fullyPaidForMeta =
       const VerificationMeta('fullyPaidFor');
   @override
-  late final GeneratedColumn<bool> fullyPaidFor =
-      GeneratedColumn<bool>('fully_paid_for', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("fully_paid_for" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> fullyPaidFor = GeneratedColumn<bool>(
+      'fully_paid_for', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("fully_paid_for" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -12157,9 +11996,10 @@ class $HouseTableTable extends HouseTable
         fullyPaidFor
       ];
   @override
-  String get aliasedName => _alias ?? 'house';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'house';
+  String get actualTableName => $name;
+  static const String $name = 'house';
   @override
   VerificationContext validateIntegrity(Insertable<House> instance,
       {bool isInserting = false}) {
@@ -12886,27 +12726,21 @@ class $CurrentHomeTableTable extends CurrentHomeTable
   static const VerificationMeta _hasManagementRightsMeta =
       const VerificationMeta('hasManagementRights');
   @override
-  late final GeneratedColumn<bool> hasManagementRights =
-      GeneratedColumn<bool>('has_management_rights', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("has_management_rights" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> hasManagementRights = GeneratedColumn<bool>(
+      'has_management_rights', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("has_management_rights" IN (0, 1))'));
   static const VerificationMeta _isAtHomeMeta =
       const VerificationMeta('isAtHome');
   @override
-  late final GeneratedColumn<bool> isAtHome =
-      GeneratedColumn<bool>('is_at_home', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_at_home" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isAtHome = GeneratedColumn<bool>(
+      'is_at_home', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_at_home" IN (0, 1))'));
   static const VerificationMeta _stayTypeMeta =
       const VerificationMeta('stayType');
   @override
@@ -12923,9 +12757,10 @@ class $CurrentHomeTableTable extends CurrentHomeTable
   List<GeneratedColumn> get $columns =>
       [personId, houseId, hasManagementRights, isAtHome, stayType, exitDay];
   @override
-  String get aliasedName => _alias ?? 'current_home';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'current_home';
+  String get actualTableName => $name;
+  static const String $name = 'current_home';
   @override
   VerificationContext validateIntegrity(Insertable<CurrentHome> instance,
       {bool isInserting = false}) {
@@ -13256,9 +13091,10 @@ class $ItemTableTable extends ItemTable with TableInfo<$ItemTableTable, Item> {
   @override
   List<GeneratedColumn> get $columns => [id, name, type, basePrice, count];
   @override
-  String get aliasedName => _alias ?? 'item';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'item';
+  String get actualTableName => $name;
+  static const String $name = 'item';
   @override
   VerificationContext validateIntegrity(Insertable<Item> instance,
       {bool isInserting = false}) {
@@ -13573,9 +13409,10 @@ class $JewelryTableTable extends JewelryTable
         maxConditionAtPurchase
       ];
   @override
-  String get aliasedName => _alias ?? 'jewelry';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'jewelry';
+  String get actualTableName => $name;
+  static const String $name = 'jewelry';
   @override
   VerificationContext validateIntegrity(Insertable<Jewelry> instance,
       {bool isInserting = false}) {
@@ -13990,9 +13827,10 @@ class $StoreroomItemTableTable extends StoreroomItemTable
   @override
   List<GeneratedColumn> get $columns => [id, personId, itemId, countsLeft];
   @override
-  String get aliasedName => _alias ?? 'storeroom_item';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'storeroom_item';
+  String get actualTableName => $name;
+  static const String $name = 'storeroom_item';
   @override
   VerificationContext validateIntegrity(Insertable<StoreroomItem> instance,
       {bool isInserting = false}) {
@@ -14240,9 +14078,10 @@ class $JournalTableTable extends JournalTable
   @override
   List<GeneratedColumn> get $columns => [gameId, day, mainPlayerId, entry];
   @override
-  String get aliasedName => _alias ?? 'journal';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'journal';
+  String get actualTableName => $name;
+  static const String $name = 'journal';
   @override
   VerificationContext validateIntegrity(Insertable<Journal> instance,
       {bool isInserting = false}) {
@@ -14536,15 +14375,12 @@ class $RecurringBillTableTable extends RecurringBillTable
   static const VerificationMeta _isUrgentMeta =
       const VerificationMeta('isUrgent');
   @override
-  late final GeneratedColumn<bool> isUrgent =
-      GeneratedColumn<bool>('is_urgent', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_urgent" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isUrgent = GeneratedColumn<bool>(
+      'is_urgent', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_urgent" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -14559,9 +14395,10 @@ class $RecurringBillTableTable extends RecurringBillTable
         isUrgent
       ];
   @override
-  String get aliasedName => _alias ?? 'recurring_bill';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'recurring_bill';
+  String get actualTableName => $name;
+  static const String $name = 'recurring_bill';
   @override
   VerificationContext validateIntegrity(Insertable<RecurringBill> instance,
       {bool isInserting = false}) {
@@ -14994,22 +14831,20 @@ class $DegreeTableTable extends DegreeTable
   static const VerificationMeta _isSpecialDegreeMeta =
       const VerificationMeta('isSpecialDegree');
   @override
-  late final GeneratedColumn<bool> isSpecialDegree =
-      GeneratedColumn<bool>('is_special_degree', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_special_degree" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isSpecialDegree = GeneratedColumn<bool>(
+      'is_special_degree', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_special_degree" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns =>
       [id, discipline, branch, isSpecialDegree];
   @override
-  String get aliasedName => _alias ?? 'degree';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'degree';
+  String get actualTableName => $name;
+  static const String $name = 'degree';
   @override
   VerificationContext validateIntegrity(Insertable<Degree> instance,
       {bool isInserting = false}) {
@@ -15355,63 +15190,48 @@ class $SchoolTableTable extends SchoolTable
   static const VerificationMeta _loanProcessedMeta =
       const VerificationMeta('loanProcessed');
   @override
-  late final GeneratedColumn<bool> loanProcessed =
-      GeneratedColumn<bool>('loan_processed', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("loan_processed" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> loanProcessed = GeneratedColumn<bool>(
+      'loan_processed', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("loan_processed" IN (0, 1))'));
   static const VerificationMeta _hasTakenLeaveMeta =
       const VerificationMeta('hasTakenLeave');
   @override
-  late final GeneratedColumn<bool> hasTakenLeave =
-      GeneratedColumn<bool>('has_taken_leave', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("has_taken_leave" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> hasTakenLeave = GeneratedColumn<bool>(
+      'has_taken_leave', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("has_taken_leave" IN (0, 1))'));
   static const VerificationMeta _isActiveMeta =
       const VerificationMeta('isActive');
   @override
-  late final GeneratedColumn<bool> isActive =
-      GeneratedColumn<bool>('is_active', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_active" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
   static const VerificationMeta _isCompletedMeta =
       const VerificationMeta('isCompleted');
   @override
-  late final GeneratedColumn<bool> isCompleted =
-      GeneratedColumn<bool>('is_completed', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_completed" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isCompleted = GeneratedColumn<bool>(
+      'is_completed', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_completed" IN (0, 1))'));
   static const VerificationMeta _wasExpelledMeta =
       const VerificationMeta('wasExpelled');
   @override
-  late final GeneratedColumn<bool> wasExpelled =
-      GeneratedColumn<bool>('was_expelled', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("was_expelled" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> wasExpelled = GeneratedColumn<bool>(
+      'was_expelled', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("was_expelled" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -15440,9 +15260,10 @@ class $SchoolTableTable extends SchoolTable
         wasExpelled
       ];
   @override
-  String get aliasedName => _alias ?? 'school';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'school';
+  String get actualTableName => $name;
+  static const String $name = 'school';
   @override
   VerificationContext validateIntegrity(Insertable<School> instance,
       {bool isInserting = false}) {
@@ -16403,12 +16224,8 @@ class $SchoolProjectTableTable extends SchoolProjectTable
           'project_partner_will_contribute', aliasedName, false,
           type: DriftSqlType.bool,
           requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite:
-                'CHECK ("project_partner_will_contribute" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("project_partner_will_contribute" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -16421,9 +16238,10 @@ class $SchoolProjectTableTable extends SchoolProjectTable
         projectPartnerWillContribute
       ];
   @override
-  String get aliasedName => _alias ?? 'school_project';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'school_project';
+  String get actualTableName => $name;
+  static const String $name = 'school_project';
   @override
   VerificationContext validateIntegrity(Insertable<SchoolProject> instance,
       {bool isInserting = false}) {
@@ -16879,27 +16697,21 @@ class $SchoolRelationshipTableTable extends SchoolRelationshipTable
   static const VerificationMeta _professionalMeta =
       const VerificationMeta('professional');
   @override
-  late final GeneratedColumn<bool> professional =
-      GeneratedColumn<bool>('professional', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("professional" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> professional = GeneratedColumn<bool>(
+      'professional', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("professional" IN (0, 1))'));
   static const VerificationMeta _helpfulMeta =
       const VerificationMeta('helpful');
   @override
-  late final GeneratedColumn<bool> helpful =
-      GeneratedColumn<bool>('helpful', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("helpful" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> helpful = GeneratedColumn<bool>(
+      'helpful', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("helpful" IN (0, 1))'));
   static const VerificationMeta _personalityTypeMeta =
       const VerificationMeta('personalityType');
   @override
@@ -16920,9 +16732,10 @@ class $SchoolRelationshipTableTable extends SchoolRelationshipTable
         personalityType
       ];
   @override
-  String get aliasedName => _alias ?? 'school_relationship';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'school_relationship';
+  String get actualTableName => $name;
+  static const String $name = 'school_relationship';
   @override
   VerificationContext validateIntegrity(Insertable<SchoolRelationship> instance,
       {bool isInserting = false}) {
@@ -17396,15 +17209,12 @@ class $JobTableTable extends JobTable with TableInfo<$JobTableTable, Job> {
   static const VerificationMeta _getsTipsMeta =
       const VerificationMeta('getsTips');
   @override
-  late final GeneratedColumn<bool> getsTips =
-      GeneratedColumn<bool>('gets_tips', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("gets_tips" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> getsTips = GeneratedColumn<bool>(
+      'gets_tips', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("gets_tips" IN (0, 1))'));
   static const VerificationMeta _levelOneTitleMeta =
       const VerificationMeta('levelOneTitle');
   @override
@@ -17478,9 +17288,10 @@ class $JobTableTable extends JobTable with TableInfo<$JobTableTable, Job> {
         healthInsuranceCoverage
       ];
   @override
-  String get aliasedName => _alias ?? 'job';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'job';
+  String get actualTableName => $name;
+  static const String $name = 'job';
   @override
   VerificationContext validateIntegrity(Insertable<Job> instance,
       {bool isInserting = false}) {
@@ -18148,15 +17959,12 @@ class $EmploymentTableTable extends EmploymentTable
   static const VerificationMeta _isDayShiftMeta =
       const VerificationMeta('isDayShift');
   @override
-  late final GeneratedColumn<bool> isDayShift =
-      GeneratedColumn<bool>('is_day_shift', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_day_shift" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isDayShift = GeneratedColumn<bool>(
+      'is_day_shift', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_day_shift" IN (0, 1))'));
   static const VerificationMeta _currentLevelMeta =
       const VerificationMeta('currentLevel');
   @override
@@ -18197,15 +18005,12 @@ class $EmploymentTableTable extends EmploymentTable
   static const VerificationMeta _onLeaveMeta =
       const VerificationMeta('onLeave');
   @override
-  late final GeneratedColumn<bool> onLeave =
-      GeneratedColumn<bool>('on_leave', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("on_leave" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> onLeave = GeneratedColumn<bool>(
+      'on_leave', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("on_leave" IN (0, 1))'));
   static const VerificationMeta _firstDayMeta =
       const VerificationMeta('firstDay');
   @override
@@ -18221,27 +18026,21 @@ class $EmploymentTableTable extends EmploymentTable
   static const VerificationMeta _wasFiredMeta =
       const VerificationMeta('wasFired');
   @override
-  late final GeneratedColumn<bool> wasFired =
-      GeneratedColumn<bool>('was_fired', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("was_fired" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> wasFired = GeneratedColumn<bool>(
+      'was_fired', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("was_fired" IN (0, 1))'));
   static const VerificationMeta _isActiveMeta =
       const VerificationMeta('isActive');
   @override
-  late final GeneratedColumn<bool> isActive =
-      GeneratedColumn<bool>('is_active', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_active" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }));
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -18268,9 +18067,10 @@ class $EmploymentTableTable extends EmploymentTable
         isActive
       ];
   @override
-  String get aliasedName => _alias ?? 'employment';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'employment';
+  String get actualTableName => $name;
+  static const String $name = 'employment';
   @override
   VerificationContext validateIntegrity(Insertable<Employment> instance,
       {bool isInserting = false}) {
@@ -19156,9 +18956,10 @@ class $JobRelationshipTableTable extends JobRelationshipTable
         jobLevel
       ];
   @override
-  String get aliasedName => _alias ?? 'job_relationship';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'job_relationship';
+  String get actualTableName => $name;
+  static const String $name = 'job_relationship';
   @override
   VerificationContext validateIntegrity(Insertable<JobRelationship> instance,
       {bool isInserting = false}) {
@@ -19485,6 +19286,1318 @@ class JobRelationshipTableCompanion extends UpdateCompanion<JobRelationship> {
   }
 }
 
+class $ParentChildLinkTableTable extends ParentChildLinkTable
+    with TableInfo<$ParentChildLinkTableTable, ParentChildLink> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ParentChildLinkTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _parentIdMeta =
+      const VerificationMeta('parentId');
+  @override
+  late final GeneratedColumn<int> parentId = GeneratedColumn<int>(
+      'parent_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _childIdMeta =
+      const VerificationMeta('childId');
+  @override
+  late final GeneratedColumn<int> childId = GeneratedColumn<int>(
+      'child_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _isBirthRelationshipTypeMeta =
+      const VerificationMeta('isBirthRelationshipType');
+  @override
+  late final GeneratedColumn<bool> isBirthRelationshipType =
+      GeneratedColumn<bool>('is_birth_relationship_type', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("is_birth_relationship_type" IN (0, 1))'));
+  static const VerificationMeta _isHiddenMeta =
+      const VerificationMeta('isHidden');
+  @override
+  late final GeneratedColumn<bool> isHidden = GeneratedColumn<bool>(
+      'is_hidden', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_hidden" IN (0, 1))'));
+  static const VerificationMeta _isPaternityFraudMeta =
+      const VerificationMeta('isPaternityFraud');
+  @override
+  late final GeneratedColumn<bool> isPaternityFraud = GeneratedColumn<bool>(
+      'is_paternity_fraud', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_paternity_fraud" IN (0, 1))'));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [parentId, childId, isBirthRelationshipType, isHidden, isPaternityFraud];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'parent_child_link';
+  @override
+  VerificationContext validateIntegrity(Insertable<ParentChildLink> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('parent_id')) {
+      context.handle(_parentIdMeta,
+          parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta));
+    } else if (isInserting) {
+      context.missing(_parentIdMeta);
+    }
+    if (data.containsKey('child_id')) {
+      context.handle(_childIdMeta,
+          childId.isAcceptableOrUnknown(data['child_id']!, _childIdMeta));
+    } else if (isInserting) {
+      context.missing(_childIdMeta);
+    }
+    if (data.containsKey('is_birth_relationship_type')) {
+      context.handle(
+          _isBirthRelationshipTypeMeta,
+          isBirthRelationshipType.isAcceptableOrUnknown(
+              data['is_birth_relationship_type']!,
+              _isBirthRelationshipTypeMeta));
+    } else if (isInserting) {
+      context.missing(_isBirthRelationshipTypeMeta);
+    }
+    if (data.containsKey('is_hidden')) {
+      context.handle(_isHiddenMeta,
+          isHidden.isAcceptableOrUnknown(data['is_hidden']!, _isHiddenMeta));
+    } else if (isInserting) {
+      context.missing(_isHiddenMeta);
+    }
+    if (data.containsKey('is_paternity_fraud')) {
+      context.handle(
+          _isPaternityFraudMeta,
+          isPaternityFraud.isAcceptableOrUnknown(
+              data['is_paternity_fraud']!, _isPaternityFraudMeta));
+    } else if (isInserting) {
+      context.missing(_isPaternityFraudMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {parentId, childId};
+  @override
+  ParentChildLink map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ParentChildLink(
+      parentId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}parent_id'])!,
+      childId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}child_id'])!,
+      isBirthRelationshipType: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data['${effectivePrefix}is_birth_relationship_type'])!,
+      isHidden: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_hidden'])!,
+      isPaternityFraud: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}is_paternity_fraud'])!,
+    );
+  }
+
+  @override
+  $ParentChildLinkTableTable createAlias(String alias) {
+    return $ParentChildLinkTableTable(attachedDatabase, alias);
+  }
+}
+
+class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
+  final int parentId;
+  final int childId;
+  final bool isBirthRelationshipType;
+  final bool isHidden;
+  final bool isPaternityFraud;
+  const ParentChildLink(
+      {required this.parentId,
+      required this.childId,
+      required this.isBirthRelationshipType,
+      required this.isHidden,
+      required this.isPaternityFraud});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['parent_id'] = Variable<int>(parentId);
+    map['child_id'] = Variable<int>(childId);
+    map['is_birth_relationship_type'] = Variable<bool>(isBirthRelationshipType);
+    map['is_hidden'] = Variable<bool>(isHidden);
+    map['is_paternity_fraud'] = Variable<bool>(isPaternityFraud);
+    return map;
+  }
+
+  ParentChildLinkTableCompanion toCompanion(bool nullToAbsent) {
+    return ParentChildLinkTableCompanion(
+      parentId: Value(parentId),
+      childId: Value(childId),
+      isBirthRelationshipType: Value(isBirthRelationshipType),
+      isHidden: Value(isHidden),
+      isPaternityFraud: Value(isPaternityFraud),
+    );
+  }
+
+  factory ParentChildLink.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ParentChildLink(
+      parentId: serializer.fromJson<int>(json['parentId']),
+      childId: serializer.fromJson<int>(json['childId']),
+      isBirthRelationshipType:
+          serializer.fromJson<bool>(json['isBirthRelationshipType']),
+      isHidden: serializer.fromJson<bool>(json['isHidden']),
+      isPaternityFraud: serializer.fromJson<bool>(json['isPaternityFraud']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'parentId': serializer.toJson<int>(parentId),
+      'childId': serializer.toJson<int>(childId),
+      'isBirthRelationshipType':
+          serializer.toJson<bool>(isBirthRelationshipType),
+      'isHidden': serializer.toJson<bool>(isHidden),
+      'isPaternityFraud': serializer.toJson<bool>(isPaternityFraud),
+    };
+  }
+
+  ParentChildLink copyWith(
+          {int? parentId,
+          int? childId,
+          bool? isBirthRelationshipType,
+          bool? isHidden,
+          bool? isPaternityFraud}) =>
+      ParentChildLink(
+        parentId: parentId ?? this.parentId,
+        childId: childId ?? this.childId,
+        isBirthRelationshipType:
+            isBirthRelationshipType ?? this.isBirthRelationshipType,
+        isHidden: isHidden ?? this.isHidden,
+        isPaternityFraud: isPaternityFraud ?? this.isPaternityFraud,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ParentChildLink(')
+          ..write('parentId: $parentId, ')
+          ..write('childId: $childId, ')
+          ..write('isBirthRelationshipType: $isBirthRelationshipType, ')
+          ..write('isHidden: $isHidden, ')
+          ..write('isPaternityFraud: $isPaternityFraud')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      parentId, childId, isBirthRelationshipType, isHidden, isPaternityFraud);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ParentChildLink &&
+          other.parentId == this.parentId &&
+          other.childId == this.childId &&
+          other.isBirthRelationshipType == this.isBirthRelationshipType &&
+          other.isHidden == this.isHidden &&
+          other.isPaternityFraud == this.isPaternityFraud);
+}
+
+class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
+  final Value<int> parentId;
+  final Value<int> childId;
+  final Value<bool> isBirthRelationshipType;
+  final Value<bool> isHidden;
+  final Value<bool> isPaternityFraud;
+  final Value<int> rowid;
+  const ParentChildLinkTableCompanion({
+    this.parentId = const Value.absent(),
+    this.childId = const Value.absent(),
+    this.isBirthRelationshipType = const Value.absent(),
+    this.isHidden = const Value.absent(),
+    this.isPaternityFraud = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ParentChildLinkTableCompanion.insert({
+    required int parentId,
+    required int childId,
+    required bool isBirthRelationshipType,
+    required bool isHidden,
+    required bool isPaternityFraud,
+    this.rowid = const Value.absent(),
+  })  : parentId = Value(parentId),
+        childId = Value(childId),
+        isBirthRelationshipType = Value(isBirthRelationshipType),
+        isHidden = Value(isHidden),
+        isPaternityFraud = Value(isPaternityFraud);
+  static Insertable<ParentChildLink> custom({
+    Expression<int>? parentId,
+    Expression<int>? childId,
+    Expression<bool>? isBirthRelationshipType,
+    Expression<bool>? isHidden,
+    Expression<bool>? isPaternityFraud,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (parentId != null) 'parent_id': parentId,
+      if (childId != null) 'child_id': childId,
+      if (isBirthRelationshipType != null)
+        'is_birth_relationship_type': isBirthRelationshipType,
+      if (isHidden != null) 'is_hidden': isHidden,
+      if (isPaternityFraud != null) 'is_paternity_fraud': isPaternityFraud,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ParentChildLinkTableCompanion copyWith(
+      {Value<int>? parentId,
+      Value<int>? childId,
+      Value<bool>? isBirthRelationshipType,
+      Value<bool>? isHidden,
+      Value<bool>? isPaternityFraud,
+      Value<int>? rowid}) {
+    return ParentChildLinkTableCompanion(
+      parentId: parentId ?? this.parentId,
+      childId: childId ?? this.childId,
+      isBirthRelationshipType:
+          isBirthRelationshipType ?? this.isBirthRelationshipType,
+      isHidden: isHidden ?? this.isHidden,
+      isPaternityFraud: isPaternityFraud ?? this.isPaternityFraud,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (parentId.present) {
+      map['parent_id'] = Variable<int>(parentId.value);
+    }
+    if (childId.present) {
+      map['child_id'] = Variable<int>(childId.value);
+    }
+    if (isBirthRelationshipType.present) {
+      map['is_birth_relationship_type'] =
+          Variable<bool>(isBirthRelationshipType.value);
+    }
+    if (isHidden.present) {
+      map['is_hidden'] = Variable<bool>(isHidden.value);
+    }
+    if (isPaternityFraud.present) {
+      map['is_paternity_fraud'] = Variable<bool>(isPaternityFraud.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ParentChildLinkTableCompanion(')
+          ..write('parentId: $parentId, ')
+          ..write('childId: $childId, ')
+          ..write('isBirthRelationshipType: $isBirthRelationshipType, ')
+          ..write('isHidden: $isHidden, ')
+          ..write('isPaternityFraud: $isPaternityFraud, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RomanticRelationshipInfoTableTable extends RomanticRelationshipInfoTable
+    with
+        TableInfo<$RomanticRelationshipInfoTableTable,
+            RomanticRelationshipInfo> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RomanticRelationshipInfoTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _gameIdMeta = const VerificationMeta('gameId');
+  @override
+  late final GeneratedColumn<int> gameId = GeneratedColumn<int>(
+      'game_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES game (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _startDayMeta =
+      const VerificationMeta('startDay');
+  @override
+  late final GeneratedColumn<int> startDay = GeneratedColumn<int>(
+      'start_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _endDayMeta = const VerificationMeta('endDay');
+  @override
+  late final GeneratedColumn<int> endDay = GeneratedColumn<int>(
+      'end_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _daysToDateBeforeMarriageMeta =
+      const VerificationMeta('daysToDateBeforeMarriage');
+  @override
+  late final GeneratedColumn<int> daysToDateBeforeMarriage =
+      GeneratedColumn<int>('days_to_date_before_marriage', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _jointMoneyMeta =
+      const VerificationMeta('jointMoney');
+  @override
+  late final GeneratedColumn<int> jointMoney = GeneratedColumn<int>(
+      'joint_money', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _isCoParentMeta =
+      const VerificationMeta('isCoParent');
+  @override
+  late final GeneratedColumn<bool> isCoParent = GeneratedColumn<bool>(
+      'is_co_parent', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_co_parent" IN (0, 1))'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        gameId,
+        startDay,
+        endDay,
+        daysToDateBeforeMarriage,
+        jointMoney,
+        isCoParent
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'romantic_relationship_info';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<RomanticRelationshipInfo> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('game_id')) {
+      context.handle(_gameIdMeta,
+          gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta));
+    } else if (isInserting) {
+      context.missing(_gameIdMeta);
+    }
+    if (data.containsKey('start_day')) {
+      context.handle(_startDayMeta,
+          startDay.isAcceptableOrUnknown(data['start_day']!, _startDayMeta));
+    } else if (isInserting) {
+      context.missing(_startDayMeta);
+    }
+    if (data.containsKey('end_day')) {
+      context.handle(_endDayMeta,
+          endDay.isAcceptableOrUnknown(data['end_day']!, _endDayMeta));
+    } else if (isInserting) {
+      context.missing(_endDayMeta);
+    }
+    if (data.containsKey('days_to_date_before_marriage')) {
+      context.handle(
+          _daysToDateBeforeMarriageMeta,
+          daysToDateBeforeMarriage.isAcceptableOrUnknown(
+              data['days_to_date_before_marriage']!,
+              _daysToDateBeforeMarriageMeta));
+    } else if (isInserting) {
+      context.missing(_daysToDateBeforeMarriageMeta);
+    }
+    if (data.containsKey('joint_money')) {
+      context.handle(
+          _jointMoneyMeta,
+          jointMoney.isAcceptableOrUnknown(
+              data['joint_money']!, _jointMoneyMeta));
+    } else if (isInserting) {
+      context.missing(_jointMoneyMeta);
+    }
+    if (data.containsKey('is_co_parent')) {
+      context.handle(
+          _isCoParentMeta,
+          isCoParent.isAcceptableOrUnknown(
+              data['is_co_parent']!, _isCoParentMeta));
+    } else if (isInserting) {
+      context.missing(_isCoParentMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  RomanticRelationshipInfo map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RomanticRelationshipInfo(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      gameId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}game_id'])!,
+      startDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}start_day'])!,
+      endDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}end_day'])!,
+      daysToDateBeforeMarriage: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}days_to_date_before_marriage'])!,
+      jointMoney: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}joint_money'])!,
+      isCoParent: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_co_parent'])!,
+    );
+  }
+
+  @override
+  $RomanticRelationshipInfoTableTable createAlias(String alias) {
+    return $RomanticRelationshipInfoTableTable(attachedDatabase, alias);
+  }
+}
+
+class RomanticRelationshipInfo extends DataClass
+    implements Insertable<RomanticRelationshipInfo> {
+  final int id;
+  final int gameId;
+  final int startDay;
+  final int endDay;
+  final int daysToDateBeforeMarriage;
+  final int jointMoney;
+  final bool isCoParent;
+  const RomanticRelationshipInfo(
+      {required this.id,
+      required this.gameId,
+      required this.startDay,
+      required this.endDay,
+      required this.daysToDateBeforeMarriage,
+      required this.jointMoney,
+      required this.isCoParent});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['game_id'] = Variable<int>(gameId);
+    map['start_day'] = Variable<int>(startDay);
+    map['end_day'] = Variable<int>(endDay);
+    map['days_to_date_before_marriage'] =
+        Variable<int>(daysToDateBeforeMarriage);
+    map['joint_money'] = Variable<int>(jointMoney);
+    map['is_co_parent'] = Variable<bool>(isCoParent);
+    return map;
+  }
+
+  RomanticRelationshipInfoTableCompanion toCompanion(bool nullToAbsent) {
+    return RomanticRelationshipInfoTableCompanion(
+      id: Value(id),
+      gameId: Value(gameId),
+      startDay: Value(startDay),
+      endDay: Value(endDay),
+      daysToDateBeforeMarriage: Value(daysToDateBeforeMarriage),
+      jointMoney: Value(jointMoney),
+      isCoParent: Value(isCoParent),
+    );
+  }
+
+  factory RomanticRelationshipInfo.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RomanticRelationshipInfo(
+      id: serializer.fromJson<int>(json['id']),
+      gameId: serializer.fromJson<int>(json['gameId']),
+      startDay: serializer.fromJson<int>(json['startDay']),
+      endDay: serializer.fromJson<int>(json['endDay']),
+      daysToDateBeforeMarriage:
+          serializer.fromJson<int>(json['daysToDateBeforeMarriage']),
+      jointMoney: serializer.fromJson<int>(json['jointMoney']),
+      isCoParent: serializer.fromJson<bool>(json['isCoParent']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'gameId': serializer.toJson<int>(gameId),
+      'startDay': serializer.toJson<int>(startDay),
+      'endDay': serializer.toJson<int>(endDay),
+      'daysToDateBeforeMarriage':
+          serializer.toJson<int>(daysToDateBeforeMarriage),
+      'jointMoney': serializer.toJson<int>(jointMoney),
+      'isCoParent': serializer.toJson<bool>(isCoParent),
+    };
+  }
+
+  RomanticRelationshipInfo copyWith(
+          {int? id,
+          int? gameId,
+          int? startDay,
+          int? endDay,
+          int? daysToDateBeforeMarriage,
+          int? jointMoney,
+          bool? isCoParent}) =>
+      RomanticRelationshipInfo(
+        id: id ?? this.id,
+        gameId: gameId ?? this.gameId,
+        startDay: startDay ?? this.startDay,
+        endDay: endDay ?? this.endDay,
+        daysToDateBeforeMarriage:
+            daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
+        jointMoney: jointMoney ?? this.jointMoney,
+        isCoParent: isCoParent ?? this.isCoParent,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('RomanticRelationshipInfo(')
+          ..write('id: $id, ')
+          ..write('gameId: $gameId, ')
+          ..write('startDay: $startDay, ')
+          ..write('endDay: $endDay, ')
+          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
+          ..write('jointMoney: $jointMoney, ')
+          ..write('isCoParent: $isCoParent')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, gameId, startDay, endDay,
+      daysToDateBeforeMarriage, jointMoney, isCoParent);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RomanticRelationshipInfo &&
+          other.id == this.id &&
+          other.gameId == this.gameId &&
+          other.startDay == this.startDay &&
+          other.endDay == this.endDay &&
+          other.daysToDateBeforeMarriage == this.daysToDateBeforeMarriage &&
+          other.jointMoney == this.jointMoney &&
+          other.isCoParent == this.isCoParent);
+}
+
+class RomanticRelationshipInfoTableCompanion
+    extends UpdateCompanion<RomanticRelationshipInfo> {
+  final Value<int> id;
+  final Value<int> gameId;
+  final Value<int> startDay;
+  final Value<int> endDay;
+  final Value<int> daysToDateBeforeMarriage;
+  final Value<int> jointMoney;
+  final Value<bool> isCoParent;
+  const RomanticRelationshipInfoTableCompanion({
+    this.id = const Value.absent(),
+    this.gameId = const Value.absent(),
+    this.startDay = const Value.absent(),
+    this.endDay = const Value.absent(),
+    this.daysToDateBeforeMarriage = const Value.absent(),
+    this.jointMoney = const Value.absent(),
+    this.isCoParent = const Value.absent(),
+  });
+  RomanticRelationshipInfoTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int gameId,
+    required int startDay,
+    required int endDay,
+    required int daysToDateBeforeMarriage,
+    required int jointMoney,
+    required bool isCoParent,
+  })  : gameId = Value(gameId),
+        startDay = Value(startDay),
+        endDay = Value(endDay),
+        daysToDateBeforeMarriage = Value(daysToDateBeforeMarriage),
+        jointMoney = Value(jointMoney),
+        isCoParent = Value(isCoParent);
+  static Insertable<RomanticRelationshipInfo> custom({
+    Expression<int>? id,
+    Expression<int>? gameId,
+    Expression<int>? startDay,
+    Expression<int>? endDay,
+    Expression<int>? daysToDateBeforeMarriage,
+    Expression<int>? jointMoney,
+    Expression<bool>? isCoParent,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (gameId != null) 'game_id': gameId,
+      if (startDay != null) 'start_day': startDay,
+      if (endDay != null) 'end_day': endDay,
+      if (daysToDateBeforeMarriage != null)
+        'days_to_date_before_marriage': daysToDateBeforeMarriage,
+      if (jointMoney != null) 'joint_money': jointMoney,
+      if (isCoParent != null) 'is_co_parent': isCoParent,
+    });
+  }
+
+  RomanticRelationshipInfoTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? gameId,
+      Value<int>? startDay,
+      Value<int>? endDay,
+      Value<int>? daysToDateBeforeMarriage,
+      Value<int>? jointMoney,
+      Value<bool>? isCoParent}) {
+    return RomanticRelationshipInfoTableCompanion(
+      id: id ?? this.id,
+      gameId: gameId ?? this.gameId,
+      startDay: startDay ?? this.startDay,
+      endDay: endDay ?? this.endDay,
+      daysToDateBeforeMarriage:
+          daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
+      jointMoney: jointMoney ?? this.jointMoney,
+      isCoParent: isCoParent ?? this.isCoParent,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (gameId.present) {
+      map['game_id'] = Variable<int>(gameId.value);
+    }
+    if (startDay.present) {
+      map['start_day'] = Variable<int>(startDay.value);
+    }
+    if (endDay.present) {
+      map['end_day'] = Variable<int>(endDay.value);
+    }
+    if (daysToDateBeforeMarriage.present) {
+      map['days_to_date_before_marriage'] =
+          Variable<int>(daysToDateBeforeMarriage.value);
+    }
+    if (jointMoney.present) {
+      map['joint_money'] = Variable<int>(jointMoney.value);
+    }
+    if (isCoParent.present) {
+      map['is_co_parent'] = Variable<bool>(isCoParent.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RomanticRelationshipInfoTableCompanion(')
+          ..write('id: $id, ')
+          ..write('gameId: $gameId, ')
+          ..write('startDay: $startDay, ')
+          ..write('endDay: $endDay, ')
+          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
+          ..write('jointMoney: $jointMoney, ')
+          ..write('isCoParent: $isCoParent')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $RelationshipTableTable extends RelationshipTable
+    with TableInfo<$RelationshipTableTable, Relationship> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RelationshipTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _firstPersonIdMeta =
+      const VerificationMeta('firstPersonId');
+  @override
+  late final GeneratedColumn<int> firstPersonId = GeneratedColumn<int>(
+      'first_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _secondPersonIdMeta =
+      const VerificationMeta('secondPersonId');
+  @override
+  late final GeneratedColumn<int> secondPersonId = GeneratedColumn<int>(
+      'second_person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _platonicRelationshipTypeMeta =
+      const VerificationMeta('platonicRelationshipType');
+  @override
+  late final GeneratedColumn<String> platonicRelationshipType =
+      GeneratedColumn<String>('platonic_relationship_type', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _romanticRelationshipTypeMeta =
+      const VerificationMeta('romanticRelationshipType');
+  @override
+  late final GeneratedColumn<String> romanticRelationshipType =
+      GeneratedColumn<String>('romantic_relationship_type', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _previousFamilialRelationshipMeta =
+      const VerificationMeta('previousFamilialRelationship');
+  @override
+  late final GeneratedColumn<String> previousFamilialRelationship =
+      GeneratedColumn<String>(
+          'previous_familial_relationship', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _bloodRelationMeta =
+      const VerificationMeta('bloodRelation');
+  @override
+  late final GeneratedColumn<bool> bloodRelation = GeneratedColumn<bool>(
+      'blood_relation', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("blood_relation" IN (0, 1))'));
+  static const VerificationMeta _interestedInRelationshipMeta =
+      const VerificationMeta('interestedInRelationship');
+  @override
+  late final GeneratedColumn<bool> interestedInRelationship =
+      GeneratedColumn<bool>(
+          'interested_in_relationship', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("interested_in_relationship" IN (0, 1))'));
+  static const VerificationMeta _levelMeta = const VerificationMeta('level');
+  @override
+  late final GeneratedColumn<int> level = GeneratedColumn<int>(
+      'level', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _romanticRelationshipInfoIdMeta =
+      const VerificationMeta('romanticRelationshipInfoId');
+  @override
+  late final GeneratedColumn<int> romanticRelationshipInfoId = GeneratedColumn<
+          int>('romantic_relationship_info_id', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES romantic_relationship_info (id) ON UPDATE CASCADE ON DELETE SET NULL'));
+  static const VerificationMeta _activeRomanceMeta =
+      const VerificationMeta('activeRomance');
+  @override
+  late final GeneratedColumn<bool> activeRomance = GeneratedColumn<bool>(
+      'active_romance', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("active_romance" IN (0, 1))'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        firstPersonId,
+        secondPersonId,
+        platonicRelationshipType,
+        romanticRelationshipType,
+        previousFamilialRelationship,
+        bloodRelation,
+        interestedInRelationship,
+        level,
+        romanticRelationshipInfoId,
+        activeRomance
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'relationship';
+  @override
+  VerificationContext validateIntegrity(Insertable<Relationship> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('first_person_id')) {
+      context.handle(
+          _firstPersonIdMeta,
+          firstPersonId.isAcceptableOrUnknown(
+              data['first_person_id']!, _firstPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_firstPersonIdMeta);
+    }
+    if (data.containsKey('second_person_id')) {
+      context.handle(
+          _secondPersonIdMeta,
+          secondPersonId.isAcceptableOrUnknown(
+              data['second_person_id']!, _secondPersonIdMeta));
+    } else if (isInserting) {
+      context.missing(_secondPersonIdMeta);
+    }
+    if (data.containsKey('platonic_relationship_type')) {
+      context.handle(
+          _platonicRelationshipTypeMeta,
+          platonicRelationshipType.isAcceptableOrUnknown(
+              data['platonic_relationship_type']!,
+              _platonicRelationshipTypeMeta));
+    } else if (isInserting) {
+      context.missing(_platonicRelationshipTypeMeta);
+    }
+    if (data.containsKey('romantic_relationship_type')) {
+      context.handle(
+          _romanticRelationshipTypeMeta,
+          romanticRelationshipType.isAcceptableOrUnknown(
+              data['romantic_relationship_type']!,
+              _romanticRelationshipTypeMeta));
+    } else if (isInserting) {
+      context.missing(_romanticRelationshipTypeMeta);
+    }
+    if (data.containsKey('previous_familial_relationship')) {
+      context.handle(
+          _previousFamilialRelationshipMeta,
+          previousFamilialRelationship.isAcceptableOrUnknown(
+              data['previous_familial_relationship']!,
+              _previousFamilialRelationshipMeta));
+    } else if (isInserting) {
+      context.missing(_previousFamilialRelationshipMeta);
+    }
+    if (data.containsKey('blood_relation')) {
+      context.handle(
+          _bloodRelationMeta,
+          bloodRelation.isAcceptableOrUnknown(
+              data['blood_relation']!, _bloodRelationMeta));
+    } else if (isInserting) {
+      context.missing(_bloodRelationMeta);
+    }
+    if (data.containsKey('interested_in_relationship')) {
+      context.handle(
+          _interestedInRelationshipMeta,
+          interestedInRelationship.isAcceptableOrUnknown(
+              data['interested_in_relationship']!,
+              _interestedInRelationshipMeta));
+    } else if (isInserting) {
+      context.missing(_interestedInRelationshipMeta);
+    }
+    if (data.containsKey('level')) {
+      context.handle(
+          _levelMeta, level.isAcceptableOrUnknown(data['level']!, _levelMeta));
+    } else if (isInserting) {
+      context.missing(_levelMeta);
+    }
+    if (data.containsKey('romantic_relationship_info_id')) {
+      context.handle(
+          _romanticRelationshipInfoIdMeta,
+          romanticRelationshipInfoId.isAcceptableOrUnknown(
+              data['romantic_relationship_info_id']!,
+              _romanticRelationshipInfoIdMeta));
+    }
+    if (data.containsKey('active_romance')) {
+      context.handle(
+          _activeRomanceMeta,
+          activeRomance.isAcceptableOrUnknown(
+              data['active_romance']!, _activeRomanceMeta));
+    } else if (isInserting) {
+      context.missing(_activeRomanceMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {firstPersonId, secondPersonId};
+  @override
+  Relationship map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Relationship(
+      firstPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}first_person_id'])!,
+      secondPersonId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}second_person_id'])!,
+      platonicRelationshipType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}platonic_relationship_type'])!,
+      romanticRelationshipType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}romantic_relationship_type'])!,
+      previousFamilialRelationship: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}previous_familial_relationship'])!,
+      bloodRelation: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}blood_relation'])!,
+      interestedInRelationship: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data['${effectivePrefix}interested_in_relationship'])!,
+      level: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}level'])!,
+      romanticRelationshipInfoId: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}romantic_relationship_info_id']),
+      activeRomance: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}active_romance'])!,
+    );
+  }
+
+  @override
+  $RelationshipTableTable createAlias(String alias) {
+    return $RelationshipTableTable(attachedDatabase, alias);
+  }
+}
+
+class Relationship extends DataClass implements Insertable<Relationship> {
+  final int firstPersonId;
+  final int secondPersonId;
+  final String platonicRelationshipType;
+  final String romanticRelationshipType;
+  final String previousFamilialRelationship;
+  final bool bloodRelation;
+  final bool interestedInRelationship;
+  final int level;
+  final int? romanticRelationshipInfoId;
+  final bool activeRomance;
+  const Relationship(
+      {required this.firstPersonId,
+      required this.secondPersonId,
+      required this.platonicRelationshipType,
+      required this.romanticRelationshipType,
+      required this.previousFamilialRelationship,
+      required this.bloodRelation,
+      required this.interestedInRelationship,
+      required this.level,
+      this.romanticRelationshipInfoId,
+      required this.activeRomance});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['first_person_id'] = Variable<int>(firstPersonId);
+    map['second_person_id'] = Variable<int>(secondPersonId);
+    map['platonic_relationship_type'] =
+        Variable<String>(platonicRelationshipType);
+    map['romantic_relationship_type'] =
+        Variable<String>(romanticRelationshipType);
+    map['previous_familial_relationship'] =
+        Variable<String>(previousFamilialRelationship);
+    map['blood_relation'] = Variable<bool>(bloodRelation);
+    map['interested_in_relationship'] =
+        Variable<bool>(interestedInRelationship);
+    map['level'] = Variable<int>(level);
+    if (!nullToAbsent || romanticRelationshipInfoId != null) {
+      map['romantic_relationship_info_id'] =
+          Variable<int>(romanticRelationshipInfoId);
+    }
+    map['active_romance'] = Variable<bool>(activeRomance);
+    return map;
+  }
+
+  RelationshipTableCompanion toCompanion(bool nullToAbsent) {
+    return RelationshipTableCompanion(
+      firstPersonId: Value(firstPersonId),
+      secondPersonId: Value(secondPersonId),
+      platonicRelationshipType: Value(platonicRelationshipType),
+      romanticRelationshipType: Value(romanticRelationshipType),
+      previousFamilialRelationship: Value(previousFamilialRelationship),
+      bloodRelation: Value(bloodRelation),
+      interestedInRelationship: Value(interestedInRelationship),
+      level: Value(level),
+      romanticRelationshipInfoId:
+          romanticRelationshipInfoId == null && nullToAbsent
+              ? const Value.absent()
+              : Value(romanticRelationshipInfoId),
+      activeRomance: Value(activeRomance),
+    );
+  }
+
+  factory Relationship.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Relationship(
+      firstPersonId: serializer.fromJson<int>(json['firstPersonId']),
+      secondPersonId: serializer.fromJson<int>(json['secondPersonId']),
+      platonicRelationshipType:
+          serializer.fromJson<String>(json['platonicRelationshipType']),
+      romanticRelationshipType:
+          serializer.fromJson<String>(json['romanticRelationshipType']),
+      previousFamilialRelationship:
+          serializer.fromJson<String>(json['previousFamilialRelationship']),
+      bloodRelation: serializer.fromJson<bool>(json['bloodRelation']),
+      interestedInRelationship:
+          serializer.fromJson<bool>(json['interestedInRelationship']),
+      level: serializer.fromJson<int>(json['level']),
+      romanticRelationshipInfoId:
+          serializer.fromJson<int?>(json['romanticRelationshipInfoId']),
+      activeRomance: serializer.fromJson<bool>(json['activeRomance']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'firstPersonId': serializer.toJson<int>(firstPersonId),
+      'secondPersonId': serializer.toJson<int>(secondPersonId),
+      'platonicRelationshipType':
+          serializer.toJson<String>(platonicRelationshipType),
+      'romanticRelationshipType':
+          serializer.toJson<String>(romanticRelationshipType),
+      'previousFamilialRelationship':
+          serializer.toJson<String>(previousFamilialRelationship),
+      'bloodRelation': serializer.toJson<bool>(bloodRelation),
+      'interestedInRelationship':
+          serializer.toJson<bool>(interestedInRelationship),
+      'level': serializer.toJson<int>(level),
+      'romanticRelationshipInfoId':
+          serializer.toJson<int?>(romanticRelationshipInfoId),
+      'activeRomance': serializer.toJson<bool>(activeRomance),
+    };
+  }
+
+  Relationship copyWith(
+          {int? firstPersonId,
+          int? secondPersonId,
+          String? platonicRelationshipType,
+          String? romanticRelationshipType,
+          String? previousFamilialRelationship,
+          bool? bloodRelation,
+          bool? interestedInRelationship,
+          int? level,
+          Value<int?> romanticRelationshipInfoId = const Value.absent(),
+          bool? activeRomance}) =>
+      Relationship(
+        firstPersonId: firstPersonId ?? this.firstPersonId,
+        secondPersonId: secondPersonId ?? this.secondPersonId,
+        platonicRelationshipType:
+            platonicRelationshipType ?? this.platonicRelationshipType,
+        romanticRelationshipType:
+            romanticRelationshipType ?? this.romanticRelationshipType,
+        previousFamilialRelationship:
+            previousFamilialRelationship ?? this.previousFamilialRelationship,
+        bloodRelation: bloodRelation ?? this.bloodRelation,
+        interestedInRelationship:
+            interestedInRelationship ?? this.interestedInRelationship,
+        level: level ?? this.level,
+        romanticRelationshipInfoId: romanticRelationshipInfoId.present
+            ? romanticRelationshipInfoId.value
+            : this.romanticRelationshipInfoId,
+        activeRomance: activeRomance ?? this.activeRomance,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Relationship(')
+          ..write('firstPersonId: $firstPersonId, ')
+          ..write('secondPersonId: $secondPersonId, ')
+          ..write('platonicRelationshipType: $platonicRelationshipType, ')
+          ..write('romanticRelationshipType: $romanticRelationshipType, ')
+          ..write(
+              'previousFamilialRelationship: $previousFamilialRelationship, ')
+          ..write('bloodRelation: $bloodRelation, ')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('level: $level, ')
+          ..write('romanticRelationshipInfoId: $romanticRelationshipInfoId, ')
+          ..write('activeRomance: $activeRomance')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      firstPersonId,
+      secondPersonId,
+      platonicRelationshipType,
+      romanticRelationshipType,
+      previousFamilialRelationship,
+      bloodRelation,
+      interestedInRelationship,
+      level,
+      romanticRelationshipInfoId,
+      activeRomance);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Relationship &&
+          other.firstPersonId == this.firstPersonId &&
+          other.secondPersonId == this.secondPersonId &&
+          other.platonicRelationshipType == this.platonicRelationshipType &&
+          other.romanticRelationshipType == this.romanticRelationshipType &&
+          other.previousFamilialRelationship ==
+              this.previousFamilialRelationship &&
+          other.bloodRelation == this.bloodRelation &&
+          other.interestedInRelationship == this.interestedInRelationship &&
+          other.level == this.level &&
+          other.romanticRelationshipInfoId == this.romanticRelationshipInfoId &&
+          other.activeRomance == this.activeRomance);
+}
+
+class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
+  final Value<int> firstPersonId;
+  final Value<int> secondPersonId;
+  final Value<String> platonicRelationshipType;
+  final Value<String> romanticRelationshipType;
+  final Value<String> previousFamilialRelationship;
+  final Value<bool> bloodRelation;
+  final Value<bool> interestedInRelationship;
+  final Value<int> level;
+  final Value<int?> romanticRelationshipInfoId;
+  final Value<bool> activeRomance;
+  final Value<int> rowid;
+  const RelationshipTableCompanion({
+    this.firstPersonId = const Value.absent(),
+    this.secondPersonId = const Value.absent(),
+    this.platonicRelationshipType = const Value.absent(),
+    this.romanticRelationshipType = const Value.absent(),
+    this.previousFamilialRelationship = const Value.absent(),
+    this.bloodRelation = const Value.absent(),
+    this.interestedInRelationship = const Value.absent(),
+    this.level = const Value.absent(),
+    this.romanticRelationshipInfoId = const Value.absent(),
+    this.activeRomance = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  RelationshipTableCompanion.insert({
+    required int firstPersonId,
+    required int secondPersonId,
+    required String platonicRelationshipType,
+    required String romanticRelationshipType,
+    required String previousFamilialRelationship,
+    required bool bloodRelation,
+    required bool interestedInRelationship,
+    required int level,
+    this.romanticRelationshipInfoId = const Value.absent(),
+    required bool activeRomance,
+    this.rowid = const Value.absent(),
+  })  : firstPersonId = Value(firstPersonId),
+        secondPersonId = Value(secondPersonId),
+        platonicRelationshipType = Value(platonicRelationshipType),
+        romanticRelationshipType = Value(romanticRelationshipType),
+        previousFamilialRelationship = Value(previousFamilialRelationship),
+        bloodRelation = Value(bloodRelation),
+        interestedInRelationship = Value(interestedInRelationship),
+        level = Value(level),
+        activeRomance = Value(activeRomance);
+  static Insertable<Relationship> custom({
+    Expression<int>? firstPersonId,
+    Expression<int>? secondPersonId,
+    Expression<String>? platonicRelationshipType,
+    Expression<String>? romanticRelationshipType,
+    Expression<String>? previousFamilialRelationship,
+    Expression<bool>? bloodRelation,
+    Expression<bool>? interestedInRelationship,
+    Expression<int>? level,
+    Expression<int>? romanticRelationshipInfoId,
+    Expression<bool>? activeRomance,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (firstPersonId != null) 'first_person_id': firstPersonId,
+      if (secondPersonId != null) 'second_person_id': secondPersonId,
+      if (platonicRelationshipType != null)
+        'platonic_relationship_type': platonicRelationshipType,
+      if (romanticRelationshipType != null)
+        'romantic_relationship_type': romanticRelationshipType,
+      if (previousFamilialRelationship != null)
+        'previous_familial_relationship': previousFamilialRelationship,
+      if (bloodRelation != null) 'blood_relation': bloodRelation,
+      if (interestedInRelationship != null)
+        'interested_in_relationship': interestedInRelationship,
+      if (level != null) 'level': level,
+      if (romanticRelationshipInfoId != null)
+        'romantic_relationship_info_id': romanticRelationshipInfoId,
+      if (activeRomance != null) 'active_romance': activeRomance,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  RelationshipTableCompanion copyWith(
+      {Value<int>? firstPersonId,
+      Value<int>? secondPersonId,
+      Value<String>? platonicRelationshipType,
+      Value<String>? romanticRelationshipType,
+      Value<String>? previousFamilialRelationship,
+      Value<bool>? bloodRelation,
+      Value<bool>? interestedInRelationship,
+      Value<int>? level,
+      Value<int?>? romanticRelationshipInfoId,
+      Value<bool>? activeRomance,
+      Value<int>? rowid}) {
+    return RelationshipTableCompanion(
+      firstPersonId: firstPersonId ?? this.firstPersonId,
+      secondPersonId: secondPersonId ?? this.secondPersonId,
+      platonicRelationshipType:
+          platonicRelationshipType ?? this.platonicRelationshipType,
+      romanticRelationshipType:
+          romanticRelationshipType ?? this.romanticRelationshipType,
+      previousFamilialRelationship:
+          previousFamilialRelationship ?? this.previousFamilialRelationship,
+      bloodRelation: bloodRelation ?? this.bloodRelation,
+      interestedInRelationship:
+          interestedInRelationship ?? this.interestedInRelationship,
+      level: level ?? this.level,
+      romanticRelationshipInfoId:
+          romanticRelationshipInfoId ?? this.romanticRelationshipInfoId,
+      activeRomance: activeRomance ?? this.activeRomance,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (firstPersonId.present) {
+      map['first_person_id'] = Variable<int>(firstPersonId.value);
+    }
+    if (secondPersonId.present) {
+      map['second_person_id'] = Variable<int>(secondPersonId.value);
+    }
+    if (platonicRelationshipType.present) {
+      map['platonic_relationship_type'] =
+          Variable<String>(platonicRelationshipType.value);
+    }
+    if (romanticRelationshipType.present) {
+      map['romantic_relationship_type'] =
+          Variable<String>(romanticRelationshipType.value);
+    }
+    if (previousFamilialRelationship.present) {
+      map['previous_familial_relationship'] =
+          Variable<String>(previousFamilialRelationship.value);
+    }
+    if (bloodRelation.present) {
+      map['blood_relation'] = Variable<bool>(bloodRelation.value);
+    }
+    if (interestedInRelationship.present) {
+      map['interested_in_relationship'] =
+          Variable<bool>(interestedInRelationship.value);
+    }
+    if (level.present) {
+      map['level'] = Variable<int>(level.value);
+    }
+    if (romanticRelationshipInfoId.present) {
+      map['romantic_relationship_info_id'] =
+          Variable<int>(romanticRelationshipInfoId.value);
+    }
+    if (activeRomance.present) {
+      map['active_romance'] = Variable<bool>(activeRomance.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RelationshipTableCompanion(')
+          ..write('firstPersonId: $firstPersonId, ')
+          ..write('secondPersonId: $secondPersonId, ')
+          ..write('platonicRelationshipType: $platonicRelationshipType, ')
+          ..write('romanticRelationshipType: $romanticRelationshipType, ')
+          ..write(
+              'previousFamilialRelationship: $previousFamilialRelationship, ')
+          ..write('bloodRelation: $bloodRelation, ')
+          ..write('interestedInRelationship: $interestedInRelationship, ')
+          ..write('level: $level, ')
+          ..write('romanticRelationshipInfoId: $romanticRelationshipInfoId, ')
+          ..write('activeRomance: $activeRomance, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(e);
   late final $GameTableTable gameTable = $GameTableTable(this);
@@ -19539,6 +20652,12 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       $EmploymentTableTable(this);
   late final $JobRelationshipTableTable jobRelationshipTable =
       $JobRelationshipTableTable(this);
+  late final $ParentChildLinkTableTable parentChildLinkTable =
+      $ParentChildLinkTableTable(this);
+  late final $RomanticRelationshipInfoTableTable romanticRelationshipInfoTable =
+      $RomanticRelationshipInfoTableTable(this);
+  late final $RelationshipTableTable relationshipTable =
+      $RelationshipTableTable(this);
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
@@ -19604,6 +20723,12 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       EmploymentDaoImpl(this as DatabaseProvider);
   late final JobRelationshipDaoImpl jobRelationshipDaoImpl =
       JobRelationshipDaoImpl(this as DatabaseProvider);
+  late final ParentChildLinkDaoImpl parentChildLinkDaoImpl =
+      ParentChildLinkDaoImpl(this as DatabaseProvider);
+  late final RelationshipDaoImpl relationshipDaoImpl =
+      RelationshipDaoImpl(this as DatabaseProvider);
+  late final RomanticRelationshipInfoDaoImpl romanticRelationshipInfoDaoImpl =
+      RomanticRelationshipInfoDaoImpl(this as DatabaseProvider);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -19646,7 +20771,10 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         schoolRelationshipTable,
         jobTable,
         employmentTable,
-        jobRelationshipTable
+        jobRelationshipTable,
+        parentChildLinkTable,
+        romanticRelationshipInfoTable,
+        relationshipTable
       ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
@@ -20405,6 +21533,92 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('job_relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('parent_child_link', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('parent_child_link', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('parent_child_link', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('parent_child_link', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('game',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('romantic_relationship_info',
+                  kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('game',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('romantic_relationship_info',
+                  kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('romantic_relationship_info',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('romantic_relationship_info',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('relationship', kind: UpdateKind.update),
             ],
           ),
         ],

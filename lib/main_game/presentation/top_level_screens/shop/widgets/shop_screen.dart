@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/transportation/transportation_dependencies_providers.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
@@ -19,7 +18,6 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_transportation/domain/model/travel_detail.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -349,11 +347,11 @@ class ShopScreen extends ConsumerWidget {
                 //   ),
                 // );
 
-                const TravelDetail travelDetail = TravelDetail(
-                  destinationCountryString: "United States",
-                  destinationStateString: "Michigan",
-                  destinationSettlementString: "Village",
-                );
+                // const TravelDetail travelDetail = TravelDetail(
+                //   destinationCountryString: "United States",
+                //   destinationStateString: "Michigan",
+                //   destinationSettlementString: "Village",
+                // );
 
                 // await ref
                 //     .watch(gameUsecasesProvider)
@@ -367,13 +365,55 @@ class ShopScreen extends ConsumerWidget {
                 //       travelDetail: travelDetail,
                 //     );
 
-                await ref
-                    .watch(transportationUsecasesProvider)
-                    .getLandTravelTimeUsecase
-                    .execute(
-                      travellerPersonID: 3,
-                      travelDetail: travelDetail,
-                    );
+                // await ref
+                //     .watch(transportationUsecasesProvider)
+                //     .getLandTravelTimeUsecase
+                //     .execute(
+                //       travellerPersonID: 3,
+                //       travelDetail: travelDetail,
+                //     );
+
+                // final people = ref
+                //     .watch(personUsecasesProvider)
+                //     .generateListOfPersonUsecase
+                //     .execute(
+                //       numberOfPerson: 20,
+                //       currentGameID: 1,
+                //       currentDay: 3,
+                //       lastName: null,
+                //       parentBirthCountryString: null,
+                //       currentCountry: "Canada",
+                //       currentState: "Toronto",
+                //     );
+
+                // for (var person in people) {
+                //   await PersonDaoImpl(db).createPerson(person);
+                // }
+
+                // RelationshipDaoImpl(db)
+                //     .watchMarriagePartnerRelationship(3)
+                //     .listen((event) {
+                //   print("WATCHER: $event");
+                // });
+
+                // final Relationship relationship = Relationship(
+                //   firstPersonId: 4,
+                //   secondPersonId: 3,
+                //   platonicRelationshipType:
+                //       "${PlatonicRelationshipType.acquaintance.name}, ",
+                //   romanticRelationshipType:
+                //       RomanticRelationshipType.married.name,
+                //   bloodRelation: true,
+                //   interestedInRelationship: true,
+                //   level: 120,
+                //   activeRomance: true,
+                // );
+
+                // (await RelationshipDaoImpl(db)
+                //     .createRelationship(relationship));
+
+                // final result = (await RelationshipDaoImpl(db).getAllExesOf(3));
+                // print(result);
               },
               child: const Text("Run"),
             ),
