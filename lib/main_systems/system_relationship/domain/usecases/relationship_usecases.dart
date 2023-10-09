@@ -6,6 +6,21 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/check/c
 import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_child_parent_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_new_player_family_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_sibling_relationship_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_in_law_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_cousins_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandchildren_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandcousins_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandniblings_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandparents_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandchildren_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandparents_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_niblings_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parent_in_laws_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parents_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_piblings_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_sibling_in_laws_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_siblings_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_child_relationship_pairs_from_children_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_friend_relationship_pairs_from_friends_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_grave_relationship_pairs_from_graves_usecase.dart';
@@ -407,4 +422,116 @@ class RelationshipUsecases {
   GetRelationshipLevelFromAnyGivenRelationshipPairUsecase
       get getRelationshipLevelFromAnyGivenRelationshipPairUsecase =>
           GetRelationshipLevelFromAnyGivenRelationshipPairUsecase();
+
+  GetChildrenThroughDeductionUsecase get getChildrenThroughDeductionUsecase =>
+      GetChildrenThroughDeductionUsecase(
+        _ref
+            .read(relationshipRepositoriesProvider)
+            .parentChildLinkRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        _ref.read(personUsecasesProvider),
+      );
+
+  GetCousinsThroughDeductionUsecase get getCousinsThroughDeductionUsecase =>
+      GetCousinsThroughDeductionUsecase(
+        getChildrenThroughDeductionUsecase,
+        getPiblingsThroughDeductionUsecase,
+      );
+
+  GetGrandCousinsThroughDeductionUsecase
+      get getGrandCousinsThroughDeductionUsecase =>
+          GetGrandCousinsThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            getCousinsThroughDeductionUsecase,
+          );
+
+  GetGrandChildrenThroughDeductionUsecase
+      get getGrandChildrenThroughDeductionUsecase =>
+          GetGrandChildrenThroughDeductionUsecase(
+              getChildrenThroughDeductionUsecase);
+
+  GetGrandParentsThroughDeductionUsecase
+      get getGrandParentsThroughDeductionUsecase =>
+          GetGrandParentsThroughDeductionUsecase(
+              getParentsThroughDeductionUsecase);
+
+  GetGreatGrandParentsThroughDeductionUsecase
+      get getGreatGrandParentsThroughDeductionUsecase =>
+          GetGreatGrandParentsThroughDeductionUsecase(
+            getParentsThroughDeductionUsecase,
+            getGrandParentsThroughDeductionUsecase,
+          );
+
+  GetGreatGrandChildrenThroughDeductionUsecase
+      get getGreatGrandChildrenThroughDeductionUsecase =>
+          GetGreatGrandChildrenThroughDeductionUsecase(
+            getGrandChildrenThroughDeductionUsecase,
+            getChildrenThroughDeductionUsecase,
+          );
+
+  GetNiblingsThroughDeductionUsecase get getNiblingsThroughDeductionUsecase =>
+      GetNiblingsThroughDeductionUsecase(
+        getChildrenThroughDeductionUsecase,
+        getSiblingsThroughDeductionUsecase,
+      );
+
+  GetGrandNiblingsThroughDeductionUsecase
+      get getGrandNiblingsThroughDeductionUsecase =>
+          GetGrandNiblingsThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            getNiblingsThroughDeductionUsecase,
+          );
+
+  GetParentsThroughDeductionUsecase get getParentsThroughDeductionUsecase =>
+      GetParentsThroughDeductionUsecase(
+        _ref
+            .read(relationshipRepositoriesProvider)
+            .parentChildLinkRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        _ref.read(personUsecasesProvider),
+      );
+
+  GetPiblingsThroughDeductionUsecase get getPiblingsThroughDeductionUsecase =>
+      GetPiblingsThroughDeductionUsecase(
+        getParentsThroughDeductionUsecase,
+        getSiblingsThroughDeductionUsecase,
+      );
+
+  GetSiblingsThroughDeductionUsecase get getSiblingsThroughDeductionUsecase =>
+      GetSiblingsThroughDeductionUsecase(
+        _ref
+            .read(relationshipRepositoriesProvider)
+            .parentChildLinkRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        _ref.read(personUsecasesProvider),
+      );
+
+  GetParentInLawsThroughDeductionUsecase
+      get getParentInLawsThroughDeductionUsecase =>
+          GetParentInLawsThroughDeductionUsecase(
+            getParentsThroughDeductionUsecase,
+            _ref
+                .watch(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+          );
+
+  GetSiblingInLawsThroughDeductionUsecase
+      get getSiblingInLawsThroughDeductionUsecase =>
+          GetSiblingInLawsThroughDeductionUsecase(
+            getSiblingsThroughDeductionUsecase,
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            _ref.read(personUsecasesProvider),
+          );
+
+  GetChildrenInLawThroughDeductionUsecase
+      get getChildrenInLawThroughDeductionUsecase =>
+          GetChildrenInLawThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            _ref.read(personUsecasesProvider),
+          );
 }

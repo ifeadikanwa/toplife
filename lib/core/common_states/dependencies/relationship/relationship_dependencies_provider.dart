@@ -5,9 +5,12 @@ import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl
 import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/grave_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/inlaw_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/parent_child_link_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/relationship_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/relative_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/data/dao/romantic_relationship_info_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/repository/relationship_repositories.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/game_relationship_interactions.dart';
@@ -17,6 +20,9 @@ final relationshipRepositoriesProvider =
     Provider<RelationshipRepositories>((ref) {
   final database = ref.watch(databaseProvider);
   return RelationshipRepositories(
+    parentChildLinkDao: ParentChildLinkDaoImpl(database),
+    relationshipDao: RelationshipDaoImpl(database),
+    romanticRelationshipInfoDao: RomanticRelationshipInfoDaoImpl(database),
     parentDao: ParentDaoImpl(database),
     childDao: ChildDaoImpl(database),
     siblingDao: SiblingDaoImpl(database),

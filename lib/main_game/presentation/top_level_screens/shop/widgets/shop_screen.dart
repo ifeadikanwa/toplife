@@ -242,144 +242,13 @@ class ShopScreen extends ConsumerWidget {
                 //       g.copyWith(currentTimeInMinutes: 480, currentDay: 6));
                 // }
 
-                // ref
-                //     .watch(shopAndStorageUsecasesProvider)
-                //     .setCurrentHomeUsecase
-                //     .execute(
-                //       currentHome: CurrentHome(
-                //         personId: 6,
-                //         houseId: 1,
-                //         hasManagementRights: true,
-                //         isAtHome: true,
-                //         stayType: "stayType",
-                //         exitDay: 0,
-                //       ),
-                //     );
-
-                // CurrentHomeDaoImpl(db).deleteCurrentHome(1);
-                // CurrentHomeDaoImpl(db).deleteCurrentHome(2);
-                // CurrentHomeDaoImpl(db).deleteCurrentHome(3);
-
-                // ref.watch(personUsecasesProvider).updateStatsUsecase.execute(
-                //       mainPersonID: 1,
-                //       override: true,
-                //       energy: 20,
-                //     );
-
-                // final Car car = await CarDaoImpl(db).createCar(
-                //   trucks.last.copyWith(
-                //     personId: 3,
-                //     maxConditionAtPurchase: 80,
-                //     quality: CarQuality.high.name,
-                //     percentageOfTravelTime: 30,
-                //     insuranceCost: 500,
-                //     currentlyDriving: true,
-                //   ),
-                // );
-
-                // final Stats? playerStat = await StatsDaoImpl(db).getStats(3);
-                // if (playerStat != null) {
-                //   await StatsDaoImpl(db).updateStats(playerStat.copyWith(
-                //     energy: 100,
-                //   ));
-                // }
-
-                // final Car? car = await CarDaoImpl(db).getCar(2);
-                // if (car != null) {
-                //   await CarDaoImpl(db).updateCar(
-                //     car.copyWith(fuelTank: 100),
-                //   );
-                // }
-
-                // final Person? person2 = await PersonDaoImpl(db).getPerson(3);
-
-                // if (person2 != null) {
-                //   await PersonDaoImpl(db).updatePerson(
-                //     person2.copyWith(
-                //       transportMode: TransportMode.private.name,
-                //       drivingMode: "highSpeed",
-                //     ),
-                //   );
-                // }
-
-                // if (context.mounted) {
-                // final result = await ref
-                //     .watch(transportationUsecasesProvider)
-                //     .landTravelUsecase
-                //     .execute(
-                //       context: context,
-                //       currentGameID: 1,
-                //       travellerPersonID: 1,
-                //       npcPassengersPersonIDs: [],
-                //       eventStartTimeInMinutes: 100,
-                //       travelType: TravelType.oneWay,
-                //       travelDetail: const TravelDetail(
-                //         destinationCountryString: "United States",
-                //         destinationStateString: "Michigan",
-                //         destinationSettlementString: "Village",
-                //       ),
-                //     );
-
-                // print(result);
-                // }
-
-                // final ActionDetail actionDetail = ActionDetail(
-                //   actionDuration: ActionDuration.untimed(durationInMinutes: 60),
-                //   affectedByStats: LowStats(stats: {
-                //     PersonStats.intellect,
-                //   }),
-                //   gameAction: GameAction.doCustomOnLowPerformance(
-                //     defaultPerformance: () async {
-                //       print("****RUNNING DEFAULT PERFORMANCE****");
-                //       return const ActionResult(
-                //         isSuccessful: false,
-                //         reportActionFail: ReportActionFail.lowStats,
-                //       );
-                //     },
-                //     lowPerformance: () async {
-                //       print("****RUNNING LOW PERFORMANCE****");
-
-                //       return const ActionResult(
-                //         isSuccessful: true,
-                //         reportActionFail: ReportActionFail.none,
-                //       );
-                //     },
-                //   ),
-                // );
-
-                // const TravelDetail travelDetail = TravelDetail(
-                //   destinationCountryString: "United States",
-                //   destinationStateString: "Michigan",
-                //   destinationSettlementString: "Village",
-                // );
-
-                // await ref
-                //     .watch(gameUsecasesProvider)
-                //     .actionRunner
-                //     .performTwoWayTravelAction(
-                //       context: context,
-                //       landTravelUsecase: ref
-                //           .watch(transportationUsecasesProvider)
-                //           .landTravelUsecase,
-                //       actionDetail: actionDetail,
-                //       travelDetail: travelDetail,
-                //     );
-
-                // await ref
-                //     .watch(transportationUsecasesProvider)
-                //     .getLandTravelTimeUsecase
-                //     .execute(
-                //       travellerPersonID: 3,
-                //       travelDetail: travelDetail,
-                //     );
-
                 // final people = ref
                 //     .watch(personUsecasesProvider)
                 //     .generateListOfPersonUsecase
                 //     .execute(
-                //       numberOfPerson: 20,
+                //       numberOfPerson: 50,
                 //       currentGameID: 1,
-                //       currentDay: 3,
+                //       currentDay: 1,
                 //       lastName: null,
                 //       parentBirthCountryString: null,
                 //       currentCountry: "Canada",
@@ -390,10 +259,52 @@ class ShopScreen extends ConsumerWidget {
                 //   await PersonDaoImpl(db).createPerson(person);
                 // }
 
-                // RelationshipDaoImpl(db)
-                //     .watchMarriagePartnerRelationship(3)
-                //     .listen((event) {
-                //   print("WATCHER: $event");
+                // final Relationship relationship = Relationship(
+                //   firstPersonId: 61,
+                //   secondPersonId: 91,
+                //   platonicRelationshipType:
+                //       "${PlatonicRelationshipType.acquaintance.name}, ",
+                //   romanticRelationshipType:
+                //       RomanticRelationshipType.married.name,
+                //   bloodRelation: false,
+                //   interestedInRelationship: true,
+                //   level: 120,
+                //   activeRomance: true,
+                //   previousFamilialRelationship: '',
+                // );
+
+                // // (await RelationshipDaoImpl(db)
+                // //     .createRelationship(relationship));
+
+                // final ParentChildLink parentChildLink = ParentChildLink(
+                //   parentId: 0,
+                //   childId: 0,
+                //   isBirthRelationshipType: true,
+                //   isHidden: false,
+                //   isPaternityFraud: false,
+                // );
+
+                // // await ParentChildLinkDaoImpl(db).deleteParentChildLink(50, 6);
+
+                // await ParentChildLinkDaoImpl(db)
+                //     .createParentChildLink(parentChildLink.copyWith(
+                //   parentId: 80,
+                //   childId: 86,
+                //   // isBirthRelationshipType: false,
+                //   // isHidden: false,
+                //   // isPaternityFraud: true,
+                // ));
+
+                // final result = await ref
+                //     .watch(relationshipUsecasesProvider)
+                //     .getChildrenInLawThroughDeductionUsecase
+                //     .execute(
+                //       personID: 6,
+                //     );
+
+                // result.forEach((element) {
+                //   print(
+                //       "\nPersonID: ${element.person.id} == Relation: ${element.platonicRelationshipType.name}");
                 // });
 
                 // final Relationship relationship = Relationship(

@@ -251,6 +251,28 @@ void main() {
     });
 
     test(
+        "stepGrandChild relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepGrandChild.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGrandChild.maleEquivalent,
+        "Step-grandson",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGrandChild.femaleEquivalent,
+        "Step-granddaughter",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
         "greatGrandChild relationship category, male and female equivalents are correct",
         () {
       expect(
@@ -268,6 +290,28 @@ void main() {
       expect(
         PlatonicRelationshipType.greatGrandChild.femaleEquivalent,
         "Great-granddaughter",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "stepGreatGrandChild relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepGreatGrandChild.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGreatGrandChild.maleEquivalent,
+        "Step-great-grandson",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGreatGrandChild.femaleEquivalent,
+        "Step-great-granddaughter",
         reason: "Cause: female equivalent",
       );
     });
@@ -295,6 +339,28 @@ void main() {
     });
 
     test(
+        "stepGrandParent relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepGrandParent.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGrandParent.maleEquivalent,
+        "Step-grandfather",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGrandParent.femaleEquivalent,
+        "Step-grandmother",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
         "greatGrandParent relationship category, male and female equivalents are correct",
         () {
       expect(
@@ -312,6 +378,28 @@ void main() {
       expect(
         PlatonicRelationshipType.greatGrandParent.femaleEquivalent,
         "Great-grandmother",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "stepGreatGrandParent relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepGreatGrandParent.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGreatGrandParent.maleEquivalent,
+        "Step-great-grandfather",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGreatGrandParent.femaleEquivalent,
+        "Step-great-grandmother",
         reason: "Cause: female equivalent",
       );
     });
@@ -339,6 +427,72 @@ void main() {
     });
 
     test(
+        "stepNibling relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepNibling.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepNibling.maleEquivalent,
+        "Step-nephew",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepNibling.femaleEquivalent,
+        "Step-niece",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "grandNibling relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.grandNibling.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.grandNibling.maleEquivalent,
+        "Grandnephew",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.grandNibling.femaleEquivalent,
+        "Grandniece",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "stepGrandNibling relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepGrandNibling.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGrandNibling.maleEquivalent,
+        "Step-grandnephew",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGrandNibling.femaleEquivalent,
+        "Step-grandniece",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
         "pibling relationship category, male and female equivalents are correct",
         () {
       expect(
@@ -356,6 +510,28 @@ void main() {
       expect(
         PlatonicRelationshipType.pibling.femaleEquivalent,
         "Aunt",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "stepPibling relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepPibling.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepPibling.maleEquivalent,
+        "Step-uncle",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepPibling.femaleEquivalent,
+        "Step-aunt",
         reason: "Cause: female equivalent",
       );
     });
@@ -382,8 +558,74 @@ void main() {
       );
     });
 
+    test(
+        "stepCousin relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepCousin.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepCousin.maleEquivalent,
+        "Step-cousin",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepCousin.femaleEquivalent,
+        "Step-cousin",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "grandCousin relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.grandCousin.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.grandCousin.maleEquivalent,
+        "Grandcousin",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.grandCousin.femaleEquivalent,
+        "Grandcousin",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "stepGrandCousin relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepGrandCousin.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGrandCousin.maleEquivalent,
+        "Step-grandcousin",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGrandCousin.femaleEquivalent,
+        "Step-grandcousin",
+        reason: "Cause: female equivalent",
+      );
+    });
+
     //in-laws
-     test(
+    test(
         "parentInLaw relationship category, male and female equivalents are correct",
         () {
       expect(
@@ -405,7 +647,7 @@ void main() {
       );
     });
 
-      test(
+    test(
         "childInLaw relationship category, male and female equivalents are correct",
         () {
       expect(
@@ -427,7 +669,29 @@ void main() {
       );
     });
 
-      test(
+    test(
+        "stepChildInLaw relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepChildInLaw.relationshipCategory,
+        RelationshipCategory.inLaw,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepChildInLaw.maleEquivalent,
+        "Step son-in-law",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepChildInLaw.femaleEquivalent,
+        "Step daughter-in-law",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
         "siblingInLaw relationship category, male and female equivalents are correct",
         () {
       expect(
@@ -449,8 +713,30 @@ void main() {
       );
     });
 
+    test(
+        "stepSiblingInLaw relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepSiblingInLaw.relationshipCategory,
+        RelationshipCategory.inLaw,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepSiblingInLaw.maleEquivalent,
+        "Step brother-in-law",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepSiblingInLaw.femaleEquivalent,
+        "Step sister-in-law",
+        reason: "Cause: female equivalent",
+      );
+    });
+
     //friend
-     test(
+    test(
         "friend relationship category, male and female equivalents are correct",
         () {
       expect(

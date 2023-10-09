@@ -185,6 +185,14 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.childInLaw),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepChildInLaw),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepSiblingInLaw),
                     )),
           ))
         .get();
@@ -270,6 +278,34 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.pibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepPibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepNibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepCousin),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandChild),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandParent),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGreatGrandChild),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGreatGrandParent),
                     )),
           ))
         .get();
@@ -405,6 +441,14 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.childInLaw),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepChildInLaw),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepSiblingInLaw),
                     )),
           ))
         .watch();
@@ -490,6 +534,50 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.pibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepPibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepNibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepCousin),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandChild),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandParent),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGreatGrandChild),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGreatGrandParent),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.grandNibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandNibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.grandCousin),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandCousin),
                     )),
           ))
         .watch();
