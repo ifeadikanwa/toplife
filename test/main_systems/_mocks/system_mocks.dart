@@ -6,47 +6,49 @@ import 'package:toplife/main_systems/system_job/domain/usecases/job_usecases.dar
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_siblings_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/school_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 
-@GenerateMocks([
+@GenerateNiceMocks([
   //person
-  Person,
-  Stats,
-  Stance,
-  PersonUsecases,
+  MockSpec<Person>(),
+  MockSpec<Stats>(),
+  MockSpec<Stance>(),
+  MockSpec<PersonUsecases>(),
 
   //game
-  Game,
-  GameUsecases,
+  MockSpec<Game>(),
+  MockSpec<GameUsecases>(),
 
   //job
-  Job,
-  JobUsecases,
+  MockSpec<Job>(),
+  MockSpec<JobUsecases>(),
 
   //school
-  School,
-  SchoolRelationship,
-  SchoolProject,
-  SchoolUsecases,
+  MockSpec<School>(),
+  MockSpec<SchoolRelationship>(),
+  MockSpec<SchoolProject>(),
+  MockSpec<SchoolUsecases>(),
 
   //journal
-  Journal,
-  JournalUsecases,
+  MockSpec<Journal>(),
+  MockSpec<JournalUsecases>(),
 
   //event
-  Event,
-  EventManager,
+  MockSpec<Event>(),
+  MockSpec<EventManager>(),
 
   //recurring bills and loans
-  RecurringBill,
-  RecurringBillsUsecases,
+  MockSpec<RecurringBill>(),
+  MockSpec<RecurringBillsUsecases>(),
 
   //relationship
-  RelationshipUsecases,
+  MockSpec<RelationshipUsecases>(),
+  MockSpec<GetSiblingsThroughDeductionUsecase>(),
 
   //shop and storage
-  ShopAndStorageUsecases,
+  MockSpec<ShopAndStorageUsecases>(),
 ])
 void main() {}

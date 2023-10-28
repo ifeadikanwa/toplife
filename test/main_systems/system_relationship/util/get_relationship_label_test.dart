@@ -10,7 +10,7 @@ import 'package:toplife/main_systems/system_relationship/constants/partner_relat
 import 'package:toplife/main_systems/system_relationship/constants/relative_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/sibling_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_relationship_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_relationship_label_from_any_relationship_pair.dart';
 
 void main() {
   group("getRelationshipLabel:", () {

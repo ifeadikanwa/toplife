@@ -306,25 +306,6 @@ class ShopScreen extends ConsumerWidget {
                 //   print(
                 //       "\nPersonID: ${element.person.id} == Relation: ${element.platonicRelationshipType.name}");
                 // });
-
-                // final Relationship relationship = Relationship(
-                //   firstPersonId: 4,
-                //   secondPersonId: 3,
-                //   platonicRelationshipType:
-                //       "${PlatonicRelationshipType.acquaintance.name}, ",
-                //   romanticRelationshipType:
-                //       RomanticRelationshipType.married.name,
-                //   bloodRelation: true,
-                //   interestedInRelationship: true,
-                //   level: 120,
-                //   activeRomance: true,
-                // );
-
-                // (await RelationshipDaoImpl(db)
-                //     .createRelationship(relationship));
-
-                // final result = (await RelationshipDaoImpl(db).getAllExesOf(3));
-                // print(result);
               },
               child: const Text("Run"),
             ),

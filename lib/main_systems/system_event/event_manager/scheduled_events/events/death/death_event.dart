@@ -18,7 +18,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/person_usecas
 import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_relationship_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_relationship_label_from_any_relationship_pair.dart';
 
 class DeathEvent {
   final EventRepository _eventRepository;

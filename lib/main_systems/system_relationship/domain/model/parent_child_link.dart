@@ -22,6 +22,9 @@ class ParentChildLinkTable extends Table {
   //either birth parent/child or adopted parent/child
   BoolColumn get isBirthRelationshipType => boolean()();
 
+  //marker to keep track of people that are children of someone in the player family lineage
+  BoolColumn get relatedToPlayerFamily => boolean()();
+
   //whether parent shows up in character info
   BoolColumn get isHidden => boolean()();
 

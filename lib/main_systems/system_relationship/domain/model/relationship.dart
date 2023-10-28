@@ -20,14 +20,14 @@ class RelationshipTable extends Table {
         onDelete: KeyAction.cascade,
       )();
 
+  //can hold multiple types
   TextColumn get platonicRelationshipType => text()();
 
+  //holds ONE type
   TextColumn get romanticRelationshipType => text()();
 
+  //holds ONE type
   TextColumn get previousFamilialRelationship => text()();
-
-  //whether they are permanent family (can't have romantic relations)
-  BoolColumn get bloodRelation => boolean()();
 
   //whether or not the other person is interested in building a relationship
   BoolColumn get interestedInRelationship => boolean()();

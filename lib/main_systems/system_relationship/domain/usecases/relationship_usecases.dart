@@ -1,11 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/add_to_family/add_child_to_npc_family_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/any_relationship_pair/get_relationship_level_from_any_given_relationship_pair_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/check/check_if_person_is_in_player_family_lineage_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/check/check_if_person_is_interested_in_relationship_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_parent_child_link_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_child_parent_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_new_player_family_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_sibling_relationship_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_familial_relationship_to_player_through_parent_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_in_law_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_cousins_through_deduction_usecase.dart';
@@ -14,6 +20,8 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/get_fam
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandniblings_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandparents_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandchildren_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandcousins_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandniblings_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandparents_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_niblings_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parent_in_laws_through_deduction_usecase.dart';
@@ -45,6 +53,7 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/get_spe
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_partner_relationship_pair_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_relative_relationship_pair_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_sibling_relationship_pair_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_the_addition_of_persons_child_to_the_game_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/create_exclusive_romantic_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_all_partner_relationship_not_involving_a_certain_person_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_partner_relationship_usecase.dart';
@@ -506,6 +515,20 @@ class RelationshipUsecases {
         _ref.read(personUsecasesProvider),
       );
 
+  GetGreatGrandCousinsThroughDeductionUsecase
+      get getGreatGrandCousinsThroughDeductionUsecase =>
+          GetGreatGrandCousinsThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            getGrandCousinsThroughDeductionUsecase,
+          );
+
+  GetGreatGrandNiblingsThroughDeductionUsecase
+      get getGreatGrandNiblingsThroughDeductionUsecase =>
+          GetGreatGrandNiblingsThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            getGrandNiblingsThroughDeductionUsecase,
+          );
+
   GetParentInLawsThroughDeductionUsecase
       get getParentInLawsThroughDeductionUsecase =>
           GetParentInLawsThroughDeductionUsecase(
@@ -533,5 +556,48 @@ class RelationshipUsecases {
                 .read(relationshipRepositoriesProvider)
                 .relationshipRepositoryImpl,
             _ref.read(personUsecasesProvider),
+          );
+
+  AddChildToNPCFamilyUsecase get addChildToNPCFamilyUsecase =>
+      AddChildToNPCFamilyUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        _ref.read(personUsecasesProvider),
+        createParentChildLinkUsecase,
+        processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase,
+        _ref.read(journalUsecasesProvider),
+      );
+
+  CheckIfPersonIsInPlayerFamilyLineageUsecase
+      get checkIfPersonIsInPlayerFamilyLineageUsecase =>
+          CheckIfPersonIsInPlayerFamilyLineageUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .parentChildLinkRepositoryImpl,
+          );
+
+  CreateParentChildLinkUsecase get createParentChildLinkUsecase =>
+      CreateParentChildLinkUsecase(
+        _ref
+            .read(relationshipRepositoriesProvider)
+            .parentChildLinkRepositoryImpl,
+        checkIfPersonIsInPlayerFamilyLineageUsecase,
+      );
+
+  CreateRelationshipUsecase get createRelationshipUsecase =>
+      CreateRelationshipUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+      );
+
+  FindPersonsFamilialRelationshipToPlayerThroughParentUsecase
+      get findPersonsFamilialRelationshipToPlayerThroughParentUsecase =>
+          FindPersonsFamilialRelationshipToPlayerThroughParentUsecase(
+            getSiblingsThroughDeductionUsecase,
+          );
+
+  ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
+      get processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase =>
+          ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase(
+            findPersonsFamilialRelationshipToPlayerThroughParentUsecase,
+            createRelationshipUsecase,
           );
 }

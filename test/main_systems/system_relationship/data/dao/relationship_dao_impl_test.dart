@@ -20,7 +20,6 @@ void main() {
       platonicRelationshipType: "",
       romanticRelationshipType: "",
       previousFamilialRelationship: "",
-      bloodRelation: true,
       interestedInRelationship: true,
       level: 100,
       activeRomance: false,

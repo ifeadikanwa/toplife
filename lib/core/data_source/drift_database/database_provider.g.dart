@@ -19319,6 +19319,15 @@ class $ParentChildLinkTableTable extends ParentChildLinkTable
           requiredDuringInsert: true,
           defaultConstraints: GeneratedColumn.constraintIsAlways(
               'CHECK ("is_birth_relationship_type" IN (0, 1))'));
+  static const VerificationMeta _relatedToPlayerFamilyMeta =
+      const VerificationMeta('relatedToPlayerFamily');
+  @override
+  late final GeneratedColumn<bool> relatedToPlayerFamily =
+      GeneratedColumn<bool>('related_to_player_family', aliasedName, false,
+          type: DriftSqlType.bool,
+          requiredDuringInsert: true,
+          defaultConstraints: GeneratedColumn.constraintIsAlways(
+              'CHECK ("related_to_player_family" IN (0, 1))'));
   static const VerificationMeta _isHiddenMeta =
       const VerificationMeta('isHidden');
   @override
@@ -19338,8 +19347,14 @@ class $ParentChildLinkTableTable extends ParentChildLinkTable
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("is_paternity_fraud" IN (0, 1))'));
   @override
-  List<GeneratedColumn> get $columns =>
-      [parentId, childId, isBirthRelationshipType, isHidden, isPaternityFraud];
+  List<GeneratedColumn> get $columns => [
+        parentId,
+        childId,
+        isBirthRelationshipType,
+        relatedToPlayerFamily,
+        isHidden,
+        isPaternityFraud
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -19371,6 +19386,14 @@ class $ParentChildLinkTableTable extends ParentChildLinkTable
     } else if (isInserting) {
       context.missing(_isBirthRelationshipTypeMeta);
     }
+    if (data.containsKey('related_to_player_family')) {
+      context.handle(
+          _relatedToPlayerFamilyMeta,
+          relatedToPlayerFamily.isAcceptableOrUnknown(
+              data['related_to_player_family']!, _relatedToPlayerFamilyMeta));
+    } else if (isInserting) {
+      context.missing(_relatedToPlayerFamilyMeta);
+    }
     if (data.containsKey('is_hidden')) {
       context.handle(_isHiddenMeta,
           isHidden.isAcceptableOrUnknown(data['is_hidden']!, _isHiddenMeta));
@@ -19401,6 +19424,9 @@ class $ParentChildLinkTableTable extends ParentChildLinkTable
       isBirthRelationshipType: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}is_birth_relationship_type'])!,
+      relatedToPlayerFamily: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool,
+          data['${effectivePrefix}related_to_player_family'])!,
       isHidden: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_hidden'])!,
       isPaternityFraud: attachedDatabase.typeMapping.read(
@@ -19418,12 +19444,14 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
   final int parentId;
   final int childId;
   final bool isBirthRelationshipType;
+  final bool relatedToPlayerFamily;
   final bool isHidden;
   final bool isPaternityFraud;
   const ParentChildLink(
       {required this.parentId,
       required this.childId,
       required this.isBirthRelationshipType,
+      required this.relatedToPlayerFamily,
       required this.isHidden,
       required this.isPaternityFraud});
   @override
@@ -19432,6 +19460,7 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
     map['parent_id'] = Variable<int>(parentId);
     map['child_id'] = Variable<int>(childId);
     map['is_birth_relationship_type'] = Variable<bool>(isBirthRelationshipType);
+    map['related_to_player_family'] = Variable<bool>(relatedToPlayerFamily);
     map['is_hidden'] = Variable<bool>(isHidden);
     map['is_paternity_fraud'] = Variable<bool>(isPaternityFraud);
     return map;
@@ -19442,6 +19471,7 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
       parentId: Value(parentId),
       childId: Value(childId),
       isBirthRelationshipType: Value(isBirthRelationshipType),
+      relatedToPlayerFamily: Value(relatedToPlayerFamily),
       isHidden: Value(isHidden),
       isPaternityFraud: Value(isPaternityFraud),
     );
@@ -19455,6 +19485,8 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
       childId: serializer.fromJson<int>(json['childId']),
       isBirthRelationshipType:
           serializer.fromJson<bool>(json['isBirthRelationshipType']),
+      relatedToPlayerFamily:
+          serializer.fromJson<bool>(json['relatedToPlayerFamily']),
       isHidden: serializer.fromJson<bool>(json['isHidden']),
       isPaternityFraud: serializer.fromJson<bool>(json['isPaternityFraud']),
     );
@@ -19467,6 +19499,7 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
       'childId': serializer.toJson<int>(childId),
       'isBirthRelationshipType':
           serializer.toJson<bool>(isBirthRelationshipType),
+      'relatedToPlayerFamily': serializer.toJson<bool>(relatedToPlayerFamily),
       'isHidden': serializer.toJson<bool>(isHidden),
       'isPaternityFraud': serializer.toJson<bool>(isPaternityFraud),
     };
@@ -19476,6 +19509,7 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
           {int? parentId,
           int? childId,
           bool? isBirthRelationshipType,
+          bool? relatedToPlayerFamily,
           bool? isHidden,
           bool? isPaternityFraud}) =>
       ParentChildLink(
@@ -19483,6 +19517,8 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
         childId: childId ?? this.childId,
         isBirthRelationshipType:
             isBirthRelationshipType ?? this.isBirthRelationshipType,
+        relatedToPlayerFamily:
+            relatedToPlayerFamily ?? this.relatedToPlayerFamily,
         isHidden: isHidden ?? this.isHidden,
         isPaternityFraud: isPaternityFraud ?? this.isPaternityFraud,
       );
@@ -19492,6 +19528,7 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
           ..write('parentId: $parentId, ')
           ..write('childId: $childId, ')
           ..write('isBirthRelationshipType: $isBirthRelationshipType, ')
+          ..write('relatedToPlayerFamily: $relatedToPlayerFamily, ')
           ..write('isHidden: $isHidden, ')
           ..write('isPaternityFraud: $isPaternityFraud')
           ..write(')'))
@@ -19499,8 +19536,8 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      parentId, childId, isBirthRelationshipType, isHidden, isPaternityFraud);
+  int get hashCode => Object.hash(parentId, childId, isBirthRelationshipType,
+      relatedToPlayerFamily, isHidden, isPaternityFraud);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -19508,6 +19545,7 @@ class ParentChildLink extends DataClass implements Insertable<ParentChildLink> {
           other.parentId == this.parentId &&
           other.childId == this.childId &&
           other.isBirthRelationshipType == this.isBirthRelationshipType &&
+          other.relatedToPlayerFamily == this.relatedToPlayerFamily &&
           other.isHidden == this.isHidden &&
           other.isPaternityFraud == this.isPaternityFraud);
 }
@@ -19516,6 +19554,7 @@ class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
   final Value<int> parentId;
   final Value<int> childId;
   final Value<bool> isBirthRelationshipType;
+  final Value<bool> relatedToPlayerFamily;
   final Value<bool> isHidden;
   final Value<bool> isPaternityFraud;
   final Value<int> rowid;
@@ -19523,6 +19562,7 @@ class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
     this.parentId = const Value.absent(),
     this.childId = const Value.absent(),
     this.isBirthRelationshipType = const Value.absent(),
+    this.relatedToPlayerFamily = const Value.absent(),
     this.isHidden = const Value.absent(),
     this.isPaternityFraud = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -19531,18 +19571,21 @@ class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
     required int parentId,
     required int childId,
     required bool isBirthRelationshipType,
+    required bool relatedToPlayerFamily,
     required bool isHidden,
     required bool isPaternityFraud,
     this.rowid = const Value.absent(),
   })  : parentId = Value(parentId),
         childId = Value(childId),
         isBirthRelationshipType = Value(isBirthRelationshipType),
+        relatedToPlayerFamily = Value(relatedToPlayerFamily),
         isHidden = Value(isHidden),
         isPaternityFraud = Value(isPaternityFraud);
   static Insertable<ParentChildLink> custom({
     Expression<int>? parentId,
     Expression<int>? childId,
     Expression<bool>? isBirthRelationshipType,
+    Expression<bool>? relatedToPlayerFamily,
     Expression<bool>? isHidden,
     Expression<bool>? isPaternityFraud,
     Expression<int>? rowid,
@@ -19552,6 +19595,8 @@ class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
       if (childId != null) 'child_id': childId,
       if (isBirthRelationshipType != null)
         'is_birth_relationship_type': isBirthRelationshipType,
+      if (relatedToPlayerFamily != null)
+        'related_to_player_family': relatedToPlayerFamily,
       if (isHidden != null) 'is_hidden': isHidden,
       if (isPaternityFraud != null) 'is_paternity_fraud': isPaternityFraud,
       if (rowid != null) 'rowid': rowid,
@@ -19562,6 +19607,7 @@ class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
       {Value<int>? parentId,
       Value<int>? childId,
       Value<bool>? isBirthRelationshipType,
+      Value<bool>? relatedToPlayerFamily,
       Value<bool>? isHidden,
       Value<bool>? isPaternityFraud,
       Value<int>? rowid}) {
@@ -19570,6 +19616,8 @@ class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
       childId: childId ?? this.childId,
       isBirthRelationshipType:
           isBirthRelationshipType ?? this.isBirthRelationshipType,
+      relatedToPlayerFamily:
+          relatedToPlayerFamily ?? this.relatedToPlayerFamily,
       isHidden: isHidden ?? this.isHidden,
       isPaternityFraud: isPaternityFraud ?? this.isPaternityFraud,
       rowid: rowid ?? this.rowid,
@@ -19589,6 +19637,10 @@ class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
       map['is_birth_relationship_type'] =
           Variable<bool>(isBirthRelationshipType.value);
     }
+    if (relatedToPlayerFamily.present) {
+      map['related_to_player_family'] =
+          Variable<bool>(relatedToPlayerFamily.value);
+    }
     if (isHidden.present) {
       map['is_hidden'] = Variable<bool>(isHidden.value);
     }
@@ -19607,6 +19659,7 @@ class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
           ..write('parentId: $parentId, ')
           ..write('childId: $childId, ')
           ..write('isBirthRelationshipType: $isBirthRelationshipType, ')
+          ..write('relatedToPlayerFamily: $relatedToPlayerFamily, ')
           ..write('isHidden: $isHidden, ')
           ..write('isPaternityFraud: $isPaternityFraud, ')
           ..write('rowid: $rowid')
@@ -20052,15 +20105,6 @@ class $RelationshipTableTable extends RelationshipTable
       GeneratedColumn<String>(
           'previous_familial_relationship', aliasedName, false,
           type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _bloodRelationMeta =
-      const VerificationMeta('bloodRelation');
-  @override
-  late final GeneratedColumn<bool> bloodRelation = GeneratedColumn<bool>(
-      'blood_relation', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("blood_relation" IN (0, 1))'));
   static const VerificationMeta _interestedInRelationshipMeta =
       const VerificationMeta('interestedInRelationship');
   @override
@@ -20101,7 +20145,6 @@ class $RelationshipTableTable extends RelationshipTable
         platonicRelationshipType,
         romanticRelationshipType,
         previousFamilialRelationship,
-        bloodRelation,
         interestedInRelationship,
         level,
         romanticRelationshipInfoId,
@@ -20160,14 +20203,6 @@ class $RelationshipTableTable extends RelationshipTable
     } else if (isInserting) {
       context.missing(_previousFamilialRelationshipMeta);
     }
-    if (data.containsKey('blood_relation')) {
-      context.handle(
-          _bloodRelationMeta,
-          bloodRelation.isAcceptableOrUnknown(
-              data['blood_relation']!, _bloodRelationMeta));
-    } else if (isInserting) {
-      context.missing(_bloodRelationMeta);
-    }
     if (data.containsKey('interested_in_relationship')) {
       context.handle(
           _interestedInRelationshipMeta,
@@ -20220,8 +20255,6 @@ class $RelationshipTableTable extends RelationshipTable
       previousFamilialRelationship: attachedDatabase.typeMapping.read(
           DriftSqlType.string,
           data['${effectivePrefix}previous_familial_relationship'])!,
-      bloodRelation: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}blood_relation'])!,
       interestedInRelationship: attachedDatabase.typeMapping.read(
           DriftSqlType.bool,
           data['${effectivePrefix}interested_in_relationship'])!,
@@ -20247,7 +20280,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
   final String platonicRelationshipType;
   final String romanticRelationshipType;
   final String previousFamilialRelationship;
-  final bool bloodRelation;
   final bool interestedInRelationship;
   final int level;
   final int? romanticRelationshipInfoId;
@@ -20258,7 +20290,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       required this.platonicRelationshipType,
       required this.romanticRelationshipType,
       required this.previousFamilialRelationship,
-      required this.bloodRelation,
       required this.interestedInRelationship,
       required this.level,
       this.romanticRelationshipInfoId,
@@ -20274,7 +20305,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
         Variable<String>(romanticRelationshipType);
     map['previous_familial_relationship'] =
         Variable<String>(previousFamilialRelationship);
-    map['blood_relation'] = Variable<bool>(bloodRelation);
     map['interested_in_relationship'] =
         Variable<bool>(interestedInRelationship);
     map['level'] = Variable<int>(level);
@@ -20293,7 +20323,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       platonicRelationshipType: Value(platonicRelationshipType),
       romanticRelationshipType: Value(romanticRelationshipType),
       previousFamilialRelationship: Value(previousFamilialRelationship),
-      bloodRelation: Value(bloodRelation),
       interestedInRelationship: Value(interestedInRelationship),
       level: Value(level),
       romanticRelationshipInfoId:
@@ -20316,7 +20345,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           serializer.fromJson<String>(json['romanticRelationshipType']),
       previousFamilialRelationship:
           serializer.fromJson<String>(json['previousFamilialRelationship']),
-      bloodRelation: serializer.fromJson<bool>(json['bloodRelation']),
       interestedInRelationship:
           serializer.fromJson<bool>(json['interestedInRelationship']),
       level: serializer.fromJson<int>(json['level']),
@@ -20337,7 +20365,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           serializer.toJson<String>(romanticRelationshipType),
       'previousFamilialRelationship':
           serializer.toJson<String>(previousFamilialRelationship),
-      'bloodRelation': serializer.toJson<bool>(bloodRelation),
       'interestedInRelationship':
           serializer.toJson<bool>(interestedInRelationship),
       'level': serializer.toJson<int>(level),
@@ -20353,7 +20380,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           String? platonicRelationshipType,
           String? romanticRelationshipType,
           String? previousFamilialRelationship,
-          bool? bloodRelation,
           bool? interestedInRelationship,
           int? level,
           Value<int?> romanticRelationshipInfoId = const Value.absent(),
@@ -20367,7 +20393,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
             romanticRelationshipType ?? this.romanticRelationshipType,
         previousFamilialRelationship:
             previousFamilialRelationship ?? this.previousFamilialRelationship,
-        bloodRelation: bloodRelation ?? this.bloodRelation,
         interestedInRelationship:
             interestedInRelationship ?? this.interestedInRelationship,
         level: level ?? this.level,
@@ -20385,7 +20410,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           ..write('romanticRelationshipType: $romanticRelationshipType, ')
           ..write(
               'previousFamilialRelationship: $previousFamilialRelationship, ')
-          ..write('bloodRelation: $bloodRelation, ')
           ..write('interestedInRelationship: $interestedInRelationship, ')
           ..write('level: $level, ')
           ..write('romanticRelationshipInfoId: $romanticRelationshipInfoId, ')
@@ -20401,7 +20425,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       platonicRelationshipType,
       romanticRelationshipType,
       previousFamilialRelationship,
-      bloodRelation,
       interestedInRelationship,
       level,
       romanticRelationshipInfoId,
@@ -20416,7 +20439,6 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           other.romanticRelationshipType == this.romanticRelationshipType &&
           other.previousFamilialRelationship ==
               this.previousFamilialRelationship &&
-          other.bloodRelation == this.bloodRelation &&
           other.interestedInRelationship == this.interestedInRelationship &&
           other.level == this.level &&
           other.romanticRelationshipInfoId == this.romanticRelationshipInfoId &&
@@ -20429,7 +20451,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
   final Value<String> platonicRelationshipType;
   final Value<String> romanticRelationshipType;
   final Value<String> previousFamilialRelationship;
-  final Value<bool> bloodRelation;
   final Value<bool> interestedInRelationship;
   final Value<int> level;
   final Value<int?> romanticRelationshipInfoId;
@@ -20441,7 +20462,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     this.platonicRelationshipType = const Value.absent(),
     this.romanticRelationshipType = const Value.absent(),
     this.previousFamilialRelationship = const Value.absent(),
-    this.bloodRelation = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
     this.level = const Value.absent(),
     this.romanticRelationshipInfoId = const Value.absent(),
@@ -20454,7 +20474,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     required String platonicRelationshipType,
     required String romanticRelationshipType,
     required String previousFamilialRelationship,
-    required bool bloodRelation,
     required bool interestedInRelationship,
     required int level,
     this.romanticRelationshipInfoId = const Value.absent(),
@@ -20465,7 +20484,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
         platonicRelationshipType = Value(platonicRelationshipType),
         romanticRelationshipType = Value(romanticRelationshipType),
         previousFamilialRelationship = Value(previousFamilialRelationship),
-        bloodRelation = Value(bloodRelation),
         interestedInRelationship = Value(interestedInRelationship),
         level = Value(level),
         activeRomance = Value(activeRomance);
@@ -20475,7 +20493,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     Expression<String>? platonicRelationshipType,
     Expression<String>? romanticRelationshipType,
     Expression<String>? previousFamilialRelationship,
-    Expression<bool>? bloodRelation,
     Expression<bool>? interestedInRelationship,
     Expression<int>? level,
     Expression<int>? romanticRelationshipInfoId,
@@ -20491,7 +20508,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
         'romantic_relationship_type': romanticRelationshipType,
       if (previousFamilialRelationship != null)
         'previous_familial_relationship': previousFamilialRelationship,
-      if (bloodRelation != null) 'blood_relation': bloodRelation,
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
       if (level != null) 'level': level,
@@ -20508,7 +20524,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
       Value<String>? platonicRelationshipType,
       Value<String>? romanticRelationshipType,
       Value<String>? previousFamilialRelationship,
-      Value<bool>? bloodRelation,
       Value<bool>? interestedInRelationship,
       Value<int>? level,
       Value<int?>? romanticRelationshipInfoId,
@@ -20523,7 +20538,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
           romanticRelationshipType ?? this.romanticRelationshipType,
       previousFamilialRelationship:
           previousFamilialRelationship ?? this.previousFamilialRelationship,
-      bloodRelation: bloodRelation ?? this.bloodRelation,
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
       level: level ?? this.level,
@@ -20555,9 +20569,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
       map['previous_familial_relationship'] =
           Variable<String>(previousFamilialRelationship.value);
     }
-    if (bloodRelation.present) {
-      map['blood_relation'] = Variable<bool>(bloodRelation.value);
-    }
     if (interestedInRelationship.present) {
       map['interested_in_relationship'] =
           Variable<bool>(interestedInRelationship.value);
@@ -20587,7 +20598,6 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
           ..write('romanticRelationshipType: $romanticRelationshipType, ')
           ..write(
               'previousFamilialRelationship: $previousFamilialRelationship, ')
-          ..write('bloodRelation: $bloodRelation, ')
           ..write('interestedInRelationship: $interestedInRelationship, ')
           ..write('level: $level, ')
           ..write('romanticRelationshipInfoId: $romanticRelationshipInfoId, ')

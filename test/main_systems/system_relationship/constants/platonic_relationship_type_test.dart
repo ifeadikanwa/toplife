@@ -493,6 +493,50 @@ void main() {
     });
 
     test(
+        "greatGrandNibling relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.greatGrandNibling.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.greatGrandNibling.maleEquivalent,
+        "Great-grandnephew",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.greatGrandNibling.femaleEquivalent,
+        "Great-grandniece",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "stepGreatGrandNibling relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepGreatGrandNibling.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGreatGrandNibling.maleEquivalent,
+        "Step-great-grandnephew",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGreatGrandNibling.femaleEquivalent,
+        "Step-great-grandniece",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
         "pibling relationship category, male and female equivalents are correct",
         () {
       expect(
@@ -620,6 +664,72 @@ void main() {
       expect(
         PlatonicRelationshipType.stepGrandCousin.femaleEquivalent,
         "Step-grandcousin",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "greatGrandCousin relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.greatGrandCousin.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.greatGrandCousin.maleEquivalent,
+        "Great-grandcousin",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.greatGrandCousin.femaleEquivalent,
+        "Great-grandcousin",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "stepGreatGrandCousin relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.stepGreatGrandCousin.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGreatGrandCousin.maleEquivalent,
+        "Step-great-grandcousin",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.stepGreatGrandCousin.femaleEquivalent,
+        "Step-great-grandcousin",
+        reason: "Cause: female equivalent",
+      );
+    });
+
+    test(
+        "distantRelative relationship category, male and female equivalents are correct",
+        () {
+      expect(
+        PlatonicRelationshipType.distantRelative.relationshipCategory,
+        RelationshipCategory.relative,
+        reason: "Cause: relationship category",
+      );
+
+      expect(
+        PlatonicRelationshipType.distantRelative.maleEquivalent,
+        "Distant relative",
+        reason: "Cause: male equivalent",
+      );
+
+      expect(
+        PlatonicRelationshipType.distantRelative.femaleEquivalent,
+        "Distant relative",
         reason: "Cause: female equivalent",
       );
     });

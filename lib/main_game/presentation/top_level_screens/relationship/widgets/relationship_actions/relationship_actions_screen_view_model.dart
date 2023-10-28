@@ -16,7 +16,7 @@ import 'package:toplife/main_systems/system_relationship/domain/model/info_model
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_search_info.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_relationship_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_relationship_label_from_any_relationship_pair.dart';
 
 final relationshipActionsScreenViewModelProvider =
     StateNotifierProvider.autoDispose<RelationshipActionsScreenViewModel,

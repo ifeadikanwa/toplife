@@ -4,15 +4,19 @@ import 'package:toplife/main_systems/system_relationship/constants/relationship_
 void main() {
   group("Relationship constants:", () {
     test(
-      "relationship type separator is correct",
-      () => expect(RelationshipConstants.relationshipTypeSeparator, ", "),
+      "db relationship type separator is correct",
+      () => expect(RelationshipConstants.dbRelationshipTypeSeparator, ", "),
     );
 
-      test(
+    test(
+      "relationship label separator is correct",
+      () => expect(RelationshipConstants.relationshipLabelSeparator, "/"),
+    );
+
+    test(
       "default previous familial relationship is correct",
-      () => expect(RelationshipConstants.defaultPreviousFamilialRelationship, ""),
+      () =>
+          expect(RelationshipConstants.defaultPreviousFamilialRelationship, ""),
     );
   });
-
-
 }

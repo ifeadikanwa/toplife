@@ -115,6 +115,16 @@ enum PlatonicRelationshipType {
     femaleEquivalent: "Step-grandniece",
     relationshipCategory: RelationshipCategory.relative,
   ),
+  greatGrandNibling(
+    maleEquivalent: "Great-grandnephew",
+    femaleEquivalent: "Great-grandniece",
+    relationshipCategory: RelationshipCategory.relative,
+  ),
+  stepGreatGrandNibling(
+    maleEquivalent: "Step-great-grandnephew",
+    femaleEquivalent: "Step-great-grandniece",
+    relationshipCategory: RelationshipCategory.relative,
+  ),
   pibling(
     maleEquivalent: "Uncle",
     femaleEquivalent: "Aunt",
@@ -143,6 +153,21 @@ enum PlatonicRelationshipType {
   stepGrandCousin(
     maleEquivalent: "Step-grandcousin",
     femaleEquivalent: "Step-grandcousin",
+    relationshipCategory: RelationshipCategory.relative,
+  ),
+  greatGrandCousin(
+    maleEquivalent: "Great-grandcousin",
+    femaleEquivalent: "Great-grandcousin",
+    relationshipCategory: RelationshipCategory.relative,
+  ),
+  stepGreatGrandCousin(
+    maleEquivalent: "Step-great-grandcousin",
+    femaleEquivalent: "Step-great-grandcousin",
+    relationshipCategory: RelationshipCategory.relative,
+  ),
+  distantRelative(
+    maleEquivalent: "Distant relative",
+    femaleEquivalent: "Distant relative",
     relationshipCategory: RelationshipCategory.relative,
   ),
   //inLaws

@@ -1,3 +1,5 @@
+//one word? UI text? Recurring word? -> put it here
+//Phrase or sentence used in dialogs, usecases etc -> create a constant class in the enclosing folder and put all the texts there
 class TextConstants {
   //app
   static const appName = "TopLife";
@@ -20,6 +22,9 @@ class TextConstants {
   static const cost = "Cost";
   static const duration = "Duration";
   static const getUppercase = "GET";
+  static const formerly = "Formerly";
+  static const and = "And";
+  static const alongWith = "Along with";
 
   //player
   static const babyMonitor = "Baby Monitor";
@@ -119,4 +124,7 @@ class TextConstants {
   static const leaseTerm = "Lease Term";
   static const firstRent = "First Rent";
   static const securityDeposit = "Security Deposit";
+
+  //Random words
+  static const spouse = "Spouse";
 }
