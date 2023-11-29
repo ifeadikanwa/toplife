@@ -1,6 +1,8 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/parent_child_link_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
@@ -18,6 +20,7 @@ class GetSiblingsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
+    required bool onlyLivingPeople,
   }) async {
     final List<PersonPlatonicRelationshipTypePair> siblings = [];
 
@@ -278,10 +281,13 @@ class GetSiblingsThroughDeductionUsecase {
         //if there is a spouse
         if (spouseRelationship != null) {
           //find the spouse id
-          final int spouseID =
-              (parentLink.parentId == spouseRelationship.firstPersonId)
-                  ? spouseRelationship.secondPersonId
-                  : spouseRelationship.firstPersonId;
+          final int spouseID = getUnkownIdFromPersonIdPair(
+            personIdPair: PersonIdPair(
+              firstId: spouseRelationship.firstPersonId,
+              secondId: spouseRelationship.secondPersonId,
+            ),
+            knownId: parentLink.parentId,
+          );  
 
           //if the spouse is not a parent(birth/adoptive)
           if (allPersonsParentLinks.every(
@@ -305,6 +311,9 @@ class GetSiblingsThroughDeductionUsecase {
       }
     }
 
-    return siblings;
+    //return based on request
+    return (onlyLivingPeople)
+        ? siblings.where((pair) => pair.person.dead == false).toList()
+        : siblings;
   }
 }

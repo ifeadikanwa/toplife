@@ -83,6 +83,7 @@ void main() {
         //ask sibling deduction to give us preset list of siblings when called
         when(mockGetSiblingsThroughDeductionUsecase.execute(
           personID: anyNamed("personID"),
+          onlyLivingPeople: false,
         )).thenAnswer((_) async => Future.value(testSiblings));
 
         //call the usecase under test
@@ -110,6 +111,7 @@ void main() {
       //ask sibling deduction to give us empty list
       when(mockGetSiblingsThroughDeductionUsecase.execute(
         personID: anyNamed("personID"),
+        onlyLivingPeople: false,
       )).thenAnswer((_) async => Future.value([]));
 
       //call the usecase under test

@@ -1,6 +1,8 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/parent_child_link_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
@@ -18,6 +20,7 @@ class GetChildrenThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
+    required bool onlyLivingPeople,
   }) async {
     List<PersonPlatonicRelationshipTypePair> children = [];
 
@@ -72,9 +75,13 @@ class GetChildrenThroughDeductionUsecase {
     if (spouseRelationship != null) {
       //find the spouse person id
       //whichever id is NOT the main parent id is the spouse id
-      final int spouseID = (personID == spouseRelationship.firstPersonId)
-          ? spouseRelationship.secondPersonId
-          : spouseRelationship.firstPersonId;
+      final int spouseID = getUnkownIdFromPersonIdPair(
+        personIdPair: PersonIdPair(
+          firstId: spouseRelationship.firstPersonId,
+          secondId: spouseRelationship.secondPersonId,
+        ),
+        knownId: personID,
+      );
 
       //get the spouses children
       final List<ParentChildLink> spouseParentChildLinks =
@@ -93,6 +100,9 @@ class GetChildrenThroughDeductionUsecase {
       }
     }
 
-    return children;
+    //return based on request
+    return (onlyLivingPeople)
+        ? children.where((pair) => pair.person.dead == false).toList()
+        : children;
   }
 }

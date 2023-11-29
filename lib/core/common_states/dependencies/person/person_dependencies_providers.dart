@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_person/data/dao/appearance_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/death_record_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/deplete_stats_flag_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/personality_dao_impl.dart';
@@ -24,6 +25,7 @@ final personRepositoriesProvider = Provider<PersonRepositories>((ref) {
     appearanceDao: AppearanceDaoImpl(database),
     tattooDao: TattooDaoImpl(database),
     piercingDao: PiercingDaoImpl(database),
+    deathRecordDao: DeathRecordDaoImpl(database),
   );
 });
 

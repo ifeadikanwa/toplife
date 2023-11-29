@@ -15,6 +15,7 @@ class GetNiblingsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
+    required bool onlyLivingPeople,
   }) async {
     //Niblings are the children of a person's siblings
     final List<PersonPlatonicRelationshipTypePair> niblings = [];
@@ -38,6 +39,7 @@ class GetNiblingsThroughDeductionUsecase {
     final List<PersonPlatonicRelationshipTypePair> allSiblings =
         await _getSiblingsThroughDeductionUsecase.execute(
       personID: personID,
+      onlyLivingPeople: false,
     );
 
     //get children of each sibling
@@ -46,6 +48,7 @@ class GetNiblingsThroughDeductionUsecase {
       final List<PersonPlatonicRelationshipTypePair> siblingsChildren =
           await _getChildrenThroughDeductionUsecase.execute(
         personID: sibling.person.id,
+        onlyLivingPeople: false,
       );
 
       //add each child to niblings
@@ -79,6 +82,9 @@ class GetNiblingsThroughDeductionUsecase {
       }
     }
 
-    return niblings;
+  //return based on request
+    return (onlyLivingPeople)
+        ? niblings.where((pair) => pair.person.dead == false).toList()
+        : niblings;
   }
 }

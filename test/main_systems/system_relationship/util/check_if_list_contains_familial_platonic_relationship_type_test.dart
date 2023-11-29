@@ -8,7 +8,7 @@ void main() {
         "if the list contains at least one we get true",
         () => expect(
               checkIfListContainsFamilialPlatonicRelationshipType(
-                [
+                platonicRelationshipTypesList: [
                   PlatonicRelationshipType.acquaintance,
                   PlatonicRelationshipType.adoptiveChild,
                   PlatonicRelationshipType.stepChildInLaw,
@@ -21,11 +21,12 @@ void main() {
         "if the list contains none we get false",
         () => expect(
               checkIfListContainsFamilialPlatonicRelationshipType(
-                [
+                platonicRelationshipTypesList: [
                   PlatonicRelationshipType.acquaintance,
                   PlatonicRelationshipType.parentInLaw,
-                  PlatonicRelationshipType.stepChildInLaw,
+                  PlatonicRelationshipType.stepParent,
                 ],
+                excludeAllStepParentTypes: true,
               ),
               false,
             ));
@@ -34,7 +35,7 @@ void main() {
         "if the list is empty we get false",
         () => expect(
               checkIfListContainsFamilialPlatonicRelationshipType(
-                [],
+                platonicRelationshipTypesList: [],
               ),
               false,
             ));

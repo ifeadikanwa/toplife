@@ -6,10 +6,20 @@ import 'package:toplife/main_systems/system_relationship/constants/relationship_
 List<PlatonicRelationshipType>? getPlatonicRelationshipTypeEnumFromString({
   required String platonicRelationshipTypeString,
 }) {
-  //split the string using the db
-  final platonicTypesStringList = platonicRelationshipTypeString.split(
+  //split the string using the db type separator
+  final List<String> rawPlatonicTypesStringList =
+      platonicRelationshipTypeString.split(
     RelationshipConstants.dbRelationshipTypeSeparator,
   );
+
+  //split the string using the db type separator
+  final List<String> finalPlatonicTypesStringList = [];
+
+  //remove extra whitespace from every string 
+  //and add to the final list
+  for (var rawTypeString in rawPlatonicTypesStringList) {
+    finalPlatonicTypesStringList.add(rawTypeString.trim());
+  }
 
   //create a set to store converted values
   final Set<PlatonicRelationshipType> platonicTypesEnumsSet = {};
@@ -19,7 +29,7 @@ List<PlatonicRelationshipType>? getPlatonicRelationshipTypeEnumFromString({
       PlatonicRelationshipType.values.asNameMap();
 
   //for each type string, convert to enum
-  for (var platonicTypeString in platonicTypesStringList) {
+  for (var platonicTypeString in finalPlatonicTypesStringList) {
     //convert
     final PlatonicRelationshipType? platonicRelationshipTypeEnum =
         platonicRelationshipTypeMap[platonicTypeString];

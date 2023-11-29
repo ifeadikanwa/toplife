@@ -15,6 +15,7 @@ class GetGrandCousinsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
+    required bool onlyLivingPeople,
   }) async {
     //GrandCousins are the children of a person's grandCousins
     final List<PersonPlatonicRelationshipTypePair> grandCousins = [];
@@ -38,6 +39,7 @@ class GetGrandCousinsThroughDeductionUsecase {
     final List<PersonPlatonicRelationshipTypePair> allCousins =
         await _getCousinsThroughDeductionUsecase.execute(
       personID: personID,
+      onlyLivingPeople: false,
     );
 
     //get children of each cousin
@@ -46,6 +48,7 @@ class GetGrandCousinsThroughDeductionUsecase {
       final List<PersonPlatonicRelationshipTypePair> cousinsChildren =
           await _getChildrenThroughDeductionUsecase.execute(
         personID: cousin.person.id,
+        onlyLivingPeople: false,
       );
 
       //add each child to grandCousins
@@ -79,6 +82,9 @@ class GetGrandCousinsThroughDeductionUsecase {
       }
     }
 
-    return grandCousins;
+    //return based on request
+    return (onlyLivingPeople)
+        ? grandCousins.where((pair) => pair.person.dead == false).toList()
+        : grandCousins;
   }
 }

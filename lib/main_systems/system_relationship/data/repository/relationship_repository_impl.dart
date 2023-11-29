@@ -45,6 +45,11 @@ class RelationshipRepositoryImpl implements RelationshipRepository {
   }
 
   @override
+  Future<List<Relationship>> getAllPastFamilyOf(int personID) {
+    return _relationshipDao.getAllPastFamilyOf(personID);
+  }
+
+  @override
   Future<List<Relationship>> getAllInLawsOf(int personID) {
     return _relationshipDao.getAllInLawsOf(personID);
   }
@@ -100,8 +105,8 @@ class RelationshipRepositoryImpl implements RelationshipRepository {
   }
 
   @override
-  Stream<List<Relationship>> watchAllExes(int personID) {
-    return _relationshipDao.watchAllExes(personID);
+  Stream<List<Relationship>> watchAllExesOf(int personID) {
+    return _relationshipDao.watchAllExesOf(personID);
   }
 
   @override
@@ -120,8 +125,8 @@ class RelationshipRepositoryImpl implements RelationshipRepository {
   }
 
   @override
-  Stream<List<Relationship>> watchAllPartners(int personID) {
-    return _relationshipDao.watchAllPartners(personID);
+  Stream<List<Relationship>> watchAllPartnersOf(int personID) {
+    return _relationshipDao.watchAllPartnersOf(personID);
   }
 
   @override
@@ -152,5 +157,10 @@ class RelationshipRepositoryImpl implements RelationshipRepository {
   @override
   Stream<Relationship?> watchMarriagePartnerRelationship(int personID) {
     return _relationshipDao.watchMarriagePartnerRelationship(personID);
+  }
+
+  @override
+  Stream<List<Relationship>> watchAllPastFamilyOf(int personID) {
+    return _relationshipDao.watchAllPastFamilyOf(personID);
   }
 }

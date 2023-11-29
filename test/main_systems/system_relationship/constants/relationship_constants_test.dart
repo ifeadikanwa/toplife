@@ -18,5 +18,24 @@ void main() {
       () =>
           expect(RelationshipConstants.defaultPreviousFamilialRelationship, ""),
     );
+
+    test(
+      "step temporary familial relationship keyword is correct",
+      () => expect(
+          RelationshipConstants.stepTemporaryFamilialRelationshipKeyword,
+          "step"),
+    );
+
+    test(
+      "inLaw temporary familial relationship keyword is correct",
+      () => expect(
+          RelationshipConstants.inLawTemporaryFamilialRelationshipKeyword,
+          "inLaw"),
+    );
+
+    test(
+      "default relationship level is correct",
+      () => expect(RelationshipConstants.defaultRelationshipLevel, 0),
+    );
   });
 }

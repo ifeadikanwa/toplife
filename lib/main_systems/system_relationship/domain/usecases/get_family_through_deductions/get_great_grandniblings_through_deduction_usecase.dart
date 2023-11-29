@@ -16,6 +16,7 @@ class GetGreatGrandNiblingsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
+    required bool onlyLivingPeople,
   }) async {
     //GreatGrandNiblings are the children of a person's greatGrand niblings
     final List<PersonPlatonicRelationshipTypePair> greatGrandNiblings = [];
@@ -39,6 +40,7 @@ class GetGreatGrandNiblingsThroughDeductionUsecase {
     final List<PersonPlatonicRelationshipTypePair> allGrandNiblings =
         await _getGrandNiblingsThroughDeductionUsecase.execute(
       personID: personID,
+      onlyLivingPeople: false,
     );
 
     //get children of each grand nibling
@@ -47,6 +49,7 @@ class GetGreatGrandNiblingsThroughDeductionUsecase {
       final List<PersonPlatonicRelationshipTypePair> grandNiblingsChildren =
           await _getChildrenThroughDeductionUsecase.execute(
         personID: grandNibling.person.id,
+        onlyLivingPeople: false,
       );
 
       //add each child to greatGrandNiblings
@@ -80,6 +83,9 @@ class GetGreatGrandNiblingsThroughDeductionUsecase {
       }
     }
 
-    return greatGrandNiblings;
+    //return based on request
+    return (onlyLivingPeople)
+        ? greatGrandNiblings.where((pair) => pair.person.dead == false).toList()
+        : greatGrandNiblings;
   }
 }

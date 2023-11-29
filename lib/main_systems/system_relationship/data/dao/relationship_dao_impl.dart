@@ -3,6 +3,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/constants/relationship_constants.dart';
 import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/dao/relationship_dao.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/relationship.dart';
@@ -149,7 +150,7 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
         .get();
   }
 
-  //Only get friends with no romantic relationship
+  //Only get friends with NO romantic relationship and NO previous familial relationship
   @override
   Future<List<Relationship>> getAllFriendsOf(int personID) {
     return (select(relationshipTable)
@@ -157,12 +158,35 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
             (relationship) =>
                 (relationship.firstPersonId.equals(personID) |
                     relationship.secondPersonId.equals(personID)) &
-                relationship.platonicRelationshipType.equals(
-                  PlatonicRelationshipType.friend.name,
+                relationship.platonicRelationshipType.contains(
+                  getDbFormattedPlatonicRelationshipTypeString(
+                      PlatonicRelationshipType.friend),
                 ) &
+                (relationship.previousFamilialRelationship.equals(
+                  RelationshipConstants.defaultPreviousFamilialRelationship,
+                )) &
                 relationship.romanticRelationshipType.equals(
                   RomanticRelationshipType.none.name,
                 ),
+          ))
+        .get();
+  }
+
+  //Past family are friends with previous familial relationships.
+  //when a step or in law relationship ends we convert it to a friendship with previous familial relationship
+  @override
+  Future<List<Relationship>> getAllPastFamilyOf(int personID) {
+    return (select(relationshipTable)
+          ..where(
+            (relationship) =>
+                (relationship.firstPersonId.equals(personID) |
+                    relationship.secondPersonId.equals(personID)) &
+                (relationship.platonicRelationshipType.contains(
+                  getDbFormattedPlatonicRelationshipTypeString(
+                      PlatonicRelationshipType.friend),
+                )) &
+                (relationship.previousFamilialRelationship.isNotValue(
+                    RelationshipConstants.defaultPreviousFamilialRelationship)),
           ))
         .get();
   }
@@ -257,7 +281,15 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandChild),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.greatGrandChild),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGreatGrandChild),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
@@ -265,7 +297,15 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandParent),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.greatGrandParent),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGreatGrandParent),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
@@ -273,7 +313,15 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepCousin),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.nibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepNibling),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
@@ -285,27 +333,39 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepNibling),
+                          PlatonicRelationshipType.grandCousin),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepCousin),
+                          PlatonicRelationshipType.stepGrandCousin),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepGrandChild),
+                          PlatonicRelationshipType.greatGrandCousin),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepGrandParent),
+                          PlatonicRelationshipType.stepGreatGrandCousin),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepGreatGrandChild),
+                          PlatonicRelationshipType.grandNibling),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepGreatGrandParent),
+                          PlatonicRelationshipType.stepGrandNibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.greatGrandNibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGreatGrandNibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.distantRelative),
                     )),
           ))
         .get();
@@ -392,7 +452,7 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
   }
 
   @override
-  Stream<List<Relationship>> watchAllExes(int personID) {
+  Stream<List<Relationship>> watchAllExesOf(int personID) {
     return (select(relationshipTable)
           ..where(
             (relationship) =>
@@ -413,9 +473,13 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
             (relationship) =>
                 (relationship.firstPersonId.equals(personID) |
                     relationship.secondPersonId.equals(personID)) &
-                relationship.platonicRelationshipType.equals(
-                  PlatonicRelationshipType.friend.name,
+                relationship.platonicRelationshipType.contains(
+                  getDbFormattedPlatonicRelationshipTypeString(
+                      PlatonicRelationshipType.friend),
                 ) &
+                (relationship.previousFamilialRelationship.equals(
+                  RelationshipConstants.defaultPreviousFamilialRelationship,
+                )) &
                 relationship.romanticRelationshipType.equals(
                   RomanticRelationshipType.none.name,
                 ),
@@ -478,7 +542,7 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
   }
 
   @override
-  Stream<List<Relationship>> watchAllPartners(int personID) {
+  Stream<List<Relationship>> watchAllPartnersOf(int personID) {
     return (select(relationshipTable)
           ..where(
             (relationship) =>
@@ -513,7 +577,15 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandChild),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.greatGrandChild),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGreatGrandChild),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
@@ -521,7 +593,15 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGrandParent),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.greatGrandParent),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepGreatGrandParent),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
@@ -529,7 +609,15 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepCousin),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
                           PlatonicRelationshipType.nibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.stepNibling),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
@@ -541,27 +629,19 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepNibling),
+                          PlatonicRelationshipType.grandCousin),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepCousin),
+                          PlatonicRelationshipType.stepGrandCousin),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepGrandChild),
+                          PlatonicRelationshipType.greatGrandCousin),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepGrandParent),
-                    ) |
-                    relationship.platonicRelationshipType.contains(
-                      getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepGreatGrandChild),
-                    ) |
-                    relationship.platonicRelationshipType.contains(
-                      getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepGreatGrandParent),
+                          PlatonicRelationshipType.stepGreatGrandCousin),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
@@ -573,11 +653,15 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.grandCousin),
+                          PlatonicRelationshipType.greatGrandNibling),
                     ) |
                     relationship.platonicRelationshipType.contains(
                       getDbFormattedPlatonicRelationshipTypeString(
-                          PlatonicRelationshipType.stepGrandCousin),
+                          PlatonicRelationshipType.stepGreatGrandNibling),
+                    ) |
+                    relationship.platonicRelationshipType.contains(
+                      getDbFormattedPlatonicRelationshipTypeString(
+                          PlatonicRelationshipType.distantRelative),
                     )),
           ))
         .watch();
@@ -650,5 +734,22 @@ class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
           )
           ..limit(1))
         .watchSingleOrNull();
+  }
+
+  @override
+  Stream<List<Relationship>> watchAllPastFamilyOf(int personID) {
+    return (select(relationshipTable)
+          ..where(
+            (relationship) =>
+                (relationship.firstPersonId.equals(personID) |
+                    relationship.secondPersonId.equals(personID)) &
+                (relationship.platonicRelationshipType.contains(
+                  getDbFormattedPlatonicRelationshipTypeString(
+                      PlatonicRelationshipType.friend),
+                )) &
+                (relationship.previousFamilialRelationship.isNotValue(
+                    RelationshipConstants.defaultPreviousFamilialRelationship)),
+          ))
+        .watch();
   }
 }

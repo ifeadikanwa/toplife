@@ -33,7 +33,7 @@ String getPlatonicRelationshipLabel({
   if (previousFamilialRelationship != null) {
     //append previous relationship
     labelStringBuffer.write(
-        ", ${TextConstants.formerly} ${getPlatonicRelationshipGenderEquivalent(previousFamilialRelationship, genderString)}");
+        ", ${TextConstants.formerly.toLowerCase()} ${getPlatonicRelationshipGenderEquivalent(previousFamilialRelationship, genderString)}");
   }
 
   return labelStringBuffer.toString();

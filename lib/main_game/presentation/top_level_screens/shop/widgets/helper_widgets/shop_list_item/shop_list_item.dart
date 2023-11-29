@@ -40,7 +40,7 @@ class ShopListItem extends ConsumerWidget {
             children: [
               //image
               Image.asset(
-                "assets/images/house.png",
+                "assets/images/houses/townhouse_500px.png",
                 height: 60,
                 width: 60,
               ),

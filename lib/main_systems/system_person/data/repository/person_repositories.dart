@@ -1,5 +1,6 @@
 import 'package:toplife/main_systems/system_person/data/repository/appearance_repository_impl.dart';
 import 'package:toplife/main_systems/system_person/data/repository/baby_traits_repository_impl.dart';
+import 'package:toplife/main_systems/system_person/data/repository/death_record_repository_impl.dart';
 import 'package:toplife/main_systems/system_person/data/repository/deplete_stats_flag_repository_impl.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repostory_impl.dart';
 import 'package:toplife/main_systems/system_person/data/repository/personality_repository_impl.dart';
@@ -9,6 +10,7 @@ import 'package:toplife/main_systems/system_person/data/repository/stats_reposit
 import 'package:toplife/main_systems/system_person/data/repository/tattoo_repository_impl.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/appearance_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/baby_traits_dao.dart';
+import 'package:toplife/main_systems/system_person/domain/dao/death_record_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/deplete_stats_flag_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/person_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/personality_dao.dart';
@@ -27,6 +29,7 @@ class PersonRepositories {
   final AppearanceDao _appearanceDao;
   final TattooDao _tattooDao;
   final PiercingDao _piercingDao;
+  final DeathRecordDao _deathRecordDao;
 
   const PersonRepositories({
     required PersonDao personDao,
@@ -38,6 +41,7 @@ class PersonRepositories {
     required AppearanceDao appearanceDao,
     required TattooDao tattooDao,
     required PiercingDao piercingDao,
+    required DeathRecordDao deathRecordDao,
   })  : _personDao = personDao,
         _statsDao = statsDao,
         _babyTraitsDao = babyTraitsDao,
@@ -46,7 +50,8 @@ class PersonRepositories {
         _personalityDao = personalityDao,
         _appearanceDao = appearanceDao,
         _tattooDao = tattooDao,
-        _piercingDao = piercingDao;
+        _piercingDao = piercingDao,
+        _deathRecordDao = deathRecordDao;
 
   PersonRepositoryImpl get personRepositoryImpl =>
       PersonRepositoryImpl(personDao: _personDao);
@@ -74,4 +79,7 @@ class PersonRepositories {
 
   PiercingRepositoryImpl get piercingRepositoryImpl =>
       PiercingRepositoryImpl(piercingDao: _piercingDao);
+
+  DeathRecordRepositoryImpl get deathRecordRepositoryImpl =>
+      DeathRecordRepositoryImpl(deathRecordDao: _deathRecordDao);
 }

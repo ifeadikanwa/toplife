@@ -8,7 +8,7 @@ void main() {
       const PlatonicRelationshipType chosenType =
           PlatonicRelationshipType.pibling;
 
-      final String correctString = "${chosenType.name}, ";
+      final String correctString = " ${chosenType.name}, ";
 
       expect(
         getDbFormattedPlatonicRelationshipTypeString(chosenType),

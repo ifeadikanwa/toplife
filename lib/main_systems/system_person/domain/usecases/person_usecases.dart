@@ -3,6 +3,8 @@ import 'package:toplife/core/common_states/dependencies/age/age_dependencies_pro
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/create/create_or_update_death_record_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_death_record_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_available_piercing_locations_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_piercing_from_shop_usecase.dart';
@@ -379,4 +381,13 @@ class PersonUsecases {
             statsRepository:
                 _ref.read(personRepositoriesProvider).statsRepositoryImpl,
           );
+
+  CreateOrUpdateDeathRecordUsecase get createOrUpdateDeathRecordUsecase =>
+      CreateOrUpdateDeathRecordUsecase(
+        _ref.read(personRepositoriesProvider).deathRecordRepositoryImpl,
+      );
+
+  GetDeathRecordUsecase get getDeathRecordUsecase => GetDeathRecordUsecase(
+        _ref.read(personRepositoriesProvider).deathRecordRepositoryImpl,
+      );
 }

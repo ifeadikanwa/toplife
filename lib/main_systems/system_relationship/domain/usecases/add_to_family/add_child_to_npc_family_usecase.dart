@@ -21,7 +21,6 @@ class AddChildToNPCFamilyUsecase {
   final CreateParentChildLinkUsecase _createParentChildLinkUsecase;
   final ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
       _processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase;
-
   final JournalUsecases _journalUsecases;
 
   const AddChildToNPCFamilyUsecase(
@@ -126,8 +125,10 @@ class AddChildToNPCFamilyUsecase {
             .where(
               (parentPersonPlatonicRelationshipTypesListPair) =>
                   checkIfListContainsFamilialPlatonicRelationshipType(
-                      parentPersonPlatonicRelationshipTypesListPair
-                          .platonicRelationshipTypesList),
+                platonicRelationshipTypesList:
+                    parentPersonPlatonicRelationshipTypesListPair
+                        .platonicRelationshipTypesList,
+              ),
             )
             .toList();
 
@@ -247,7 +248,8 @@ class AddChildToNPCFamilyUsecase {
 
               //-if it is a familial relationship
               if (checkIfListContainsFamilialPlatonicRelationshipType(
-                  platonicRelationshipTypes)) {
+                platonicRelationshipTypesList: platonicRelationshipTypes,
+              )) {
                 //add spouse and parent to map
                 familialSpouseToParentMap[spouseInfo] = parentPerson;
 

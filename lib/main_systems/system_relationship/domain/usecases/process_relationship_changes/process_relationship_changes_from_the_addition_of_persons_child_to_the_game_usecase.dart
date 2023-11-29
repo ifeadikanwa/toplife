@@ -1,4 +1,5 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_relationship/constants/existing_relationship_override_instruction.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relationship_constants.dart';
 import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
@@ -64,37 +65,47 @@ class ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase {
         );
       }
 
-      //
-      //convert the relationship types to a string for the database
+      //After the clean up
+      //Don't create relationship if the relationship is distant relative
+      //To avoid clutter in relationships, dont automatically create distant relative relationships
+      if (!childRelationshipsToPlayerSet
+          .contains(PlatonicRelationshipType.distantRelative)) {
+        //
+        //convert the relationship types to a string for the database
 
-      final StringBuffer platonicRelationshipTypeBuffer = StringBuffer();
+        final StringBuffer platonicRelationshipTypeBuffer = StringBuffer();
 
-      //for each relationship in the set,
-      for (var childRelationshipToPlayer in childRelationshipsToPlayerSet) {
-        // add the db formatted relationship string to the buffer
-        platonicRelationshipTypeBuffer.write(
-          getDbFormattedPlatonicRelationshipTypeString(
-            childRelationshipToPlayer,
-          ),
+        //for each relationship in the set,
+        for (var childRelationshipToPlayer in childRelationshipsToPlayerSet) {
+          // add the db formatted relationship string to the buffer
+          platonicRelationshipTypeBuffer.write(
+            getDbFormattedPlatonicRelationshipTypeString(
+              childRelationshipToPlayer,
+            ),
+          );
+        }
+
+        //create a relationship
+        final Relationship relationship = Relationship(
+          firstPersonId: playerPersonID,
+          secondPersonId: childPersonID,
+          platonicRelationshipType: platonicRelationshipTypeBuffer.toString(),
+          romanticRelationshipType: RomanticRelationshipType.none.name,
+          previousFamilialRelationship:
+              RelationshipConstants.defaultPreviousFamilialRelationship,
+          interestedInRelationship: true,
+          level: RelationshipConstants.defaultRelationshipLevel,
+          activeRomance: false,
+        );
+
+        //we're only adding familial relationships here so override both platonic & romantic relationship if for some reason the relationship already exists
+        await _createRelationshipUsecase.execute(
+          relationship: relationship,
+          existingRelationshipOverrideInstruction:
+              ExistingRelationshipOverrideInstruction
+                  .platonicAndRomanticRelationshipType,
         );
       }
-
-      //create a relationship
-      final Relationship relationship = Relationship(
-        firstPersonId: playerPersonID,
-        secondPersonId: childPersonID,
-        platonicRelationshipType: platonicRelationshipTypeBuffer.toString(),
-        romanticRelationshipType: RomanticRelationshipType.none.name,
-        previousFamilialRelationship:
-            RelationshipConstants.defaultPreviousFamilialRelationship,
-        interestedInRelationship: true,
-        level: 0,
-        activeRomance: false,
-      );
-
-      await _createRelationshipUsecase.execute(
-        relationship: relationship,
-      );
     }
   }
 }

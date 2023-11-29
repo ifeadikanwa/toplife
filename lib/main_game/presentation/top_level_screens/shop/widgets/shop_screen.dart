@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
@@ -18,6 +19,8 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
+import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/platonic_relationship_type_with_parent_type_indicator.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -260,21 +263,20 @@ class ShopScreen extends ConsumerWidget {
                 // }
 
                 // final Relationship relationship = Relationship(
-                //   firstPersonId: 61,
-                //   secondPersonId: 91,
+                //   firstPersonId: 5,
+                //   secondPersonId: 32,
                 //   platonicRelationshipType:
-                //       "${PlatonicRelationshipType.acquaintance.name}, ",
-                //   romanticRelationshipType:
-                //       RomanticRelationshipType.married.name,
-                //   bloodRelation: false,
+                //       getDbFormattedPlatonicRelationshipTypeString(
+                //           PlatonicRelationshipType.friend),
+                //   romanticRelationshipType: RomanticRelationshipType.none.name,
                 //   interestedInRelationship: true,
                 //   level: 120,
                 //   activeRomance: true,
-                //   previousFamilialRelationship: '',
+                //   previousFamilialRelationship: 'none',
                 // );
 
-                // // (await RelationshipDaoImpl(db)
-                // //     .createRelationship(relationship));
+                // (await RelationshipDaoImpl(db)
+                //     .createRelationship(relationship));
 
                 // final ParentChildLink parentChildLink = ParentChildLink(
                 //   parentId: 0,
@@ -282,17 +284,18 @@ class ShopScreen extends ConsumerWidget {
                 //   isBirthRelationshipType: true,
                 //   isHidden: false,
                 //   isPaternityFraud: false,
+                //   relatedToPlayerFamily: true,
                 // );
 
-                // // await ParentChildLinkDaoImpl(db).deleteParentChildLink(50, 6);
+                // // // await ParentChildLinkDaoImpl(db).deleteParentChildLink(50, 6);
 
                 // await ParentChildLinkDaoImpl(db)
                 //     .createParentChildLink(parentChildLink.copyWith(
-                //   parentId: 80,
-                //   childId: 86,
-                //   // isBirthRelationshipType: false,
+                //   parentId: 5,
+                //   childId: 24,
+                //   isBirthRelationshipType: false,
                 //   // isHidden: false,
-                //   // isPaternityFraud: true,
+                //   // isPaternityFraud: false,
                 // ));
 
                 // final result = await ref
@@ -306,6 +309,90 @@ class ShopScreen extends ConsumerWidget {
                 //   print(
                 //       "\nPersonID: ${element.person.id} == Relation: ${element.platonicRelationshipType.name}");
                 // });
+
+                // final p = await PersonDaoImpl(db).getPerson(9);
+                // if (p != null) {
+                //   await PersonDaoImpl(db).updatePerson(
+                //     p.copyWith(
+                //       dead: true,
+                //     ),
+                //   );
+                // }
+
+                // await RomanticRelationshipInfoDaoImpl(db)
+                //     .createRomanticRelationshipInfo(
+                //   RomanticRelationshipInfo(
+                //     id: 0,
+                //     gameId: 1,
+                //     startDay: 3,
+                //     endDay: 0,
+                //     daysToDateBeforeMarriage: 45,
+                //     jointMoney: 9000,
+                //     isCoParent: true,
+                //   ),
+                // );
+
+                // await RelationshipDaoImpl(db).createRelationship(Relationship(
+                //   firstPersonId: 24,
+                //   secondPersonId: 36,
+                //   platonicRelationshipType:
+                //       " ${PlatonicRelationshipType.friend.name}, ",
+                //   romanticRelationshipType:
+                //       RomanticRelationshipType.married.name,
+                //   previousFamilialRelationship: "",
+                //   interestedInRelationship: true,
+                //   level: 78,
+                //   activeRomance: true,
+                //   // romanticRelationshipInfoId: 1,
+                // ));
+
+                // await RelationshipTestUtil(ref: ref)
+                //     .linkparentToMultipleChildren(
+                //   parentId: 35,
+                //   childrenIDs: [36],
+                // );
+
+                (await ref
+                    .watch(relationshipUsecasesProvider)
+                    .processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
+                    .execute(
+                  parentRelationshipTypeWithIndicatorsList: [
+                    const PlatonicRelationshipTypeWithParentTypeIndicator(
+                      platonicRelationshipType:
+                          PlatonicRelationshipType.greatGrandCousin,
+                      isStepParent: false,
+                    ),
+                  ],
+                  playerPersonID: 24,
+                  childPersonID: 23,
+                ));
+
+                // final result = await ref
+                //     .watch(relationshipUsecasesProvider)
+                //     .getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase
+                //     .execute(
+                //       playerPersonID: 24,
+                //       firstNpcPersonID: 32,
+                //       secondNpcPersonID: 5,
+                //     );
+
+                // result?.familyAdditionsFromUnion.forEach((e) {
+                //   print("${e.person.id} => ${e.platonicRelationshipType}");
+                // });
+
+                // .$1.
+                // forEach((element) {
+                //   print(
+                //       "ID: ${element.person.id}, RELATION: ${element.platonicRelationshipType.name}");
+                // });
+
+                // await ref
+                //     .watch(relationshipUsecasesProvider)
+                //     .convertTemporaryFamilialRelationshipToPastFamilyUsecase
+                //     .execute(
+                //       firstPersonID: 3,
+                //       secondPersonID: 2,
+                //     );
               },
               child: const Text("Run"),
             ),

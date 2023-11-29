@@ -18,10 +18,8 @@ class GraveTable extends Table {
         onUpdate: KeyAction.cascade,
         onDelete: KeyAction.cascade,
       )();
-  TextColumn get relationshipType => text()();
-  IntColumn get dayOfDeath => integer()();
-  TextColumn get fullName => text()();
-  TextColumn get ageAtDeath => text()();
+  TextColumn get relationshipLabel => text()();
+  IntColumn get relationshipLevel => integer()();
 
   @override
   Set<Column<Object>>? get primaryKey => {

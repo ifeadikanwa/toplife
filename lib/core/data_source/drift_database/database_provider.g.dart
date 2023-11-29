@@ -5389,6 +5389,352 @@ class BabyTraitsTableCompanion extends UpdateCompanion<BabyTraits> {
   }
 }
 
+class $DeathRecordTableTable extends DeathRecordTable
+    with TableInfo<$DeathRecordTableTable, DeathRecord> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DeathRecordTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _gameIdMeta = const VerificationMeta('gameId');
+  @override
+  late final GeneratedColumn<int> gameId = GeneratedColumn<int>(
+      'game_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES game (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _dayOfDeathMeta =
+      const VerificationMeta('dayOfDeath');
+  @override
+  late final GeneratedColumn<int> dayOfDeath = GeneratedColumn<int>(
+      'day_of_death', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _stateMeta = const VerificationMeta('state');
+  @override
+  late final GeneratedColumn<String> state = GeneratedColumn<String>(
+      'state', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _countryMeta =
+      const VerificationMeta('country');
+  @override
+  late final GeneratedColumn<String> country = GeneratedColumn<String>(
+      'country', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _causeOfDeathMeta =
+      const VerificationMeta('causeOfDeath');
+  @override
+  late final GeneratedColumn<String> causeOfDeath = GeneratedColumn<String>(
+      'cause_of_death', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [gameId, personId, dayOfDeath, state, country, causeOfDeath];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'death_record';
+  @override
+  VerificationContext validateIntegrity(Insertable<DeathRecord> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('game_id')) {
+      context.handle(_gameIdMeta,
+          gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta));
+    } else if (isInserting) {
+      context.missing(_gameIdMeta);
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('day_of_death')) {
+      context.handle(
+          _dayOfDeathMeta,
+          dayOfDeath.isAcceptableOrUnknown(
+              data['day_of_death']!, _dayOfDeathMeta));
+    } else if (isInserting) {
+      context.missing(_dayOfDeathMeta);
+    }
+    if (data.containsKey('state')) {
+      context.handle(
+          _stateMeta, state.isAcceptableOrUnknown(data['state']!, _stateMeta));
+    } else if (isInserting) {
+      context.missing(_stateMeta);
+    }
+    if (data.containsKey('country')) {
+      context.handle(_countryMeta,
+          country.isAcceptableOrUnknown(data['country']!, _countryMeta));
+    } else if (isInserting) {
+      context.missing(_countryMeta);
+    }
+    if (data.containsKey('cause_of_death')) {
+      context.handle(
+          _causeOfDeathMeta,
+          causeOfDeath.isAcceptableOrUnknown(
+              data['cause_of_death']!, _causeOfDeathMeta));
+    } else if (isInserting) {
+      context.missing(_causeOfDeathMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {gameId, personId};
+  @override
+  DeathRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DeathRecord(
+      gameId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}game_id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      dayOfDeath: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}day_of_death'])!,
+      state: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}state'])!,
+      country: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}country'])!,
+      causeOfDeath: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}cause_of_death'])!,
+    );
+  }
+
+  @override
+  $DeathRecordTableTable createAlias(String alias) {
+    return $DeathRecordTableTable(attachedDatabase, alias);
+  }
+}
+
+class DeathRecord extends DataClass implements Insertable<DeathRecord> {
+  final int gameId;
+  final int personId;
+  final int dayOfDeath;
+  final String state;
+  final String country;
+  final String causeOfDeath;
+  const DeathRecord(
+      {required this.gameId,
+      required this.personId,
+      required this.dayOfDeath,
+      required this.state,
+      required this.country,
+      required this.causeOfDeath});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['game_id'] = Variable<int>(gameId);
+    map['person_id'] = Variable<int>(personId);
+    map['day_of_death'] = Variable<int>(dayOfDeath);
+    map['state'] = Variable<String>(state);
+    map['country'] = Variable<String>(country);
+    map['cause_of_death'] = Variable<String>(causeOfDeath);
+    return map;
+  }
+
+  DeathRecordTableCompanion toCompanion(bool nullToAbsent) {
+    return DeathRecordTableCompanion(
+      gameId: Value(gameId),
+      personId: Value(personId),
+      dayOfDeath: Value(dayOfDeath),
+      state: Value(state),
+      country: Value(country),
+      causeOfDeath: Value(causeOfDeath),
+    );
+  }
+
+  factory DeathRecord.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DeathRecord(
+      gameId: serializer.fromJson<int>(json['gameId']),
+      personId: serializer.fromJson<int>(json['personId']),
+      dayOfDeath: serializer.fromJson<int>(json['dayOfDeath']),
+      state: serializer.fromJson<String>(json['state']),
+      country: serializer.fromJson<String>(json['country']),
+      causeOfDeath: serializer.fromJson<String>(json['causeOfDeath']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'gameId': serializer.toJson<int>(gameId),
+      'personId': serializer.toJson<int>(personId),
+      'dayOfDeath': serializer.toJson<int>(dayOfDeath),
+      'state': serializer.toJson<String>(state),
+      'country': serializer.toJson<String>(country),
+      'causeOfDeath': serializer.toJson<String>(causeOfDeath),
+    };
+  }
+
+  DeathRecord copyWith(
+          {int? gameId,
+          int? personId,
+          int? dayOfDeath,
+          String? state,
+          String? country,
+          String? causeOfDeath}) =>
+      DeathRecord(
+        gameId: gameId ?? this.gameId,
+        personId: personId ?? this.personId,
+        dayOfDeath: dayOfDeath ?? this.dayOfDeath,
+        state: state ?? this.state,
+        country: country ?? this.country,
+        causeOfDeath: causeOfDeath ?? this.causeOfDeath,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('DeathRecord(')
+          ..write('gameId: $gameId, ')
+          ..write('personId: $personId, ')
+          ..write('dayOfDeath: $dayOfDeath, ')
+          ..write('state: $state, ')
+          ..write('country: $country, ')
+          ..write('causeOfDeath: $causeOfDeath')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(gameId, personId, dayOfDeath, state, country, causeOfDeath);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DeathRecord &&
+          other.gameId == this.gameId &&
+          other.personId == this.personId &&
+          other.dayOfDeath == this.dayOfDeath &&
+          other.state == this.state &&
+          other.country == this.country &&
+          other.causeOfDeath == this.causeOfDeath);
+}
+
+class DeathRecordTableCompanion extends UpdateCompanion<DeathRecord> {
+  final Value<int> gameId;
+  final Value<int> personId;
+  final Value<int> dayOfDeath;
+  final Value<String> state;
+  final Value<String> country;
+  final Value<String> causeOfDeath;
+  final Value<int> rowid;
+  const DeathRecordTableCompanion({
+    this.gameId = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.dayOfDeath = const Value.absent(),
+    this.state = const Value.absent(),
+    this.country = const Value.absent(),
+    this.causeOfDeath = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DeathRecordTableCompanion.insert({
+    required int gameId,
+    required int personId,
+    required int dayOfDeath,
+    required String state,
+    required String country,
+    required String causeOfDeath,
+    this.rowid = const Value.absent(),
+  })  : gameId = Value(gameId),
+        personId = Value(personId),
+        dayOfDeath = Value(dayOfDeath),
+        state = Value(state),
+        country = Value(country),
+        causeOfDeath = Value(causeOfDeath);
+  static Insertable<DeathRecord> custom({
+    Expression<int>? gameId,
+    Expression<int>? personId,
+    Expression<int>? dayOfDeath,
+    Expression<String>? state,
+    Expression<String>? country,
+    Expression<String>? causeOfDeath,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (gameId != null) 'game_id': gameId,
+      if (personId != null) 'person_id': personId,
+      if (dayOfDeath != null) 'day_of_death': dayOfDeath,
+      if (state != null) 'state': state,
+      if (country != null) 'country': country,
+      if (causeOfDeath != null) 'cause_of_death': causeOfDeath,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DeathRecordTableCompanion copyWith(
+      {Value<int>? gameId,
+      Value<int>? personId,
+      Value<int>? dayOfDeath,
+      Value<String>? state,
+      Value<String>? country,
+      Value<String>? causeOfDeath,
+      Value<int>? rowid}) {
+    return DeathRecordTableCompanion(
+      gameId: gameId ?? this.gameId,
+      personId: personId ?? this.personId,
+      dayOfDeath: dayOfDeath ?? this.dayOfDeath,
+      state: state ?? this.state,
+      country: country ?? this.country,
+      causeOfDeath: causeOfDeath ?? this.causeOfDeath,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (gameId.present) {
+      map['game_id'] = Variable<int>(gameId.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (dayOfDeath.present) {
+      map['day_of_death'] = Variable<int>(dayOfDeath.value);
+    }
+    if (state.present) {
+      map['state'] = Variable<String>(state.value);
+    }
+    if (country.present) {
+      map['country'] = Variable<String>(country.value);
+    }
+    if (causeOfDeath.present) {
+      map['cause_of_death'] = Variable<String>(causeOfDeath.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DeathRecordTableCompanion(')
+          ..write('gameId: $gameId, ')
+          ..write('personId: $personId, ')
+          ..write('dayOfDeath: $dayOfDeath, ')
+          ..write('state: $state, ')
+          ..write('country: $country, ')
+          ..write('causeOfDeath: $causeOfDeath, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $AcquaintanceTableTable extends AcquaintanceTable
     with TableInfo<$AcquaintanceTableTable, Acquaintance> {
   @override
@@ -6648,39 +6994,21 @@ class $GraveTableTable extends GraveTable
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _relationshipTypeMeta =
-      const VerificationMeta('relationshipType');
+  static const VerificationMeta _relationshipLabelMeta =
+      const VerificationMeta('relationshipLabel');
   @override
-  late final GeneratedColumn<String> relationshipType = GeneratedColumn<String>(
-      'relationship_type', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _dayOfDeathMeta =
-      const VerificationMeta('dayOfDeath');
+  late final GeneratedColumn<String> relationshipLabel =
+      GeneratedColumn<String>('relationship_label', aliasedName, false,
+          type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _relationshipLevelMeta =
+      const VerificationMeta('relationshipLevel');
   @override
-  late final GeneratedColumn<int> dayOfDeath = GeneratedColumn<int>(
-      'day_of_death', aliasedName, false,
+  late final GeneratedColumn<int> relationshipLevel = GeneratedColumn<int>(
+      'relationship_level', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _fullNameMeta =
-      const VerificationMeta('fullName');
   @override
-  late final GeneratedColumn<String> fullName = GeneratedColumn<String>(
-      'full_name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _ageAtDeathMeta =
-      const VerificationMeta('ageAtDeath');
-  @override
-  late final GeneratedColumn<String> ageAtDeath = GeneratedColumn<String>(
-      'age_at_death', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [
-        mainPersonId,
-        deadPersonId,
-        relationshipType,
-        dayOfDeath,
-        fullName,
-        ageAtDeath
-      ];
+  List<GeneratedColumn> get $columns =>
+      [mainPersonId, deadPersonId, relationshipLabel, relationshipLevel];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -6707,35 +7035,21 @@ class $GraveTableTable extends GraveTable
     } else if (isInserting) {
       context.missing(_deadPersonIdMeta);
     }
-    if (data.containsKey('relationship_type')) {
+    if (data.containsKey('relationship_label')) {
       context.handle(
-          _relationshipTypeMeta,
-          relationshipType.isAcceptableOrUnknown(
-              data['relationship_type']!, _relationshipTypeMeta));
+          _relationshipLabelMeta,
+          relationshipLabel.isAcceptableOrUnknown(
+              data['relationship_label']!, _relationshipLabelMeta));
     } else if (isInserting) {
-      context.missing(_relationshipTypeMeta);
+      context.missing(_relationshipLabelMeta);
     }
-    if (data.containsKey('day_of_death')) {
+    if (data.containsKey('relationship_level')) {
       context.handle(
-          _dayOfDeathMeta,
-          dayOfDeath.isAcceptableOrUnknown(
-              data['day_of_death']!, _dayOfDeathMeta));
+          _relationshipLevelMeta,
+          relationshipLevel.isAcceptableOrUnknown(
+              data['relationship_level']!, _relationshipLevelMeta));
     } else if (isInserting) {
-      context.missing(_dayOfDeathMeta);
-    }
-    if (data.containsKey('full_name')) {
-      context.handle(_fullNameMeta,
-          fullName.isAcceptableOrUnknown(data['full_name']!, _fullNameMeta));
-    } else if (isInserting) {
-      context.missing(_fullNameMeta);
-    }
-    if (data.containsKey('age_at_death')) {
-      context.handle(
-          _ageAtDeathMeta,
-          ageAtDeath.isAcceptableOrUnknown(
-              data['age_at_death']!, _ageAtDeathMeta));
-    } else if (isInserting) {
-      context.missing(_ageAtDeathMeta);
+      context.missing(_relationshipLevelMeta);
     }
     return context;
   }
@@ -6750,14 +7064,10 @@ class $GraveTableTable extends GraveTable
           .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
       deadPersonId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}dead_person_id'])!,
-      relationshipType: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}relationship_type'])!,
-      dayOfDeath: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}day_of_death'])!,
-      fullName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}full_name'])!,
-      ageAtDeath: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}age_at_death'])!,
+      relationshipLabel: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}relationship_label'])!,
+      relationshipLevel: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}relationship_level'])!,
     );
   }
 
@@ -6770,26 +7080,20 @@ class $GraveTableTable extends GraveTable
 class Grave extends DataClass implements Insertable<Grave> {
   final int mainPersonId;
   final int deadPersonId;
-  final String relationshipType;
-  final int dayOfDeath;
-  final String fullName;
-  final String ageAtDeath;
+  final String relationshipLabel;
+  final int relationshipLevel;
   const Grave(
       {required this.mainPersonId,
       required this.deadPersonId,
-      required this.relationshipType,
-      required this.dayOfDeath,
-      required this.fullName,
-      required this.ageAtDeath});
+      required this.relationshipLabel,
+      required this.relationshipLevel});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['main_person_id'] = Variable<int>(mainPersonId);
     map['dead_person_id'] = Variable<int>(deadPersonId);
-    map['relationship_type'] = Variable<String>(relationshipType);
-    map['day_of_death'] = Variable<int>(dayOfDeath);
-    map['full_name'] = Variable<String>(fullName);
-    map['age_at_death'] = Variable<String>(ageAtDeath);
+    map['relationship_label'] = Variable<String>(relationshipLabel);
+    map['relationship_level'] = Variable<int>(relationshipLevel);
     return map;
   }
 
@@ -6797,10 +7101,8 @@ class Grave extends DataClass implements Insertable<Grave> {
     return GraveTableCompanion(
       mainPersonId: Value(mainPersonId),
       deadPersonId: Value(deadPersonId),
-      relationshipType: Value(relationshipType),
-      dayOfDeath: Value(dayOfDeath),
-      fullName: Value(fullName),
-      ageAtDeath: Value(ageAtDeath),
+      relationshipLabel: Value(relationshipLabel),
+      relationshipLevel: Value(relationshipLevel),
     );
   }
 
@@ -6810,10 +7112,8 @@ class Grave extends DataClass implements Insertable<Grave> {
     return Grave(
       mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
       deadPersonId: serializer.fromJson<int>(json['deadPersonId']),
-      relationshipType: serializer.fromJson<String>(json['relationshipType']),
-      dayOfDeath: serializer.fromJson<int>(json['dayOfDeath']),
-      fullName: serializer.fromJson<String>(json['fullName']),
-      ageAtDeath: serializer.fromJson<String>(json['ageAtDeath']),
+      relationshipLabel: serializer.fromJson<String>(json['relationshipLabel']),
+      relationshipLevel: serializer.fromJson<int>(json['relationshipLevel']),
     );
   }
   @override
@@ -6822,103 +7122,81 @@ class Grave extends DataClass implements Insertable<Grave> {
     return <String, dynamic>{
       'mainPersonId': serializer.toJson<int>(mainPersonId),
       'deadPersonId': serializer.toJson<int>(deadPersonId),
-      'relationshipType': serializer.toJson<String>(relationshipType),
-      'dayOfDeath': serializer.toJson<int>(dayOfDeath),
-      'fullName': serializer.toJson<String>(fullName),
-      'ageAtDeath': serializer.toJson<String>(ageAtDeath),
+      'relationshipLabel': serializer.toJson<String>(relationshipLabel),
+      'relationshipLevel': serializer.toJson<int>(relationshipLevel),
     };
   }
 
   Grave copyWith(
           {int? mainPersonId,
           int? deadPersonId,
-          String? relationshipType,
-          int? dayOfDeath,
-          String? fullName,
-          String? ageAtDeath}) =>
+          String? relationshipLabel,
+          int? relationshipLevel}) =>
       Grave(
         mainPersonId: mainPersonId ?? this.mainPersonId,
         deadPersonId: deadPersonId ?? this.deadPersonId,
-        relationshipType: relationshipType ?? this.relationshipType,
-        dayOfDeath: dayOfDeath ?? this.dayOfDeath,
-        fullName: fullName ?? this.fullName,
-        ageAtDeath: ageAtDeath ?? this.ageAtDeath,
+        relationshipLabel: relationshipLabel ?? this.relationshipLabel,
+        relationshipLevel: relationshipLevel ?? this.relationshipLevel,
       );
   @override
   String toString() {
     return (StringBuffer('Grave(')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('deadPersonId: $deadPersonId, ')
-          ..write('relationshipType: $relationshipType, ')
-          ..write('dayOfDeath: $dayOfDeath, ')
-          ..write('fullName: $fullName, ')
-          ..write('ageAtDeath: $ageAtDeath')
+          ..write('relationshipLabel: $relationshipLabel, ')
+          ..write('relationshipLevel: $relationshipLevel')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(mainPersonId, deadPersonId, relationshipType,
-      dayOfDeath, fullName, ageAtDeath);
+  int get hashCode => Object.hash(
+      mainPersonId, deadPersonId, relationshipLabel, relationshipLevel);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Grave &&
           other.mainPersonId == this.mainPersonId &&
           other.deadPersonId == this.deadPersonId &&
-          other.relationshipType == this.relationshipType &&
-          other.dayOfDeath == this.dayOfDeath &&
-          other.fullName == this.fullName &&
-          other.ageAtDeath == this.ageAtDeath);
+          other.relationshipLabel == this.relationshipLabel &&
+          other.relationshipLevel == this.relationshipLevel);
 }
 
 class GraveTableCompanion extends UpdateCompanion<Grave> {
   final Value<int> mainPersonId;
   final Value<int> deadPersonId;
-  final Value<String> relationshipType;
-  final Value<int> dayOfDeath;
-  final Value<String> fullName;
-  final Value<String> ageAtDeath;
+  final Value<String> relationshipLabel;
+  final Value<int> relationshipLevel;
   final Value<int> rowid;
   const GraveTableCompanion({
     this.mainPersonId = const Value.absent(),
     this.deadPersonId = const Value.absent(),
-    this.relationshipType = const Value.absent(),
-    this.dayOfDeath = const Value.absent(),
-    this.fullName = const Value.absent(),
-    this.ageAtDeath = const Value.absent(),
+    this.relationshipLabel = const Value.absent(),
+    this.relationshipLevel = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   GraveTableCompanion.insert({
     required int mainPersonId,
     required int deadPersonId,
-    required String relationshipType,
-    required int dayOfDeath,
-    required String fullName,
-    required String ageAtDeath,
+    required String relationshipLabel,
+    required int relationshipLevel,
     this.rowid = const Value.absent(),
   })  : mainPersonId = Value(mainPersonId),
         deadPersonId = Value(deadPersonId),
-        relationshipType = Value(relationshipType),
-        dayOfDeath = Value(dayOfDeath),
-        fullName = Value(fullName),
-        ageAtDeath = Value(ageAtDeath);
+        relationshipLabel = Value(relationshipLabel),
+        relationshipLevel = Value(relationshipLevel);
   static Insertable<Grave> custom({
     Expression<int>? mainPersonId,
     Expression<int>? deadPersonId,
-    Expression<String>? relationshipType,
-    Expression<int>? dayOfDeath,
-    Expression<String>? fullName,
-    Expression<String>? ageAtDeath,
+    Expression<String>? relationshipLabel,
+    Expression<int>? relationshipLevel,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (mainPersonId != null) 'main_person_id': mainPersonId,
       if (deadPersonId != null) 'dead_person_id': deadPersonId,
-      if (relationshipType != null) 'relationship_type': relationshipType,
-      if (dayOfDeath != null) 'day_of_death': dayOfDeath,
-      if (fullName != null) 'full_name': fullName,
-      if (ageAtDeath != null) 'age_at_death': ageAtDeath,
+      if (relationshipLabel != null) 'relationship_label': relationshipLabel,
+      if (relationshipLevel != null) 'relationship_level': relationshipLevel,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -6926,18 +7204,14 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
   GraveTableCompanion copyWith(
       {Value<int>? mainPersonId,
       Value<int>? deadPersonId,
-      Value<String>? relationshipType,
-      Value<int>? dayOfDeath,
-      Value<String>? fullName,
-      Value<String>? ageAtDeath,
+      Value<String>? relationshipLabel,
+      Value<int>? relationshipLevel,
       Value<int>? rowid}) {
     return GraveTableCompanion(
       mainPersonId: mainPersonId ?? this.mainPersonId,
       deadPersonId: deadPersonId ?? this.deadPersonId,
-      relationshipType: relationshipType ?? this.relationshipType,
-      dayOfDeath: dayOfDeath ?? this.dayOfDeath,
-      fullName: fullName ?? this.fullName,
-      ageAtDeath: ageAtDeath ?? this.ageAtDeath,
+      relationshipLabel: relationshipLabel ?? this.relationshipLabel,
+      relationshipLevel: relationshipLevel ?? this.relationshipLevel,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -6951,17 +7225,11 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
     if (deadPersonId.present) {
       map['dead_person_id'] = Variable<int>(deadPersonId.value);
     }
-    if (relationshipType.present) {
-      map['relationship_type'] = Variable<String>(relationshipType.value);
+    if (relationshipLabel.present) {
+      map['relationship_label'] = Variable<String>(relationshipLabel.value);
     }
-    if (dayOfDeath.present) {
-      map['day_of_death'] = Variable<int>(dayOfDeath.value);
-    }
-    if (fullName.present) {
-      map['full_name'] = Variable<String>(fullName.value);
-    }
-    if (ageAtDeath.present) {
-      map['age_at_death'] = Variable<String>(ageAtDeath.value);
+    if (relationshipLevel.present) {
+      map['relationship_level'] = Variable<int>(relationshipLevel.value);
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -6974,10 +7242,8 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
     return (StringBuffer('GraveTableCompanion(')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('deadPersonId: $deadPersonId, ')
-          ..write('relationshipType: $relationshipType, ')
-          ..write('dayOfDeath: $dayOfDeath, ')
-          ..write('fullName: $fullName, ')
-          ..write('ageAtDeath: $ageAtDeath, ')
+          ..write('relationshipLabel: $relationshipLabel, ')
+          ..write('relationshipLevel: $relationshipLevel, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -20624,6 +20890,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $PiercingTableTable piercingTable = $PiercingTableTable(this);
   late final $BabyTraitsTableTable babyTraitsTable =
       $BabyTraitsTableTable(this);
+  late final $DeathRecordTableTable deathRecordTable =
+      $DeathRecordTableTable(this);
   late final $AcquaintanceTableTable acquaintanceTable =
       $AcquaintanceTableTable(this);
   late final $ChildTableTable childTable = $ChildTableTable(this);
@@ -20686,6 +20954,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       PiercingDaoImpl(this as DatabaseProvider);
   late final BabyTraitsDaoImpl babyTraitsDaoImpl =
       BabyTraitsDaoImpl(this as DatabaseProvider);
+  late final DeathRecordDaoImpl deathRecordDaoImpl =
+      DeathRecordDaoImpl(this as DatabaseProvider);
   late final AcquaintanceDaoImpl acquaintanceDaoImpl =
       AcquaintanceDaoImpl(this as DatabaseProvider);
   late final ChildDaoImpl childDaoImpl = ChildDaoImpl(this as DatabaseProvider);
@@ -20754,6 +21024,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         tattooTable,
         piercingTable,
         babyTraitsTable,
+        deathRecordTable,
         acquaintanceTable,
         childTable,
         friendTable,
@@ -20913,6 +21184,34 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('baby_traits', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('game',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('death_record', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('game',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('death_record', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('death_record', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('death_record', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(

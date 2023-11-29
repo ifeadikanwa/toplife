@@ -28,6 +28,7 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
         final List<PersonPlatonicRelationshipTypePair> playerSiblings =
             await _getSiblingsThroughDeductionUsecase.execute(
           personID: playerPersonID,
+          onlyLivingPeople: false,
         );
 
         relationshipTypeToChild = playerSiblings
@@ -102,7 +103,7 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
 
       //Siblings
       case PlatonicRelationshipType.fullSibling:
-      case PlatonicRelationshipType.halfSibling:   
+      case PlatonicRelationshipType.halfSibling:
       case PlatonicRelationshipType.adoptiveSibling:
       case PlatonicRelationshipType.stepSibling:
         //if the parent is a step parent or it is a step sibling = step nibling

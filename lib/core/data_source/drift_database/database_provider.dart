@@ -15,6 +15,7 @@ import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job_relationship.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_person/data/dao/appearance_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/data/dao/death_record_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/deplete_stats_flag_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
@@ -25,6 +26,7 @@ import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart'
 import 'package:toplife/main_systems/system_person/data/dao/tattoo_dao_impl.dart';
 import 'package:toplife/main_systems/system_person/domain/model/appearance.dart';
 import 'package:toplife/main_systems/system_person/domain/model/baby_traits.dart';
+import 'package:toplife/main_systems/system_person/domain/model/death_record.dart';
 import 'package:toplife/main_systems/system_person/domain/model/deplete_stats_flag.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/model/personality.dart';
@@ -102,6 +104,7 @@ part 'database_provider.g.dart';
     TattooTable,
     PiercingTable,
     BabyTraitsTable,
+    DeathRecordTable,
     AcquaintanceTable,
     ChildTable,
     FriendTable,
@@ -145,6 +148,7 @@ part 'database_provider.g.dart';
     TattooDaoImpl,
     PiercingDaoImpl,
     BabyTraitsDaoImpl,
+    DeathRecordDaoImpl,
     AcquaintanceDaoImpl,
     ChildDaoImpl,
     FriendDaoImpl,
@@ -200,8 +204,8 @@ class DatabaseProvider extends _$DatabaseProvider {
 LazyDatabase _openConnection() {
   // the LazyDatabase util lets us find the right location for the file async.
   return LazyDatabase(() async {
-    // put the database file, called drift_test.sqlite here, into the documents folder
-    // for your app.
+    // put the database file, into the documents folder for your app.
+    //Note: when debuging on windows the db file is in documents folder
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(path.join(dbFolder.path, 'game_db.sqlite'));
 
