@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/family_planned_funeral/family_planned_funeral_widget.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/show_persistent_dialog.dart';
+import 'package:toplife/core/dialogs/show_dialog/show_persistent_dialog.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 
 class FamilyPlannedFuneralDialog {

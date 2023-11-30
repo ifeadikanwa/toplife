@@ -10,8 +10,8 @@ Future<T?> showPersistentDialog<T>({
       barrierDismissible: false,
       barrierColor: DialogConstants.barrierColor,
       builder: (context) {
-        return WillPopScope(
-          onWillPop: () async => false,
+        return PopScope(
+          canPop: false,
           child: child,
         );
       });
