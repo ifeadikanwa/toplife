@@ -1,0 +1,21 @@
+import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_previous_familial_relationship_label_from_enum.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_previous_familial_relatonship_enum_from_string.dart';
+
+String getPreviousFamilialRelationshipLabelFromString({
+  required String previousFamilialRelationshipString,
+  required String genderString,
+}) {
+  final PlatonicRelationshipType? prevFamilialRelationshipEnum =
+      getPreviousFamilialRelationshipEnumFromString(
+    previousFamilialRelationshipString,
+  );
+
+  return (prevFamilialRelationshipEnum == null)
+      ? TextConstants.emptyString
+      : getPreviousFamilialRelationshipLabelFromEnum(
+          previousFamilialRelationshipEnum: prevFamilialRelationshipEnum,
+          genderString: genderString,
+        );
+}

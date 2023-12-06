@@ -2,7 +2,7 @@ import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_romantic_relationship_type_gender_equivalent.dart';
 
-String getRomanticRelationshipLabel({
+String getRomanticRelationshipLabelFromEnum({
   required RomanticRelationshipType romanticRelationshipType,
   required String genderString,
   required bool activeRomance,

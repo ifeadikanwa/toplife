@@ -8,7 +8,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/relationship/wi
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/relationship_bar.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 
 class RelationshipListItem extends ConsumerWidget {
   final PersonRelationshipPair personRelationshipPair;
@@ -69,7 +69,8 @@ class RelationshipListItem extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           RelationshipLabelAndName(
-            relationshipLabel: getPlatonicAndRomanticRelationshipLabel(
+            relationshipLabel:
+                getPlatonicAndRomanticRelationshipLabelFromString(
               genderString: personRelationshipPair.person.gender,
               platonicRelationshipTypeString:
                   personRelationshipPair.relationship.platonicRelationshipType,

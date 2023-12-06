@@ -1,7 +1,7 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_types_list_pair.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_label_from_enum.dart';
 
 String createSpouseParentIntroductionString({
   required Map<PersonPlatonicRelationshipTypesListPair, Person>
@@ -29,7 +29,7 @@ String createSpouseParentIntroductionString({
 
     final Person parent = familialSpouseToParent.value;
 
-    final String spouseRelationshipLabel = getPlatonicRelationshipLabel(
+    final String spouseRelationshipLabel = getPlatonicRelationshipLabelFromEnum(
       platonicRelationshipTypeList: spouse.platonicRelationshipTypesList,
       genderString: spouse.person.gender,
       previousFamilialRelationship: spouse.previousFamilialRelationship,

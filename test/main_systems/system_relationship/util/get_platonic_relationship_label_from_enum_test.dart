@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relationship_constants.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_label_from_enum.dart';
 
 void main() {
-  group("Get platonic relationship label:", () {
+  group("Get platonic relationship label from enum:", () {
     const String separator = RelationshipConstants.relationshipLabelSeparator;
     test(
         "given one type and no previous relationship, we get the correct string",
@@ -21,7 +21,7 @@ void main() {
       final String correctLabel = chosenType[0].maleEquivalent;
 
       expect(
-        getPlatonicRelationshipLabel(
+        getPlatonicRelationshipLabelFromEnum(
           platonicRelationshipTypeList: chosenType,
           genderString: chosenGender.name,
           previousFamilialRelationship: prevRelationship,
@@ -47,7 +47,7 @@ void main() {
           "${chosenType[0].femaleEquivalent}$separator${chosenType[1].femaleEquivalent}$separator${chosenType[2].femaleEquivalent}";
 
       expect(
-        getPlatonicRelationshipLabel(
+        getPlatonicRelationshipLabelFromEnum(
           platonicRelationshipTypeList: chosenType,
           genderString: chosenGender.name,
           previousFamilialRelationship: prevRelationship,
@@ -68,7 +68,7 @@ void main() {
       const String correctLabel = "";
 
       expect(
-        getPlatonicRelationshipLabel(
+        getPlatonicRelationshipLabelFromEnum(
           platonicRelationshipTypeList: chosenType,
           genderString: chosenGender.name,
           previousFamilialRelationship: prevRelationship,
@@ -93,7 +93,7 @@ void main() {
           "${chosenType[0].femaleEquivalent}, formerly ${prevRelationship.femaleEquivalent}";
 
       expect(
-        getPlatonicRelationshipLabel(
+        getPlatonicRelationshipLabelFromEnum(
           platonicRelationshipTypeList: chosenType,
           genderString: chosenGender.name,
           previousFamilialRelationship: prevRelationship,
@@ -120,7 +120,7 @@ void main() {
           "${chosenType[0].maleEquivalent}$separator${chosenType[1].maleEquivalent}$separator${chosenType[2].maleEquivalent}, formerly ${prevRelationship.maleEquivalent}";
 
       expect(
-        getPlatonicRelationshipLabel(
+        getPlatonicRelationshipLabelFromEnum(
           platonicRelationshipTypeList: chosenType,
           genderString: chosenGender.name,
           previousFamilialRelationship: prevRelationship,
@@ -143,7 +143,7 @@ void main() {
           ", formerly ${prevRelationship.femaleEquivalent}";
 
       expect(
-        getPlatonicRelationshipLabel(
+        getPlatonicRelationshipLabelFromEnum(
           platonicRelationshipTypeList: chosenType,
           genderString: chosenGender.name,
           previousFamilialRelationship: prevRelationship,

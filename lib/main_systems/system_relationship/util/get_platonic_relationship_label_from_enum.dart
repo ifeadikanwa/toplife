@@ -1,9 +1,9 @@
-import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relationship_constants.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_type_gender_equivalent.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_previous_familial_relationship_label_from_enum.dart';
 
-String getPlatonicRelationshipLabel({
+String getPlatonicRelationshipLabelFromEnum({
   required List<PlatonicRelationshipType> platonicRelationshipTypeList,
   required String genderString,
   required PlatonicRelationshipType? previousFamilialRelationship,
@@ -33,7 +33,11 @@ String getPlatonicRelationshipLabel({
   if (previousFamilialRelationship != null) {
     //append previous relationship
     labelStringBuffer.write(
-        ", ${TextConstants.formerly.toLowerCase()} ${getPlatonicRelationshipTypeGenderEquivalent(previousFamilialRelationship, genderString)}");
+      getPreviousFamilialRelationshipLabelFromEnum(
+        previousFamilialRelationshipEnum: previousFamilialRelationship,
+        genderString: genderString,
+      ),
+    );
   }
 
   return labelStringBuffer.toString();

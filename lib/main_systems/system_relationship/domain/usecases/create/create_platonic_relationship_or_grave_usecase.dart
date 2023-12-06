@@ -10,7 +10,7 @@ import 'package:toplife/main_systems/system_relationship/domain/repository/grave
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_db_formatted_platonic_relationship_type_string.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_label_from_enum.dart';
 
 class CreatePlatonicRelationshipOrGraveUsecase {
   final RelationshipRepository _relationshipRepository;
@@ -60,7 +60,7 @@ class CreatePlatonicRelationshipOrGraveUsecase {
       final Grave grave = Grave(
         mainPersonId: playerPersonID,
         deadPersonId: person.id,
-        relationshipLabel: getPlatonicRelationshipLabel(
+        relationshipLabel: getPlatonicRelationshipLabelFromEnum(
           platonicRelationshipTypeList: platonicRelationshipTypes,
           genderString: person.gender,
           previousFamilialRelationship: prevRelationship,
