@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_types_list_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/constants/relationship_constants.dart';
 import 'package:toplife/main_systems/system_relationship/util/create_basic_parent_introduction_string.dart';
 
 void main() {
@@ -33,6 +34,8 @@ void main() {
       sickly: true,
       dead: false,
     );
+
+    const String separator = RelationshipConstants.relationshipLabelSeparator;
     test(
         "given empty parents with relationships list and empty parent without relationship, we get the correct string",
         () {
@@ -177,7 +180,7 @@ void main() {
         ];
 
         const correctResult =
-            "Helen Polut (full sister, formerly friend), Frederick Lokia (cousin/grandfather), and Xander Rett (son-in-law), ";
+            "Helen Polut (full sister, formerly friend), Frederick Lokia (cousin${separator}grandfather), and Xander Rett (son-in-law), ";
 
         expect(
           createBasicParentIntroductionString(
@@ -329,7 +332,7 @@ void main() {
         ];
 
         const correctResult =
-            "Helen Polut (full sister, formerly friend), Frederick Lokia (cousin/grandfather), Xander Rett (son-in-law), and John Freso, ";
+            "Helen Polut (full sister, formerly friend), Frederick Lokia (cousin${separator}grandfather), Xander Rett (son-in-law), and John Freso, ";
 
         expect(
           createBasicParentIntroductionString(
@@ -401,7 +404,7 @@ void main() {
         ];
 
         const correctResult =
-            "Helen Polut (full sister, formerly friend), Frederick Lokia (cousin/grandfather), Xander Rett (son-in-law), John Freso, Debra Dopr, and Veronica Kolp, ";
+            "Helen Polut (full sister, formerly friend), Frederick Lokia (cousin${separator}grandfather), Xander Rett (son-in-law), John Freso, Debra Dopr, and Veronica Kolp, ";
 
         expect(
           createBasicParentIntroductionString(

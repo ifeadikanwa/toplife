@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_types_list_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/constants/relationship_constants.dart';
 import 'package:toplife/main_systems/system_relationship/util/create_spouse_parent_introduction_string.dart';
 
 void main() {
@@ -33,6 +34,8 @@ void main() {
       sickly: true,
       dead: false,
     );
+
+    const String separator = RelationshipConstants.relationshipLabelSeparator;
 
     test(
         "given empty familial spouse to parent map and empty parent without familial relationship, we get the correct string",
@@ -196,7 +199,7 @@ void main() {
         };
 
         const correctResult =
-            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, Frederick Lokia's (cousin/grandfather) spouse, Janet Lokia, and Xander Rett's (son-in-law) spouse, Landon Rett, ";
+            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, Frederick Lokia's (cousin${separator}grandfather) spouse, Janet Lokia, and Xander Rett's (son-in-law) spouse, Landon Rett, ";
 
         expect(
           createSpouseParentIntroductionString(
@@ -360,7 +363,7 @@ void main() {
         ];
 
         const correctResult =
-            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, Frederick Lokia's (cousin/grandfather) spouse, Janet Lokia, Xander Rett's (son-in-law) spouse, Landon Rett, along with John Freso, ";
+            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, Frederick Lokia's (cousin${separator}grandfather) spouse, Janet Lokia, Xander Rett's (son-in-law) spouse, Landon Rett, along with John Freso, ";
 
         expect(
           createSpouseParentIntroductionString(
@@ -440,7 +443,7 @@ void main() {
         ];
 
         const correctResult =
-            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, Frederick Lokia's (cousin/grandfather) spouse, Janet Lokia, Xander Rett's (son-in-law) spouse, Landon Rett, along with John Freso, Debra Dopr, and Veronica Kolp, ";
+            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, Frederick Lokia's (cousin${separator}grandfather) spouse, Janet Lokia, Xander Rett's (son-in-law) spouse, Landon Rett, along with John Freso, Debra Dopr, and Veronica Kolp, ";
 
         expect(
           createSpouseParentIntroductionString(
