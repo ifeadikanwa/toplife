@@ -43,6 +43,9 @@ class RelationshipTable extends Table {
 
   //is romantic relationship active
   BoolColumn get activeRomance => boolean()();
+  
+  //do they have at least one child together
+  BoolColumn get isCoParent => boolean()();
 
   @override
   Set<Column<Object>>? get primaryKey => {

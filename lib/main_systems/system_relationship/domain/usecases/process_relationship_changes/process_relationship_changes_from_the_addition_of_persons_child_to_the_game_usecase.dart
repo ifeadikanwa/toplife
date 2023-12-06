@@ -96,6 +96,7 @@ class ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase {
           interestedInRelationship: true,
           level: RelationshipConstants.defaultRelationshipLevel,
           activeRomance: false,
+          isCoParent: false,
         );
 
         //we're only adding familial relationships here so override both platonic & romantic relationship if for some reason the relationship already exists

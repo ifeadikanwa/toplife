@@ -14,6 +14,12 @@ abstract class RelationshipDao {
   //get
   Future<Relationship?> getMarriagePartnerRelationship(int personID);
   Future<List<Relationship>> getAllRelationshipsInvolving(int personID);
+  Future<List<Relationship>> getChildrensTabRelationships(int playerID);
+  Future<List<Relationship>> getSiblingsTabRelationships(int playerID);
+  Future<List<Relationship>> getParentsTabRelationships(int playerID);
+  Future<List<Relationship>> getRelativesTabRelationships(int playerID);
+  Future<List<Relationship>> getPartnersTabRelationships(int playerID);
+
   Future<List<Relationship>> getAllChildrenOf(int personID);
   //only made getter for stepchildren because they will all come from one person
   //step parents and step siblings can come from multiple parents
@@ -36,6 +42,11 @@ abstract class RelationshipDao {
   );
   Stream<Relationship?> watchMarriagePartnerRelationship(int personID);
   Stream<List<Relationship>> watchAllRelationshipsInvolving(int personID);
+  Stream<List<Relationship>> watchChildrensTabRelationships(int playerID);
+  Stream<List<Relationship>> watchSiblingsTabRelationships(int playerID);
+  Stream<List<Relationship>> watchParentsTabRelationships(int playerID);
+  Stream<List<Relationship>> watchRelativesTabRelationships(int playerID);
+  Stream<List<Relationship>> watchPartnersTabRelationships(int playerID);
   Stream<List<Relationship>> watchAllChildrenOf(int personID);
   Stream<List<Relationship>> watchAllParentsOf(int personID);
   Stream<List<Relationship>> watchAllSiblingsOf(int personID);

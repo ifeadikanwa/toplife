@@ -3,27 +3,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/list_templates/case/list_view_item_case.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/list_item/relationship_avatar.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/list_item/relationship_label_and_name.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/list_item/relationship_list_item/relationship_list_item_view_model.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/relationship_bar.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label.dart';
 
 class RelationshipListItem extends ConsumerWidget {
-  final String avatarImagePath;
-  final String relationshipLabel;
-  final int personID;
-  final String name;
-  final int relationshipAmount;
-  final void Function() onTap;
+  final PersonRelationshipPair personRelationshipPair;
 
   const RelationshipListItem({
     Key? key,
-    required this.avatarImagePath,
-    required this.relationshipLabel,
-    required this.personID,
-    required this.name,
-    required this.relationshipAmount,
-    required this.onTap,
+    required this.personRelationshipPair,
   }) : super(key: key);
 
   @override
@@ -38,14 +30,15 @@ class RelationshipListItem extends ConsumerWidget {
     return relationshipListItemViewModel.when(
       data: (personIdsOfPeopleInPlayersHome) {
         //check if they are currently living together
-        final currentlyLivingTogether =
-            personIdsOfPeopleInPlayersHome.contains(personID);
+        final currentlyLivingTogether = personIdsOfPeopleInPlayersHome.contains(
+          personRelationshipPair.person.id,
+        );
 
         //Widget
         return ListViewItemCase(
           content: Row(
             children: [
-              RelationshipAvatar(avatarImagePath: avatarImagePath),
+              // const RelationshipAvatar(avatarImagePath: ""),
               const AddHorizontalSpace(width: listRowItemsSpacing),
               relationshipInfo(),
               const AddHorizontalSpace(width: listRowItemsSpacing * 2),
@@ -62,7 +55,7 @@ class RelationshipListItem extends ConsumerWidget {
                     ),
             ],
           ),
-          onTap: onTap,
+          onTap: () {},
         );
       },
       error: (error, stackTrace) => Container(),
@@ -76,11 +69,24 @@ class RelationshipListItem extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           RelationshipLabelAndName(
-            relationshipLabel: relationshipLabel,
-            name: name,
+            relationshipLabel: getPlatonicAndRomanticRelationshipLabel(
+              genderString: personRelationshipPair.person.gender,
+              platonicRelationshipTypeString:
+                  personRelationshipPair.relationship.platonicRelationshipType,
+              romanticRelationshipTypeString:
+                  personRelationshipPair.relationship.romanticRelationshipType,
+              previousFamilialRelationshipString: personRelationshipPair
+                  .relationship.previousFamilialRelationship,
+              isCoParent: personRelationshipPair.relationship.isCoParent,
+              activeRomance: personRelationshipPair.relationship.activeRomance,
+            ),
+            name: getFullNameString(
+              firstName: personRelationshipPair.person.firstName,
+              lastName: personRelationshipPair.person.lastName,
+            ),
           ),
           RelationshipBar(
-            relationshipAmount: relationshipAmount,
+            relationshipAmount: personRelationshipPair.relationship.level,
           ),
         ],
       ),

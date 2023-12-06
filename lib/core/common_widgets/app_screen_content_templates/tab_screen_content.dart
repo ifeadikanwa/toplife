@@ -29,6 +29,7 @@ class TabScreenContent extends StatelessWidget {
             indicatorSize: TabBarIndicatorSize.label,
             controller: tabController,
             tabs: tabs,
+            tabAlignment: TabAlignment.start,
           ),
         ),
         body: ScreenContent(content: child),

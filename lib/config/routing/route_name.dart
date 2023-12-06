@@ -29,6 +29,7 @@ class RouteName {
   static const partnersPath = "partners";
   static const siblingsPath = "siblings";
   static const relativesPath = "relatives";
+  static const pastFamilyPath = "past_family";
   static const friendsPath = "friends";
   static const inLawsPath = "inlaws";
   static const exesPath = "exes";

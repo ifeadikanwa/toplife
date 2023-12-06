@@ -8,6 +8,7 @@ import 'package:toplife/main_game/presentation/main_game_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/activities/widgets/activities_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/player_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/relationship_actions_screen.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/past_family_screen/past_family_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/children_screen/children_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/sub_screens/exes_screen/exes_screen.dart';
@@ -205,6 +206,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/work/widgets/wo
                 AutoRoute(path: RouteName.partnersPath, page: PartnersScreen),
                 AutoRoute(path: RouteName.childrenPath, page: ChildrenScreen),
                 AutoRoute(path: RouteName.relativesPath, page: RelativesScreen),
+                AutoRoute(path: RouteName.pastFamilyPath, page: PastFamilyScreen),
                 AutoRoute(path: RouteName.inLawsPath, page: InLawsScreen),
                 AutoRoute(path: RouteName.friendsPath, page: FriendsScreen),
                 AutoRoute(path: RouteName.exesPath, page: ExesScreen),

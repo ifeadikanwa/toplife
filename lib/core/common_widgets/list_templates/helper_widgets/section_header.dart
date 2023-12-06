@@ -8,15 +8,26 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      alignment: Alignment.centerLeft,
-      child: Text(
-        sectionTitle,
-        style: sectionHeaderTextStyle.copyWith(
-          color: appTheme.colorScheme.tertiary,
-        ),
+
+    //wrap on overflow:
+    return Text(
+      sectionTitle,
+      style: sectionHeaderTextStyle.copyWith(
+        color: appTheme.colorScheme.tertiary,
       ),
+      softWrap: true,
     );
+
+    //scale down on overflow:
+    // return FittedBox(
+    //   fit: BoxFit.scaleDown,
+    //   alignment: Alignment.centerLeft,
+    //   child: Text(
+    //     sectionTitle,
+    //     style: sectionHeaderTextStyle.copyWith(
+    //       color: appTheme.colorScheme.tertiary,
+    //     ),
+    //   ),
+    // );
   }
 }

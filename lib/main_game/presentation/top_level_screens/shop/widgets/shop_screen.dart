@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
@@ -19,8 +18,6 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/platonic_relationship_type_with_parent_type_indicator.dart';
 
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
@@ -262,21 +259,38 @@ class ShopScreen extends ConsumerWidget {
                 //   await PersonDaoImpl(db).createPerson(person);
                 // }
 
+                // for (var i = 1; i < 6; i++) {
                 // final Relationship relationship = Relationship(
-                //   firstPersonId: 5,
-                //   secondPersonId: 32,
+                //   firstPersonId: 3,
+                //   secondPersonId: 59,
                 //   platonicRelationshipType:
                 //       getDbFormattedPlatonicRelationshipTypeString(
-                //           PlatonicRelationshipType.friend),
+                //     PlatonicRelationshipType.siblingInLaw,
+                //   ),
                 //   romanticRelationshipType: RomanticRelationshipType.none.name,
                 //   interestedInRelationship: true,
                 //   level: 120,
-                //   activeRomance: true,
-                //   previousFamilialRelationship: 'none',
+                //   activeRomance: false,
+                //   previousFamilialRelationship:
+                //       getDbFormattedPlatonicRelationshipTypeString(
+                //     PlatonicRelationshipType.stepCousin,
+                //   ),
+                //   isCoParent: false,
                 // );
 
                 // (await RelationshipDaoImpl(db)
                 //     .createRelationship(relationship));
+
+                // }
+
+                // await GraveDaoImpl(db).createGrave(
+                //   Grave(
+                //     mainPersonId: 3,
+                //     deadPersonId: 62,
+                //     relationshipLabel: "Cousin",
+                //     relationshipLevel: 78,
+                //   ),
+                // );
 
                 // final ParentChildLink parentChildLink = ParentChildLink(
                 //   parentId: 0,
@@ -310,7 +324,7 @@ class ShopScreen extends ConsumerWidget {
                 //       "\nPersonID: ${element.person.id} == Relation: ${element.platonicRelationshipType.name}");
                 // });
 
-                // final p = await PersonDaoImpl(db).getPerson(9);
+                // final p = await PersonDaoImpl(db).getPerson(24);
                 // if (p != null) {
                 //   await PersonDaoImpl(db).updatePerson(
                 //     p.copyWith(
@@ -352,20 +366,20 @@ class ShopScreen extends ConsumerWidget {
                 //   childrenIDs: [36],
                 // );
 
-                (await ref
-                    .watch(relationshipUsecasesProvider)
-                    .processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
-                    .execute(
-                  parentRelationshipTypeWithIndicatorsList: [
-                    const PlatonicRelationshipTypeWithParentTypeIndicator(
-                      platonicRelationshipType:
-                          PlatonicRelationshipType.greatGrandCousin,
-                      isStepParent: false,
-                    ),
-                  ],
-                  playerPersonID: 24,
-                  childPersonID: 23,
-                ));
+                // (await ref
+                //     .watch(relationshipUsecasesProvider)
+                //     .processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
+                //     .execute(
+                //   parentRelationshipTypeWithIndicatorsList: [
+                //     const PlatonicRelationshipTypeWithParentTypeIndicator(
+                //       platonicRelationshipType:
+                //           PlatonicRelationshipType.greatGrandCousin,
+                //       isStepParent: false,
+                //     ),
+                //   ],
+                //   playerPersonID: 24,
+                //   childPersonID: 23,
+                // ));
 
                 // final result = await ref
                 //     .watch(relationshipUsecasesProvider)

@@ -24,6 +24,7 @@ void main() {
       interestedInRelationship: true,
       level: 100,
       activeRomance: false,
+      isCoParent: false,
     );
 
     setUp(() async {

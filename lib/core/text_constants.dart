@@ -49,21 +49,30 @@ class TextConstants {
   static const partners = "Partners";
   static const relatives = "Relatives";
   static const inLaws = "In-Laws";
+  static const pastFamily = "Past Family";
   static const friends = "Friends";
   static const exes = "Exes";
   static const graveyard = "Graveyard";
   static const friend = "Friend";
   static const grand = "Grand";
   static const grandparents = "Grandparents";
+  static const greatGrandparents = "Great-grandparents";
   static const coparents = "Co-parents";
   static const partner = "Partner";
   static const grandchildren = "Grandchildren";
+  static const greatGrandchildren = "Great-grandchildren";
   static const niecesAndNephews = "Nieces & Nephews";
+  static const grandNiecesAndNephews = "Grandnieces & Grandnephews";
+  static const greatGrandNiecesAndNephews =
+      "Great-grandnieces & Great-grandnephews";
   static const unclesAndAunts = "Uncles & Aunts";
   static const cousins = "Cousins";
+  static const grandCousins = "Grandcousins";
+  static const greatGrandCousins = "Great-grandcousins";
   static const parentsInLaw = "Parents-in-law";
   static const childrenInLaw = "Children-in-law";
   static const siblingsInLaw = "Siblings-in-Law";
+  static const exPrefix = "Ex-";
 
   //work
   static const work = "Work";

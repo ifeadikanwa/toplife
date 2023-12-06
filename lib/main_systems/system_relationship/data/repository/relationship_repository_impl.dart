@@ -163,4 +163,54 @@ class RelationshipRepositoryImpl implements RelationshipRepository {
   Stream<List<Relationship>> watchAllPastFamilyOf(int personID) {
     return _relationshipDao.watchAllPastFamilyOf(personID);
   }
+
+  @override
+  Future<List<Relationship>> getChildrensTabRelationships(int playerID) {
+    return _relationshipDao.getChildrensTabRelationships(playerID);
+  }
+
+  @override
+  Future<List<Relationship>> getParentsTabRelationships(int playerID) {
+    return _relationshipDao.getParentsTabRelationships(playerID);
+  }
+
+  @override
+  Future<List<Relationship>> getPartnersTabRelationships(int playerID) {
+    return _relationshipDao.getPartnersTabRelationships(playerID);
+  }
+
+  @override
+  Future<List<Relationship>> getRelativesTabRelationships(int playerID) {
+    return _relationshipDao.getRelativesTabRelationships(playerID);
+  }
+
+  @override
+  Future<List<Relationship>> getSiblingsTabRelationships(int playerID) {
+    return _relationshipDao.getSiblingsTabRelationships(playerID);
+  }
+
+  @override
+  Stream<List<Relationship>> watchChildrensTabRelationships(int playerID) {
+    return _relationshipDao.watchChildrensTabRelationships(playerID);
+  }
+
+  @override
+  Stream<List<Relationship>> watchParentsTabRelationships(int playerID) {
+    return _relationshipDao.watchParentsTabRelationships(playerID);
+  }
+
+  @override
+  Stream<List<Relationship>> watchPartnersTabRelationships(int playerID) {
+    return _relationshipDao.watchPartnersTabRelationships(playerID);
+  }
+
+  @override
+  Stream<List<Relationship>> watchRelativesTabRelationships(int playerID) {
+    return _relationshipDao.watchRelativesTabRelationships(playerID);
+  }
+
+  @override
+  Stream<List<Relationship>> watchSiblingsTabRelationships(int playerID) {
+    return _relationshipDao.watchSiblingsTabRelationships(playerID);
+  }
 }

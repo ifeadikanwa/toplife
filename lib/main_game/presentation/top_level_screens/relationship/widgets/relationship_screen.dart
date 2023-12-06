@@ -15,10 +15,11 @@ class RelationshipScreen extends StatelessWidget {
       routes: const [
         ParentsRoute(),
         SiblingsRoute(),
-        PartnersRoute(),
         ChildrenRoute(),
+        PartnersRoute(),
         RelativesRoute(),
         InLawsRoute(),
+        PastFamilyRoute(),
         FriendsRoute(),
         ExesRoute(),
         GravesRoute(),
@@ -36,16 +37,19 @@ class RelationshipScreen extends StatelessWidget {
                 text: TextConstants.siblings,
               ),
               AppTab(
-                text: TextConstants.partners,
+                text: TextConstants.children,
               ),
               AppTab(
-                text: TextConstants.children,
+                text: TextConstants.partners,
               ),
               AppTab(
                 text: TextConstants.relatives,
               ),
               AppTab(
                 text: TextConstants.inLaws,
+              ),
+              AppTab(
+                text: TextConstants.pastFamily,
               ),
               AppTab(
                 text: TextConstants.friends,

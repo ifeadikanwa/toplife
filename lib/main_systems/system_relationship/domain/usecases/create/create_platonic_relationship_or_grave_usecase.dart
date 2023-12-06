@@ -102,6 +102,7 @@ class CreatePlatonicRelationshipOrGraveUsecase {
           interestedInRelationship: true,
           level: RelationshipConstants.defaultRelationshipLevel,
           activeRomance: false,
+          isCoParent: false,
         );
 
         //change only the platonic & romantic relationship types if the relationship exists

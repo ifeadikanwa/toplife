@@ -1,7 +1,7 @@
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relationship_constants.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_gender_equivalent.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_type_gender_equivalent.dart';
 
 String getPlatonicRelationshipLabel({
   required List<PlatonicRelationshipType> platonicRelationshipTypeList,
@@ -22,7 +22,7 @@ String getPlatonicRelationshipLabel({
 
     //add the gender equivalent of the relationship type
     labelStringBuffer.write(
-      getPlatonicRelationshipGenderEquivalent(
+      getPlatonicRelationshipTypeGenderEquivalent(
         platonicRelationshipTypeList[i],
         genderString,
       ),
@@ -33,7 +33,7 @@ String getPlatonicRelationshipLabel({
   if (previousFamilialRelationship != null) {
     //append previous relationship
     labelStringBuffer.write(
-        ", ${TextConstants.formerly.toLowerCase()} ${getPlatonicRelationshipGenderEquivalent(previousFamilialRelationship, genderString)}");
+        ", ${TextConstants.formerly.toLowerCase()} ${getPlatonicRelationshipTypeGenderEquivalent(previousFamilialRelationship, genderString)}");
   }
 
   return labelStringBuffer.toString();

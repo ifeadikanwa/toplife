@@ -59,6 +59,9 @@ class ThemeUtils {
       inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
         tertiaryColor: tertiaryColor,
       ),
+      tabBarTheme: TabBarTheme(
+        labelColor: tertiaryColor,
+      ),
       iconTheme: const IconThemeData(color: Colors.black),
       textSelectionTheme: lightThemeTextSelectionsThemeData,
       colorScheme: ColorScheme.light(

@@ -82,6 +82,12 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/process
 import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_player_divorce_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_player_marriage_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_the_addition_of_persons_child_to_the_game_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_childrens_tab_relationships_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_inlaws_tab_relationships_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_parents_tab_relationships_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_partners_tab_relationships_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_relatives_tab_relationships_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_siblings_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_converters/convert_temporary_familial_relationship_to_past_family_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/create_exclusive_romantic_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_all_partner_relationship_not_involving_a_certain_person_usecase.dart';
@@ -97,17 +103,17 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/update/
 import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_partner_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_relative_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_sibling_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_active_partners_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_children_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_exes_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_friemds_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_in_laws_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_parents_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_partners_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_childrens_tab_relationships_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_exes_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_friends_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_graves_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_parents_tab_relationships_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_partners_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_past_family_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_relationships_involving_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_relatives_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_siblings_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_relatives_tab_relationships_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_siblings_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_marriage_partner_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_acquaintance_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_child_usecase.dart';
@@ -521,7 +527,7 @@ class RelationshipUsecases {
           GetParentInLawsThroughDeductionUsecase(
             getParentsThroughDeductionUsecase,
             _ref
-                .watch(relationshipRepositoriesProvider)
+                .read(relationshipRepositoriesProvider)
                 .relationshipRepositoryImpl,
           );
 
@@ -663,13 +669,11 @@ class RelationshipUsecases {
               .read(relationshipRepositoriesProvider)
               .relationshipRepositoryImpl);
 
-  WatchAllActivePartnersUsecase get watchAllActivePartnersUsecase =>
-      WatchAllActivePartnersUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+  WatchAllGravesUsecase get watchAllGravesUsecase => WatchAllGravesUsecase(
+      _ref.read(relationshipRepositoriesProvider).graveRepositoryImpl);
 
-  WatchAllChildrenUsecase get watchAllChildrenUsecase =>
-      WatchAllChildrenUsecase(_ref
+  WatchChildrensTabRelationshipsUsecase get watchChildrensTabRelationshipsUsecase =>
+      WatchChildrensTabRelationshipsUsecase(_ref
           .read(relationshipRepositoriesProvider)
           .relationshipRepositoryImpl);
 
@@ -682,11 +686,13 @@ class RelationshipUsecases {
   WatchAllInLawsUsecase get watchAllInLawsUsecase => WatchAllInLawsUsecase(
       _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl);
 
-  WatchAllParentsUsecase get watchAllParentsUsecase => WatchAllParentsUsecase(
-      _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl);
+  WatchParentsTabRelationshipsUsecase get watchParentsTabRelationshipsUsecase =>
+      WatchParentsTabRelationshipsUsecase(_ref
+          .read(relationshipRepositoriesProvider)
+          .relationshipRepositoryImpl);
 
-  WatchAllPartnersUsecase get watchAllPartnersUsecase =>
-      WatchAllPartnersUsecase(_ref
+  WatchPartnersTabRelationshipsUsecase get watchPartnersTabRelationshipsUsecase =>
+      WatchPartnersTabRelationshipsUsecase(_ref
           .read(relationshipRepositoriesProvider)
           .relationshipRepositoryImpl);
 
@@ -701,13 +707,13 @@ class RelationshipUsecases {
               .read(relationshipRepositoriesProvider)
               .relationshipRepositoryImpl);
 
-  WatchAllRelativesUsecase get watchAllRelativesUsecase =>
-      WatchAllRelativesUsecase(_ref
+  WatchRelativesTabRelationshipsUsecase get watchRelativesTabRelationshipsUsecase =>
+      WatchRelativesTabRelationshipsUsecase(_ref
           .read(relationshipRepositoriesProvider)
           .relationshipRepositoryImpl);
 
-  WatchAllSiblingsUsecase get watchAllSiblingsUsecase =>
-      WatchAllSiblingsUsecase(_ref
+  WatchSiblingsTabRelationshipsUsecase get watchSiblingsTabRelationshipsUsecase =>
+      WatchSiblingsTabRelationshipsUsecase(_ref
           .read(relationshipRepositoriesProvider)
           .relationshipRepositoryImpl);
 
@@ -846,4 +852,28 @@ class RelationshipUsecases {
             getChildrenInLawThroughDeductionUsecase,
             getSiblingInLawsThroughDeductionUsecase,
           );
+
+  RearrangeChildrensTabRelationshipsUsecase
+      get rearrangeChildrensTabRelationshipsUsecase =>
+          RearrangeChildrensTabRelationshipsUsecase();
+
+  RearrangeInLawsTabRelationshipsUsecase
+      get rearrangeInLawsTabRelationshipsUsecase =>
+          RearrangeInLawsTabRelationshipsUsecase();
+
+  RearrangeParentsTabRelationshipsUsecase
+      get rearrangeParentsTabRelationshipsUsecase =>
+          RearrangeParentsTabRelationshipsUsecase();
+
+  RearrangePartnersTabRelationshipsUsecase
+      get rearrangePartnersTabRelationshipsUsecase =>
+          RearrangePartnersTabRelationshipsUsecase();
+
+  RearrangeRelativesTabRelationshipsUsecase
+      get rearrangeRelativesTabRelationshipsUsecase =>
+          RearrangeRelativesTabRelationshipsUsecase();
+
+  RearrangeSiblingsTabRelationshipsUsecase
+      get rearrangeSiblingsTabRelationshipsUsecase =>
+          RearrangeSiblingsTabRelationshipsUsecase();
 }

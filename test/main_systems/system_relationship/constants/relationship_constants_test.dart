@@ -10,7 +10,7 @@ void main() {
 
     test(
       "relationship label separator is correct",
-      () => expect(RelationshipConstants.relationshipLabelSeparator, "/"),
+      () => expect(RelationshipConstants.relationshipLabelSeparator, " / "),
     );
 
     test(

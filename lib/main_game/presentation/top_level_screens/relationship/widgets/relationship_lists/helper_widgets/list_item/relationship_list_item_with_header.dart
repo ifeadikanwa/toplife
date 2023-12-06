@@ -3,25 +3,16 @@ import 'package:toplife/core/common_widgets/list_templates/helper_widgets/sectio
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/list_item/relationship_list_item/relationship_list_item.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
 
 class RelationshipListItemWithHeader extends StatelessWidget {
   final String sectionTitle;
-  final String avatarImagePath;
-  final String relationshipLabel;
-  final int personID;
-  final String name;
-  final int relationshipAmount;
-  final void Function() onTap;
+  final PersonRelationshipPair personRelationshipPair;
 
   const RelationshipListItemWithHeader({
     Key? key,
     required this.sectionTitle,
-    required this.avatarImagePath,
-    required this.relationshipLabel,
-    required this.personID,
-    required this.name,
-    required this.relationshipAmount,
-    required this.onTap,
+    required this.personRelationshipPair,
   }) : super(key: key);
 
   @override
@@ -33,12 +24,7 @@ class RelationshipListItemWithHeader extends StatelessWidget {
         SectionHeader(sectionTitle: sectionTitle),
         const AddVerticalSpace(height: listHeaderPadding),
         RelationshipListItem(
-          avatarImagePath: avatarImagePath,
-          relationshipLabel: relationshipLabel,
-          personID: personID,
-          name: name,
-          relationshipAmount: relationshipAmount,
-          onTap: onTap,
+          personRelationshipPair: personRelationshipPair,
         )
       ],
     );

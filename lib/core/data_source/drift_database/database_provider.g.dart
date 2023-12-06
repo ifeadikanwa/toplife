@@ -19982,25 +19982,9 @@ class $RomanticRelationshipInfoTableTable extends RomanticRelationshipInfoTable
   late final GeneratedColumn<int> jointMoney = GeneratedColumn<int>(
       'joint_money', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _isCoParentMeta =
-      const VerificationMeta('isCoParent');
   @override
-  late final GeneratedColumn<bool> isCoParent = GeneratedColumn<bool>(
-      'is_co_parent', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_co_parent" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        gameId,
-        startDay,
-        endDay,
-        daysToDateBeforeMarriage,
-        jointMoney,
-        isCoParent
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, gameId, startDay, endDay, daysToDateBeforeMarriage, jointMoney];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -20050,14 +20034,6 @@ class $RomanticRelationshipInfoTableTable extends RomanticRelationshipInfoTable
     } else if (isInserting) {
       context.missing(_jointMoneyMeta);
     }
-    if (data.containsKey('is_co_parent')) {
-      context.handle(
-          _isCoParentMeta,
-          isCoParent.isAcceptableOrUnknown(
-              data['is_co_parent']!, _isCoParentMeta));
-    } else if (isInserting) {
-      context.missing(_isCoParentMeta);
-    }
     return context;
   }
 
@@ -20081,8 +20057,6 @@ class $RomanticRelationshipInfoTableTable extends RomanticRelationshipInfoTable
           data['${effectivePrefix}days_to_date_before_marriage'])!,
       jointMoney: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}joint_money'])!,
-      isCoParent: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_co_parent'])!,
     );
   }
 
@@ -20100,15 +20074,13 @@ class RomanticRelationshipInfo extends DataClass
   final int endDay;
   final int daysToDateBeforeMarriage;
   final int jointMoney;
-  final bool isCoParent;
   const RomanticRelationshipInfo(
       {required this.id,
       required this.gameId,
       required this.startDay,
       required this.endDay,
       required this.daysToDateBeforeMarriage,
-      required this.jointMoney,
-      required this.isCoParent});
+      required this.jointMoney});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -20119,7 +20091,6 @@ class RomanticRelationshipInfo extends DataClass
     map['days_to_date_before_marriage'] =
         Variable<int>(daysToDateBeforeMarriage);
     map['joint_money'] = Variable<int>(jointMoney);
-    map['is_co_parent'] = Variable<bool>(isCoParent);
     return map;
   }
 
@@ -20131,7 +20102,6 @@ class RomanticRelationshipInfo extends DataClass
       endDay: Value(endDay),
       daysToDateBeforeMarriage: Value(daysToDateBeforeMarriage),
       jointMoney: Value(jointMoney),
-      isCoParent: Value(isCoParent),
     );
   }
 
@@ -20146,7 +20116,6 @@ class RomanticRelationshipInfo extends DataClass
       daysToDateBeforeMarriage:
           serializer.fromJson<int>(json['daysToDateBeforeMarriage']),
       jointMoney: serializer.fromJson<int>(json['jointMoney']),
-      isCoParent: serializer.fromJson<bool>(json['isCoParent']),
     );
   }
   @override
@@ -20160,7 +20129,6 @@ class RomanticRelationshipInfo extends DataClass
       'daysToDateBeforeMarriage':
           serializer.toJson<int>(daysToDateBeforeMarriage),
       'jointMoney': serializer.toJson<int>(jointMoney),
-      'isCoParent': serializer.toJson<bool>(isCoParent),
     };
   }
 
@@ -20170,8 +20138,7 @@ class RomanticRelationshipInfo extends DataClass
           int? startDay,
           int? endDay,
           int? daysToDateBeforeMarriage,
-          int? jointMoney,
-          bool? isCoParent}) =>
+          int? jointMoney}) =>
       RomanticRelationshipInfo(
         id: id ?? this.id,
         gameId: gameId ?? this.gameId,
@@ -20180,7 +20147,6 @@ class RomanticRelationshipInfo extends DataClass
         daysToDateBeforeMarriage:
             daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
         jointMoney: jointMoney ?? this.jointMoney,
-        isCoParent: isCoParent ?? this.isCoParent,
       );
   @override
   String toString() {
@@ -20190,15 +20156,14 @@ class RomanticRelationshipInfo extends DataClass
           ..write('startDay: $startDay, ')
           ..write('endDay: $endDay, ')
           ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
-          ..write('jointMoney: $jointMoney, ')
-          ..write('isCoParent: $isCoParent')
+          ..write('jointMoney: $jointMoney')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, gameId, startDay, endDay,
-      daysToDateBeforeMarriage, jointMoney, isCoParent);
+  int get hashCode => Object.hash(
+      id, gameId, startDay, endDay, daysToDateBeforeMarriage, jointMoney);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -20208,8 +20173,7 @@ class RomanticRelationshipInfo extends DataClass
           other.startDay == this.startDay &&
           other.endDay == this.endDay &&
           other.daysToDateBeforeMarriage == this.daysToDateBeforeMarriage &&
-          other.jointMoney == this.jointMoney &&
-          other.isCoParent == this.isCoParent);
+          other.jointMoney == this.jointMoney);
 }
 
 class RomanticRelationshipInfoTableCompanion
@@ -20220,7 +20184,6 @@ class RomanticRelationshipInfoTableCompanion
   final Value<int> endDay;
   final Value<int> daysToDateBeforeMarriage;
   final Value<int> jointMoney;
-  final Value<bool> isCoParent;
   const RomanticRelationshipInfoTableCompanion({
     this.id = const Value.absent(),
     this.gameId = const Value.absent(),
@@ -20228,7 +20191,6 @@ class RomanticRelationshipInfoTableCompanion
     this.endDay = const Value.absent(),
     this.daysToDateBeforeMarriage = const Value.absent(),
     this.jointMoney = const Value.absent(),
-    this.isCoParent = const Value.absent(),
   });
   RomanticRelationshipInfoTableCompanion.insert({
     this.id = const Value.absent(),
@@ -20237,13 +20199,11 @@ class RomanticRelationshipInfoTableCompanion
     required int endDay,
     required int daysToDateBeforeMarriage,
     required int jointMoney,
-    required bool isCoParent,
   })  : gameId = Value(gameId),
         startDay = Value(startDay),
         endDay = Value(endDay),
         daysToDateBeforeMarriage = Value(daysToDateBeforeMarriage),
-        jointMoney = Value(jointMoney),
-        isCoParent = Value(isCoParent);
+        jointMoney = Value(jointMoney);
   static Insertable<RomanticRelationshipInfo> custom({
     Expression<int>? id,
     Expression<int>? gameId,
@@ -20251,7 +20211,6 @@ class RomanticRelationshipInfoTableCompanion
     Expression<int>? endDay,
     Expression<int>? daysToDateBeforeMarriage,
     Expression<int>? jointMoney,
-    Expression<bool>? isCoParent,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -20261,7 +20220,6 @@ class RomanticRelationshipInfoTableCompanion
       if (daysToDateBeforeMarriage != null)
         'days_to_date_before_marriage': daysToDateBeforeMarriage,
       if (jointMoney != null) 'joint_money': jointMoney,
-      if (isCoParent != null) 'is_co_parent': isCoParent,
     });
   }
 
@@ -20271,8 +20229,7 @@ class RomanticRelationshipInfoTableCompanion
       Value<int>? startDay,
       Value<int>? endDay,
       Value<int>? daysToDateBeforeMarriage,
-      Value<int>? jointMoney,
-      Value<bool>? isCoParent}) {
+      Value<int>? jointMoney}) {
     return RomanticRelationshipInfoTableCompanion(
       id: id ?? this.id,
       gameId: gameId ?? this.gameId,
@@ -20281,7 +20238,6 @@ class RomanticRelationshipInfoTableCompanion
       daysToDateBeforeMarriage:
           daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
       jointMoney: jointMoney ?? this.jointMoney,
-      isCoParent: isCoParent ?? this.isCoParent,
     );
   }
 
@@ -20307,9 +20263,6 @@ class RomanticRelationshipInfoTableCompanion
     if (jointMoney.present) {
       map['joint_money'] = Variable<int>(jointMoney.value);
     }
-    if (isCoParent.present) {
-      map['is_co_parent'] = Variable<bool>(isCoParent.value);
-    }
     return map;
   }
 
@@ -20321,8 +20274,7 @@ class RomanticRelationshipInfoTableCompanion
           ..write('startDay: $startDay, ')
           ..write('endDay: $endDay, ')
           ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
-          ..write('jointMoney: $jointMoney, ')
-          ..write('isCoParent: $isCoParent')
+          ..write('jointMoney: $jointMoney')
           ..write(')'))
         .toString();
   }
@@ -20404,6 +20356,15 @@ class $RelationshipTableTable extends RelationshipTable
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("active_romance" IN (0, 1))'));
+  static const VerificationMeta _isCoParentMeta =
+      const VerificationMeta('isCoParent');
+  @override
+  late final GeneratedColumn<bool> isCoParent = GeneratedColumn<bool>(
+      'is_co_parent', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_co_parent" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         firstPersonId,
@@ -20414,7 +20375,8 @@ class $RelationshipTableTable extends RelationshipTable
         interestedInRelationship,
         level,
         romanticRelationshipInfoId,
-        activeRomance
+        activeRomance,
+        isCoParent
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -20499,6 +20461,14 @@ class $RelationshipTableTable extends RelationshipTable
     } else if (isInserting) {
       context.missing(_activeRomanceMeta);
     }
+    if (data.containsKey('is_co_parent')) {
+      context.handle(
+          _isCoParentMeta,
+          isCoParent.isAcceptableOrUnknown(
+              data['is_co_parent']!, _isCoParentMeta));
+    } else if (isInserting) {
+      context.missing(_isCoParentMeta);
+    }
     return context;
   }
 
@@ -20531,6 +20501,8 @@ class $RelationshipTableTable extends RelationshipTable
           data['${effectivePrefix}romantic_relationship_info_id']),
       activeRomance: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}active_romance'])!,
+      isCoParent: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_co_parent'])!,
     );
   }
 
@@ -20550,6 +20522,7 @@ class Relationship extends DataClass implements Insertable<Relationship> {
   final int level;
   final int? romanticRelationshipInfoId;
   final bool activeRomance;
+  final bool isCoParent;
   const Relationship(
       {required this.firstPersonId,
       required this.secondPersonId,
@@ -20559,7 +20532,8 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       required this.interestedInRelationship,
       required this.level,
       this.romanticRelationshipInfoId,
-      required this.activeRomance});
+      required this.activeRomance,
+      required this.isCoParent});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -20579,6 +20553,7 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           Variable<int>(romanticRelationshipInfoId);
     }
     map['active_romance'] = Variable<bool>(activeRomance);
+    map['is_co_parent'] = Variable<bool>(isCoParent);
     return map;
   }
 
@@ -20596,6 +20571,7 @@ class Relationship extends DataClass implements Insertable<Relationship> {
               ? const Value.absent()
               : Value(romanticRelationshipInfoId),
       activeRomance: Value(activeRomance),
+      isCoParent: Value(isCoParent),
     );
   }
 
@@ -20617,6 +20593,7 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       romanticRelationshipInfoId:
           serializer.fromJson<int?>(json['romanticRelationshipInfoId']),
       activeRomance: serializer.fromJson<bool>(json['activeRomance']),
+      isCoParent: serializer.fromJson<bool>(json['isCoParent']),
     );
   }
   @override
@@ -20637,6 +20614,7 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       'romanticRelationshipInfoId':
           serializer.toJson<int?>(romanticRelationshipInfoId),
       'activeRomance': serializer.toJson<bool>(activeRomance),
+      'isCoParent': serializer.toJson<bool>(isCoParent),
     };
   }
 
@@ -20649,7 +20627,8 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           bool? interestedInRelationship,
           int? level,
           Value<int?> romanticRelationshipInfoId = const Value.absent(),
-          bool? activeRomance}) =>
+          bool? activeRomance,
+          bool? isCoParent}) =>
       Relationship(
         firstPersonId: firstPersonId ?? this.firstPersonId,
         secondPersonId: secondPersonId ?? this.secondPersonId,
@@ -20666,6 +20645,7 @@ class Relationship extends DataClass implements Insertable<Relationship> {
             ? romanticRelationshipInfoId.value
             : this.romanticRelationshipInfoId,
         activeRomance: activeRomance ?? this.activeRomance,
+        isCoParent: isCoParent ?? this.isCoParent,
       );
   @override
   String toString() {
@@ -20679,7 +20659,8 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           ..write('interestedInRelationship: $interestedInRelationship, ')
           ..write('level: $level, ')
           ..write('romanticRelationshipInfoId: $romanticRelationshipInfoId, ')
-          ..write('activeRomance: $activeRomance')
+          ..write('activeRomance: $activeRomance, ')
+          ..write('isCoParent: $isCoParent')
           ..write(')'))
         .toString();
   }
@@ -20694,7 +20675,8 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       interestedInRelationship,
       level,
       romanticRelationshipInfoId,
-      activeRomance);
+      activeRomance,
+      isCoParent);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -20708,7 +20690,8 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           other.interestedInRelationship == this.interestedInRelationship &&
           other.level == this.level &&
           other.romanticRelationshipInfoId == this.romanticRelationshipInfoId &&
-          other.activeRomance == this.activeRomance);
+          other.activeRomance == this.activeRomance &&
+          other.isCoParent == this.isCoParent);
 }
 
 class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
@@ -20721,6 +20704,7 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
   final Value<int> level;
   final Value<int?> romanticRelationshipInfoId;
   final Value<bool> activeRomance;
+  final Value<bool> isCoParent;
   final Value<int> rowid;
   const RelationshipTableCompanion({
     this.firstPersonId = const Value.absent(),
@@ -20732,6 +20716,7 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     this.level = const Value.absent(),
     this.romanticRelationshipInfoId = const Value.absent(),
     this.activeRomance = const Value.absent(),
+    this.isCoParent = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   RelationshipTableCompanion.insert({
@@ -20744,6 +20729,7 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     required int level,
     this.romanticRelationshipInfoId = const Value.absent(),
     required bool activeRomance,
+    required bool isCoParent,
     this.rowid = const Value.absent(),
   })  : firstPersonId = Value(firstPersonId),
         secondPersonId = Value(secondPersonId),
@@ -20752,7 +20738,8 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
         previousFamilialRelationship = Value(previousFamilialRelationship),
         interestedInRelationship = Value(interestedInRelationship),
         level = Value(level),
-        activeRomance = Value(activeRomance);
+        activeRomance = Value(activeRomance),
+        isCoParent = Value(isCoParent);
   static Insertable<Relationship> custom({
     Expression<int>? firstPersonId,
     Expression<int>? secondPersonId,
@@ -20763,6 +20750,7 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     Expression<int>? level,
     Expression<int>? romanticRelationshipInfoId,
     Expression<bool>? activeRomance,
+    Expression<bool>? isCoParent,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -20780,6 +20768,7 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
       if (romanticRelationshipInfoId != null)
         'romantic_relationship_info_id': romanticRelationshipInfoId,
       if (activeRomance != null) 'active_romance': activeRomance,
+      if (isCoParent != null) 'is_co_parent': isCoParent,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -20794,6 +20783,7 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
       Value<int>? level,
       Value<int?>? romanticRelationshipInfoId,
       Value<bool>? activeRomance,
+      Value<bool>? isCoParent,
       Value<int>? rowid}) {
     return RelationshipTableCompanion(
       firstPersonId: firstPersonId ?? this.firstPersonId,
@@ -20810,6 +20800,7 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
       romanticRelationshipInfoId:
           romanticRelationshipInfoId ?? this.romanticRelationshipInfoId,
       activeRomance: activeRomance ?? this.activeRomance,
+      isCoParent: isCoParent ?? this.isCoParent,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -20849,6 +20840,9 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     if (activeRomance.present) {
       map['active_romance'] = Variable<bool>(activeRomance.value);
     }
+    if (isCoParent.present) {
+      map['is_co_parent'] = Variable<bool>(isCoParent.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -20868,6 +20862,7 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
           ..write('level: $level, ')
           ..write('romanticRelationshipInfoId: $romanticRelationshipInfoId, ')
           ..write('activeRomance: $activeRomance, ')
+          ..write('isCoParent: $isCoParent, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();

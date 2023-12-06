@@ -24,5 +24,4 @@ class RomanticRelationshipInfoTable extends Table {
 
   IntColumn get jointMoney => integer()();
 
-  BoolColumn get isCoParent => boolean()();
 }

@@ -32,6 +32,7 @@ class CreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase {
       interestedInRelationship: true,
       level: RelationshipConstants.defaultRelationshipLevel,
       activeRomance: false,
+      isCoParent: false,
     );
 
     //create all relationships by editing template
