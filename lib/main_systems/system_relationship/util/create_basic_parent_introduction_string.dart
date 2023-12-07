@@ -1,11 +1,11 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_types_list_pair.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_label_from_enum.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_type_info_pair.dart';
+import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_enum.dart';
 
 String createBasicParentIntroductionString({
-  required List<PersonPlatonicRelationshipTypesListPair>
-      parentsWithRelationshipList,
+  required List<PersonRelationshipTypeInfoPair> parentsWithRelationshipList,
   required List<Person> parentsWithoutRelationshipList,
 }) {
   final StringBuffer parentsIntroductionBuffer = StringBuffer();
@@ -22,16 +22,26 @@ String createBasicParentIntroductionString({
 
     //no matter the case
     //add the relationship label and the name of the parent to the string
-    final PersonPlatonicRelationshipTypesListPair parent =
+    final PersonRelationshipTypeInfoPair parent =
         parentsWithRelationshipList[i];
 
-    final String relationshipLabel = getPlatonicRelationshipLabelFromEnum(
-      platonicRelationshipTypeList: parent.platonicRelationshipTypesList,
+    final String relationshipLabel =
+        getPlatonicAndRomanticRelationshipLabelFromEnum(
       genderString: parent.person.gender,
-      previousFamilialRelationship: parent.previousFamilialRelationship,
+      platonicRelationshipTypesEnum:
+          parent.relationshipTypeInfo.platonicRelationshipTypes,
+      romanticRelationshipTypeEnum:
+          parent.relationshipTypeInfo.romanticRelationshipType,
+      previousFamilialRelationshipEnum:
+          parent.relationshipTypeInfo.previousFamilialRelationship,
+      isCoParent: parent.relationshipTypeInfo.isCoParent,
+      activeRomance: parent.relationshipTypeInfo.activeRomance,
     );
 
-    final String name = "${parent.person.firstName} ${parent.person.lastName}";
+    final String name = getFullNameString(
+      firstName: parent.person.firstName,
+      lastName: parent.person.lastName,
+    );
 
     parentsIntroductionBuffer
         .write("$name (${relationshipLabel.toLowerCase()}), ");
@@ -52,8 +62,10 @@ String createBasicParentIntroductionString({
     }
 
     //for all
-    final String name =
-        "${parentWithoutRelationshipPerson.firstName} ${parentWithoutRelationshipPerson.lastName}";
+    final String name = getFullNameString(
+      firstName: parentWithoutRelationshipPerson.firstName,
+      lastName: parentWithoutRelationshipPerson.lastName,
+    );
 
     parentsIntroductionBuffer.write("$name, ");
   }

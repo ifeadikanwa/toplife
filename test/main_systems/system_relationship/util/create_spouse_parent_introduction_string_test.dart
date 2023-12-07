@@ -1,46 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_types_list_pair.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_type_info_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relationship_constants.dart';
+import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_type_info.dart';
 import 'package:toplife/main_systems/system_relationship/util/create_spouse_parent_introduction_string.dart';
+
+import '../../_reusable_test_objects/reusable_test_objects.dart';
 
 void main() {
   group("createSpouseParentIntroductionString: ", () {
-    const Person testPerson = Person(
-      id: 1,
-      gameId: 2,
-      hasDriversLicense: false,
-      firstName: "FirstName",
-      lastName: "LastName",
-      dayOfBirth: 34,
-      gender: "Female",
-      subjectPronoun: "subjectPronoun",
-      objectPronoun: "objectPronoun",
-      possessivePronoun: "possessivePronoun",
-      sexuality: "sexuality",
-      birthState: "Ontario",
-      birthCountry: "Canada",
-      currentState: "Ontario",
-      currentCountry: "Canada",
-      money: 120,
-      emotionalState: "normal",
-      zodiacSign: "zodiacSign",
-      transportMode: "bus",
-      drivingMode: "drivingMode",
-      hasFertilityIssues: true,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: true,
-      dead: false,
-    );
-
     const String separator = RelationshipConstants.relationshipLabelSeparator;
 
     test(
         "given empty familial spouse to parent map and empty parent without familial relationship, we get the correct string",
         () {
-      final Map<PersonPlatonicRelationshipTypesListPair, Person>
+      final Map<PersonRelationshipTypeInfoPair, Person>
           familialSpouseToParentMap = {};
 
       final List<Person> parentsWithNoFamilialSpouse = [];
@@ -57,14 +33,14 @@ void main() {
     });
 
     group("given empty familial spouse to parent map, and: ", () {
-      final Map<PersonPlatonicRelationshipTypesListPair, Person>
+      final Map<PersonRelationshipTypeInfoPair, Person>
           familialSpouseToParentMap = {};
 
       test(
           "a single parent without familial relationship, we get the correct string",
           () {
         final List<Person> parentsWithNoFamilialSpouse = [
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "John",
             lastName: "Freso",
           ),
@@ -85,15 +61,15 @@ void main() {
           "multiple parents without familial relationship, we get the correct string",
           () {
         final List<Person> parentsWithNoFamilialSpouse = [
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "John",
             lastName: "Freso",
           ),
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "Debra",
             lastName: "Dopr",
           ),
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "Veronica",
             lastName: "Kolp",
           ),
@@ -116,26 +92,30 @@ void main() {
 
       test("a single familial spouse to parent map, we get the correct string",
           () {
-        final Map<PersonPlatonicRelationshipTypesListPair, Person>
+        final Map<PersonRelationshipTypeInfoPair, Person>
             familialSpouseToParentMap = {
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Helen",
               lastName: "Polut",
+              gender: "Female",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.fullSibling
-            ],
-            previousFamilialRelationship: PlatonicRelationshipType.friend,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [PlatonicRelationshipType.friend],
+              previousFamilialRelationship: PlatonicRelationshipType.stepCousin,
+              romanticRelationshipType: RomanticRelationshipType.dating,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Bella",
             lastName: "Polut",
           ),
         };
 
         const correctResult =
-            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, ";
+            "Helen Polut's (ex-girlfriend, formerly step-cousin) spouse, Bella Polut, ";
 
         expect(
           createSpouseParentIntroductionString(
@@ -148,50 +128,64 @@ void main() {
 
       test("multiple familial spouse to parent map, we get the correct string",
           () {
-        final Map<PersonPlatonicRelationshipTypesListPair, Person>
+        final Map<PersonRelationshipTypeInfoPair, Person>
             familialSpouseToParentMap = {
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Helen",
               lastName: "Polut",
+              gender: "Female",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.fullSibling
-            ],
-            previousFamilialRelationship: PlatonicRelationshipType.friend,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [PlatonicRelationshipType.friend],
+              previousFamilialRelationship: PlatonicRelationshipType.stepCousin,
+              romanticRelationshipType: RomanticRelationshipType.dating,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Bella",
             lastName: "Polut",
           ),
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Frederick",
               lastName: "Lokia",
               gender: "Male",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.cousin,
-              PlatonicRelationshipType.grandParent,
-            ],
-            previousFamilialRelationship: null,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [
+                PlatonicRelationshipType.cousin,
+                PlatonicRelationshipType.grandParent,
+              ],
+              previousFamilialRelationship: null,
+              romanticRelationshipType: RomanticRelationshipType.none,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Janet",
             lastName: "Lokia",
           ),
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Xander",
               lastName: "Rett",
               gender: "Male",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.childInLaw,
-            ],
-            previousFamilialRelationship: null,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [
+                PlatonicRelationshipType.siblingInLaw,
+              ],
+              previousFamilialRelationship: null,
+              romanticRelationshipType: RomanticRelationshipType.casual,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Landon",
             lastName: "Rett",
             gender: "Male",
@@ -199,7 +193,7 @@ void main() {
         };
 
         const correctResult =
-            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, Frederick Lokia's (cousin${separator}grandfather) spouse, Janet Lokia, and Xander Rett's (son-in-law) spouse, Landon Rett, ";
+            "Helen Polut's (ex-girlfriend, formerly step-cousin) spouse, Bella Polut, Frederick Lokia's (cousin${separator}grandfather) spouse, Janet Lokia, and Xander Rett's (brother-in-law${separator}baby daddy) spouse, Landon Rett, ";
 
         expect(
           createSpouseParentIntroductionString(
@@ -217,33 +211,37 @@ void main() {
       test(
           "a single familial spouse to parent map and a single parent without familial relationship, we get the correct string",
           () {
-        final Map<PersonPlatonicRelationshipTypesListPair, Person>
+        final Map<PersonRelationshipTypeInfoPair, Person>
             familialSpouseToParentMap = {
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Helen",
               lastName: "Polut",
+              gender: "Female",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.fullSibling
-            ],
-            previousFamilialRelationship: PlatonicRelationshipType.friend,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [PlatonicRelationshipType.friend],
+              previousFamilialRelationship: PlatonicRelationshipType.stepCousin,
+              romanticRelationshipType: RomanticRelationshipType.dating,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Bella",
             lastName: "Polut",
           ),
         };
 
         final List<Person> parentsWithNoFamilialSpouse = [
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "John",
             lastName: "Freso",
           ),
         ];
 
         const correctResult =
-            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, along with John Freso, ";
+            "Helen Polut's (ex-girlfriend, formerly step-cousin) spouse, Bella Polut, along with John Freso, ";
 
         expect(
           createSpouseParentIntroductionString(
@@ -257,41 +255,45 @@ void main() {
       test(
           "a single familial spouse to parent map and multiple parent without familial relationship, we get the correct string",
           () {
-        final Map<PersonPlatonicRelationshipTypesListPair, Person>
+        final Map<PersonRelationshipTypeInfoPair, Person>
             familialSpouseToParentMap = {
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Helen",
               lastName: "Polut",
+              gender: "Female",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.fullSibling
-            ],
-            previousFamilialRelationship: PlatonicRelationshipType.friend,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [PlatonicRelationshipType.friend],
+              previousFamilialRelationship: PlatonicRelationshipType.stepCousin,
+              romanticRelationshipType: RomanticRelationshipType.dating,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Bella",
             lastName: "Polut",
           ),
         };
 
         final List<Person> parentsWithNoFamilialSpouse = [
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "John",
             lastName: "Freso",
           ),
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "Debra",
             lastName: "Dopr",
           ),
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "Veronica",
             lastName: "Kolp",
           ),
         ];
 
         const correctResult =
-            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, along with John Freso, Debra Dopr, and Veronica Kolp, ";
+            "Helen Polut's (ex-girlfriend, formerly step-cousin) spouse, Bella Polut, along with John Freso, Debra Dopr, and Veronica Kolp, ";
 
         expect(
           createSpouseParentIntroductionString(
@@ -305,50 +307,64 @@ void main() {
       test(
           "multiple familial spouse to parent map and a single parent without familial relationship, we get the correct string",
           () {
-        final Map<PersonPlatonicRelationshipTypesListPair, Person>
+        final Map<PersonRelationshipTypeInfoPair, Person>
             familialSpouseToParentMap = {
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Helen",
               lastName: "Polut",
+              gender: "Female",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.fullSibling
-            ],
-            previousFamilialRelationship: PlatonicRelationshipType.friend,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [PlatonicRelationshipType.friend],
+              previousFamilialRelationship: PlatonicRelationshipType.stepCousin,
+              romanticRelationshipType: RomanticRelationshipType.dating,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Bella",
             lastName: "Polut",
           ),
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Frederick",
               lastName: "Lokia",
               gender: "Male",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.cousin,
-              PlatonicRelationshipType.grandParent,
-            ],
-            previousFamilialRelationship: null,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [
+                PlatonicRelationshipType.cousin,
+                PlatonicRelationshipType.grandParent,
+              ],
+              previousFamilialRelationship: null,
+              romanticRelationshipType: RomanticRelationshipType.none,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Janet",
             lastName: "Lokia",
           ),
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Xander",
               lastName: "Rett",
               gender: "Male",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.childInLaw,
-            ],
-            previousFamilialRelationship: null,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [
+                PlatonicRelationshipType.siblingInLaw,
+              ],
+              previousFamilialRelationship: null,
+              romanticRelationshipType: RomanticRelationshipType.casual,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Landon",
             lastName: "Rett",
             gender: "Male",
@@ -356,14 +372,14 @@ void main() {
         };
 
         final List<Person> parentsWithNoFamilialSpouse = [
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "John",
             lastName: "Freso",
           ),
         ];
 
         const correctResult =
-            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, Frederick Lokia's (cousin${separator}grandfather) spouse, Janet Lokia, Xander Rett's (son-in-law) spouse, Landon Rett, along with John Freso, ";
+            "Helen Polut's (ex-girlfriend, formerly step-cousin) spouse, Bella Polut, Frederick Lokia's (cousin${separator}grandfather) spouse, Janet Lokia, Xander Rett's (brother-in-law${separator}baby daddy) spouse, Landon Rett, along with John Freso, ";
 
         expect(
           createSpouseParentIntroductionString(
@@ -377,50 +393,64 @@ void main() {
       test(
           "multiple familial spouse to parent map and multiple parents without familial relationship, we get the correct string",
           () {
-        final Map<PersonPlatonicRelationshipTypesListPair, Person>
+        final Map<PersonRelationshipTypeInfoPair, Person>
             familialSpouseToParentMap = {
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Helen",
               lastName: "Polut",
+              gender: "Female",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.fullSibling
-            ],
-            previousFamilialRelationship: PlatonicRelationshipType.friend,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [PlatonicRelationshipType.friend],
+              previousFamilialRelationship: PlatonicRelationshipType.stepCousin,
+              romanticRelationshipType: RomanticRelationshipType.dating,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Bella",
             lastName: "Polut",
           ),
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Frederick",
               lastName: "Lokia",
               gender: "Male",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.cousin,
-              PlatonicRelationshipType.grandParent,
-            ],
-            previousFamilialRelationship: null,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [
+                PlatonicRelationshipType.cousin,
+                PlatonicRelationshipType.grandParent,
+              ],
+              previousFamilialRelationship: null,
+              romanticRelationshipType: RomanticRelationshipType.none,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Janet",
             lastName: "Lokia",
           ),
           //
-          PersonPlatonicRelationshipTypesListPair(
-            person: testPerson.copyWith(
+          PersonRelationshipTypeInfoPair(
+            person: ReusableTestObjects.testPerson.copyWith(
               firstName: "Xander",
               lastName: "Rett",
               gender: "Male",
             ),
-            platonicRelationshipTypesList: const [
-              PlatonicRelationshipType.childInLaw,
-            ],
-            previousFamilialRelationship: null,
-          ): testPerson.copyWith(
+            relationshipTypeInfo: const RelationshipTypeInfo(
+              platonicRelationshipTypes: [
+                PlatonicRelationshipType.siblingInLaw,
+              ],
+              previousFamilialRelationship: null,
+              romanticRelationshipType: RomanticRelationshipType.casual,
+              activeRomance: false,
+              isCoParent: true,
+            ),
+          ): ReusableTestObjects.testPerson.copyWith(
             firstName: "Landon",
             lastName: "Rett",
             gender: "Male",
@@ -428,22 +458,22 @@ void main() {
         };
 
         final List<Person> parentsWithNoFamilialSpouse = [
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "John",
             lastName: "Freso",
           ),
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "Debra",
             lastName: "Dopr",
           ),
-          testPerson.copyWith(
+          ReusableTestObjects.testPerson.copyWith(
             firstName: "Veronica",
             lastName: "Kolp",
           ),
         ];
 
         const correctResult =
-            "Helen Polut's (full sister, formerly friend) spouse, Bella Polut, Frederick Lokia's (cousin${separator}grandfather) spouse, Janet Lokia, Xander Rett's (son-in-law) spouse, Landon Rett, along with John Freso, Debra Dopr, and Veronica Kolp, ";
+            "Helen Polut's (ex-girlfriend, formerly step-cousin) spouse, Bella Polut, Frederick Lokia's (cousin${separator}grandfather) spouse, Janet Lokia, Xander Rett's (brother-in-law${separator}baby daddy) spouse, Landon Rett, along with John Freso, Debra Dopr, and Veronica Kolp, ";
 
         expect(
           createSpouseParentIntroductionString(

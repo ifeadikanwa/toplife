@@ -1,11 +1,14 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_types_list_pair.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_type_info_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/constants/relationship_phrases.dart';
+import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/basic_parent_info.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/platonic_relationship_type_with_parent_type_indicator.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_type_info.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_parent_child_link_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_the_addition_of_persons_child_to_the_game_usecase.dart';
@@ -14,6 +17,7 @@ import 'package:toplife/main_systems/system_relationship/util/create_basic_paren
 import 'package:toplife/main_systems/system_relationship/util/create_spouse_parent_introduction_string.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_type_enum_from_string.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_previous_familial_relatonship_enum_from_string.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_romantic_relationship_type_enum_from_string.dart';
 
 class AddChildToNPCFamilyUsecase {
   final RelationshipRepository _relationshipRepository;
@@ -42,8 +46,7 @@ class AddChildToNPCFamilyUsecase {
     Set<Person> parentPersonsWithNoRelationshipToThePlayer = {};
     //
     //parents with relationship with the player
-    Set<PersonPlatonicRelationshipTypesListPair>
-        parentsWithRelationshipToPlayer = {};
+    Set<PersonRelationshipTypeInfoPair> parentsWithRelationshipToPlayer = {};
 
     for (var basicParentInfo in basicParentInfos) {
       //create a link between each parent and the child:
@@ -83,6 +86,15 @@ class AddChildToNPCFamilyUsecase {
               parentPlayerRelationship.platonicRelationshipType,
         );
 
+        //get romantic relationship
+        //if we get null, default to NONE
+        final RomanticRelationshipType romanticRelationshipType =
+            getRomanticRelationshipTypeEnumFromString(
+                  romanticRelationshipTypeString:
+                      parentPlayerRelationship.romanticRelationshipType,
+                ) ??
+                RomanticRelationshipType.none;
+
         //get previous relationship
         final PlatonicRelationshipType? previousRelationship =
             getPreviousFamilialRelationshipEnumFromString(
@@ -95,12 +107,16 @@ class AddChildToNPCFamilyUsecase {
             !(platonicRelationshipTypes
                 .contains(PlatonicRelationshipType.acquaintance))) {
           //add the parent to the set
-          parentsWithRelationshipToPlayer.add(
-            PersonPlatonicRelationshipTypesListPair(
-                person: parentPerson,
-                platonicRelationshipTypesList: platonicRelationshipTypes,
-                previousFamilialRelationship: previousRelationship),
-          );
+          parentsWithRelationshipToPlayer.add(PersonRelationshipTypeInfoPair(
+            person: parentPerson,
+            relationshipTypeInfo: RelationshipTypeInfo(
+              platonicRelationshipTypes: platonicRelationshipTypes,
+              romanticRelationshipType: romanticRelationshipType,
+              previousFamilialRelationship: previousRelationship,
+              activeRomance: parentPlayerRelationship.activeRomance,
+              isCoParent: parentPlayerRelationship.isCoParent,
+            ),
+          ));
         }
       }
 
@@ -119,15 +135,14 @@ class AddChildToNPCFamilyUsecase {
 
     //-PARENTS WITH FAMILIAL RELATIONSHIP:
     //get parents with familial relationship to the player
-    final List<PersonPlatonicRelationshipTypesListPair>
+    final List<PersonRelationshipTypeInfoPair>
         parentsWithFamilialRelationshipWithThePlayer =
         parentsWithRelationshipToPlayer
             .where(
-              (parentPersonPlatonicRelationshipTypesListPair) =>
+              (personRelationshipTypeInfoPair) =>
                   checkIfListContainsFamilialPlatonicRelationshipType(
-                platonicRelationshipTypesList:
-                    parentPersonPlatonicRelationshipTypesListPair
-                        .platonicRelationshipTypesList,
+                platonicRelationshipTypesList: personRelationshipTypeInfoPair
+                    .relationshipTypeInfo.platonicRelationshipTypes,
               ),
             )
             .toList();
@@ -149,7 +164,8 @@ class AddChildToNPCFamilyUsecase {
       for (var parent in parentsWithFamilialRelationshipWithThePlayer) {
         //we want to add all their relationship types to the list
         //STEP PARENT = FALSE because the parent was sent in as a parent.
-        for (var type in parent.platonicRelationshipTypesList) {
+        for (var type
+            in parent.relationshipTypeInfo.platonicRelationshipTypes) {
           parentRelationshipTypeWithIndicatorsList.add(
             PlatonicRelationshipTypeWithParentTypeIndicator(
               platonicRelationshipType: type,
@@ -175,14 +191,14 @@ class AddChildToNPCFamilyUsecase {
       //we have to handle parents with AND without relationship to the player
 
       //Map: Familial spouse -> Parent
-      final Map<PersonPlatonicRelationshipTypesListPair, Person>
+      final Map<PersonRelationshipTypeInfoPair, Person>
           familialSpouseToParentMap = {};
 
       //List: Parents with no familial spouse
       final List<Person> parentsWithNoFamilialSpouse = [];
 
       //Map: Spouse with NON familial relationship(we want to create this as a last resort for finding a connection to the player)
-      final Map<PersonPlatonicRelationshipTypesListPair, Person>
+      final Map<PersonRelationshipTypeInfoPair, Person>
           nonFamilialSpouseToParentMap = {};
 
       //create a combined list of parents with AND without relationship to player
@@ -225,6 +241,14 @@ class AddChildToNPCFamilyUsecase {
               platonicRelationshipTypeString:
                   spouseRelationshipToPlayer.platonicRelationshipType,
             );
+            //get romantic relationship type
+            //if we get null, default to NONE
+            final RomanticRelationshipType romanticRelationshipType =
+                getRomanticRelationshipTypeEnumFromString(
+                      romanticRelationshipTypeString:
+                          spouseRelationshipToPlayer.romanticRelationshipType,
+                    ) ??
+                    RomanticRelationshipType.none;
             //get the spouse person
             final Person? spousePerson =
                 await _personUsecases.getPersonUsecase.execute(
@@ -239,11 +263,16 @@ class AddChildToNPCFamilyUsecase {
             //if the spouse info is valid
             if (platonicRelationshipTypes != null && spousePerson != null) {
               //package spouse info:
-              final PersonPlatonicRelationshipTypesListPair spouseInfo =
-                  PersonPlatonicRelationshipTypesListPair(
+              final PersonRelationshipTypeInfoPair spouseInfo =
+                  PersonRelationshipTypeInfoPair(
                 person: spousePerson,
-                platonicRelationshipTypesList: platonicRelationshipTypes,
-                previousFamilialRelationship: previousRelationship,
+                relationshipTypeInfo: RelationshipTypeInfo(
+                  platonicRelationshipTypes: platonicRelationshipTypes,
+                  romanticRelationshipType: romanticRelationshipType,
+                  previousFamilialRelationship: previousRelationship,
+                  activeRomance: spouseRelationshipToPlayer.activeRomance,
+                  isCoParent: spouseRelationshipToPlayer.isCoParent,
+                ),
               );
 
               //-if it is a familial relationship
@@ -290,7 +319,8 @@ class AddChildToNPCFamilyUsecase {
         for (var familialSpouse in familialSpouseToParentMap.keys) {
           //we want to add all their relationship types to the list
           //STEP PARENT = TRUE because the spouse was not sent in as a parent.
-          for (var type in familialSpouse.platonicRelationshipTypesList) {
+          for (var type in familialSpouse
+              .relationshipTypeInfo.platonicRelationshipTypes) {
             parentRelationshipTypeWithIndicatorsList.add(
               PlatonicRelationshipTypeWithParentTypeIndicator(
                 platonicRelationshipType: type,
@@ -356,8 +386,10 @@ class AddChildToNPCFamilyUsecase {
 
       //if it is valid
       if (childPerson != null) {
-        final String childName =
-            "${childPerson.firstName} ${childPerson.lastName}";
+        final String childName = getFullNameString(
+          firstName: childPerson.firstName,
+          lastName: childPerson.lastName,
+        );
 
         //conclusion string
         final String conclusionString =
