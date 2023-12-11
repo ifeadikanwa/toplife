@@ -20,8 +20,11 @@ class RomanticRelationshipInfoTable extends Table {
 
   IntColumn get endDay => integer()();
 
+  //everytime a relationship ENDS, we have to add the duration to this cumulative duration.
+  //so we have a source for the total length of all romantic relationships that might have happened at any time
+  IntColumn get cumulativeDuration => integer()();
+
   IntColumn get daysToDateBeforeMarriage => integer()();
 
   IntColumn get jointMoney => integer()();
-
 }

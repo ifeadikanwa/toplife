@@ -24,6 +24,8 @@ class ProcessRelationshipChangesFromPlayerMarriageUsecase {
     required int playerPersonID,
     required Person spousePerson,
   }) async {
+    //!Handle the marriage outside of this usecase, most likey in the caller of this usecase
+
     //instructions for creating all relationships
     const ExistingRelationshipOverrideInstruction
         existingRelationshipOverrideInstruction =
@@ -34,7 +36,8 @@ class ProcessRelationshipChangesFromPlayerMarriageUsecase {
 
     //get all step family and in laws
     final List<PersonPlatonicRelationshipTypePair> playerStepFamilyAndInlaws =
-        await _getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase.execute(
+        await _getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase
+            .execute(
       playerPersonID: playerPersonID,
       spousePersonID: spousePerson.id,
     );

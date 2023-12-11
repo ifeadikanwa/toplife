@@ -1,46 +1,67 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
+import 'package:toplife/core/common_states/watch/person/current_person_usecase.dart';
+import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
+import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
+import 'package:toplife/core/common_states/watch/relationship/specific/current_relationship_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/game_manager/domain/model/info_models/person_game_pair.dart';
-import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/navigate_to_relationship_actions_screen_provider.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/game_relationship_interactions.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_interaction.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_search_info.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_relationship_label_from_any_relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_type_gender_equivalent.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_previous_familial_relatonship_enum_from_string.dart';
 
-final relationshipActionsScreenViewModelProvider =
-    StateNotifierProvider.autoDispose<RelationshipActionsScreenViewModel,
-        AsyncValue<List<RelationshipInteraction>>>((ref) {
+
+final relationshipActionsScreenViewModelProvider = StateNotifierProvider.family
+    .autoDispose<
+        RelationshipActionsScreenViewModel,
+        AsyncValue<List<RelationshipInteraction>>,
+        PersonRelationshipPair>((ref, personRelationshipPair) {
   //watch needed values
+
   //usecases
   final AgeUsecases ageUsecases = ref.watch(ageUsecasesProvider);
-  final GameUsecases gameUsecases = ref.watch(gameUsecasesProvider);
-  final PersonUsecases personUsecases = ref.watch(personUsecasesProvider);
   final RelationshipUsecases relationshipUsecases =
       ref.watch(relationshipUsecasesProvider);
   final GameRelationshipInteractions gameRelationshipInteractions =
       ref.watch(gameRelationshipInteractionsProvider);
+
   //data
-  final RelationshipSearchInfo? relationshipSearchInfo =
-      ref.watch(navigateToRelationshipActionsScreenNotifierProvider);
+
+  //watch person
+  final Future<Person?> personFuture =
+      ref.watch(currentPersonProvider(personRelationshipPair.person.id).future);
+
+  //watch relationship
+  final Future<Relationship?> relationshipFuture =
+      ref.watch(currentRelationshipProvider(PersonIdPair(
+    firstId: personRelationshipPair.relationship.firstPersonId,
+    secondId: personRelationshipPair.relationship.secondPersonId,
+  )).future);
+
+  //watch current game
+  final Future<Game?> currentGameFuture = ref.watch(currentGameProvider.future);
+
+  //watch current player
+  final Future<Person?> currentPlayerFuture =
+      ref.watch(currentPlayerProvider.future);
 
   return RelationshipActionsScreenViewModel(
-    relationshipSearchInfo: relationshipSearchInfo,
     ageUsecases: ageUsecases,
-    gameUsecases: gameUsecases,
-    personUsecases: personUsecases,
-    relationshipUsecases: relationshipUsecases,
     gameRelationshipInteractions: gameRelationshipInteractions,
+    relationshipUsecases: relationshipUsecases,
+    personFuture: personFuture,
+    relationshipFuture: relationshipFuture,
+    currentGameFuture: currentGameFuture,
+    currentPlayerFuture: currentPlayerFuture,
   );
 });
 
@@ -48,56 +69,78 @@ class RelationshipActionsScreenViewModel
     extends StateNotifier<AsyncValue<List<RelationshipInteraction>>> {
   //immutable
   final AgeUsecases _ageUsecases;
-  final GameUsecases _gameUsecases;
   final RelationshipUsecases _relationshipUsecases;
   final GameRelationshipInteractions _gameRelationshipInteractions;
-  final RelationshipSearchInfo? _relationshipSearchInfo;
 
   //mutable
   Game? _currentGame;
   Person? _currentPlayer;
-  RelationshipPair? _relationshipPair;
+  PersonRelationshipPair? _personRelationshipPair;
+  int? _romanticRelationshipDuration;
 
   //
   RelationshipActionsScreenViewModel({
-    required RelationshipSearchInfo? relationshipSearchInfo,
     required AgeUsecases ageUsecases,
-    required GameUsecases gameUsecases,
-    required PersonUsecases personUsecases,
     required RelationshipUsecases relationshipUsecases,
     required GameRelationshipInteractions gameRelationshipInteractions,
+    required Future<Person?> personFuture,
+    required Future<Relationship?> relationshipFuture,
+    required Future<Game?> currentGameFuture,
+    required Future<Person?> currentPlayerFuture,
   })  : _ageUsecases = ageUsecases,
-        _gameUsecases = gameUsecases,
         _relationshipUsecases = relationshipUsecases,
         _gameRelationshipInteractions = gameRelationshipInteractions,
-        _relationshipSearchInfo = relationshipSearchInfo,
         super(const AsyncLoading()) {
-    _fetch();
+    _fetch(
+      personFuture: personFuture,
+      relationshipFuture: relationshipFuture,
+      currentGameFuture: currentGameFuture,
+      currentPlayerFuture: currentPlayerFuture,
+    );
   }
 
-  Future<void> _fetch() async {
+  Future<void> _fetch({
+    required Future<Person?> personFuture,
+    required Future<Relationship?> relationshipFuture,
+    required Future<Game?> currentGameFuture,
+    required Future<Person?> currentPlayerFuture,
+  }) async {
     //set state to loading
     state = const AsyncLoading();
 
-    //fetch
-    //get current game and player first
-    final PersonGamePair? currentGameAndPlayer =
-        await _gameUsecases.getCurrentGameAndPlayerUsecase.execute();
+    //fetch:
 
-    //if game and player is valid AND relationship search info is valid: we can move on
-    if (currentGameAndPlayer != null && _relationshipSearchInfo != null) {
-      //set values to global variable
-      _currentGame = currentGameAndPlayer.game;
-      _currentPlayer = currentGameAndPlayer.person;
+    //get game
+    _currentGame = await currentGameFuture;
+    //get player
+    _currentPlayer = await currentPlayerFuture;
 
-      //get relationship pair
-      _relationshipPair =
-          await _relationshipUsecases.getAnyRelationshipPairUsecase.execute(
-        mainPersonID: _currentPlayer!.id,
-        relationshipPersonID: _relationshipSearchInfo!.relationshipPersonID,
-        informalRelationshipType:
-            _relationshipSearchInfo!.informalRelationshipType,
+    //get person
+    final Person? person = await personFuture;
+    //get relationship
+    final Relationship? relationship = await relationshipFuture;
+
+    //if they are all valid
+    if (_currentGame != null &&
+        _currentPlayer != null &&
+        person != null &&
+        relationship != null) {
+      //set the person relationship pair
+      _personRelationshipPair = PersonRelationshipPair(
+        person: person,
+        relationship: relationship,
       );
+
+      //set romantic rel duration
+      if (relationship.romanticRelationshipInfoId != null) {
+        _romanticRelationshipDuration = await _relationshipUsecases
+            .getTotalRomanticRelationshipDuration
+            .execute(
+          romanticRelationshipInfoID: relationship.romanticRelationshipInfoId!,
+          currentDay: _currentGame!.currentDay,
+          activeRomance: relationship.activeRomance,
+        );
+      }
 
       //get interactions
       final interactions = _gameRelationshipInteractions.all;
@@ -105,22 +148,23 @@ class RelationshipActionsScreenViewModel
       //finally set state
       state = await AsyncValue.guard(() async => interactions);
     }
-    //if game and player and relationship search info is not valid:
+
+    //if game and player and relationship info is not valid:
     //set all values to null
     //set state to empty list
     else {
       _currentGame = null;
       _currentPlayer = null;
-      _relationshipPair = null;
+      _personRelationshipPair = null;
       state = await AsyncValue.guard(() async => []);
     }
   }
 
   String getAge() {
-    if (_currentGame != null && _relationshipPair != null) {
+    if (_currentGame != null && _personRelationshipPair != null) {
       return _ageUsecases.getPersonAgeUsecase
           .execute(
-            dayOfBirth: _relationshipPair!.person.dayOfBirth,
+            dayOfBirth: _personRelationshipPair!.person.dayOfBirth,
             currentDay: _currentGame!.currentDay,
           )
           .lifeStage
@@ -131,31 +175,26 @@ class RelationshipActionsScreenViewModel
   }
 
   String getFirstName() {
-    if (_relationshipPair != null) {
-      return _relationshipPair!.person.firstName;
+    if (_personRelationshipPair != null) {
+      return _personRelationshipPair!.person.firstName;
     } else {
       return TextConstants.dash;
     }
   }
 
   String getLastName() {
-    if (_relationshipPair != null) {
-      return _relationshipPair!.person.lastName;
+    if (_personRelationshipPair != null) {
+      return _personRelationshipPair!.person.lastName;
     } else {
       return TextConstants.dash;
     }
   }
 
   int getRelationshipLevel() {
-    const int noRelationshipLevelFound = 0;
-
-    if (_relationshipPair != null) {
-      return _relationshipUsecases
-              .getRelationshipLevelFromAnyGivenRelationshipPairUsecase
-              .execute(relationshipPair: _relationshipPair!) ??
-          noRelationshipLevelFound;
+    if (_personRelationshipPair != null) {
+      return _personRelationshipPair!.relationship.level;
     } else {
-      return noRelationshipLevelFound;
+      return 0;
     }
   }
 
@@ -163,35 +202,68 @@ class RelationshipActionsScreenViewModel
     return true;
   }
 
-  String getRelationshipLabel() {
-    if (_relationshipPair != null) {
-      return getRelationshipLabelFromAnyRelationshipPair(
-        relationshipPair: _relationshipPair!,
-        onlyActivePartnerWanted: false,
+  String getCurrentRelationshipLabel() {
+    if (_personRelationshipPair != null) {
+      //dont add prev relationship
+      return getPlatonicAndRomanticRelationshipLabelFromString(
+        genderString: _personRelationshipPair!.person.gender,
+        platonicRelationshipTypeString:
+            _personRelationshipPair!.relationship.platonicRelationshipType,
+        romanticRelationshipTypeString:
+            _personRelationshipPair!.relationship.romanticRelationshipType,
+        previousFamilialRelationshipString: "",
+        isCoParent: _personRelationshipPair!.relationship.isCoParent,
+        activeRomance: _personRelationshipPair!.relationship.activeRomance,
       );
     } else {
       return TextConstants.dash;
     }
   }
 
+  String? getPrevRelationshipLabel() {
+    if (_personRelationshipPair != null) {
+      //get it as regular formatting not prev formatting
+      final PlatonicRelationshipType? prevRelationshipEnum =
+          getPreviousFamilialRelationshipEnumFromString(
+        _personRelationshipPair!.relationship.previousFamilialRelationship,
+      );
+
+      final String? prevRelationshipLabel = (prevRelationshipEnum != null)
+          ? getPlatonicRelationshipTypeGenderEquivalent(
+              prevRelationshipEnum,
+              _personRelationshipPair!.person.gender,
+            )
+          : null;
+
+      return prevRelationshipLabel;
+    } else {
+      return null;
+    }
+  }
+
+  int? getRomanticRelationshipDuration() {
+    return _romanticRelationshipDuration;
+  }
+
   Future<void> executeInteraction({
     required RelationshipInteraction relationshipInteraction,
     required BuildContext context,
   }) async {
-    if (_currentGame != null &&
-        _currentPlayer != null &&
-        _relationshipPair != null) {
-      await relationshipInteraction.execute(
-        context: context,
-        currentGame: _currentGame!,
-        currentPlayer: _currentPlayer!,
-        relationshipPair: _relationshipPair!,
-        relationshipLabel: getRelationshipLabel(),
-        informalRelationshipType: _relationshipPair!.informalRelationshipType,
-      );
+    // if (_currentGame != null &&
+    //     _currentPlayer != null &&
+    //     _personRelationshipPair != null) {
+    //   await relationshipInteraction.execute(
+    //     context: context,
+    //     currentGame: _currentGame!,
+    //     currentPlayer: _currentPlayer!,
+    //     relationshipPair: _personRelationshipPair!,
+    //     relationshipLabel: getCurrentRelationshipLabel(),
+    //     informalRelationshipType:
+    //         _personRelationshipPair!.informalRelationshipType,
+    //   );
 
-      _fetch();
-    }
+    //   _fetch();
+    // }
   }
 }
 
@@ -241,7 +313,7 @@ class RelationshipActionsScreenViewModel
 //   final List<RelationshipInteraction> relationshipInteractions;
 //   final Game? _currentGame;
 //   final Person? _currentPlayer;
-//   final RelationshipPair? _relationshipPair;
+//   final RelationshipPair? _personRelationshipPair;
 //   final AgeUsecases _ageUsecases;
 
 //   const RelationshipActionsScreenViewModel({
@@ -251,16 +323,16 @@ class RelationshipActionsScreenViewModel
 //     required RelationshipPair? relationshipPair,
 //     required AgeUsecases ageUsecases,
 //   })  : _ageUsecases = ageUsecases,
-//         _relationshipPair = relationshipPair,
+//         _personRelationshipPair = relationshipPair,
 //         _currentPlayer = currentPlayer,
 //         _currentGame = currentGame;
 
 //   //get age
 //   String getAge() {
-//     if (_currentGame != null && _relationshipPair != null) {
+//     if (_currentGame != null && _personRelationshipPair != null) {
 //       return _ageUsecases.getPersonAgeUsecase
 //           .execute(
-//             dayOfBirth: _relationshipPair!.person.dayOfBirth,
+//             dayOfBirth: _personRelationshipPair!.person.dayOfBirth,
 //             currentDay: _currentGame!.currentDay,
 //           )
 //           .lifeStage
@@ -271,24 +343,24 @@ class RelationshipActionsScreenViewModel
 //   }
 
 //   String getFirstName() {
-//     if (_relationshipPair != null) {
-//       return _relationshipPair!.person.firstName;
+//     if (_personRelationshipPair != null) {
+//       return _personRelationshipPair!.person.firstName;
 //     } else {
 //       return TextConstants.dash;
 //     }
 //   }
 
 //   String getLastName() {
-//     if (_relationshipPair != null) {
-//       return _relationshipPair!.person.lastName;
+//     if (_personRelationshipPair != null) {
+//       return _personRelationshipPair!.person.lastName;
 //     } else {
 //       return TextConstants.dash;
 //     }
 //   }
 
 //   int getRelationshipLevel() {
-//     if (_relationshipPair != null && _relationshipPair?.relationship is Child) {
-//       final childRelationship = _relationshipPair!.relationship as Child;
+//     if (_personRelationshipPair != null && _personRelationshipPair?.relationship is Child) {
+//       final childRelationship = _personRelationshipPair!.relationship as Child;
 //       return childRelationship.relationship;
 //     } else {
 //       return 0;
@@ -302,14 +374,14 @@ class RelationshipActionsScreenViewModel
 //   }) async {
 //     if (_currentGame != null &&
 //         _currentPlayer != null &&
-//         _relationshipPair != null) {
+//         _personRelationshipPair != null) {
 //       await relationshipInteraction.execute(
 //         context: context,
 //         currentGame: _currentGame!,
 //         currentPlayer: _currentPlayer!,
-//         relationshipPair: _relationshipPair!,
+//         relationshipPair: _personRelationshipPair!,
 //         relationshipLabel: relationshipLabel,
-//         informalRelationshipType: _relationshipPair!.informalRelationshipType,
+//         informalRelationshipType: _personRelationshipPair!.informalRelationshipType,
 //       );
 //     }
 //   }

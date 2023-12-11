@@ -29,6 +29,7 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_siblings_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_step_children_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_marriage_partner_relationship_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_total_romantic_relationship_duration_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_children_additions_to_the_family_from_family_members_spouse_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_parent_additions_to_the_family_from_family_members_spouse_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_sibling_additions_along_with_their_children_from_family_members_spouse_usecase.dart';
@@ -93,6 +94,7 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/romanti
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_all_partner_relationship_not_involving_a_certain_person_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_partner_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/get_married_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/end_romantic_relationship_and_return_updated_object_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/setup_relationships/setup_new_generation_player_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_acquaintance_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/any_relationship_pair/update_any_relationship_amount_usecase.dart';
@@ -112,6 +114,7 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/w
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_partners_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_past_family_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_relationships_involving_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_relatives_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_siblings_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_marriage_partner_relationship_usecase.dart';
@@ -669,13 +672,19 @@ class RelationshipUsecases {
               .read(relationshipRepositoriesProvider)
               .relationshipRepositoryImpl);
 
+  WatchRelationshipUsecase get watchRelationshipUsecase =>
+      WatchRelationshipUsecase(_ref
+          .read(relationshipRepositoriesProvider)
+          .relationshipRepositoryImpl);
+
   WatchAllGravesUsecase get watchAllGravesUsecase => WatchAllGravesUsecase(
       _ref.read(relationshipRepositoriesProvider).graveRepositoryImpl);
 
-  WatchChildrensTabRelationshipsUsecase get watchChildrensTabRelationshipsUsecase =>
-      WatchChildrensTabRelationshipsUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+  WatchChildrensTabRelationshipsUsecase
+      get watchChildrensTabRelationshipsUsecase =>
+          WatchChildrensTabRelationshipsUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
   WatchAllExesUsecase get watchAllExesUsecase => WatchAllExesUsecase(
       _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl);
@@ -691,10 +700,11 @@ class RelationshipUsecases {
           .read(relationshipRepositoriesProvider)
           .relationshipRepositoryImpl);
 
-  WatchPartnersTabRelationshipsUsecase get watchPartnersTabRelationshipsUsecase =>
-      WatchPartnersTabRelationshipsUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+  WatchPartnersTabRelationshipsUsecase
+      get watchPartnersTabRelationshipsUsecase =>
+          WatchPartnersTabRelationshipsUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
   WatchAllPastFamilyUsecase get watchAllPastFamilyUsecase =>
       WatchAllPastFamilyUsecase(_ref
@@ -707,15 +717,17 @@ class RelationshipUsecases {
               .read(relationshipRepositoriesProvider)
               .relationshipRepositoryImpl);
 
-  WatchRelativesTabRelationshipsUsecase get watchRelativesTabRelationshipsUsecase =>
-      WatchRelativesTabRelationshipsUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+  WatchRelativesTabRelationshipsUsecase
+      get watchRelativesTabRelationshipsUsecase =>
+          WatchRelativesTabRelationshipsUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
-  WatchSiblingsTabRelationshipsUsecase get watchSiblingsTabRelationshipsUsecase =>
-      WatchSiblingsTabRelationshipsUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+  WatchSiblingsTabRelationshipsUsecase
+      get watchSiblingsTabRelationshipsUsecase =>
+          WatchSiblingsTabRelationshipsUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
   WatchMarriagePartnerRelationshipUsecase
       get watchMarriagePartnerRelationshipUsecase =>
@@ -803,12 +815,6 @@ class RelationshipUsecases {
   ProcessRelationshipChangesFromPlayerDivorceUsecase
       get processRelationshipChangesFromPlayerDivorceUsecase =>
           ProcessRelationshipChangesFromPlayerDivorceUsecase(
-            _ref
-                .read(relationshipRepositoriesProvider)
-                .relationshipRepositoryImpl,
-            _ref
-                .read(relationshipRepositoriesProvider)
-                .romanticRelationshipInfoRepositoryImpl,
             getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase,
             convertTemporaryFamilialRelationshipToPastFamilyUsecase,
             _ref.read(journalUsecasesProvider),
@@ -876,4 +882,23 @@ class RelationshipUsecases {
   RearrangeSiblingsTabRelationshipsUsecase
       get rearrangeSiblingsTabRelationshipsUsecase =>
           RearrangeSiblingsTabRelationshipsUsecase();
+
+  GetTotalRomanticRelationshipDuration
+      get getTotalRomanticRelationshipDuration =>
+          GetTotalRomanticRelationshipDuration(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .romanticRelationshipInfoRepositoryImpl,
+          );
+
+  EndRomanticRelationshipAndReturnUpdatedObjectUsecase
+      get endRomanticRelationshipAndReturnUpdatedObjectUsecase =>
+          EndRomanticRelationshipAndReturnUpdatedObjectUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .romanticRelationshipInfoRepositoryImpl,
+          );
 }

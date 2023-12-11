@@ -4,8 +4,8 @@ import 'package:toplife/core/common_widgets/app_screens/active_player_status_bar
 
 class InnerLevelScreen extends StatelessWidget {
   final String title;
-  final Widget? appBarLeading;
-  final List<Widget>? appBarActions;
+  final IconButton? appBarLeading;
+  final List<IconButton>? appBarActions;
   final Widget child;
   const InnerLevelScreen({
     Key? key,

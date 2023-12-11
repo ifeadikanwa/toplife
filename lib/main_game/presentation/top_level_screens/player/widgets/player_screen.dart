@@ -13,20 +13,26 @@ class PlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         TopLevelAppBar(
-          leading: Icon(
-            Icons.menu_outlined,
+          leading: IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.menu_outlined,
+            ),
           ),
           title: TextConstants.appName,
           actions: [
-            Icon(
-              Icons.emoji_events_outlined,
-            )
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.emoji_events_outlined,
+              ),
+            ),
           ],
         ),
-        Expanded(
+        const Expanded(
           child: ScreenContent(
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

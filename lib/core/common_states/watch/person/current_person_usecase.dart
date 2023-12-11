@@ -4,7 +4,6 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 final currentPersonProvider =
     StreamProvider.family.autoDispose<Person?, int>((ref, personID) async* {
-
   //get stream
   final Stream<Person?> personStream =
       ref.watch(personUsecasesProvider).watchPersonUsecase.execute(
@@ -15,7 +14,4 @@ final currentPersonProvider =
   await for (var person in personStream) {
     yield person;
   }
-
-  //if nothing
-  yield null;
 });

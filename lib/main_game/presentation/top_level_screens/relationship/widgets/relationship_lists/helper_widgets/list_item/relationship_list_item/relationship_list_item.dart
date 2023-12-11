@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_widgets/list_templates/case/list_view_item_case.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
@@ -55,7 +57,12 @@ class RelationshipListItem extends ConsumerWidget {
                     ),
             ],
           ),
-          onTap: () {},
+          onTap: () {
+            AutoRouter.of(context).push(
+              RelationshipActionsRoute(
+                  personRelationshipPair: personRelationshipPair),
+            );
+          },
         );
       },
       error: (error, stackTrace) => Container(),

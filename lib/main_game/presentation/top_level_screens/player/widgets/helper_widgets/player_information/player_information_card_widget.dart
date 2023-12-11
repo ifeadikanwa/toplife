@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
 import 'package:toplife/core/common_widgets/avatar/avatar_with_flag.dart';
 import 'package:toplife/core/common_widgets/card_templates/border_card.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
@@ -139,11 +138,11 @@ class PlayerInformationCard extends ConsumerWidget {
   }
 
   Widget moreInfo() {
-    return PlainIconButton(
+    return IconButton(
       icon: const Icon(
         Icons.info_outline,
-        size: cardInfoButtonSize,
       ),
+      iconSize: cardInfoButtonSize,
       onPressed: () {},
     );
   }

@@ -231,9 +231,8 @@ class ShopScreen extends ConsumerWidget {
 
                 // final p = await PersonDaoImpl(db).getPerson(2);
                 // if (p != null) {
-                //   await PersonDaoImpl(db).updatePerson(p.copyWith(
-                //     dead: false,
-                //   ));
+                //   await PersonDaoImpl(db)
+                //       .updatePerson(p.copyWith(firstName: "Sara"),);
                 // }
 
                 // final g = await GameDaoImpl(db).getGame(1);
@@ -260,12 +259,24 @@ class ShopScreen extends ConsumerWidget {
                 // }
 
                 // for (var i = 1; i < 6; i++) {
+                // await RomanticRelationshipInfoDaoImpl(db)
+                //     .createRomanticRelationshipInfo(
+                //   RomanticRelationshipInfo(
+                //     id: 0,
+                //     gameId: 1,
+                //     startDay: -55,
+                //     endDay: 0,
+                //     cumulativeDuration: 24,
+                //     daysToDateBeforeMarriage: 6,
+                //     jointMoney: 908,
+                //   ),
+                // );
                 // final Relationship relationship = Relationship(
                 //   firstPersonId: 3,
-                //   secondPersonId: 59,
+                //   secondPersonId: 2,
                 //   platonicRelationshipType:
                 //       getDbFormattedPlatonicRelationshipTypeString(
-                //     PlatonicRelationshipType.siblingInLaw,
+                //     PlatonicRelationshipType.adoptiveSibling,
                 //   ),
                 //   romanticRelationshipType: RomanticRelationshipType.none.name,
                 //   interestedInRelationship: true,
@@ -273,9 +284,10 @@ class ShopScreen extends ConsumerWidget {
                 //   activeRomance: false,
                 //   previousFamilialRelationship:
                 //       getDbFormattedPlatonicRelationshipTypeString(
-                //     PlatonicRelationshipType.stepCousin,
+                //     PlatonicRelationshipType.cousin,
                 //   ),
                 //   isCoParent: false,
+                //   // romanticRelationshipInfoId: 1,
                 // );
 
                 // (await RelationshipDaoImpl(db)

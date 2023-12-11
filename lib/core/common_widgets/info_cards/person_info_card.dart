@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/core/common_widgets/app_bars/plain_icon_button.dart';
 import 'package:toplife/core/common_widgets/avatar/avatar_widget.dart';
 import 'package:toplife/core/common_widgets/avatar/avatar_with_flag.dart';
 import 'package:toplife/core/common_widgets/divider/themed_divider.dart';
@@ -7,14 +6,17 @@ import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/stats/multiple_stats_widget.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
+import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/extensions/string_extensions.dart';
 import 'package:toplife/core/utils/stats/stats_item.dart';
+import 'package:toplife/core/utils/words/string_pair.dart';
+import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
 
 class PersonInfoCard extends StatelessWidget {
   final String firstName;
   final String lastName;
   final String age;
-  final String? extraInformation;
+  final List<StringPair> extraInformation;
   final String? currentCountry;
   final List<StatsItem> statsList;
   final bool showInfoButton;
@@ -23,7 +25,7 @@ class PersonInfoCard extends StatelessWidget {
     required this.firstName,
     required this.lastName,
     required this.age,
-    this.extraInformation,
+    required this.extraInformation,
     required this.currentCountry,
     required this.statsList,
     this.showInfoButton = true,
@@ -54,8 +56,8 @@ class PersonInfoCard extends StatelessWidget {
             ],
           ),
           Positioned(
-            right: 4,
-            top: 4,
+            right: 0,
+            top: 0,
             child: moreInfo(showInfoButton),
           ),
         ],
@@ -67,7 +69,7 @@ class PersonInfoCard extends StatelessWidget {
     required String firstName,
     required String lastName,
     required String age,
-    required String? extraInformation,
+    required List<StringPair> extraInformation,
     required String? currentCountry,
   }) {
     return Row(
@@ -106,7 +108,7 @@ class PersonInfoCard extends StatelessWidget {
     required String firstName,
     required String lastName,
     required String age,
-    required String? extraInformation,
+    required List<StringPair> extraInformation,
   }) {
     return Expanded(
       child: Padding(
@@ -115,21 +117,48 @@ class PersonInfoCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "$firstName $lastName".prepareTextToEllipsize(),
+              getFullNameString(
+                firstName: firstName,
+                lastName: lastName,
+              ).prepareTextToEllipsize(),
               overflow: TextOverflow.ellipsis,
               style: largeCardPrimaryTextStyle,
             ),
             const AddVerticalSpace(height: 2.0),
-            Text(
-              age,
-              style: largeCardSecondaryTextStyle,
-            ),
-            (extraInformation != null)
-                ? Text(
-                    extraInformation,
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: TextConstants.ageSemiColonSpace,
+                    style: largeCardSecondaryTextStyle.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: age,
                     style: largeCardSecondaryTextStyle,
-                  )
-                : const SizedBox(),
+                  ),
+                ],
+              ),
+            ),
+            ...extraInformation.map(
+              (infoPair) => Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: infoPair.first,
+                      style: largeCardSecondaryTextStyle.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: infoPair.second,
+                      style: largeCardSecondaryTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -138,11 +167,11 @@ class PersonInfoCard extends StatelessWidget {
 
   Widget moreInfo(bool showInfoButton) {
     return (showInfoButton)
-        ? PlainIconButton(
+        ? IconButton(
             icon: const Icon(
               Icons.info_outline,
-              size: cardInfoButtonSize,
             ),
+            iconSize: cardInfoButtonSize,
             onPressed: () {},
           )
         : const SizedBox();

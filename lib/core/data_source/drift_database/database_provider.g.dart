@@ -19970,6 +19970,12 @@ class $RomanticRelationshipInfoTableTable extends RomanticRelationshipInfoTable
   late final GeneratedColumn<int> endDay = GeneratedColumn<int>(
       'end_day', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _cumulativeDurationMeta =
+      const VerificationMeta('cumulativeDuration');
+  @override
+  late final GeneratedColumn<int> cumulativeDuration = GeneratedColumn<int>(
+      'cumulative_duration', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _daysToDateBeforeMarriageMeta =
       const VerificationMeta('daysToDateBeforeMarriage');
   @override
@@ -19983,8 +19989,15 @@ class $RomanticRelationshipInfoTableTable extends RomanticRelationshipInfoTable
       'joint_money', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, gameId, startDay, endDay, daysToDateBeforeMarriage, jointMoney];
+  List<GeneratedColumn> get $columns => [
+        id,
+        gameId,
+        startDay,
+        endDay,
+        cumulativeDuration,
+        daysToDateBeforeMarriage,
+        jointMoney
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -20016,6 +20029,14 @@ class $RomanticRelationshipInfoTableTable extends RomanticRelationshipInfoTable
           endDay.isAcceptableOrUnknown(data['end_day']!, _endDayMeta));
     } else if (isInserting) {
       context.missing(_endDayMeta);
+    }
+    if (data.containsKey('cumulative_duration')) {
+      context.handle(
+          _cumulativeDurationMeta,
+          cumulativeDuration.isAcceptableOrUnknown(
+              data['cumulative_duration']!, _cumulativeDurationMeta));
+    } else if (isInserting) {
+      context.missing(_cumulativeDurationMeta);
     }
     if (data.containsKey('days_to_date_before_marriage')) {
       context.handle(
@@ -20052,6 +20073,8 @@ class $RomanticRelationshipInfoTableTable extends RomanticRelationshipInfoTable
           .read(DriftSqlType.int, data['${effectivePrefix}start_day'])!,
       endDay: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}end_day'])!,
+      cumulativeDuration: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}cumulative_duration'])!,
       daysToDateBeforeMarriage: attachedDatabase.typeMapping.read(
           DriftSqlType.int,
           data['${effectivePrefix}days_to_date_before_marriage'])!,
@@ -20072,6 +20095,7 @@ class RomanticRelationshipInfo extends DataClass
   final int gameId;
   final int startDay;
   final int endDay;
+  final int cumulativeDuration;
   final int daysToDateBeforeMarriage;
   final int jointMoney;
   const RomanticRelationshipInfo(
@@ -20079,6 +20103,7 @@ class RomanticRelationshipInfo extends DataClass
       required this.gameId,
       required this.startDay,
       required this.endDay,
+      required this.cumulativeDuration,
       required this.daysToDateBeforeMarriage,
       required this.jointMoney});
   @override
@@ -20088,6 +20113,7 @@ class RomanticRelationshipInfo extends DataClass
     map['game_id'] = Variable<int>(gameId);
     map['start_day'] = Variable<int>(startDay);
     map['end_day'] = Variable<int>(endDay);
+    map['cumulative_duration'] = Variable<int>(cumulativeDuration);
     map['days_to_date_before_marriage'] =
         Variable<int>(daysToDateBeforeMarriage);
     map['joint_money'] = Variable<int>(jointMoney);
@@ -20100,6 +20126,7 @@ class RomanticRelationshipInfo extends DataClass
       gameId: Value(gameId),
       startDay: Value(startDay),
       endDay: Value(endDay),
+      cumulativeDuration: Value(cumulativeDuration),
       daysToDateBeforeMarriage: Value(daysToDateBeforeMarriage),
       jointMoney: Value(jointMoney),
     );
@@ -20113,6 +20140,7 @@ class RomanticRelationshipInfo extends DataClass
       gameId: serializer.fromJson<int>(json['gameId']),
       startDay: serializer.fromJson<int>(json['startDay']),
       endDay: serializer.fromJson<int>(json['endDay']),
+      cumulativeDuration: serializer.fromJson<int>(json['cumulativeDuration']),
       daysToDateBeforeMarriage:
           serializer.fromJson<int>(json['daysToDateBeforeMarriage']),
       jointMoney: serializer.fromJson<int>(json['jointMoney']),
@@ -20126,6 +20154,7 @@ class RomanticRelationshipInfo extends DataClass
       'gameId': serializer.toJson<int>(gameId),
       'startDay': serializer.toJson<int>(startDay),
       'endDay': serializer.toJson<int>(endDay),
+      'cumulativeDuration': serializer.toJson<int>(cumulativeDuration),
       'daysToDateBeforeMarriage':
           serializer.toJson<int>(daysToDateBeforeMarriage),
       'jointMoney': serializer.toJson<int>(jointMoney),
@@ -20137,6 +20166,7 @@ class RomanticRelationshipInfo extends DataClass
           int? gameId,
           int? startDay,
           int? endDay,
+          int? cumulativeDuration,
           int? daysToDateBeforeMarriage,
           int? jointMoney}) =>
       RomanticRelationshipInfo(
@@ -20144,6 +20174,7 @@ class RomanticRelationshipInfo extends DataClass
         gameId: gameId ?? this.gameId,
         startDay: startDay ?? this.startDay,
         endDay: endDay ?? this.endDay,
+        cumulativeDuration: cumulativeDuration ?? this.cumulativeDuration,
         daysToDateBeforeMarriage:
             daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
         jointMoney: jointMoney ?? this.jointMoney,
@@ -20155,6 +20186,7 @@ class RomanticRelationshipInfo extends DataClass
           ..write('gameId: $gameId, ')
           ..write('startDay: $startDay, ')
           ..write('endDay: $endDay, ')
+          ..write('cumulativeDuration: $cumulativeDuration, ')
           ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
           ..write('jointMoney: $jointMoney')
           ..write(')'))
@@ -20162,8 +20194,8 @@ class RomanticRelationshipInfo extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, gameId, startDay, endDay, daysToDateBeforeMarriage, jointMoney);
+  int get hashCode => Object.hash(id, gameId, startDay, endDay,
+      cumulativeDuration, daysToDateBeforeMarriage, jointMoney);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -20172,6 +20204,7 @@ class RomanticRelationshipInfo extends DataClass
           other.gameId == this.gameId &&
           other.startDay == this.startDay &&
           other.endDay == this.endDay &&
+          other.cumulativeDuration == this.cumulativeDuration &&
           other.daysToDateBeforeMarriage == this.daysToDateBeforeMarriage &&
           other.jointMoney == this.jointMoney);
 }
@@ -20182,6 +20215,7 @@ class RomanticRelationshipInfoTableCompanion
   final Value<int> gameId;
   final Value<int> startDay;
   final Value<int> endDay;
+  final Value<int> cumulativeDuration;
   final Value<int> daysToDateBeforeMarriage;
   final Value<int> jointMoney;
   const RomanticRelationshipInfoTableCompanion({
@@ -20189,6 +20223,7 @@ class RomanticRelationshipInfoTableCompanion
     this.gameId = const Value.absent(),
     this.startDay = const Value.absent(),
     this.endDay = const Value.absent(),
+    this.cumulativeDuration = const Value.absent(),
     this.daysToDateBeforeMarriage = const Value.absent(),
     this.jointMoney = const Value.absent(),
   });
@@ -20197,11 +20232,13 @@ class RomanticRelationshipInfoTableCompanion
     required int gameId,
     required int startDay,
     required int endDay,
+    required int cumulativeDuration,
     required int daysToDateBeforeMarriage,
     required int jointMoney,
   })  : gameId = Value(gameId),
         startDay = Value(startDay),
         endDay = Value(endDay),
+        cumulativeDuration = Value(cumulativeDuration),
         daysToDateBeforeMarriage = Value(daysToDateBeforeMarriage),
         jointMoney = Value(jointMoney);
   static Insertable<RomanticRelationshipInfo> custom({
@@ -20209,6 +20246,7 @@ class RomanticRelationshipInfoTableCompanion
     Expression<int>? gameId,
     Expression<int>? startDay,
     Expression<int>? endDay,
+    Expression<int>? cumulativeDuration,
     Expression<int>? daysToDateBeforeMarriage,
     Expression<int>? jointMoney,
   }) {
@@ -20217,6 +20255,7 @@ class RomanticRelationshipInfoTableCompanion
       if (gameId != null) 'game_id': gameId,
       if (startDay != null) 'start_day': startDay,
       if (endDay != null) 'end_day': endDay,
+      if (cumulativeDuration != null) 'cumulative_duration': cumulativeDuration,
       if (daysToDateBeforeMarriage != null)
         'days_to_date_before_marriage': daysToDateBeforeMarriage,
       if (jointMoney != null) 'joint_money': jointMoney,
@@ -20228,6 +20267,7 @@ class RomanticRelationshipInfoTableCompanion
       Value<int>? gameId,
       Value<int>? startDay,
       Value<int>? endDay,
+      Value<int>? cumulativeDuration,
       Value<int>? daysToDateBeforeMarriage,
       Value<int>? jointMoney}) {
     return RomanticRelationshipInfoTableCompanion(
@@ -20235,6 +20275,7 @@ class RomanticRelationshipInfoTableCompanion
       gameId: gameId ?? this.gameId,
       startDay: startDay ?? this.startDay,
       endDay: endDay ?? this.endDay,
+      cumulativeDuration: cumulativeDuration ?? this.cumulativeDuration,
       daysToDateBeforeMarriage:
           daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
       jointMoney: jointMoney ?? this.jointMoney,
@@ -20256,6 +20297,9 @@ class RomanticRelationshipInfoTableCompanion
     if (endDay.present) {
       map['end_day'] = Variable<int>(endDay.value);
     }
+    if (cumulativeDuration.present) {
+      map['cumulative_duration'] = Variable<int>(cumulativeDuration.value);
+    }
     if (daysToDateBeforeMarriage.present) {
       map['days_to_date_before_marriage'] =
           Variable<int>(daysToDateBeforeMarriage.value);
@@ -20273,6 +20317,7 @@ class RomanticRelationshipInfoTableCompanion
           ..write('gameId: $gameId, ')
           ..write('startDay: $startDay, ')
           ..write('endDay: $endDay, ')
+          ..write('cumulativeDuration: $cumulativeDuration, ')
           ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
           ..write('jointMoney: $jointMoney')
           ..write(')'))

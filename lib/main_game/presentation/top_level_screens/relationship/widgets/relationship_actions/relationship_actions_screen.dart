@@ -9,38 +9,36 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/helper_widgets/relationship_info_card_widget.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/relationship_actions_screen_view_model.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_interaction.dart';
 
 //view model data is list of interactions
 class RelationshipActionsScreen extends ConsumerWidget {
-  // final String relationshipLabel;
-  // final RelationshipPair relationshipPair;
-  // final int relationship;
-  // final bool showInfoButton;
+  final PersonRelationshipPair personRelationshipPair;
 
   const RelationshipActionsScreen({
     super.key,
-    // required this.relationshipLabel,
-    // required this.relationshipPair,
-    // required this.relationship,
-    // this.showInfoButton = true,
+    required this.personRelationshipPair,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final relationshipActionsScreenViewModelDataProvider =
-        ref.watch(relationshipActionsScreenViewModelProvider);
+    final relationshipActionsScreenViewModelDataProvider = ref.watch(
+        relationshipActionsScreenViewModelProvider(personRelationshipPair));
 
     return relationshipActionsScreenViewModelDataProvider.when(
       data: (relationshipInteractions) {
         //get the view model class
         final RelationshipActionsScreenViewModel
-            relationshipActionsScreenViewModel =
-            ref.watch(relationshipActionsScreenViewModelProvider.notifier);
+            relationshipActionsScreenViewModel = ref.watch(
+                relationshipActionsScreenViewModelProvider(
+                        personRelationshipPair)
+                    .notifier);
 
         //widget
         return InnerLevelScreen(
-          title: relationshipActionsScreenViewModel.getRelationshipLabel(),
+          title:
+              relationshipActionsScreenViewModel.getCurrentRelationshipLabel(),
           child: Expanded(
             child: ScreenContent(
               content: ListView.separated(
@@ -63,8 +61,14 @@ class RelationshipActionsScreen extends ConsumerWidget {
                           lastName:
                               relationshipActionsScreenViewModel.getLastName(),
                           age: relationshipActionsScreenViewModel.getAge(),
-                          relationship: relationshipActionsScreenViewModel
+                          relationshipLevel: relationshipActionsScreenViewModel
                               .getRelationshipLevel(),
+                          romanticRelationshipLength:
+                              relationshipActionsScreenViewModel
+                                  .getRomanticRelationshipDuration(),
+                          previousRelationshipLabel:
+                              relationshipActionsScreenViewModel
+                                  .getPrevRelationshipLabel(),
                           showInfoButton: relationshipActionsScreenViewModel
                               .showInfoButton(),
                         ),

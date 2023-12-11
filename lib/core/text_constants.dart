@@ -25,6 +25,7 @@ class TextConstants {
   static const formerly = "Formerly";
   static const and = "And";
   static const alongWith = "Along with";
+  static const ageSemiColonSpace = "Age: ";
 
   //player
   static const babyMonitor = "Baby Monitor";
@@ -73,6 +74,9 @@ class TextConstants {
   static const childrenInLaw = "Children-in-law";
   static const siblingsInLaw = "Siblings-in-Law";
   static const exPrefix = "Ex-";
+  static const partnershipDuration = "Partnership Duration";
+  static const togetherFor = "Together for";
+  static const previously = "Previously";
 
   //work
   static const work = "Work";

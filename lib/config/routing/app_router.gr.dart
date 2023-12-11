@@ -89,6 +89,8 @@ import '../../main_game/presentation/top_level_screens/shop/widgets/sub_screens/
     as _i13;
 import '../../main_game/presentation/top_level_screens/work/widgets/work_screen.dart'
     as _i5;
+import '../../main_systems/system_person/domain/model/info_models/person_relationship_pair.dart'
+    as _i43;
 
 class AppRouter extends _i40.RootStackRouter {
   AppRouter([_i41.GlobalKey<_i41.NavigatorState>? navigatorKey])
@@ -296,9 +298,13 @@ class AppRouter extends _i40.RootStackRouter {
       );
     },
     RelationshipActionsRoute.name: (routeData) {
+      final args = routeData.argsAs<RelationshipActionsRouteArgs>();
       return _i40.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i27.RelationshipActionsScreen(),
+        child: _i27.RelationshipActionsScreen(
+          key: args.key,
+          personRelationshipPair: args.personRelationshipPair,
+        ),
         transitionsBuilder: _i40.TransitionsBuilders.slideLeftWithFade,
         opaque: true,
         barrierDismissible: false,
@@ -1015,14 +1021,37 @@ class RelationshipRoute extends _i40.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i27.RelationshipActionsScreen]
-class RelationshipActionsRoute extends _i40.PageRouteInfo<void> {
-  const RelationshipActionsRoute()
-      : super(
+class RelationshipActionsRoute
+    extends _i40.PageRouteInfo<RelationshipActionsRouteArgs> {
+  RelationshipActionsRoute({
+    _i41.Key? key,
+    required _i43.PersonRelationshipPair personRelationshipPair,
+  }) : super(
           RelationshipActionsRoute.name,
           path: 'relationship_actions',
+          args: RelationshipActionsRouteArgs(
+            key: key,
+            personRelationshipPair: personRelationshipPair,
+          ),
         );
 
   static const String name = 'RelationshipActionsRoute';
+}
+
+class RelationshipActionsRouteArgs {
+  const RelationshipActionsRouteArgs({
+    this.key,
+    required this.personRelationshipPair,
+  });
+
+  final _i41.Key? key;
+
+  final _i43.PersonRelationshipPair personRelationshipPair;
+
+  @override
+  String toString() {
+    return 'RelationshipActionsRouteArgs{key: $key, personRelationshipPair: $personRelationshipPair}';
+  }
 }
 
 /// generated route for

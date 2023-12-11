@@ -27,6 +27,8 @@ class ProcessRelationshipChangesFromNpcMarriageUsecase {
     required int firstNpcPersonID,
     required int secondNpcPersonID,
   }) async {
+    //!Handle the marriage outside of this usecase, most likey in the caller of this usecase
+
     final NpcUnionInfo? npcUnionInfo =
         await _getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase
             .execute(

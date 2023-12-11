@@ -26,6 +26,8 @@ class ProcessRelationshipChangesFromNpcDivorceUsecase {
     required int firstNpcPersonID,
     required int secondNpcPersonID,
   }) async {
+    //!Handle the divorce outside of this usecase, most likey in the caller of this usecase
+
     //get all the relationship changes that will come from the union between the two npcs
     //this will tell us what relationships we need to change
     final NpcUnionInfo? npcUnionInfo =
