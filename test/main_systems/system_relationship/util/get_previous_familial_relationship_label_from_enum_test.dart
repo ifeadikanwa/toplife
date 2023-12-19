@@ -11,6 +11,16 @@ void main() {
         genderString: Gender.Male.name,
       );
 
+      expect(result, ", formerly grandson");
+    });
+
+    test('we get the correct result WITh request for Not lowercase', () {
+      final result = getPreviousFamilialRelationshipLabelFromEnum(
+        previousFamilialRelationshipEnum: PlatonicRelationshipType.grandChild,
+        genderString: Gender.Male.name,
+        toLowerCase: false,
+      );
+
       expect(result, ", formerly Grandson");
     });
   });

@@ -69,7 +69,36 @@ void main() {
 
       expect(
         result,
-        "Ex-boyfriend",
+        "ex-boyfriend",
+      );
+    });
+
+    test(
+        'given a familial, romantic and previous familial relationship type WITH a request for NOT lowercase and spaced relationship label we get the correct result',
+        () {
+      final result = getPlatonicAndRomanticRelationshipLabelFromString(
+        genderString: Gender.Male.name,
+        platonicRelationshipTypeString:
+            getDbFormattedPlatonicRelationshipTypeString(
+                  PlatonicRelationshipType.cousin,
+                ) +
+                getDbFormattedPlatonicRelationshipTypeString(
+                  PlatonicRelationshipType.halfSibling,
+                ),
+        romanticRelationshipTypeString: RomanticRelationshipType.dating.name,
+        previousFamilialRelationshipString:
+            getDbFormattedPlatonicRelationshipTypeString(
+          PlatonicRelationshipType.nibling,
+        ),
+        isCoParent: false,
+        activeRomance: false,
+        toLowerCase: false,
+        spacedRelationshipLabelSeparator: true,
+      );
+
+      expect(
+        result,
+        "Cousin / Half-brother / Ex-boyfriend, formerly Nephew",
       );
     });
   });

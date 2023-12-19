@@ -13,6 +13,8 @@ String getPlatonicAndRomanticRelationshipLabelFromEnum({
   required PlatonicRelationshipType? previousFamilialRelationshipEnum,
   required bool isCoParent,
   required bool activeRomance,
+  bool toLowerCase = true,
+  bool spacedRelationshipLabelSeparator = false,
 }) {
   //string buffer
   final StringBuffer stringBuffer = StringBuffer();
@@ -22,6 +24,8 @@ String getPlatonicAndRomanticRelationshipLabelFromEnum({
     platonicRelationshipTypeList: platonicRelationshipTypesEnum,
     genderString: genderString,
     previousFamilialRelationship: null, //we'll handle it ourselves
+    toLowerCase: toLowerCase,
+    spacedRelationshipLabelSeparator: spacedRelationshipLabelSeparator,
   );
 
   final String romanticRelationshipLabel = getRomanticRelationshipLabelFromEnum(
@@ -29,6 +33,7 @@ String getPlatonicAndRomanticRelationshipLabelFromEnum({
     genderString: genderString,
     activeRomance: activeRomance,
     isCoParent: isCoParent,
+    toLowerCase: toLowerCase,
   );
 
   //get label for prev familial relationship
@@ -37,6 +42,7 @@ String getPlatonicAndRomanticRelationshipLabelFromEnum({
       ? getPreviousFamilialRelationshipLabelFromEnum(
           previousFamilialRelationshipEnum: previousFamilialRelationshipEnum,
           genderString: genderString,
+          toLowerCase: toLowerCase,
         )
       : TextConstants.emptyString;
 
@@ -61,7 +67,11 @@ String getPlatonicAndRomanticRelationshipLabelFromEnum({
   if (romanticRelationshipTypeEnum != RomanticRelationshipType.none) {
     //check if we need to put a separator
     if (stringBuffer.isNotEmpty) {
-      stringBuffer.write(RelationshipConstants.relationshipLabelSeparator);
+      stringBuffer.write(
+        (spacedRelationshipLabelSeparator)
+            ? RelationshipConstants.spacedRelationshipLabelSeparator
+            : RelationshipConstants.relationshipLabelSeparator,
+      );
     }
 
     //add label

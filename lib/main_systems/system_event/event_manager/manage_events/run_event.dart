@@ -15,47 +15,44 @@ class RunEvent {
     required BuildContext context,
   }) async {
     final eventTypeEnum = convertEventTypeStringToEnum(event.eventType);
-    switch (eventTypeEnum) {
-      case EventType.birthday:
-        return _scheduledEvents.birthdayEvent.execute(
-          mainPlayerID,
-          event,
-        );
+    if (eventTypeEnum != null) {
+      switch (eventTypeEnum) {
+        //NON-attendable events
+        case EventType.birthday:
+          return _scheduledEvents.birthdayEvent.execute(
+            mainPlayerID,
+            event,
+          );
+        case EventType.death:
+          return _scheduledEvents.deathEvent.execute(
+            context: context,
+            deathEvent: event,
+            mainPlayerID: mainPlayerID,
+          );
+        case EventType.schoolAdmission:
+          break;
+        case EventType.engagement:
+          break;
+        case EventType.employment:
+          break;
+        case EventType.askForSchoolTuition:
+          break;
 
-      case EventType.birthdayParty:
-        return _scheduledEvents.birthdayPartyEvent.execute(
-          context: context,
-          birthdayEvent: event,
-          mainPlayerID: mainPlayerID,
-        );
+        //
+        //Attendable events
+        case EventType.birthdayParty:
+        case EventType.funeral:
+          return _scheduledEvents.attendEvent.execute(
+            context: context,
+            event: event,
+            mainPlayerID: mainPlayerID,
+          );
 
-      case EventType.death:
-        return _scheduledEvents.deathEvent.execute(
-          context: context,
-          deathEvent: event,
-          mainPlayerID: mainPlayerID,
-        );
-
-      case EventType.funeral:
-        return _scheduledEvents.funeralEvent.execute(
-          context: context,
-          funeralEvent: event,
-          mainPlayerID: mainPlayerID,
-        );
-
-      case EventType.schoolAdmission:
-        break;
-      case EventType.engagement:
-        break;
-      case EventType.wedding:
-        break;
-      case EventType.graduation:
-        break;
-      case EventType.employment:
-        break;
-      default:
-        //do nothing for now
-        break;
+        case EventType.wedding:
+          break;
+        case EventType.graduation:
+          break;
+      }
     }
   }
 }

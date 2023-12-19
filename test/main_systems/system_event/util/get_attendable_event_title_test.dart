@@ -10,7 +10,6 @@ void main() {
       eventType: "birthday",
       eventDay: 34,
       mainPersonId: 2,
-      relationshipToMainPlayer: "friend",
       journalEntryOnly: false,
       performed: false,
       startTime: null,
@@ -20,8 +19,8 @@ void main() {
     const person = Person(
       id: 1,
       gameId: 2,
-      firstName: "Ify",
-      lastName: "Eze",
+      firstName: "John",
+      lastName: "Doe",
       dayOfBirth: 21,
       gender: "",
       subjectPronoun: "",
@@ -52,7 +51,7 @@ void main() {
             eventMainPerson: person,
             event: event,
           ),
-          "Ify's Birthday",
+          "John's Birthday",
         );
       },
     );
@@ -67,7 +66,7 @@ void main() {
               eventType: "wrong",
             ),
           ),
-          "Ify's -",
+          "John's -",
         );
       },
     );

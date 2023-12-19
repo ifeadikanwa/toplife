@@ -15,7 +15,7 @@ void main() {
         isCoParent: false,
       );
 
-      expect(result, "Girlfriend");
+      expect(result, "girlfriend");
     });
     test('given an active romance that is coparent we get the correct result:',
         () {
@@ -24,6 +24,20 @@ void main() {
         genderString: Gender.Female.name,
         activeRomance: true,
         isCoParent: true,
+      );
+
+      expect(result, "girlfriend");
+    });
+
+    test(
+        'given an active romance that is coparent WITH request for Not lowercase we get the correct result:',
+        () {
+      final result = getRomanticRelationshipLabelFromEnum(
+        romanticRelationshipType: RomanticRelationshipType.dating,
+        genderString: Gender.Female.name,
+        activeRomance: true,
+        isCoParent: true,
+        toLowerCase: false,
       );
 
       expect(result, "Girlfriend");
@@ -39,7 +53,7 @@ void main() {
         isCoParent: false,
       );
 
-      expect(result, "Ex-wife");
+      expect(result, "ex-wife");
     });
 
     test(
@@ -52,7 +66,7 @@ void main() {
         isCoParent: true,
       );
 
-      expect(result, "Ex-wife");
+      expect(result, "ex-wife");
     });
 
     test(
@@ -65,7 +79,7 @@ void main() {
         isCoParent: false,
       );
 
-      expect(result, "Fling");
+      expect(result, "fling");
     });
 
     test(
@@ -78,7 +92,7 @@ void main() {
         isCoParent: true,
       );
 
-      expect(result, "Baby mama");
+      expect(result, "baby mama");
     });
 
     test(
@@ -91,7 +105,7 @@ void main() {
         isCoParent: true,
       );
 
-      expect(result, "Baby mama");
+      expect(result, "baby mama");
     });
 
     test(
@@ -104,7 +118,7 @@ void main() {
         isCoParent: false,
       );
 
-      expect(result, "Fling");
+      expect(result, "fling");
     });
   });
 }

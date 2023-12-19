@@ -7,6 +7,7 @@ String getRomanticRelationshipLabelFromEnum({
   required String genderString,
   required bool activeRomance,
   required bool isCoParent,
+  bool toLowerCase = true,
 }) {
   final StringBuffer labelStringBuffer = StringBuffer();
 
@@ -34,9 +35,11 @@ String getRomanticRelationshipLabelFromEnum({
   );
 
   //add the main label,
-  //lowercase if there is already something in the buffer
+  //lowercase if there is already something in the buffer (Ex)
   labelStringBuffer
       .write((labelStringBuffer.isEmpty) ? mainLabel : mainLabel.toLowerCase());
 
-  return labelStringBuffer.toString();
+  return (toLowerCase)
+      ? labelStringBuffer.toString().toLowerCase()
+      : labelStringBuffer.toString();
 }

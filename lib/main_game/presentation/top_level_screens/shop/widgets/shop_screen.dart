@@ -226,6 +226,17 @@ class ShopScreen extends ConsumerWidget {
                 //     .execute(person);
 
                 (await PersonDaoImpl(db).createPerson(person));
+                // await GameDaoImpl(db).createGame(
+                //   Game(
+                //     id: 0,
+                //     currentPlayerID: 1,
+                //     isActive: true,
+                //     lastPlayedTime: DateTime.now().microsecondsSinceEpoch,
+                //     currentDay: 90,
+                //     currentTimeInMinutes: 480,
+                //     generation: 1,
+                //   ),
+                // );
                 // (BabyTraitsDaoImpl(db).watchBabyTraits(1).listen((event) {
                 //   print(event);
 
@@ -245,9 +256,9 @@ class ShopScreen extends ConsumerWidget {
                 //     .watch(personUsecasesProvider)
                 //     .generateListOfPersonUsecase
                 //     .execute(
-                //       numberOfPerson: 50,
+                //       numberOfPerson: 60,
                 //       currentGameID: 1,
-                //       currentDay: 1,
+                //       currentDay: 90,
                 //       lastName: null,
                 //       parentBirthCountryString: null,
                 //       currentCountry: "Canada",
@@ -272,21 +283,26 @@ class ShopScreen extends ConsumerWidget {
                 //   ),
                 // );
                 // final Relationship relationship = Relationship(
-                //   firstPersonId: 3,
-                //   secondPersonId: 2,
+                //   firstPersonId: 2,
+                //   secondPersonId: 3,
                 //   platonicRelationshipType:
                 //       getDbFormattedPlatonicRelationshipTypeString(
-                //     PlatonicRelationshipType.adoptiveSibling,
+                //     PlatonicRelationshipType.friend,
                 //   ),
-                //   romanticRelationshipType: RomanticRelationshipType.none.name,
+                //   romanticRelationshipType:
+                //       RomanticRelationshipType.married.name,
                 //   interestedInRelationship: true,
-                //   level: 120,
-                //   activeRomance: false,
+                //   level: (1 * Random().nextInt(100)).toInt(),
+                //   activeRomance: true,
                 //   previousFamilialRelationship:
                 //       getDbFormattedPlatonicRelationshipTypeString(
-                //     PlatonicRelationshipType.cousin,
+                //     PlatonicRelationshipType.parentInLaw,
                 //   ),
                 //   isCoParent: false,
+                //   jointMoney: 0,
+                //   romanceCumulativeDuration: 0,
+                //   romanceStartDay: 20,
+                //   romanceEndDay: 0,
                 //   // romanticRelationshipInfoId: 1,
                 // );
 
@@ -419,6 +435,74 @@ class ShopScreen extends ConsumerWidget {
                 //       firstPersonID: 3,
                 //       secondPersonID: 2,
                 //     );
+
+                // await EventDaoImpl(db).updateEvent(
+                //   Event(
+                //     id: 10,
+                //     gameId: 1,
+                //     eventType: EventType.death.name,
+                //     eventDay: 90,
+                //     mainPersonId: 7,
+                //     journalEntryOnly: false,
+                //     performed: false,
+                //     startTime: 500,
+                //     endTime: 640,
+                //   ),
+                // );
+                // if (context.mounted) {
+                //   await ref.watch(eventManagerProvider).runEvent.execute(
+                //         mainPlayerID: 1,
+                //         event: (await EventDaoImpl(db).getEvent(10))!,
+                //         context: context,
+                //       );
+                // }
+
+                // final result = await TormentDialog.show(
+                //   context: context,
+                //   personRelationshipPair: PersonRelationshipPair(
+                //       person: (await PersonDaoImpl(db).getPerson(2))!,
+                //       relationship: (await RelationshipDaoImpl(db)
+                //           .getRelationship(1, 2))!),
+                //   relationshipLabel: "Brother/Cousin",
+                // );
+
+                // await AttendEventDialog.show(
+                //   context: context,
+                //   event: (await EventDaoImpl(db).getEvent(1))!,
+                //   mainPlayerID: 1,
+                //   eventMainPerson: (await PersonDaoImpl(db).getPerson(2))!,
+                //   eventTitle: "eventTitle",
+                //   secondPersonEventDescription: "secondPersonEventDescription",
+                //   relationshipLabel: "relationshipLabel",
+                //   isParty: true,
+                // );
+
+                // final result = await ref
+                //     .watch(eventSchedulersProvider)
+                //     .scheduleFuneral
+                //     .execute(
+                //       gameID: 1,
+                //       mainPlayerID: 1,
+                //       deadPersonID: 2,
+                //       currentDay: 10,
+                //       chosenDaysFromCurrentDayForTheEvent: 8,
+                //       eventStartTime: 480,
+                //     );
+
+                // print("*******RESULT: $result");
+
+                // final result = await ref
+                //     .watch(relationshipUsecasesProvider)
+                //     .startRomanticRelationshipAndReturnUpdatedObjectUsecase
+                //     .execute(
+                //       firstPersonId: 1,
+                //       secondPersonId: 6,
+                //       currentDay: 68,
+                //       romanticRelationshipType:
+                //           RomanticRelationshipType.engaged,
+                //     );
+
+                // print("*******RESULT: $result");
               },
               child: const Text("Run"),
             ),

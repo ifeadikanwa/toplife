@@ -86,17 +86,12 @@ class ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase {
         }
 
         //create a relationship
-        final Relationship relationship = Relationship(
+        final Relationship relationship =
+            RelationshipConstants.relationshipTemplate.copyWith(
           firstPersonId: playerPersonID,
           secondPersonId: childPersonID,
           platonicRelationshipType: platonicRelationshipTypeBuffer.toString(),
           romanticRelationshipType: RomanticRelationshipType.none.name,
-          previousFamilialRelationship:
-              RelationshipConstants.defaultPreviousFamilialRelationship,
-          interestedInRelationship: true,
-          level: RelationshipConstants.defaultRelationshipLevel,
-          activeRomance: false,
-          isCoParent: false,
         );
 
         //we're only adding familial relationships here so override both platonic & romantic relationship if for some reason the relationship already exists

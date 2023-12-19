@@ -2,7 +2,8 @@ import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
+import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class TakeMoneyFromPlayerUsecase {
@@ -41,18 +42,16 @@ class TakeMoneyFromPlayerUsecase {
       }
 
       //check if player is married
-      final currentPartner = await _relationshipUsecases.getCurrentPartnerUsecase
-          .execute(mainPlayerID);
+      final currentMarriageRelationship = await _relationshipUsecases
+          .getMarriagePartnerRelationshipUsecase
+          .execute(personID: mainPlayerID);
 
       //player is married
-      if (currentPartner != null &&
-          currentPartner.partnerRelationshipType ==
-              PartnerRelationshipType.married.name) {
+      if (currentMarriageRelationship != null) {
         return takeMoneyFromMarriedPlayer(
-         
           mainPlayerPerson: mainPlayerPerson,
           amountToTake: finalAmountToTake,
-          currentPartner: currentPartner,
+          relationship: currentMarriageRelationship,
         );
       }
       //player is not married
@@ -69,20 +68,27 @@ class TakeMoneyFromPlayerUsecase {
   }
 
   Future<bool> takeMoneyFromMarriedPlayer({
-   
     required Person mainPlayerPerson,
     required int amountToTake,
-    required Partner currentPartner,
+    required Relationship relationship,
   }) async {
-    final partnerPerson =
-        await _personRepositories.personRepositoryImpl.getPerson(
-      currentPartner.partnerId,
+    final int spouseID = getUnkownIdFromPersonIdPair(
+      personIdPair: PersonIdPair(
+        firstId: relationship.firstPersonId,
+        secondId: relationship.secondPersonId,
+      ),
+      knownId: mainPlayerPerson.id,
     );
 
-    if (partnerPerson != null) {
+    final spousePerson =
+        await _personRepositories.personRepositoryImpl.getPerson(
+      spouseID,
+    );
+
+    if (spousePerson != null) {
       final int playerAccount = mainPlayerPerson.money;
-      final int partnerAccount = partnerPerson.money;
-      final int jointAccount = currentPartner.jointMoney;
+      final int partnerAccount = spousePerson.money;
+      final int jointAccount = relationship.jointMoney;
 
       //if they can afford it
       if ((playerAccount + partnerAccount + jointAccount) >= amountToTake) {
@@ -90,8 +96,8 @@ class TakeMoneyFromPlayerUsecase {
 
         if (jointAccount >= amountRemaining) {
           //joint account has enough money
-          await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
-            currentPartner.copyWith(
+          await _relationshipUsecases.updateRelationshipUsecase.execute(
+            relationship: relationship.copyWith(
               jointMoney: (jointAccount - amountRemaining),
             ),
           );
@@ -100,8 +106,8 @@ class TakeMoneyFromPlayerUsecase {
         //joint account doesnt have enough money
         else {
           //take whatever is in joint account
-          await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
-            currentPartner.copyWith(
+          await _relationshipUsecases.updateRelationshipUsecase.execute(
+            relationship: relationship.copyWith(
               jointMoney: 0,
             ),
           );
@@ -122,7 +128,7 @@ class TakeMoneyFromPlayerUsecase {
             amountRemaining = amountRemaining - (amountRemaining / 2).ceil();
 
             await _personRepositories.personRepositoryImpl.updatePerson(
-              partnerPerson.copyWith(
+              spousePerson.copyWith(
                 money: (partnerAccount - amountRemaining),
               ),
             );
@@ -142,7 +148,7 @@ class TakeMoneyFromPlayerUsecase {
             amountRemaining = amountRemaining - playerAccount;
 
             await _personRepositories.personRepositoryImpl.updatePerson(
-              partnerPerson.copyWith(
+              spousePerson.copyWith(
                 money: (partnerAccount - amountRemaining),
               ),
             );
@@ -153,7 +159,7 @@ class TakeMoneyFromPlayerUsecase {
           else {
             //take whatever the partner has
             await _personRepositories.personRepositoryImpl.updatePerson(
-              partnerPerson.copyWith(
+              spousePerson.copyWith(
                 money: 0,
               ),
             );

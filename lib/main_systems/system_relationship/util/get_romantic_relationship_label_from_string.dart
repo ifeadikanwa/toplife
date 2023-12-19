@@ -8,6 +8,7 @@ String getRomanticRelationshipLabelFromString({
   required String genderString,
   required bool activeRomance,
   required bool isCoParent,
+  bool toLowerCase = true,
 }) {
   //convert string to enum
   final RomanticRelationshipType? romanticRelationshipTypeEnum =
@@ -21,6 +22,7 @@ String getRomanticRelationshipLabelFromString({
           genderString: genderString,
           activeRomance: activeRomance,
           isCoParent: isCoParent,
+          toLowerCase: toLowerCase,
         )
       : TextConstants.emptyString;
 }

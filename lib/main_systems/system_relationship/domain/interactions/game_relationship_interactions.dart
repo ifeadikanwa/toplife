@@ -21,25 +21,21 @@ class GameRelationshipInteractions {
   ChatInteraction get chatInteraction => ChatInteraction(
         _ref.read(relationshipUsecasesProvider),
         _ref.read(journalUsecasesProvider),
-        _ref.read(personUsecasesProvider),
       );
 
   ComplimentInteraction get complimentInteraction => ComplimentInteraction(
         _ref.read(relationshipUsecasesProvider),
         _ref.read(journalUsecasesProvider),
-        _ref.read(personUsecasesProvider),
       );
 
   TormentInteraction get tormentInteraction => TormentInteraction(
         _ref.read(relationshipUsecasesProvider),
         _ref.read(journalUsecasesProvider),
-        _ref.read(personUsecasesProvider),
       );
 
   SendFoodInteraction get sendFoodInteraction => SendFoodInteraction(
         _ref.read(relationshipUsecasesProvider),
         _ref.read(journalUsecasesProvider),
-        _ref.read(personUsecasesProvider),
         _ref.read(shopAndStorageUsecasesProvider),
       );
 

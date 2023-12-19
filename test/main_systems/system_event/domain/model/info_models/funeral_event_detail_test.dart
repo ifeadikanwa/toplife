@@ -11,15 +11,18 @@ void main() {
         const originalDetail = FuneralEventDetail(
           funeralType: FuneralType.Burial,
           funeralStartTime: 200,
+          funeralChosenDaysFromCurrentDay: 7,
         );
 
         expect(
           originalDetail.copyWith(
             funeralType: FuneralType.Cremation,
+            funeralChosenDaysFromCurrentDay: 2,
           ),
           const FuneralEventDetail(
             funeralType: FuneralType.Cremation,
             funeralStartTime: 200,
+            funeralChosenDaysFromCurrentDay: 2,
           ),
         );
       },
@@ -34,6 +37,16 @@ void main() {
             ...EventUtil.morningEventStartTimes,
             ...EventUtil.afternoonEventStartTimes,
           ],
+        );
+      },
+    );
+
+    test(
+      "possibleFuneralDaysFromCurrentDay contain 1 - 10",
+      () {
+        expect(
+          FuneralEventDetail.possibleFuneralDaysFromCurrentDay,
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         );
       },
     );

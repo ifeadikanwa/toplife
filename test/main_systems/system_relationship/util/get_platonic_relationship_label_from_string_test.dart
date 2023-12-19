@@ -28,7 +28,7 @@ void main() {
         () {
       const Gender chosenGender = Gender.Female;
 
-      const String correctLabel = "Birth daughter";
+      const String correctLabel = "birth daughter";
 
       expect(
         getPlatonicRelationshipLabelFromString(
@@ -47,7 +47,7 @@ void main() {
         () {
       const Gender chosenGender = Gender.Female;
 
-      const String correctLabel = "Adoptive daughter, formerly Niece";
+      const String correctLabel = "adoptive daughter, formerly niece";
 
       expect(
         getPlatonicRelationshipLabelFromString(
@@ -58,6 +58,31 @@ void main() {
           previousFamilialRelationshipString:
               getDbFormattedPlatonicRelationshipTypeString(
                   PlatonicRelationshipType.nibling),
+        ),
+        correctLabel,
+      );
+    });
+
+    test(
+        "given an valid platonic relationship type string WITH request for Not lowercase and spaced relationship separator, and valid previous relationship, we get the correct string",
+        () {
+      const Gender chosenGender = Gender.Female;
+
+      const String correctLabel = "Step-cousin / Adoptive daughter, formerly Niece";
+
+      expect(
+        getPlatonicRelationshipLabelFromString(
+          platonicRelationshipTypeString:
+              getDbFormattedPlatonicRelationshipTypeString(
+                      PlatonicRelationshipType.stepCousin) +
+                  getDbFormattedPlatonicRelationshipTypeString(
+                      PlatonicRelationshipType.adoptiveChild),
+          genderString: chosenGender.name,
+          previousFamilialRelationshipString:
+              getDbFormattedPlatonicRelationshipTypeString(
+                  PlatonicRelationshipType.nibling),
+          toLowerCase: false,
+          spacedRelationshipLabelSeparator: true,
         ),
         correctLabel,
       );

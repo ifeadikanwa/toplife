@@ -30,6 +30,16 @@ class ReusableTestObjects {
     dead: false,
   );
 
+  static const testGame = Game(
+        id: 0,
+        currentPlayerID: 1,
+        isActive: true,
+        lastPlayedTime: 0,
+        currentDay: 0,
+        currentTimeInMinutes: 0,
+        generation: 0,
+      );
+
   static const Relationship testRelationship = Relationship(
     firstPersonId: 0,
     secondPersonId: 0,
@@ -40,6 +50,10 @@ class ReusableTestObjects {
     level: 100,
     activeRomance: false,
     isCoParent: false,
+    romanceCumulativeDuration: 0,
+    romanceEndDay: 0,
+    romanceStartDay: 0,
+    jointMoney: 0,
   );
 
   static const PersonRelationshipPair testPersonRelationshipPair =

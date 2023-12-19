@@ -22,5 +22,31 @@ void main() {
       final bool result = StanceUtils.getValidStanceValue();
       assert(result == true || result == false);
     });
+
+    group("Get valid random days to date before marriage value:", () {
+      test(
+          "minimum days to date before marriage is 5",
+          () => expect(
+                StanceUtils.minDaysBeforeMarriage,
+                5,
+              ));
+
+      test(
+          "maximum days to date before marriage is 50",
+          () => expect(
+                StanceUtils.maxDaysBeforeMarriage,
+                50,
+              ));
+
+      test(
+          "value returned is withing the range 5 - 50",
+          () => expect(
+                StanceUtils.getValidRandomDaysToDateBeforeMarriageValue(),
+                inClosedOpenRange(
+                  5,
+                  50,
+                ),
+              ));
+    });
   });
 }

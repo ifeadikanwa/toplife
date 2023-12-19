@@ -13,6 +13,9 @@ class StanceTable extends Table {
         onUpdate: KeyAction.cascade,
         onDelete: KeyAction.cascade,
       )();
+
+  //number of days they want to date for before accepting a proposal
+  IntColumn get daysToDateBeforeMarriage => integer()();
   BoolColumn get openToAdoption => boolean()();
   BoolColumn get openToMarriage => boolean()();
   BoolColumn get openToSexWorkerPartner => boolean()();
@@ -36,7 +39,7 @@ class StanceTable extends Table {
   BoolColumn get openToHavingMultipleCoparents => boolean()();
   BoolColumn get openToCheating => boolean()();
 
-  //  
+  //
   //A gay person that is not open to gay people will be agree to a sexual relationship but not an exclusive relationship
   //That means they might have sex with other gay people but they will never date or marry a gay person unless they change their stance.
   //These are the people that end up in a fake straight relationship.

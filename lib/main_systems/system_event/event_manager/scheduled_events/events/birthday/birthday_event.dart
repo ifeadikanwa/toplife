@@ -50,7 +50,6 @@ class BirthdayEvent {
       await _eventScheduler.scheduleNextBirthday.execute(
         gameID: event.gameId,
         mainPersonID: event.mainPersonId,
-        relationshipToMainPlayer: event.relationshipToMainPlayer,
         dayOfBirth: birthdayPerson.dayOfBirth,
         currentDay: event.eventDay,
       );
@@ -84,8 +83,6 @@ class BirthdayEvent {
     else {
       return await NpcBirthday(
         _relationshipUsecases,
-        _personUsecases,
-        _ageUsecases,
         _eventScheduler,
       ).run(
         mainPlayerID,

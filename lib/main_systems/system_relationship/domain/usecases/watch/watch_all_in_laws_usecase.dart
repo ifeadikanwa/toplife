@@ -4,7 +4,7 @@ import 'package:toplife/main_systems/system_relationship/domain/repository/relat
 class WatchAllInLawsUsecase {
   final RelationshipRepository _relationshipRepository;
 
-  WatchAllInLawsUsecase(this._relationshipRepository);
+  const WatchAllInLawsUsecase(this._relationshipRepository);
 
   Stream<List<Relationship>> execute({required int personID}) {
     return _relationshipRepository.watchAllInLawsOf(personID);

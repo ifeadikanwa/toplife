@@ -23,6 +23,20 @@ void main() {
         genderString: Gender.Female.name,
       );
 
+      expect(result, ", formerly distant relative");
+    });
+
+    test(
+        'given an valid relatonship string with request for Not lowercase, we get the correct result',
+        () {
+      final result = getPreviousFamilialRelationshipLabelFromString(
+        previousFamilialRelationshipString:
+            getDbFormattedPlatonicRelationshipTypeString(
+                PlatonicRelationshipType.distantRelative),
+        genderString: Gender.Female.name,
+        toLowerCase: false,
+      );
+
       expect(result, ", formerly Distant relative");
     });
   });

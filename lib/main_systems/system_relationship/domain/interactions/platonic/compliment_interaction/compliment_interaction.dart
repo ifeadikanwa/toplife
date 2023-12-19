@@ -8,22 +8,18 @@ import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
 import 'package:toplife/core/utils/words/sentence_pair.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/platonic/compliment_interaction/compliment_generator.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_interaction.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class ComplimentInteraction extends RelationshipInteraction {
   final RelationshipUsecases _relationshipUsecases;
   final JournalUsecases _journalUsecases;
-  final PersonUsecases _personUsecases;
 
   ComplimentInteraction(
     this._relationshipUsecases,
     this._journalUsecases,
-    this._personUsecases,
   );
 
   @override
@@ -53,9 +49,8 @@ class ComplimentInteraction extends RelationshipInteraction {
     required BuildContext context,
     required Game currentGame,
     required Person currentPlayer,
-    required RelationshipPair relationshipPair,
+    required PersonRelationshipPair personRelationshipPair,
     required String relationshipLabel,
-    required InformalRelationshipType informalRelationshipType,
   }) async {
     //compliment:
     //check if the relationship person is interested in a relationship
@@ -65,7 +60,9 @@ class ComplimentInteraction extends RelationshipInteraction {
     //return a result dialog
 
     //get relationship person
-    final Person relationshipPerson = relationshipPair.person;
+    final Person relationshipPerson = personRelationshipPair.person;
+    //get relationship
+    final Relationship relationship = personRelationshipPair.relationship;
 
     //GET RELATIONSHIP CHANGE
     late final int relationshipChange;
@@ -73,11 +70,8 @@ class ComplimentInteraction extends RelationshipInteraction {
     //get a random number btw 1 - 10
     final int randomNumber = Random().nextInt(10) + 1;
 
-    final bool personIsInterestedInRelationship = _relationshipUsecases
-        .checkIfPersonIsInterestedInRelationshipUsecase
-        .execute(
-      relationshipPair: relationshipPair,
-    );
+    final bool personIsInterestedInRelationship =
+        relationship.interestedInRelationship;
 
     //if person is interested
     if (personIsInterestedInRelationship) {
@@ -103,13 +97,10 @@ class ComplimentInteraction extends RelationshipInteraction {
     );
 
     //UPDATE EVERYTHING NECESSARY
-
-    //update relationship with change
-    await _relationshipUsecases.updateAnyRelationshipAmountUsecase.execute(
-      personUsecases: _personUsecases,
-      mainPersonID: currentGame.currentPlayerID,
-      relationshipPersonID: relationshipPerson.id,
-      relationshipToMainPerson: informalRelationshipType.name,
+    //update relationship level
+    await _relationshipUsecases.updateRelationshipLevelUsecase.execute(
+      firstPersonID: relationship.firstPersonId,
+      secondPersonID: relationship.secondPersonId,
       change: relationshipChange,
     );
 

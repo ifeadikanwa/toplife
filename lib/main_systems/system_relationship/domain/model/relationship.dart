@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/romantic_relationship_info.dart';
 
 @DataClassName("Relationship")
 class RelationshipTable extends Table {
@@ -34,18 +33,22 @@ class RelationshipTable extends Table {
 
   IntColumn get level => integer()();
 
-  IntColumn get romanticRelationshipInfoId => integer().nullable().references(
-        RomanticRelationshipInfoTable,
-        #id,
-        onUpdate: KeyAction.cascade,
-        onDelete: KeyAction.setNull,
-      )();
-
+  //Romantic:
   //is romantic relationship active
   BoolColumn get activeRomance => boolean()();
-  
+
   //do they have at least one child together
   BoolColumn get isCoParent => boolean()();
+
+  IntColumn get romanceStartDay => integer()();
+
+  IntColumn get romanceEndDay => integer()();
+
+  //everytime a relationship ENDS, we have to add the duration to this cumulative duration.
+  //so we have a source for the total length of all romantic relationships that might have happened at any time
+  IntColumn get romanceCumulativeDuration => integer()();
+
+  IntColumn get jointMoney => integer()();
 
   @override
   Set<Column<Object>>? get primaryKey => {

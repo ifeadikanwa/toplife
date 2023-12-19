@@ -87,6 +87,8 @@ class RelationshipListItem extends ConsumerWidget {
                   .relationship.previousFamilialRelationship,
               isCoParent: personRelationshipPair.relationship.isCoParent,
               activeRomance: personRelationshipPair.relationship.activeRomance,
+              toLowerCase: false,
+              spacedRelationshipLabelSeparator: true,
             ),
             name: getFullNameString(
               firstName: personRelationshipPair.person.firstName,

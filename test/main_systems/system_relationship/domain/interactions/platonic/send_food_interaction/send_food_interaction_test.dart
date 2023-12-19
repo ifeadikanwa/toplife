@@ -16,7 +16,6 @@ void main() {
       sendFoodInteraction = SendFoodInteraction(
         MockRelationshipUsecases(),
         MockJournalUsecases(),
-        MockPersonUsecases(),
         MockShopAndStorageUsecases(),
       );
       testPerson = const Person(

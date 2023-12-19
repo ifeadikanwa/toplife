@@ -16,12 +16,26 @@ void main() {
       expect(result, "");
     });
 
-      test('given an valid relationship string, we ge the correct result', () {
+    test('given an valid relationship string, we ge the correct result', () {
       final result = getRomanticRelationshipLabelFromString(
         romanticRelationshipTypeString: RomanticRelationshipType.engaged.name,
         genderString: Gender.Female.name,
         activeRomance: true,
         isCoParent: false,
+      );
+
+      expect(result, "fiancée");
+    });
+
+    test(
+        'given an valid relationship string WITH a request for Not lowercase, we ge the correct result',
+        () {
+      final result = getRomanticRelationshipLabelFromString(
+        romanticRelationshipTypeString: RomanticRelationshipType.engaged.name,
+        genderString: Gender.Female.name,
+        activeRomance: true,
+        isCoParent: false,
+        toLowerCase: false,
       );
 
       expect(result, "Fiancée");

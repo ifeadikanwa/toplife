@@ -8,6 +8,8 @@ String getPlatonicRelationshipLabelFromString({
   required String genderString,
   required String platonicRelationshipTypeString,
   required String previousFamilialRelationshipString,
+  bool toLowerCase = true,
+  bool spacedRelationshipLabelSeparator = false,
 }) {
   //convert strings to enum
   final List<PlatonicRelationshipType>? platonicRelTypesEnums =
@@ -26,6 +28,8 @@ String getPlatonicRelationshipLabelFromString({
           platonicRelationshipTypeList: platonicRelTypesEnums,
           genderString: genderString,
           previousFamilialRelationship: prevFamilialRelationshipTypeEnum,
+          toLowerCase: toLowerCase,
+          spacedRelationshipLabelSeparator: spacedRelationshipLabelSeparator,
         )
       : TextConstants.emptyString;
 }

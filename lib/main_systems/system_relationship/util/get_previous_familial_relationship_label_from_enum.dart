@@ -5,12 +5,14 @@ import 'package:toplife/main_systems/system_relationship/util/get_platonic_relat
 String getPreviousFamilialRelationshipLabelFromEnum({
   required PlatonicRelationshipType previousFamilialRelationshipEnum,
   required String genderString,
+  bool toLowerCase = true,
 }) {
   final String prevRelationshipGenderEquivalentLabel =
       getPlatonicRelationshipTypeGenderEquivalent(
     previousFamilialRelationshipEnum,
     genderString,
   );
-
-  return ", ${TextConstants.formerly.toLowerCase()} $prevRelationshipGenderEquivalentLabel";
+  final String label =
+      ", ${TextConstants.formerly.toLowerCase()} $prevRelationshipGenderEquivalentLabel";
+  return (toLowerCase) ? label.toLowerCase() : label;
 }

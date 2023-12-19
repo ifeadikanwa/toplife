@@ -28,7 +28,6 @@ class EventTable extends Table {
         onUpdate: KeyAction.cascade,
         onDelete: KeyAction.cascade,
       )();
-  TextColumn get relationshipToMainPlayer => text()();
   IntColumn get startTime => integer().nullable()();
   IntColumn get endTime => integer().nullable()();
   BoolColumn get journalEntryOnly => boolean()();

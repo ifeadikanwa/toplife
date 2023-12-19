@@ -3,31 +3,27 @@ import 'package:toplife/core/common_states/dependencies/journal/journal_dependen
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/add_to_family/add_child_to_npc_family_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/any_relationship_pair/get_relationship_level_from_any_given_relationship_pair_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/check/check_if_person_is_in_player_family_lineage_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/check/check_if_person_is_interested_in_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_multiple_relationships_from_person_platonic_relationship_type_pair_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_parent_child_link_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_platonic_relationship_or_grave_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_child_parent_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_new_player_family_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/family/create_sibling_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_familial_relationship_to_player_through_parent_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_relationship_with_family_members_spouse_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_acquaintances_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_active_partners_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_children_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_exes_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_friemds_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_in_laws_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_parents_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_partners_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_past_family_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_relationships_involving_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_relatives_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_siblings_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_all_step_children_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_relationship_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_acquaintances_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_active_partners_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_children_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_exes_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_friemds_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_in_laws_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_parents_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_partners_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_past_family_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_relationships_involving_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_relatives_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_siblings_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_step_children_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_marriage_partner_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_total_romantic_relationship_duration_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_children_additions_to_the_family_from_family_members_spouse_usecase.dart';
@@ -54,30 +50,6 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/get_fam
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_piblings_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_sibling_in_laws_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_siblings_through_deduction_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_child_relationship_pairs_from_children_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_friend_relationship_pairs_from_friends_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_grave_relationship_pairs_from_graves_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_inlaw_relationship_pairs_from_inlaws_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_parent_relationship_pairs_from_parents_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_partner_relationship_pairs_from_partners_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_relative_relationship_pairs_from_relatives_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationship_pairs/get_sibling_relationship_pairs_from_siblings_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationships/get_children_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationships/get_current_partner_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationships/get_friends_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationships/get_piblings_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationships/get_relationship_pair_based_on_type_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_relationships/get_siblings_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_acquaintance_relationship_pair_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/any_relationship_pair/get_any_relationship_pair_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_child_relationship_pair_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_friend_relationship_pair_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_grave_relationship_pair_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_inlaw_relationship_pair_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_parent_relationship_pair_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_partner_relationship_pair_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_relative_relationship_pair_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_specific_relationship_pair/get_sibling_relationship_pair_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_npc_divorce_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_npc_marriage_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_player_divorce_usecase.dart';
@@ -89,22 +61,14 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/rearran
 import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_partners_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_relatives_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_siblings_tab_relationships_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_converters/convert_relationship_to_grave_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_converters/convert_temporary_familial_relationship_to_past_family_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/create_exclusive_romantic_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_all_partner_relationship_not_involving_a_certain_person_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/end_partner_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic/get_married_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/end_all_romantic_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/end_romantic_relationship_and_return_updated_object_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/start_romantic_relationship_and_return_updated_object_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/setup_relationships/setup_new_generation_player_relationships_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_acquaintance_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/any_relationship_pair/update_any_relationship_amount_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_child_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_friend_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_inlaw_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_parent_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_partner_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_relative_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_sibling_relationship_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_relationship_level_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_in_laws_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_childrens_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_exes_usecase.dart';
@@ -118,315 +82,11 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/w
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_relatives_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_siblings_tab_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_marriage_partner_relationship_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_acquaintance_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_child_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_friend_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_grave_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_inlaw_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_parent_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_partner_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_relative_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch_specific_relationship/watch_sibling_usecase.dart';
 
 class RelationshipUsecases {
   final Ref _ref;
 
   const RelationshipUsecases({required Ref ref}) : _ref = ref;
-
-  CreateNewPlayerFamilyUsecase get createNewPlayerFamilyUsecase =>
-      CreateNewPlayerFamilyUsecase(
-        getMarriedUsecase: getMarriedUsecase,
-        createChildParentRelationshipUsecase:
-            createChildParentRelationshipUsecase,
-        createSiblingRelationshipUsecase: createSiblingRelationshipUsecase,
-      );
-
-  CreateChildParentRelationshipUsecase
-      get createChildParentRelationshipUsecase =>
-          CreateChildParentRelationshipUsecase(
-            relationshipRepositories:
-                _ref.read(relationshipRepositoriesProvider),
-          );
-
-  CreateSiblingRelationshipUsecase get createSiblingRelationshipUsecase =>
-      CreateSiblingRelationshipUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  CreateExclusiveRomanticRelationshipUsecase
-      get createExclusiveRomanticRelationshipUsecase =>
-          CreateExclusiveRomanticRelationshipUsecase(
-            relationshipRepositories:
-                _ref.read(relationshipRepositoriesProvider),
-            endAllPartnerRelationshipsNotInvolvingACertainPersonUsecase:
-                endAllPartnerRelationshipsNotInvolvingACertainPersonUsecase,
-          );
-
-  EndAllPartnerRelationshipsNotInvolvingACertainPersonUsecase
-      get endAllPartnerRelationshipsNotInvolvingACertainPersonUsecase =>
-          EndAllPartnerRelationshipsNotInvolvingACertainPersonUsecase(
-            relationshipRepositories:
-                _ref.read(relationshipRepositoriesProvider),
-            endPartnerRelationshipUsecase: endPartnerRelationshipUsecase,
-          );
-
-  EndPartnerRelationshipUsecase get endPartnerRelationshipUsecase =>
-      EndPartnerRelationshipUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  GetMarriedUsecase get getMarriedUsecase => GetMarriedUsecase(
-        createExclusiveRomanticRelationshipUsecase:
-            createExclusiveRomanticRelationshipUsecase,
-      );
-
-  GetCurrentPartnerUsecase get getCurrentPartnerUsecase =>
-      GetCurrentPartnerUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  GetFriendsUsecase get getFriendsUsecase => GetFriendsUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  GetRelationshipPairBasedOnTypeUsecase
-      get getRelationshipPairBasedOnTypeUsecase =>
-          GetRelationshipPairBasedOnTypeUsecase(
-            relationshipRepositories:
-                _ref.read(relationshipRepositoriesProvider),
-          );
-
-  UpdatePartnerRelationshipUsecase get updatePartnerRelationshipUsecase =>
-      UpdatePartnerRelationshipUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  GetSiblingsUsecase get getSiblingsUsecase => GetSiblingsUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  UpdateSiblingRelationshipUsecase get updateSiblingRelationshipUsecase =>
-      UpdateSiblingRelationshipUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  GetPiblingsUsecase get getPiblingsUsecase => GetPiblingsUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  UpdateRelativeRelationshipUsecase get updateRelativeRelationshipUsecase =>
-      UpdateRelativeRelationshipUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  GetChildrenUsecase get getChildrenUsecase => GetChildrenUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  UpdateChildRelationshipUsecase get updateChildRelationshipUsecase =>
-      UpdateChildRelationshipUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  UpdateParentRelationshipUsecase get updateParentRelationshipUsecase =>
-      UpdateParentRelationshipUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  UpdateInLawRelationshipUsecase get updateInLawRelationshipUsecase =>
-      UpdateInLawRelationshipUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  UpdateFriendRelationshipUsecase get updateFriendRelationshipUsecase =>
-      UpdateFriendRelationshipUsecase(
-        relationshipRepositories: _ref.read(relationshipRepositoriesProvider),
-      );
-
-  UpdateAcquaintanceRelationshipUsecase
-      get updateAcquaintanceRelationshipUsecase =>
-          UpdateAcquaintanceRelationshipUsecase(
-            relationshipRepositories:
-                _ref.read(relationshipRepositoriesProvider),
-          );
-
-  UpdateAnyRelationshipAmountUsecase get updateAnyRelationshipAmountUsecase =>
-      UpdateAnyRelationshipAmountUsecase(
-        getRelationshipPairBasedOnTypeUsecase:
-            getRelationshipPairBasedOnTypeUsecase,
-        updateParentRelationshipUsecase: updateParentRelationshipUsecase,
-        updatePartnerRelationshipUsecase: updatePartnerRelationshipUsecase,
-        updateSiblingRelationshipUsecase: updateSiblingRelationshipUsecase,
-        updateChildRelationshipUsecase: updateChildRelationshipUsecase,
-        updateInLawRelationshipUsecase: updateInLawRelationshipUsecase,
-        updateFriendRelationshipUsecase: updateFriendRelationshipUsecase,
-        updateRelativeRelationshipUsecase: updateRelativeRelationshipUsecase,
-        updateAcquaintanceRelationshipUsecase:
-            updateAcquaintanceRelationshipUsecase,
-      );
-
-  GetFriendRelationshipPairsFromFriendsUsecase
-      get getFriendRelationshipPairsFromFriendsUsecase =>
-          GetFriendRelationshipPairsFromFriendsUsecase(
-            _ref.read(personUsecasesProvider),
-          );
-
-  GetSiblingRelationshipPairsFromSiblingsUsecase
-      get getSiblingRelationshipPairsFromSiblingsUsecase =>
-          GetSiblingRelationshipPairsFromSiblingsUsecase(
-            _ref.read(personUsecasesProvider),
-          );
-
-  GetRelativeRelationshipPairsFromRelativesUsecase
-      get getRelativeRelationshipPairsFromRelativesUsecase =>
-          GetRelativeRelationshipPairsFromRelativesUsecase(
-            _ref.read(personUsecasesProvider),
-          );
-
-  GetParentRelationshipPairsFromParentsUsecase
-      get getParentRelationshipPairsFromParentsUsecase =>
-          GetParentRelationshipPairsFromParentsUsecase(
-            _ref.read(personUsecasesProvider),
-          );
-
-  GetPartnerRelationshipPairsFromPartnersUsecase
-      get getPartnerRelationshipPairsFromPartnersUsecase =>
-          GetPartnerRelationshipPairsFromPartnersUsecase(
-            _ref.read(personUsecasesProvider),
-          );
-
-  GetGraveRelationshipPairsFromGravesUsecase
-      get getGraveRelationshipPairsFromGravesUsecase =>
-          GetGraveRelationshipPairsFromGravesUsecase(
-            _ref.read(personUsecasesProvider),
-          );
-
-  GetInLawRelationshipPairsFromInLawsUsecase
-      get getInLawRelationshipPairsFromInLawsUsecase =>
-          GetInLawRelationshipPairsFromInLawsUsecase(
-            _ref.read(personUsecasesProvider),
-          );
-
-  GetChildRelationshipPairsFromChildrenUsecase
-      get getChildRelationshipPairsFromChildrenUsecase =>
-          GetChildRelationshipPairsFromChildrenUsecase(
-            _ref.read(personUsecasesProvider),
-          );
-
-  CheckIfPersonIsInterestedInRelationshipUsecase
-      get checkIfPersonIsInterestedInRelationshipUsecase =>
-          CheckIfPersonIsInterestedInRelationshipUsecase();
-
-  WatchAcquaintanceUsecase get watchAcquaintanceUsecase =>
-      WatchAcquaintanceUsecase(
-        _ref.read(relationshipRepositoriesProvider).acquaintanceRepositoryImpl,
-      );
-
-  WatchChildUsecase get watchChildUsecase => WatchChildUsecase(
-        _ref.read(relationshipRepositoriesProvider).childRepositoryImpl,
-      );
-
-  WatchFriendUsecase get watchFriendUsecase => WatchFriendUsecase(
-        _ref.read(relationshipRepositoriesProvider).friendRepositoryImpl,
-      );
-
-  WatchGraveUsecase get watchGraveUsecase => WatchGraveUsecase(
-        _ref.read(relationshipRepositoriesProvider).graveRepositoryImpl,
-      );
-
-  WatchInLawUsecase get watchInLawUsecase => WatchInLawUsecase(
-        _ref.read(relationshipRepositoriesProvider).inLawRepositoryImpl,
-      );
-
-  WatchParentUsecase get watchParentUsecase => WatchParentUsecase(
-        _ref.read(relationshipRepositoriesProvider).parentRepositoryImpl,
-      );
-
-  WatchPartnerUsecase get watchPartnerUsecase => WatchPartnerUsecase(
-        _ref.read(relationshipRepositoriesProvider).partnerRepositoryImpl,
-      );
-
-  WatchSiblingUsecase get watchSiblingUsecase => WatchSiblingUsecase(
-        _ref.read(relationshipRepositoriesProvider).siblingRepositoryImpl,
-      );
-
-  WatchRelativeUsecase get watchRelativeUsecase => WatchRelativeUsecase(
-        _ref.read(relationshipRepositoriesProvider).relativeRepositoryImpl,
-      );
-
-  GetAcquaintanceRelationshipPairUsecase
-      get getAcquaintanceRelationshipPairUsecase =>
-          GetAcquaintanceRelationshipPairUsecase(
-            _ref.read(personUsecasesProvider),
-            _ref
-                .read(relationshipRepositoriesProvider)
-                .acquaintanceRepositoryImpl,
-          );
-
-  GetChildRelationshipPairUsecase get getChildRelationshipPairUsecase =>
-      GetChildRelationshipPairUsecase(
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipRepositoriesProvider).childRepositoryImpl,
-      );
-
-  GetFriendRelationshipPairUsecase get getFriendRelationshipPairUsecase =>
-      GetFriendRelationshipPairUsecase(
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipRepositoriesProvider).friendRepositoryImpl,
-      );
-
-  GetGraveRelationshipPairUsecase get getGraveRelationshipPairUsecase =>
-      GetGraveRelationshipPairUsecase(
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipRepositoriesProvider).graveRepositoryImpl,
-      );
-
-  GetInLawRelationshipPairUsecase get getInLawRelationshipPairUsecase =>
-      GetInLawRelationshipPairUsecase(
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipRepositoriesProvider).inLawRepositoryImpl,
-      );
-
-  GetParentRelationshipPairUsecase get getParentRelationshipPairUsecase =>
-      GetParentRelationshipPairUsecase(
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipRepositoriesProvider).parentRepositoryImpl,
-      );
-
-  GetPartnerRelationshipPairUsecase get getPartnerRelationshipPairUsecase =>
-      GetPartnerRelationshipPairUsecase(
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipRepositoriesProvider).partnerRepositoryImpl,
-      );
-
-  GetSiblingRelationshipPairUsecase get getSiblingRelationshipPairUsecase =>
-      GetSiblingRelationshipPairUsecase(
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipRepositoriesProvider).siblingRepositoryImpl,
-      );
-
-  GetRelativeRelationshipPairUsecase get getRelativeRelationshipPairUsecase =>
-      GetRelativeRelationshipPairUsecase(
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipRepositoriesProvider).relativeRepositoryImpl,
-      );
-
-  GetAnyRelationshipPairUsecase get getAnyRelationshipPairUsecase =>
-      GetAnyRelationshipPairUsecase(
-        getAcquaintanceRelationshipPairUsecase,
-        getChildRelationshipPairUsecase,
-        getFriendRelationshipPairUsecase,
-        getInLawRelationshipPairUsecase,
-        getParentRelationshipPairUsecase,
-        getPartnerRelationshipPairUsecase,
-        getRelativeRelationshipPairUsecase,
-        getSiblingRelationshipPairUsecase,
-        getGraveRelationshipPairUsecase,
-      );
-
-  GetRelationshipLevelFromAnyGivenRelationshipPairUsecase
-      get getRelationshipLevelFromAnyGivenRelationshipPairUsecase =>
-          GetRelationshipLevelFromAnyGivenRelationshipPairUsecase();
 
   GetChildrenThroughDeductionUsecase get getChildrenThroughDeductionUsecase =>
       GetChildrenThroughDeductionUsecase(
@@ -582,6 +242,26 @@ class RelationshipUsecases {
   CreateRelationshipUsecase get createRelationshipUsecase =>
       CreateRelationshipUsecase(
         _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+      );
+
+  GetRelationshipUsecase get getRelationshipUsecase => GetRelationshipUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+      );
+
+  UpdateRelationshipUsecase get updateRelationshipUsecase =>
+      UpdateRelationshipUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+      );
+
+  UpdateRelationshipLevelUsecase get updateRelationshipLevelUsecase =>
+      UpdateRelationshipLevelUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+      );
+
+  ConvertRelationshipToGraveUsecase get convertRelationshipToGraveUsecase =>
+      ConvertRelationshipToGraveUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).graveRepositoryImpl,
       );
 
   FindPersonsFamilialRelationshipToPlayerThroughParentUsecase
@@ -885,11 +565,7 @@ class RelationshipUsecases {
 
   GetTotalRomanticRelationshipDuration
       get getTotalRomanticRelationshipDuration =>
-          GetTotalRomanticRelationshipDuration(
-            _ref
-                .read(relationshipRepositoriesProvider)
-                .romanticRelationshipInfoRepositoryImpl,
-          );
+          const GetTotalRomanticRelationshipDuration();
 
   EndRomanticRelationshipAndReturnUpdatedObjectUsecase
       get endRomanticRelationshipAndReturnUpdatedObjectUsecase =>
@@ -897,8 +573,23 @@ class RelationshipUsecases {
             _ref
                 .read(relationshipRepositoriesProvider)
                 .relationshipRepositoryImpl,
+          );
+
+  StartRomanticRelationshipAndReturnUpdatedObjectUsecase
+      get startRomanticRelationshipAndReturnUpdatedObjectUsecase =>
+          StartRomanticRelationshipAndReturnUpdatedObjectUsecase(
             _ref
                 .read(relationshipRepositoriesProvider)
-                .romanticRelationshipInfoRepositoryImpl,
+                .relationshipRepositoryImpl,
+            createRelationshipUsecase,
+          );
+
+  EndAllActiveRomanticRelationshipsUsecase
+      get endAllActiveRomanticRelationshipsUsecase =>
+          EndAllActiveRomanticRelationshipsUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            endRomanticRelationshipAndReturnUpdatedObjectUsecase,
           );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
+import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/buy_house_dialog/buy_house_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/rent_house_dialog/rent_house_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item/shop_list_item.dart';
@@ -28,9 +29,9 @@ class HouseListScreen extends StatelessWidget {
           ),
           itemBasePrice: house.basePrice,
           itemImage: "",
-          onTap: () => showDialog(
+          onTap: () => showDismissableDialog(
               context: context,
-              builder: (context) => (house.isForRent)
+              child: (house.isForRent)
                   ? RentHouseDialog(house: house)
                   : BuyHouseDialog(house: house)),
         );

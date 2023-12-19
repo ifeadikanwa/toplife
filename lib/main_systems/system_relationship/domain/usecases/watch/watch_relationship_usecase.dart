@@ -4,7 +4,7 @@ import 'package:toplife/main_systems/system_relationship/domain/repository/relat
 class WatchRelationshipUsecase {
   final RelationshipRepository _relationshipRepository;
 
-  WatchRelationshipUsecase(this._relationshipRepository);
+  const WatchRelationshipUsecase(this._relationshipRepository);
 
   Stream<Relationship?> execute({
     required int firstPersonId,

@@ -9,6 +9,8 @@ class GenerateStanceUsecase {
     return Stance(
       id: DatabaseConstants.dummyId,
       personId: personID,
+      daysToDateBeforeMarriage:
+          StanceUtils.getValidRandomDaysToDateBeforeMarriageValue(),
       openToAdoption: StanceUtils.getValidStanceValue(),
       openToMarriage: StanceUtils.getValidStanceValue(biggerChance: true),
       openToSexWorkerPartner: StanceUtils.getValidStanceValue(),

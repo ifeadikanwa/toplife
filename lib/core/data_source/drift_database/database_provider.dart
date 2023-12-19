@@ -36,30 +36,16 @@ import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 import 'package:toplife/main_systems/system_person/domain/model/tattoo.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/acquaintance_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/child_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/friend_dao_impl.dart';
+
 import 'package:toplife/main_systems/system_relationship/data/dao/grave_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/inlaw_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/data/dao/parent_child_link_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/parent_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/partner_dao_impl.dart';
+
 import 'package:toplife/main_systems/system_relationship/data/dao/relationship_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/relative_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/romantic_relationship_info_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/sibling_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/acquaintance.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/child.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
+
 import 'package:toplife/main_systems/system_relationship/domain/model/grave.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/inlaw.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/parent.dart';
+
 import 'package:toplife/main_systems/system_relationship/domain/model/parent_child_link.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/relationship.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relative.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/romantic_relationship_info.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/sibling.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
 import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
@@ -105,15 +91,7 @@ part 'database_provider.g.dart';
     PiercingTable,
     BabyTraitsTable,
     DeathRecordTable,
-    AcquaintanceTable,
-    ChildTable,
-    FriendTable,
     GraveTable,
-    InLawTable,
-    ParentTable,
-    PartnerTable,
-    RelativeTable,
-    SiblingTable,
     EventTable,
     CarTable,
     CarProblemTable,
@@ -135,7 +113,6 @@ part 'database_provider.g.dart';
     JobRelationshipTable,
     ParentChildLinkTable,
     RelationshipTable,
-    RomanticRelationshipInfoTable,
   ],
   daos: [
     GameDaoImpl,
@@ -149,15 +126,7 @@ part 'database_provider.g.dart';
     PiercingDaoImpl,
     BabyTraitsDaoImpl,
     DeathRecordDaoImpl,
-    AcquaintanceDaoImpl,
-    ChildDaoImpl,
-    FriendDaoImpl,
     GraveDaoImpl,
-    InLawDaoImpl,
-    ParentDaoImpl,
-    PartnerDaoImpl,
-    RelativeDaoImpl,
-    SiblingDaoImpl,
     EventDaoImpl,
     CarDaoImpl,
     CarProblemDaoImpl,
@@ -179,7 +148,6 @@ part 'database_provider.g.dart';
     JobRelationshipDaoImpl,
     ParentChildLinkDaoImpl,
     RelationshipDaoImpl,
-    RomanticRelationshipInfoDaoImpl,
   ],
 )
 class DatabaseProvider extends _$DatabaseProvider {

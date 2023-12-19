@@ -16,7 +16,6 @@ void main() {
       tormentInteraction = TormentInteraction(
         MockRelationshipUsecases(),
         MockJournalUsecases(),
-        MockPersonUsecases(),
       );
       testPerson = const Person(
         id: 0,

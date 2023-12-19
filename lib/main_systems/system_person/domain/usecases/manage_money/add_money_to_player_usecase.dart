@@ -2,7 +2,6 @@ import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
 import 'package:toplife/main_systems/system_person/data/repository/person_repositories.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_relationship/constants/partner_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class AddMoneyToPlayerUsecase {
@@ -26,8 +25,9 @@ class AddMoneyToPlayerUsecase {
       mainPlayerID,
     );
     //get partner
-    final currentPartner = await _relationshipUsecases.getCurrentPartnerUsecase
-        .execute(mainPlayerID);
+    final Relationship? currentMarriageRelationship =
+        await _relationshipUsecases.getMarriagePartnerRelationshipUsecase
+            .execute(personID: mainPlayerID);
 
     //if player is valid
     if (mainPlayerPerson != null) {
@@ -44,12 +44,10 @@ class AddMoneyToPlayerUsecase {
       }
 
       //player is married
-      if (currentPartner != null &&
-          currentPartner.partnerRelationshipType ==
-              PartnerRelationshipType.married.name) {
+      if (currentMarriageRelationship != null) {
         return addMoneyToMarriedPlayer(
           amountToAdd: finalAmountToAdd,
-          currentPartner: currentPartner,
+          relationship: currentMarriageRelationship,
         );
       }
       //player is not married
@@ -64,14 +62,14 @@ class AddMoneyToPlayerUsecase {
 
   Future<void> addMoneyToMarriedPlayer({
     required int amountToAdd,
-    required Partner currentPartner,
+    required Relationship relationship,
   }) async {
     //add to joint account
 
-    final int oldJointMoney = currentPartner.jointMoney;
+    final int oldJointMoney = relationship.jointMoney;
 
-    await _relationshipUsecases.updatePartnerRelationshipUsecase.execute(
-      currentPartner.copyWith(
+    await _relationshipUsecases.updateRelationshipUsecase.execute(
+      relationship: relationship.copyWith(
         jointMoney: (oldJointMoney + amountToAdd),
       ),
     );

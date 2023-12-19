@@ -4,7 +4,7 @@ import 'package:toplife/main_systems/system_relationship/domain/repository/grave
 class WatchAllGravesUsecase {
   final GraveRepository _graveRepository;
 
-  WatchAllGravesUsecase(this._graveRepository);
+  const WatchAllGravesUsecase(this._graveRepository);
 
   Stream<List<Grave>> execute({required int mainPersonID}) {
     return _graveRepository.watchAllGraves(mainPersonID);

@@ -12,7 +12,6 @@ void main() {
       chatInteraction = ChatInteraction(
         MockRelationshipUsecases(),
         MockJournalUsecases(),
-        MockPersonUsecases(),
       );
     });
     test("title is Chat", () {

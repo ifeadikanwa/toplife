@@ -11,11 +11,10 @@ import 'package:toplife/main_systems/system_age/life_stage.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/util/reciever_comment_generator.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_interaction.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class SendMoneyInteraction extends RelationshipInteraction {
@@ -71,33 +70,22 @@ class SendMoneyInteraction extends RelationshipInteraction {
     required BuildContext context,
     required Game currentGame,
     required Person currentPlayer,
-    required RelationshipPair relationshipPair,
+    required PersonRelationshipPair personRelationshipPair,
     required String relationshipLabel,
-    required InformalRelationshipType informalRelationshipType,
   }) async {
-    await SendMoneyDialog.show(
+    //prompt the player for an amount and retrieve it
+    final int? chosenMoneyAmount = await SendMoneyDialog.show(
       context: context,
-      currentGame: currentGame,
-      currentPlayer: currentPlayer,
-      relationshipPair: relationshipPair,
+      personRelationshipPair: personRelationshipPair,
       relationshipLabel: relationshipLabel,
-      informalRelationshipType: informalRelationshipType,
     );
-  }
 
-  Future<void> executeSendChosenMoneyAmount({
-    required BuildContext context,
-    required int chosenMoneyAmount,
-    required Game currentGame,
-    required Person currentPlayer,
-    required RelationshipPair relationshipPair,
-    required String relationshipLabel,
-    required InformalRelationshipType informalRelationshipType,
-  }) async {
-    //check if money is amount is valid
-    if (chosenMoneyAmount > 0) {
+    //if we get a valid amount
+    if (chosenMoneyAmount != null && chosenMoneyAmount > 0) {
       //get relationship person
-      final Person relationshipPerson = relationshipPair.person;
+      final Person relationshipPerson = personRelationshipPair.person;
+      //get relationship
+      final Relationship relationship = personRelationshipPair.relationship;
 
       //get country currency
       final String currency = LocationManager.getCountryCurrency(
@@ -125,11 +113,8 @@ class SendMoneyInteraction extends RelationshipInteraction {
         //get a random number btw 5 - 10
         final int randomNumber = Random().nextInt(6) + 5;
 
-        final bool personIsInterestedInRelationship = _relationshipUsecases
-            .checkIfPersonIsInterestedInRelationshipUsecase
-            .execute(
-          relationshipPair: relationshipPair,
-        );
+        final bool personIsInterestedInRelationship =
+            relationship.interestedInRelationship;
 
         //if person is interested
         if (personIsInterestedInRelationship) {
@@ -165,12 +150,10 @@ class SendMoneyInteraction extends RelationshipInteraction {
           adjustToEconomy: false,
         );
 
-        //update relationship with change
-        await _relationshipUsecases.updateAnyRelationshipAmountUsecase.execute(
-          personUsecases: _personUsecases,
-          mainPersonID: currentGame.currentPlayerID,
-          relationshipPersonID: relationshipPerson.id,
-          relationshipToMainPerson: informalRelationshipType.name,
+        //update relationship level
+        await _relationshipUsecases.updateRelationshipLevelUsecase.execute(
+          firstPersonID: relationship.firstPersonId,
+          secondPersonID: relationship.secondPersonId,
           change: relationshipChange,
         );
 
@@ -199,7 +182,7 @@ class SendMoneyInteraction extends RelationshipInteraction {
           day: currentGame.currentDay,
           mainPlayerID: currentPlayer.id,
           entry:
-              "I tried to send $formattedMoneyString to my $relationshipLabel, ${relationshipPair.person.firstName} but I didn't have that much money.",
+              "I tried to send $formattedMoneyString to my $relationshipLabel, ${personRelationshipPair.person.firstName} but I didn't have that much money.",
         );
 
         //return result

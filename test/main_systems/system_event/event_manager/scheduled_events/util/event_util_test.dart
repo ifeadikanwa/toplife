@@ -1,37 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
-import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 void main() {
   group("Event util:", () {
-    const person = Person(
-      id: 1,
-      gameId: 2,
-      firstName: "Ify",
-      lastName: "Eze",
-      dayOfBirth: 21,
-      gender: "gender",
-      subjectPronoun: "subject",
-      objectPronoun: "object",
-      possessivePronoun: "possessive",
-      sexuality: "sexuality",
-      birthState: "Ontario",
-      birthCountry: "Canada",
-      currentState: "Ontario",
-      currentCountry: "Canada",
-      money: 120,
-      emotionalState: "normal",
-      zodiacSign: "sign",
-      hasDriversLicense: true,
-      transportMode: "bus",
-      drivingMode: "drivingMode",
-      hasFertilityIssues: false,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: false,
-      dead: false,
-    );
-
     test(
       "morning event start times are 9am - 11am",
       () {
@@ -135,32 +106,6 @@ void main() {
             canBeNight: false,
           ),
           isIn(EventUtil.afternoonEventStartTimes),
-        );
-      },
-    );
-
-    test(
-      "check if player can attend returns true if the two countries are the same",
-      () {
-        expect(
-          EventUtil.checkIfPlayerCanAttendEvent(
-            mainPlayerPerson: person.copyWith(currentCountry: "Canada"),
-            eventMainPerson: person.copyWith(currentCountry: "Canada"),
-          ),
-          true,
-        );
-      },
-    );
-
-    test(
-      "check if player can attend returns false if the two countries are NOT the same",
-      () {
-        expect(
-          EventUtil.checkIfPlayerCanAttendEvent(
-            mainPlayerPerson: person.copyWith(currentCountry: "Canada"),
-            eventMainPerson: person.copyWith(currentCountry: "USA"),
-          ),
-          false,
         );
       },
     );

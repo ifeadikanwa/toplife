@@ -6,6 +6,7 @@ import 'package:toplife/main_systems/system_relationship/util/get_previous_famil
 String getPreviousFamilialRelationshipLabelFromString({
   required String previousFamilialRelationshipString,
   required String genderString,
+  bool toLowerCase = true,
 }) {
   final PlatonicRelationshipType? prevFamilialRelationshipEnum =
       getPreviousFamilialRelationshipEnumFromString(
@@ -17,5 +18,6 @@ String getPreviousFamilialRelationshipLabelFromString({
       : getPreviousFamilialRelationshipLabelFromEnum(
           previousFamilialRelationshipEnum: prevFamilialRelationshipEnum,
           genderString: genderString,
+          toLowerCase: toLowerCase,
         );
 }

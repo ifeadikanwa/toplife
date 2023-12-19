@@ -17,7 +17,6 @@ class ScheduleNextBirthday {
   Future<void> execute({
     required int gameID,
     required int mainPersonID,
-    required String relationshipToMainPlayer,
     required int dayOfBirth,
     required int currentDay,
   }) async {
@@ -35,7 +34,6 @@ class ScheduleNextBirthday {
         eventType: EventType.birthday.name,
         eventDay: dayOfNextBirthday,
         mainPersonId: mainPersonID,
-        relationshipToMainPlayer: relationshipToMainPlayer,
         journalEntryOnly: true,
         performed: false,
       );

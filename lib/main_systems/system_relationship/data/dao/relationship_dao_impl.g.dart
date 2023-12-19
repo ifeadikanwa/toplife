@@ -6,8 +6,6 @@ part of 'relationship_dao_impl.dart';
 mixin _$RelationshipDaoImplMixin on DatabaseAccessor<DatabaseProvider> {
   $GameTableTable get gameTable => attachedDatabase.gameTable;
   $PersonTableTable get personTable => attachedDatabase.personTable;
-  $RomanticRelationshipInfoTableTable get romanticRelationshipInfoTable =>
-      attachedDatabase.romanticRelationshipInfoTable;
   $RelationshipTableTable get relationshipTable =>
       attachedDatabase.relationshipTable;
 }

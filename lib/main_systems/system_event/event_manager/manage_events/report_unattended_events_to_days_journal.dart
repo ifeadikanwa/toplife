@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/numbers/get_random_int_in_positive_range.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
@@ -60,12 +59,10 @@ class ReportUnattendedEventsToDaysJournal {
         );
 
         //reduce relationship as a consequence
-        await _relationshipUsecases.updateAnyRelationshipAmountUsecase.execute(
-          personUsecases: _personUsecases,
-          mainPersonID: mainPlayerID,
-          relationshipPersonID: event.mainPersonId,
-          relationshipToMainPerson: event.relationshipToMainPlayer,
-          change: -(Random().nextInt(50)),
+        await _relationshipUsecases.updateRelationshipLevelUsecase.execute(
+          firstPersonID: mainPlayerID,
+          secondPersonID: event.mainPersonId,
+          change: -(getRandomIntInPositiveRange(min: 0, max: 50)),
         );
 
         //this would be a good place to create an issue too.

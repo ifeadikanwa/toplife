@@ -8,15 +8,23 @@ final playerPlannedFuneralDialogViewModelProvider =
 
 class PlayerPlannedFuneralDialogViewModel
     extends StateNotifier<FuneralEventDetail> {
-      
   PlayerPlannedFuneralDialogViewModel()
       : super(FuneralEventDetail(
           funeralType: FuneralType.Burial,
+          funeralChosenDaysFromCurrentDay:
+              FuneralEventDetail.possibleFuneralDaysFromCurrentDay.first,
           funeralStartTime: FuneralEventDetail.possibleFuneralStartTimes.first,
         ));
 
   void updateFuneralType(FuneralType newFuneralType) {
     state = state.copyWith(funeralType: newFuneralType);
+  }
+
+  void updateFuneralChosenDaysFromCurrentDay(
+    int newFuneralChosenDaysFromCurrentDay,
+  ) {
+    state = state.copyWith(
+        funeralChosenDaysFromCurrentDay: newFuneralChosenDaysFromCurrentDay);
   }
 
   void updateFuneralStartTime(int newFuneralStartTime) {

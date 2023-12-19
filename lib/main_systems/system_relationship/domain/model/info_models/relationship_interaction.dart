@@ -2,8 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/constants/informal_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
 
 abstract class RelationshipInteraction extends Equatable {
   abstract final String title;
@@ -23,9 +22,8 @@ abstract class RelationshipInteraction extends Equatable {
     required BuildContext context,
     required Game currentGame,
     required Person currentPlayer,
-    required RelationshipPair relationshipPair,
+    required PersonRelationshipPair personRelationshipPair,
     required String relationshipLabel,
-    required InformalRelationshipType informalRelationshipType,
   });
 
   @override

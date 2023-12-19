@@ -4,7 +4,7 @@ import 'package:toplife/main_systems/system_relationship/domain/repository/relat
 class GetMarriagePartnerRelationshipUsecase {
   final RelationshipRepository _relationshipRepository;
 
-  GetMarriagePartnerRelationshipUsecase(this._relationshipRepository);
+  const GetMarriagePartnerRelationshipUsecase(this._relationshipRepository);
 
   Future<Relationship?> execute({required int personID}) {
     return _relationshipRepository.getMarriagePartnerRelationship(personID);

@@ -20,7 +20,7 @@ void main() {
 
       expect(
         result,
-        "Stepbrother / Ex-boyfriend, formerly Son-in-law",
+        "stepbrother/ex-boyfriend, formerly son-in-law",
       );
     });
 
@@ -38,7 +38,7 @@ void main() {
 
       expect(
         result,
-        "Ex-boyfriend, formerly Son-in-law",
+        "ex-boyfriend, formerly son-in-law",
       );
     });
 
@@ -56,7 +56,7 @@ void main() {
 
       expect(
         result,
-        "Friend, formerly Son-in-law",
+        "friend, formerly son-in-law",
       );
     });
 
@@ -74,7 +74,7 @@ void main() {
 
       expect(
         result,
-        "Step-cousin, formerly Son-in-law",
+        "step-cousin, formerly son-in-law",
       );
     });
 
@@ -90,7 +90,7 @@ void main() {
 
       expect(
         result,
-        "Brother-in-law / Boyfriend",
+        "brother-in-law/boyfriend",
       );
     });
 
@@ -106,7 +106,7 @@ void main() {
 
       expect(
         result,
-        "Husband",
+        "husband",
       );
     });
 
@@ -122,7 +122,7 @@ void main() {
 
       expect(
         result,
-        "Friend",
+        "friend",
       );
     });
 
@@ -138,7 +138,27 @@ void main() {
 
       expect(
         result,
-        "Grandson",
+        "grandson",
+      );
+    });
+
+    test(
+        'given a familial, romantic and previous familial relationship type WITH a request for NOT lowercase and spaced relationship label we get the correct result',
+        () {
+      final result = getPlatonicAndRomanticRelationshipLabelFromEnum(
+        genderString: Gender.Male.name,
+        platonicRelationshipTypesEnum: [PlatonicRelationshipType.stepSibling],
+        romanticRelationshipTypeEnum: RomanticRelationshipType.dating,
+        previousFamilialRelationshipEnum: PlatonicRelationshipType.childInLaw,
+        isCoParent: false,
+        activeRomance: false,
+        toLowerCase: false,
+        spacedRelationshipLabelSeparator: true,
+      );
+
+      expect(
+        result,
+        "Stepbrother / Ex-boyfriend, formerly Son-in-law",
       );
     });
   });

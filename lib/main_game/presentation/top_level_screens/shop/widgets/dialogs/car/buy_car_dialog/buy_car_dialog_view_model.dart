@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/car/car_loan_dialog/car_loan_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/car/tab_screens/new_cars_screen/new_cars_screen_view_model.dart';
@@ -72,9 +73,9 @@ class BuyCarDialogViewModel {
     Car car,
   ) {
     if (_currentPlayerID != null) {
-      showDialog(
+      showDismissableDialog(
         context: context,
-        builder: (context) => CarLoanDialog(
+        child: CarLoanDialog(
           car: car,
           personID: _currentPlayerID!,
         ),

@@ -91,18 +91,13 @@ class CreatePlatonicRelationshipOrGraveUsecase {
       //if there is no existing relationship, create it
       if (relationship == null) {
         //create relationship
-        final Relationship newRelationship = Relationship(
+        final Relationship newRelationship =
+            RelationshipConstants.relationshipTemplate.copyWith(
           firstPersonId: playerPersonID,
           secondPersonId: person.id,
           platonicRelationshipType:
               dbFormattedPlatonicRelationshipTypeBuffer.toString(),
           romanticRelationshipType: RomanticRelationshipType.none.name,
-          previousFamilialRelationship:
-              RelationshipConstants.defaultPreviousFamilialRelationship,
-          interestedInRelationship: true,
-          level: RelationshipConstants.defaultRelationshipLevel,
-          activeRomance: false,
-          isCoParent: false,
         );
 
         //change only the platonic & romantic relationship types if the relationship exists

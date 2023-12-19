@@ -19,7 +19,6 @@ import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_r
 import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_type_gender_equivalent.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_previous_familial_relatonship_enum_from_string.dart';
 
-
 final relationshipActionsScreenViewModelProvider = StateNotifierProvider.family
     .autoDispose<
         RelationshipActionsScreenViewModel,
@@ -132,15 +131,13 @@ class RelationshipActionsScreenViewModel
       );
 
       //set romantic rel duration
-      if (relationship.romanticRelationshipInfoId != null) {
-        _romanticRelationshipDuration = await _relationshipUsecases
-            .getTotalRomanticRelationshipDuration
-            .execute(
-          romanticRelationshipInfoID: relationship.romanticRelationshipInfoId!,
-          currentDay: _currentGame!.currentDay,
-          activeRomance: relationship.activeRomance,
-        );
-      }
+
+      _romanticRelationshipDuration = _relationshipUsecases
+          .getTotalRomanticRelationshipDuration
+          .execute(
+        currentDay: _currentGame!.currentDay,
+        relationship: relationship,
+      );
 
       //get interactions
       final interactions = _gameRelationshipInteractions.all;

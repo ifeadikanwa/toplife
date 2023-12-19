@@ -5,13 +5,11 @@ import 'package:toplife/core/common_states/dependencies/journal/journal_dependen
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/attend_party.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/get_first_person_party_partner_attendance_description.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/perform_party_activity.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/attend_event.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/get_first_person_event_partner_attendance_description.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/perform_party_activity.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/birthday_event.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday_party/birthday_party_event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/funeral/funeral_event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/test_events/test_events.dart';
 
 class ScheduledEvents {
@@ -37,16 +35,6 @@ class ScheduledEvents {
         _ref.read(eventRepositoryProvider),
       );
 
-  BirthdayPartyEvent get birthdayPartyEvent => BirthdayPartyEvent(
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipUsecasesProvider),
-        _ref.read(shopAndStorageUsecasesProvider),
-        _ref.read(ageUsecasesProvider),
-        _performPartyActivity,
-        _attendParty,
-        _getFirstPersonPartyPartnerAttendanceDescription,
-      );
-
   DeathEvent get deathEvent => DeathEvent(
         _ref.read(eventRepositoryProvider),
         _ref.read(personUsecasesProvider),
@@ -56,29 +44,24 @@ class ScheduledEvents {
         _ref.read(ageUsecasesProvider),
       );
 
-  FuneralEvent get funeralEvent => FuneralEvent(
+  AttendEvent get attendEvent => AttendEvent(
         _ref.read(eventRepositoryProvider),
         _ref.read(personUsecasesProvider),
         _ref.read(relationshipUsecasesProvider),
         _ref.read(journalUsecasesProvider),
-      );
-
-  //private helpers
-  AttendParty get _attendParty => AttendParty(
-        _ref.read(eventRepositoryProvider),
-        _ref.read(personUsecasesProvider),
-        _ref.read(relationshipUsecasesProvider),
-        _ref.read(journalUsecasesProvider),
+        _ref.read(ageUsecasesProvider),
         _ref.read(shopAndStorageUsecasesProvider),
+        _performPartyActivity,
+        _getFirstPersonEventPartnerAttendanceDescription,
       );
 
   PerformPartyActivity get _performPartyActivity => PerformPartyActivity(
         _ref.read(personUsecasesProvider),
       );
 
-  GetFirstPersonPartyPartnerAttendanceDescription
-      get _getFirstPersonPartyPartnerAttendanceDescription =>
-          GetFirstPersonPartyPartnerAttendanceDescription(
+  GetFirstPersonEventPartnerAttendanceDescription
+      get _getFirstPersonEventPartnerAttendanceDescription =>
+          GetFirstPersonEventPartnerAttendanceDescription(
             _ref.read(personUsecasesProvider),
             _ref.read(relationshipUsecasesProvider),
           );

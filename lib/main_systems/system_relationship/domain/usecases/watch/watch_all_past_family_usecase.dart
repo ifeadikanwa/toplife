@@ -4,7 +4,7 @@ import 'package:toplife/main_systems/system_relationship/domain/repository/relat
 class WatchAllPastFamilyUsecase {
   final RelationshipRepository _relationshipRepository;
 
-  WatchAllPastFamilyUsecase(this._relationshipRepository);
+  const WatchAllPastFamilyUsecase(this._relationshipRepository);
 
   Stream<List<Relationship>> execute({required int personID}) {
     return _relationshipRepository.watchAllPastFamilyOf(personID);

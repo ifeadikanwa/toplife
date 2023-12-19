@@ -18,6 +18,13 @@ class ThemeUtils {
     );
   }
 
+  //Shared
+  static const OutlinedBorder buttonShape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(4.0),
+    ),
+  );
+
   //
   static const lightThemeTextSelectionsThemeData = TextSelectionThemeData(
     cursorColor: Colors.black,
@@ -48,12 +55,14 @@ class ThemeUtils {
         style: ElevatedButton.styleFrom(
           backgroundColor: tertiaryColor,
           foregroundColor: Colors.white,
+          shape: buttonShape,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: Colors.black,
           side: BorderSide(color: tertiaryColor),
+          shape: buttonShape,
         ),
       ),
       inputDecorationTheme: ThemeUtils.getInputDecorationTheme(
@@ -92,12 +101,14 @@ class ThemeUtils {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: tertiaryColor,
+          shape: buttonShape,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: Colors.white,
           side: BorderSide(color: tertiaryColor),
+          shape: buttonShape,
         ),
       ),
       inputDecorationTheme: ThemeUtils.getInputDecorationTheme(

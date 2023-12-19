@@ -4,10 +4,12 @@ import 'package:toplife/main_systems/system_event/event_manager/scheduled_events
 
 class FuneralEventDetail extends Equatable {
   final FuneralType funeralType;
+  final int funeralChosenDaysFromCurrentDay;
   final int funeralStartTime;
 
   const FuneralEventDetail({
     required this.funeralType,
+    required this.funeralChosenDaysFromCurrentDay,
     required this.funeralStartTime,
   });
 
@@ -16,18 +18,35 @@ class FuneralEventDetail extends Equatable {
     ...EventUtil.afternoonEventStartTimes,
   ];
 
+  static final List<int> possibleFuneralDaysFromCurrentDay = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+  ];
+
   @override
   List<Object?> get props => [
         funeralType,
+        funeralChosenDaysFromCurrentDay,
         funeralStartTime,
       ];
 
   FuneralEventDetail copyWith({
     FuneralType? funeralType,
+    int? funeralChosenDaysFromCurrentDay,
     int? funeralStartTime,
   }) {
     return FuneralEventDetail(
       funeralType: funeralType ?? this.funeralType,
+      funeralChosenDaysFromCurrentDay: funeralChosenDaysFromCurrentDay ??
+          this.funeralChosenDaysFromCurrentDay,
       funeralStartTime: funeralStartTime ?? this.funeralStartTime,
     );
   }

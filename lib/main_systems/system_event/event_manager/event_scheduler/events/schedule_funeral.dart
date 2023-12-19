@@ -1,5 +1,6 @@
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/numbers/get_random_int_in_positive_range.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/schedule_event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
@@ -15,7 +16,7 @@ class ScheduleFuneral {
     required int deadPersonID,
     required int currentDay,
     int? eventStartTime,
-    required String relationshipToMainPlayer,
+    int? chosenDaysFromCurrentDayForTheEvent,
   }) {
     late final int funeralEventStartTime;
 
@@ -33,9 +34,13 @@ class ScheduleFuneral {
       id: DatabaseConstants.dummyId,
       gameId: gameID,
       eventType: EventType.funeral.name,
-      eventDay: currentDay + 1,
+      eventDay: currentDay +
+          (chosenDaysFromCurrentDayForTheEvent ??
+              getRandomIntInPositiveRange(
+                min: 1,
+                max: 5,
+              )), //Add the given days from current day or choose random 1 - 5 days after current day
       mainPersonId: deadPersonID,
-      relationshipToMainPlayer: relationshipToMainPlayer,
       startTime: funeralEventStartTime,
       endTime: funeralEventStartTime + EventType.funeral.eventDuration,
       journalEntryOnly: false,

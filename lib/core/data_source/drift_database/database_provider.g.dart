@@ -3446,6 +3446,12 @@ class $StanceTableTable extends StanceTable
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _daysToDateBeforeMarriageMeta =
+      const VerificationMeta('daysToDateBeforeMarriage');
+  @override
+  late final GeneratedColumn<int> daysToDateBeforeMarriage =
+      GeneratedColumn<int>('days_to_date_before_marriage', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _openToAdoptionMeta =
       const VerificationMeta('openToAdoption');
   @override
@@ -3618,6 +3624,7 @@ class $StanceTableTable extends StanceTable
   List<GeneratedColumn> get $columns => [
         id,
         personId,
+        daysToDateBeforeMarriage,
         openToAdoption,
         openToMarriage,
         openToSexWorkerPartner,
@@ -3655,6 +3662,15 @@ class $StanceTableTable extends StanceTable
           personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
     } else if (isInserting) {
       context.missing(_personIdMeta);
+    }
+    if (data.containsKey('days_to_date_before_marriage')) {
+      context.handle(
+          _daysToDateBeforeMarriageMeta,
+          daysToDateBeforeMarriage.isAcceptableOrUnknown(
+              data['days_to_date_before_marriage']!,
+              _daysToDateBeforeMarriageMeta));
+    } else if (isInserting) {
+      context.missing(_daysToDateBeforeMarriageMeta);
     }
     if (data.containsKey('open_to_adoption')) {
       context.handle(
@@ -3819,6 +3835,9 @@ class $StanceTableTable extends StanceTable
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       personId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      daysToDateBeforeMarriage: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}days_to_date_before_marriage'])!,
       openToAdoption: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}open_to_adoption'])!,
       openToMarriage: attachedDatabase.typeMapping
@@ -3874,6 +3893,7 @@ class $StanceTableTable extends StanceTable
 class Stance extends DataClass implements Insertable<Stance> {
   final int id;
   final int personId;
+  final int daysToDateBeforeMarriage;
   final bool openToAdoption;
   final bool openToMarriage;
   final bool openToSexWorkerPartner;
@@ -3895,6 +3915,7 @@ class Stance extends DataClass implements Insertable<Stance> {
   const Stance(
       {required this.id,
       required this.personId,
+      required this.daysToDateBeforeMarriage,
       required this.openToAdoption,
       required this.openToMarriage,
       required this.openToSexWorkerPartner,
@@ -3918,6 +3939,8 @@ class Stance extends DataClass implements Insertable<Stance> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['person_id'] = Variable<int>(personId);
+    map['days_to_date_before_marriage'] =
+        Variable<int>(daysToDateBeforeMarriage);
     map['open_to_adoption'] = Variable<bool>(openToAdoption);
     map['open_to_marriage'] = Variable<bool>(openToMarriage);
     map['open_to_sex_worker_partner'] = Variable<bool>(openToSexWorkerPartner);
@@ -3948,6 +3971,7 @@ class Stance extends DataClass implements Insertable<Stance> {
     return StanceTableCompanion(
       id: Value(id),
       personId: Value(personId),
+      daysToDateBeforeMarriage: Value(daysToDateBeforeMarriage),
       openToAdoption: Value(openToAdoption),
       openToMarriage: Value(openToMarriage),
       openToSexWorkerPartner: Value(openToSexWorkerPartner),
@@ -3977,6 +4001,8 @@ class Stance extends DataClass implements Insertable<Stance> {
     return Stance(
       id: serializer.fromJson<int>(json['id']),
       personId: serializer.fromJson<int>(json['personId']),
+      daysToDateBeforeMarriage:
+          serializer.fromJson<int>(json['daysToDateBeforeMarriage']),
       openToAdoption: serializer.fromJson<bool>(json['openToAdoption']),
       openToMarriage: serializer.fromJson<bool>(json['openToMarriage']),
       openToSexWorkerPartner:
@@ -4013,6 +4039,8 @@ class Stance extends DataClass implements Insertable<Stance> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'personId': serializer.toJson<int>(personId),
+      'daysToDateBeforeMarriage':
+          serializer.toJson<int>(daysToDateBeforeMarriage),
       'openToAdoption': serializer.toJson<bool>(openToAdoption),
       'openToMarriage': serializer.toJson<bool>(openToMarriage),
       'openToSexWorkerPartner': serializer.toJson<bool>(openToSexWorkerPartner),
@@ -4042,6 +4070,7 @@ class Stance extends DataClass implements Insertable<Stance> {
   Stance copyWith(
           {int? id,
           int? personId,
+          int? daysToDateBeforeMarriage,
           bool? openToAdoption,
           bool? openToMarriage,
           bool? openToSexWorkerPartner,
@@ -4063,6 +4092,8 @@ class Stance extends DataClass implements Insertable<Stance> {
       Stance(
         id: id ?? this.id,
         personId: personId ?? this.personId,
+        daysToDateBeforeMarriage:
+            daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
         openToAdoption: openToAdoption ?? this.openToAdoption,
         openToMarriage: openToMarriage ?? this.openToMarriage,
         openToSexWorkerPartner:
@@ -4094,6 +4125,7 @@ class Stance extends DataClass implements Insertable<Stance> {
     return (StringBuffer('Stance(')
           ..write('id: $id, ')
           ..write('personId: $personId, ')
+          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
           ..write('openToAdoption: $openToAdoption, ')
           ..write('openToMarriage: $openToMarriage, ')
           ..write('openToSexWorkerPartner: $openToSexWorkerPartner, ')
@@ -4120,33 +4152,36 @@ class Stance extends DataClass implements Insertable<Stance> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      id,
-      personId,
-      openToAdoption,
-      openToMarriage,
-      openToSexWorkerPartner,
-      openToAbortion,
-      openToSurrogacy,
-      openToAlternativeFertilityMethods,
-      openToSigningPrenup,
-      wantsPartnerToSignPrenup,
-      openToCrimes,
-      openToStayAtHomeParenting,
-      openToPremaritalSex,
-      openToWorkingAJob,
-      openToBeingPregnant,
-      openToHavingChildren,
-      openToHavingChildrenOutsideAMarriage,
-      openToHavingMultipleCoparents,
-      openToCheating,
-      openToGayPeople);
+  int get hashCode => Object.hashAll([
+        id,
+        personId,
+        daysToDateBeforeMarriage,
+        openToAdoption,
+        openToMarriage,
+        openToSexWorkerPartner,
+        openToAbortion,
+        openToSurrogacy,
+        openToAlternativeFertilityMethods,
+        openToSigningPrenup,
+        wantsPartnerToSignPrenup,
+        openToCrimes,
+        openToStayAtHomeParenting,
+        openToPremaritalSex,
+        openToWorkingAJob,
+        openToBeingPregnant,
+        openToHavingChildren,
+        openToHavingChildrenOutsideAMarriage,
+        openToHavingMultipleCoparents,
+        openToCheating,
+        openToGayPeople
+      ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Stance &&
           other.id == this.id &&
           other.personId == this.personId &&
+          other.daysToDateBeforeMarriage == this.daysToDateBeforeMarriage &&
           other.openToAdoption == this.openToAdoption &&
           other.openToMarriage == this.openToMarriage &&
           other.openToSexWorkerPartner == this.openToSexWorkerPartner &&
@@ -4173,6 +4208,7 @@ class Stance extends DataClass implements Insertable<Stance> {
 class StanceTableCompanion extends UpdateCompanion<Stance> {
   final Value<int> id;
   final Value<int> personId;
+  final Value<int> daysToDateBeforeMarriage;
   final Value<bool> openToAdoption;
   final Value<bool> openToMarriage;
   final Value<bool> openToSexWorkerPartner;
@@ -4194,6 +4230,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
   const StanceTableCompanion({
     this.id = const Value.absent(),
     this.personId = const Value.absent(),
+    this.daysToDateBeforeMarriage = const Value.absent(),
     this.openToAdoption = const Value.absent(),
     this.openToMarriage = const Value.absent(),
     this.openToSexWorkerPartner = const Value.absent(),
@@ -4216,6 +4253,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
   StanceTableCompanion.insert({
     this.id = const Value.absent(),
     required int personId,
+    required int daysToDateBeforeMarriage,
     required bool openToAdoption,
     required bool openToMarriage,
     required bool openToSexWorkerPartner,
@@ -4235,6 +4273,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     required bool openToCheating,
     required bool openToGayPeople,
   })  : personId = Value(personId),
+        daysToDateBeforeMarriage = Value(daysToDateBeforeMarriage),
         openToAdoption = Value(openToAdoption),
         openToMarriage = Value(openToMarriage),
         openToSexWorkerPartner = Value(openToSexWorkerPartner),
@@ -4258,6 +4297,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
   static Insertable<Stance> custom({
     Expression<int>? id,
     Expression<int>? personId,
+    Expression<int>? daysToDateBeforeMarriage,
     Expression<bool>? openToAdoption,
     Expression<bool>? openToMarriage,
     Expression<bool>? openToSexWorkerPartner,
@@ -4280,6 +4320,8 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (personId != null) 'person_id': personId,
+      if (daysToDateBeforeMarriage != null)
+        'days_to_date_before_marriage': daysToDateBeforeMarriage,
       if (openToAdoption != null) 'open_to_adoption': openToAdoption,
       if (openToMarriage != null) 'open_to_marriage': openToMarriage,
       if (openToSexWorkerPartner != null)
@@ -4316,6 +4358,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
   StanceTableCompanion copyWith(
       {Value<int>? id,
       Value<int>? personId,
+      Value<int>? daysToDateBeforeMarriage,
       Value<bool>? openToAdoption,
       Value<bool>? openToMarriage,
       Value<bool>? openToSexWorkerPartner,
@@ -4337,6 +4380,8 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     return StanceTableCompanion(
       id: id ?? this.id,
       personId: personId ?? this.personId,
+      daysToDateBeforeMarriage:
+          daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
       openToAdoption: openToAdoption ?? this.openToAdoption,
       openToMarriage: openToMarriage ?? this.openToMarriage,
       openToSexWorkerPartner:
@@ -4373,6 +4418,10 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     }
     if (personId.present) {
       map['person_id'] = Variable<int>(personId.value);
+    }
+    if (daysToDateBeforeMarriage.present) {
+      map['days_to_date_before_marriage'] =
+          Variable<int>(daysToDateBeforeMarriage.value);
     }
     if (openToAdoption.present) {
       map['open_to_adoption'] = Variable<bool>(openToAdoption.value);
@@ -4443,6 +4492,7 @@ class StanceTableCompanion extends UpdateCompanion<Stance> {
     return (StringBuffer('StanceTableCompanion(')
           ..write('id: $id, ')
           ..write('personId: $personId, ')
+          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
           ..write('openToAdoption: $openToAdoption, ')
           ..write('openToMarriage: $openToMarriage, ')
           ..write('openToSexWorkerPartner: $openToSexWorkerPartner, ')
@@ -5735,1241 +5785,6 @@ class DeathRecordTableCompanion extends UpdateCompanion<DeathRecord> {
   }
 }
 
-class $AcquaintanceTableTable extends AcquaintanceTable
-    with TableInfo<$AcquaintanceTableTable, Acquaintance> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $AcquaintanceTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _mainPersonIdMeta =
-      const VerificationMeta('mainPersonId');
-  @override
-  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
-      'main_person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _acquaintanceIdMeta =
-      const VerificationMeta('acquaintanceId');
-  @override
-  late final GeneratedColumn<int> acquaintanceId = GeneratedColumn<int>(
-      'acquaintance_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _metAtMeta = const VerificationMeta('metAt');
-  @override
-  late final GeneratedColumn<String> metAt = GeneratedColumn<String>(
-      'met_at', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _relationshipMeta =
-      const VerificationMeta('relationship');
-  @override
-  late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
-      'relationship', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _interestedInRelationshipMeta =
-      const VerificationMeta('interestedInRelationship');
-  @override
-  late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>(
-          'interested_in_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("interested_in_relationship" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        mainPersonId,
-        acquaintanceId,
-        metAt,
-        relationship,
-        interestedInRelationship
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'acquaintance';
-  @override
-  VerificationContext validateIntegrity(Insertable<Acquaintance> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('main_person_id')) {
-      context.handle(
-          _mainPersonIdMeta,
-          mainPersonId.isAcceptableOrUnknown(
-              data['main_person_id']!, _mainPersonIdMeta));
-    } else if (isInserting) {
-      context.missing(_mainPersonIdMeta);
-    }
-    if (data.containsKey('acquaintance_id')) {
-      context.handle(
-          _acquaintanceIdMeta,
-          acquaintanceId.isAcceptableOrUnknown(
-              data['acquaintance_id']!, _acquaintanceIdMeta));
-    } else if (isInserting) {
-      context.missing(_acquaintanceIdMeta);
-    }
-    if (data.containsKey('met_at')) {
-      context.handle(
-          _metAtMeta, metAt.isAcceptableOrUnknown(data['met_at']!, _metAtMeta));
-    } else if (isInserting) {
-      context.missing(_metAtMeta);
-    }
-    if (data.containsKey('relationship')) {
-      context.handle(
-          _relationshipMeta,
-          relationship.isAcceptableOrUnknown(
-              data['relationship']!, _relationshipMeta));
-    } else if (isInserting) {
-      context.missing(_relationshipMeta);
-    }
-    if (data.containsKey('interested_in_relationship')) {
-      context.handle(
-          _interestedInRelationshipMeta,
-          interestedInRelationship.isAcceptableOrUnknown(
-              data['interested_in_relationship']!,
-              _interestedInRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_interestedInRelationshipMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {mainPersonId, acquaintanceId};
-  @override
-  Acquaintance map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Acquaintance(
-      mainPersonId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
-      acquaintanceId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}acquaintance_id'])!,
-      metAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}met_at'])!,
-      relationship: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      interestedInRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}interested_in_relationship'])!,
-    );
-  }
-
-  @override
-  $AcquaintanceTableTable createAlias(String alias) {
-    return $AcquaintanceTableTable(attachedDatabase, alias);
-  }
-}
-
-class Acquaintance extends DataClass implements Insertable<Acquaintance> {
-  final int mainPersonId;
-  final int acquaintanceId;
-  final String metAt;
-  final int relationship;
-  final bool interestedInRelationship;
-  const Acquaintance(
-      {required this.mainPersonId,
-      required this.acquaintanceId,
-      required this.metAt,
-      required this.relationship,
-      required this.interestedInRelationship});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['main_person_id'] = Variable<int>(mainPersonId);
-    map['acquaintance_id'] = Variable<int>(acquaintanceId);
-    map['met_at'] = Variable<String>(metAt);
-    map['relationship'] = Variable<int>(relationship);
-    map['interested_in_relationship'] =
-        Variable<bool>(interestedInRelationship);
-    return map;
-  }
-
-  AcquaintanceTableCompanion toCompanion(bool nullToAbsent) {
-    return AcquaintanceTableCompanion(
-      mainPersonId: Value(mainPersonId),
-      acquaintanceId: Value(acquaintanceId),
-      metAt: Value(metAt),
-      relationship: Value(relationship),
-      interestedInRelationship: Value(interestedInRelationship),
-    );
-  }
-
-  factory Acquaintance.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Acquaintance(
-      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
-      acquaintanceId: serializer.fromJson<int>(json['acquaintanceId']),
-      metAt: serializer.fromJson<String>(json['metAt']),
-      relationship: serializer.fromJson<int>(json['relationship']),
-      interestedInRelationship:
-          serializer.fromJson<bool>(json['interestedInRelationship']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'mainPersonId': serializer.toJson<int>(mainPersonId),
-      'acquaintanceId': serializer.toJson<int>(acquaintanceId),
-      'metAt': serializer.toJson<String>(metAt),
-      'relationship': serializer.toJson<int>(relationship),
-      'interestedInRelationship':
-          serializer.toJson<bool>(interestedInRelationship),
-    };
-  }
-
-  Acquaintance copyWith(
-          {int? mainPersonId,
-          int? acquaintanceId,
-          String? metAt,
-          int? relationship,
-          bool? interestedInRelationship}) =>
-      Acquaintance(
-        mainPersonId: mainPersonId ?? this.mainPersonId,
-        acquaintanceId: acquaintanceId ?? this.acquaintanceId,
-        metAt: metAt ?? this.metAt,
-        relationship: relationship ?? this.relationship,
-        interestedInRelationship:
-            interestedInRelationship ?? this.interestedInRelationship,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Acquaintance(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('acquaintanceId: $acquaintanceId, ')
-          ..write('metAt: $metAt, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(mainPersonId, acquaintanceId, metAt,
-      relationship, interestedInRelationship);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Acquaintance &&
-          other.mainPersonId == this.mainPersonId &&
-          other.acquaintanceId == this.acquaintanceId &&
-          other.metAt == this.metAt &&
-          other.relationship == this.relationship &&
-          other.interestedInRelationship == this.interestedInRelationship);
-}
-
-class AcquaintanceTableCompanion extends UpdateCompanion<Acquaintance> {
-  final Value<int> mainPersonId;
-  final Value<int> acquaintanceId;
-  final Value<String> metAt;
-  final Value<int> relationship;
-  final Value<bool> interestedInRelationship;
-  final Value<int> rowid;
-  const AcquaintanceTableCompanion({
-    this.mainPersonId = const Value.absent(),
-    this.acquaintanceId = const Value.absent(),
-    this.metAt = const Value.absent(),
-    this.relationship = const Value.absent(),
-    this.interestedInRelationship = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  AcquaintanceTableCompanion.insert({
-    required int mainPersonId,
-    required int acquaintanceId,
-    required String metAt,
-    required int relationship,
-    required bool interestedInRelationship,
-    this.rowid = const Value.absent(),
-  })  : mainPersonId = Value(mainPersonId),
-        acquaintanceId = Value(acquaintanceId),
-        metAt = Value(metAt),
-        relationship = Value(relationship),
-        interestedInRelationship = Value(interestedInRelationship);
-  static Insertable<Acquaintance> custom({
-    Expression<int>? mainPersonId,
-    Expression<int>? acquaintanceId,
-    Expression<String>? metAt,
-    Expression<int>? relationship,
-    Expression<bool>? interestedInRelationship,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (mainPersonId != null) 'main_person_id': mainPersonId,
-      if (acquaintanceId != null) 'acquaintance_id': acquaintanceId,
-      if (metAt != null) 'met_at': metAt,
-      if (relationship != null) 'relationship': relationship,
-      if (interestedInRelationship != null)
-        'interested_in_relationship': interestedInRelationship,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  AcquaintanceTableCompanion copyWith(
-      {Value<int>? mainPersonId,
-      Value<int>? acquaintanceId,
-      Value<String>? metAt,
-      Value<int>? relationship,
-      Value<bool>? interestedInRelationship,
-      Value<int>? rowid}) {
-    return AcquaintanceTableCompanion(
-      mainPersonId: mainPersonId ?? this.mainPersonId,
-      acquaintanceId: acquaintanceId ?? this.acquaintanceId,
-      metAt: metAt ?? this.metAt,
-      relationship: relationship ?? this.relationship,
-      interestedInRelationship:
-          interestedInRelationship ?? this.interestedInRelationship,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (mainPersonId.present) {
-      map['main_person_id'] = Variable<int>(mainPersonId.value);
-    }
-    if (acquaintanceId.present) {
-      map['acquaintance_id'] = Variable<int>(acquaintanceId.value);
-    }
-    if (metAt.present) {
-      map['met_at'] = Variable<String>(metAt.value);
-    }
-    if (relationship.present) {
-      map['relationship'] = Variable<int>(relationship.value);
-    }
-    if (interestedInRelationship.present) {
-      map['interested_in_relationship'] =
-          Variable<bool>(interestedInRelationship.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('AcquaintanceTableCompanion(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('acquaintanceId: $acquaintanceId, ')
-          ..write('metAt: $metAt, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $ChildTableTable extends ChildTable
-    with TableInfo<$ChildTableTable, Child> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $ChildTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _mainPersonIdMeta =
-      const VerificationMeta('mainPersonId');
-  @override
-  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
-      'main_person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _childIdMeta =
-      const VerificationMeta('childId');
-  @override
-  late final GeneratedColumn<int> childId = GeneratedColumn<int>(
-      'child_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _inYourCustodyMeta =
-      const VerificationMeta('inYourCustody');
-  @override
-  late final GeneratedColumn<bool> inYourCustody = GeneratedColumn<bool>(
-      'in_your_custody', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("in_your_custody" IN (0, 1))'));
-  static const VerificationMeta _childRelationshipTypeMeta =
-      const VerificationMeta('childRelationshipType');
-  @override
-  late final GeneratedColumn<String> childRelationshipType =
-      GeneratedColumn<String>('child_relationship_type', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _hiddenMeta = const VerificationMeta('hidden');
-  @override
-  late final GeneratedColumn<bool> hidden = GeneratedColumn<bool>(
-      'hidden', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("hidden" IN (0, 1))'));
-  static const VerificationMeta _paternityFraudMeta =
-      const VerificationMeta('paternityFraud');
-  @override
-  late final GeneratedColumn<bool> paternityFraud = GeneratedColumn<bool>(
-      'paternity_fraud', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("paternity_fraud" IN (0, 1))'));
-  static const VerificationMeta _assumedRelationshipTypeMeta =
-      const VerificationMeta('assumedRelationshipType');
-  @override
-  late final GeneratedColumn<String> assumedRelationshipType =
-      GeneratedColumn<String>('assumed_relationship_type', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _relationshipMeta =
-      const VerificationMeta('relationship');
-  @override
-  late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
-      'relationship', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _interestedInRelationshipMeta =
-      const VerificationMeta('interestedInRelationship');
-  @override
-  late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>(
-          'interested_in_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("interested_in_relationship" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        mainPersonId,
-        childId,
-        inYourCustody,
-        childRelationshipType,
-        hidden,
-        paternityFraud,
-        assumedRelationshipType,
-        relationship,
-        interestedInRelationship
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'child';
-  @override
-  VerificationContext validateIntegrity(Insertable<Child> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('main_person_id')) {
-      context.handle(
-          _mainPersonIdMeta,
-          mainPersonId.isAcceptableOrUnknown(
-              data['main_person_id']!, _mainPersonIdMeta));
-    } else if (isInserting) {
-      context.missing(_mainPersonIdMeta);
-    }
-    if (data.containsKey('child_id')) {
-      context.handle(_childIdMeta,
-          childId.isAcceptableOrUnknown(data['child_id']!, _childIdMeta));
-    } else if (isInserting) {
-      context.missing(_childIdMeta);
-    }
-    if (data.containsKey('in_your_custody')) {
-      context.handle(
-          _inYourCustodyMeta,
-          inYourCustody.isAcceptableOrUnknown(
-              data['in_your_custody']!, _inYourCustodyMeta));
-    } else if (isInserting) {
-      context.missing(_inYourCustodyMeta);
-    }
-    if (data.containsKey('child_relationship_type')) {
-      context.handle(
-          _childRelationshipTypeMeta,
-          childRelationshipType.isAcceptableOrUnknown(
-              data['child_relationship_type']!, _childRelationshipTypeMeta));
-    } else if (isInserting) {
-      context.missing(_childRelationshipTypeMeta);
-    }
-    if (data.containsKey('hidden')) {
-      context.handle(_hiddenMeta,
-          hidden.isAcceptableOrUnknown(data['hidden']!, _hiddenMeta));
-    } else if (isInserting) {
-      context.missing(_hiddenMeta);
-    }
-    if (data.containsKey('paternity_fraud')) {
-      context.handle(
-          _paternityFraudMeta,
-          paternityFraud.isAcceptableOrUnknown(
-              data['paternity_fraud']!, _paternityFraudMeta));
-    } else if (isInserting) {
-      context.missing(_paternityFraudMeta);
-    }
-    if (data.containsKey('assumed_relationship_type')) {
-      context.handle(
-          _assumedRelationshipTypeMeta,
-          assumedRelationshipType.isAcceptableOrUnknown(
-              data['assumed_relationship_type']!,
-              _assumedRelationshipTypeMeta));
-    } else if (isInserting) {
-      context.missing(_assumedRelationshipTypeMeta);
-    }
-    if (data.containsKey('relationship')) {
-      context.handle(
-          _relationshipMeta,
-          relationship.isAcceptableOrUnknown(
-              data['relationship']!, _relationshipMeta));
-    } else if (isInserting) {
-      context.missing(_relationshipMeta);
-    }
-    if (data.containsKey('interested_in_relationship')) {
-      context.handle(
-          _interestedInRelationshipMeta,
-          interestedInRelationship.isAcceptableOrUnknown(
-              data['interested_in_relationship']!,
-              _interestedInRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_interestedInRelationshipMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {mainPersonId, childId};
-  @override
-  Child map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Child(
-      mainPersonId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
-      childId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}child_id'])!,
-      inYourCustody: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}in_your_custody'])!,
-      childRelationshipType: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}child_relationship_type'])!,
-      hidden: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}hidden'])!,
-      paternityFraud: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}paternity_fraud'])!,
-      assumedRelationshipType: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}assumed_relationship_type'])!,
-      relationship: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      interestedInRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}interested_in_relationship'])!,
-    );
-  }
-
-  @override
-  $ChildTableTable createAlias(String alias) {
-    return $ChildTableTable(attachedDatabase, alias);
-  }
-}
-
-class Child extends DataClass implements Insertable<Child> {
-  final int mainPersonId;
-  final int childId;
-  final bool inYourCustody;
-  final String childRelationshipType;
-  final bool hidden;
-  final bool paternityFraud;
-  final String assumedRelationshipType;
-  final int relationship;
-  final bool interestedInRelationship;
-  const Child(
-      {required this.mainPersonId,
-      required this.childId,
-      required this.inYourCustody,
-      required this.childRelationshipType,
-      required this.hidden,
-      required this.paternityFraud,
-      required this.assumedRelationshipType,
-      required this.relationship,
-      required this.interestedInRelationship});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['main_person_id'] = Variable<int>(mainPersonId);
-    map['child_id'] = Variable<int>(childId);
-    map['in_your_custody'] = Variable<bool>(inYourCustody);
-    map['child_relationship_type'] = Variable<String>(childRelationshipType);
-    map['hidden'] = Variable<bool>(hidden);
-    map['paternity_fraud'] = Variable<bool>(paternityFraud);
-    map['assumed_relationship_type'] =
-        Variable<String>(assumedRelationshipType);
-    map['relationship'] = Variable<int>(relationship);
-    map['interested_in_relationship'] =
-        Variable<bool>(interestedInRelationship);
-    return map;
-  }
-
-  ChildTableCompanion toCompanion(bool nullToAbsent) {
-    return ChildTableCompanion(
-      mainPersonId: Value(mainPersonId),
-      childId: Value(childId),
-      inYourCustody: Value(inYourCustody),
-      childRelationshipType: Value(childRelationshipType),
-      hidden: Value(hidden),
-      paternityFraud: Value(paternityFraud),
-      assumedRelationshipType: Value(assumedRelationshipType),
-      relationship: Value(relationship),
-      interestedInRelationship: Value(interestedInRelationship),
-    );
-  }
-
-  factory Child.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Child(
-      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
-      childId: serializer.fromJson<int>(json['childId']),
-      inYourCustody: serializer.fromJson<bool>(json['inYourCustody']),
-      childRelationshipType:
-          serializer.fromJson<String>(json['childRelationshipType']),
-      hidden: serializer.fromJson<bool>(json['hidden']),
-      paternityFraud: serializer.fromJson<bool>(json['paternityFraud']),
-      assumedRelationshipType:
-          serializer.fromJson<String>(json['assumedRelationshipType']),
-      relationship: serializer.fromJson<int>(json['relationship']),
-      interestedInRelationship:
-          serializer.fromJson<bool>(json['interestedInRelationship']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'mainPersonId': serializer.toJson<int>(mainPersonId),
-      'childId': serializer.toJson<int>(childId),
-      'inYourCustody': serializer.toJson<bool>(inYourCustody),
-      'childRelationshipType': serializer.toJson<String>(childRelationshipType),
-      'hidden': serializer.toJson<bool>(hidden),
-      'paternityFraud': serializer.toJson<bool>(paternityFraud),
-      'assumedRelationshipType':
-          serializer.toJson<String>(assumedRelationshipType),
-      'relationship': serializer.toJson<int>(relationship),
-      'interestedInRelationship':
-          serializer.toJson<bool>(interestedInRelationship),
-    };
-  }
-
-  Child copyWith(
-          {int? mainPersonId,
-          int? childId,
-          bool? inYourCustody,
-          String? childRelationshipType,
-          bool? hidden,
-          bool? paternityFraud,
-          String? assumedRelationshipType,
-          int? relationship,
-          bool? interestedInRelationship}) =>
-      Child(
-        mainPersonId: mainPersonId ?? this.mainPersonId,
-        childId: childId ?? this.childId,
-        inYourCustody: inYourCustody ?? this.inYourCustody,
-        childRelationshipType:
-            childRelationshipType ?? this.childRelationshipType,
-        hidden: hidden ?? this.hidden,
-        paternityFraud: paternityFraud ?? this.paternityFraud,
-        assumedRelationshipType:
-            assumedRelationshipType ?? this.assumedRelationshipType,
-        relationship: relationship ?? this.relationship,
-        interestedInRelationship:
-            interestedInRelationship ?? this.interestedInRelationship,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Child(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('childId: $childId, ')
-          ..write('inYourCustody: $inYourCustody, ')
-          ..write('childRelationshipType: $childRelationshipType, ')
-          ..write('hidden: $hidden, ')
-          ..write('paternityFraud: $paternityFraud, ')
-          ..write('assumedRelationshipType: $assumedRelationshipType, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      mainPersonId,
-      childId,
-      inYourCustody,
-      childRelationshipType,
-      hidden,
-      paternityFraud,
-      assumedRelationshipType,
-      relationship,
-      interestedInRelationship);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Child &&
-          other.mainPersonId == this.mainPersonId &&
-          other.childId == this.childId &&
-          other.inYourCustody == this.inYourCustody &&
-          other.childRelationshipType == this.childRelationshipType &&
-          other.hidden == this.hidden &&
-          other.paternityFraud == this.paternityFraud &&
-          other.assumedRelationshipType == this.assumedRelationshipType &&
-          other.relationship == this.relationship &&
-          other.interestedInRelationship == this.interestedInRelationship);
-}
-
-class ChildTableCompanion extends UpdateCompanion<Child> {
-  final Value<int> mainPersonId;
-  final Value<int> childId;
-  final Value<bool> inYourCustody;
-  final Value<String> childRelationshipType;
-  final Value<bool> hidden;
-  final Value<bool> paternityFraud;
-  final Value<String> assumedRelationshipType;
-  final Value<int> relationship;
-  final Value<bool> interestedInRelationship;
-  final Value<int> rowid;
-  const ChildTableCompanion({
-    this.mainPersonId = const Value.absent(),
-    this.childId = const Value.absent(),
-    this.inYourCustody = const Value.absent(),
-    this.childRelationshipType = const Value.absent(),
-    this.hidden = const Value.absent(),
-    this.paternityFraud = const Value.absent(),
-    this.assumedRelationshipType = const Value.absent(),
-    this.relationship = const Value.absent(),
-    this.interestedInRelationship = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  ChildTableCompanion.insert({
-    required int mainPersonId,
-    required int childId,
-    required bool inYourCustody,
-    required String childRelationshipType,
-    required bool hidden,
-    required bool paternityFraud,
-    required String assumedRelationshipType,
-    required int relationship,
-    required bool interestedInRelationship,
-    this.rowid = const Value.absent(),
-  })  : mainPersonId = Value(mainPersonId),
-        childId = Value(childId),
-        inYourCustody = Value(inYourCustody),
-        childRelationshipType = Value(childRelationshipType),
-        hidden = Value(hidden),
-        paternityFraud = Value(paternityFraud),
-        assumedRelationshipType = Value(assumedRelationshipType),
-        relationship = Value(relationship),
-        interestedInRelationship = Value(interestedInRelationship);
-  static Insertable<Child> custom({
-    Expression<int>? mainPersonId,
-    Expression<int>? childId,
-    Expression<bool>? inYourCustody,
-    Expression<String>? childRelationshipType,
-    Expression<bool>? hidden,
-    Expression<bool>? paternityFraud,
-    Expression<String>? assumedRelationshipType,
-    Expression<int>? relationship,
-    Expression<bool>? interestedInRelationship,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (mainPersonId != null) 'main_person_id': mainPersonId,
-      if (childId != null) 'child_id': childId,
-      if (inYourCustody != null) 'in_your_custody': inYourCustody,
-      if (childRelationshipType != null)
-        'child_relationship_type': childRelationshipType,
-      if (hidden != null) 'hidden': hidden,
-      if (paternityFraud != null) 'paternity_fraud': paternityFraud,
-      if (assumedRelationshipType != null)
-        'assumed_relationship_type': assumedRelationshipType,
-      if (relationship != null) 'relationship': relationship,
-      if (interestedInRelationship != null)
-        'interested_in_relationship': interestedInRelationship,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  ChildTableCompanion copyWith(
-      {Value<int>? mainPersonId,
-      Value<int>? childId,
-      Value<bool>? inYourCustody,
-      Value<String>? childRelationshipType,
-      Value<bool>? hidden,
-      Value<bool>? paternityFraud,
-      Value<String>? assumedRelationshipType,
-      Value<int>? relationship,
-      Value<bool>? interestedInRelationship,
-      Value<int>? rowid}) {
-    return ChildTableCompanion(
-      mainPersonId: mainPersonId ?? this.mainPersonId,
-      childId: childId ?? this.childId,
-      inYourCustody: inYourCustody ?? this.inYourCustody,
-      childRelationshipType:
-          childRelationshipType ?? this.childRelationshipType,
-      hidden: hidden ?? this.hidden,
-      paternityFraud: paternityFraud ?? this.paternityFraud,
-      assumedRelationshipType:
-          assumedRelationshipType ?? this.assumedRelationshipType,
-      relationship: relationship ?? this.relationship,
-      interestedInRelationship:
-          interestedInRelationship ?? this.interestedInRelationship,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (mainPersonId.present) {
-      map['main_person_id'] = Variable<int>(mainPersonId.value);
-    }
-    if (childId.present) {
-      map['child_id'] = Variable<int>(childId.value);
-    }
-    if (inYourCustody.present) {
-      map['in_your_custody'] = Variable<bool>(inYourCustody.value);
-    }
-    if (childRelationshipType.present) {
-      map['child_relationship_type'] =
-          Variable<String>(childRelationshipType.value);
-    }
-    if (hidden.present) {
-      map['hidden'] = Variable<bool>(hidden.value);
-    }
-    if (paternityFraud.present) {
-      map['paternity_fraud'] = Variable<bool>(paternityFraud.value);
-    }
-    if (assumedRelationshipType.present) {
-      map['assumed_relationship_type'] =
-          Variable<String>(assumedRelationshipType.value);
-    }
-    if (relationship.present) {
-      map['relationship'] = Variable<int>(relationship.value);
-    }
-    if (interestedInRelationship.present) {
-      map['interested_in_relationship'] =
-          Variable<bool>(interestedInRelationship.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('ChildTableCompanion(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('childId: $childId, ')
-          ..write('inYourCustody: $inYourCustody, ')
-          ..write('childRelationshipType: $childRelationshipType, ')
-          ..write('hidden: $hidden, ')
-          ..write('paternityFraud: $paternityFraud, ')
-          ..write('assumedRelationshipType: $assumedRelationshipType, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $FriendTableTable extends FriendTable
-    with TableInfo<$FriendTableTable, Friend> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $FriendTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _mainPersonIdMeta =
-      const VerificationMeta('mainPersonId');
-  @override
-  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
-      'main_person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _friendIdMeta =
-      const VerificationMeta('friendId');
-  @override
-  late final GeneratedColumn<int> friendId = GeneratedColumn<int>(
-      'friend_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _metAtMeta = const VerificationMeta('metAt');
-  @override
-  late final GeneratedColumn<String> metAt = GeneratedColumn<String>(
-      'met_at', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _haveRomanticRelationshipMeta =
-      const VerificationMeta('haveRomanticRelationship');
-  @override
-  late final GeneratedColumn<bool> haveRomanticRelationship =
-      GeneratedColumn<bool>(
-          'have_romantic_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("have_romantic_relationship" IN (0, 1))'));
-  static const VerificationMeta _relationshipMeta =
-      const VerificationMeta('relationship');
-  @override
-  late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
-      'relationship', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _interestedInRelationshipMeta =
-      const VerificationMeta('interestedInRelationship');
-  @override
-  late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>(
-          'interested_in_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("interested_in_relationship" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        mainPersonId,
-        friendId,
-        metAt,
-        haveRomanticRelationship,
-        relationship,
-        interestedInRelationship
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'friend';
-  @override
-  VerificationContext validateIntegrity(Insertable<Friend> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('main_person_id')) {
-      context.handle(
-          _mainPersonIdMeta,
-          mainPersonId.isAcceptableOrUnknown(
-              data['main_person_id']!, _mainPersonIdMeta));
-    } else if (isInserting) {
-      context.missing(_mainPersonIdMeta);
-    }
-    if (data.containsKey('friend_id')) {
-      context.handle(_friendIdMeta,
-          friendId.isAcceptableOrUnknown(data['friend_id']!, _friendIdMeta));
-    } else if (isInserting) {
-      context.missing(_friendIdMeta);
-    }
-    if (data.containsKey('met_at')) {
-      context.handle(
-          _metAtMeta, metAt.isAcceptableOrUnknown(data['met_at']!, _metAtMeta));
-    } else if (isInserting) {
-      context.missing(_metAtMeta);
-    }
-    if (data.containsKey('have_romantic_relationship')) {
-      context.handle(
-          _haveRomanticRelationshipMeta,
-          haveRomanticRelationship.isAcceptableOrUnknown(
-              data['have_romantic_relationship']!,
-              _haveRomanticRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_haveRomanticRelationshipMeta);
-    }
-    if (data.containsKey('relationship')) {
-      context.handle(
-          _relationshipMeta,
-          relationship.isAcceptableOrUnknown(
-              data['relationship']!, _relationshipMeta));
-    } else if (isInserting) {
-      context.missing(_relationshipMeta);
-    }
-    if (data.containsKey('interested_in_relationship')) {
-      context.handle(
-          _interestedInRelationshipMeta,
-          interestedInRelationship.isAcceptableOrUnknown(
-              data['interested_in_relationship']!,
-              _interestedInRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_interestedInRelationshipMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {mainPersonId, friendId};
-  @override
-  Friend map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Friend(
-      mainPersonId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
-      friendId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}friend_id'])!,
-      metAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}met_at'])!,
-      haveRomanticRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}have_romantic_relationship'])!,
-      relationship: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      interestedInRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}interested_in_relationship'])!,
-    );
-  }
-
-  @override
-  $FriendTableTable createAlias(String alias) {
-    return $FriendTableTable(attachedDatabase, alias);
-  }
-}
-
-class Friend extends DataClass implements Insertable<Friend> {
-  final int mainPersonId;
-  final int friendId;
-  final String metAt;
-  final bool haveRomanticRelationship;
-  final int relationship;
-  final bool interestedInRelationship;
-  const Friend(
-      {required this.mainPersonId,
-      required this.friendId,
-      required this.metAt,
-      required this.haveRomanticRelationship,
-      required this.relationship,
-      required this.interestedInRelationship});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['main_person_id'] = Variable<int>(mainPersonId);
-    map['friend_id'] = Variable<int>(friendId);
-    map['met_at'] = Variable<String>(metAt);
-    map['have_romantic_relationship'] =
-        Variable<bool>(haveRomanticRelationship);
-    map['relationship'] = Variable<int>(relationship);
-    map['interested_in_relationship'] =
-        Variable<bool>(interestedInRelationship);
-    return map;
-  }
-
-  FriendTableCompanion toCompanion(bool nullToAbsent) {
-    return FriendTableCompanion(
-      mainPersonId: Value(mainPersonId),
-      friendId: Value(friendId),
-      metAt: Value(metAt),
-      haveRomanticRelationship: Value(haveRomanticRelationship),
-      relationship: Value(relationship),
-      interestedInRelationship: Value(interestedInRelationship),
-    );
-  }
-
-  factory Friend.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Friend(
-      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
-      friendId: serializer.fromJson<int>(json['friendId']),
-      metAt: serializer.fromJson<String>(json['metAt']),
-      haveRomanticRelationship:
-          serializer.fromJson<bool>(json['haveRomanticRelationship']),
-      relationship: serializer.fromJson<int>(json['relationship']),
-      interestedInRelationship:
-          serializer.fromJson<bool>(json['interestedInRelationship']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'mainPersonId': serializer.toJson<int>(mainPersonId),
-      'friendId': serializer.toJson<int>(friendId),
-      'metAt': serializer.toJson<String>(metAt),
-      'haveRomanticRelationship':
-          serializer.toJson<bool>(haveRomanticRelationship),
-      'relationship': serializer.toJson<int>(relationship),
-      'interestedInRelationship':
-          serializer.toJson<bool>(interestedInRelationship),
-    };
-  }
-
-  Friend copyWith(
-          {int? mainPersonId,
-          int? friendId,
-          String? metAt,
-          bool? haveRomanticRelationship,
-          int? relationship,
-          bool? interestedInRelationship}) =>
-      Friend(
-        mainPersonId: mainPersonId ?? this.mainPersonId,
-        friendId: friendId ?? this.friendId,
-        metAt: metAt ?? this.metAt,
-        haveRomanticRelationship:
-            haveRomanticRelationship ?? this.haveRomanticRelationship,
-        relationship: relationship ?? this.relationship,
-        interestedInRelationship:
-            interestedInRelationship ?? this.interestedInRelationship,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Friend(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('friendId: $friendId, ')
-          ..write('metAt: $metAt, ')
-          ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(mainPersonId, friendId, metAt,
-      haveRomanticRelationship, relationship, interestedInRelationship);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Friend &&
-          other.mainPersonId == this.mainPersonId &&
-          other.friendId == this.friendId &&
-          other.metAt == this.metAt &&
-          other.haveRomanticRelationship == this.haveRomanticRelationship &&
-          other.relationship == this.relationship &&
-          other.interestedInRelationship == this.interestedInRelationship);
-}
-
-class FriendTableCompanion extends UpdateCompanion<Friend> {
-  final Value<int> mainPersonId;
-  final Value<int> friendId;
-  final Value<String> metAt;
-  final Value<bool> haveRomanticRelationship;
-  final Value<int> relationship;
-  final Value<bool> interestedInRelationship;
-  final Value<int> rowid;
-  const FriendTableCompanion({
-    this.mainPersonId = const Value.absent(),
-    this.friendId = const Value.absent(),
-    this.metAt = const Value.absent(),
-    this.haveRomanticRelationship = const Value.absent(),
-    this.relationship = const Value.absent(),
-    this.interestedInRelationship = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  FriendTableCompanion.insert({
-    required int mainPersonId,
-    required int friendId,
-    required String metAt,
-    required bool haveRomanticRelationship,
-    required int relationship,
-    required bool interestedInRelationship,
-    this.rowid = const Value.absent(),
-  })  : mainPersonId = Value(mainPersonId),
-        friendId = Value(friendId),
-        metAt = Value(metAt),
-        haveRomanticRelationship = Value(haveRomanticRelationship),
-        relationship = Value(relationship),
-        interestedInRelationship = Value(interestedInRelationship);
-  static Insertable<Friend> custom({
-    Expression<int>? mainPersonId,
-    Expression<int>? friendId,
-    Expression<String>? metAt,
-    Expression<bool>? haveRomanticRelationship,
-    Expression<int>? relationship,
-    Expression<bool>? interestedInRelationship,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (mainPersonId != null) 'main_person_id': mainPersonId,
-      if (friendId != null) 'friend_id': friendId,
-      if (metAt != null) 'met_at': metAt,
-      if (haveRomanticRelationship != null)
-        'have_romantic_relationship': haveRomanticRelationship,
-      if (relationship != null) 'relationship': relationship,
-      if (interestedInRelationship != null)
-        'interested_in_relationship': interestedInRelationship,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  FriendTableCompanion copyWith(
-      {Value<int>? mainPersonId,
-      Value<int>? friendId,
-      Value<String>? metAt,
-      Value<bool>? haveRomanticRelationship,
-      Value<int>? relationship,
-      Value<bool>? interestedInRelationship,
-      Value<int>? rowid}) {
-    return FriendTableCompanion(
-      mainPersonId: mainPersonId ?? this.mainPersonId,
-      friendId: friendId ?? this.friendId,
-      metAt: metAt ?? this.metAt,
-      haveRomanticRelationship:
-          haveRomanticRelationship ?? this.haveRomanticRelationship,
-      relationship: relationship ?? this.relationship,
-      interestedInRelationship:
-          interestedInRelationship ?? this.interestedInRelationship,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (mainPersonId.present) {
-      map['main_person_id'] = Variable<int>(mainPersonId.value);
-    }
-    if (friendId.present) {
-      map['friend_id'] = Variable<int>(friendId.value);
-    }
-    if (metAt.present) {
-      map['met_at'] = Variable<String>(metAt.value);
-    }
-    if (haveRomanticRelationship.present) {
-      map['have_romantic_relationship'] =
-          Variable<bool>(haveRomanticRelationship.value);
-    }
-    if (relationship.present) {
-      map['relationship'] = Variable<int>(relationship.value);
-    }
-    if (interestedInRelationship.present) {
-      map['interested_in_relationship'] =
-          Variable<bool>(interestedInRelationship.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('FriendTableCompanion(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('friendId: $friendId, ')
-          ..write('metAt: $metAt, ')
-          ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $GraveTableTable extends GraveTable
     with TableInfo<$GraveTableTable, Grave> {
   @override
@@ -7250,2373 +6065,6 @@ class GraveTableCompanion extends UpdateCompanion<Grave> {
   }
 }
 
-class $InLawTableTable extends InLawTable
-    with TableInfo<$InLawTableTable, InLaw> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $InLawTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _mainPersonIdMeta =
-      const VerificationMeta('mainPersonId');
-  @override
-  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
-      'main_person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _inLawIdMeta =
-      const VerificationMeta('inLawId');
-  @override
-  late final GeneratedColumn<int> inLawId = GeneratedColumn<int>(
-      'in_law_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _likesMainPersonMeta =
-      const VerificationMeta('likesMainPerson');
-  @override
-  late final GeneratedColumn<bool> likesMainPerson = GeneratedColumn<bool>(
-      'likes_main_person', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("likes_main_person" IN (0, 1))'));
-  static const VerificationMeta _inLawRelationshipTypeMeta =
-      const VerificationMeta('inLawRelationshipType');
-  @override
-  late final GeneratedColumn<String> inLawRelationshipType =
-      GeneratedColumn<String>('in_law_relationship_type', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _haveRomanticRelationshipMeta =
-      const VerificationMeta('haveRomanticRelationship');
-  @override
-  late final GeneratedColumn<bool> haveRomanticRelationship =
-      GeneratedColumn<bool>(
-          'have_romantic_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("have_romantic_relationship" IN (0, 1))'));
-  static const VerificationMeta _relationshipMeta =
-      const VerificationMeta('relationship');
-  @override
-  late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
-      'relationship', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _interestedInRelationshipMeta =
-      const VerificationMeta('interestedInRelationship');
-  @override
-  late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>(
-          'interested_in_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("interested_in_relationship" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        mainPersonId,
-        inLawId,
-        likesMainPerson,
-        inLawRelationshipType,
-        haveRomanticRelationship,
-        relationship,
-        interestedInRelationship
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'inlaw';
-  @override
-  VerificationContext validateIntegrity(Insertable<InLaw> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('main_person_id')) {
-      context.handle(
-          _mainPersonIdMeta,
-          mainPersonId.isAcceptableOrUnknown(
-              data['main_person_id']!, _mainPersonIdMeta));
-    } else if (isInserting) {
-      context.missing(_mainPersonIdMeta);
-    }
-    if (data.containsKey('in_law_id')) {
-      context.handle(_inLawIdMeta,
-          inLawId.isAcceptableOrUnknown(data['in_law_id']!, _inLawIdMeta));
-    } else if (isInserting) {
-      context.missing(_inLawIdMeta);
-    }
-    if (data.containsKey('likes_main_person')) {
-      context.handle(
-          _likesMainPersonMeta,
-          likesMainPerson.isAcceptableOrUnknown(
-              data['likes_main_person']!, _likesMainPersonMeta));
-    } else if (isInserting) {
-      context.missing(_likesMainPersonMeta);
-    }
-    if (data.containsKey('in_law_relationship_type')) {
-      context.handle(
-          _inLawRelationshipTypeMeta,
-          inLawRelationshipType.isAcceptableOrUnknown(
-              data['in_law_relationship_type']!, _inLawRelationshipTypeMeta));
-    } else if (isInserting) {
-      context.missing(_inLawRelationshipTypeMeta);
-    }
-    if (data.containsKey('have_romantic_relationship')) {
-      context.handle(
-          _haveRomanticRelationshipMeta,
-          haveRomanticRelationship.isAcceptableOrUnknown(
-              data['have_romantic_relationship']!,
-              _haveRomanticRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_haveRomanticRelationshipMeta);
-    }
-    if (data.containsKey('relationship')) {
-      context.handle(
-          _relationshipMeta,
-          relationship.isAcceptableOrUnknown(
-              data['relationship']!, _relationshipMeta));
-    } else if (isInserting) {
-      context.missing(_relationshipMeta);
-    }
-    if (data.containsKey('interested_in_relationship')) {
-      context.handle(
-          _interestedInRelationshipMeta,
-          interestedInRelationship.isAcceptableOrUnknown(
-              data['interested_in_relationship']!,
-              _interestedInRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_interestedInRelationshipMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {mainPersonId, inLawId};
-  @override
-  InLaw map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return InLaw(
-      mainPersonId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
-      inLawId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}in_law_id'])!,
-      likesMainPerson: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool, data['${effectivePrefix}likes_main_person'])!,
-      inLawRelationshipType: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}in_law_relationship_type'])!,
-      haveRomanticRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}have_romantic_relationship'])!,
-      relationship: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      interestedInRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}interested_in_relationship'])!,
-    );
-  }
-
-  @override
-  $InLawTableTable createAlias(String alias) {
-    return $InLawTableTable(attachedDatabase, alias);
-  }
-}
-
-class InLaw extends DataClass implements Insertable<InLaw> {
-  final int mainPersonId;
-  final int inLawId;
-  final bool likesMainPerson;
-  final String inLawRelationshipType;
-  final bool haveRomanticRelationship;
-  final int relationship;
-  final bool interestedInRelationship;
-  const InLaw(
-      {required this.mainPersonId,
-      required this.inLawId,
-      required this.likesMainPerson,
-      required this.inLawRelationshipType,
-      required this.haveRomanticRelationship,
-      required this.relationship,
-      required this.interestedInRelationship});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['main_person_id'] = Variable<int>(mainPersonId);
-    map['in_law_id'] = Variable<int>(inLawId);
-    map['likes_main_person'] = Variable<bool>(likesMainPerson);
-    map['in_law_relationship_type'] = Variable<String>(inLawRelationshipType);
-    map['have_romantic_relationship'] =
-        Variable<bool>(haveRomanticRelationship);
-    map['relationship'] = Variable<int>(relationship);
-    map['interested_in_relationship'] =
-        Variable<bool>(interestedInRelationship);
-    return map;
-  }
-
-  InLawTableCompanion toCompanion(bool nullToAbsent) {
-    return InLawTableCompanion(
-      mainPersonId: Value(mainPersonId),
-      inLawId: Value(inLawId),
-      likesMainPerson: Value(likesMainPerson),
-      inLawRelationshipType: Value(inLawRelationshipType),
-      haveRomanticRelationship: Value(haveRomanticRelationship),
-      relationship: Value(relationship),
-      interestedInRelationship: Value(interestedInRelationship),
-    );
-  }
-
-  factory InLaw.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return InLaw(
-      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
-      inLawId: serializer.fromJson<int>(json['inLawId']),
-      likesMainPerson: serializer.fromJson<bool>(json['likesMainPerson']),
-      inLawRelationshipType:
-          serializer.fromJson<String>(json['inLawRelationshipType']),
-      haveRomanticRelationship:
-          serializer.fromJson<bool>(json['haveRomanticRelationship']),
-      relationship: serializer.fromJson<int>(json['relationship']),
-      interestedInRelationship:
-          serializer.fromJson<bool>(json['interestedInRelationship']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'mainPersonId': serializer.toJson<int>(mainPersonId),
-      'inLawId': serializer.toJson<int>(inLawId),
-      'likesMainPerson': serializer.toJson<bool>(likesMainPerson),
-      'inLawRelationshipType': serializer.toJson<String>(inLawRelationshipType),
-      'haveRomanticRelationship':
-          serializer.toJson<bool>(haveRomanticRelationship),
-      'relationship': serializer.toJson<int>(relationship),
-      'interestedInRelationship':
-          serializer.toJson<bool>(interestedInRelationship),
-    };
-  }
-
-  InLaw copyWith(
-          {int? mainPersonId,
-          int? inLawId,
-          bool? likesMainPerson,
-          String? inLawRelationshipType,
-          bool? haveRomanticRelationship,
-          int? relationship,
-          bool? interestedInRelationship}) =>
-      InLaw(
-        mainPersonId: mainPersonId ?? this.mainPersonId,
-        inLawId: inLawId ?? this.inLawId,
-        likesMainPerson: likesMainPerson ?? this.likesMainPerson,
-        inLawRelationshipType:
-            inLawRelationshipType ?? this.inLawRelationshipType,
-        haveRomanticRelationship:
-            haveRomanticRelationship ?? this.haveRomanticRelationship,
-        relationship: relationship ?? this.relationship,
-        interestedInRelationship:
-            interestedInRelationship ?? this.interestedInRelationship,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('InLaw(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('inLawId: $inLawId, ')
-          ..write('likesMainPerson: $likesMainPerson, ')
-          ..write('inLawRelationshipType: $inLawRelationshipType, ')
-          ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      mainPersonId,
-      inLawId,
-      likesMainPerson,
-      inLawRelationshipType,
-      haveRomanticRelationship,
-      relationship,
-      interestedInRelationship);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is InLaw &&
-          other.mainPersonId == this.mainPersonId &&
-          other.inLawId == this.inLawId &&
-          other.likesMainPerson == this.likesMainPerson &&
-          other.inLawRelationshipType == this.inLawRelationshipType &&
-          other.haveRomanticRelationship == this.haveRomanticRelationship &&
-          other.relationship == this.relationship &&
-          other.interestedInRelationship == this.interestedInRelationship);
-}
-
-class InLawTableCompanion extends UpdateCompanion<InLaw> {
-  final Value<int> mainPersonId;
-  final Value<int> inLawId;
-  final Value<bool> likesMainPerson;
-  final Value<String> inLawRelationshipType;
-  final Value<bool> haveRomanticRelationship;
-  final Value<int> relationship;
-  final Value<bool> interestedInRelationship;
-  final Value<int> rowid;
-  const InLawTableCompanion({
-    this.mainPersonId = const Value.absent(),
-    this.inLawId = const Value.absent(),
-    this.likesMainPerson = const Value.absent(),
-    this.inLawRelationshipType = const Value.absent(),
-    this.haveRomanticRelationship = const Value.absent(),
-    this.relationship = const Value.absent(),
-    this.interestedInRelationship = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  InLawTableCompanion.insert({
-    required int mainPersonId,
-    required int inLawId,
-    required bool likesMainPerson,
-    required String inLawRelationshipType,
-    required bool haveRomanticRelationship,
-    required int relationship,
-    required bool interestedInRelationship,
-    this.rowid = const Value.absent(),
-  })  : mainPersonId = Value(mainPersonId),
-        inLawId = Value(inLawId),
-        likesMainPerson = Value(likesMainPerson),
-        inLawRelationshipType = Value(inLawRelationshipType),
-        haveRomanticRelationship = Value(haveRomanticRelationship),
-        relationship = Value(relationship),
-        interestedInRelationship = Value(interestedInRelationship);
-  static Insertable<InLaw> custom({
-    Expression<int>? mainPersonId,
-    Expression<int>? inLawId,
-    Expression<bool>? likesMainPerson,
-    Expression<String>? inLawRelationshipType,
-    Expression<bool>? haveRomanticRelationship,
-    Expression<int>? relationship,
-    Expression<bool>? interestedInRelationship,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (mainPersonId != null) 'main_person_id': mainPersonId,
-      if (inLawId != null) 'in_law_id': inLawId,
-      if (likesMainPerson != null) 'likes_main_person': likesMainPerson,
-      if (inLawRelationshipType != null)
-        'in_law_relationship_type': inLawRelationshipType,
-      if (haveRomanticRelationship != null)
-        'have_romantic_relationship': haveRomanticRelationship,
-      if (relationship != null) 'relationship': relationship,
-      if (interestedInRelationship != null)
-        'interested_in_relationship': interestedInRelationship,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  InLawTableCompanion copyWith(
-      {Value<int>? mainPersonId,
-      Value<int>? inLawId,
-      Value<bool>? likesMainPerson,
-      Value<String>? inLawRelationshipType,
-      Value<bool>? haveRomanticRelationship,
-      Value<int>? relationship,
-      Value<bool>? interestedInRelationship,
-      Value<int>? rowid}) {
-    return InLawTableCompanion(
-      mainPersonId: mainPersonId ?? this.mainPersonId,
-      inLawId: inLawId ?? this.inLawId,
-      likesMainPerson: likesMainPerson ?? this.likesMainPerson,
-      inLawRelationshipType:
-          inLawRelationshipType ?? this.inLawRelationshipType,
-      haveRomanticRelationship:
-          haveRomanticRelationship ?? this.haveRomanticRelationship,
-      relationship: relationship ?? this.relationship,
-      interestedInRelationship:
-          interestedInRelationship ?? this.interestedInRelationship,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (mainPersonId.present) {
-      map['main_person_id'] = Variable<int>(mainPersonId.value);
-    }
-    if (inLawId.present) {
-      map['in_law_id'] = Variable<int>(inLawId.value);
-    }
-    if (likesMainPerson.present) {
-      map['likes_main_person'] = Variable<bool>(likesMainPerson.value);
-    }
-    if (inLawRelationshipType.present) {
-      map['in_law_relationship_type'] =
-          Variable<String>(inLawRelationshipType.value);
-    }
-    if (haveRomanticRelationship.present) {
-      map['have_romantic_relationship'] =
-          Variable<bool>(haveRomanticRelationship.value);
-    }
-    if (relationship.present) {
-      map['relationship'] = Variable<int>(relationship.value);
-    }
-    if (interestedInRelationship.present) {
-      map['interested_in_relationship'] =
-          Variable<bool>(interestedInRelationship.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('InLawTableCompanion(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('inLawId: $inLawId, ')
-          ..write('likesMainPerson: $likesMainPerson, ')
-          ..write('inLawRelationshipType: $inLawRelationshipType, ')
-          ..write('haveRomanticRelationship: $haveRomanticRelationship, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $ParentTableTable extends ParentTable
-    with TableInfo<$ParentTableTable, Parent> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $ParentTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _mainPersonIdMeta =
-      const VerificationMeta('mainPersonId');
-  @override
-  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
-      'main_person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _parentIdMeta =
-      const VerificationMeta('parentId');
-  @override
-  late final GeneratedColumn<int> parentId = GeneratedColumn<int>(
-      'parent_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _parentRelationshipTypeMeta =
-      const VerificationMeta('parentRelationshipType');
-  @override
-  late final GeneratedColumn<String> parentRelationshipType =
-      GeneratedColumn<String>('parent_relationship_type', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _hiddenMeta = const VerificationMeta('hidden');
-  @override
-  late final GeneratedColumn<bool> hidden = GeneratedColumn<bool>(
-      'hidden', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("hidden" IN (0, 1))'));
-  static const VerificationMeta _paternityFraudMeta =
-      const VerificationMeta('paternityFraud');
-  @override
-  late final GeneratedColumn<bool> paternityFraud = GeneratedColumn<bool>(
-      'paternity_fraud', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("paternity_fraud" IN (0, 1))'));
-  static const VerificationMeta _assumedRelationshipTypeMeta =
-      const VerificationMeta('assumedRelationshipType');
-  @override
-  late final GeneratedColumn<String> assumedRelationshipType =
-      GeneratedColumn<String>('assumed_relationship_type', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _relationshipMeta =
-      const VerificationMeta('relationship');
-  @override
-  late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
-      'relationship', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
-  static const VerificationMeta _interestedInRelationshipMeta =
-      const VerificationMeta('interestedInRelationship');
-  @override
-  late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>(
-          'interested_in_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("interested_in_relationship" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        mainPersonId,
-        parentId,
-        parentRelationshipType,
-        hidden,
-        paternityFraud,
-        assumedRelationshipType,
-        relationship,
-        isActive,
-        interestedInRelationship
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'parent';
-  @override
-  VerificationContext validateIntegrity(Insertable<Parent> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('main_person_id')) {
-      context.handle(
-          _mainPersonIdMeta,
-          mainPersonId.isAcceptableOrUnknown(
-              data['main_person_id']!, _mainPersonIdMeta));
-    } else if (isInserting) {
-      context.missing(_mainPersonIdMeta);
-    }
-    if (data.containsKey('parent_id')) {
-      context.handle(_parentIdMeta,
-          parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta));
-    } else if (isInserting) {
-      context.missing(_parentIdMeta);
-    }
-    if (data.containsKey('parent_relationship_type')) {
-      context.handle(
-          _parentRelationshipTypeMeta,
-          parentRelationshipType.isAcceptableOrUnknown(
-              data['parent_relationship_type']!, _parentRelationshipTypeMeta));
-    } else if (isInserting) {
-      context.missing(_parentRelationshipTypeMeta);
-    }
-    if (data.containsKey('hidden')) {
-      context.handle(_hiddenMeta,
-          hidden.isAcceptableOrUnknown(data['hidden']!, _hiddenMeta));
-    } else if (isInserting) {
-      context.missing(_hiddenMeta);
-    }
-    if (data.containsKey('paternity_fraud')) {
-      context.handle(
-          _paternityFraudMeta,
-          paternityFraud.isAcceptableOrUnknown(
-              data['paternity_fraud']!, _paternityFraudMeta));
-    } else if (isInserting) {
-      context.missing(_paternityFraudMeta);
-    }
-    if (data.containsKey('assumed_relationship_type')) {
-      context.handle(
-          _assumedRelationshipTypeMeta,
-          assumedRelationshipType.isAcceptableOrUnknown(
-              data['assumed_relationship_type']!,
-              _assumedRelationshipTypeMeta));
-    } else if (isInserting) {
-      context.missing(_assumedRelationshipTypeMeta);
-    }
-    if (data.containsKey('relationship')) {
-      context.handle(
-          _relationshipMeta,
-          relationship.isAcceptableOrUnknown(
-              data['relationship']!, _relationshipMeta));
-    } else if (isInserting) {
-      context.missing(_relationshipMeta);
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    } else if (isInserting) {
-      context.missing(_isActiveMeta);
-    }
-    if (data.containsKey('interested_in_relationship')) {
-      context.handle(
-          _interestedInRelationshipMeta,
-          interestedInRelationship.isAcceptableOrUnknown(
-              data['interested_in_relationship']!,
-              _interestedInRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_interestedInRelationshipMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {mainPersonId, parentId};
-  @override
-  Parent map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Parent(
-      mainPersonId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
-      parentId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}parent_id'])!,
-      parentRelationshipType: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}parent_relationship_type'])!,
-      hidden: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}hidden'])!,
-      paternityFraud: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}paternity_fraud'])!,
-      assumedRelationshipType: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}assumed_relationship_type'])!,
-      relationship: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-      interestedInRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}interested_in_relationship'])!,
-    );
-  }
-
-  @override
-  $ParentTableTable createAlias(String alias) {
-    return $ParentTableTable(attachedDatabase, alias);
-  }
-}
-
-class Parent extends DataClass implements Insertable<Parent> {
-  final int mainPersonId;
-  final int parentId;
-  final String parentRelationshipType;
-  final bool hidden;
-  final bool paternityFraud;
-  final String assumedRelationshipType;
-  final int relationship;
-  final bool isActive;
-  final bool interestedInRelationship;
-  const Parent(
-      {required this.mainPersonId,
-      required this.parentId,
-      required this.parentRelationshipType,
-      required this.hidden,
-      required this.paternityFraud,
-      required this.assumedRelationshipType,
-      required this.relationship,
-      required this.isActive,
-      required this.interestedInRelationship});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['main_person_id'] = Variable<int>(mainPersonId);
-    map['parent_id'] = Variable<int>(parentId);
-    map['parent_relationship_type'] = Variable<String>(parentRelationshipType);
-    map['hidden'] = Variable<bool>(hidden);
-    map['paternity_fraud'] = Variable<bool>(paternityFraud);
-    map['assumed_relationship_type'] =
-        Variable<String>(assumedRelationshipType);
-    map['relationship'] = Variable<int>(relationship);
-    map['is_active'] = Variable<bool>(isActive);
-    map['interested_in_relationship'] =
-        Variable<bool>(interestedInRelationship);
-    return map;
-  }
-
-  ParentTableCompanion toCompanion(bool nullToAbsent) {
-    return ParentTableCompanion(
-      mainPersonId: Value(mainPersonId),
-      parentId: Value(parentId),
-      parentRelationshipType: Value(parentRelationshipType),
-      hidden: Value(hidden),
-      paternityFraud: Value(paternityFraud),
-      assumedRelationshipType: Value(assumedRelationshipType),
-      relationship: Value(relationship),
-      isActive: Value(isActive),
-      interestedInRelationship: Value(interestedInRelationship),
-    );
-  }
-
-  factory Parent.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Parent(
-      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
-      parentId: serializer.fromJson<int>(json['parentId']),
-      parentRelationshipType:
-          serializer.fromJson<String>(json['parentRelationshipType']),
-      hidden: serializer.fromJson<bool>(json['hidden']),
-      paternityFraud: serializer.fromJson<bool>(json['paternityFraud']),
-      assumedRelationshipType:
-          serializer.fromJson<String>(json['assumedRelationshipType']),
-      relationship: serializer.fromJson<int>(json['relationship']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
-      interestedInRelationship:
-          serializer.fromJson<bool>(json['interestedInRelationship']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'mainPersonId': serializer.toJson<int>(mainPersonId),
-      'parentId': serializer.toJson<int>(parentId),
-      'parentRelationshipType':
-          serializer.toJson<String>(parentRelationshipType),
-      'hidden': serializer.toJson<bool>(hidden),
-      'paternityFraud': serializer.toJson<bool>(paternityFraud),
-      'assumedRelationshipType':
-          serializer.toJson<String>(assumedRelationshipType),
-      'relationship': serializer.toJson<int>(relationship),
-      'isActive': serializer.toJson<bool>(isActive),
-      'interestedInRelationship':
-          serializer.toJson<bool>(interestedInRelationship),
-    };
-  }
-
-  Parent copyWith(
-          {int? mainPersonId,
-          int? parentId,
-          String? parentRelationshipType,
-          bool? hidden,
-          bool? paternityFraud,
-          String? assumedRelationshipType,
-          int? relationship,
-          bool? isActive,
-          bool? interestedInRelationship}) =>
-      Parent(
-        mainPersonId: mainPersonId ?? this.mainPersonId,
-        parentId: parentId ?? this.parentId,
-        parentRelationshipType:
-            parentRelationshipType ?? this.parentRelationshipType,
-        hidden: hidden ?? this.hidden,
-        paternityFraud: paternityFraud ?? this.paternityFraud,
-        assumedRelationshipType:
-            assumedRelationshipType ?? this.assumedRelationshipType,
-        relationship: relationship ?? this.relationship,
-        isActive: isActive ?? this.isActive,
-        interestedInRelationship:
-            interestedInRelationship ?? this.interestedInRelationship,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Parent(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('parentId: $parentId, ')
-          ..write('parentRelationshipType: $parentRelationshipType, ')
-          ..write('hidden: $hidden, ')
-          ..write('paternityFraud: $paternityFraud, ')
-          ..write('assumedRelationshipType: $assumedRelationshipType, ')
-          ..write('relationship: $relationship, ')
-          ..write('isActive: $isActive, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      mainPersonId,
-      parentId,
-      parentRelationshipType,
-      hidden,
-      paternityFraud,
-      assumedRelationshipType,
-      relationship,
-      isActive,
-      interestedInRelationship);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Parent &&
-          other.mainPersonId == this.mainPersonId &&
-          other.parentId == this.parentId &&
-          other.parentRelationshipType == this.parentRelationshipType &&
-          other.hidden == this.hidden &&
-          other.paternityFraud == this.paternityFraud &&
-          other.assumedRelationshipType == this.assumedRelationshipType &&
-          other.relationship == this.relationship &&
-          other.isActive == this.isActive &&
-          other.interestedInRelationship == this.interestedInRelationship);
-}
-
-class ParentTableCompanion extends UpdateCompanion<Parent> {
-  final Value<int> mainPersonId;
-  final Value<int> parentId;
-  final Value<String> parentRelationshipType;
-  final Value<bool> hidden;
-  final Value<bool> paternityFraud;
-  final Value<String> assumedRelationshipType;
-  final Value<int> relationship;
-  final Value<bool> isActive;
-  final Value<bool> interestedInRelationship;
-  final Value<int> rowid;
-  const ParentTableCompanion({
-    this.mainPersonId = const Value.absent(),
-    this.parentId = const Value.absent(),
-    this.parentRelationshipType = const Value.absent(),
-    this.hidden = const Value.absent(),
-    this.paternityFraud = const Value.absent(),
-    this.assumedRelationshipType = const Value.absent(),
-    this.relationship = const Value.absent(),
-    this.isActive = const Value.absent(),
-    this.interestedInRelationship = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  ParentTableCompanion.insert({
-    required int mainPersonId,
-    required int parentId,
-    required String parentRelationshipType,
-    required bool hidden,
-    required bool paternityFraud,
-    required String assumedRelationshipType,
-    required int relationship,
-    required bool isActive,
-    required bool interestedInRelationship,
-    this.rowid = const Value.absent(),
-  })  : mainPersonId = Value(mainPersonId),
-        parentId = Value(parentId),
-        parentRelationshipType = Value(parentRelationshipType),
-        hidden = Value(hidden),
-        paternityFraud = Value(paternityFraud),
-        assumedRelationshipType = Value(assumedRelationshipType),
-        relationship = Value(relationship),
-        isActive = Value(isActive),
-        interestedInRelationship = Value(interestedInRelationship);
-  static Insertable<Parent> custom({
-    Expression<int>? mainPersonId,
-    Expression<int>? parentId,
-    Expression<String>? parentRelationshipType,
-    Expression<bool>? hidden,
-    Expression<bool>? paternityFraud,
-    Expression<String>? assumedRelationshipType,
-    Expression<int>? relationship,
-    Expression<bool>? isActive,
-    Expression<bool>? interestedInRelationship,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (mainPersonId != null) 'main_person_id': mainPersonId,
-      if (parentId != null) 'parent_id': parentId,
-      if (parentRelationshipType != null)
-        'parent_relationship_type': parentRelationshipType,
-      if (hidden != null) 'hidden': hidden,
-      if (paternityFraud != null) 'paternity_fraud': paternityFraud,
-      if (assumedRelationshipType != null)
-        'assumed_relationship_type': assumedRelationshipType,
-      if (relationship != null) 'relationship': relationship,
-      if (isActive != null) 'is_active': isActive,
-      if (interestedInRelationship != null)
-        'interested_in_relationship': interestedInRelationship,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  ParentTableCompanion copyWith(
-      {Value<int>? mainPersonId,
-      Value<int>? parentId,
-      Value<String>? parentRelationshipType,
-      Value<bool>? hidden,
-      Value<bool>? paternityFraud,
-      Value<String>? assumedRelationshipType,
-      Value<int>? relationship,
-      Value<bool>? isActive,
-      Value<bool>? interestedInRelationship,
-      Value<int>? rowid}) {
-    return ParentTableCompanion(
-      mainPersonId: mainPersonId ?? this.mainPersonId,
-      parentId: parentId ?? this.parentId,
-      parentRelationshipType:
-          parentRelationshipType ?? this.parentRelationshipType,
-      hidden: hidden ?? this.hidden,
-      paternityFraud: paternityFraud ?? this.paternityFraud,
-      assumedRelationshipType:
-          assumedRelationshipType ?? this.assumedRelationshipType,
-      relationship: relationship ?? this.relationship,
-      isActive: isActive ?? this.isActive,
-      interestedInRelationship:
-          interestedInRelationship ?? this.interestedInRelationship,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (mainPersonId.present) {
-      map['main_person_id'] = Variable<int>(mainPersonId.value);
-    }
-    if (parentId.present) {
-      map['parent_id'] = Variable<int>(parentId.value);
-    }
-    if (parentRelationshipType.present) {
-      map['parent_relationship_type'] =
-          Variable<String>(parentRelationshipType.value);
-    }
-    if (hidden.present) {
-      map['hidden'] = Variable<bool>(hidden.value);
-    }
-    if (paternityFraud.present) {
-      map['paternity_fraud'] = Variable<bool>(paternityFraud.value);
-    }
-    if (assumedRelationshipType.present) {
-      map['assumed_relationship_type'] =
-          Variable<String>(assumedRelationshipType.value);
-    }
-    if (relationship.present) {
-      map['relationship'] = Variable<int>(relationship.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    if (interestedInRelationship.present) {
-      map['interested_in_relationship'] =
-          Variable<bool>(interestedInRelationship.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('ParentTableCompanion(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('parentId: $parentId, ')
-          ..write('parentRelationshipType: $parentRelationshipType, ')
-          ..write('hidden: $hidden, ')
-          ..write('paternityFraud: $paternityFraud, ')
-          ..write('assumedRelationshipType: $assumedRelationshipType, ')
-          ..write('relationship: $relationship, ')
-          ..write('isActive: $isActive, ')
-          ..write('interestedInRelationship: $interestedInRelationship, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $PartnerTableTable extends PartnerTable
-    with TableInfo<$PartnerTableTable, Partner> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $PartnerTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _mainPersonIdMeta =
-      const VerificationMeta('mainPersonId');
-  @override
-  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
-      'main_person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _partnerIdMeta =
-      const VerificationMeta('partnerId');
-  @override
-  late final GeneratedColumn<int> partnerId = GeneratedColumn<int>(
-      'partner_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _partnerRelationshipTypeMeta =
-      const VerificationMeta('partnerRelationshipType');
-  @override
-  late final GeneratedColumn<String> partnerRelationshipType =
-      GeneratedColumn<String>('partner_relationship_type', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
-  static const VerificationMeta _jointMoneyMeta =
-      const VerificationMeta('jointMoney');
-  @override
-  late final GeneratedColumn<int> jointMoney = GeneratedColumn<int>(
-      'joint_money', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _startDayMeta =
-      const VerificationMeta('startDay');
-  @override
-  late final GeneratedColumn<int> startDay = GeneratedColumn<int>(
-      'start_day', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _endDayMeta = const VerificationMeta('endDay');
-  @override
-  late final GeneratedColumn<int> endDay = GeneratedColumn<int>(
-      'end_day', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _daysToDateBeforeMarriageMeta =
-      const VerificationMeta('daysToDateBeforeMarriage');
-  @override
-  late final GeneratedColumn<int> daysToDateBeforeMarriage =
-      GeneratedColumn<int>('days_to_date_before_marriage', aliasedName, false,
-          type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _isCoParentMeta =
-      const VerificationMeta('isCoParent');
-  @override
-  late final GeneratedColumn<bool> isCoParent = GeneratedColumn<bool>(
-      'is_co_parent', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_co_parent" IN (0, 1))'));
-  static const VerificationMeta _metAtMeta = const VerificationMeta('metAt');
-  @override
-  late final GeneratedColumn<String> metAt = GeneratedColumn<String>(
-      'met_at', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _relationshipMeta =
-      const VerificationMeta('relationship');
-  @override
-  late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
-      'relationship', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _interestedInRelationshipMeta =
-      const VerificationMeta('interestedInRelationship');
-  @override
-  late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>(
-          'interested_in_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("interested_in_relationship" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        mainPersonId,
-        partnerId,
-        partnerRelationshipType,
-        isActive,
-        jointMoney,
-        startDay,
-        endDay,
-        daysToDateBeforeMarriage,
-        isCoParent,
-        metAt,
-        relationship,
-        interestedInRelationship
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'partner';
-  @override
-  VerificationContext validateIntegrity(Insertable<Partner> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('main_person_id')) {
-      context.handle(
-          _mainPersonIdMeta,
-          mainPersonId.isAcceptableOrUnknown(
-              data['main_person_id']!, _mainPersonIdMeta));
-    } else if (isInserting) {
-      context.missing(_mainPersonIdMeta);
-    }
-    if (data.containsKey('partner_id')) {
-      context.handle(_partnerIdMeta,
-          partnerId.isAcceptableOrUnknown(data['partner_id']!, _partnerIdMeta));
-    } else if (isInserting) {
-      context.missing(_partnerIdMeta);
-    }
-    if (data.containsKey('partner_relationship_type')) {
-      context.handle(
-          _partnerRelationshipTypeMeta,
-          partnerRelationshipType.isAcceptableOrUnknown(
-              data['partner_relationship_type']!,
-              _partnerRelationshipTypeMeta));
-    } else if (isInserting) {
-      context.missing(_partnerRelationshipTypeMeta);
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    } else if (isInserting) {
-      context.missing(_isActiveMeta);
-    }
-    if (data.containsKey('joint_money')) {
-      context.handle(
-          _jointMoneyMeta,
-          jointMoney.isAcceptableOrUnknown(
-              data['joint_money']!, _jointMoneyMeta));
-    } else if (isInserting) {
-      context.missing(_jointMoneyMeta);
-    }
-    if (data.containsKey('start_day')) {
-      context.handle(_startDayMeta,
-          startDay.isAcceptableOrUnknown(data['start_day']!, _startDayMeta));
-    } else if (isInserting) {
-      context.missing(_startDayMeta);
-    }
-    if (data.containsKey('end_day')) {
-      context.handle(_endDayMeta,
-          endDay.isAcceptableOrUnknown(data['end_day']!, _endDayMeta));
-    } else if (isInserting) {
-      context.missing(_endDayMeta);
-    }
-    if (data.containsKey('days_to_date_before_marriage')) {
-      context.handle(
-          _daysToDateBeforeMarriageMeta,
-          daysToDateBeforeMarriage.isAcceptableOrUnknown(
-              data['days_to_date_before_marriage']!,
-              _daysToDateBeforeMarriageMeta));
-    } else if (isInserting) {
-      context.missing(_daysToDateBeforeMarriageMeta);
-    }
-    if (data.containsKey('is_co_parent')) {
-      context.handle(
-          _isCoParentMeta,
-          isCoParent.isAcceptableOrUnknown(
-              data['is_co_parent']!, _isCoParentMeta));
-    } else if (isInserting) {
-      context.missing(_isCoParentMeta);
-    }
-    if (data.containsKey('met_at')) {
-      context.handle(
-          _metAtMeta, metAt.isAcceptableOrUnknown(data['met_at']!, _metAtMeta));
-    } else if (isInserting) {
-      context.missing(_metAtMeta);
-    }
-    if (data.containsKey('relationship')) {
-      context.handle(
-          _relationshipMeta,
-          relationship.isAcceptableOrUnknown(
-              data['relationship']!, _relationshipMeta));
-    } else if (isInserting) {
-      context.missing(_relationshipMeta);
-    }
-    if (data.containsKey('interested_in_relationship')) {
-      context.handle(
-          _interestedInRelationshipMeta,
-          interestedInRelationship.isAcceptableOrUnknown(
-              data['interested_in_relationship']!,
-              _interestedInRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_interestedInRelationshipMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {mainPersonId, partnerId};
-  @override
-  Partner map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Partner(
-      mainPersonId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
-      partnerId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}partner_id'])!,
-      partnerRelationshipType: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}partner_relationship_type'])!,
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-      jointMoney: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}joint_money'])!,
-      startDay: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}start_day'])!,
-      endDay: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}end_day'])!,
-      daysToDateBeforeMarriage: attachedDatabase.typeMapping.read(
-          DriftSqlType.int,
-          data['${effectivePrefix}days_to_date_before_marriage'])!,
-      isCoParent: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_co_parent'])!,
-      metAt: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}met_at'])!,
-      relationship: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      interestedInRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}interested_in_relationship'])!,
-    );
-  }
-
-  @override
-  $PartnerTableTable createAlias(String alias) {
-    return $PartnerTableTable(attachedDatabase, alias);
-  }
-}
-
-class Partner extends DataClass implements Insertable<Partner> {
-  final int mainPersonId;
-  final int partnerId;
-  final String partnerRelationshipType;
-  final bool isActive;
-  final int jointMoney;
-  final int startDay;
-  final int endDay;
-  final int daysToDateBeforeMarriage;
-  final bool isCoParent;
-  final String metAt;
-  final int relationship;
-  final bool interestedInRelationship;
-  const Partner(
-      {required this.mainPersonId,
-      required this.partnerId,
-      required this.partnerRelationshipType,
-      required this.isActive,
-      required this.jointMoney,
-      required this.startDay,
-      required this.endDay,
-      required this.daysToDateBeforeMarriage,
-      required this.isCoParent,
-      required this.metAt,
-      required this.relationship,
-      required this.interestedInRelationship});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['main_person_id'] = Variable<int>(mainPersonId);
-    map['partner_id'] = Variable<int>(partnerId);
-    map['partner_relationship_type'] =
-        Variable<String>(partnerRelationshipType);
-    map['is_active'] = Variable<bool>(isActive);
-    map['joint_money'] = Variable<int>(jointMoney);
-    map['start_day'] = Variable<int>(startDay);
-    map['end_day'] = Variable<int>(endDay);
-    map['days_to_date_before_marriage'] =
-        Variable<int>(daysToDateBeforeMarriage);
-    map['is_co_parent'] = Variable<bool>(isCoParent);
-    map['met_at'] = Variable<String>(metAt);
-    map['relationship'] = Variable<int>(relationship);
-    map['interested_in_relationship'] =
-        Variable<bool>(interestedInRelationship);
-    return map;
-  }
-
-  PartnerTableCompanion toCompanion(bool nullToAbsent) {
-    return PartnerTableCompanion(
-      mainPersonId: Value(mainPersonId),
-      partnerId: Value(partnerId),
-      partnerRelationshipType: Value(partnerRelationshipType),
-      isActive: Value(isActive),
-      jointMoney: Value(jointMoney),
-      startDay: Value(startDay),
-      endDay: Value(endDay),
-      daysToDateBeforeMarriage: Value(daysToDateBeforeMarriage),
-      isCoParent: Value(isCoParent),
-      metAt: Value(metAt),
-      relationship: Value(relationship),
-      interestedInRelationship: Value(interestedInRelationship),
-    );
-  }
-
-  factory Partner.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Partner(
-      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
-      partnerId: serializer.fromJson<int>(json['partnerId']),
-      partnerRelationshipType:
-          serializer.fromJson<String>(json['partnerRelationshipType']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
-      jointMoney: serializer.fromJson<int>(json['jointMoney']),
-      startDay: serializer.fromJson<int>(json['startDay']),
-      endDay: serializer.fromJson<int>(json['endDay']),
-      daysToDateBeforeMarriage:
-          serializer.fromJson<int>(json['daysToDateBeforeMarriage']),
-      isCoParent: serializer.fromJson<bool>(json['isCoParent']),
-      metAt: serializer.fromJson<String>(json['metAt']),
-      relationship: serializer.fromJson<int>(json['relationship']),
-      interestedInRelationship:
-          serializer.fromJson<bool>(json['interestedInRelationship']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'mainPersonId': serializer.toJson<int>(mainPersonId),
-      'partnerId': serializer.toJson<int>(partnerId),
-      'partnerRelationshipType':
-          serializer.toJson<String>(partnerRelationshipType),
-      'isActive': serializer.toJson<bool>(isActive),
-      'jointMoney': serializer.toJson<int>(jointMoney),
-      'startDay': serializer.toJson<int>(startDay),
-      'endDay': serializer.toJson<int>(endDay),
-      'daysToDateBeforeMarriage':
-          serializer.toJson<int>(daysToDateBeforeMarriage),
-      'isCoParent': serializer.toJson<bool>(isCoParent),
-      'metAt': serializer.toJson<String>(metAt),
-      'relationship': serializer.toJson<int>(relationship),
-      'interestedInRelationship':
-          serializer.toJson<bool>(interestedInRelationship),
-    };
-  }
-
-  Partner copyWith(
-          {int? mainPersonId,
-          int? partnerId,
-          String? partnerRelationshipType,
-          bool? isActive,
-          int? jointMoney,
-          int? startDay,
-          int? endDay,
-          int? daysToDateBeforeMarriage,
-          bool? isCoParent,
-          String? metAt,
-          int? relationship,
-          bool? interestedInRelationship}) =>
-      Partner(
-        mainPersonId: mainPersonId ?? this.mainPersonId,
-        partnerId: partnerId ?? this.partnerId,
-        partnerRelationshipType:
-            partnerRelationshipType ?? this.partnerRelationshipType,
-        isActive: isActive ?? this.isActive,
-        jointMoney: jointMoney ?? this.jointMoney,
-        startDay: startDay ?? this.startDay,
-        endDay: endDay ?? this.endDay,
-        daysToDateBeforeMarriage:
-            daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
-        isCoParent: isCoParent ?? this.isCoParent,
-        metAt: metAt ?? this.metAt,
-        relationship: relationship ?? this.relationship,
-        interestedInRelationship:
-            interestedInRelationship ?? this.interestedInRelationship,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Partner(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('partnerId: $partnerId, ')
-          ..write('partnerRelationshipType: $partnerRelationshipType, ')
-          ..write('isActive: $isActive, ')
-          ..write('jointMoney: $jointMoney, ')
-          ..write('startDay: $startDay, ')
-          ..write('endDay: $endDay, ')
-          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
-          ..write('isCoParent: $isCoParent, ')
-          ..write('metAt: $metAt, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      mainPersonId,
-      partnerId,
-      partnerRelationshipType,
-      isActive,
-      jointMoney,
-      startDay,
-      endDay,
-      daysToDateBeforeMarriage,
-      isCoParent,
-      metAt,
-      relationship,
-      interestedInRelationship);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Partner &&
-          other.mainPersonId == this.mainPersonId &&
-          other.partnerId == this.partnerId &&
-          other.partnerRelationshipType == this.partnerRelationshipType &&
-          other.isActive == this.isActive &&
-          other.jointMoney == this.jointMoney &&
-          other.startDay == this.startDay &&
-          other.endDay == this.endDay &&
-          other.daysToDateBeforeMarriage == this.daysToDateBeforeMarriage &&
-          other.isCoParent == this.isCoParent &&
-          other.metAt == this.metAt &&
-          other.relationship == this.relationship &&
-          other.interestedInRelationship == this.interestedInRelationship);
-}
-
-class PartnerTableCompanion extends UpdateCompanion<Partner> {
-  final Value<int> mainPersonId;
-  final Value<int> partnerId;
-  final Value<String> partnerRelationshipType;
-  final Value<bool> isActive;
-  final Value<int> jointMoney;
-  final Value<int> startDay;
-  final Value<int> endDay;
-  final Value<int> daysToDateBeforeMarriage;
-  final Value<bool> isCoParent;
-  final Value<String> metAt;
-  final Value<int> relationship;
-  final Value<bool> interestedInRelationship;
-  final Value<int> rowid;
-  const PartnerTableCompanion({
-    this.mainPersonId = const Value.absent(),
-    this.partnerId = const Value.absent(),
-    this.partnerRelationshipType = const Value.absent(),
-    this.isActive = const Value.absent(),
-    this.jointMoney = const Value.absent(),
-    this.startDay = const Value.absent(),
-    this.endDay = const Value.absent(),
-    this.daysToDateBeforeMarriage = const Value.absent(),
-    this.isCoParent = const Value.absent(),
-    this.metAt = const Value.absent(),
-    this.relationship = const Value.absent(),
-    this.interestedInRelationship = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  PartnerTableCompanion.insert({
-    required int mainPersonId,
-    required int partnerId,
-    required String partnerRelationshipType,
-    required bool isActive,
-    required int jointMoney,
-    required int startDay,
-    required int endDay,
-    required int daysToDateBeforeMarriage,
-    required bool isCoParent,
-    required String metAt,
-    required int relationship,
-    required bool interestedInRelationship,
-    this.rowid = const Value.absent(),
-  })  : mainPersonId = Value(mainPersonId),
-        partnerId = Value(partnerId),
-        partnerRelationshipType = Value(partnerRelationshipType),
-        isActive = Value(isActive),
-        jointMoney = Value(jointMoney),
-        startDay = Value(startDay),
-        endDay = Value(endDay),
-        daysToDateBeforeMarriage = Value(daysToDateBeforeMarriage),
-        isCoParent = Value(isCoParent),
-        metAt = Value(metAt),
-        relationship = Value(relationship),
-        interestedInRelationship = Value(interestedInRelationship);
-  static Insertable<Partner> custom({
-    Expression<int>? mainPersonId,
-    Expression<int>? partnerId,
-    Expression<String>? partnerRelationshipType,
-    Expression<bool>? isActive,
-    Expression<int>? jointMoney,
-    Expression<int>? startDay,
-    Expression<int>? endDay,
-    Expression<int>? daysToDateBeforeMarriage,
-    Expression<bool>? isCoParent,
-    Expression<String>? metAt,
-    Expression<int>? relationship,
-    Expression<bool>? interestedInRelationship,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (mainPersonId != null) 'main_person_id': mainPersonId,
-      if (partnerId != null) 'partner_id': partnerId,
-      if (partnerRelationshipType != null)
-        'partner_relationship_type': partnerRelationshipType,
-      if (isActive != null) 'is_active': isActive,
-      if (jointMoney != null) 'joint_money': jointMoney,
-      if (startDay != null) 'start_day': startDay,
-      if (endDay != null) 'end_day': endDay,
-      if (daysToDateBeforeMarriage != null)
-        'days_to_date_before_marriage': daysToDateBeforeMarriage,
-      if (isCoParent != null) 'is_co_parent': isCoParent,
-      if (metAt != null) 'met_at': metAt,
-      if (relationship != null) 'relationship': relationship,
-      if (interestedInRelationship != null)
-        'interested_in_relationship': interestedInRelationship,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  PartnerTableCompanion copyWith(
-      {Value<int>? mainPersonId,
-      Value<int>? partnerId,
-      Value<String>? partnerRelationshipType,
-      Value<bool>? isActive,
-      Value<int>? jointMoney,
-      Value<int>? startDay,
-      Value<int>? endDay,
-      Value<int>? daysToDateBeforeMarriage,
-      Value<bool>? isCoParent,
-      Value<String>? metAt,
-      Value<int>? relationship,
-      Value<bool>? interestedInRelationship,
-      Value<int>? rowid}) {
-    return PartnerTableCompanion(
-      mainPersonId: mainPersonId ?? this.mainPersonId,
-      partnerId: partnerId ?? this.partnerId,
-      partnerRelationshipType:
-          partnerRelationshipType ?? this.partnerRelationshipType,
-      isActive: isActive ?? this.isActive,
-      jointMoney: jointMoney ?? this.jointMoney,
-      startDay: startDay ?? this.startDay,
-      endDay: endDay ?? this.endDay,
-      daysToDateBeforeMarriage:
-          daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
-      isCoParent: isCoParent ?? this.isCoParent,
-      metAt: metAt ?? this.metAt,
-      relationship: relationship ?? this.relationship,
-      interestedInRelationship:
-          interestedInRelationship ?? this.interestedInRelationship,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (mainPersonId.present) {
-      map['main_person_id'] = Variable<int>(mainPersonId.value);
-    }
-    if (partnerId.present) {
-      map['partner_id'] = Variable<int>(partnerId.value);
-    }
-    if (partnerRelationshipType.present) {
-      map['partner_relationship_type'] =
-          Variable<String>(partnerRelationshipType.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    if (jointMoney.present) {
-      map['joint_money'] = Variable<int>(jointMoney.value);
-    }
-    if (startDay.present) {
-      map['start_day'] = Variable<int>(startDay.value);
-    }
-    if (endDay.present) {
-      map['end_day'] = Variable<int>(endDay.value);
-    }
-    if (daysToDateBeforeMarriage.present) {
-      map['days_to_date_before_marriage'] =
-          Variable<int>(daysToDateBeforeMarriage.value);
-    }
-    if (isCoParent.present) {
-      map['is_co_parent'] = Variable<bool>(isCoParent.value);
-    }
-    if (metAt.present) {
-      map['met_at'] = Variable<String>(metAt.value);
-    }
-    if (relationship.present) {
-      map['relationship'] = Variable<int>(relationship.value);
-    }
-    if (interestedInRelationship.present) {
-      map['interested_in_relationship'] =
-          Variable<bool>(interestedInRelationship.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('PartnerTableCompanion(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('partnerId: $partnerId, ')
-          ..write('partnerRelationshipType: $partnerRelationshipType, ')
-          ..write('isActive: $isActive, ')
-          ..write('jointMoney: $jointMoney, ')
-          ..write('startDay: $startDay, ')
-          ..write('endDay: $endDay, ')
-          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
-          ..write('isCoParent: $isCoParent, ')
-          ..write('metAt: $metAt, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $RelativeTableTable extends RelativeTable
-    with TableInfo<$RelativeTableTable, Relative> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $RelativeTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _mainPersonIdMeta =
-      const VerificationMeta('mainPersonId');
-  @override
-  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
-      'main_person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _relativeIdMeta =
-      const VerificationMeta('relativeId');
-  @override
-  late final GeneratedColumn<int> relativeId = GeneratedColumn<int>(
-      'relative_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _inYourCustodyMeta =
-      const VerificationMeta('inYourCustody');
-  @override
-  late final GeneratedColumn<bool> inYourCustody = GeneratedColumn<bool>(
-      'in_your_custody', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("in_your_custody" IN (0, 1))'));
-  static const VerificationMeta _relativeRelationshipTypeMeta =
-      const VerificationMeta('relativeRelationshipType');
-  @override
-  late final GeneratedColumn<String> relativeRelationshipType =
-      GeneratedColumn<String>('relative_relationship_type', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _relationshipMeta =
-      const VerificationMeta('relationship');
-  @override
-  late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
-      'relationship', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _interestedInRelationshipMeta =
-      const VerificationMeta('interestedInRelationship');
-  @override
-  late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>(
-          'interested_in_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("interested_in_relationship" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        mainPersonId,
-        relativeId,
-        inYourCustody,
-        relativeRelationshipType,
-        relationship,
-        interestedInRelationship
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'relative';
-  @override
-  VerificationContext validateIntegrity(Insertable<Relative> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('main_person_id')) {
-      context.handle(
-          _mainPersonIdMeta,
-          mainPersonId.isAcceptableOrUnknown(
-              data['main_person_id']!, _mainPersonIdMeta));
-    } else if (isInserting) {
-      context.missing(_mainPersonIdMeta);
-    }
-    if (data.containsKey('relative_id')) {
-      context.handle(
-          _relativeIdMeta,
-          relativeId.isAcceptableOrUnknown(
-              data['relative_id']!, _relativeIdMeta));
-    } else if (isInserting) {
-      context.missing(_relativeIdMeta);
-    }
-    if (data.containsKey('in_your_custody')) {
-      context.handle(
-          _inYourCustodyMeta,
-          inYourCustody.isAcceptableOrUnknown(
-              data['in_your_custody']!, _inYourCustodyMeta));
-    } else if (isInserting) {
-      context.missing(_inYourCustodyMeta);
-    }
-    if (data.containsKey('relative_relationship_type')) {
-      context.handle(
-          _relativeRelationshipTypeMeta,
-          relativeRelationshipType.isAcceptableOrUnknown(
-              data['relative_relationship_type']!,
-              _relativeRelationshipTypeMeta));
-    } else if (isInserting) {
-      context.missing(_relativeRelationshipTypeMeta);
-    }
-    if (data.containsKey('relationship')) {
-      context.handle(
-          _relationshipMeta,
-          relationship.isAcceptableOrUnknown(
-              data['relationship']!, _relationshipMeta));
-    } else if (isInserting) {
-      context.missing(_relationshipMeta);
-    }
-    if (data.containsKey('interested_in_relationship')) {
-      context.handle(
-          _interestedInRelationshipMeta,
-          interestedInRelationship.isAcceptableOrUnknown(
-              data['interested_in_relationship']!,
-              _interestedInRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_interestedInRelationshipMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {mainPersonId, relativeId};
-  @override
-  Relative map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Relative(
-      mainPersonId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
-      relativeId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}relative_id'])!,
-      inYourCustody: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}in_your_custody'])!,
-      relativeRelationshipType: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}relative_relationship_type'])!,
-      relationship: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      interestedInRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}interested_in_relationship'])!,
-    );
-  }
-
-  @override
-  $RelativeTableTable createAlias(String alias) {
-    return $RelativeTableTable(attachedDatabase, alias);
-  }
-}
-
-class Relative extends DataClass implements Insertable<Relative> {
-  final int mainPersonId;
-  final int relativeId;
-  final bool inYourCustody;
-  final String relativeRelationshipType;
-  final int relationship;
-  final bool interestedInRelationship;
-  const Relative(
-      {required this.mainPersonId,
-      required this.relativeId,
-      required this.inYourCustody,
-      required this.relativeRelationshipType,
-      required this.relationship,
-      required this.interestedInRelationship});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['main_person_id'] = Variable<int>(mainPersonId);
-    map['relative_id'] = Variable<int>(relativeId);
-    map['in_your_custody'] = Variable<bool>(inYourCustody);
-    map['relative_relationship_type'] =
-        Variable<String>(relativeRelationshipType);
-    map['relationship'] = Variable<int>(relationship);
-    map['interested_in_relationship'] =
-        Variable<bool>(interestedInRelationship);
-    return map;
-  }
-
-  RelativeTableCompanion toCompanion(bool nullToAbsent) {
-    return RelativeTableCompanion(
-      mainPersonId: Value(mainPersonId),
-      relativeId: Value(relativeId),
-      inYourCustody: Value(inYourCustody),
-      relativeRelationshipType: Value(relativeRelationshipType),
-      relationship: Value(relationship),
-      interestedInRelationship: Value(interestedInRelationship),
-    );
-  }
-
-  factory Relative.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Relative(
-      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
-      relativeId: serializer.fromJson<int>(json['relativeId']),
-      inYourCustody: serializer.fromJson<bool>(json['inYourCustody']),
-      relativeRelationshipType:
-          serializer.fromJson<String>(json['relativeRelationshipType']),
-      relationship: serializer.fromJson<int>(json['relationship']),
-      interestedInRelationship:
-          serializer.fromJson<bool>(json['interestedInRelationship']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'mainPersonId': serializer.toJson<int>(mainPersonId),
-      'relativeId': serializer.toJson<int>(relativeId),
-      'inYourCustody': serializer.toJson<bool>(inYourCustody),
-      'relativeRelationshipType':
-          serializer.toJson<String>(relativeRelationshipType),
-      'relationship': serializer.toJson<int>(relationship),
-      'interestedInRelationship':
-          serializer.toJson<bool>(interestedInRelationship),
-    };
-  }
-
-  Relative copyWith(
-          {int? mainPersonId,
-          int? relativeId,
-          bool? inYourCustody,
-          String? relativeRelationshipType,
-          int? relationship,
-          bool? interestedInRelationship}) =>
-      Relative(
-        mainPersonId: mainPersonId ?? this.mainPersonId,
-        relativeId: relativeId ?? this.relativeId,
-        inYourCustody: inYourCustody ?? this.inYourCustody,
-        relativeRelationshipType:
-            relativeRelationshipType ?? this.relativeRelationshipType,
-        relationship: relationship ?? this.relationship,
-        interestedInRelationship:
-            interestedInRelationship ?? this.interestedInRelationship,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Relative(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('relativeId: $relativeId, ')
-          ..write('inYourCustody: $inYourCustody, ')
-          ..write('relativeRelationshipType: $relativeRelationshipType, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(mainPersonId, relativeId, inYourCustody,
-      relativeRelationshipType, relationship, interestedInRelationship);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Relative &&
-          other.mainPersonId == this.mainPersonId &&
-          other.relativeId == this.relativeId &&
-          other.inYourCustody == this.inYourCustody &&
-          other.relativeRelationshipType == this.relativeRelationshipType &&
-          other.relationship == this.relationship &&
-          other.interestedInRelationship == this.interestedInRelationship);
-}
-
-class RelativeTableCompanion extends UpdateCompanion<Relative> {
-  final Value<int> mainPersonId;
-  final Value<int> relativeId;
-  final Value<bool> inYourCustody;
-  final Value<String> relativeRelationshipType;
-  final Value<int> relationship;
-  final Value<bool> interestedInRelationship;
-  final Value<int> rowid;
-  const RelativeTableCompanion({
-    this.mainPersonId = const Value.absent(),
-    this.relativeId = const Value.absent(),
-    this.inYourCustody = const Value.absent(),
-    this.relativeRelationshipType = const Value.absent(),
-    this.relationship = const Value.absent(),
-    this.interestedInRelationship = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  RelativeTableCompanion.insert({
-    required int mainPersonId,
-    required int relativeId,
-    required bool inYourCustody,
-    required String relativeRelationshipType,
-    required int relationship,
-    required bool interestedInRelationship,
-    this.rowid = const Value.absent(),
-  })  : mainPersonId = Value(mainPersonId),
-        relativeId = Value(relativeId),
-        inYourCustody = Value(inYourCustody),
-        relativeRelationshipType = Value(relativeRelationshipType),
-        relationship = Value(relationship),
-        interestedInRelationship = Value(interestedInRelationship);
-  static Insertable<Relative> custom({
-    Expression<int>? mainPersonId,
-    Expression<int>? relativeId,
-    Expression<bool>? inYourCustody,
-    Expression<String>? relativeRelationshipType,
-    Expression<int>? relationship,
-    Expression<bool>? interestedInRelationship,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (mainPersonId != null) 'main_person_id': mainPersonId,
-      if (relativeId != null) 'relative_id': relativeId,
-      if (inYourCustody != null) 'in_your_custody': inYourCustody,
-      if (relativeRelationshipType != null)
-        'relative_relationship_type': relativeRelationshipType,
-      if (relationship != null) 'relationship': relationship,
-      if (interestedInRelationship != null)
-        'interested_in_relationship': interestedInRelationship,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  RelativeTableCompanion copyWith(
-      {Value<int>? mainPersonId,
-      Value<int>? relativeId,
-      Value<bool>? inYourCustody,
-      Value<String>? relativeRelationshipType,
-      Value<int>? relationship,
-      Value<bool>? interestedInRelationship,
-      Value<int>? rowid}) {
-    return RelativeTableCompanion(
-      mainPersonId: mainPersonId ?? this.mainPersonId,
-      relativeId: relativeId ?? this.relativeId,
-      inYourCustody: inYourCustody ?? this.inYourCustody,
-      relativeRelationshipType:
-          relativeRelationshipType ?? this.relativeRelationshipType,
-      relationship: relationship ?? this.relationship,
-      interestedInRelationship:
-          interestedInRelationship ?? this.interestedInRelationship,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (mainPersonId.present) {
-      map['main_person_id'] = Variable<int>(mainPersonId.value);
-    }
-    if (relativeId.present) {
-      map['relative_id'] = Variable<int>(relativeId.value);
-    }
-    if (inYourCustody.present) {
-      map['in_your_custody'] = Variable<bool>(inYourCustody.value);
-    }
-    if (relativeRelationshipType.present) {
-      map['relative_relationship_type'] =
-          Variable<String>(relativeRelationshipType.value);
-    }
-    if (relationship.present) {
-      map['relationship'] = Variable<int>(relationship.value);
-    }
-    if (interestedInRelationship.present) {
-      map['interested_in_relationship'] =
-          Variable<bool>(interestedInRelationship.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('RelativeTableCompanion(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('relativeId: $relativeId, ')
-          ..write('inYourCustody: $inYourCustody, ')
-          ..write('relativeRelationshipType: $relativeRelationshipType, ')
-          ..write('relationship: $relationship, ')
-          ..write('interestedInRelationship: $interestedInRelationship, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $SiblingTableTable extends SiblingTable
-    with TableInfo<$SiblingTableTable, Sibling> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $SiblingTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _mainPersonIdMeta =
-      const VerificationMeta('mainPersonId');
-  @override
-  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
-      'main_person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _siblingIdMeta =
-      const VerificationMeta('siblingId');
-  @override
-  late final GeneratedColumn<int> siblingId = GeneratedColumn<int>(
-      'sibling_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _siblingRelationshipTypeMeta =
-      const VerificationMeta('siblingRelationshipType');
-  @override
-  late final GeneratedColumn<String> siblingRelationshipType =
-      GeneratedColumn<String>('sibling_relationship_type', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _relationshipMeta =
-      const VerificationMeta('relationship');
-  @override
-  late final GeneratedColumn<int> relationship = GeneratedColumn<int>(
-      'relationship', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _inYourCustodyMeta =
-      const VerificationMeta('inYourCustody');
-  @override
-  late final GeneratedColumn<bool> inYourCustody = GeneratedColumn<bool>(
-      'in_your_custody', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("in_your_custody" IN (0, 1))'));
-  static const VerificationMeta _interestedInRelationshipMeta =
-      const VerificationMeta('interestedInRelationship');
-  @override
-  late final GeneratedColumn<bool> interestedInRelationship =
-      GeneratedColumn<bool>(
-          'interested_in_relationship', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("interested_in_relationship" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        mainPersonId,
-        siblingId,
-        siblingRelationshipType,
-        relationship,
-        inYourCustody,
-        interestedInRelationship
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'sibling';
-  @override
-  VerificationContext validateIntegrity(Insertable<Sibling> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('main_person_id')) {
-      context.handle(
-          _mainPersonIdMeta,
-          mainPersonId.isAcceptableOrUnknown(
-              data['main_person_id']!, _mainPersonIdMeta));
-    } else if (isInserting) {
-      context.missing(_mainPersonIdMeta);
-    }
-    if (data.containsKey('sibling_id')) {
-      context.handle(_siblingIdMeta,
-          siblingId.isAcceptableOrUnknown(data['sibling_id']!, _siblingIdMeta));
-    } else if (isInserting) {
-      context.missing(_siblingIdMeta);
-    }
-    if (data.containsKey('sibling_relationship_type')) {
-      context.handle(
-          _siblingRelationshipTypeMeta,
-          siblingRelationshipType.isAcceptableOrUnknown(
-              data['sibling_relationship_type']!,
-              _siblingRelationshipTypeMeta));
-    } else if (isInserting) {
-      context.missing(_siblingRelationshipTypeMeta);
-    }
-    if (data.containsKey('relationship')) {
-      context.handle(
-          _relationshipMeta,
-          relationship.isAcceptableOrUnknown(
-              data['relationship']!, _relationshipMeta));
-    } else if (isInserting) {
-      context.missing(_relationshipMeta);
-    }
-    if (data.containsKey('in_your_custody')) {
-      context.handle(
-          _inYourCustodyMeta,
-          inYourCustody.isAcceptableOrUnknown(
-              data['in_your_custody']!, _inYourCustodyMeta));
-    } else if (isInserting) {
-      context.missing(_inYourCustodyMeta);
-    }
-    if (data.containsKey('interested_in_relationship')) {
-      context.handle(
-          _interestedInRelationshipMeta,
-          interestedInRelationship.isAcceptableOrUnknown(
-              data['interested_in_relationship']!,
-              _interestedInRelationshipMeta));
-    } else if (isInserting) {
-      context.missing(_interestedInRelationshipMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {mainPersonId, siblingId};
-  @override
-  Sibling map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Sibling(
-      mainPersonId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
-      siblingId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}sibling_id'])!,
-      siblingRelationshipType: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}sibling_relationship_type'])!,
-      relationship: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}relationship'])!,
-      inYourCustody: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}in_your_custody'])!,
-      interestedInRelationship: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}interested_in_relationship'])!,
-    );
-  }
-
-  @override
-  $SiblingTableTable createAlias(String alias) {
-    return $SiblingTableTable(attachedDatabase, alias);
-  }
-}
-
-class Sibling extends DataClass implements Insertable<Sibling> {
-  final int mainPersonId;
-  final int siblingId;
-  final String siblingRelationshipType;
-  final int relationship;
-  final bool inYourCustody;
-  final bool interestedInRelationship;
-  const Sibling(
-      {required this.mainPersonId,
-      required this.siblingId,
-      required this.siblingRelationshipType,
-      required this.relationship,
-      required this.inYourCustody,
-      required this.interestedInRelationship});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['main_person_id'] = Variable<int>(mainPersonId);
-    map['sibling_id'] = Variable<int>(siblingId);
-    map['sibling_relationship_type'] =
-        Variable<String>(siblingRelationshipType);
-    map['relationship'] = Variable<int>(relationship);
-    map['in_your_custody'] = Variable<bool>(inYourCustody);
-    map['interested_in_relationship'] =
-        Variable<bool>(interestedInRelationship);
-    return map;
-  }
-
-  SiblingTableCompanion toCompanion(bool nullToAbsent) {
-    return SiblingTableCompanion(
-      mainPersonId: Value(mainPersonId),
-      siblingId: Value(siblingId),
-      siblingRelationshipType: Value(siblingRelationshipType),
-      relationship: Value(relationship),
-      inYourCustody: Value(inYourCustody),
-      interestedInRelationship: Value(interestedInRelationship),
-    );
-  }
-
-  factory Sibling.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Sibling(
-      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
-      siblingId: serializer.fromJson<int>(json['siblingId']),
-      siblingRelationshipType:
-          serializer.fromJson<String>(json['siblingRelationshipType']),
-      relationship: serializer.fromJson<int>(json['relationship']),
-      inYourCustody: serializer.fromJson<bool>(json['inYourCustody']),
-      interestedInRelationship:
-          serializer.fromJson<bool>(json['interestedInRelationship']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'mainPersonId': serializer.toJson<int>(mainPersonId),
-      'siblingId': serializer.toJson<int>(siblingId),
-      'siblingRelationshipType':
-          serializer.toJson<String>(siblingRelationshipType),
-      'relationship': serializer.toJson<int>(relationship),
-      'inYourCustody': serializer.toJson<bool>(inYourCustody),
-      'interestedInRelationship':
-          serializer.toJson<bool>(interestedInRelationship),
-    };
-  }
-
-  Sibling copyWith(
-          {int? mainPersonId,
-          int? siblingId,
-          String? siblingRelationshipType,
-          int? relationship,
-          bool? inYourCustody,
-          bool? interestedInRelationship}) =>
-      Sibling(
-        mainPersonId: mainPersonId ?? this.mainPersonId,
-        siblingId: siblingId ?? this.siblingId,
-        siblingRelationshipType:
-            siblingRelationshipType ?? this.siblingRelationshipType,
-        relationship: relationship ?? this.relationship,
-        inYourCustody: inYourCustody ?? this.inYourCustody,
-        interestedInRelationship:
-            interestedInRelationship ?? this.interestedInRelationship,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Sibling(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('siblingId: $siblingId, ')
-          ..write('siblingRelationshipType: $siblingRelationshipType, ')
-          ..write('relationship: $relationship, ')
-          ..write('inYourCustody: $inYourCustody, ')
-          ..write('interestedInRelationship: $interestedInRelationship')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      mainPersonId,
-      siblingId,
-      siblingRelationshipType,
-      relationship,
-      inYourCustody,
-      interestedInRelationship);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Sibling &&
-          other.mainPersonId == this.mainPersonId &&
-          other.siblingId == this.siblingId &&
-          other.siblingRelationshipType == this.siblingRelationshipType &&
-          other.relationship == this.relationship &&
-          other.inYourCustody == this.inYourCustody &&
-          other.interestedInRelationship == this.interestedInRelationship);
-}
-
-class SiblingTableCompanion extends UpdateCompanion<Sibling> {
-  final Value<int> mainPersonId;
-  final Value<int> siblingId;
-  final Value<String> siblingRelationshipType;
-  final Value<int> relationship;
-  final Value<bool> inYourCustody;
-  final Value<bool> interestedInRelationship;
-  final Value<int> rowid;
-  const SiblingTableCompanion({
-    this.mainPersonId = const Value.absent(),
-    this.siblingId = const Value.absent(),
-    this.siblingRelationshipType = const Value.absent(),
-    this.relationship = const Value.absent(),
-    this.inYourCustody = const Value.absent(),
-    this.interestedInRelationship = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  SiblingTableCompanion.insert({
-    required int mainPersonId,
-    required int siblingId,
-    required String siblingRelationshipType,
-    required int relationship,
-    required bool inYourCustody,
-    required bool interestedInRelationship,
-    this.rowid = const Value.absent(),
-  })  : mainPersonId = Value(mainPersonId),
-        siblingId = Value(siblingId),
-        siblingRelationshipType = Value(siblingRelationshipType),
-        relationship = Value(relationship),
-        inYourCustody = Value(inYourCustody),
-        interestedInRelationship = Value(interestedInRelationship);
-  static Insertable<Sibling> custom({
-    Expression<int>? mainPersonId,
-    Expression<int>? siblingId,
-    Expression<String>? siblingRelationshipType,
-    Expression<int>? relationship,
-    Expression<bool>? inYourCustody,
-    Expression<bool>? interestedInRelationship,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (mainPersonId != null) 'main_person_id': mainPersonId,
-      if (siblingId != null) 'sibling_id': siblingId,
-      if (siblingRelationshipType != null)
-        'sibling_relationship_type': siblingRelationshipType,
-      if (relationship != null) 'relationship': relationship,
-      if (inYourCustody != null) 'in_your_custody': inYourCustody,
-      if (interestedInRelationship != null)
-        'interested_in_relationship': interestedInRelationship,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  SiblingTableCompanion copyWith(
-      {Value<int>? mainPersonId,
-      Value<int>? siblingId,
-      Value<String>? siblingRelationshipType,
-      Value<int>? relationship,
-      Value<bool>? inYourCustody,
-      Value<bool>? interestedInRelationship,
-      Value<int>? rowid}) {
-    return SiblingTableCompanion(
-      mainPersonId: mainPersonId ?? this.mainPersonId,
-      siblingId: siblingId ?? this.siblingId,
-      siblingRelationshipType:
-          siblingRelationshipType ?? this.siblingRelationshipType,
-      relationship: relationship ?? this.relationship,
-      inYourCustody: inYourCustody ?? this.inYourCustody,
-      interestedInRelationship:
-          interestedInRelationship ?? this.interestedInRelationship,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (mainPersonId.present) {
-      map['main_person_id'] = Variable<int>(mainPersonId.value);
-    }
-    if (siblingId.present) {
-      map['sibling_id'] = Variable<int>(siblingId.value);
-    }
-    if (siblingRelationshipType.present) {
-      map['sibling_relationship_type'] =
-          Variable<String>(siblingRelationshipType.value);
-    }
-    if (relationship.present) {
-      map['relationship'] = Variable<int>(relationship.value);
-    }
-    if (inYourCustody.present) {
-      map['in_your_custody'] = Variable<bool>(inYourCustody.value);
-    }
-    if (interestedInRelationship.present) {
-      map['interested_in_relationship'] =
-          Variable<bool>(interestedInRelationship.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SiblingTableCompanion(')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('siblingId: $siblingId, ')
-          ..write('siblingRelationshipType: $siblingRelationshipType, ')
-          ..write('relationship: $relationship, ')
-          ..write('inYourCustody: $inYourCustody, ')
-          ..write('interestedInRelationship: $interestedInRelationship, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $EventTableTable extends EventTable
     with TableInfo<$EventTableTable, Event> {
   @override
@@ -9670,12 +6118,6 @@ class $EventTableTable extends EventTable
       requiredDuringInsert: false,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _relationshipToMainPlayerMeta =
-      const VerificationMeta('relationshipToMainPlayer');
-  @override
-  late final GeneratedColumn<String> relationshipToMainPlayer =
-      GeneratedColumn<String>('relationship_to_main_player', aliasedName, false,
-          type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _startTimeMeta =
       const VerificationMeta('startTime');
   @override
@@ -9714,7 +6156,6 @@ class $EventTableTable extends EventTable
         eventDay,
         mainPersonId,
         otherPersonId,
-        relationshipToMainPlayer,
         startTime,
         endTime,
         journalEntryOnly,
@@ -9765,15 +6206,6 @@ class $EventTableTable extends EventTable
           otherPersonId.isAcceptableOrUnknown(
               data['other_person_id']!, _otherPersonIdMeta));
     }
-    if (data.containsKey('relationship_to_main_player')) {
-      context.handle(
-          _relationshipToMainPlayerMeta,
-          relationshipToMainPlayer.isAcceptableOrUnknown(
-              data['relationship_to_main_player']!,
-              _relationshipToMainPlayerMeta));
-    } else if (isInserting) {
-      context.missing(_relationshipToMainPlayerMeta);
-    }
     if (data.containsKey('start_time')) {
       context.handle(_startTimeMeta,
           startTime.isAcceptableOrUnknown(data['start_time']!, _startTimeMeta));
@@ -9817,9 +6249,6 @@ class $EventTableTable extends EventTable
           .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
       otherPersonId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}other_person_id']),
-      relationshipToMainPlayer: attachedDatabase.typeMapping.read(
-          DriftSqlType.string,
-          data['${effectivePrefix}relationship_to_main_player'])!,
       startTime: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}start_time']),
       endTime: attachedDatabase.typeMapping
@@ -9844,7 +6273,6 @@ class Event extends DataClass implements Insertable<Event> {
   final int eventDay;
   final int mainPersonId;
   final int? otherPersonId;
-  final String relationshipToMainPlayer;
   final int? startTime;
   final int? endTime;
   final bool journalEntryOnly;
@@ -9856,7 +6284,6 @@ class Event extends DataClass implements Insertable<Event> {
       required this.eventDay,
       required this.mainPersonId,
       this.otherPersonId,
-      required this.relationshipToMainPlayer,
       this.startTime,
       this.endTime,
       required this.journalEntryOnly,
@@ -9872,8 +6299,6 @@ class Event extends DataClass implements Insertable<Event> {
     if (!nullToAbsent || otherPersonId != null) {
       map['other_person_id'] = Variable<int>(otherPersonId);
     }
-    map['relationship_to_main_player'] =
-        Variable<String>(relationshipToMainPlayer);
     if (!nullToAbsent || startTime != null) {
       map['start_time'] = Variable<int>(startTime);
     }
@@ -9895,7 +6320,6 @@ class Event extends DataClass implements Insertable<Event> {
       otherPersonId: otherPersonId == null && nullToAbsent
           ? const Value.absent()
           : Value(otherPersonId),
-      relationshipToMainPlayer: Value(relationshipToMainPlayer),
       startTime: startTime == null && nullToAbsent
           ? const Value.absent()
           : Value(startTime),
@@ -9917,8 +6341,6 @@ class Event extends DataClass implements Insertable<Event> {
       eventDay: serializer.fromJson<int>(json['eventDay']),
       mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
       otherPersonId: serializer.fromJson<int?>(json['otherPersonId']),
-      relationshipToMainPlayer:
-          serializer.fromJson<String>(json['relationshipToMainPlayer']),
       startTime: serializer.fromJson<int?>(json['startTime']),
       endTime: serializer.fromJson<int?>(json['endTime']),
       journalEntryOnly: serializer.fromJson<bool>(json['journalEntryOnly']),
@@ -9935,8 +6357,6 @@ class Event extends DataClass implements Insertable<Event> {
       'eventDay': serializer.toJson<int>(eventDay),
       'mainPersonId': serializer.toJson<int>(mainPersonId),
       'otherPersonId': serializer.toJson<int?>(otherPersonId),
-      'relationshipToMainPlayer':
-          serializer.toJson<String>(relationshipToMainPlayer),
       'startTime': serializer.toJson<int?>(startTime),
       'endTime': serializer.toJson<int?>(endTime),
       'journalEntryOnly': serializer.toJson<bool>(journalEntryOnly),
@@ -9951,7 +6371,6 @@ class Event extends DataClass implements Insertable<Event> {
           int? eventDay,
           int? mainPersonId,
           Value<int?> otherPersonId = const Value.absent(),
-          String? relationshipToMainPlayer,
           Value<int?> startTime = const Value.absent(),
           Value<int?> endTime = const Value.absent(),
           bool? journalEntryOnly,
@@ -9964,8 +6383,6 @@ class Event extends DataClass implements Insertable<Event> {
         mainPersonId: mainPersonId ?? this.mainPersonId,
         otherPersonId:
             otherPersonId.present ? otherPersonId.value : this.otherPersonId,
-        relationshipToMainPlayer:
-            relationshipToMainPlayer ?? this.relationshipToMainPlayer,
         startTime: startTime.present ? startTime.value : this.startTime,
         endTime: endTime.present ? endTime.value : this.endTime,
         journalEntryOnly: journalEntryOnly ?? this.journalEntryOnly,
@@ -9980,7 +6397,6 @@ class Event extends DataClass implements Insertable<Event> {
           ..write('eventDay: $eventDay, ')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('otherPersonId: $otherPersonId, ')
-          ..write('relationshipToMainPlayer: $relationshipToMainPlayer, ')
           ..write('startTime: $startTime, ')
           ..write('endTime: $endTime, ')
           ..write('journalEntryOnly: $journalEntryOnly, ')
@@ -9990,18 +6406,8 @@ class Event extends DataClass implements Insertable<Event> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      id,
-      gameId,
-      eventType,
-      eventDay,
-      mainPersonId,
-      otherPersonId,
-      relationshipToMainPlayer,
-      startTime,
-      endTime,
-      journalEntryOnly,
-      performed);
+  int get hashCode => Object.hash(id, gameId, eventType, eventDay, mainPersonId,
+      otherPersonId, startTime, endTime, journalEntryOnly, performed);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -10012,7 +6418,6 @@ class Event extends DataClass implements Insertable<Event> {
           other.eventDay == this.eventDay &&
           other.mainPersonId == this.mainPersonId &&
           other.otherPersonId == this.otherPersonId &&
-          other.relationshipToMainPlayer == this.relationshipToMainPlayer &&
           other.startTime == this.startTime &&
           other.endTime == this.endTime &&
           other.journalEntryOnly == this.journalEntryOnly &&
@@ -10026,7 +6431,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
   final Value<int> eventDay;
   final Value<int> mainPersonId;
   final Value<int?> otherPersonId;
-  final Value<String> relationshipToMainPlayer;
   final Value<int?> startTime;
   final Value<int?> endTime;
   final Value<bool> journalEntryOnly;
@@ -10038,7 +6442,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
     this.eventDay = const Value.absent(),
     this.mainPersonId = const Value.absent(),
     this.otherPersonId = const Value.absent(),
-    this.relationshipToMainPlayer = const Value.absent(),
     this.startTime = const Value.absent(),
     this.endTime = const Value.absent(),
     this.journalEntryOnly = const Value.absent(),
@@ -10051,7 +6454,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
     required int eventDay,
     required int mainPersonId,
     this.otherPersonId = const Value.absent(),
-    required String relationshipToMainPlayer,
     this.startTime = const Value.absent(),
     this.endTime = const Value.absent(),
     required bool journalEntryOnly,
@@ -10060,7 +6462,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
         eventType = Value(eventType),
         eventDay = Value(eventDay),
         mainPersonId = Value(mainPersonId),
-        relationshipToMainPlayer = Value(relationshipToMainPlayer),
         journalEntryOnly = Value(journalEntryOnly),
         performed = Value(performed);
   static Insertable<Event> custom({
@@ -10070,7 +6471,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
     Expression<int>? eventDay,
     Expression<int>? mainPersonId,
     Expression<int>? otherPersonId,
-    Expression<String>? relationshipToMainPlayer,
     Expression<int>? startTime,
     Expression<int>? endTime,
     Expression<bool>? journalEntryOnly,
@@ -10083,8 +6483,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
       if (eventDay != null) 'event_day': eventDay,
       if (mainPersonId != null) 'main_person_id': mainPersonId,
       if (otherPersonId != null) 'other_person_id': otherPersonId,
-      if (relationshipToMainPlayer != null)
-        'relationship_to_main_player': relationshipToMainPlayer,
       if (startTime != null) 'start_time': startTime,
       if (endTime != null) 'end_time': endTime,
       if (journalEntryOnly != null) 'journal_entry_only': journalEntryOnly,
@@ -10099,7 +6497,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
       Value<int>? eventDay,
       Value<int>? mainPersonId,
       Value<int?>? otherPersonId,
-      Value<String>? relationshipToMainPlayer,
       Value<int?>? startTime,
       Value<int?>? endTime,
       Value<bool>? journalEntryOnly,
@@ -10111,8 +6508,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
       eventDay: eventDay ?? this.eventDay,
       mainPersonId: mainPersonId ?? this.mainPersonId,
       otherPersonId: otherPersonId ?? this.otherPersonId,
-      relationshipToMainPlayer:
-          relationshipToMainPlayer ?? this.relationshipToMainPlayer,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
       journalEntryOnly: journalEntryOnly ?? this.journalEntryOnly,
@@ -10141,10 +6536,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
     if (otherPersonId.present) {
       map['other_person_id'] = Variable<int>(otherPersonId.value);
     }
-    if (relationshipToMainPlayer.present) {
-      map['relationship_to_main_player'] =
-          Variable<String>(relationshipToMainPlayer.value);
-    }
     if (startTime.present) {
       map['start_time'] = Variable<int>(startTime.value);
     }
@@ -10169,7 +6560,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
           ..write('eventDay: $eventDay, ')
           ..write('mainPersonId: $mainPersonId, ')
           ..write('otherPersonId: $otherPersonId, ')
-          ..write('relationshipToMainPlayer: $relationshipToMainPlayer, ')
           ..write('startTime: $startTime, ')
           ..write('endTime: $endTime, ')
           ..write('journalEntryOnly: $journalEntryOnly, ')
@@ -19934,397 +16324,6 @@ class ParentChildLinkTableCompanion extends UpdateCompanion<ParentChildLink> {
   }
 }
 
-class $RomanticRelationshipInfoTableTable extends RomanticRelationshipInfoTable
-    with
-        TableInfo<$RomanticRelationshipInfoTableTable,
-            RomanticRelationshipInfo> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $RomanticRelationshipInfoTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _gameIdMeta = const VerificationMeta('gameId');
-  @override
-  late final GeneratedColumn<int> gameId = GeneratedColumn<int>(
-      'game_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES game (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _startDayMeta =
-      const VerificationMeta('startDay');
-  @override
-  late final GeneratedColumn<int> startDay = GeneratedColumn<int>(
-      'start_day', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _endDayMeta = const VerificationMeta('endDay');
-  @override
-  late final GeneratedColumn<int> endDay = GeneratedColumn<int>(
-      'end_day', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _cumulativeDurationMeta =
-      const VerificationMeta('cumulativeDuration');
-  @override
-  late final GeneratedColumn<int> cumulativeDuration = GeneratedColumn<int>(
-      'cumulative_duration', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _daysToDateBeforeMarriageMeta =
-      const VerificationMeta('daysToDateBeforeMarriage');
-  @override
-  late final GeneratedColumn<int> daysToDateBeforeMarriage =
-      GeneratedColumn<int>('days_to_date_before_marriage', aliasedName, false,
-          type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _jointMoneyMeta =
-      const VerificationMeta('jointMoney');
-  @override
-  late final GeneratedColumn<int> jointMoney = GeneratedColumn<int>(
-      'joint_money', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        gameId,
-        startDay,
-        endDay,
-        cumulativeDuration,
-        daysToDateBeforeMarriage,
-        jointMoney
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'romantic_relationship_info';
-  @override
-  VerificationContext validateIntegrity(
-      Insertable<RomanticRelationshipInfo> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('game_id')) {
-      context.handle(_gameIdMeta,
-          gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta));
-    } else if (isInserting) {
-      context.missing(_gameIdMeta);
-    }
-    if (data.containsKey('start_day')) {
-      context.handle(_startDayMeta,
-          startDay.isAcceptableOrUnknown(data['start_day']!, _startDayMeta));
-    } else if (isInserting) {
-      context.missing(_startDayMeta);
-    }
-    if (data.containsKey('end_day')) {
-      context.handle(_endDayMeta,
-          endDay.isAcceptableOrUnknown(data['end_day']!, _endDayMeta));
-    } else if (isInserting) {
-      context.missing(_endDayMeta);
-    }
-    if (data.containsKey('cumulative_duration')) {
-      context.handle(
-          _cumulativeDurationMeta,
-          cumulativeDuration.isAcceptableOrUnknown(
-              data['cumulative_duration']!, _cumulativeDurationMeta));
-    } else if (isInserting) {
-      context.missing(_cumulativeDurationMeta);
-    }
-    if (data.containsKey('days_to_date_before_marriage')) {
-      context.handle(
-          _daysToDateBeforeMarriageMeta,
-          daysToDateBeforeMarriage.isAcceptableOrUnknown(
-              data['days_to_date_before_marriage']!,
-              _daysToDateBeforeMarriageMeta));
-    } else if (isInserting) {
-      context.missing(_daysToDateBeforeMarriageMeta);
-    }
-    if (data.containsKey('joint_money')) {
-      context.handle(
-          _jointMoneyMeta,
-          jointMoney.isAcceptableOrUnknown(
-              data['joint_money']!, _jointMoneyMeta));
-    } else if (isInserting) {
-      context.missing(_jointMoneyMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  RomanticRelationshipInfo map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return RomanticRelationshipInfo(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      gameId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}game_id'])!,
-      startDay: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}start_day'])!,
-      endDay: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}end_day'])!,
-      cumulativeDuration: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}cumulative_duration'])!,
-      daysToDateBeforeMarriage: attachedDatabase.typeMapping.read(
-          DriftSqlType.int,
-          data['${effectivePrefix}days_to_date_before_marriage'])!,
-      jointMoney: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}joint_money'])!,
-    );
-  }
-
-  @override
-  $RomanticRelationshipInfoTableTable createAlias(String alias) {
-    return $RomanticRelationshipInfoTableTable(attachedDatabase, alias);
-  }
-}
-
-class RomanticRelationshipInfo extends DataClass
-    implements Insertable<RomanticRelationshipInfo> {
-  final int id;
-  final int gameId;
-  final int startDay;
-  final int endDay;
-  final int cumulativeDuration;
-  final int daysToDateBeforeMarriage;
-  final int jointMoney;
-  const RomanticRelationshipInfo(
-      {required this.id,
-      required this.gameId,
-      required this.startDay,
-      required this.endDay,
-      required this.cumulativeDuration,
-      required this.daysToDateBeforeMarriage,
-      required this.jointMoney});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['game_id'] = Variable<int>(gameId);
-    map['start_day'] = Variable<int>(startDay);
-    map['end_day'] = Variable<int>(endDay);
-    map['cumulative_duration'] = Variable<int>(cumulativeDuration);
-    map['days_to_date_before_marriage'] =
-        Variable<int>(daysToDateBeforeMarriage);
-    map['joint_money'] = Variable<int>(jointMoney);
-    return map;
-  }
-
-  RomanticRelationshipInfoTableCompanion toCompanion(bool nullToAbsent) {
-    return RomanticRelationshipInfoTableCompanion(
-      id: Value(id),
-      gameId: Value(gameId),
-      startDay: Value(startDay),
-      endDay: Value(endDay),
-      cumulativeDuration: Value(cumulativeDuration),
-      daysToDateBeforeMarriage: Value(daysToDateBeforeMarriage),
-      jointMoney: Value(jointMoney),
-    );
-  }
-
-  factory RomanticRelationshipInfo.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return RomanticRelationshipInfo(
-      id: serializer.fromJson<int>(json['id']),
-      gameId: serializer.fromJson<int>(json['gameId']),
-      startDay: serializer.fromJson<int>(json['startDay']),
-      endDay: serializer.fromJson<int>(json['endDay']),
-      cumulativeDuration: serializer.fromJson<int>(json['cumulativeDuration']),
-      daysToDateBeforeMarriage:
-          serializer.fromJson<int>(json['daysToDateBeforeMarriage']),
-      jointMoney: serializer.fromJson<int>(json['jointMoney']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'gameId': serializer.toJson<int>(gameId),
-      'startDay': serializer.toJson<int>(startDay),
-      'endDay': serializer.toJson<int>(endDay),
-      'cumulativeDuration': serializer.toJson<int>(cumulativeDuration),
-      'daysToDateBeforeMarriage':
-          serializer.toJson<int>(daysToDateBeforeMarriage),
-      'jointMoney': serializer.toJson<int>(jointMoney),
-    };
-  }
-
-  RomanticRelationshipInfo copyWith(
-          {int? id,
-          int? gameId,
-          int? startDay,
-          int? endDay,
-          int? cumulativeDuration,
-          int? daysToDateBeforeMarriage,
-          int? jointMoney}) =>
-      RomanticRelationshipInfo(
-        id: id ?? this.id,
-        gameId: gameId ?? this.gameId,
-        startDay: startDay ?? this.startDay,
-        endDay: endDay ?? this.endDay,
-        cumulativeDuration: cumulativeDuration ?? this.cumulativeDuration,
-        daysToDateBeforeMarriage:
-            daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
-        jointMoney: jointMoney ?? this.jointMoney,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('RomanticRelationshipInfo(')
-          ..write('id: $id, ')
-          ..write('gameId: $gameId, ')
-          ..write('startDay: $startDay, ')
-          ..write('endDay: $endDay, ')
-          ..write('cumulativeDuration: $cumulativeDuration, ')
-          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
-          ..write('jointMoney: $jointMoney')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, gameId, startDay, endDay,
-      cumulativeDuration, daysToDateBeforeMarriage, jointMoney);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is RomanticRelationshipInfo &&
-          other.id == this.id &&
-          other.gameId == this.gameId &&
-          other.startDay == this.startDay &&
-          other.endDay == this.endDay &&
-          other.cumulativeDuration == this.cumulativeDuration &&
-          other.daysToDateBeforeMarriage == this.daysToDateBeforeMarriage &&
-          other.jointMoney == this.jointMoney);
-}
-
-class RomanticRelationshipInfoTableCompanion
-    extends UpdateCompanion<RomanticRelationshipInfo> {
-  final Value<int> id;
-  final Value<int> gameId;
-  final Value<int> startDay;
-  final Value<int> endDay;
-  final Value<int> cumulativeDuration;
-  final Value<int> daysToDateBeforeMarriage;
-  final Value<int> jointMoney;
-  const RomanticRelationshipInfoTableCompanion({
-    this.id = const Value.absent(),
-    this.gameId = const Value.absent(),
-    this.startDay = const Value.absent(),
-    this.endDay = const Value.absent(),
-    this.cumulativeDuration = const Value.absent(),
-    this.daysToDateBeforeMarriage = const Value.absent(),
-    this.jointMoney = const Value.absent(),
-  });
-  RomanticRelationshipInfoTableCompanion.insert({
-    this.id = const Value.absent(),
-    required int gameId,
-    required int startDay,
-    required int endDay,
-    required int cumulativeDuration,
-    required int daysToDateBeforeMarriage,
-    required int jointMoney,
-  })  : gameId = Value(gameId),
-        startDay = Value(startDay),
-        endDay = Value(endDay),
-        cumulativeDuration = Value(cumulativeDuration),
-        daysToDateBeforeMarriage = Value(daysToDateBeforeMarriage),
-        jointMoney = Value(jointMoney);
-  static Insertable<RomanticRelationshipInfo> custom({
-    Expression<int>? id,
-    Expression<int>? gameId,
-    Expression<int>? startDay,
-    Expression<int>? endDay,
-    Expression<int>? cumulativeDuration,
-    Expression<int>? daysToDateBeforeMarriage,
-    Expression<int>? jointMoney,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (gameId != null) 'game_id': gameId,
-      if (startDay != null) 'start_day': startDay,
-      if (endDay != null) 'end_day': endDay,
-      if (cumulativeDuration != null) 'cumulative_duration': cumulativeDuration,
-      if (daysToDateBeforeMarriage != null)
-        'days_to_date_before_marriage': daysToDateBeforeMarriage,
-      if (jointMoney != null) 'joint_money': jointMoney,
-    });
-  }
-
-  RomanticRelationshipInfoTableCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? gameId,
-      Value<int>? startDay,
-      Value<int>? endDay,
-      Value<int>? cumulativeDuration,
-      Value<int>? daysToDateBeforeMarriage,
-      Value<int>? jointMoney}) {
-    return RomanticRelationshipInfoTableCompanion(
-      id: id ?? this.id,
-      gameId: gameId ?? this.gameId,
-      startDay: startDay ?? this.startDay,
-      endDay: endDay ?? this.endDay,
-      cumulativeDuration: cumulativeDuration ?? this.cumulativeDuration,
-      daysToDateBeforeMarriage:
-          daysToDateBeforeMarriage ?? this.daysToDateBeforeMarriage,
-      jointMoney: jointMoney ?? this.jointMoney,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (gameId.present) {
-      map['game_id'] = Variable<int>(gameId.value);
-    }
-    if (startDay.present) {
-      map['start_day'] = Variable<int>(startDay.value);
-    }
-    if (endDay.present) {
-      map['end_day'] = Variable<int>(endDay.value);
-    }
-    if (cumulativeDuration.present) {
-      map['cumulative_duration'] = Variable<int>(cumulativeDuration.value);
-    }
-    if (daysToDateBeforeMarriage.present) {
-      map['days_to_date_before_marriage'] =
-          Variable<int>(daysToDateBeforeMarriage.value);
-    }
-    if (jointMoney.present) {
-      map['joint_money'] = Variable<int>(jointMoney.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('RomanticRelationshipInfoTableCompanion(')
-          ..write('id: $id, ')
-          ..write('gameId: $gameId, ')
-          ..write('startDay: $startDay, ')
-          ..write('endDay: $endDay, ')
-          ..write('cumulativeDuration: $cumulativeDuration, ')
-          ..write('daysToDateBeforeMarriage: $daysToDateBeforeMarriage, ')
-          ..write('jointMoney: $jointMoney')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class $RelationshipTableTable extends RelationshipTable
     with TableInfo<$RelationshipTableTable, Relationship> {
   @override
@@ -20383,15 +16382,6 @@ class $RelationshipTableTable extends RelationshipTable
   late final GeneratedColumn<int> level = GeneratedColumn<int>(
       'level', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _romanticRelationshipInfoIdMeta =
-      const VerificationMeta('romanticRelationshipInfoId');
-  @override
-  late final GeneratedColumn<int> romanticRelationshipInfoId = GeneratedColumn<
-          int>('romantic_relationship_info_id', aliasedName, true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES romantic_relationship_info (id) ON UPDATE CASCADE ON DELETE SET NULL'));
   static const VerificationMeta _activeRomanceMeta =
       const VerificationMeta('activeRomance');
   @override
@@ -20410,6 +16400,30 @@ class $RelationshipTableTable extends RelationshipTable
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("is_co_parent" IN (0, 1))'));
+  static const VerificationMeta _romanceStartDayMeta =
+      const VerificationMeta('romanceStartDay');
+  @override
+  late final GeneratedColumn<int> romanceStartDay = GeneratedColumn<int>(
+      'romance_start_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _romanceEndDayMeta =
+      const VerificationMeta('romanceEndDay');
+  @override
+  late final GeneratedColumn<int> romanceEndDay = GeneratedColumn<int>(
+      'romance_end_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _romanceCumulativeDurationMeta =
+      const VerificationMeta('romanceCumulativeDuration');
+  @override
+  late final GeneratedColumn<int> romanceCumulativeDuration =
+      GeneratedColumn<int>('romance_cumulative_duration', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _jointMoneyMeta =
+      const VerificationMeta('jointMoney');
+  @override
+  late final GeneratedColumn<int> jointMoney = GeneratedColumn<int>(
+      'joint_money', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         firstPersonId,
@@ -20419,9 +16433,12 @@ class $RelationshipTableTable extends RelationshipTable
         previousFamilialRelationship,
         interestedInRelationship,
         level,
-        romanticRelationshipInfoId,
         activeRomance,
-        isCoParent
+        isCoParent,
+        romanceStartDay,
+        romanceEndDay,
+        romanceCumulativeDuration,
+        jointMoney
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -20491,13 +16508,6 @@ class $RelationshipTableTable extends RelationshipTable
     } else if (isInserting) {
       context.missing(_levelMeta);
     }
-    if (data.containsKey('romantic_relationship_info_id')) {
-      context.handle(
-          _romanticRelationshipInfoIdMeta,
-          romanticRelationshipInfoId.isAcceptableOrUnknown(
-              data['romantic_relationship_info_id']!,
-              _romanticRelationshipInfoIdMeta));
-    }
     if (data.containsKey('active_romance')) {
       context.handle(
           _activeRomanceMeta,
@@ -20513,6 +16523,39 @@ class $RelationshipTableTable extends RelationshipTable
               data['is_co_parent']!, _isCoParentMeta));
     } else if (isInserting) {
       context.missing(_isCoParentMeta);
+    }
+    if (data.containsKey('romance_start_day')) {
+      context.handle(
+          _romanceStartDayMeta,
+          romanceStartDay.isAcceptableOrUnknown(
+              data['romance_start_day']!, _romanceStartDayMeta));
+    } else if (isInserting) {
+      context.missing(_romanceStartDayMeta);
+    }
+    if (data.containsKey('romance_end_day')) {
+      context.handle(
+          _romanceEndDayMeta,
+          romanceEndDay.isAcceptableOrUnknown(
+              data['romance_end_day']!, _romanceEndDayMeta));
+    } else if (isInserting) {
+      context.missing(_romanceEndDayMeta);
+    }
+    if (data.containsKey('romance_cumulative_duration')) {
+      context.handle(
+          _romanceCumulativeDurationMeta,
+          romanceCumulativeDuration.isAcceptableOrUnknown(
+              data['romance_cumulative_duration']!,
+              _romanceCumulativeDurationMeta));
+    } else if (isInserting) {
+      context.missing(_romanceCumulativeDurationMeta);
+    }
+    if (data.containsKey('joint_money')) {
+      context.handle(
+          _jointMoneyMeta,
+          jointMoney.isAcceptableOrUnknown(
+              data['joint_money']!, _jointMoneyMeta));
+    } else if (isInserting) {
+      context.missing(_jointMoneyMeta);
     }
     return context;
   }
@@ -20541,13 +16584,19 @@ class $RelationshipTableTable extends RelationshipTable
           data['${effectivePrefix}interested_in_relationship'])!,
       level: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}level'])!,
-      romanticRelationshipInfoId: attachedDatabase.typeMapping.read(
-          DriftSqlType.int,
-          data['${effectivePrefix}romantic_relationship_info_id']),
       activeRomance: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}active_romance'])!,
       isCoParent: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_co_parent'])!,
+      romanceStartDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}romance_start_day'])!,
+      romanceEndDay: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}romance_end_day'])!,
+      romanceCumulativeDuration: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}romance_cumulative_duration'])!,
+      jointMoney: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}joint_money'])!,
     );
   }
 
@@ -20565,9 +16614,12 @@ class Relationship extends DataClass implements Insertable<Relationship> {
   final String previousFamilialRelationship;
   final bool interestedInRelationship;
   final int level;
-  final int? romanticRelationshipInfoId;
   final bool activeRomance;
   final bool isCoParent;
+  final int romanceStartDay;
+  final int romanceEndDay;
+  final int romanceCumulativeDuration;
+  final int jointMoney;
   const Relationship(
       {required this.firstPersonId,
       required this.secondPersonId,
@@ -20576,9 +16628,12 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       required this.previousFamilialRelationship,
       required this.interestedInRelationship,
       required this.level,
-      this.romanticRelationshipInfoId,
       required this.activeRomance,
-      required this.isCoParent});
+      required this.isCoParent,
+      required this.romanceStartDay,
+      required this.romanceEndDay,
+      required this.romanceCumulativeDuration,
+      required this.jointMoney});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -20593,12 +16648,13 @@ class Relationship extends DataClass implements Insertable<Relationship> {
     map['interested_in_relationship'] =
         Variable<bool>(interestedInRelationship);
     map['level'] = Variable<int>(level);
-    if (!nullToAbsent || romanticRelationshipInfoId != null) {
-      map['romantic_relationship_info_id'] =
-          Variable<int>(romanticRelationshipInfoId);
-    }
     map['active_romance'] = Variable<bool>(activeRomance);
     map['is_co_parent'] = Variable<bool>(isCoParent);
+    map['romance_start_day'] = Variable<int>(romanceStartDay);
+    map['romance_end_day'] = Variable<int>(romanceEndDay);
+    map['romance_cumulative_duration'] =
+        Variable<int>(romanceCumulativeDuration);
+    map['joint_money'] = Variable<int>(jointMoney);
     return map;
   }
 
@@ -20611,12 +16667,12 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       previousFamilialRelationship: Value(previousFamilialRelationship),
       interestedInRelationship: Value(interestedInRelationship),
       level: Value(level),
-      romanticRelationshipInfoId:
-          romanticRelationshipInfoId == null && nullToAbsent
-              ? const Value.absent()
-              : Value(romanticRelationshipInfoId),
       activeRomance: Value(activeRomance),
       isCoParent: Value(isCoParent),
+      romanceStartDay: Value(romanceStartDay),
+      romanceEndDay: Value(romanceEndDay),
+      romanceCumulativeDuration: Value(romanceCumulativeDuration),
+      jointMoney: Value(jointMoney),
     );
   }
 
@@ -20635,10 +16691,13 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       interestedInRelationship:
           serializer.fromJson<bool>(json['interestedInRelationship']),
       level: serializer.fromJson<int>(json['level']),
-      romanticRelationshipInfoId:
-          serializer.fromJson<int?>(json['romanticRelationshipInfoId']),
       activeRomance: serializer.fromJson<bool>(json['activeRomance']),
       isCoParent: serializer.fromJson<bool>(json['isCoParent']),
+      romanceStartDay: serializer.fromJson<int>(json['romanceStartDay']),
+      romanceEndDay: serializer.fromJson<int>(json['romanceEndDay']),
+      romanceCumulativeDuration:
+          serializer.fromJson<int>(json['romanceCumulativeDuration']),
+      jointMoney: serializer.fromJson<int>(json['jointMoney']),
     );
   }
   @override
@@ -20656,10 +16715,13 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       'interestedInRelationship':
           serializer.toJson<bool>(interestedInRelationship),
       'level': serializer.toJson<int>(level),
-      'romanticRelationshipInfoId':
-          serializer.toJson<int?>(romanticRelationshipInfoId),
       'activeRomance': serializer.toJson<bool>(activeRomance),
       'isCoParent': serializer.toJson<bool>(isCoParent),
+      'romanceStartDay': serializer.toJson<int>(romanceStartDay),
+      'romanceEndDay': serializer.toJson<int>(romanceEndDay),
+      'romanceCumulativeDuration':
+          serializer.toJson<int>(romanceCumulativeDuration),
+      'jointMoney': serializer.toJson<int>(jointMoney),
     };
   }
 
@@ -20671,9 +16733,12 @@ class Relationship extends DataClass implements Insertable<Relationship> {
           String? previousFamilialRelationship,
           bool? interestedInRelationship,
           int? level,
-          Value<int?> romanticRelationshipInfoId = const Value.absent(),
           bool? activeRomance,
-          bool? isCoParent}) =>
+          bool? isCoParent,
+          int? romanceStartDay,
+          int? romanceEndDay,
+          int? romanceCumulativeDuration,
+          int? jointMoney}) =>
       Relationship(
         firstPersonId: firstPersonId ?? this.firstPersonId,
         secondPersonId: secondPersonId ?? this.secondPersonId,
@@ -20686,11 +16751,13 @@ class Relationship extends DataClass implements Insertable<Relationship> {
         interestedInRelationship:
             interestedInRelationship ?? this.interestedInRelationship,
         level: level ?? this.level,
-        romanticRelationshipInfoId: romanticRelationshipInfoId.present
-            ? romanticRelationshipInfoId.value
-            : this.romanticRelationshipInfoId,
         activeRomance: activeRomance ?? this.activeRomance,
         isCoParent: isCoParent ?? this.isCoParent,
+        romanceStartDay: romanceStartDay ?? this.romanceStartDay,
+        romanceEndDay: romanceEndDay ?? this.romanceEndDay,
+        romanceCumulativeDuration:
+            romanceCumulativeDuration ?? this.romanceCumulativeDuration,
+        jointMoney: jointMoney ?? this.jointMoney,
       );
   @override
   String toString() {
@@ -20703,9 +16770,12 @@ class Relationship extends DataClass implements Insertable<Relationship> {
               'previousFamilialRelationship: $previousFamilialRelationship, ')
           ..write('interestedInRelationship: $interestedInRelationship, ')
           ..write('level: $level, ')
-          ..write('romanticRelationshipInfoId: $romanticRelationshipInfoId, ')
           ..write('activeRomance: $activeRomance, ')
-          ..write('isCoParent: $isCoParent')
+          ..write('isCoParent: $isCoParent, ')
+          ..write('romanceStartDay: $romanceStartDay, ')
+          ..write('romanceEndDay: $romanceEndDay, ')
+          ..write('romanceCumulativeDuration: $romanceCumulativeDuration, ')
+          ..write('jointMoney: $jointMoney')
           ..write(')'))
         .toString();
   }
@@ -20719,9 +16789,12 @@ class Relationship extends DataClass implements Insertable<Relationship> {
       previousFamilialRelationship,
       interestedInRelationship,
       level,
-      romanticRelationshipInfoId,
       activeRomance,
-      isCoParent);
+      isCoParent,
+      romanceStartDay,
+      romanceEndDay,
+      romanceCumulativeDuration,
+      jointMoney);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -20734,9 +16807,12 @@ class Relationship extends DataClass implements Insertable<Relationship> {
               this.previousFamilialRelationship &&
           other.interestedInRelationship == this.interestedInRelationship &&
           other.level == this.level &&
-          other.romanticRelationshipInfoId == this.romanticRelationshipInfoId &&
           other.activeRomance == this.activeRomance &&
-          other.isCoParent == this.isCoParent);
+          other.isCoParent == this.isCoParent &&
+          other.romanceStartDay == this.romanceStartDay &&
+          other.romanceEndDay == this.romanceEndDay &&
+          other.romanceCumulativeDuration == this.romanceCumulativeDuration &&
+          other.jointMoney == this.jointMoney);
 }
 
 class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
@@ -20747,9 +16823,12 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
   final Value<String> previousFamilialRelationship;
   final Value<bool> interestedInRelationship;
   final Value<int> level;
-  final Value<int?> romanticRelationshipInfoId;
   final Value<bool> activeRomance;
   final Value<bool> isCoParent;
+  final Value<int> romanceStartDay;
+  final Value<int> romanceEndDay;
+  final Value<int> romanceCumulativeDuration;
+  final Value<int> jointMoney;
   final Value<int> rowid;
   const RelationshipTableCompanion({
     this.firstPersonId = const Value.absent(),
@@ -20759,9 +16838,12 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     this.previousFamilialRelationship = const Value.absent(),
     this.interestedInRelationship = const Value.absent(),
     this.level = const Value.absent(),
-    this.romanticRelationshipInfoId = const Value.absent(),
     this.activeRomance = const Value.absent(),
     this.isCoParent = const Value.absent(),
+    this.romanceStartDay = const Value.absent(),
+    this.romanceEndDay = const Value.absent(),
+    this.romanceCumulativeDuration = const Value.absent(),
+    this.jointMoney = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   RelationshipTableCompanion.insert({
@@ -20772,9 +16854,12 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     required String previousFamilialRelationship,
     required bool interestedInRelationship,
     required int level,
-    this.romanticRelationshipInfoId = const Value.absent(),
     required bool activeRomance,
     required bool isCoParent,
+    required int romanceStartDay,
+    required int romanceEndDay,
+    required int romanceCumulativeDuration,
+    required int jointMoney,
     this.rowid = const Value.absent(),
   })  : firstPersonId = Value(firstPersonId),
         secondPersonId = Value(secondPersonId),
@@ -20784,7 +16869,11 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
         interestedInRelationship = Value(interestedInRelationship),
         level = Value(level),
         activeRomance = Value(activeRomance),
-        isCoParent = Value(isCoParent);
+        isCoParent = Value(isCoParent),
+        romanceStartDay = Value(romanceStartDay),
+        romanceEndDay = Value(romanceEndDay),
+        romanceCumulativeDuration = Value(romanceCumulativeDuration),
+        jointMoney = Value(jointMoney);
   static Insertable<Relationship> custom({
     Expression<int>? firstPersonId,
     Expression<int>? secondPersonId,
@@ -20793,9 +16882,12 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     Expression<String>? previousFamilialRelationship,
     Expression<bool>? interestedInRelationship,
     Expression<int>? level,
-    Expression<int>? romanticRelationshipInfoId,
     Expression<bool>? activeRomance,
     Expression<bool>? isCoParent,
+    Expression<int>? romanceStartDay,
+    Expression<int>? romanceEndDay,
+    Expression<int>? romanceCumulativeDuration,
+    Expression<int>? jointMoney,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -20810,10 +16902,13 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
       if (interestedInRelationship != null)
         'interested_in_relationship': interestedInRelationship,
       if (level != null) 'level': level,
-      if (romanticRelationshipInfoId != null)
-        'romantic_relationship_info_id': romanticRelationshipInfoId,
       if (activeRomance != null) 'active_romance': activeRomance,
       if (isCoParent != null) 'is_co_parent': isCoParent,
+      if (romanceStartDay != null) 'romance_start_day': romanceStartDay,
+      if (romanceEndDay != null) 'romance_end_day': romanceEndDay,
+      if (romanceCumulativeDuration != null)
+        'romance_cumulative_duration': romanceCumulativeDuration,
+      if (jointMoney != null) 'joint_money': jointMoney,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -20826,9 +16921,12 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
       Value<String>? previousFamilialRelationship,
       Value<bool>? interestedInRelationship,
       Value<int>? level,
-      Value<int?>? romanticRelationshipInfoId,
       Value<bool>? activeRomance,
       Value<bool>? isCoParent,
+      Value<int>? romanceStartDay,
+      Value<int>? romanceEndDay,
+      Value<int>? romanceCumulativeDuration,
+      Value<int>? jointMoney,
       Value<int>? rowid}) {
     return RelationshipTableCompanion(
       firstPersonId: firstPersonId ?? this.firstPersonId,
@@ -20842,10 +16940,13 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
       interestedInRelationship:
           interestedInRelationship ?? this.interestedInRelationship,
       level: level ?? this.level,
-      romanticRelationshipInfoId:
-          romanticRelationshipInfoId ?? this.romanticRelationshipInfoId,
       activeRomance: activeRomance ?? this.activeRomance,
       isCoParent: isCoParent ?? this.isCoParent,
+      romanceStartDay: romanceStartDay ?? this.romanceStartDay,
+      romanceEndDay: romanceEndDay ?? this.romanceEndDay,
+      romanceCumulativeDuration:
+          romanceCumulativeDuration ?? this.romanceCumulativeDuration,
+      jointMoney: jointMoney ?? this.jointMoney,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -20878,15 +16979,24 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
     if (level.present) {
       map['level'] = Variable<int>(level.value);
     }
-    if (romanticRelationshipInfoId.present) {
-      map['romantic_relationship_info_id'] =
-          Variable<int>(romanticRelationshipInfoId.value);
-    }
     if (activeRomance.present) {
       map['active_romance'] = Variable<bool>(activeRomance.value);
     }
     if (isCoParent.present) {
       map['is_co_parent'] = Variable<bool>(isCoParent.value);
+    }
+    if (romanceStartDay.present) {
+      map['romance_start_day'] = Variable<int>(romanceStartDay.value);
+    }
+    if (romanceEndDay.present) {
+      map['romance_end_day'] = Variable<int>(romanceEndDay.value);
+    }
+    if (romanceCumulativeDuration.present) {
+      map['romance_cumulative_duration'] =
+          Variable<int>(romanceCumulativeDuration.value);
+    }
+    if (jointMoney.present) {
+      map['joint_money'] = Variable<int>(jointMoney.value);
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -20905,9 +17015,12 @@ class RelationshipTableCompanion extends UpdateCompanion<Relationship> {
               'previousFamilialRelationship: $previousFamilialRelationship, ')
           ..write('interestedInRelationship: $interestedInRelationship, ')
           ..write('level: $level, ')
-          ..write('romanticRelationshipInfoId: $romanticRelationshipInfoId, ')
           ..write('activeRomance: $activeRomance, ')
           ..write('isCoParent: $isCoParent, ')
+          ..write('romanceStartDay: $romanceStartDay, ')
+          ..write('romanceEndDay: $romanceEndDay, ')
+          ..write('romanceCumulativeDuration: $romanceCumulativeDuration, ')
+          ..write('jointMoney: $jointMoney, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -20932,16 +17045,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       $BabyTraitsTableTable(this);
   late final $DeathRecordTableTable deathRecordTable =
       $DeathRecordTableTable(this);
-  late final $AcquaintanceTableTable acquaintanceTable =
-      $AcquaintanceTableTable(this);
-  late final $ChildTableTable childTable = $ChildTableTable(this);
-  late final $FriendTableTable friendTable = $FriendTableTable(this);
   late final $GraveTableTable graveTable = $GraveTableTable(this);
-  late final $InLawTableTable inLawTable = $InLawTableTable(this);
-  late final $ParentTableTable parentTable = $ParentTableTable(this);
-  late final $PartnerTableTable partnerTable = $PartnerTableTable(this);
-  late final $RelativeTableTable relativeTable = $RelativeTableTable(this);
-  late final $SiblingTableTable siblingTable = $SiblingTableTable(this);
   late final $EventTableTable eventTable = $EventTableTable(this);
   late final $CarTableTable carTable = $CarTableTable(this);
   late final $CarProblemTableTable carProblemTable =
@@ -20972,8 +17076,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       $JobRelationshipTableTable(this);
   late final $ParentChildLinkTableTable parentChildLinkTable =
       $ParentChildLinkTableTable(this);
-  late final $RomanticRelationshipInfoTableTable romanticRelationshipInfoTable =
-      $RomanticRelationshipInfoTableTable(this);
   late final $RelationshipTableTable relationshipTable =
       $RelationshipTableTable(this);
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
@@ -20996,21 +17098,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       BabyTraitsDaoImpl(this as DatabaseProvider);
   late final DeathRecordDaoImpl deathRecordDaoImpl =
       DeathRecordDaoImpl(this as DatabaseProvider);
-  late final AcquaintanceDaoImpl acquaintanceDaoImpl =
-      AcquaintanceDaoImpl(this as DatabaseProvider);
-  late final ChildDaoImpl childDaoImpl = ChildDaoImpl(this as DatabaseProvider);
-  late final FriendDaoImpl friendDaoImpl =
-      FriendDaoImpl(this as DatabaseProvider);
   late final GraveDaoImpl graveDaoImpl = GraveDaoImpl(this as DatabaseProvider);
-  late final InLawDaoImpl inLawDaoImpl = InLawDaoImpl(this as DatabaseProvider);
-  late final ParentDaoImpl parentDaoImpl =
-      ParentDaoImpl(this as DatabaseProvider);
-  late final PartnerDaoImpl partnerDaoImpl =
-      PartnerDaoImpl(this as DatabaseProvider);
-  late final RelativeDaoImpl relativeDaoImpl =
-      RelativeDaoImpl(this as DatabaseProvider);
-  late final SiblingDaoImpl siblingDaoImpl =
-      SiblingDaoImpl(this as DatabaseProvider);
   late final EventDaoImpl eventDaoImpl = EventDaoImpl(this as DatabaseProvider);
   late final CarDaoImpl carDaoImpl = CarDaoImpl(this as DatabaseProvider);
   late final CarProblemDaoImpl carProblemDaoImpl =
@@ -21047,8 +17135,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       ParentChildLinkDaoImpl(this as DatabaseProvider);
   late final RelationshipDaoImpl relationshipDaoImpl =
       RelationshipDaoImpl(this as DatabaseProvider);
-  late final RomanticRelationshipInfoDaoImpl romanticRelationshipInfoDaoImpl =
-      RomanticRelationshipInfoDaoImpl(this as DatabaseProvider);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -21065,15 +17151,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         piercingTable,
         babyTraitsTable,
         deathRecordTable,
-        acquaintanceTable,
-        childTable,
-        friendTable,
         graveTable,
-        inLawTable,
-        parentTable,
-        partnerTable,
-        relativeTable,
-        siblingTable,
         eventTable,
         carTable,
         carProblemTable,
@@ -21094,7 +17172,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         employmentTable,
         jobRelationshipTable,
         parentChildLinkTable,
-        romanticRelationshipInfoTable,
         relationshipTable
       ];
   @override
@@ -21258,90 +17335,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.delete),
             result: [
-              TableUpdate('acquaintance', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('acquaintance', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('acquaintance', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('acquaintance', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('child', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('child', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('child', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('child', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('friend', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('friend', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('friend', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('friend', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
               TableUpdate('grave', kind: UpdateKind.delete),
             ],
           ),
@@ -21364,146 +17357,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('grave', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('inlaw', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('inlaw', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('inlaw', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('inlaw', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('parent', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('parent', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('parent', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('parent', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('partner', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('partner', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('partner', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('partner', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('relative', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('relative', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('relative', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('relative', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('sibling', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('sibling', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('sibling', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('sibling', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(
@@ -21913,22 +17766,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
             ],
           ),
           WritePropagation(
-            on: TableUpdateQuery.onTableName('game',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('romantic_relationship_info',
-                  kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('game',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('romantic_relationship_info',
-                  kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.delete),
             result: [
@@ -21951,20 +17788,6 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('relationship', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('romantic_relationship_info',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('relationship', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('romantic_relationship_info',
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('relationship', kind: UpdateKind.update),

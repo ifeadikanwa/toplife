@@ -9,22 +9,17 @@ import 'package:toplife/main_systems/system_relationship/constants/romantic_rela
 import 'package:toplife/main_systems/system_relationship/data/dao/relationship_dao_impl.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_db_formatted_platonic_relationship_type_string.dart';
 
+import '../../../_reusable_test_objects/reusable_test_objects.dart';
+
 void main() {
   group("Relationship dao test", () {
     late DatabaseProvider databaseProvider;
     late RelationshipDaoImpl relationshipDaoImpl;
     //
     const int testMainPersonID = 1;
-    const Relationship testRelationship = Relationship(
+    final Relationship testRelationship =
+        ReusableTestObjects.testRelationship.copyWith(
       firstPersonId: testMainPersonID,
-      secondPersonId: 0,
-      platonicRelationshipType: "",
-      romanticRelationshipType: "",
-      previousFamilialRelationship: "",
-      interestedInRelationship: true,
-      level: 100,
-      activeRomance: false,
-      isCoParent: false,
     );
 
     setUp(() async {
@@ -34,45 +29,11 @@ void main() {
 
       //populate db
       //create game
-      const Game testGame = Game(
-        id: 0,
-        currentPlayerID: 1,
-        isActive: true,
-        lastPlayedTime: 0,
-        currentDay: 0,
-        currentTimeInMinutes: 0,
-        generation: 0,
-      );
+      const Game testGame = ReusableTestObjects.testGame;
 
       await GameDaoImpl(databaseProvider).createGame(testGame);
       //add people
-      const Person testPerson = Person(
-        id: 0,
-        gameId: 1,
-        firstName: "firstName",
-        lastName: "lastName",
-        dayOfBirth: 0,
-        gender: "gender",
-        subjectPronoun: "subjectPronoun",
-        objectPronoun: "objectPronoun",
-        possessivePronoun: "possessivePronoun",
-        sexuality: "sexuality",
-        currentState: "currentState",
-        currentCountry: "currentCountry",
-        birthState: "birthState",
-        birthCountry: "birthCountry",
-        money: 0,
-        emotionalState: "emotionalState",
-        zodiacSign: "zodiacSign",
-        hasDriversLicense: true,
-        transportMode: "transportMode",
-        drivingMode: "drivingMode",
-        hasFertilityIssues: true,
-        onBirthControl: false,
-        isSterile: false,
-        sickly: true,
-        dead: false,
-      );
+      const Person testPerson = ReusableTestObjects.testPerson;
 
       for (var i = 0; i < 50; i++) {
         await PersonDaoImpl(databaseProvider).createPerson(

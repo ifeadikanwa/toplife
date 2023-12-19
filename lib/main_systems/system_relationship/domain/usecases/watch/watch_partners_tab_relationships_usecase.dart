@@ -4,7 +4,7 @@ import 'package:toplife/main_systems/system_relationship/domain/repository/relat
 class WatchPartnersTabRelationshipsUsecase {
   final RelationshipRepository _relationshipRepository;
 
-  WatchPartnersTabRelationshipsUsecase(this._relationshipRepository);
+  const WatchPartnersTabRelationshipsUsecase(this._relationshipRepository);
 
   Stream<List<Relationship>> execute({required int personID}) {
     return _relationshipRepository.watchPartnersTabRelationships(personID);

@@ -13,7 +13,6 @@ class ScheduleBirthdayParty {
   Future<Event> execute({
     required int gameID,
     required int mainPersonID,
-    required String relationshipToMainPlayer,
     required int eventDay,
   }) {
     EventType birthdayPartyEvent = EventType.birthdayParty;
@@ -32,7 +31,6 @@ class ScheduleBirthdayParty {
       startTime: startTime,
       endTime: startTime + birthdayPartyEvent.eventDuration,
       mainPersonId: mainPersonID,
-      relationshipToMainPlayer: relationshipToMainPlayer,
       journalEntryOnly: false,
       performed: false,
     );

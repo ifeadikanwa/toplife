@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
-import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/death_event_dialogs_text_constants.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral/player_planned_funeral_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
@@ -15,33 +14,18 @@ import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/get_in_x_days_string.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 
 class PlayerPlannedFuneralWidget extends ConsumerWidget {
-  final int mainPlayerID;
-  final Event deathEvent;
   final String firstPersonEventDescription;
   final Country playerCountry;
 
-  final void Function({
-    required BuildContext context,
-    required int mainPlayerID,
-    required Event deathEvent,
-    required String firstPersonEventDescription,
-    required Country playerCountry,
-    required FuneralType funeralType,
-    required int cost,
-    required int eventStartTime,
-  }) planFuneral;
-
   const PlayerPlannedFuneralWidget({
     Key? key,
-    required this.mainPlayerID,
-    required this.deathEvent,
     required this.firstPersonEventDescription,
     required this.playerCountry,
-    required this.planFuneral,
   }) : super(key: key);
 
   @override
@@ -52,7 +36,8 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
         ref.watch(playerPlannedFuneralDialogViewModelProvider.notifier);
 
     return DialogContainer(
-      title: const DialogTitleText(text: DeathEventDialogsTextConstants.funeralPlanEventTitle),
+      title: const DialogTitleText(
+          text: DeathEventDialogsTextConstants.funeralPlanEventTitle),
       children: [
         DialogBodyText(
           text: SentenceUtil.convertFromFirstPersonToSecondPerson(
@@ -62,10 +47,20 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
 
         //plan
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
-        const DialogDropdownLabelText(text: DeathEventDialogsTextConstants.funeralPlanPrompt),
+        const DialogDropdownLabelText(
+            text: DeathEventDialogsTextConstants.funeralPlanPrompt),
         funeralTypeDropDown(
           plannedFuneralDialogViewModel,
           funeralEventDetail.funeralType,
+        ),
+
+        //event day from current day
+        const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
+        const DialogDropdownLabelText(
+            text: DeathEventDialogsTextConstants.funeralDayPrompt),
+        eventDaysLaterDropDown(
+          plannedFuneralDialogViewModel,
+          funeralEventDetail.funeralChosenDaysFromCurrentDay,
         ),
 
         //event start time
@@ -90,19 +85,10 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
         ),
         ElevatedButton(
             onPressed: () {
-              AutoRouter.of(context).popForced();
-              planFuneral(
-                context: context,
-                mainPlayerID: mainPlayerID,
-                deathEvent: deathEvent,
-                firstPersonEventDescription: firstPersonEventDescription,
-                playerCountry: playerCountry,
-                funeralType: funeralEventDetail.funeralType,
-                cost: funeralEventDetail.funeralType.basePrice,
-                eventStartTime: funeralEventDetail.funeralStartTime,
-              );
+              AutoRouter.of(context).popForced(funeralEventDetail);
             },
-            child: const Text(DeathEventDialogsTextConstants.funeralPlanCallToAction)),
+            child: const Text(
+                DeathEventDialogsTextConstants.funeralPlanCallToAction)),
       ],
     );
   }
@@ -121,6 +107,27 @@ class PlayerPlannedFuneralWidget extends ConsumerWidget {
           .toList(),
       onChanged: (value) {
         playerPlannedFuneralDialogViewModel.updateFuneralType(value!);
+      },
+    );
+  }
+
+  DialogDropdown eventDaysLaterDropDown(
+    PlayerPlannedFuneralDialogViewModel playerPlannedFuneralDialogViewModel,
+    int chosenDaysFromCurrentDay,
+  ) {
+    return DialogDropdown<int>(
+      value: chosenDaysFromCurrentDay,
+      items: FuneralEventDetail.possibleFuneralDaysFromCurrentDay
+          .map((daysFromCurrentDay) => DropdownMenuItem<int>(
+                value: daysFromCurrentDay,
+                child: DialogBodyText(
+                  text: getInXDaysString(daysFromCurrentDay),
+                ),
+              ))
+          .toList(),
+      onChanged: (value) {
+        playerPlannedFuneralDialogViewModel
+            .updateFuneralChosenDaysFromCurrentDay(value!);
       },
     );
   }

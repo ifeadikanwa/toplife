@@ -1,26 +1,24 @@
+import 'package:intl/intl.dart';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
-import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_pair.dart';
+import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
+import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_relationship_label_from_any_relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/util/check_if_platonic_relationship_type_contains.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 
 class NpcBirthday {
   final RelationshipUsecases _relationshipUsecases;
-  final PersonUsecases _personUsecases;
-  final AgeUsecases _ageUsecases;
+
   final EventSchedulers _eventScheduler;
 
   const NpcBirthday(
     this._relationshipUsecases,
-    this._personUsecases,
-    this._ageUsecases,
     this._eventScheduler,
   );
 
@@ -30,70 +28,77 @@ class NpcBirthday {
     Person birthdayPerson,
     Age age,
   ) async {
-    //birthday for only active partner, child, sibling, relative, parent, friend, inlaw
+    //// schedule birthday party for only active partner, child, sibling, relative, parent, friend, inlaw
 
-    final RelationshipPair? relationshipPair = await _relationshipUsecases
-        .getRelationshipPairBasedOnTypeUsecase
-        .execute(
-      personUsecases: _personUsecases,
-      mainPersonID: mainPlayerID,
-      relationshipPersonID: event.mainPersonId,
-      informalRelationshipType: event.relationshipToMainPlayer,
+    final Relationship? relationship =
+        await _relationshipUsecases.getRelationshipUsecase.execute(
+      firstPersonID: mainPlayerID,
+      secondPersonID: birthdayPerson.id,
     );
 
-    if (relationshipPair != null) {
-      final Person person = relationshipPair.person;
-
-      String relationshipLabel = getRelationshipLabelFromAnyRelationshipPair(
-        relationshipPair: relationshipPair,
-        onlyActivePartnerWanted: true,
+    if (relationship != null) {
+      final String relationshipLabel =
+          getPlatonicAndRomanticRelationshipLabelFromString(
+        genderString: birthdayPerson.gender,
+        platonicRelationshipTypeString: relationship.platonicRelationshipType,
+        romanticRelationshipTypeString: relationship.romanticRelationshipType,
+        previousFamilialRelationshipString:
+            relationship.previousFamilialRelationship,
+        isCoParent: relationship.isCoParent,
+        activeRomance: relationship.activeRomance,
       );
 
       String schoolText = "";
       //get school text for toddler - teen
       if (age.lifeStage.schoolForStage != "") {
         schoolText =
-            "${JournalCharacters.space}${person.subjectPronoun} will start attending ${age.lifeStage.schoolForStage.toLowerCase()}";
+            "${JournalCharacters.space}${birthdayPerson.subjectPronoun} will start attending ${age.lifeStage.schoolForStage.toLowerCase()}";
       }
 
       if (relationshipLabel.isNotEmpty) {
         //schedule a birthday
-        //if it is friend, parent, child or sibling & they are at least a young adult
+        //as long as it is not an acquaintance
         String birthdayPartyInvite = "";
 
-        if (relationshipPair.relationship is Friend ||
-            relationshipPair.relationship is Parent ||
-            relationshipPair.relationship is Sibling ||
-            relationshipPair.relationship is Child) {
-          final daysLived = _ageUsecases.getDaysLivedUsecase.execute(
-              dayOfBirth: person.dayOfBirth, currentDay: event.eventDay);
+        if (!checkIfPlatonicRelationshipTypeStringContains(
+          relationship.platonicRelationshipType,
+          PlatonicRelationshipType.acquaintance,
+        )) {
+          //check if party will be organized
+          bool haveBirthdayParty = Chance.getTrueOrFalseBasedOnPercentageChance(
+            trueChancePercentage: 70,
+          );
 
-          if (daysLived >= Age.newYoungAdultDaysLived) {
-            bool haveBirthdayParty =
-                Chance.getTrueOrFalseBasedOnPercentageChance(
-              trueChancePercentage: 70,
-            );
+          if (haveBirthdayParty) {
+            //chack if the player is invited
+            //player is not invited if the person is not interested in a relationship
+            final bool playerIsInvited = relationship.interestedInRelationship;
 
-            if (haveBirthdayParty) {
+            if (playerIsInvited) {
+              //schedule the party so the player can see it in their events
               final Event party =
                   await _eventScheduler.scheduleBirthdayParty.execute(
                 gameID: event.gameId,
                 mainPersonID: event.mainPersonId,
-                relationshipToMainPlayer: event.relationshipToMainPlayer,
                 eventDay: event.eventDay,
               );
 
               if (party.startTime != null) {
                 birthdayPartyInvite =
-                    "${JournalCharacters.space}${person.subjectPronoun} is throwing a birthday party at ${getClockTime(timeInMinutes: party.startTime!)} and I'm invited.";
+                    "${JournalCharacters.space}${toBeginningOfSentenceCase(birthdayPerson.subjectPronoun)} is throwing a birthday party at ${getClockTime(timeInMinutes: party.startTime!)} and I'm invited.";
               }
+            }
+            //player is not invited
+            else {
+              birthdayPartyInvite =
+                  "${JournalCharacters.space}${toBeginningOfSentenceCase(birthdayPerson.subjectPronoun)} is throwing a birthday party but I didn't get an invitation.";
             }
           }
         }
 
         //return journal entry
         final String journalEntry =
-            "It's my ${relationshipLabel.toLowerCase()}, ${person.firstName}'s birthday. ${person.subjectPronoun} is now ${SentenceUtil.getArticle(age.lifeStage.stageName).toLowerCase()} ${age.lifeStage.stageName.toLowerCase()}.$schoolText$birthdayPartyInvite";
+            "It is my $relationshipLabel, ${getFullNameString(firstName: birthdayPerson.firstName, lastName: birthdayPerson.lastName)}'s birthday, ${birthdayPerson.subjectPronoun} is now ${SentenceUtil.getArticle(age.lifeStage.stageName).toLowerCase()} ${age.lifeStage.stageName.toLowerCase()}.$schoolText$birthdayPartyInvite";
         return journalEntry;
       }
     }

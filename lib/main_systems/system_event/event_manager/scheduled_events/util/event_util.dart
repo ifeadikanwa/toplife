@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
-import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 class EventUtil {
   //9am-11am
@@ -55,13 +54,5 @@ class EventUtil {
 
     //return a random possible time
     return possibleStartTimes[Random().nextInt(possibleStartTimes.length)];
-  }
-
-   static bool checkIfPlayerCanAttendEvent({
-    required Person mainPlayerPerson,
-    required Person eventMainPerson,
-  }) {
-    return mainPlayerPerson.currentCountry.toLowerCase() ==
-        eventMainPerson.currentCountry.toLowerCase();
   }
 }
