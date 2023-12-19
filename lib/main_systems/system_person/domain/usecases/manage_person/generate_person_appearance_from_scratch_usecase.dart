@@ -9,7 +9,6 @@ import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/util/appearance_utils.dart';
 
 class GeneratePersonAppearanceFromScratchUsecase {
-  
   Appearance execute({
     required int personId,
     required Gender gender,
@@ -31,10 +30,18 @@ class GeneratePersonAppearanceFromScratchUsecase {
       genderString: gender.name,
     );
 
-    //hair color
-    final String personHairColor = getRandomValueFromList<HairColor>(
+    //natural hair color
+    final HairColor personNaturalHairColorEnum =
+        getRandomValueFromList<HairColor>(
       list: HairColor.values,
-    ).name;
+    );
+
+    final String personNaturalHairColor = personNaturalHairColorEnum.name;
+
+    //dyed hair color
+    final String personDyedHairColor = AppearanceUtils.getValidDyedHairColor(
+      naturalHairColor: personNaturalHairColorEnum,
+    );
 
     //max height
     final int personMaxHeight = AppearanceUtils.getValidRandomPersonMaxHeight();
@@ -55,8 +62,8 @@ class GeneratePersonAppearanceFromScratchUsecase {
       skinColor: personSkinColor.name,
       eyeColor: personEyeColor,
       hairstyle: personHairStyle,
-      naturalHairColor: personHairColor,
-      dyeHairColor: personHairColor,
+      naturalHairColor: personNaturalHairColor,
+      dyeHairColor: personDyedHairColor,
       currentHeightInInches: personCurrentHeight,
       maxHeightInInches: personMaxHeight,
       hasBeards: personHasBeards,

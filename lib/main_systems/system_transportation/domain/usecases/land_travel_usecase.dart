@@ -162,13 +162,17 @@ class LandTravelUsecase {
     //if we have a failed travel respose
     if ((!travelResponse.isSuccesful) && currentGame != null) {
       //log in journal
-      await _journalUsecases.addToJournalUsecase.execute(
-        gameID: currentGame.id,
-        day: currentGame.currentDay,
-        mainPlayerID: currentGame.currentPlayerID,
-        entry:
-            "${TravelProblemTexts.iTriedToTravelByRoadBut}${travelResponse.problem.firstPersonSentence}",
-      );
+      //check if we have a valid player id first
+      final int? currentPlayerId = currentGame.currentPlayerID;
+      if (currentPlayerId != null) {
+        await _journalUsecases.addToJournalUsecase.execute(
+          gameID: currentGame.id,
+          day: currentGame.currentDay,
+          mainPlayerID: currentPlayerId,
+          entry:
+              "${TravelProblemTexts.iTriedToTravelByRoadBut}${travelResponse.problem.firstPersonSentence}",
+        );
+      }
 
       //send result dialog
       if (context.mounted) {

@@ -37,7 +37,7 @@ class BuyFoodDialogViewModel {
     if (_currentPlayerID != null) {
       _shopAndStorageUsecases.purchaseFoodUsecase.execute(
         context: context,
-        personID: _currentPlayerID!,
+        personID: _currentPlayerID,
         food: food,
         quantity: quantity,
       );

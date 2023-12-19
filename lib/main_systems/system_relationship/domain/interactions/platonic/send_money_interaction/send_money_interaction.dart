@@ -161,7 +161,7 @@ class SendMoneyInteraction extends RelationshipInteraction {
         await _journalUsecases.addToJournalUsecase.execute(
           gameID: currentGame.id,
           day: currentGame.currentDay,
-          mainPlayerID: currentGame.currentPlayerID,
+          mainPlayerID: currentPlayer.id,
           entry: resultDescription.firstPersonSentence,
         );
 

@@ -55,7 +55,7 @@ class BuyCarDialogViewModel {
           await _shopAndStorageUsecases.purchaseCarFullyPaidUsecase.execute(
         context: context,
         car: car,
-        personID: _currentPlayerID!,
+        personID: _currentPlayerID,
       );
 
       //if purchase is successful, ask responsible view model to remove the car from the shop
@@ -77,7 +77,7 @@ class BuyCarDialogViewModel {
         context: context,
         child: CarLoanDialog(
           car: car,
-          personID: _currentPlayerID!,
+          personID: _currentPlayerID,
         ),
       );
     }

@@ -45,14 +45,18 @@ class SleepActionDialogViewModel extends StateNotifier<Time> {
     required BuildContext context,
     required Game currentGame,
   }) async {
-    await _sleepUsecase.execute(
-      personID: currentGame.currentPlayerID,
-      gameID: currentGame.id,
-      currentDay: currentGame.currentDay,
-      activityDurationInMinutes: _getTotalTimeInMinutes(),
-      gameUsecases: _gameUsecases,
-      context: context,
-    );
+    //if we have a valid current player
+    final int? currentPlayerId = currentGame.currentPlayerID;
+    if (currentPlayerId != null) {
+      await _sleepUsecase.execute(
+        personID: currentPlayerId,
+        gameID: currentGame.id,
+        currentDay: currentGame.currentDay,
+        activityDurationInMinutes: _getTotalTimeInMinutes(),
+        gameUsecases: _gameUsecases,
+        context: context,
+      );
+    }
   }
 
   int _getTotalTimeInMinutes() {

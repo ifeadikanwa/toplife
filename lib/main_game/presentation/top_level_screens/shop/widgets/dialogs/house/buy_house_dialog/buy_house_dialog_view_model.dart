@@ -69,7 +69,7 @@ class BuyHouseDialogViewModel {
           await _shopAndStorageUsecases.purchaseHouseFullyPaidUsecase.execute(
         context: context,
         house: house,
-        personID: _currentPlayerID!,
+        personID: _currentPlayerID,
       );
 
       if (purchaseSuccessful) {
@@ -87,7 +87,7 @@ class BuyHouseDialogViewModel {
         context: context,
         child: MortgageLoanDialog(
           house: house,
-          personID: _currentPlayerID!,
+          personID: _currentPlayerID,
         ),
       );
     }

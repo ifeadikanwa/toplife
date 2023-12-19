@@ -29,7 +29,7 @@ class GetPlayerBarInfoFromDataUsecase {
     } else {
       final int currentBankBalance =
           await _personUsecases.getPlayerMoneyUsecase.execute(
-        mainPlayerID: currentGame.currentPlayerID,
+        mainPlayerID: currentPlayer.id,
       );
 
       final PlayerBarInfo currentGameAndPlayerInfo = PlayerBarInfo(

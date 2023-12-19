@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
 import 'package:toplife/main_systems/system_location/countries/north_america/canada.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/female_hairstyle.dart';
+import 'package:toplife/main_systems/system_person/constants/appearance/hair_color.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/height_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/male_hairstyle.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/skin_color.dart';
@@ -256,6 +257,21 @@ void main() {
       });
     });
 
+    group("Get valid dyed hair color:", () {
+      test("given a natural hair color we get a valid hair color string", () {
+        expect(
+          AppearanceUtils.getValidDyedHairColor(
+            naturalHairColor: HairColor.blonde,
+          ),
+          isIn(
+            HairColor.values.map(
+              (e) => e.name,
+            ),
+          ),
+        );
+      });
+    });
+
     group("Get valid child skin color:", () {
       test(
           "given an invalid mother or father skin color we get a random skin color",
@@ -314,7 +330,8 @@ void main() {
     group("Get valid native skin color:", () {
       test("returns a skin color", () {
         expect(
-          AppearanceUtils.getValidNativeSkinColor(nativeCountry: Canada()).runtimeType,
+          AppearanceUtils.getValidNativeSkinColor(nativeCountry: Canada())
+              .runtimeType,
           SkinColor,
         );
       });

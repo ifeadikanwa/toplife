@@ -53,7 +53,7 @@ class BuyJewelryDialogViewModel {
       final bool purchaseSuccessful =
           await _shopAndStorageUsecases.purchaseJewelryUsecase.execute(
         context: context,
-        personID: _currentPlayerID!,
+        personID: _currentPlayerID,
         jewelry: jewelry,
       );
 

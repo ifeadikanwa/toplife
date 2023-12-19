@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/job/job_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
@@ -337,6 +338,7 @@ class PersonUsecases {
   GetPlayerInformationFromDataUsecase get getPlayerInformationFromDataUsecase =>
       GetPlayerInformationFromDataUsecase(
         _ref.read(ageUsecasesProvider),
+        _ref.read(jobUsecasesProvider),
       );
 
   GetPersonDepleteStatsFlagUsecase get getPersonDepleteStatsFlagUsecase =>

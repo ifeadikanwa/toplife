@@ -61,7 +61,7 @@ class RentHouseDialogViewModel extends StateNotifier<AsyncValue<int>> {
     _currentPlayerID = await currentPlayerIDFuture;
     _currentHouseStorage = (_currentPlayerID != null)
         ? await getCurrentHouseStorageSpaceUsecase.execute(
-            personID: _currentPlayerID!)
+            personID: _currentPlayerID)
         : HouseConstants.homelessStorageSpace;
 
     state = await AsyncValue.guard(
@@ -77,7 +77,7 @@ class RentHouseDialogViewModel extends StateNotifier<AsyncValue<int>> {
       final bool rentSuccessful = await _rentHouseUsecase.execute(
         context: context,
         house: house,
-        personID: _currentPlayerID!,
+        personID: _currentPlayerID,
         leaseDuration: state.valueOrNull!,
       );
 

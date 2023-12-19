@@ -35,12 +35,11 @@ final eventSectionViewModelProvider =
   //create an event item obj
   //add the object to the list
 
-  //if game is null, say there are no events
-  if (currentGame == null) {
-    return [];
-  }
-  //else, get all the information the ui needs
-  else {
+  //if the current game and current player is valid, get all the information the ui needs
+
+  final int? currentPlayerId = currentGame?.currentPlayerID;
+
+  if (currentGame != null && currentPlayerId != null) {
     List<EventItem> eventItems = [];
 
     for (var attendableEvent in attendableEventsForToday) {
@@ -49,7 +48,7 @@ final eventSectionViewModelProvider =
           attendableEvent.event.endTime != null) {
         //get the travel time for this specific event
         final int travelTime = await getLandTravelTimeUsecase.execute(
-          travellerPersonID: currentGame.currentPlayerID,
+          travellerPersonID: currentPlayerId,
           travelDetail: TravelDetail(
             destinationCountryString: attendableEvent.person.currentCountry,
             destinationStateString: attendableEvent.person.currentState,
@@ -81,6 +80,10 @@ final eventSectionViewModelProvider =
     }
     //update the state with new list
     return eventItems;
+  }
+  //else if game is null or there is no valid current player, say there are no events
+  else {
+    return [];
   }
 });
 

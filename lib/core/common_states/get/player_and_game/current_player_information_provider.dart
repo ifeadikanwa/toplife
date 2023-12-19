@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_states/dependencies/job/job_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/job/current_active_employments_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
@@ -22,7 +21,6 @@ final currentPlayerInformationProvider =
       .watch(personUsecasesProvider)
       .getPlayerInformationFromDataUsecase
       .execute(
-        jobUsecases: ref.watch(jobUsecasesProvider),
         game: currentGame,
         player: currentPlayer,
         stats: currentPlayerStats,

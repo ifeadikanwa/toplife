@@ -226,10 +226,11 @@ class ShopScreen extends ConsumerWidget {
                 //     .execute(person);
 
                 (await PersonDaoImpl(db).createPerson(person));
-                // await GameDaoImpl(db).createGame(
+
+                // await GameDaoImpl(db).updateGame(
                 //   Game(
-                //     id: 0,
-                //     currentPlayerID: 1,
+                //     id: 1,
+                //     currentPlayerID: 40,
                 //     isActive: true,
                 //     lastPlayedTime: DateTime.now().microsecondsSinceEpoch,
                 //     currentDay: 90,
@@ -256,7 +257,7 @@ class ShopScreen extends ConsumerWidget {
                 //     .watch(personUsecasesProvider)
                 //     .generateListOfPersonUsecase
                 //     .execute(
-                //       numberOfPerson: 60,
+                //       numberOfPerson: 5,
                 //       currentGameID: 1,
                 //       currentDay: 90,
                 //       lastName: null,
@@ -436,13 +437,13 @@ class ShopScreen extends ConsumerWidget {
                 //       secondPersonID: 2,
                 //     );
 
-                // await EventDaoImpl(db).updateEvent(
+                // await EventDaoImpl(db).createEvent(
                 //   Event(
                 //     id: 10,
                 //     gameId: 1,
-                //     eventType: EventType.death.name,
+                //     eventType: EventType.birthdayParty.name,
                 //     eventDay: 90,
-                //     mainPersonId: 7,
+                //     mainPersonId: 2,
                 //     journalEntryOnly: false,
                 //     performed: false,
                 //     startTime: 500,

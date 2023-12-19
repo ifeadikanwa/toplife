@@ -5,12 +5,14 @@ import 'package:toplife/main_systems/system_person/domain/model/info_models/play
 
 class GetPlayerInformationFromDataUsecase {
   final AgeUsecases _ageUsecases;
+  final JobUsecases _jobUsecases;
+
   const GetPlayerInformationFromDataUsecase(
     this._ageUsecases,
+    this._jobUsecases,
   );
 
   Future<PlayerInformation> execute({
-    required JobUsecases jobUsecases,
     required Game? game,
     required Person? player,
     required Stats? stats,
@@ -46,7 +48,7 @@ class GetPlayerInformationFromDataUsecase {
 
     //job data
     playerInformation = playerInformation.copyWith(
-      jobTitles: await jobUsecases.getJobTitlesFromEmploymentsUsecase.execute(
+      jobTitles: await _jobUsecases.getJobTitlesFromEmploymentsUsecase.execute(
         employments: activeEmployments,
       ),
     );

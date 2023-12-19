@@ -30,6 +30,7 @@ class PiercingShopDialogWidgetViewModel extends StateNotifier<
   final PersonUsecases _personUsecases;
   //
   late final Game? _game;
+  late final Person? _currentPlayer;
   String _playerCountry = "";
 
   //
@@ -64,6 +65,8 @@ class PiercingShopDialogWidgetViewModel extends StateNotifier<
     }
     //we have a valid player
     else {
+      //set the player variable
+      _currentPlayer = currentPlayer;
       //set player country
       _playerCountry = currentPlayer.currentCountry;
 
@@ -130,12 +133,12 @@ class PiercingShopDialogWidgetViewModel extends StateNotifier<
   Future<void> getPiercing({
     required BuildContext context,
   }) async {
-    if (_game != null && state.valueOrNull != null) {
+    if (_game != null && _currentPlayer != null && state.valueOrNull != null) {
       _personUsecases.getPiercingFromShopUsecase.execute(
         context: context,
-        personID: _game!.currentPlayerID,
-        gameID: _game!.id,
-        currentDay: _game!.currentDay,
+        personID: _currentPlayer.id,
+        gameID: _game.id,
+        currentDay: _game.currentDay,
         chosenLocation: state.valueOrNull!.chosenPiercingLocation,
       );
     }

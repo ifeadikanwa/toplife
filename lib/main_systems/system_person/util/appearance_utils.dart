@@ -6,6 +6,7 @@ import 'package:toplife/core/utils/numbers/get_random_int_in_positive_range.dart
 import 'package:toplife/main_systems/system_age/life_stage.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/female_hairstyle.dart';
+import 'package:toplife/main_systems/system_person/constants/appearance/hair_color.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/height_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/male_hairstyle.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/skin_color.dart';
@@ -152,6 +153,33 @@ class AppearanceUtils {
     final bool useMotherHairColor = Chance.getTrueOrFalse();
 
     return (useMotherHairColor) ? motherHairColorString : fatherHairColorString;
+  }
+
+  //Hair color
+  static String getValidDyedHairColor({
+    required HairColor naturalHairColor,
+  }) {
+    //10% chance it is a different color from their natural hair color
+    final bool hairIsDyed = Chance.getTrueOrFalseBasedOnPercentageChance(
+      trueChancePercentage: 10,
+    );
+
+    late final String personDyedHairColor;
+
+    //if hair is dyed, we pick a color diferent from natural hair color, else we set it to natural hair color
+    if (hairIsDyed) {
+      final List<HairColor> validHairColorOptions = [...HairColor.values];
+
+      validHairColorOptions.remove(naturalHairColor);
+
+      personDyedHairColor = getRandomValueFromList<HairColor>(
+        list: validHairColorOptions,
+      ).name;
+    } else {
+      personDyedHairColor = naturalHairColor.name;
+    }
+
+    return personDyedHairColor;
   }
 
   //Skin color

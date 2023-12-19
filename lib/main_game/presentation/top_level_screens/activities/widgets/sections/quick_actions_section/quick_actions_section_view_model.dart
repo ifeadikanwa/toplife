@@ -40,11 +40,15 @@ class QuickActionsSectionViewModel {
     int activityDuration,
     BuildContext context,
   ) async {
-    if (_currentGame != null) {
+    //if game and current player id is valid
+
+    final int? currentPlayerId = _currentGame?.currentPlayerID;
+
+    if (_currentGame != null && currentPlayerId != null) {
       await _personUsecases.quickEatUsecase.execute(
-        mainPersonID: _currentGame!.currentPlayerID,
-        gameID: _currentGame!.id,
-        currentDay: _currentGame!.currentDay,
+        mainPersonID: currentPlayerId,
+        gameID: _currentGame.id,
+        currentDay: _currentGame.currentDay,
         activityDurationInMinutes: activityDuration,
         context: context,
         shopAndStorageUsecases: _shopAndStorageUsecases,
@@ -57,7 +61,7 @@ class QuickActionsSectionViewModel {
     if (_currentGame != null) {
       showDismissableDialog(
         context: context,
-        child: SleepActionDialog(currentGame: _currentGame!),
+        child: SleepActionDialog(currentGame: _currentGame),
       );
     }
   }

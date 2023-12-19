@@ -52,61 +52,66 @@ class GameControllerUsecase {
           final double hoursPassed =
               (totalMinutesPassed / Time.minutesInAnHour).abs();
 
-          //Alter player stats:
-          await _decayAndAlterPlayerStatsUsecase.execute(
-            playerID: newGame.currentPlayerID,
-            hoursPassed: hoursPassed,
-          );
+          //As long as there is a valid current player id attached to game:
+          final int? newGameCurrentPlayerId = newGame.currentPlayerID;
 
-          //Handle Events:
+          if (newGameCurrentPlayerId != null) {
+            //Alter player stats:
+            await _decayAndAlterPlayerStatsUsecase.execute(
+              playerID: newGameCurrentPlayerId,
+              hoursPassed: hoursPassed,
+            );
 
-          //PAST
-          //First we handle days that have passed
-          //if it is still the same game and
-          //if the current game's day is different from the previous game's day.
-          //we want to handle events for all the days passed
-          //run scheduled events and report unattended events:
-          if ((newGame.id == oldGame.id) &&
-              (newGame.currentDay != oldGame.currentDay)) {
-            //start from the previous game's day until but not including the current game's day
-            for (var day = oldGame.currentDay;
-                day < newGame.currentDay;
-                day++) {
-              //report unattended events
-              await _eventManager.reportUnattendedEventsToDaysJournal.execute(
-                dayToCheckForEvents: day,
-                gameID: newGame.id,
-                mainPlayerID: newGame.currentPlayerID,
-                dayToLogReportTo: newGame.currentDay,
-              );
+            //Handle Events:
 
-              //we check that the build contect is valid
-              if (context.mounted) {
-                //run scheduled events
-                await _eventManager.runScheduledEventsForTheDay.execute(
-                  gameID: newGame.id,
-                  playerID: newGame.currentPlayerID,
+            //PAST
+            //First we handle days that have passed
+            //if it is still the same game and
+            //if the current game's day is different from the previous game's day.
+            //we want to handle events for all the days passed
+            //run scheduled events and report unattended events:
+            if ((newGame.id == oldGame.id) &&
+                (newGame.currentDay != oldGame.currentDay)) {
+              //start from the previous game's day until but not including the current game's day
+              for (var day = oldGame.currentDay;
+                  day < newGame.currentDay;
+                  day++) {
+                //report unattended events
+                await _eventManager.reportUnattendedEventsToDaysJournal.execute(
                   dayToCheckForEvents: day,
-                  dayToLogEventTo: newGame.currentDay,
-                  currentTimeInMinutes: Time
-                      .minutesInADay, //we want the entire days events to run
-                  context: context,
+                  gameID: newGame.id,
+                  mainPlayerID: newGameCurrentPlayerId,
+                  dayToLogReportTo: newGame.currentDay,
                 );
+
+                //we check that the build contect is valid
+                if (context.mounted) {
+                  //run scheduled events
+                  await _eventManager.runScheduledEventsForTheDay.execute(
+                    gameID: newGame.id,
+                    playerID: newGameCurrentPlayerId,
+                    dayToCheckForEvents: day,
+                    dayToLogEventTo: newGame.currentDay,
+                    currentTimeInMinutes: Time
+                        .minutesInADay, //we want the entire days events to run
+                    context: context,
+                  );
+                }
               }
             }
-          }
 
-          //PRESENT
-          if (context.mounted) {
-            //run scheduled events for the current day
-            await _eventManager.runScheduledEventsForTheDay.execute(
-              gameID: newGame.id,
-              playerID: newGame.currentPlayerID,
-              dayToCheckForEvents: newGame.currentDay,
-              dayToLogEventTo: newGame.currentDay,
-              currentTimeInMinutes: newGame.currentTimeInMinutes,
-              context: context,
-            );
+            //PRESENT
+            if (context.mounted) {
+              //run scheduled events for the current day
+              await _eventManager.runScheduledEventsForTheDay.execute(
+                gameID: newGame.id,
+                playerID: newGameCurrentPlayerId,
+                dayToCheckForEvents: newGame.currentDay,
+                dayToLogEventTo: newGame.currentDay,
+                currentTimeInMinutes: newGame.currentTimeInMinutes,
+                context: context,
+              );
+            }
           }
         }
       }

@@ -16,19 +16,25 @@ class GetCurrentGameAndPlayerUsecase {
     //get current game = last played game
     //get the current player with the playerId
 
-    final Game? currentGame =
-        await _getLastPlayedActiveGameUsecase.execute();
+    final Game? currentGame = await _getLastPlayedActiveGameUsecase.execute();
 
     if (currentGame != null) {
-      final Person? currentPlayer = await _personUsecases.getPersonUsecase.execute(
-        personID: currentGame.currentPlayerID,
-      );
+      //check if it has a valid current player id
+      final int? currentPlayerId = currentGame.currentPlayerID;
 
-      if (currentPlayer != null) {
-        return PersonGamePair(
-          person: currentPlayer,
-          game: currentGame,
+      if (currentPlayerId != null) {
+        final Person? currentPlayer =
+            await _personUsecases.getPersonUsecase.execute(
+          personID: currentPlayerId,
         );
+
+        //if person is valid, return the pair
+        if (currentPlayer != null) {
+          return PersonGamePair(
+            person: currentPlayer,
+            game: currentGame,
+          );
+        }
       }
     }
 

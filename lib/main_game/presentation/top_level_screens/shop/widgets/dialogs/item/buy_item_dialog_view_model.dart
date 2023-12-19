@@ -37,7 +37,7 @@ class BuyItemDialogViewModel {
     if (_currentPlayerID != null) {
       _shopAndStorageUsecases.purchaseItemUsecase.execute(
         context: context,
-        personID: _currentPlayerID!,
+        personID: _currentPlayerID,
         item: item,
         quantity: quantity,
       );

@@ -30,6 +30,7 @@ class TattooShopDialogWidgetViewModel
   final PersonUsecases _personUsecases;
   //
   late final Game? _game;
+  late final Person? _currentPlayer;
   String _playerCountry = "";
   int economyAdjustedCost = 0;
 
@@ -59,6 +60,8 @@ class TattooShopDialogWidgetViewModel
 
     //if we dont have a valid player, set state to null
     if (currentPlayer != null) {
+      //set variable
+      _currentPlayer = currentPlayer;
       //set player country
       _playerCountry = currentPlayer.currentCountry;
     }
@@ -148,12 +151,12 @@ class TattooShopDialogWidgetViewModel
   }) async {
     final TattooShopDetails? tattooShopDetails = state.valueOrNull;
 
-    if (_game != null && tattooShopDetails != null) {
+    if (_game != null && _currentPlayer != null && tattooShopDetails != null) {
       _personUsecases.getTattooFromShopUsecase.execute(
         context: context,
-        personID: _game!.currentPlayerID,
-        gameID: _game!.id,
-        currentDay: _game!.currentDay,
+        personID: _currentPlayer.id,
+        gameID: _game.id,
+        currentDay: _game.currentDay,
         economyAdjustedCost: economyAdjustedCost,
         chosenLocation: tattooShopDetails.tattooBodyLocation,
         tattooShop: tattooShopDetails.tattooShop,

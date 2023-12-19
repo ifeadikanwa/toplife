@@ -75,7 +75,7 @@ class ProcessRelationshipChangesFromPlayerMarriageUsecase {
       await _journalUsecases.addToJournalUsecase.execute(
         gameID: currentGame.id,
         day: currentGame.currentDay,
-        mainPlayerID: currentGame.currentPlayerID,
+        mainPlayerID: playerPersonID,
         entry: newFamilyAdditionStringBuffer.toString(),
       );
     }
