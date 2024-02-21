@@ -171,7 +171,7 @@ void main() {
         ];
 
         const correctResult =
-            "Helen Polut (ex-girlfriend, formerly step-cousin), Frederick Lokia (cousin / grandfather), and Xander Rett (brother-in-law / baby daddy), ";
+            "Helen Polut (ex-girlfriend, formerly step-cousin), Frederick Lokia (cousin/grandfather), and Xander Rett (brother-in-law/baby daddy), ";
 
         expect(
           createBasicParentIntroductionString(

@@ -31,14 +31,14 @@ class ReusableTestObjects {
   );
 
   static const testGame = Game(
-        id: 0,
-        currentPlayerID: 1,
-        isActive: true,
-        lastPlayedTime: 0,
-        currentDay: 0,
-        currentTimeInMinutes: 0,
-        generation: 0,
-      );
+    id: 0,
+    currentPlayerID: null,
+    isActive: true,
+    lastPlayedTime: 0,
+    currentDay: 0,
+    currentTimeInMinutes: 0,
+    generation: 0,
+  );
 
   static const Relationship testRelationship = Relationship(
     firstPersonId: 0,

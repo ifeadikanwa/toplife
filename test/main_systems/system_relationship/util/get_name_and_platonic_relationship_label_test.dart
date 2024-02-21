@@ -20,7 +20,7 @@ void main() {
           genderString: Gender.Male.name,
           previousFamilialRelationship: PlatonicRelationshipType.grandCousin,
         ),
-        "firstName lastName (Adoptive father${separator}Friend, formerly Grandcousin)",
+        "firstName lastName (adoptive father${separator}friend, formerly grandcousin)",
       );
     });
   });

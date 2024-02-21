@@ -1,8 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
+import 'package:toplife/main_systems/system_age/usecases/check_if_person_is_at_least_this_age_usecase.dart';
 import 'package:toplife/main_systems/system_age/usecases/get_day_of_birth_from_days_lived_usecase.dart';
 import 'package:toplife/main_systems/system_age/usecases/get_days_lived_range_for_a_lifestage_usecase.dart';
+import 'package:toplife/main_systems/system_age/usecases/get_persons_days_lived_usecase.dart';
 import 'package:toplife/main_systems/system_age/usecases/get_random_day_of_birth_in_a_life_stage_usecase.dart';
 import 'package:toplife/main_systems/system_age/usecases/get_random_days_lived_for_a_lifestage_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/platonic/send_money_interaction/send_money_interaction.dart';
@@ -12,6 +15,7 @@ import '../../../../../_mocks/system_mocks.mocks.dart';
 void main() {
   group("Send Money Interaction:", () {
     late SendMoneyInteraction sendMoneyInteraction;
+    final mockAgeUsecases = MockAgeUsecases();
 
     late Person testPerson;
 
@@ -28,8 +32,17 @@ void main() {
         MockRelationshipUsecases(),
         MockJournalUsecases(),
         MockPersonUsecases(),
-        MockAgeUsecases(),
+        mockAgeUsecases,
       );
+
+      //create stubs for our test:
+      //if this usecase is requested return the real object instance
+      when(mockAgeUsecases.checkIfPersonIsAtLeastThisAgeUsecase).thenReturn(
+        const CheckIfPersonIsAtLeastThisAgeUsecase(
+          GetPersonsDaysLivedUsecase(),
+        ),
+      );
+
       testPerson = const Person(
         id: 0,
         gameId: 0,

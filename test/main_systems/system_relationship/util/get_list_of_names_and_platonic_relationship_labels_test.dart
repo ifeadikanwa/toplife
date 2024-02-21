@@ -53,7 +53,7 @@ void main() {
             ),
           ],
         ),
-        "FirstName LastName (Adoptive daughter).\n",
+        "FirstName LastName (adoptive daughter).\n",
       );
     });
 
@@ -77,7 +77,7 @@ void main() {
             ),
           ],
         ),
-        "FirstName LastName (Adoptive daughter),\nFirstName LastName (Great-grandniece),\nFirstName LastName (Mother-in-law).\n",
+        "FirstName LastName (adoptive daughter),\nFirstName LastName (great-grandniece),\nFirstName LastName (mother-in-law).\n",
       );
     });
   });

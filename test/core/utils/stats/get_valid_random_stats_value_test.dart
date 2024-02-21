@@ -34,7 +34,8 @@ void main() {
       "getValidRandomStatsValue returns the min value if the min value given is greater than the max value",
       () {
         const min = 80;
-        final value = getValidRandomStatsValue(minValue: min);
+        const max = 60;
+        final value = getValidRandomStatsValue(minValue: min, maxValue: max);
         expect(value, min);
       },
     );
