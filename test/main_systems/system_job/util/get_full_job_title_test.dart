@@ -1,11 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_job/util/get_full_job_title.dart';
 
 void main() {
   late Job job;
   setUp(() {
     job = const Job(
+      id: 0,
       jobTitle: "jobTitle",
       jobType: "jobType",
       companySuffix: "companySuffix",
@@ -19,6 +20,7 @@ void main() {
       qualifiedDisciplines: "qualifiedDisciplines",
       qualifiedBranches: "qualifiedBranches",
       healthInsuranceCoverage: 10,
+      getsTips: false,
     );
   });
   group("getFullJobTitle:", () {

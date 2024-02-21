@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_journal/domain/dao/journal_dao.dart';
-import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/domain/repository/journal_repository.dart';
 
 class JournalRepositoryImpl implements JournalRepository {
@@ -33,5 +33,15 @@ class JournalRepositoryImpl implements JournalRepository {
   @override
   Future<void> updateJournal(Journal journal) async {
     return _journalDao.updateJournal(journal);
+  }
+
+  @override
+  Stream<List<Journal>> watchMainPlayerJournals(int gameID, int mainPlayerID) {
+    return _journalDao.watchMainPlayerJournals(gameID, mainPlayerID);
+  }
+
+  @override
+  Stream<Journal?> watchJournal(int gameID, int day) {
+    return _journalDao.watchJournal(gameID, day);
   }
 }

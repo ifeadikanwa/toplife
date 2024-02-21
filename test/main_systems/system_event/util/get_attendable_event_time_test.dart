@@ -1,17 +1,17 @@
+import 'package:drift/drift.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_time.dart';
 
 void main() {
   group("getAttendableEventTime: ", () {
     const event = Event(
-      gameID: 1,
+      id: 0,
+      gameId: 1,
       eventType: "birthday",
       eventDay: 34,
-      mainPersonID: 2,
-      relationshipToMainPlayer: "friend",
-      journalEntryOnly: false,
+      mainPersonId: 2,
       performed: false,
       startTime: null,
       endTime: null,
@@ -29,7 +29,7 @@ void main() {
         expect(
             getAttendableEventTime(
                 event: event.copyWith(
-              startTime: ClockTimeInMinutes.twelveAM,
+              startTime: const Value(ClockTimeInMinutes.twelveAM),
             )),
             "Time: -");
       },
@@ -41,7 +41,7 @@ void main() {
         expect(
             getAttendableEventTime(
                 event: event.copyWith(
-              endTime: ClockTimeInMinutes.twelveAM,
+              endTime: const Value(ClockTimeInMinutes.twelveAM),
             )),
             "Time: -");
       },
@@ -53,8 +53,8 @@ void main() {
         expect(
             getAttendableEventTime(
                 event: event.copyWith(
-              startTime: ClockTimeInMinutes.sixAM,
-              endTime: ClockTimeInMinutes.onePM,
+              startTime: const Value(ClockTimeInMinutes.sixAM),
+              endTime: const Value(ClockTimeInMinutes.onePM),
             )),
             "Time: 06:00 AM - 01:00 PM");
       },

@@ -1,78 +1,55 @@
-import 'package:sqflite/sql.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/baby_traits_dao.dart';
 import 'package:toplife/main_systems/system_person/domain/model/baby_traits.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
-class BabyTraitsDaoImpl implements BabyTraitsDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'baby_traits_dao_impl.g.dart';
 
-  static const babyTraitsTable = "baby_traits";
-
-  static const createTableQuery = '''
-    CREATE TABLE $babyTraitsTable(
-      ${BabyTraits.idColumn} $idType,
-      ${BabyTraits.personIDColumn} $integerType $unique,
-      ${BabyTraits.fussinessColumn} $integerType,
-      ${BabyTraits.appetiteColumn} $integerType,
-      ${BabyTraits.needsChangingColumn} $boolType,
-      FOREIGN KEY (${BabyTraits.personIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-  ''';
+@DriftAccessor(tables: [BabyTraitsTable])
+class BabyTraitsDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$BabyTraitsDaoImplMixin
+    implements BabyTraitsDao {
+  BabyTraitsDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<BabyTraits> createBabyTraits(BabyTraits babyTraits) async {
-    final db = await _databaseProvider.database;
-    final id = await db.insert(
-      babyTraitsTable,
-      babyTraits.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+    final BabyTraitsTableCompanion babyTraitsWithoutID =
+        babyTraits.toCompanion(false).copyWith(
+              id: const Value.absent(),
+            );
+    final babyTraitsID = await into(babyTraitsTable).insertOnConflictUpdate(
+      babyTraitsWithoutID,
     );
-
-    return babyTraits.copyWith(id: id);
+    return babyTraits.copyWith(id: babyTraitsID);
   }
 
   @override
-  Future<void> deleteBabyTraits(int babyTraitsID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      babyTraitsTable,
-      where: "${BabyTraits.idColumn} = ?",
-      whereArgs: [babyTraitsID],
-    );
+  Future<void> deleteBabyTraits(int babyTraitsID) {
+    return (delete(babyTraitsTable)
+          ..where(
+            (babyTraits) => babyTraits.id.equals(babyTraitsID),
+          ))
+        .go();
   }
 
   @override
-  Future<BabyTraits?> getBabyTraits(int personID) async {
-    final db = await _databaseProvider.database;
-    final babyTraitsMaps = await db.query(
-      babyTraitsTable,
-      columns: BabyTraits.allColumns,
-      where: "${BabyTraits.personIDColumn} = ?",
-      whereArgs: [personID],
-    );
-
-    if (babyTraitsMaps.isNotEmpty) {
-      return BabyTraits.fromMap(babyTraitsMap: babyTraitsMaps.first);
-    } else {
-      return null;
-    }
+  Future<BabyTraits?> getBabyTraits(int personID)async {
+   return (select(babyTraitsTable)
+          ..where((babyTraits) => babyTraits.personId.equals(personID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateBabyTraits(BabyTraits babyTraits) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      babyTraitsTable,
-      babyTraits.toMap(),
-      where: "${BabyTraits.idColumn} = ?",
-      whereArgs: [babyTraits.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<void> updateBabyTraits(BabyTraits babyTraits) {
+    return update(babyTraitsTable).replace(babyTraits);
+  }
+
+  @override
+  Stream<BabyTraits?> watchBabyTraits(int personID) {
+    return (select(babyTraitsTable)
+          ..where((babyTraits) => babyTraits.personId.equals(personID))
+          ..limit(1))
+        .watchSingleOrNull();
   }
 }

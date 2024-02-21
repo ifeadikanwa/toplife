@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/building_type.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/house_design_style.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/utils/house_utils.dart';
 
 void main() {
@@ -12,8 +12,8 @@ void main() {
     const buildingType = BuildingType.apartment;
 
     group("Constants:", () {
-      test("rent price percentage is 20%", () {
-        expect(HouseUtils.rentPricePercentage, 0.2);
+      test("rent price percentage is 10%", () {
+        expect(HouseUtils.rentPricePercentage, 0.1);
       });
       test("max building price fluctuation percentage is 5", () {
         expect(HouseUtils.maxBuildingPriceFluctuationPercentage, 5);
@@ -277,6 +277,12 @@ void main() {
         "returns a list of houses sorted in descending order of price",
         () {
           const House houseTemplate = House(
+            id: 0,
+            ownerPersonId: 8,
+            country: "",
+            state: "",
+            endOfLeaseDay: 0,
+            fullyPaidFor: true,
             bedrooms: 1,
             bathrooms: 1,
             storage: 1,

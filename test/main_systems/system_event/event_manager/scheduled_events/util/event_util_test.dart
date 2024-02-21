@@ -1,36 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/main_systems/system_event/constants/event_category.dart';
+import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
 void main() {
   group("Event util:", () {
-    const person = Person(
-      id: 1,
-      gameID: 2,
-      firstName: "Ify",
-      lastName: "Eze",
-      dayOfBirth: 21,
-      gender: "gender",
-      subjectPronoun: "subject",
-      objectPronoun: "object",
-      possessivePronoun: "possessive",
-      sexuality: "sexuality",
-      state: "state",
-      country: "country",
-      money: 120,
-      zodiacSign: "sign",
-      importantStatus: null,
-      custodianID: 2,
-      hasDriversLicense: true,
-      transportMode: "bus",
-      hasFertilityIssues: false,
-      onBirthControl: false,
-      isSterile: false,
-      sickly: false,
-      rebellious: true,
-      dead: false,
-    );
-
     test(
       "morning event start times are 9am - 11am",
       () {
@@ -139,29 +113,27 @@ void main() {
     );
 
     test(
-      "check if player can attend returns true if the two countries are the same",
-      () {
-        expect(
-          EventUtil.checkIfPlayerCanAttendEvent(
-            mainPlayerPerson: person.copyWith(country: "Canada"),
-            eventMainPerson: person.copyWith(country: "Canada"),
-          ),
-          true,
-        );
-      },
-    );
+        "getEventTypeNamesInCategory return event type names in that event category",
+        () {
+      final List<String> eventTypeNames = EventUtil.getEventTypeNamesInCategory(
+        EventCategory.unmovableAutonomousEvent,
+      );
 
-    test(
-      "check if player can attend returns false if the two countries are NOT the same",
-      () {
+      for (var eventTypeName in eventTypeNames) {
+        final EventType? eventType =
+            EventType.values.asNameMap()[eventTypeName];
         expect(
-          EventUtil.checkIfPlayerCanAttendEvent(
-            mainPlayerPerson: person.copyWith(country: "Canada"),
-            eventMainPerson: person.copyWith(country: "USA"),
-          ),
-          false,
+          eventType,
+          isNotNull,
+          reason: "$eventTypeName is not a valid event type",
         );
-      },
-    );
+
+        expect(
+          eventType?.eventCategory,
+          EventCategory.unmovableAutonomousEvent,
+          reason: "Event type does not have the correct event category",
+        );
+      }
+    });
   });
 }

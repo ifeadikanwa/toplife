@@ -1,4 +1,4 @@
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 
 class UpdateGameUsecase {

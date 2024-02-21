@@ -1,8 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/main_systems/system_event/constants/event_category.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 
 void main() {
   group("Event type", () {
+    //duration
+
     test(
       "birthday event duration is 0",
       () {
@@ -60,13 +63,20 @@ void main() {
     );
 
     test(
-      "graduation event duration is 0",
+      "graduation event duration is 3 hours",
       () {
-        expect(EventType.graduation.eventDuration, 0);
+        expect(EventType.graduation.eventDuration, 180);
       },
     );
 
-//presentation name
+    test(
+      "askForSchoolTuition event duration is 0",
+      () {
+        expect(EventType.askForSchoolTuition.eventDuration, 0);
+      },
+    );
+
+    //presentation name
 
     test(
       "birthday event presentation name is ",
@@ -128,6 +138,94 @@ void main() {
       "graduation event presentation name is Graduation",
       () {
         expect(EventType.graduation.presentationName, "Graduation");
+      },
+    );
+
+    test(
+      "askForSchoolTuition event presentation name is Ask For School Tuition",
+      () {
+        expect(EventType.askForSchoolTuition.presentationName,
+            "Ask For School Tuition");
+      },
+    );
+
+    //event category
+
+    test(
+      "birthday event category is unmovableAutonomousEvent",
+      () {
+        expect(EventType.birthday.eventCategory,
+            EventCategory.unmovableAutonomousEvent);
+      },
+    );
+
+    test(
+      "birthday party event category is attendableEvent",
+      () {
+        expect(EventType.birthdayParty.eventCategory,
+            EventCategory.attendableEvent);
+      },
+    );
+
+    test(
+      "death event category is unmovableAutonomousEvent",
+      () {
+        expect(EventType.death.eventCategory,
+            EventCategory.unmovableAutonomousEvent);
+      },
+    );
+
+    test(
+      "funeral event category is attendableEvent",
+      () {
+        expect(EventType.funeral.eventCategory, EventCategory.attendableEvent);
+      },
+    );
+
+    test(
+      "school admission event category is journalOnlyEvent",
+      () {
+        expect(EventType.schoolAdmission.eventCategory,
+            EventCategory.journalOnlyEvent);
+      },
+    );
+
+    test(
+      "engagement event category is journalOnlyEvent",
+      () {
+        expect(
+            EventType.engagement.eventCategory, EventCategory.journalOnlyEvent);
+      },
+    );
+
+    test(
+      "wedding event category is attendableEvent",
+      () {
+        expect(EventType.wedding.eventCategory, EventCategory.attendableEvent);
+      },
+    );
+
+    test(
+      "employment event category is journalOnlyEvent",
+      () {
+        expect(
+            EventType.employment.eventCategory, EventCategory.journalOnlyEvent);
+      },
+    );
+
+    test(
+      "graduation event category is attendableEvent",
+      () {
+        expect(
+            EventType.graduation.eventCategory, EventCategory.attendableEvent);
+      },
+    );
+
+    test(
+      "askForSchoolTuition event category is movableAutonomousEvent",
+      () {
+        expect(EventType.askForSchoolTuition.eventCategory,
+            EventCategory.movableAutonomousEvent);
       },
     );
   });

@@ -1,47 +1,39 @@
+//MUST BE A MULTIPLE OF 7
 enum LifeStage {
   baby(
     stageName: "Baby",
-    stageDuration: 3,
-    schoolForStage: "",
+    stageDuration: 7,
   ),
   toddler(
     stageName: "Toddler",
-    stageDuration: 4,
-    schoolForStage: "Preschool",
+    stageDuration: 7,
   ),
   child(
     stageName: "Child",
-    stageDuration: 6,
-    schoolForStage: "Middle School",
+    stageDuration: 14,
   ),
   teen(
     stageName: "Teen",
-    stageDuration: 6,
-    schoolForStage: "High School",
+    stageDuration: 21,
   ),
   youngAdult(
     stageName: "Young Adult",
-    stageDuration: 30,
-    schoolForStage: "",
+    stageDuration: 42,
   ),
   adult(
     stageName: "Adult",
-    stageDuration: 30,
-    schoolForStage: "",
+    stageDuration: 63,
   ),
   elder(
     stageName: "Elder",
-    stageDuration: 10,
-    schoolForStage: "",
+    stageDuration: 42,
   );
 
   const LifeStage({
     required this.stageName,
     required this.stageDuration,
-    required this.schoolForStage,
   });
 
   final String stageName;
   final int stageDuration;
-  final String schoolForStage;
 }

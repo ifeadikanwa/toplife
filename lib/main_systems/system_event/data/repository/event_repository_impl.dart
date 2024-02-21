@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_event/domain/dao/event_dao.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 
 class EventRepositoryImpl implements EventRepository {
@@ -67,5 +67,13 @@ class EventRepositoryImpl implements EventRepository {
   @override
   Future<void> updateEvent(Event event) async {
     return _eventDao.updateEvent(event);
+  }
+
+  @override
+  Stream<List<Event>> watchAttendableEventsForDay({
+    required int day,
+    required int gameID,
+  }) {
+    return _eventDao.watchAttendableEventsForDay(day, gameID);
   }
 }

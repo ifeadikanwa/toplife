@@ -1,65 +1,49 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/dao/school_relationship_dao_impl.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_project_dao.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school_project.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
 
-class SchoolProjectDaoImpl implements SchoolProjectDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'school_project_dao_impl.g.dart';
 
-  static const schoolProjectTable = "school_project";
-
-  static const createTableQuery = '''
-    CREATE TABLE $schoolProjectTable(
-      ${SchoolProject.idColumn} $idType,
-      ${SchoolProject.schoolIDColumn} $integerType,
-      ${SchoolProject.semesterNumberColumn} $integerType,
-      ${SchoolProject.mainPersonIDColumn} $integerType,
-      ${SchoolProject.mainPersonContributionColumn} $integerType,
-      ${SchoolProject.projectPartnerSchoolRelationshipIDColumn} $integerType,
-      ${SchoolProject.projectPartnerContributionColumn} $integerType,
-      ${SchoolProject.projectPartnerWillContributeColumn} $boolType,
-      FOREIGN KEY (${SchoolProject.schoolIDColumn})
-       REFERENCES ${SchoolDaoImpl.schoolTable} (${School.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${SchoolProject.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${SchoolProject.projectPartnerSchoolRelationshipIDColumn})
-       REFERENCES ${SchoolRelationshipDaoImpl.schoolRelationshipTable} (${SchoolRelationship.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-  ''';
+@DriftAccessor(tables: [SchoolProjectTable])
+class SchoolProjectDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$SchoolProjectDaoImplMixin
+    implements SchoolProjectDao {
+  SchoolProjectDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<SchoolProject> createSchoolProject(SchoolProject schoolProject) async {
-    final db = await _databaseProvider.database;
-    final id = await db.insert(
-      schoolProjectTable,
-      schoolProject.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+    final SchoolProject checkedSchoolProject = schoolProject.copyWith(
+      mainPersonContribution: crossCheckStat(
+        stat: schoolProject.mainPersonContribution,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      projectPartnerContribution: crossCheckStat(
+        stat: schoolProject.projectPartnerContribution,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
-    return schoolProject.copyWith(id: id);
+    final SchoolProjectTableCompanion schoolProjectWithoutID =
+        checkedSchoolProject
+            .toCompanion(false)
+            .copyWith(id: const Value.absent());
+
+    final schoolProjectID = await into(schoolProjectTable)
+        .insertOnConflictUpdate(schoolProjectWithoutID);
+
+    return checkedSchoolProject.copyWith(id: schoolProjectID);
   }
 
   @override
-  Future<void> deleteSchoolProject(int schoolProjectID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      schoolProjectTable,
-      where: "${SchoolProject.idColumn} = ?",
-      whereArgs: [schoolProjectID],
-    );
+  Future<void> deleteSchoolProject(int schoolProjectID) {
+    return (delete(schoolProjectTable)
+          ..where(
+            (schoolProject) => schoolProject.id.equals(schoolProjectID),
+          ))
+        .go();
   }
 
   @override
@@ -67,69 +51,72 @@ class SchoolProjectDaoImpl implements SchoolProjectDao {
     int mainPersonID,
     int schoolID,
     int semesterNumber,
-  ) async {
-    final db = await _databaseProvider.database;
-    final activeSchoolProjectsMap = await db.query(
-      schoolProjectTable,
-      columns: SchoolProject.allColumns,
-      where:
-          "${SchoolProject.mainPersonIDColumn} = ? and ${SchoolProject.schoolIDColumn} = ? and ${SchoolProject.semesterNumberColumn} = ?",
-      whereArgs: [
-        mainPersonID,
-        schoolID,
-        semesterNumber,
-      ],
-    );
-
-    if (activeSchoolProjectsMap.isNotEmpty) {
-      return SchoolProject.fromMap(
-          schoolProjectMap: activeSchoolProjectsMap.first);
-    } else {
-      return null;
-    }
+  ) {
+    return (select(schoolProjectTable)
+          ..where(
+            (schoolProject) =>
+                schoolProject.mainPersonId.equals(mainPersonID) &
+                schoolProject.schoolId.equals(schoolID) &
+                schoolProject.semesterNumber.equals(semesterNumber),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<List<SchoolProject>> getAllSchoolProjects(int mainPersonID) async {
-    final db = await _databaseProvider.database;
-    final allSchoolProjectsMap = await db.query(
-      schoolProjectTable,
-      columns: SchoolProject.allColumns,
-      where: "${SchoolProject.mainPersonIDColumn} = ?",
-      whereArgs: [mainPersonID],
-    );
-
-    return allSchoolProjectsMap
-        .map((schoolProjectMap) =>
-            SchoolProject.fromMap(schoolProjectMap: schoolProjectMap))
-        .toList();
+  Future<List<SchoolProject>> getAllSchoolProjects(int mainPersonID) {
+    return (select(schoolProjectTable)
+          ..where(
+            (schoolProject) => schoolProject.mainPersonId.equals(mainPersonID),
+          ))
+        .get();
   }
 
   @override
-  Future<SchoolProject?> getSchoolProject(int schoolProjectID) async {
-    final db = await _databaseProvider.database;
-    final schoolProjectsMap = await db.query(
-      schoolProjectTable,
-      columns: SchoolProject.allColumns,
-      where: "${SchoolProject.idColumn} = ?",
-      whereArgs: [schoolProjectID],
-    );
-
-    if (schoolProjectsMap.isNotEmpty) {
-      return SchoolProject.fromMap(schoolProjectMap: schoolProjectsMap.first);
-    } else {
-      return null;
-    }
+  Future<SchoolProject?> getSchoolProject(int schoolProjectID) {
+    return (select(schoolProjectTable)
+          ..where((schoolProject) => schoolProject.id.equals(schoolProjectID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateSchoolProject(SchoolProject schoolProject) async {
-     final db = await _databaseProvider.database;
-    await db.update(
-      schoolProjectTable,
-      schoolProject.toMap(),
-      where: "${SchoolProject.idColumn} = ?",
-      whereArgs: [schoolProject.id],
+  Future<void> updateSchoolProject(SchoolProject schoolProject) {
+    final SchoolProject checkedSchoolProject = schoolProject.copyWith(
+      mainPersonContribution: crossCheckStat(
+        stat: schoolProject.mainPersonContribution,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      projectPartnerContribution: crossCheckStat(
+        stat: schoolProject.projectPartnerContribution,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
+
+    return update(schoolProjectTable).replace(checkedSchoolProject);
+  }
+
+  @override
+  Stream<SchoolProject?> watchActiveSchoolProject(
+      int mainPersonID, int schoolID, int semesterNumber) {
+    return (select(schoolProjectTable)
+          ..where(
+            (schoolProject) =>
+                schoolProject.mainPersonId.equals(mainPersonID) &
+                schoolProject.schoolId.equals(schoolID) &
+                schoolProject.semesterNumber.equals(semesterNumber),
+          )
+          ..limit(1))
+        .watchSingleOrNull();
+  }
+
+  @override
+  Stream<SchoolProject?> watchSchoolProject(int schoolProjectID) {
+    return (select(schoolProjectTable)
+          ..where(
+            (schoolProject) => schoolProject.id.equals(schoolProjectID),
+          )
+          ..limit(1))
+        .watchSingleOrNull();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class JewelryRepository {
   Future<Jewelry> createJewelry(Jewelry jewelry);
@@ -6,4 +6,6 @@ abstract class JewelryRepository {
   Future<void> updateJewelry(Jewelry jewelry);
   Future<void> deleteJewelry(int jewelryID);
   Future<List<Jewelry>> getAllJewelry(int personID);
+  Stream<Jewelry?> watchJewelry(int jewelryID);
+  Stream<List<Jewelry>> watchAllJewelry(int personID);
 }

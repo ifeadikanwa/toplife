@@ -1,6 +1,6 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_job/domain/repository/job_relationship_repository.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/job_relationship_dao.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job_relationship.dart';
 
 class JobRelationshipRepositoryImpl implements JobRelationshipRepository {
   final JobRelationshipDao _jobRelationshipDao;
@@ -49,5 +49,15 @@ class JobRelationshipRepositoryImpl implements JobRelationshipRepository {
     JobRelationship jobRelationship,
   ) async {
     return _jobRelationshipDao.updateJobRelationship(jobRelationship);
+  }
+
+  @override
+  Stream<List<JobRelationship>> watchAllJobRelationships(int employmentID) {
+    return _jobRelationshipDao.watchAllJobRelationships(employmentID);
+  }
+
+  @override
+  Stream<JobRelationship?> watchJobRelationship(int jobRelationshipID) {
+    return _jobRelationshipDao.watchJobRelationship(jobRelationshipID);
   }
 }

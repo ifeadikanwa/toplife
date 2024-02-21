@@ -31,33 +31,33 @@ enum Grade {
   ),
   cPlus(
     letterGrade: "C+",
-    lowerBound: 77,
+    lowerBound: 75,
     upperBound: 79,
   ),
   c(
     letterGrade: "C",
-    lowerBound: 73,
-    upperBound: 76,
+    lowerBound: 66,
+    upperBound: 74,
   ),
   cMinus(
     letterGrade: "C-",
-    lowerBound: 70,
-    upperBound: 72,
+    lowerBound: 60,
+    upperBound: 65,
   ),
   d(
     letterGrade: "D",
-    lowerBound: 65,
-    upperBound: 69,
+    lowerBound: 45,
+    upperBound: 59,
   ),
   e(
     letterGrade: "E",
-    lowerBound: 60,
-    upperBound: 64,
+    lowerBound: 30,
+    upperBound: 44,
   ),
   f(
     letterGrade: "F",
     lowerBound: 0,
-    upperBound: 59,
+    upperBound: 29,
   ),
   undetermined(
     letterGrade: "-",

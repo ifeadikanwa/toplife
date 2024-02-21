@@ -1,6 +1,5 @@
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/cooked_meal_pair.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/baby_food.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/baby_items.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/cooked_baby_food.dart';

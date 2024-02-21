@@ -1,5 +1,6 @@
 class SuppliesNames {
   static const proteccCondom = "Protecc Condom";
+  static const knowNowPregnancyTest = "KnowNow Pregnancy Test";
   static const flipPhone = "Flip Phone";
   static const edroidSmartphone = "Edroid Smartphone";
   static const eosSmartphone = "eOS Smartphone";

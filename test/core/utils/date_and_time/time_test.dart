@@ -24,5 +24,14 @@ void main() {
     test("minutesInAnHour is always 60", () {
       expect(Time.minutesInAnHour, 60);
     });
+
+    test("minutesInADay is always 1440", () {
+      expect(Time.minutesInADay, 1440);
+    });
+
+    test("hoursInADay is always 24", () {
+      expect(Time.hoursInADay, 24);
+    });
+
   });
 }

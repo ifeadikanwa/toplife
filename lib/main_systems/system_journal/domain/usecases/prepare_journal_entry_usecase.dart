@@ -16,11 +16,13 @@ class PrepareJournalEntryUsecase {
         toBeginningOfSentenceCase(journalEntry) ?? journalEntry;
 
     if ((!editedJournalEntry.endsWith(JournalCharacters.fullStop)) &&
-        (!editedJournalEntry.endsWith(JournalCharacters.questionMark))) {
+        (!editedJournalEntry.endsWith(JournalCharacters.questionMark)) &&
+        (!editedJournalEntry.endsWith(JournalCharacters.newLine))) {
       editedJournalEntry = "$editedJournalEntry${JournalCharacters.fullStop}";
     }
 
-    editedJournalEntry = "$editedJournalEntry${JournalCharacters.newLine}${JournalCharacters.newLine}";
+    editedJournalEntry =
+        "$editedJournalEntry${JournalCharacters.newLine}${JournalCharacters.newLine}";
 
     return editedJournalEntry;
   }

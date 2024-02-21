@@ -5,7 +5,6 @@ import 'package:toplife/core/common_widgets/app_screen_content_templates/tab_scr
 import 'package:toplife/core/common_widgets/app_screens/inner_level_screen.dart';
 import 'package:toplife/core/common_widgets/tab/app_tab.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/car_generator.dart';
 
 class CarShopScreen extends StatelessWidget {
   const CarShopScreen({Key? key}) : super(key: key);
@@ -13,13 +12,9 @@ class CarShopScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter.tabBar(
-      routes: [
-        NewCarsRoute(
-          newCars: CarGenerator.generateNewCars(),
-        ),
-        UsedCarsRoute(
-          usedCars: CarGenerator.generateUsedCars(),
-        ),
+      routes: const [
+        NewCarsRoute(),
+        UsedCarsRoute(),
       ],
       builder: (context, child, tabController) {
         return InnerLevelScreen(

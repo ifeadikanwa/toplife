@@ -22,17 +22,21 @@ class RouteName {
   static const relationshipPath = "relationship";
   static const shopPath = "shop";
   static const activitiesPath = "activities";
-  
+
   //-relationship
   static const parentsPath = "parents";
   static const childrenPath = "children";
   static const partnersPath = "partners";
   static const siblingsPath = "siblings";
   static const relativesPath = "relatives";
+  static const pastFamilyPath = "past_family";
   static const friendsPath = "friends";
   static const inLawsPath = "inlaws";
   static const exesPath = "exes";
-  static const graveyardPath = "graveyard";
+  static const gravePath = "grave";
+  //--relationship actions
+  static const relationshipActionsPath = "relationship_actions";
+
 
   //-shop
   //--food
@@ -60,6 +64,8 @@ class RouteName {
   //--supplies
   static const suppliesPath = "supplies";
 
+  //-activities
+  //--neighborhood
+  static const neighborhoodPath = "neighborhood";
 
-  
 }

@@ -14,6 +14,7 @@ class PlayerStatusBar extends StatelessWidget {
   final String bankBalance;
   final String time;
   final String dayNumber;
+  final String dayOfWeek;
 
   const PlayerStatusBar({
     Key? key,
@@ -25,6 +26,7 @@ class PlayerStatusBar extends StatelessWidget {
     required this.bankBalance,
     required this.time,
     required this.dayNumber,
+    required this.dayOfWeek,
   }) : super(key: key);
 
   @override
@@ -48,7 +50,7 @@ class PlayerStatusBar extends StatelessWidget {
             ),
           ),
           const AddHorizontalSpace(width: horizontalWidgetSpacing),
-          dayAndTime(time: time, dayNumber: dayNumber),
+          dayAndTime(time: time, dayNumber: dayNumber, dayOfWeek: dayOfWeek),
         ],
       ),
     );
@@ -74,6 +76,7 @@ class PlayerStatusBar extends StatelessWidget {
   Widget dayAndTime({
     required String time,
     required String dayNumber,
+    required String dayOfWeek,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -83,7 +86,7 @@ class PlayerStatusBar extends StatelessWidget {
           style: headerTextStyle,
         ),
         const AddVerticalSpace(height: verticalTextSpacing),
-        Text("Day $dayNumber"),
+        Text("$dayOfWeek, Day $dayNumber"),
       ],
     );
   }

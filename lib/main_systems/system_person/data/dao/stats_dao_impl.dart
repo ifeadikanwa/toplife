@@ -1,82 +1,135 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_person/domain/dao/stats_dao.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
 
-class StatsDaoImpl implements StatsDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'stats_dao_impl.g.dart';
 
-  static const statsTable = "stats";
-
-  static const createTableQuery = '''
-    CREATE TABLE $statsTable(
-      ${Stats.idColumn} $idType,
-      ${Stats.personIDColumn} $integerType $unique,
-      ${Stats.energyColumn} $integerType,
-      ${Stats.hungerColumn} $integerType,
-      ${Stats.wellbeingColumn} $integerType,
-      ${Stats.soberColumn} $integerType,
-      ${Stats.looksColumn} $integerType,
-      ${Stats.intellectColumn} $integerType,
-      ${Stats.athleticismColumn} $integerType,
-      FOREIGN KEY (${Stats.personIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE
-    )
-  ''';
+@DriftAccessor(tables: [StatsTable])
+class StatsDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$StatsDaoImplMixin
+    implements StatsDao {
+  StatsDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Stats> createStats(Stats stats) async {
-    final db = await _databaseProvider.database;
-    final id = await db.insert(
-      statsTable,
-      stats.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+    final Stats checkedStats = stats.copyWith(
+      energy: crossCheckStat(
+        stat: stats.energy,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      health: crossCheckStat(
+        stat: stats.health,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      mood: crossCheckStat(
+        stat: stats.mood,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      hunger: crossCheckStat(
+        stat: stats.hunger,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      sober: crossCheckStat(
+        stat: stats.sober,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      looks: crossCheckStat(
+        stat: stats.looks,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      athleticism: crossCheckStat(
+        stat: stats.athleticism,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      intellect: crossCheckStat(
+        stat: stats.intellect,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      alcoholTolerance: crossCheckStat(
+        stat: stats.alcoholTolerance,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
-    return stats.copyWith(id: id);
+    final StatsTableCompanion statsWithoutID =
+        checkedStats.toCompanion(false).copyWith(
+              id: const Value.absent(),
+            );
+    final statsID = await into(statsTable).insertOnConflictUpdate(
+      statsWithoutID,
+    );
+    return stats.copyWith(id: statsID);
   }
 
   @override
-  Future<void> deleteStats(int statsID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      statsTable,
-      where: "${Stats.idColumn} = ?",
-      whereArgs: [statsID],
-    );
+  Future<void> deleteStats(int statsID) {
+    return (delete(statsTable)
+          ..where(
+            (stats) => stats.id.equals(statsID),
+          ))
+        .go();
   }
 
   @override
-  Future<Stats?> getStats(int personID) async {
-    final db = await _databaseProvider.database;
-    final statsMaps = await db.query(
-      statsTable,
-      columns: Stats.allColumns,
-      where: "${Stats.personIDColumn} = ?",
-      whereArgs: [personID],
-    );
-
-    if (statsMaps.isNotEmpty) {
-      return Stats.fromMap(statsMap: statsMaps.first);
-    } else {
-      return null;
-    }
+  Future<Stats?> getStats(int personID) {
+    return (select(statsTable)
+          ..where((stats) => stats.personId.equals(personID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateStats(Stats stats) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      statsTable,
-      stats.toMap(),
-      where: "${Stats.idColumn} = ?",
-      whereArgs: [stats.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
+  Future<void> updateStats(Stats stats) {
+    final Stats checkedStats = stats.copyWith(
+      energy: crossCheckStat(
+        stat: stats.energy,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      health: crossCheckStat(
+        stat: stats.health,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      mood: crossCheckStat(
+        stat: stats.mood,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      hunger: crossCheckStat(
+        stat: stats.hunger,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      sober: crossCheckStat(
+        stat: stats.sober,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      looks: crossCheckStat(
+        stat: stats.looks,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      athleticism: crossCheckStat(
+        stat: stats.athleticism,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      intellect: crossCheckStat(
+        stat: stats.intellect,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
+      alcoholTolerance: crossCheckStat(
+        stat: stats.alcoholTolerance,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
+
+    return update(statsTable).replace(checkedStats);
+  }
+
+  @override
+  Stream<Stats?> watchStats(int personID) {
+    return (select(statsTable)
+          ..where((stats) => stats.personId.equals(personID))
+          ..limit(1))
+        .watchSingleOrNull();
   }
 }

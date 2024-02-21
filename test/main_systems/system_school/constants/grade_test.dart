@@ -37,34 +37,34 @@ void main() {
       expect(Grade.bMinus.upperBound, 82);
     });
 
-    test("C+ lower bound is 77 and upperbound is 79", () {
-      expect(Grade.cPlus.lowerBound, 77);
+    test("C+ lower bound is 75 and upperbound is 79", () {
+      expect(Grade.cPlus.lowerBound, 75);
       expect(Grade.cPlus.upperBound, 79);
     });
 
-    test("C lower bound is 73 and upperbound is 76", () {
-      expect(Grade.c.lowerBound, 73);
-      expect(Grade.c.upperBound, 76);
+    test("C lower bound is 66 and upperbound is 74", () {
+      expect(Grade.c.lowerBound, 66);
+      expect(Grade.c.upperBound, 74);
     });
 
-    test("C- lower bound is 70 and upperbound is 72", () {
-      expect(Grade.cMinus.lowerBound, 70);
-      expect(Grade.cMinus.upperBound, 72);
+    test("C- lower bound is 60 and upperbound is 65", () {
+      expect(Grade.cMinus.lowerBound, 60);
+      expect(Grade.cMinus.upperBound, 65);
     });
 
-    test("D lower bound is 65 and upperbound is 69", () {
-      expect(Grade.d.lowerBound, 65);
-      expect(Grade.d.upperBound, 69);
+    test("D lower bound is 45 and upperbound is 49", () {
+      expect(Grade.d.lowerBound, 45);
+      expect(Grade.d.upperBound, 59);
     });
 
-    test("E lower bound is 60 and upperbound is 64", () {
-      expect(Grade.e.lowerBound, 60);
-      expect(Grade.e.upperBound, 64);
+    test("E lower bound is 30 and upperbound is 44", () {
+      expect(Grade.e.lowerBound, 30);
+      expect(Grade.e.upperBound, 44);
     });
 
-    test("F lower bound is 0 and upperbound is 59", () {
+    test("F lower bound is 0 and upperbound is 29", () {
       expect(Grade.f.lowerBound, 0);
-      expect(Grade.f.upperBound, 59);
+      expect(Grade.f.upperBound, 29);
     });
   });
 }

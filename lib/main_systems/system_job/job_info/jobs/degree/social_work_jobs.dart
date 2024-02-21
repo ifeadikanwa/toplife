@@ -1,10 +1,11 @@
 import 'dart:collection';
 
+import 'package:toplife/core/data_source/database_constants.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/health_insurance_coverage.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/level_titles.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/job_info/game_job_pay.dart';
 import 'package:toplife/main_systems/system_job/job_info/job_titles.dart';
 import 'package:toplife/main_systems/system_job/util/get_random_law_company_suffix.dart';
@@ -20,6 +21,7 @@ class SocialWorkJobs {
   static HashSet<Job> list = HashSet.of({
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.librarian,
       jobType: JobType.socialWork.name,
       companySuffix: SpecificCompanySuffix.library,
@@ -50,10 +52,12 @@ class SocialWorkJobs {
         DegreeBranch.law,
       ].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.low.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.policeOfficer,
       jobType: JobType.socialWork.name,
       companySuffix: SpecificCompanySuffix.policeDepartment,
@@ -74,10 +78,12 @@ class SocialWorkJobs {
         DegreeBranch.law,
       ].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.counselor,
       jobType: JobType.socialWork.name,
       companySuffix: SpecificCompanySuffix.school,
@@ -95,10 +101,12 @@ class SocialWorkJobs {
       qualifiedBranches:
           [DegreeBranch.sociology, DegreeBranch.psychology].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.socialWorker,
       jobType: JobType.socialWork.name,
       companySuffix: SpecificCompanySuffix.city,
@@ -120,10 +128,12 @@ class SocialWorkJobs {
         DegreeBranch.law,
       ].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.paralegal,
       jobType: JobType.socialWork.name,
       companySuffix: getRandomLawCompanySuffix(),
@@ -143,10 +153,12 @@ class SocialWorkJobs {
         DegreeBranch.law,
       ].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.psychologist,
       jobType: JobType.socialWork.name,
       companySuffix: getRandomMedicalCompanySuffix(),
@@ -163,10 +175,12 @@ class SocialWorkJobs {
       qualifiedDisciplines: [DegreeDiscipline.socialScience].toString(),
       qualifiedBranches: [DegreeBranch.psychology].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
+      getsTips: false,
     ),
 
     //
     Job(
+      id: DatabaseConstants.dummyId,
       jobTitle: JobTitles.probationOfficer,
       jobType: JobType.socialWork.name,
       companySuffix: SpecificCompanySuffix.court,
@@ -187,6 +201,7 @@ class SocialWorkJobs {
         DegreeBranch.law,
       ].toString(),
       healthInsuranceCoverage: HealthInsuranceCoverage.mid.percentage,
+      getsTips: false,
     ),
   });
 }

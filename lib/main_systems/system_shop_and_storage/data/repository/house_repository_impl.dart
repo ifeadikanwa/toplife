@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/house_dao.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/house_repository.dart';
 
 class HouseRepositoryImpl implements HouseRepository {
@@ -35,7 +35,12 @@ class HouseRepositoryImpl implements HouseRepository {
   }
 
   @override
-  Future<House?> getCurrentHouse(int personID) {
-    return _houseDao.getCurrentHouse(personID);
+  Stream<List<House>> watchAllHouses(int personID) {
+    return _houseDao.watchAllHouses(personID);
+  }
+
+  @override
+  Stream<House?> watchHouse(int houseID) {
+    return _houseDao.watchHouse(houseID);
   }
 }

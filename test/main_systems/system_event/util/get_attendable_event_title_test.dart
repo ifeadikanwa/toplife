@@ -1,17 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 void main() {
   group("getAttendableEventTitle:", () {
     const event = Event(
-      gameID: 1,
+      id: 0,
+      gameId: 1,
       eventType: "birthday",
       eventDay: 34,
-      mainPersonID: 2,
-      relationshipToMainPlayer: "friend",
-      journalEntryOnly: false,
+      mainPersonId: 2,
       performed: false,
       startTime: null,
       endTime: null,
@@ -19,28 +17,29 @@ void main() {
 
     const person = Person(
       id: 1,
-      gameID: 2,
-      firstName: "Ify",
-      lastName: "Eze",
+      gameId: 2,
+      firstName: "John",
+      lastName: "Doe",
       dayOfBirth: 21,
       gender: "",
       subjectPronoun: "",
       objectPronoun: "",
       possessivePronoun: "",
       sexuality: "",
-      state: "state",
-      country: "country",
+      birthState: "Ontario",
+      birthCountry: "Canada",
+      currentState: "Ontario",
+      currentCountry: "Canada",
       money: 120,
+      emotionalState: "normal",
       zodiacSign: "",
-      importantStatus: null,
-      custodianID: 2,
       hasDriversLicense: true,
       transportMode: "bus",
+      drivingMode: "drivingMode",
       hasFertilityIssues: false,
       onBirthControl: false,
       isSterile: false,
       sickly: false,
-      rebellious: true,
       dead: false,
     );
     test(
@@ -51,7 +50,7 @@ void main() {
             eventMainPerson: person,
             event: event,
           ),
-          "Ify's Birthday",
+          "John's Birthday",
         );
       },
     );
@@ -66,7 +65,7 @@ void main() {
               eventType: "wrong",
             ),
           ),
-          "Ify's -",
+          "John's -",
         );
       },
     );

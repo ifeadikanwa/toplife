@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/car_problem.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_type.dart';
 import 'package:toplife/main_systems/system_transportation/constants/transport_mode.dart';
@@ -41,18 +40,6 @@ void main() {
         );
 
         expect(
-          PublicTransportation.bus.problem,
-          CarProblem.noProblem.name,
-          reason: "Cause: problem",
-        );
-
-        expect(
-          PublicTransportation.bus.useCondition,
-          100,
-          reason: "Cause: use condition",
-        );
-
-        expect(
           PublicTransportation.bus.maxConditionAtPurchase,
           100,
           reason: "Cause: max condition",
@@ -60,8 +47,7 @@ void main() {
       },
     );
 
-
-     test(
+    test(
       "taxi has the correct properties",
       () {
         expect(
@@ -95,18 +81,6 @@ void main() {
         );
 
         expect(
-          PublicTransportation.taxi.problem,
-          CarProblem.noProblem.name,
-          reason: "Cause: problem",
-        );
-
-        expect(
-          PublicTransportation.taxi.useCondition,
-          100,
-          reason: "Cause: use condition",
-        );
-
-        expect(
           PublicTransportation.taxi.maxConditionAtPurchase,
           100,
           reason: "Cause: max condition",
@@ -114,7 +88,7 @@ void main() {
       },
     );
 
-     test(
+    test(
       "train has the correct properties",
       () {
         expect(
@@ -131,7 +105,7 @@ void main() {
 
         expect(
           PublicTransportation.train.percentageOfTravelTime,
-          80,
+          70,
           reason: "Cause: percentageOfTravelTime",
         );
 
@@ -145,18 +119,6 @@ void main() {
           PublicTransportation.train.basePrice,
           10,
           reason: "Cause: base price",
-        );
-
-        expect(
-          PublicTransportation.train.problem,
-          CarProblem.noProblem.name,
-          reason: "Cause: problem",
-        );
-
-        expect(
-          PublicTransportation.train.useCondition,
-          100,
-          reason: "Cause: use condition",
         );
 
         expect(

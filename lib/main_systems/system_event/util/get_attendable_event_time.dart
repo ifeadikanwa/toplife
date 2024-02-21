@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 
 String getAttendableEventTime({
   required Event event,

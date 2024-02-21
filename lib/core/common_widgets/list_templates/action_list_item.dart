@@ -9,6 +9,7 @@ class ActionListItem extends StatelessWidget {
   final String actionTitle;
   final String actionDescription;
   final bool hasDivider;
+  final bool hasArrow;
   final void Function() onTap;
 
   const ActionListItem({
@@ -17,6 +18,7 @@ class ActionListItem extends StatelessWidget {
     required this.actionTitle,
     required this.actionDescription,
     this.hasDivider = true,
+    this.hasArrow = true,
     required this.onTap,
   }) : super(key: key);
 
@@ -45,7 +47,7 @@ class ActionListItem extends StatelessWidget {
                 ],
               ),
             ),
-            const OpenForwardArrow(),
+            (hasArrow) ? const OpenForwardArrow() : const SizedBox(),
           ],
         ),
       ],

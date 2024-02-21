@@ -1,6 +1,7 @@
+import 'package:toplife/main_systems/system_age/life_stage.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_a_person_usecase.dart';
 
 class GenerateListOfPersonUsecase {
@@ -14,20 +15,15 @@ class GenerateListOfPersonUsecase {
     required int numberOfPerson,
     required int currentGameID,
     required int currentDay,
-    String? lastName,
+    required String? lastName,
+    required String? parentBirthCountryString,
     required String currentCountry,
     required String currentState,
+    required List<LifeStage> possibleLifeStages,
     Gender? gender,
-    Sexuality? sexuallity,
-     bool earlyStageInAge = false,
+    Sexuality? sexuality,
+    bool earlyStageInAge = false,
     bool lateStageInAge = false,
-    bool canBeBaby = false,
-    bool canBeToddler = false,
-    bool canBeChild = false,
-    bool canBeTeen = false,
-    bool canBeYoungAdult = false,
-    bool canBeAdult = false,
-    bool canBeElder = false,
     bool isDead = false,
   }) {
     List<Person> people = [];
@@ -40,17 +36,12 @@ class GenerateListOfPersonUsecase {
           currentGameID: currentGameID,
           currentDay: currentDay,
           lastName: lastName,
-          currentCountry: currentCountry,
-          currentState: currentState,
+          parentBirthCountryString: parentBirthCountryString,
+          currentCountryString: currentCountry,
+          currentStateString: currentState,
           gender: gender,
-          sexuallity: sexuallity,
-          canBeBaby: canBeBaby,
-          canBeToddler: canBeToddler,
-          canBeChild: canBeChild,
-          canBeTeen: canBeTeen,
-          canBeYoungAdult: canBeYoungAdult,
-          canBeAdult: canBeAdult,
-          canBeElder: canBeElder,
+          sexuality: sexuality,
+          possibleLifeStages: possibleLifeStages,
           isDead: isDead,
         ),
       );

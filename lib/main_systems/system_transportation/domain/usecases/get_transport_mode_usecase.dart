@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_transportation/constants/transport_mode.dart';
 import 'package:toplife/main_systems/system_transportation/constants/transportation_default.dart';

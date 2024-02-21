@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/storeroom_item_repository.dart';
 
 class UseStoreroomItemUsecase {
@@ -9,7 +9,7 @@ class UseStoreroomItemUsecase {
 
   Future<void> execute({
     required int storeroomItemID,
-    required int personID,
+    int countsToUse = 1,
   }) async {
     final StoreroomItem? storeroomItem =
         await _storeroomItemRepository.getStoreroomItem(
@@ -17,15 +17,14 @@ class UseStoreroomItemUsecase {
     );
 
     if (storeroomItem != null) {
-      int currentCount = storeroomItem.countsLeft;
+      int newCountsLeft = storeroomItem.countsLeft - countsToUse;
 
-      if (currentCount > 0) {
-        _storeroomItemRepository.updateStoreroomItem(
-          storeroomItem.copyWith(
-            countsLeft: --currentCount,
-          ),
-        );
-      }
+      //if the new count left is less than zero set it as zero else use the value we calculated
+      await _storeroomItemRepository.updateStoreroomItem(
+        storeroomItem.copyWith(
+          countsLeft: (newCountsLeft > 0) ? newCountsLeft : 0,
+        ),
+      );
     }
   }
 }

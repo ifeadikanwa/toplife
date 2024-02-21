@@ -3,6 +3,9 @@ import 'package:toplife/main_systems/system_location/countries/north_america/uni
 import 'package:toplife/main_systems/system_location/locations.dart';
 
 class LocationManager {
+  static Country getDefaultCountryClass() => UnitedStates();
+  static String getDefaultCountryString() => UnitedStates().name;
+
   static List<Country> getShuffledListOfCountries() {
     final countries = Locations.listOfCountries();
     countries.shuffle();
@@ -22,14 +25,16 @@ class LocationManager {
   static Country getCountryClass({required String countryName}) {
     final countries = Locations.listOfCountries();
 
-    final defaultCountry = UnitedStates();
-
     for (var country in countries) {
       if (country.name == countryName) {
         return country;
       }
     }
 
-    return defaultCountry;
+    return getDefaultCountryClass();
+  }
+
+  static String getCountryCurrency(String countryName) {
+    return getCountryClass(countryName: countryName).currency;
   }
 }

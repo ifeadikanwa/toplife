@@ -1,113 +1,78 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/utils/stats/cross_check_stats.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_job/domain/dao/job_dao.dart';
 import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 
-class JobDaoImpl implements JobDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'job_dao_impl.g.dart';
 
-  static const jobTable = "job";
-
-  static const createTableQuery = '''
-    CREATE TABLE $jobTable(
-      ${Job.idColumn} $idType,
-      ${Job.jobTitleColumn} $textType,
-      ${Job.jobTypeColumn} $textType,
-      ${Job.companySuffixColumn} $textType,
-      ${Job.employmentTypeColumn} $textType, 
-      ${Job.getsTipsColumn} $boolType,
-      ${Job.levelOneTitleColumn} $textType,
-      ${Job.levelOneBasePayColumn} $integerType,
-      ${Job.levelTwoTitleColumn} $textType,
-      ${Job.levelTwoBasePayColumn} $integerType,
-      ${Job.levelThreeTitleColumn} $textType,
-      ${Job.levelThreeBasePayColumn} $integerType,
-      ${Job.qualifiedDisciplinesColumn} $textType,
-      ${Job.qualifiedBranchesColumn} $textType,
-      ${Job.healthInsuranceCoverageColumn} $integerType
-    )
-''';
+@DriftAccessor(tables: [JobTable])
+class JobDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$JobDaoImplMixin
+    implements JobDao {
+  JobDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Job> createJob(Job job) async {
-    final db = await _databaseProvider.database;
-    final int id = await db.insert(
-      jobTable,
-      job.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+    final Job checkedJob = job.copyWith(
+      healthInsuranceCoverage: crossCheckStat(
+        stat: job.healthInsuranceCoverage,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
 
-    return job.copyWith(id: id);
+    final JobTableCompanion jobWithoutID =
+        checkedJob.toCompanion(false).copyWith(
+              id: const Value.absent(),
+            );
+
+    final jobID = await into(jobTable).insertOnConflictUpdate(jobWithoutID);
+    return checkedJob.copyWith(id: jobID);
   }
 
   @override
-  Future<Job?> getJob(int jobID) async {
-    final db = await _databaseProvider.database;
-    final jobMaps = await db.query(
-      jobTable,
-      columns: Job.allColumns,
-      where: "${Job.idColumn} = ?",
-      whereArgs: [jobID],
-    );
-
-    if (jobMaps.isNotEmpty) {
-      return Job.fromMap(jobMap: jobMaps.first);
-    } else {
-      return null;
-    }
+  Future<Job?> findFullTimeJobWithJobTitle(String jobTitle) {
+    return (select(jobTable)
+          ..where(
+            (job) =>
+                job.jobTitle.equals(jobTitle) &
+                job.employmentType.equals(EmploymentType.fullTime.name),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<Job?> findFullTimeJobWithJobTitle(String jobTitle) async {
-    final db = await _databaseProvider.database;
-    final jobMaps = await db.query(
-      jobTable,
-      columns: Job.allColumns,
-      where: "${Job.jobTitleColumn} = ? and ${Job.employmentTypeColumn} = ?",
-      whereArgs: [
-        jobTitle,
-        EmploymentType.fullTime.name,
-      ],
-    );
-
-    if (jobMaps.isNotEmpty) {
-      return Job.fromMap(jobMap: jobMaps.first);
-    } else {
-      return null;
-    }
+  Future<Job?> findPartTimeJobWithJobTitle(String jobTitle) {
+    return (select(jobTable)
+          ..where(
+            (job) =>
+                job.jobTitle.equals(jobTitle) &
+                job.employmentType.equals(EmploymentType.partTime.name),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<Job?> findPartTimeJobWithJobTitle(String jobTitle) async {
-    final db = await _databaseProvider.database;
-    final jobMaps = await db.query(
-      jobTable,
-      columns: Job.allColumns,
-      where: "${Job.jobTitleColumn} = ? and ${Job.employmentTypeColumn} = ?",
-      whereArgs: [
-        jobTitle,
-        EmploymentType.partTime.name,
-      ],
-    );
-
-    if (jobMaps.isNotEmpty) {
-      return Job.fromMap(jobMap: jobMaps.first);
-    } else {
-      return null;
-    }
+  Future<Job?> getJob(int jobID) {
+    return (select(jobTable)
+          ..where((job) => job.id.equals(jobID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateJob(Job job) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      jobTable,
-      job.toMap(),
-      where: "${Job.idColumn} = ?",
-      whereArgs: [job.id],
-      conflictAlgorithm: ConflictAlgorithm.replace,
+  Future<void> updateJob(Job job) {
+    final Job checkedJob = job.copyWith(
+      healthInsuranceCoverage: crossCheckStat(
+        stat: job.healthInsuranceCoverage,
+        statsRange: StatsRangeConstants.defaultRange,
+      ),
     );
+
+    return update(jobTable).replace(checkedJob);
   }
 }

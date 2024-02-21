@@ -1,92 +1,68 @@
-import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
-import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_scheduler.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/attend_party.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/get_first_person_party_partner_attendance_description.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_party/perform_party_activity.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
+import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/attend_event.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/get_first_person_event_partner_attendance_description.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/perform_party_activity.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/birthday_event.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday_party/birthday_party_event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/funeral/funeral_event.dart';
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/test_events/test_events.dart';
 
 class ScheduledEvents {
   //getter for all scheduled events
   //provides them with all needed dependencies
 
-  final RelationshipUsecases _relationshipUsecases;
-  final PersonUsecases _personUsecases;
-  final AgeUsecases _ageUsecases;
-  final JournalUsecases _journalUsecases;
-  final ShopAndStorageUsecases _shopAndStorageUsecases;
-  final EventScheduler _eventScheduler;
-  final EventRepository _eventRepository;
+  final Ref _ref;
 
-  const ScheduledEvents(
-    this._relationshipUsecases,
-    this._personUsecases,
-    this._ageUsecases,
-    this._journalUsecases,
-    this._shopAndStorageUsecases,
-    this._eventScheduler,
-    this._eventRepository,
-  );
+  const ScheduledEvents({required Ref ref}) : _ref = ref;
 
-  BirthdayEvent get birthdayEvent => BirthdayEvent(
-        _relationshipUsecases,
-        _personUsecases,
-        _ageUsecases,
-        _journalUsecases,
-        _eventScheduler,
-        _eventRepository,
+  TestEvents get testEvents => TestEvents(
+        _ref.read(journalUsecasesProvider),
+        _ref.read(eventRepositoryProvider),
+        _ref.read(personUsecasesProvider),
       );
 
-  BirthdayPartyEvent get birthdayPartyEvent => BirthdayPartyEvent(
-        _personUsecases,
-        _relationshipUsecases,
-        _shopAndStorageUsecases,
-        _ageUsecases,
-        _performPartyActivity,
-        _attendParty,
-        _getFirstPersonPartyPartnerAttendanceDescription,
+  BirthdayEvent get birthdayEvent => BirthdayEvent(
+        _ref.read(relationshipUsecasesProvider),
+        _ref.read(personUsecasesProvider),
+        _ref.read(ageUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(eventSchedulersProvider),
+        _ref.read(eventRepositoryProvider),
       );
 
   DeathEvent get deathEvent => DeathEvent(
-        _eventRepository,
-        _personUsecases,
-        _relationshipUsecases,
-        _eventScheduler,
-        _journalUsecases,
-        _ageUsecases,
+        _ref.read(eventRepositoryProvider),
+        _ref.read(personUsecasesProvider),
+        _ref.read(relationshipUsecasesProvider),
+        _ref.read(eventSchedulersProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(ageUsecasesProvider),
       );
 
-  FuneralEvent get funeralEvent => FuneralEvent(
-        _eventRepository,
-        _personUsecases,
-        _relationshipUsecases,
-        _journalUsecases,
-      );
-
-  //private helpers
-  AttendParty get _attendParty => AttendParty(
-        _eventRepository,
-        _personUsecases,
-        _relationshipUsecases,
-        _journalUsecases,
-        _shopAndStorageUsecases,
+  AttendEvent get attendEvent => AttendEvent(
+        _ref.read(eventRepositoryProvider),
+        _ref.read(personUsecasesProvider),
+        _ref.read(relationshipUsecasesProvider),
+        _ref.read(journalUsecasesProvider),
+        _ref.read(ageUsecasesProvider),
+        _ref.read(shopAndStorageUsecasesProvider),
+        _performPartyActivity,
+        _getFirstPersonEventPartnerAttendanceDescription,
       );
 
   PerformPartyActivity get _performPartyActivity => PerformPartyActivity(
-        _personUsecases,
+        _ref.read(personUsecasesProvider),
       );
 
-  GetFirstPersonPartyPartnerAttendanceDescription
-      get _getFirstPersonPartyPartnerAttendanceDescription =>
-          GetFirstPersonPartyPartnerAttendanceDescription(
-            _personUsecases,
-            _relationshipUsecases,
+  GetFirstPersonEventPartnerAttendanceDescription
+      get _getFirstPersonEventPartnerAttendanceDescription =>
+          GetFirstPersonEventPartnerAttendanceDescription(
+            _ref.read(personUsecasesProvider),
+            _ref.read(relationshipUsecasesProvider),
           );
 }

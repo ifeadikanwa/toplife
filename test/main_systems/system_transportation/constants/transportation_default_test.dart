@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
+import 'package:toplife/main_systems/system_transportation/constants/driving_mode.dart';
 import 'package:toplife/main_systems/system_transportation/constants/transport_mode.dart';
 import 'package:toplife/main_systems/system_transportation/constants/transportation_default.dart';
 import 'package:toplife/main_systems/system_transportation/public_transportation/public_transportation.dart';
@@ -17,7 +18,7 @@ void main() {
     );
 
     test(
-      "bus is the default transport mode" ,
+      "bus is the default transport mode",
       () {
         expect(
           TransportationDefault.transportMode,
@@ -27,11 +28,31 @@ void main() {
     );
 
     test(
-      "village is the default settlement",
+      "city is the default traveller settlement",
       () {
         expect(
-          TransportationDefault.settlement,
-          Settlement.Village,
+          TransportationDefault.travellerSettlement,
+          Settlement.City,
+        );
+      },
+    );
+
+    test(
+      "city is the default destination settlement",
+      () {
+        expect(
+          TransportationDefault.destinationSettlement,
+          Settlement.City,
+        );
+      },
+    );
+
+    test(
+      "normal is the default driving mode",
+      () {
+        expect(
+          TransportationDefault.drivingMode,
+          DrivingMode.normal,
         );
       },
     );

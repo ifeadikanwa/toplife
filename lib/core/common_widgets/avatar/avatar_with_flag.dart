@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/avatar/avatar_widget.dart';
 import 'package:toplife/core/common_widgets/avatar/flag_widget.dart';
+import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class AvatarWithFlag extends StatelessWidget {
   final double avatarSize;
@@ -10,7 +11,7 @@ class AvatarWithFlag extends StatelessWidget {
 
   const AvatarWithFlag({
     Key? key,
-    this.avatarSize = 40.0,
+    this.avatarSize = defaultAvatarSize,
     this.flagSize = 15.0,
     required this.avatarImagePath,
     required this.flagImagePath,
@@ -22,7 +23,7 @@ class AvatarWithFlag extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          child: Avatar(
+          child: AvatarWidget(
             avatarSize: avatarSize,
             imagePath: avatarImagePath,
           ),
@@ -30,7 +31,7 @@ class AvatarWithFlag extends StatelessWidget {
         Positioned.fill(
           child: Align(
             alignment: Alignment.bottomLeft,
-            child: Flag(
+            child: FlagWidget(
               flagSize: flagSize,
               imagePath: flagImagePath,
             ),

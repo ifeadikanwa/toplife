@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_person/domain/model/stance.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class StanceRepository{
   Future<Stance> createStance(Stance stance);

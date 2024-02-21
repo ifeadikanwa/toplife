@@ -1,102 +1,78 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:drift/drift.dart';
 import 'package:toplife/main_systems/system_journal/domain/dao/journal_dao.dart';
 import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
-class JournalDaoImpl implements JournalDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'journal_dao_impl.g.dart';
 
-  static const journalTable = "journal";
-
-  static const createTableQuery =
-      '''
-    CREATE TABLE $journalTable(
-      ${Journal.gameIDColumn} $integerType,
-      ${Journal.dayColumn} $integerType,
-      ${Journal.mainPlayerIDColumn} $integerType,
-      ${Journal.entryColumn} $textType,
-      PRIMARY KEY (${Journal.gameIDColumn}, ${Journal.dayColumn}),
-      FOREIGN KEY (${Journal.gameIDColumn})
-       REFERENCES ${GameDaoImpl.gameTable} (${Game.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION,
-      FOREIGN KEY (${Journal.mainPlayerIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION
-    )
-''';
+@DriftAccessor(tables: [JournalTable])
+class JournalDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$JournalDaoImplMixin
+    implements JournalDao {
+  JournalDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Journal> createJournal(Journal journal) async {
-    final db = await _databaseProvider.database;
-    await db.insert(
-      journalTable,
-      journal.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-
+    await into(journalTable).insertOnConflictUpdate(journal);
     return journal;
   }
 
   @override
-  Future<Journal?> getJournal(int gameID, int day) async {
-    final db = await _databaseProvider.database;
-    final journalsMap = await db.query(
-      journalTable,
-      columns: Journal.allColumns,
-      where: "${Journal.gameIDColumn} = ? and ${Journal.dayColumn} = ?",
-      whereArgs: [gameID, day],
-    );
-
-    if (journalsMap.isNotEmpty) {
-      return Journal.fromMap(journalMap: journalsMap.first);
-    } else {
-      return null;
-    }
+  Future<void> deleteJournal(int gameID, int day) {
+    return (delete(journalTable)
+          ..where(
+            (journal) =>
+                journal.gameId.equals(gameID) & journal.day.equals(day),
+          ))
+        .go();
   }
 
   @override
-  Future<List<Journal>> getMainPlayerJournals(
-      int gameID, int mainPlayerID) async {
-    final db = await _databaseProvider.database;
-    final allMainPlayerJournalsMap = await db.query(
-      journalTable,
-      columns: Journal.allColumns,
-      where:
-          "${Journal.gameIDColumn} = ? and ${Journal.mainPlayerIDColumn} = ?",
-      whereArgs: [gameID, mainPlayerID],
-    );
-
-    return allMainPlayerJournalsMap
-        .map((journalMap) => Journal.fromMap(journalMap: journalMap))
-        .toList();
+  Future<Journal?> getJournal(int gameID, int day) {
+    return (select(journalTable)
+          ..where(
+            (journal) =>
+                journal.gameId.equals(gameID) & journal.day.equals(day),
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateJournal(Journal journal) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      journalTable,
-      journal.toMap(),
-      where: "${Journal.gameIDColumn} = ? and ${Journal.dayColumn} = ?",
-      whereArgs: [journal.gameID, journal.day],
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+  Future<List<Journal>> getMainPlayerJournals(int gameID, int mainPlayerID) {
+    return (select(journalTable)
+          ..where(
+            (journal) =>
+                journal.mainPlayerId.equals(mainPlayerID) &
+                journal.gameId.equals(gameID),
+          ))
+        .get();
   }
 
   @override
-  Future<void> deleteJournal(int gameID, int day) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      journalTable,
-      where: "${Journal.gameIDColumn} = ? and ${Journal.dayColumn} = ?",
-      whereArgs: [gameID, day],
-    );
+  Future<void> updateJournal(Journal journal) {
+    return update(journalTable).replace(journal);
+  }
+
+  @override
+  Stream<List<Journal>> watchMainPlayerJournals(int gameID, int mainPlayerID) {
+    return (select(journalTable)
+          ..where(
+            (journal) =>
+                journal.mainPlayerId.equals(mainPlayerID) &
+                journal.gameId.equals(gameID),
+          ))
+        .watch();
+  }
+
+  @override
+  Stream<Journal?> watchJournal(int gameID, int day) {
+    return (select(journalTable)
+          ..where(
+            (journal) =>
+                journal.gameId.equals(gameID) & journal.day.equals(day),
+          )
+          ..limit(1))
+        .watchSingleOrNull();
   }
 }

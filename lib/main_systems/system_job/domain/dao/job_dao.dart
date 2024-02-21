@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class JobDao {
   Future<Job> createJob(Job job);

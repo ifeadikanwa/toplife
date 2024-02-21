@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/main_systems/system_event/constants/event_category.dart';
+import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 
 class EventUtil {
   //9am-11am
@@ -57,11 +58,12 @@ class EventUtil {
     return possibleStartTimes[Random().nextInt(possibleStartTimes.length)];
   }
 
-   static bool checkIfPlayerCanAttendEvent({
-    required Person mainPlayerPerson,
-    required Person eventMainPerson,
-  }) {
-    return mainPlayerPerson.country.toLowerCase() ==
-        eventMainPerson.country.toLowerCase();
+  static List<String> getEventTypeNamesInCategory(EventCategory eventCategory) {
+    return EventType.values
+        .where((eventType) => eventType.eventCategory == eventCategory)
+        .map(
+          (eventTypeInCategory) => eventTypeInCategory.name,
+        )
+        .toList();
   }
 }

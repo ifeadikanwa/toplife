@@ -4,7 +4,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_speed_
 void main() {
   group("getCarSpeedLabel:", () {
     test(
-      "given percentage travel time of 30, it returns 70%",
+      "given percentage travel time of 30, it returns Speed: 70%",
       () {
         expect(
           getCarSpeedLabel(percentageTravel: 30),
@@ -14,7 +14,7 @@ void main() {
     );
 
      test(
-      "given percentage travel time of 85, it returns 15%",
+      "given percentage travel time of 85, it returns Speed: 15%",
       () {
         expect(
           getCarSpeedLabel(percentageTravel: 85),
@@ -24,7 +24,7 @@ void main() {
     );
 
     test(
-      "given percentage travel time of 100, it returns 0%",
+      "given percentage travel time of 100, it returns Speed: 0%",
       () {
         expect(
           getCarSpeedLabel(percentageTravel: 100),
@@ -34,7 +34,7 @@ void main() {
     );
 
     test(
-      "given percentage travel time of 0, it returns 100%",
+      "given percentage travel time of 0, it returns Speed: 100%",
       () {
         expect(
           getCarSpeedLabel(percentageTravel: 0),

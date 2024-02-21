@@ -1,5 +1,7 @@
 // import 'package:toplife/main_systems/system_location/constants/currency.dart';
 // import 'package:toplife/main_systems/system_location/countries/country.dart';
+// import 'dart:collection';
+// import 'package:toplife/main_systems/system_person/constants/appearance/skin_color.dart';
 
 // class Haiti implements Country {
 //   @override
@@ -10,4 +12,10 @@
 
 //   @override
 //   String get currency => Currency.gourde;
+
+//   @override
+//   HashSet<SkinColor> get dominantSkinColors => HashSet.of({
+//         SkinColor.almond,
+//         SkinColor.espresso,
+//      });
 // }

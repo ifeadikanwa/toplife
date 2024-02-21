@@ -1,185 +1,121 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
-import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_event/domain/dao/event_dao.dart';
 import 'package:toplife/main_systems/system_event/domain/model/event.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
-class EventDaoImpl implements EventDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'event_dao_impl.g.dart';
 
-  static const eventTable = "event";
-
-  static const createTableQuery = '''
-    CREATE TABLE $eventTable(
-      ${Event.idColumn} $idType,
-      ${Event.gameIDColumn} $integerType,
-      ${Event.eventTypeColumn} $textType,
-      ${Event.eventDayColumn} $integerType,
-      ${Event.mainPersonIDColumn} $integerType,
-      ${Event.otherPersonIDColumn} $nullableIntegerType,
-      ${Event.relationshipToMainPlayerColumn} $textType,
-      ${Event.startTimeColumn} $nullableIntegerType,
-      ${Event.endTimeColumn} $nullableIntegerType,
-      ${Event.journalEntryOnlyColumn} $boolType,
-      ${Event.performedColumn} $boolType,
-      FOREIGN KEY (${Event.gameIDColumn})
-       REFERENCES ${GameDaoImpl.gameTable} (${Game.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE CASCADE,
-      FOREIGN KEY (${Event.mainPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION,
-      FOREIGN KEY (${Event.otherPersonIDColumn})
-       REFERENCES ${PersonDaoImpl.personTable} (${Person.idColumn}) 
-       ON UPDATE CASCADE
-       ON DELETE NO ACTION
-    )
-''';
+@DriftAccessor(tables: [EventTable])
+class EventDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$EventDaoImplMixin
+    implements EventDao {
+  EventDaoImpl(DatabaseProvider database) : super(database);
 
   @override
   Future<Event> createEvent(Event event) async {
-    final db = await _databaseProvider.database;
-    final id = await db.insert(
-      eventTable,
-      event.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    final EventTableCompanion eventWithoutID =
+        event.toCompanion(false).copyWith(id: const Value.absent());
 
-    return event.copyWith(id: id);
+    final eventID =
+        await into(eventTable).insertOnConflictUpdate(eventWithoutID);
+    return event.copyWith(id: eventID);
   }
 
   @override
-  Future<void> deleteAllEventsInvolvingAPerson(int personID, int gameID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      eventTable,
-      where:
-          "${Event.gameIDColumn} = ? and (${Event.mainPersonIDColumn} = ? or ${Event.otherPersonIDColumn} = ?)",
-      whereArgs: [
-        gameID,
-        personID,
-        personID,
-      ],
-    );
+  Future<void> deleteAllEventsInvolvingAPerson(int personID, int gameID) {
+    return (delete(eventTable)
+          ..where(
+            (event) =>
+                event.gameId.equals(gameID) &
+                (event.mainPersonId.equals(personID) |
+                    event.otherPersonId.equals(personID)),
+          ))
+        .go();
   }
 
   @override
-  Future<void> deleteEvent(int eventID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      eventTable,
-      where: "${Event.idColumn} = ?",
-      whereArgs: [eventID],
-    );
+  Future<void> deleteEvent(int eventID) {
+    return (delete(eventTable)..where((event) => event.id.equals(eventID)))
+        .go();
   }
 
   @override
-  Future<List<Event>> getAllEventsInvolvingAPerson(
-    int personID,
-    int gameID,
-  ) async {
-    final db = await _databaseProvider.database;
-    final allPersonEventsMap = await db.query(
-      eventTable,
-      columns: Event.allColumns,
-      where:
-          "${Event.gameIDColumn} = ? and (${Event.mainPersonIDColumn} = ? or ${Event.otherPersonIDColumn} = ?)",
-      whereArgs: [
-        gameID,
-        personID,
-        personID,
-      ],
-    );
-
-    return allPersonEventsMap
-        .map((eventMap) => Event.fromMap(eventMap: eventMap))
-        .toList();
+  Future<List<Event>> getAllEventsInvolvingAPerson(int personID, int gameID) {
+    return (select(eventTable)
+          ..where(
+            (event) =>
+                event.gameId.equals(gameID) &
+                (event.mainPersonId.equals(personID) |
+                    event.otherPersonId.equals(personID)),
+          ))
+        .get();
   }
 
   @override
-  Future<Event?> getEvent(int eventID) async {
-    final db = await _databaseProvider.database;
-    final eventsMap = await db.query(
-      eventTable,
-      columns: Event.allColumns,
-      where: "${Event.idColumn} = ?",
-      whereArgs: [eventID],
-    );
-
-    if (eventsMap.isNotEmpty) {
-      return Event.fromMap(eventMap: eventsMap.first);
-    } else {
-      return null;
-    }
+  Future<List<Event>> getAttendableEventsForDay(int day, int gameID) {
+    return (select(eventTable)
+          ..where(
+            (event) =>
+                event.gameId.equals(gameID) &
+                event.eventDay.equals(day) &
+                event.startTime.isNotNull() &
+                event.endTime.isNotNull(),
+          )
+          ..orderBy([
+            (event) => OrderingTerm(
+                expression: event.startTime, mode: OrderingMode.asc),
+          ]))
+        .get();
   }
 
   @override
-  Future<List<Event>> getEventsForDay(int day, int gameID) async {
-    final db = await _databaseProvider.database;
-    final allDayEventsMap = await db.query(
-      eventTable,
-      columns: Event.allColumns,
-      where: "${Event.eventDayColumn} = ? and ${Event.gameIDColumn} = ?",
-      whereArgs: [day, gameID],
-    );
-
-    return allDayEventsMap
-        .map((eventMap) => Event.fromMap(eventMap: eventMap))
-        .toList();
+  Future<Event?> getEvent(int eventID) {
+    return (select(eventTable)
+          ..where((event) => event.id.equals(eventID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<List<Event>> getUnperformedEventsForDay(int day, int gameID) async {
-    final db = await _databaseProvider.database;
-    final allUnperformedDayEventsMap = await db.query(
-      eventTable,
-      columns: Event.allColumns,
-      where:
-          "${Event.eventDayColumn} = ? and ${Event.gameIDColumn} = ? and ${Event.performedColumn} = ?",
-      whereArgs: [
-        day,
-        gameID,
-        databaseFalseValue,
-      ],
-    );
-
-    return allUnperformedDayEventsMap
-        .map((eventMap) => Event.fromMap(eventMap: eventMap))
-        .toList();
+  Future<List<Event>> getEventsForDay(int day, int gameID) {
+    return (select(eventTable)
+          ..where(
+            (event) => event.gameId.equals(gameID) & event.eventDay.equals(day),
+          ))
+        .get();
   }
 
   @override
-  Future<List<Event>> getAttendableEventsForDay(int day, int gameID) async {
-    final db = await _databaseProvider.database;
-    final allDayAttendableEventsMap = await db.query(
-      eventTable,
-      columns: Event.allColumns,
-      where:
-          "${Event.eventDayColumn} = ? and ${Event.gameIDColumn} = ? and ${Event.startTimeColumn} $dbValueIsNotNull and ${Event.endTimeColumn} $dbValueIsNotNull",
-      whereArgs: [
-        day,
-        gameID,
-      ],
-    );
-
-    return allDayAttendableEventsMap
-        .map((eventMap) => Event.fromMap(eventMap: eventMap))
-        .toList();
+  Future<List<Event>> getUnperformedEventsForDay(int day, int gameID) {
+    return (select(eventTable)
+          ..where(
+            (event) =>
+                event.gameId.equals(gameID) &
+                event.eventDay.equals(day) &
+                event.performed.equals(false),
+          ))
+        .get();
   }
 
   @override
-  Future<void> updateEvent(Event event) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      eventTable,
-      event.toMap(),
-      where: "${Event.idColumn} = ?",
-      whereArgs: [event.id],
-    );
+  Future<void> updateEvent(Event event) {
+    return update(eventTable).replace(event);
+  }
+
+  @override
+  Stream<List<Event>> watchAttendableEventsForDay(int day, int gameID) {
+    return (select(eventTable)
+          ..where(
+            (event) =>
+                event.gameId.equals(gameID) &
+                event.eventDay.equals(day) &
+                event.startTime.isNotNull() &
+                event.endTime.isNotNull(),
+          )
+          ..orderBy([
+            (event) => OrderingTerm(
+                expression: event.startTime, mode: OrderingMode.asc),
+          ]))
+        .watch();
   }
 }

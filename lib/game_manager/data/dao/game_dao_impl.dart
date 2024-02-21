@@ -1,101 +1,87 @@
-import 'package:toplife/core/data_source/database_constants.dart';
-import 'package:toplife/core/data_source/database_provider.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/dao/game_dao.dart';
 import 'package:toplife/game_manager/domain/model/game.dart';
 
-class GameDaoImpl implements GameDao {
-  final DatabaseProvider _databaseProvider = DatabaseProvider.instance;
+part 'game_dao_impl.g.dart';
 
-  static const gameTable = "game";
+@DriftAccessor(tables: [GameTable])
+class GameDaoImpl extends DatabaseAccessor<DatabaseProvider>
+    with _$GameDaoImplMixin
+    implements GameDao {
+  GameDaoImpl(DatabaseProvider database) : super(database);
 
-  static const createTableQuery = '''
-    CREATE TABLE $gameTable(
-      ${Game.idColumn} $idType,
-      ${Game.currentPlayerIDColumn} $integerType,
-      ${Game.isActiveColumn} $boolType,
-      ${Game.lastPlayedTimeColumn} $integerType,
-      ${Game.currentDayColumn} $integerType,
-      ${Game.currentTimeInMinutesColumn} $integerType,
-      ${Game.generationColumn} $integerType
-    )
-  ''';
+//Game in dao and repo should point to new game data class
 
   @override
   Future<Game> createGame(Game game) async {
-    final db = await _databaseProvider.database;
-    final id = await db.insert(gameTable, game.toMap());
+    final GameTableCompanion gameWithoutID =
+        game.toCompanion(false).copyWith(id: const Value.absent());
 
-    return game.copyWith(id: id);
+    final gameID = await into(gameTable).insertOnConflictUpdate(gameWithoutID);
+    return game.copyWith(id: gameID);
   }
 
   @override
-  Future<void> deleteGame(int gameID) async {
-    final db = await _databaseProvider.database;
-    await db.delete(
-      gameTable,
-      where: "${Game.idColumn} = ?",
-      whereArgs: [gameID],
-    );
+  Future<void> deleteGame(int gameID) {
+    return (delete(gameTable)..where((game) => game.id.equals(gameID))).go();
   }
 
   @override
-  Future<List<Game>> getAllActiveGames() async {
-    final db = await _databaseProvider.database;
-    final allActiveGamesMap = await db.query(
-      gameTable,
-      columns: Game.allColumns,
-      where: "${Game.isActiveColumn} = ?",
-      whereArgs: [1],
-    );
-
-    return allActiveGamesMap
-        .map((activeGameMap) => Game.fromMap(gameMap: activeGameMap))
-        .toList();
+  Future<List<Game>> getAllActiveGames() {
+    return select(gameTable).get();
   }
 
   @override
-  Future<Game?> getGame(int gameID) async {
-    final db = await _databaseProvider.database;
-    final gameMaps = await db.query(
-      gameTable,
-      columns: Game.allColumns,
-      where: "${Game.idColumn} = ?",
-      whereArgs: [gameID],
-    );
-
-    if (gameMaps.isNotEmpty) {
-      return Game.fromMap(gameMap: gameMaps.first);
-    } else {
-      return null;
-    }
+  Future<Game?> getGame(int gameID) {
+    return (select(gameTable)
+          ..where((game) => game.id.equals(gameID))
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<void> updateGame(Game game) async {
-    final db = await _databaseProvider.database;
-    await db.update(
-      gameTable,
-      game.toMap(),
-      where: "${Game.idColumn} = ?",
-      whereArgs: [game.id],
-    );
+  Future<Game?> getLastPlayedActiveGame() {
+    return (select(gameTable)
+          ..where((game) => game.isActive.equals(true))
+          ..orderBy(
+            [
+              (game) => OrderingTerm(
+                    expression: game.lastPlayedTime,
+                    mode: OrderingMode.desc,
+                  )
+            ],
+          )
+          ..limit(1))
+        .getSingleOrNull();
   }
 
   @override
-  Future<Game?> getLastPlayedActiveGame() async {
-    final db = await _databaseProvider.database;
-    final gameMaps = await db.query(
-      gameTable,
-      columns: Game.allColumns,
-      where: "${Game.isActiveColumn} = ?",
-      whereArgs: [1],
-      orderBy: "${Game.lastPlayedTimeColumn} DESC",
-    );
+  Future<void> updateGame(Game game) {
+    return update(gameTable).replace(game);
+  }
 
-    if (gameMaps.isNotEmpty) {
-      return Game.fromMap(gameMap: gameMaps.first);
-    } else {
-      return null;
-    }
+  @override
+  Stream<Game?> watchGame(int gameID) {
+    return (select(gameTable)
+          ..where((game) => game.id.equals(gameID))
+          ..limit(1))
+        .watchSingleOrNull();
+  }
+
+  @override
+  Stream<Game?> watchLastPlayedActiveGame() {
+    return (select(gameTable)
+          ..where((game) => game.isActive.equals(true))
+          ..orderBy(
+            [
+              (game) => OrderingTerm(
+                    expression: game.lastPlayedTime,
+                    mode: OrderingMode.desc,
+                  )
+            ],
+          )
+          ..limit(1))
+        .watchSingleOrNull();
   }
 }

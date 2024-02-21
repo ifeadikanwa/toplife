@@ -1,19 +1,20 @@
 import 'dart:math';
 
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/numbers/fluctuate_number.dart';
 import 'package:toplife/core/utils/numbers/get_negative_or_positive_multiplier.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/building_type.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/house_design_style.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/utils/get_random_address.dart';
 
 class HouseUtils {
   static const maxBuildingPriceFluctuationPercentage = 5;
 
-  //rent is 20% of the full regular building price
-  static const double rentPricePercentage = 0.2;
+  //rent is 10% of the full regular building price
+  static const double rentPricePercentage = 0.1;
 
   static const bool fluctuationCanBeNegative = true;
 
@@ -204,6 +205,8 @@ class HouseUtils {
 
     //return house containing all the information
     return House(
+      id: DatabaseConstants.dummyId,
+      ownerPersonId: DatabaseConstants.dummyId,
       bedrooms: bedroomCount,
       bathrooms: bathroomCount,
       storage: storageSpace,
@@ -215,8 +218,12 @@ class HouseUtils {
       basePrice: price,
       lastMaintainedDay: 0,
       dayOfPurchase: 0,
-      condition: maxStatsValue,
+      condition: defaultMaxStatsValue,
       purchasePrice: 0,
+      country: "",
+      state: "",
+      endOfLeaseDay: 0,
+      fullyPaidFor: false,
     );
   }
 }

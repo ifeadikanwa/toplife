@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/car_generator.dart';
 
 void main() {
@@ -63,15 +63,6 @@ void main() {
       );
 
       test(
-        "all cars have a use condition of 100",
-        () {
-          for (var newCar in result) {
-            expect(newCar.useCondition, 100);
-          }
-        },
-      );
-
-      test(
         "all cars are NOT insured",
         () {
           for (var newCar in result) {
@@ -126,15 +117,6 @@ void main() {
                 CarGenerator.maxUsedCarCondition,
               ),
             );
-          }
-        },
-      );
-
-      test(
-        "all cars have a use condition of 100",
-        () {
-          for (var usedCar in result) {
-            expect(usedCar.useCondition, 100);
           }
         },
       );
@@ -224,16 +206,24 @@ void main() {
         "returns a list of cars sorted in descending order of price",
         () {
           const Car carTemplate = Car(
+            id: 0,
+            personId: 3,
             name: "name",
             type: "type",
-            percentageOfTravelTime: 100,
+            percentageOfTravelTime: 80,
             quality: "quality",
-            basePrice: 0,
+            basePrice: 300,
             dayOfPurchase: 0,
             fuelTank: 100,
-            problem: "problem",
-            useCondition: 100,
             maxConditionAtPurchase: 100,
+            lastKnownCondition: 0,
+            lastMaintenanceDay: 0,
+            depreciationFluctuator: 0,
+            currentlyDriving: false,
+            fullyPaidFor: true,
+            isInsured: true,
+            insuranceCost: 0,
+            insuranceType: "",
           );
 
           final List<Car> testList = [

@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/degree_dao.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 import 'package:toplife/main_systems/system_school/domain/repository/degree_repository.dart';
 
 class DegreeRepositoryImpl implements DegreeRepository {

@@ -1,140 +1,29 @@
-import 'package:equatable/equatable.dart';
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
-import 'package:toplife/core/utils/stats/get_valid_random_stats_value.dart';
+import 'package:drift/drift.dart';
+import 'package:toplife/main_systems/system_person/domain/model/person.dart';
 
-class Stats extends Equatable {
-  final int? id;
-  final int personID;
-  final int energy;
-  final int hunger;
-  final int wellbeing;
-  final int sober;
-  final int looks;
-  final int athleticism;
-  final int intellect;
+//alcohol tolerance means if you drink alcohol your soberness is reduced by (100-alcoholTolerance)% of the alcoholic drink nutrition
+//10% alcohol tolerance means you get 90% of the alcoholic drink's effect
+//if the alcoholic drink is 30 nutrition, your soberness will be reduced by 27.
 
-  const Stats({
-    this.id,
-    required this.personID,
-    required this.energy,
-    required this.hunger,
-    required this.wellbeing,
-    required this.sober,
-    required this.looks,
-    required this.intellect,
-    required this.athleticism,
-  });
-
+@DataClassName("Stats")
+class StatsTable extends Table {
   @override
-  List<Object?> get props => [
-        id,
-        personID,
-        energy,
-        hunger,
-        wellbeing,
-        sober,
-        looks,
-        intellect,
-        athleticism,
-      ];
+  String? get tableName => "stats";
 
-  @override
-  bool? get stringify => true;
-
-  //Helper constants
-
-  static const hungerDepletionRatePerHour = 10;
-  static const energyDepletionRatePerHour = 7;
-
-  static const nonPlayerHungerDepletionRatePerHour = 8;
-
-  static const babyEnergyDepletionRatePerHour = 10;
-
-  static const hungerEmergencyDepletionRatePerHour = 1;
-  static const energyEmergencyDepletionRatePerHour = 2;
-  static const babyHungerEmergencyDepletionRatePerHour = 5;
-  static const babyEnergyEmergencyDepletionRatePerHour = 1;
-
-  static const hungerEmergencyModeStat = 20;
-  static const energyEmergencyModeStat = 20;
-  static const babyHungerEmergencyModeStat = 10;
-  static const babyEnergyEmergencyModeStat = 10;
-
-  static int getValidEnergyorHungerStatsValue() {
-    return getValidRandomStatsValue(minValue: 50);
-  }
-
-  static const idColumn = "_id";
-  static const personIDColumn = "personID";
-  static const energyColumn = "energy";
-  static const hungerColumn = "hunger";
-  static const wellbeingColumn = "wellbeing";
-  static const soberColumn = "sober";
-  static const looksColumn = "looks";
-  static const intellectColumn = "intellect";
-  static const athleticismColumn = "athleticism";
-
-  static const allColumns = [
-    idColumn,
-    personIDColumn,
-    energyColumn,
-    hungerColumn,
-    wellbeingColumn,
-    soberColumn,
-    looksColumn,
-    intellectColumn,
-    athleticismColumn,
-  ];
-
-  static Stats fromMap({required Map<String, Object?> statsMap}) {
-    return Stats(
-      id: statsMap[idColumn] as int?,
-      personID: statsMap[personIDColumn] as int,
-      energy: statsMap[energyColumn] as int,
-      hunger: statsMap[hungerColumn] as int,
-      wellbeing: statsMap[wellbeingColumn] as int,
-      sober: statsMap[soberColumn] as int,
-      looks: statsMap[looksColumn] as int,
-      intellect: statsMap[intellectColumn] as int,
-      athleticism: statsMap[athleticismColumn] as int,
-    );
-  }
-
-  Map<String, Object?> toMap() {
-    return {
-      idColumn: id,
-      personIDColumn: personID,
-      energyColumn: energy,
-      hungerColumn: hunger,
-      wellbeingColumn: wellbeing,
-      soberColumn: sober,
-      looksColumn: looks,
-      intellectColumn: intellect,
-      athleticismColumn: athleticism,
-    };
-  }
-
-  Stats copyWith({
-    int? id,
-    int? personID,
-    int? energy,
-    int? hunger,
-    int? wellbeing,
-    int? sober,
-    int? looks,
-    int? intellect,
-    int? athleticism,
-  }) {
-    return Stats(
-      id: id ?? this.id,
-      personID: personID ?? this.personID,
-      energy: crossCheckStat(energy) ?? this.energy,
-      hunger: crossCheckStat(hunger) ?? this.hunger,
-      wellbeing: crossCheckStat(wellbeing) ?? this.wellbeing,
-      sober: crossCheckStat(sober) ?? this.sober,
-      looks: crossCheckStat(looks) ?? this.looks,
-      intellect: crossCheckStat(intellect) ?? this.intellect,
-      athleticism: crossCheckStat(athleticism) ?? this.athleticism,
-    );
-  }
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get personId => integer().references(
+        PersonTable,
+        #id,
+        onUpdate: KeyAction.cascade,
+        onDelete: KeyAction.cascade,
+      )();
+  IntColumn get energy => integer()();
+  IntColumn get hunger => integer()();
+  IntColumn get mood => integer()();
+  IntColumn get health => integer()();
+  IntColumn get sober => integer()();
+  IntColumn get looks => integer()();
+  IntColumn get athleticism => integer()();
+  IntColumn get intellect => integer()();
+  IntColumn get alcoholTolerance => integer()();
 }

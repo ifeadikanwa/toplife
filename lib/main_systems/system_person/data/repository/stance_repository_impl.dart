@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_person/domain/dao/stance_dao.dart';
-import 'package:toplife/main_systems/system_person/domain/model/stance.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stance_repository.dart';
 
 class StanceRepositoryImpl implements StanceRepository {

@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart';
 import 'package:toplife/game_manager/domain/repository/game_repository.dart';
 
 class ChangeCurrentPlayerUsecase {
@@ -24,7 +25,9 @@ class ChangeCurrentPlayerUsecase {
     final game = await _gameRepository.getGame(gameID);
 
     if (game != null) {
-      final updatedGame = game.copyWith(currentPlayerID: newCurrentPlayerID);
+      final updatedGame = game.copyWith(
+        currentPlayerID: Value(newCurrentPlayerID),
+      );
 
       _gameRepository.updateGame(updatedGame);
     }

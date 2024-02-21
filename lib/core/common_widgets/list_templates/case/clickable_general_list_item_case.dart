@@ -19,6 +19,7 @@ class ClickableGeneralListItemCase extends StatelessWidget {
       onTap: onTap,
       child: GeneralListItemCase(
         content: content,
+        hasDivider: hasDivider,
       ),
     );
   }

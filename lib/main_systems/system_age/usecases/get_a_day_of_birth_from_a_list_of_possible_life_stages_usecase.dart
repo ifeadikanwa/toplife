@@ -7,68 +7,41 @@ class GetADayOfBirthFromAListOfPossibleLifeStagesUsecase {
   final GetRandomDayOfBirthInALifeStageUsecase
       _getRandomDayOfBirthInALifeStageUsecase;
 
-  const GetADayOfBirthFromAListOfPossibleLifeStagesUsecase(
-      {required GetRandomDayOfBirthInALifeStageUsecase
-          getRandomDayOfBirthInALifeStageUsecase})
-      : _getRandomDayOfBirthInALifeStageUsecase =
+  const GetADayOfBirthFromAListOfPossibleLifeStagesUsecase({
+    required GetRandomDayOfBirthInALifeStageUsecase
+        getRandomDayOfBirthInALifeStageUsecase,
+  }) : _getRandomDayOfBirthInALifeStageUsecase =
             getRandomDayOfBirthInALifeStageUsecase;
 
   int execute({
     required int currentDay,
     required bool earlyStageInAge,
     required bool lateStageInAge,
-    required bool canBeBaby,
-    required bool canBeToddler,
-    required bool canBeChild,
-    required bool canBeTeen,
-    required bool canBeYoungAdult,
-    required bool canBeAdult,
-    required bool canBeElder,
+    required List<LifeStage> possibleLifeStages,
   }) {
-    //put all the possibities in an list
     //if the list length is 0, add the default age
     //get a random index within the range of the list length.
     //generate a dayOfBirth from the lifestage at the the random index
     //return that dayOfBirth
-
-    final List<LifeStage> possibleLifeStages = [];
-
-    if (canBeBaby) {
-      possibleLifeStages.add(LifeStage.baby);
-    }
-    if (canBeToddler) {
-      possibleLifeStages.add(LifeStage.toddler);
-    }
-    if (canBeChild) {
-      possibleLifeStages.add(LifeStage.child);
-    }
-    if (canBeTeen) {
-      possibleLifeStages.add(LifeStage.teen);
-    }
-    if (canBeYoungAdult) {
-      possibleLifeStages.add(LifeStage.youngAdult);
-    }
-    if (canBeAdult) {
-      possibleLifeStages.add(LifeStage.adult);
-    }
-    if (canBeElder) {
-      possibleLifeStages.add(LifeStage.elder);
-    }
+    final List<LifeStage> finalPossibleLifeStages = [];
 
     if (possibleLifeStages.isEmpty) {
       LifeStage defaultLifeStage = LifeStage.adult;
-      possibleLifeStages.add(defaultLifeStage);
+      finalPossibleLifeStages.add(defaultLifeStage);
+    } else {
+      finalPossibleLifeStages.addAll(possibleLifeStages);
     }
 
-    int randomIndex = Random().nextInt(possibleLifeStages.length);
+    int randomIndex = Random().nextInt(finalPossibleLifeStages.length);
 
-    LifeStage chosenLifeStage = possibleLifeStages[randomIndex];
+    LifeStage chosenLifeStage = finalPossibleLifeStages[randomIndex];
 
     int dayOfBirth = _getRandomDayOfBirthInALifeStageUsecase.execute(
-        lifeStage: chosenLifeStage,
-        currentDay: currentDay,
-        earlyStageInAge: earlyStageInAge,
-        lateStageInAge: lateStageInAge);
+      lifeStage: chosenLifeStage,
+      currentDay: currentDay,
+      earlyStageInAge: earlyStageInAge,
+      lateStageInAge: lateStageInAge,
+    );
 
     return dayOfBirth;
   }

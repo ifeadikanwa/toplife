@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/jewel.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/jewelry_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/jewelry/jewelry_generator.dart';
 
 void main() {
@@ -73,6 +73,17 @@ void main() {
       final List<Jewelry> result = JewelryGenerator.generate();
 
       const int minExpectedAmount = 1;
+
+      test(
+        "the list of jewelries are sorted from cheapest to lowest",
+        () {
+          final sortedList = result;
+          sortedList.sort(
+            (a, b) => a.basePrice.compareTo(b.basePrice),
+          );
+          expect(result, sortedList);
+        },
+      );
 
       test("gold rings, chain and earrings are generated", () {
         expect(

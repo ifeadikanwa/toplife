@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 abstract class EventDao {
   Future<Event> createEvent(Event event);
@@ -16,4 +16,5 @@ abstract class EventDao {
     int personID,
     int gameID,
   );
+  Stream<List<Event>> watchAttendableEventsForDay(int day, int gameID);
 }

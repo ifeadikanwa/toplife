@@ -1,11 +1,19 @@
 import 'dart:collection';
 
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_job/domain/model/info_models/job_location_pair.dart';
+import 'package:toplife/main_systems/system_job/domain/usecases/add_location_to_jobs_list._usecase.dart';
 import 'package:toplife/main_systems/system_job/job_info/game_jobs.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
 
 class GetAValidListOfFullTimeJobsUsecase {
-  Set<Job> execute(List<Degree> degrees) {
+  final AddLocationToJobsListUsecase _addLocationToJobsListUsecase;
+
+  const GetAValidListOfFullTimeJobsUsecase(this._addLocationToJobsListUsecase);
+
+  Future<List<JobLocationPair>> execute(
+    List<Degree> degrees,
+    int personID,
+  ) async {
     //takes a list of the users current degree
     //it creates a list of possible jobs for all the degrees
     //Iget a random list of 12 degree jobs
@@ -50,6 +58,16 @@ class GetAValidListOfFullTimeJobsUsecase {
       GameJobs.getFullTimeGeneralJobs().take(numberOfGeneralJobsToGet),
     );
 
-    return finalListOfJobs;
+    //add location data to jobs
+    final List<JobLocationPair> jobLocationPairsList =
+        await _addLocationToJobsListUsecase.execute(
+      jobsList: finalListOfJobs,
+      mainPersonID: personID,
+    );
+
+    //shuffle the list
+    jobLocationPairsList.shuffle();
+
+    return jobLocationPairsList;
   }
 }

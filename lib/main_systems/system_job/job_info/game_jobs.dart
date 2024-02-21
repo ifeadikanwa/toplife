@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 import 'package:toplife/main_systems/system_job/job_info/jobs/degree/communications_jobs.dart';
 import 'package:toplife/main_systems/system_job/job_info/jobs/degree/creative_jobs.dart';

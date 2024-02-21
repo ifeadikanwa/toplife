@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_project_dao.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school_project.dart';
 import 'package:toplife/main_systems/system_school/domain/repository/school_project_repository.dart';
 
 class SchoolProjectRepositoryImpl implements SchoolProjectRepository {
@@ -20,11 +20,11 @@ class SchoolProjectRepositoryImpl implements SchoolProjectRepository {
   }
 
   @override
-  Future<SchoolProject?> getActiveSchoolProject(
-    int mainPersonID,
-    int schoolID,
-    int semesterNumber,
-  ) {
+  Future<SchoolProject?> getActiveSchoolProject({
+    required int mainPersonID,
+    required int schoolID,
+    required int semesterNumber,
+  }) {
     return _schoolProjectDao.getActiveSchoolProject(
       mainPersonID,
       schoolID,
@@ -45,5 +45,20 @@ class SchoolProjectRepositoryImpl implements SchoolProjectRepository {
   @override
   Future<void> updateSchoolProject(SchoolProject schoolProject) {
     return _schoolProjectDao.updateSchoolProject(schoolProject);
+  }
+
+  @override
+  Stream<SchoolProject?> watchActiveSchoolProject({
+    required int mainPersonID,
+    required int schoolID,
+    required int semesterNumber,
+  }) {
+    return _schoolProjectDao.watchActiveSchoolProject(
+        mainPersonID, schoolID, semesterNumber);
+  }
+
+  @override
+  Stream<SchoolProject?> watchSchoolProject(int schoolProjectID) {
+    return _schoolProjectDao.watchSchoolProject(schoolProjectID);
   }
 }

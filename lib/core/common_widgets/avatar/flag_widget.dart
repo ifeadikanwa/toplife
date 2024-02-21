@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Flag extends StatelessWidget {
+class FlagWidget extends StatelessWidget {
   final String imagePath;
   final double flagSize;
-  const Flag({
+  const FlagWidget({
     Key? key,
     required this.imagePath,
     this.flagSize = 15.0,

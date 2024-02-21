@@ -6,6 +6,6 @@ String getHouseName({
 }) {
   final buildingTypeMap = BuildingType.values.asNameMap();
   final String buildingTypeName =
-      buildingTypeMap[buildingType]?.fullName ?? "House";
+      buildingTypeMap[buildingType]?.presentationName ?? "House";
   return "$houseDesignStyle Style $buildingTypeName";
 }

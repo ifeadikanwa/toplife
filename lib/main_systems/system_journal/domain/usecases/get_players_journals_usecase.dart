@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/domain/repository/journal_repository.dart';
 
 class GetPlayersJournalsUsecase {

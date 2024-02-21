@@ -52,5 +52,15 @@ void main() {
 
       expect(result, correctClockTime);
     });
+
+     test("given 1900 minutes we get 07:40 AM", () {
+      const int timeInMinutes = 1900;
+
+      const String correctClockTime = "07:40 AM";
+
+      final String result = getClockTime(timeInMinutes: timeInMinutes);
+
+      expect(result, correctClockTime);
+    });
   });
 }

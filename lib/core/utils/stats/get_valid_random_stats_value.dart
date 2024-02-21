@@ -3,17 +3,17 @@ import 'dart:math';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 
 const defaultMinValue = 10;
-const defaultMaxValue = 70;
+const defaultMaxValue = 100;
 
 int getValidRandomStatsValue({
   int minValue = defaultMinValue,
   int maxValue = defaultMaxValue,
 }) {
   //correct values if they are over 100
-  if (minValue > maxStatsValue) {
+  if (minValue > defaultMaxStatsValue) {
     minValue = 100;
   }
-  if (maxValue > maxStatsValue) {
+  if (maxValue > defaultMaxStatsValue) {
     maxValue = 100;
   }
 

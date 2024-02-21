@@ -14,6 +14,7 @@ class DialogBodyText extends StatelessWidget {
       style: style ?? DialogConstants.defaultBodyTextStyle,
       textAlign: TextAlign.center,
       softWrap: true,
+      
     );
   }
 }

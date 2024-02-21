@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/building_type.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/rent_buildings_generator.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/rental_buildings_generator.dart';
 
 void main() {
   group("Rent buildings generator:", () {
@@ -10,14 +10,14 @@ void main() {
       test(
         "max bedroom count is 4",
         () {
-          expect(RentBuildingsGenerator.maxBedroomCount, 4);
+          expect(RentalBuildingsGenerator.maxBedroomCount, 4);
         },
       );
 
       test(
         "max bathroom count is 2",
         () {
-          expect(RentBuildingsGenerator.maxBathroomCount, 2);
+          expect(RentalBuildingsGenerator.maxBathroomCount, 2);
         },
       );
 
@@ -25,7 +25,7 @@ void main() {
         "building types available to rent are apartment, townhouse and condo",
         () {
           expect(
-            RentBuildingsGenerator.buildingTypesAvailableToRent,
+            RentalBuildingsGenerator.buildingTypesAvailableToRent,
             [
               BuildingType.apartment,
               BuildingType.townhouse,
@@ -39,7 +39,7 @@ void main() {
         "settlements with rentals are city and town",
         () {
           expect(
-            RentBuildingsGenerator.settlementsWithRental,
+            RentalBuildingsGenerator.settlementsWithRental,
             [
               Settlement.Town,
               Settlement.City,
@@ -53,7 +53,7 @@ void main() {
       test(
         "generates 12 houses",
         () {
-          final List<House> result = RentBuildingsGenerator.generate();
+          final List<House> result = RentalBuildingsGenerator.generate();
 
           expect(result.length, 12);
         },
@@ -62,9 +62,10 @@ void main() {
       test(
         "generates 6 houses for each valid settlement",
         () {
-          final List<House> result = RentBuildingsGenerator.generate();
+          final List<House> result = RentalBuildingsGenerator.generate();
 
-          for (var settlement in RentBuildingsGenerator.settlementsWithRental) {
+          for (var settlement
+              in RentalBuildingsGenerator.settlementsWithRental) {
             expect(
               result
                   .where((house) => house.settlement == settlement.name)
@@ -79,10 +80,10 @@ void main() {
       test(
         "generates 4 houses in total for each valid building type",
         () {
-          final List<House> result = RentBuildingsGenerator.generate();
+          final List<House> result = RentalBuildingsGenerator.generate();
 
           for (var buildingType
-              in RentBuildingsGenerator.buildingTypesAvailableToRent) {
+              in RentalBuildingsGenerator.buildingTypesAvailableToRent) {
             expect(
               result
                   .where((house) => house.buildingType == buildingType.name)
@@ -97,10 +98,11 @@ void main() {
       test(
         "half the buildings have bedroom count in the range (1 -> maxBerooms/2)",
         () {
-          final List<House> result = RentBuildingsGenerator.generate();
+          final List<House> result = RentalBuildingsGenerator.generate();
 
           final lowPricedHouses = result.where((house) =>
-              house.bedrooms <= (RentBuildingsGenerator.maxBedroomCount ~/ 2));
+              house.bedrooms <=
+              (RentalBuildingsGenerator.maxBedroomCount ~/ 2));
 
           expect(
             lowPricedHouses.length,
@@ -112,10 +114,10 @@ void main() {
       test(
         "half the buildings have bedroom count in the range (maxBerooms/2 -> maxBedrooms)",
         () {
-          final List<House> result = RentBuildingsGenerator.generate();
+          final List<House> result = RentalBuildingsGenerator.generate();
 
           final highPricedHouses = result.where((house) =>
-              house.bedrooms > (RentBuildingsGenerator.maxBedroomCount ~/ 2));
+              house.bedrooms > (RentalBuildingsGenerator.maxBedroomCount ~/ 2));
 
           expect(
             highPricedHouses.length,
@@ -127,7 +129,7 @@ void main() {
       test(
         "all houses ARE for rent",
         () {
-          final List<House> result = RentBuildingsGenerator.generate();
+          final List<House> result = RentalBuildingsGenerator.generate();
 
           for (var house in result) {
             expect(house.isForRent, true);
@@ -138,7 +140,7 @@ void main() {
       test(
         "houses are sorted in descending order of price",
         () {
-          final List<House> result = RentBuildingsGenerator.generate();
+          final List<House> result = RentalBuildingsGenerator.generate();
 
           for (int i = 1; i < result.length; i++) {
             expect(

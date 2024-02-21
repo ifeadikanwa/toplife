@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/util/get_settlement.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/util/get_settlement_enum.dart';
 
 void main() {
   group("get settlement util:", () {
@@ -8,7 +8,7 @@ void main() {
       "given a valid settlement name return the correct settlement enum",
       () {
         expect(
-          getSettlement(Settlement.City.name),
+          getSettlementEnum(Settlement.City.name),
           Settlement.City,
         );
       },
@@ -18,7 +18,7 @@ void main() {
       "given a invalid settlement name return null",
       () {
         expect(
-          getSettlement("wrong"),
+          getSettlementEnum("wrong"),
           null,
         );
       },

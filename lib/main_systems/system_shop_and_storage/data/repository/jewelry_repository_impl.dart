@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_shop_and_storage/domain/dao/jewelry_dao.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/jewelry_repository.dart';
 
 class JewelryRepositoryImpl implements JewelryRepository {
@@ -32,5 +32,15 @@ class JewelryRepositoryImpl implements JewelryRepository {
   @override
   Future<void> updateJewelry(Jewelry jewelry) {
     return _jewelryDao.updateJewelry(jewelry);
+  }
+
+  @override
+  Stream<List<Jewelry>> watchAllJewelry(int personID) {
+    return _jewelryDao.watchAllJewelry(personID);
+  }
+
+  @override
+  Stream<Jewelry?> watchJewelry(int jewelryID) {
+    return _jewelryDao.watchJewelry(jewelryID);
   }
 }

@@ -1,6 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_job/data/repository/job_repositories.dart';
-import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
 import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
 
 class EndAllActiveFullTimeEmploymentUsecase {
@@ -26,7 +25,7 @@ class EndAllActiveFullTimeEmploymentUsecase {
       for (Employment activeEmployment in activeEmployments) {
         //get the job info
         final Job? job = await _jobRepositories.jobRepositoryImpl
-            .getJob(activeEmployment.jobID);
+            .getJob(activeEmployment.jobId);
 
         if (job != null) {
           //if it is a fulltime job, update it to end

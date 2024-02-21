@@ -1,11 +1,12 @@
 import 'dart:math';
 
+import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/numbers/fluctuate_number.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/jewel.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/jewelry_quality.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/jewelry_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/jewelry/utils/get_random_carat_in_range.dart';
 
 class JewelryGenerator {
@@ -21,13 +22,15 @@ class JewelryGenerator {
   static const int priceMaxFluctuationPercentage = 10;
 
   static final jewelryTemplate = Jewelry(
+    id: DatabaseConstants.dummyId,
+    personId: DatabaseConstants.dummyId,
     jewel: "",
     type: "",
     carat: 0,
     quality: JewelryQuality.natural.name,
     basePrice: 0,
     dayOfPurchase: 0,
-    maxConditionAtPurchase: maxStatsValue,
+    maxConditionAtPurchase: defaultMaxStatsValue,
   );
 
   //*generate
@@ -38,6 +41,9 @@ class JewelryGenerator {
     allJewelriesList.addAll(goldJewelries());
     allJewelriesList.addAll(diamondJewelries());
     allJewelriesList.addAll(allOtherJewelries());
+
+    //sort from cheap to expensive
+    allJewelriesList.sort((a, b) => a.basePrice.compareTo(b.basePrice));
 
     return allJewelriesList;
   }

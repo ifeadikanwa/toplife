@@ -1,5 +1,5 @@
 import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
-import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/domain/repository/journal_repository.dart';
 
 class GetTodaysJournalUsecase {
@@ -25,9 +25,9 @@ class GetTodaysJournalUsecase {
     if (todaysJournal == null) {
       todaysJournal = await _journalRepository.createJournal(
         Journal(
-          gameID: gameID,
+          gameId: gameID,
           day: day,
-          mainPlayerID: mainPlayerID,
+          mainPlayerId: mainPlayerID,
           entry: JournalCharacters.emptyString,
         ),
       );

@@ -1,5 +1,5 @@
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_relationship_dao.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
 import 'package:toplife/main_systems/system_school/domain/repository/school_relationship_repository.dart';
 
 class SchoolRelationshipRepositoryImpl implements SchoolRelationshipRepository {
@@ -57,5 +57,21 @@ class SchoolRelationshipRepositoryImpl implements SchoolRelationshipRepository {
     SchoolRelationship schoolRelationship,
   ) async {
     return _schoolRelationshipDao.updateSchoolRelationship(schoolRelationship);
+  }
+
+  @override
+  Stream<List<SchoolRelationship>> watchAllClassmates(int schoolID) {
+    return _schoolRelationshipDao.watchAllClassmates(schoolID);
+  }
+
+  @override
+  Stream<List<SchoolRelationship>> watchAllProfessors(int schoolID) {
+    return _schoolRelationshipDao.watchAllProfessors(schoolID);
+  }
+
+  @override
+  Stream<SchoolRelationship?> watchSchoolRelationship(
+      int schoolRelationshipID) {
+    return _schoolRelationshipDao.watchSchoolRelationship(schoolRelationshipID);
   }
 }

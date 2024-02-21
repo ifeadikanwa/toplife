@@ -67,10 +67,10 @@ class DeathDescriptions {
     //sentence begins with ->
     List<String> contributionNoFundsComments = [
       //nice
-      "Your family says it's okay, they know you would contribute if you could",
-      "Some relatives offer to cover the remaining costs",
+      "Your family said it's okay, they know you would contribute if you could",
+      "Some relatives offered to cover the remaining costs",
       //mean
-      "Your relatives wonder why you'll offer to contribute when you're penniless",
+      "Your family wonders why you offered to contribute when you are penniless",
       "You overhear some family memebers talking about how you need to get your bread up",
     ];
 

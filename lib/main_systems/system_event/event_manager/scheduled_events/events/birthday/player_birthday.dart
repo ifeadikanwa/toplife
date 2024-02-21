@@ -2,15 +2,15 @@ import 'dart:math';
 
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/birthday_comments.dart';
 import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/friend.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/partner.dart';
+import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
+import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_active_partner_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 
 class PlayerBirthday {
   final RelationshipUsecases _relationshipUsecases;
@@ -38,23 +38,49 @@ class PlayerBirthday {
   }
 
   Future<String> getFriendsEntry(Event event) async {
-    final List<Friend> friends = await _relationshipUsecases.getFriendsUsecase
-        .execute(event.mainPersonID);
+    final List<Relationship> friends = await _relationshipUsecases
+        .getAllFriendsUsecase
+        .execute(personID: event.mainPersonId);
 
     if (friends.isNotEmpty) {
       final randomIndex = Random().nextInt(friends.length);
 
+      final Relationship chosenFriendRelationship = friends[randomIndex];
+
+      final int friendID = getUnkownIdFromPersonIdPair(
+        personIdPair: PersonIdPair(
+          firstId: chosenFriendRelationship.firstPersonId,
+          secondId: chosenFriendRelationship.secondPersonId,
+        ),
+        knownId: event.mainPersonId,
+      );
+
       final Person? friendPerson =
           await _personUsecases.getPersonUsecase.execute(
-        personID: friends[randomIndex].friendID,
+        personID: friendID,
       );
 
       final String randomFriendComment = BirthdayComments.friendComments[
           Random().nextInt(BirthdayComments.friendComments.length)];
 
       if (friendPerson != null) {
+        //get label
+        final String friendLabel =
+            getPlatonicAndRomanticRelationshipLabelFromString(
+          genderString: friendPerson.gender,
+          platonicRelationshipTypeString:
+              chosenFriendRelationship.platonicRelationshipType,
+          romanticRelationshipTypeString:
+              chosenFriendRelationship.romanticRelationshipType,
+          previousFamilialRelationshipString:
+              chosenFriendRelationship.previousFamilialRelationship,
+          isCoParent: chosenFriendRelationship.isCoParent,
+          activeRomance: chosenFriendRelationship.activeRomance,
+        );
+
+        //
         final friendEntry =
-            "${JournalCharacters.space}My friend, ${friendPerson.firstName} $randomFriendComment.";
+            "${JournalCharacters.space}My $friendLabel, ${getFullNameString(firstName: friendPerson.firstName, lastName: friendPerson.lastName)} $randomFriendComment.";
 
         return friendEntry;
       }
@@ -64,27 +90,44 @@ class PlayerBirthday {
   }
 
   Future<String> getPartnerEntry(Event event) async {
-    final Partner? currentPartner = await _relationshipUsecases
-        .getCurrentPartnerUsecase
-        .execute(event.mainPersonID);
+    final List<Relationship> activePartners = await _relationshipUsecases
+        .getAllActivePartnersUsecase
+        .execute(personID: event.mainPersonId);
 
-    if (currentPartner != null) {
+    if (activePartners.isNotEmpty) {
+      final Relationship randomActivePartnerRelationship =
+          activePartners[Random().nextInt(activePartners.length)];
+
+      final int partnerID = getUnkownIdFromPersonIdPair(
+        personIdPair: PersonIdPair(
+          firstId: randomActivePartnerRelationship.firstPersonId,
+          secondId: randomActivePartnerRelationship.secondPersonId,
+        ),
+        knownId: event.mainPersonId,
+      );
       final Person? partnerPerson =
           await _personUsecases.getPersonUsecase.execute(
-        personID: currentPartner.partnerID,
+        personID: partnerID,
       );
 
       if (partnerPerson != null) {
-        final partnerLabel = getActivePartnerLabel(
-          partnerPerson.gender,
-          currentPartner.partnerRelationshipType,
+        final partnerLabel = getPlatonicAndRomanticRelationshipLabelFromString(
+          genderString: partnerPerson.gender,
+          platonicRelationshipTypeString:
+              randomActivePartnerRelationship.platonicRelationshipType,
+          romanticRelationshipTypeString:
+              randomActivePartnerRelationship.romanticRelationshipType,
+          previousFamilialRelationshipString:
+              randomActivePartnerRelationship.previousFamilialRelationship,
+          isCoParent: randomActivePartnerRelationship.isCoParent,
+          activeRomance: randomActivePartnerRelationship.activeRomance,
         );
 
         final String randomPartnerComment = BirthdayComments.partnerComments[
             Random().nextInt(BirthdayComments.partnerComments.length)];
 
         final partnerEntry =
-            "${JournalCharacters.space}My $partnerLabel, ${partnerPerson.firstName} says ${partnerPerson.subjectPronoun} $randomPartnerComment.";
+            "${JournalCharacters.space}My $partnerLabel, ${getFullNameString(firstName: partnerPerson.firstName, lastName: partnerPerson.lastName)} says ${partnerPerson.subjectPronoun} $randomPartnerComment.";
 
         return partnerEntry;
       }
