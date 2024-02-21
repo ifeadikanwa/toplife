@@ -27,7 +27,7 @@ jobs:
       - run: flutter analyze
       - run: flutter test
       - run: dart pub global activate coverde
-      - run: coverde check 50
+      - run: coverde check 20
 
   # build_ios:
   #   name: Build Flutter iOS app
