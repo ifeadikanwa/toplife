@@ -1,23 +1,20 @@
 import 'package:toplife/main_systems/system_school/constants/grade.dart';
-import 'package:toplife/main_systems/system_school/constants/school_info.dart';
 
 String convertGradeNumberToGradeLetter({
-  required int gradeNumber,
-  required int currentSemesterNumber,
+  required int? gradeNumber,
 }) {
-  //if it the first semseter return undetermined grade
-
   //check if grade is within bounds of all the grade letters,
   //starting from highest to lowest
 
-  if (currentSemesterNumber == SchoolInfo.firstSemester) {
+  //if we are given null, return undetermined grade
+  if (gradeNumber == null) {
     return Grade.undetermined.letterGrade;
   }
 
   //A+
-  //I don't add an upperbound range check so that in case of an error 
+  //I don't add an upperbound range check so that in case of an error
   //if the grade number is over the 100 we can safely return A+
-  if (gradeNumber >= Grade.aPlus.lowerBound) {
+  else if (gradeNumber >= Grade.aPlus.lowerBound) {
     return Grade.aPlus.letterGrade;
   }
   //A

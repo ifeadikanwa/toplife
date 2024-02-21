@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, unused_field
+
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/day_of_week/get_next_week_day.dart';
@@ -21,56 +23,56 @@ class AdmitIntoDoctorateSchoolUsecase {
   })  : _schoolRepositories = schoolRepositories,
         _endAllActiveSchoolProgramsUsecase = endAllActiveSchoolProgramsUsecase;
 
-  Future<School> execute(
-    int mainPersonID,
-    SchoolApplicationResponse schoolApplicationResponse,
-    int currentDay,
-  ) async {
-    //we make sure to end any active school program
-    //we get the person's country
-    //we create an undegraduate school record and store it in the database
-
-    await _endAllActiveSchoolProgramsUsecase.execute(
-      mainPersonID: mainPersonID,
-    );
-
-    int classStartTime = getRandomClassStartTime();
-    int classEndTime = classStartTime + SchoolInfo.higherclassDurationInMinutes;
-
-    final School doctorateSchool = School(
-      id: DatabaseConstants.dummyId,
-      mainPersonId: mainPersonID,
-      name:
-          "${getRandomSchoolName()} ${SchoolType.doctorateSchool.schoolNameSuffix}",
-      grades: SchoolInfo.newSemesterGradeReset,
-      attendance: SchoolInfo.newSemesterGradeReset,
-      project: SchoolInfo.newSemesterGradeReset,
-      exam: SchoolInfo.newSemesterGradeReset,
-      classStartTime: classStartTime,
-      classEndTime: classEndTime,
-      totalSemesterNumber: SchoolInfo.doctorateTotalSemesters,
-      currentSemesterNumber: SchoolInfo.firstSemester,
-      schoolType: SchoolType.doctorateSchool.name,
-      currentDayInSemester: SchoolInfo.semesterNotStarted,
-      semesterStartDay: getNextWeekDay(currentDay, 0),
-      degreeId: schoolApplicationResponse.degreeID,
-      degreeLevel: DegreeLevel.doctorate.name,
-      schoolFeesPerSemester:
-          schoolApplicationResponse.schoolFeesPerSemesterAmount,
-      scholarshipPercentage: schoolApplicationResponse.appliedForScholarship
-          ? schoolApplicationResponse.scholarshipPercentage
-          : SchoolInfo.noScholarship,
-      hasTakenLeave: false,
-      totalLoanAmount: 0,
-      loanProcessed: true,
-      isActive: true,
-      isCompleted: false,
-      wasExpelled: false,
-    );
-
-    final createdSchool = await _schoolRepositories.schoolRepositoryImpl
-        .createSchool(doctorateSchool);
-
-    return createdSchool;
-  }
+// Future<School> execute(
+//   int mainPersonID,
+//   SchoolApplicationResponse schoolApplicationResponse,
+//   int currentDay,
+// ) async {
+//   //we make sure to end any active school program
+//   //we get the person's country
+//   //we create an undegraduate school record and store it in the database
+//
+//   await _endAllActiveSchoolProgramsUsecase.execute(
+//     mainPersonID: mainPersonID,
+//   );
+//
+//   int classStartTime = getRandomClassStartTime();
+//   int classEndTime = classStartTime + SchoolInfo.higherclassDurationInMinutes;
+//
+//   final School doctorateSchool = School(
+//     id: DatabaseConstants.dummyId,
+//     mainPersonId: mainPersonID,
+//     name:
+//         "${getRandomSchoolName()} ${SchoolType.doctorateSchool.schoolNameSuffix}",
+//     grades: SchoolInfo.newSemesterGradeReset,
+//     attendance: SchoolInfo.newSemesterGradeReset,
+//     project: SchoolInfo.newSemesterGradeReset,
+//     exam: SchoolInfo.newSemesterGradeReset,
+//     classStartTime: classStartTime,
+//     classEndTime: classEndTime,
+//     totalSemesterNumber: SchoolInfo.doctorateTotalSemesters,
+//     currentSemesterNumber: SchoolInfo.firstSemester,
+//     schoolType: SchoolType.doctorateSchool.name,
+//     currentDayInSemester: SchoolInfo.semesterNotStarted,
+//     semesterStartDay: getNextWeekDay(currentDay, 0),
+//     degreeId: schoolApplicationResponse.degreeID,
+//     degreeLevel: DegreeLevel.doctorate.name,
+//     schoolFeesPerSemester:
+//         schoolApplicationResponse.schoolFeesPerSemesterAmount,
+//     scholarshipPercentage: schoolApplicationResponse.appliedForScholarship
+//         ? schoolApplicationResponse.scholarshipPercentage
+//         : SchoolInfo.noScholarship,
+//     hasTakenLeave: false,
+//     totalLoanAmount: 0,
+//     loanProcessed: true,
+//     isActive: true,
+//     isCompleted: false,
+//     wasExpelled: false,
+//   );
+//
+//   final createdSchool = await _schoolRepositories.schoolRepositoryImpl
+//       .createSchool(doctorateSchool);
+//
+//   return createdSchool;
+// }
 }

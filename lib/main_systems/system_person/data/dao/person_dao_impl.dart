@@ -47,4 +47,32 @@ class PersonDaoImpl extends DatabaseAccessor<DatabaseProvider>
           ..limit(1))
         .watchSingleOrNull();
   }
+
+  @override
+  Future<List<Person>> getLivingPeopleInASpecifiedAgeRange({
+    required int minDayOfBirth,
+    required int maxDayOfBirth,
+  }) {
+    return (select(personTable)
+          ..where((person) =>
+              person.dead.equals(false) &
+              person.dayOfBirth.isBiggerOrEqualValue(minDayOfBirth) &
+              person.dayOfBirth.isSmallerOrEqualValue(maxDayOfBirth)))
+        .get();
+  }
+
+  @override
+  Future<List<Person>> getLivingPeopleInASpecifiedAgeRangeAndCountry({
+    required int minDayOfBirth,
+    required int maxDayOfBirth,
+    required String countryString,
+  }) {
+    return (select(personTable)
+          ..where((person) =>
+              person.dead.equals(false) &
+              person.currentCountry.equals(countryString) &
+              person.dayOfBirth.isBiggerOrEqualValue(minDayOfBirth) &
+              person.dayOfBirth.isSmallerOrEqualValue(maxDayOfBirth)))
+        .get();
+  }
 }

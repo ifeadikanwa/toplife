@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
@@ -31,18 +32,21 @@ class GameRelationshipInteractions {
   TormentInteraction get tormentInteraction => TormentInteraction(
         _ref.read(relationshipUsecasesProvider),
         _ref.read(journalUsecasesProvider),
+        _ref.read(ageUsecasesProvider),
       );
 
   SendFoodInteraction get sendFoodInteraction => SendFoodInteraction(
         _ref.read(relationshipUsecasesProvider),
         _ref.read(journalUsecasesProvider),
         _ref.read(shopAndStorageUsecasesProvider),
+        _ref.read(ageUsecasesProvider),
       );
 
   SendMoneyInteraction get sendMoneyInteraction => SendMoneyInteraction(
         _ref.read(relationshipUsecasesProvider),
         _ref.read(journalUsecasesProvider),
         _ref.read(personUsecasesProvider),
+        _ref.read(ageUsecasesProvider),
       );
 
   //*INTERACTION LISTS

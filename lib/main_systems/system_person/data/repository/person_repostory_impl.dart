@@ -30,6 +30,30 @@ class PersonRepositoryImpl implements PersonRepository {
 
   @override
   Stream<Person?> watchPerson(int personID) {
-   return _personDao.watchPerson(personID);
+    return _personDao.watchPerson(personID);
+  }
+
+  @override
+  Future<List<Person>> getLivingPeopleInASpecifiedAgeRange({
+    required int minDayOfBirth,
+    required int maxDayOfBirth,
+  }) {
+    return _personDao.getLivingPeopleInASpecifiedAgeRange(
+      minDayOfBirth: minDayOfBirth,
+      maxDayOfBirth: maxDayOfBirth,
+    );
+  }
+
+  @override
+  Future<List<Person>> getLivingPeopleInASpecifiedAgeRangeAndCountry({
+    required int minDayOfBirth,
+    required int maxDayOfBirth,
+    required String countryString,
+  }) {
+    return _personDao.getLivingPeopleInASpecifiedAgeRangeAndCountry(
+      minDayOfBirth: minDayOfBirth,
+      maxDayOfBirth: maxDayOfBirth,
+      countryString: countryString,
+    );
   }
 }

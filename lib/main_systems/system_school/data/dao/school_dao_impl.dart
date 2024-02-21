@@ -1,8 +1,5 @@
 import 'package:drift/drift.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/utils/stats/cross_check_stats.dart';
-import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
-import 'package:toplife/main_systems/system_school/constants/degree_level.dart';
 import 'package:toplife/main_systems/system_school/domain/dao/school_dao.dart';
 import 'package:toplife/main_systems/system_school/domain/model/school.dart';
 
@@ -16,38 +13,13 @@ class SchoolDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<School> createSchool(School school) async {
-    final School checkedSchool = school.copyWith(
-      grades: crossCheckStat(
-        stat: school.grades,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-      attendance: crossCheckStat(
-        stat: school.attendance,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-      project: crossCheckStat(
-        stat: school.project,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-      exam: crossCheckStat(
-        stat: school.exam,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-      scholarshipPercentage: crossCheckStat(
-        stat: school.scholarshipPercentage,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-    );
-
     final SchoolTableCompanion schoolWithoutID =
-        checkedSchool.toCompanion(false).copyWith(
-              id: const Value.absent(),
-            );
+        school.toCompanion(false).copyWith(id: const Value.absent());
 
     final schoolID =
         await into(schoolTable).insertOnConflictUpdate(schoolWithoutID);
 
-    return checkedSchool.copyWith(id: schoolID);
+    return school.copyWith(id: schoolID);
   }
 
   @override
@@ -60,206 +32,17 @@ class SchoolDaoImpl extends DatabaseAccessor<DatabaseProvider>
   }
 
   @override
-  Future<School?> getActiveSchool(int mainPersonID) {
+  Future<School?> findSchoolWithNameAndLocation({
+    required String name,
+    required String state,
+    required String country,
+  }) {
     return (select(schoolTable)
           ..where(
             (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isActive.equals(true),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          )
-          ..limit(1))
-        .getSingleOrNull();
-  }
-
-  @override
-  Future<List<School>> getAllActiveSchools(int mainPersonID) {
-    return (select(schoolTable)
-          ..where(
-            (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isActive.equals(true),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          ))
-        .get();
-  }
-
-  @override
-  Future<List<School>> getAllCompletedDoctorateSchool(int mainPersonID) {
-    return (select(schoolTable)
-          ..where(
-            (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isCompleted.equals(true) &
-                school.isActive.equals(false) &
-                school.degreeLevel.equals(DegreeLevel.doctorate.name),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          ))
-        .get();
-  }
-
-  @override
-  Future<List<School>> getAllCompletedGraduateSchool(int mainPersonID) {
-    return (select(schoolTable)
-          ..where(
-            (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isCompleted.equals(true) &
-                school.isActive.equals(false) &
-                school.degreeLevel.equals(DegreeLevel.master.name),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          ))
-        .get();
-  }
-
-  @override
-  Future<List<School>> getAllCompletedSchool(int mainPersonID) {
-    return (select(schoolTable)
-          ..where(
-            (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isCompleted.equals(true) &
-                school.isActive.equals(false),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          ))
-        .get();
-  }
-
-  @override
-  Future<List<School>> getAllCompletedSchoolForADegree(
-      int mainPersonID, int degreeID) {
-    return (select(schoolTable)
-          ..where(
-            (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isCompleted.equals(true) &
-                school.isActive.equals(false) &
-                school.degreeId.equals(degreeID),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          ))
-        .get();
-  }
-
-  @override
-  Future<List<School>> getAllCompletedSpecialSchool(int mainPersonID) {
-    return (select(schoolTable)
-          ..where(
-            (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isCompleted.equals(true) &
-                school.isActive.equals(false) &
-                school.degreeLevel.equals(DegreeLevel.special.name),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          ))
-        .get();
-  }
-
-  @override
-  Future<List<School>> getAllCompletedUndergraduateSchool(int mainPersonID) {
-    return (select(schoolTable)
-          ..where(
-            (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isCompleted.equals(true) &
-                school.isActive.equals(false) &
-                school.degreeLevel.equals(DegreeLevel.bachelor.name),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          ))
-        .get();
-  }
-
-  @override
-  Future<List<School>> getAllSchools(int mainPersonID) {
-    return (select(schoolTable)
-          ..where(
-            (school) => school.mainPersonId.equals(mainPersonID),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          ))
-        .get();
-  }
-
-  @override
-  Future<School?> getCompletedSchoolForADegreeAtADegreeLevel(
-      int mainPersonID, int degreeID, DegreeLevel degreeLevel) {
-    return (select(schoolTable)
-          ..where(
-            (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isCompleted.equals(true) &
-                school.isActive.equals(false) &
-                school.degreeId.equals(degreeID) &
-                school.degreeLevel.equals(degreeLevel.name),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
+                school.name.equals(name) &
+                school.state.equals(state) &
+                school.country.equals(country),
           )
           ..limit(1))
         .getSingleOrNull();
@@ -275,57 +58,6 @@ class SchoolDaoImpl extends DatabaseAccessor<DatabaseProvider>
 
   @override
   Future<void> updateSchool(School school) {
-    final School checkedSchool = school.copyWith(
-      grades: crossCheckStat(
-        stat: school.grades,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-      attendance: crossCheckStat(
-        stat: school.attendance,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-      project: crossCheckStat(
-        stat: school.project,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-      exam: crossCheckStat(
-        stat: school.exam,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-      scholarshipPercentage: crossCheckStat(
-        stat: school.scholarshipPercentage,
-        statsRange: StatsRangeConstants.defaultRange,
-      ),
-    );
-
-    return update(schoolTable).replace(checkedSchool);
-  }
-
-  @override
-  Stream<School?> watchSchool(int schoolID) {
-    return (select(schoolTable)
-          ..where((school) => school.id.equals(schoolID))
-          ..limit(1))
-        .watchSingleOrNull();
-  }
-
-  @override
-  Stream<School?> watchActiveSchool(int mainPersonID) {
-    return (select(schoolTable)
-          ..where(
-            (school) =>
-                school.mainPersonId.equals(mainPersonID) &
-                school.isActive.equals(true),
-          )
-          ..orderBy(
-            [
-              (school) => OrderingTerm(
-                    expression: school.id,
-                    mode: OrderingMode.desc,
-                  )
-            ],
-          )
-          ..limit(1))
-        .watchSingleOrNull();
+    return update(schoolTable).replace(school);
   }
 }

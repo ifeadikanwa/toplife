@@ -39,11 +39,11 @@ class ScheduleFuneral {
               getRandomIntInPositiveRange(
                 min: 1,
                 max: 5,
-              )), //Add the given days from current day or choose random 1 - 5 days after current day
+              )),
+      //Add the given days from current day or choose random 1 - 5 days after current day
       mainPersonId: deadPersonID,
       startTime: funeralEventStartTime,
       endTime: funeralEventStartTime + EventType.funeral.eventDuration,
-      journalEntryOnly: false,
       performed: false,
     );
 

@@ -177,7 +177,7 @@ class AddChildToNPCFamilyUsecase {
       //process list
       await _processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
           .execute(
-        parentRelationshipTypeWithIndicatorsList:
+        parentRelationshipToPlayerWithIndicatorsList:
             parentRelationshipTypeWithIndicatorsList,
         playerPersonID: playerID,
         childPersonID: childID,
@@ -332,7 +332,7 @@ class AddChildToNPCFamilyUsecase {
         //process list
         await _processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
             .execute(
-          parentRelationshipTypeWithIndicatorsList:
+          parentRelationshipToPlayerWithIndicatorsList:
               parentRelationshipTypeWithIndicatorsList,
           playerPersonID: playerID,
           childPersonID: childID,

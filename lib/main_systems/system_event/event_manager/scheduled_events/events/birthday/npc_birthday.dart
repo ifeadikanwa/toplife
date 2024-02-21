@@ -14,7 +14,6 @@ import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_r
 
 class NpcBirthday {
   final RelationshipUsecases _relationshipUsecases;
-
   final EventSchedulers _eventScheduler;
 
   const NpcBirthday(
@@ -28,7 +27,8 @@ class NpcBirthday {
     Person birthdayPerson,
     Age age,
   ) async {
-    //// schedule birthday party for only active partner, child, sibling, relative, parent, friend, inlaw
+    //// schedule birthday party for non-acquaintances
+    //only tell the player if it is a non-acquaintance
 
     final Relationship? relationship =
         await _relationshipUsecases.getRelationshipUsecase.execute(
@@ -48,15 +48,8 @@ class NpcBirthday {
         activeRomance: relationship.activeRomance,
       );
 
-      String schoolText = "";
-      //get school text for toddler - teen
-      if (age.lifeStage.schoolForStage != "") {
-        schoolText =
-            "${JournalCharacters.space}${birthdayPerson.subjectPronoun} will start attending ${age.lifeStage.schoolForStage.toLowerCase()}";
-      }
-
       if (relationshipLabel.isNotEmpty) {
-        //schedule a birthday
+        //schedule a birthday & tell player
         //as long as it is not an acquaintance
         String birthdayPartyInvite = "";
 
@@ -70,7 +63,7 @@ class NpcBirthday {
           );
 
           if (haveBirthdayParty) {
-            //chack if the player is invited
+            //check if the player is invited
             //player is not invited if the person is not interested in a relationship
             final bool playerIsInvited = relationship.interestedInRelationship;
 
@@ -94,12 +87,12 @@ class NpcBirthday {
                   "${JournalCharacters.space}${toBeginningOfSentenceCase(birthdayPerson.subjectPronoun)} is throwing a birthday party but I didn't get an invitation.";
             }
           }
-        }
 
-        //return journal entry
-        final String journalEntry =
-            "It is my $relationshipLabel, ${getFullNameString(firstName: birthdayPerson.firstName, lastName: birthdayPerson.lastName)}'s birthday, ${birthdayPerson.subjectPronoun} is now ${SentenceUtil.getArticle(age.lifeStage.stageName).toLowerCase()} ${age.lifeStage.stageName.toLowerCase()}.$schoolText$birthdayPartyInvite";
-        return journalEntry;
+          //return journal entry
+          final String journalEntry =
+              "It is my $relationshipLabel, ${getFullNameString(firstName: birthdayPerson.firstName, lastName: birthdayPerson.lastName)}'s birthday, ${birthdayPerson.subjectPronoun} is now ${SentenceUtil.getArticle(age.lifeStage.stageName).toLowerCase()} ${age.lifeStage.stageName.toLowerCase()}.$birthdayPartyInvite";
+          return journalEntry;
+        }
       }
     }
 

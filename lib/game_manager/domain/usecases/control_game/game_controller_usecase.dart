@@ -84,7 +84,7 @@ class GameControllerUsecase {
                   dayToLogReportTo: newGame.currentDay,
                 );
 
-                //we check that the build contect is valid
+                //we check that the build context is valid
                 if (context.mounted) {
                   //run scheduled events
                   await _eventManager.runScheduledEventsForTheDay.execute(
@@ -92,8 +92,8 @@ class GameControllerUsecase {
                     playerID: newGameCurrentPlayerId,
                     dayToCheckForEvents: day,
                     dayToLogEventTo: newGame.currentDay,
-                    currentTimeInMinutes: Time
-                        .minutesInADay, //we want the entire days events to run
+                    currentTimeInMinutes: Time.minutesInADay,
+                    //we want the entire days events to run
                     context: context,
                   );
                 }

@@ -17,7 +17,7 @@ class GeneratePersonTattooUsecase {
     late final bool personHasTattoos;
     final List<Tattoo> tattoos = [];
 
-    //*FINDING OUT IF PERSON HAS TATTOOS:
+    //*DECIDING IF PERSON HAS TATTOOS:
     //if person is teen
     if (lifeStage == LifeStage.teen) {
       //we check if they have tattoos

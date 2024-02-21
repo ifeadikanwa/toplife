@@ -88,7 +88,7 @@ void main() {
 
         //call the usecase under test
         final PlatonicRelationshipType? result = await usecaseUnderTest.execute(
-          parentRelationshipType:
+          parentRelationshipToPlayer:
               const PlatonicRelationshipTypeWithParentTypeIndicator(
             platonicRelationshipType: PlatonicRelationshipType.birthParent,
             isStepParent: false,
@@ -116,7 +116,7 @@ void main() {
 
       //call the usecase under test
       final PlatonicRelationshipType? result = await usecaseUnderTest.execute(
-        parentRelationshipType:
+        parentRelationshipToPlayer:
             const PlatonicRelationshipTypeWithParentTypeIndicator(
           platonicRelationshipType: PlatonicRelationshipType.adoptiveParent,
           isStepParent: false,
@@ -147,7 +147,7 @@ void main() {
           //get result
           final PlatonicRelationshipType? result =
               await usecaseUnderTest.execute(
-            parentRelationshipType: parentTypeIndicator,
+            parentRelationshipToPlayer: parentTypeIndicator,
             childPersonID: dummyChildId,
             playerPersonID: dummyPlayerId,
           );
@@ -455,7 +455,7 @@ void main() {
           //get result
           final PlatonicRelationshipType? result =
               await usecaseUnderTest.execute(
-            parentRelationshipType: parentTypeIndicator,
+            parentRelationshipToPlayer: parentTypeIndicator,
             childPersonID: dummyChildId,
             playerPersonID: dummyPlayerId,
           );

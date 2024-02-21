@@ -1,3 +1,4 @@
+import 'package:toplife/main_systems/system_age/life_stage.dart';
 import 'package:toplife/main_systems/system_person/constants/gender.dart';
 import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
@@ -18,17 +19,11 @@ class GenerateListOfPersonUsecase {
     required String? parentBirthCountryString,
     required String currentCountry,
     required String currentState,
+    required List<LifeStage> possibleLifeStages,
     Gender? gender,
-    Sexuality? sexuallity,
+    Sexuality? sexuality,
     bool earlyStageInAge = false,
     bool lateStageInAge = false,
-    bool canBeBaby = false,
-    bool canBeToddler = false,
-    bool canBeChild = false,
-    bool canBeTeen = false,
-    bool canBeYoungAdult = false,
-    bool canBeAdult = false,
-    bool canBeElder = false,
     bool isDead = false,
   }) {
     List<Person> people = [];
@@ -45,14 +40,8 @@ class GenerateListOfPersonUsecase {
           currentCountryString: currentCountry,
           currentStateString: currentState,
           gender: gender,
-          sexuallity: sexuallity,
-          canBeBaby: canBeBaby,
-          canBeToddler: canBeToddler,
-          canBeChild: canBeChild,
-          canBeTeen: canBeTeen,
-          canBeYoungAdult: canBeYoungAdult,
-          canBeAdult: canBeAdult,
-          canBeElder: canBeElder,
+          sexuality: sexuality,
+          possibleLifeStages: possibleLifeStages,
           isDead: isDead,
         ),
       );

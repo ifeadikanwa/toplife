@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
+import 'package:toplife/main_systems/system_event/constants/event_category.dart';
+import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 
 class EventUtil {
   //9am-11am
@@ -54,5 +56,14 @@ class EventUtil {
 
     //return a random possible time
     return possibleStartTimes[Random().nextInt(possibleStartTimes.length)];
+  }
+
+  static List<String> getEventTypeNamesInCategory(EventCategory eventCategory) {
+    return EventType.values
+        .where((eventType) => eventType.eventCategory == eventCategory)
+        .map(
+          (eventTypeInCategory) => eventTypeInCategory.name,
+        )
+        .toList();
   }
 }

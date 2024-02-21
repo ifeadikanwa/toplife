@@ -132,9 +132,8 @@ class RelationshipActionsScreenViewModel
 
       //set romantic rel duration
 
-      _romanticRelationshipDuration = _relationshipUsecases
-          .getTotalRomanticRelationshipDuration
-          .execute(
+      _romanticRelationshipDuration =
+          _relationshipUsecases.getTotalRomanticRelationshipDuration.execute(
         currentDay: _currentGame!.currentDay,
         relationship: relationship,
       );
@@ -159,7 +158,7 @@ class RelationshipActionsScreenViewModel
 
   String getAge() {
     if (_currentGame != null && _personRelationshipPair != null) {
-      return _ageUsecases.getPersonAgeUsecase
+      return _ageUsecases.getPersonsAgeUsecase
           .execute(
             dayOfBirth: _personRelationshipPair!.person.dayOfBirth,
             currentDay: _currentGame!.currentDay,
@@ -263,9 +262,6 @@ class RelationshipActionsScreenViewModel
     // }
   }
 }
-
-
-
 
 // final relationshipActionsScreenViewModelProvider =
 //     FutureProvider.autoDispose<RelationshipActionsScreenViewModel>((ref) async {

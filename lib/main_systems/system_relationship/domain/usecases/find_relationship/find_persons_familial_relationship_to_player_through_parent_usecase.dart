@@ -12,13 +12,13 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
 
   Future<PlatonicRelationshipType?> execute({
     required PlatonicRelationshipTypeWithParentTypeIndicator
-        parentRelationshipType,
+        parentRelationshipToPlayer,
     required int childPersonID,
     required int playerPersonID,
   }) async {
     late final PlatonicRelationshipType? relationshipTypeToChild;
 
-    switch (parentRelationshipType.platonicRelationshipType) {
+    switch (parentRelationshipToPlayer.platonicRelationshipType) {
       //Parent
       case PlatonicRelationshipType.birthParent:
       case PlatonicRelationshipType.adoptiveParent:
@@ -43,8 +43,8 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
       case PlatonicRelationshipType.stepGrandParent:
         //if the parent is a step parent or it is a step grandparent = step pibling
         //else = pibling
-        if (parentRelationshipType.isStepParent ||
-            parentRelationshipType.platonicRelationshipType ==
+        if (parentRelationshipToPlayer.isStepParent ||
+            parentRelationshipToPlayer.platonicRelationshipType ==
                 PlatonicRelationshipType.stepGrandParent) {
           relationshipTypeToChild = PlatonicRelationshipType.stepPibling;
         } else {
@@ -67,8 +67,8 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
       case PlatonicRelationshipType.stepChild:
         //if the parent is a step parent or it is a step child = step grandchild
         //else = grandchild
-        if (parentRelationshipType.isStepParent ||
-            parentRelationshipType.platonicRelationshipType ==
+        if (parentRelationshipToPlayer.isStepParent ||
+            parentRelationshipToPlayer.platonicRelationshipType ==
                 PlatonicRelationshipType.stepChild) {
           relationshipTypeToChild = PlatonicRelationshipType.stepGrandChild;
         } else {
@@ -82,8 +82,8 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
       case PlatonicRelationshipType.stepGrandChild:
         //if the parent is a step parent or it is a step grandchild = step great grandchild
         //else = great grandchild
-        if (parentRelationshipType.isStepParent ||
-            parentRelationshipType.platonicRelationshipType ==
+        if (parentRelationshipToPlayer.isStepParent ||
+            parentRelationshipToPlayer.platonicRelationshipType ==
                 PlatonicRelationshipType.stepGrandChild) {
           relationshipTypeToChild =
               PlatonicRelationshipType.stepGreatGrandChild;
@@ -108,8 +108,8 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
       case PlatonicRelationshipType.stepSibling:
         //if the parent is a step parent or it is a step sibling = step nibling
         //else = nibling
-        if (parentRelationshipType.isStepParent ||
-            parentRelationshipType.platonicRelationshipType ==
+        if (parentRelationshipToPlayer.isStepParent ||
+            parentRelationshipToPlayer.platonicRelationshipType ==
                 PlatonicRelationshipType.stepSibling) {
           relationshipTypeToChild = PlatonicRelationshipType.stepNibling;
         } else {
@@ -123,8 +123,8 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
       case PlatonicRelationshipType.stepNibling:
         //if the parent is a step parent or it is a step nibling = step grandNibling
         //else = grandNibling
-        if (parentRelationshipType.isStepParent ||
-            parentRelationshipType.platonicRelationshipType ==
+        if (parentRelationshipToPlayer.isStepParent ||
+            parentRelationshipToPlayer.platonicRelationshipType ==
                 PlatonicRelationshipType.stepNibling) {
           relationshipTypeToChild = PlatonicRelationshipType.stepGrandNibling;
         } else {
@@ -138,8 +138,8 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
       case PlatonicRelationshipType.stepGrandNibling:
         //if the parent is a step parent or it is a step grandnibling = step greatgrandNibling
         //else = greatgrandNibling
-        if (parentRelationshipType.isStepParent ||
-            parentRelationshipType.platonicRelationshipType ==
+        if (parentRelationshipToPlayer.isStepParent ||
+            parentRelationshipToPlayer.platonicRelationshipType ==
                 PlatonicRelationshipType.stepGrandNibling) {
           relationshipTypeToChild =
               PlatonicRelationshipType.stepGreatGrandNibling;
@@ -162,8 +162,8 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
       case PlatonicRelationshipType.stepPibling:
         //if the parent is a step parent or it is a step pibling = step cousin
         //else = cousin
-        if (parentRelationshipType.isStepParent ||
-            parentRelationshipType.platonicRelationshipType ==
+        if (parentRelationshipToPlayer.isStepParent ||
+            parentRelationshipToPlayer.platonicRelationshipType ==
                 PlatonicRelationshipType.stepPibling) {
           relationshipTypeToChild = PlatonicRelationshipType.stepCousin;
         } else {
@@ -177,8 +177,8 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
       case PlatonicRelationshipType.stepCousin:
         //if the parent is a step parent or it is a step cousin = step grandcousin
         //else = grandcousin
-        if (parentRelationshipType.isStepParent ||
-            parentRelationshipType.platonicRelationshipType ==
+        if (parentRelationshipToPlayer.isStepParent ||
+            parentRelationshipToPlayer.platonicRelationshipType ==
                 PlatonicRelationshipType.stepCousin) {
           relationshipTypeToChild = PlatonicRelationshipType.stepGrandCousin;
         } else {
@@ -192,8 +192,8 @@ class FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
       case PlatonicRelationshipType.stepGrandCousin:
         //if the parent is a step parent or it is a step grandcousin = step greatgrandcousin
         //else = greatgrandcousin
-        if (parentRelationshipType.isStepParent ||
-            parentRelationshipType.platonicRelationshipType ==
+        if (parentRelationshipToPlayer.isStepParent ||
+            parentRelationshipToPlayer.platonicRelationshipType ==
                 PlatonicRelationshipType.stepGrandCousin) {
           relationshipTypeToChild =
               PlatonicRelationshipType.stepGreatGrandCousin;

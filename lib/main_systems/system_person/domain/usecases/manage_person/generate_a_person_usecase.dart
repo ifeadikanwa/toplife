@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/utils/chance.dart';
+import 'package:toplife/main_systems/system_age/life_stage.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/main_systems/system_location/location_manager.dart';
@@ -28,17 +29,11 @@ class GenerateAPersonUsecase {
     required String? parentBirthCountryString,
     required String currentCountryString,
     required String currentStateString,
+    required List<LifeStage> possibleLifeStages,
     Gender? gender,
-    Sexuality? sexuallity,
+    Sexuality? sexuality,
     bool earlyStageInAge = false,
     bool lateStageInAge = false,
-    bool canBeBaby = false,
-    bool canBeToddler = false,
-    bool canBeChild = false,
-    bool canBeTeen = false,
-    bool canBeYoungAdult = false,
-    bool canBeAdult = false,
-    bool canBeElder = false,
     bool isDead = false,
   }) {
     //Gender
@@ -46,7 +41,7 @@ class GenerateAPersonUsecase {
 
     //Sexuality
     final Sexuality personSexuality =
-        sexuallity ?? getRandomSexuality(gender: personGender);
+        sexuality ?? getRandomSexuality(gender: personGender);
 
     //Zodiac sign
     final personZodiacSign = getRandomZodiacSign();
@@ -57,13 +52,7 @@ class GenerateAPersonUsecase {
       currentDay: currentDay,
       earlyStageInAge: earlyStageInAge,
       lateStageInAge: lateStageInAge,
-      canBeBaby: canBeBaby,
-      canBeToddler: canBeToddler,
-      canBeChild: canBeChild,
-      canBeTeen: canBeTeen,
-      canBeYoungAdult: canBeYoungAdult,
-      canBeAdult: canBeAdult,
-      canBeElder: canBeElder,
+      possibleLifeStages: possibleLifeStages,
     );
 
     //Country affected information
@@ -142,7 +131,8 @@ class GenerateAPersonUsecase {
       birthCountry: birthCountry,
       currentState: currentStateString,
       currentCountry: currentCountryString,
-      money: Random().nextInt(60) + 40, //random amount in 40-100
+      money: Random().nextInt(60) + 40,
+      //random amount in 40-100
       emotionalState: EmotionalState.normal.name,
       zodiacSign: personZodiacSign.name,
       transportMode: TransportMode.bus.name,

@@ -48,6 +48,7 @@ class AttendEvent {
     this._performPartyActivity,
     this._getFirstPersonEventPartnerAttendanceDescription,
   );
+
   Future<void> execute({
     required BuildContext context,
     required Event event,
@@ -84,7 +85,7 @@ class AttendEvent {
       );
 
       //get age
-      final Age eventMainPersonAge = _ageUsecases.getPersonAgeUsecase.execute(
+      final Age eventMainPersonAge = _ageUsecases.getPersonsAgeUsecase.execute(
         dayOfBirth: eventMainPerson.dayOfBirth,
         currentDay: event.eventDay,
       );

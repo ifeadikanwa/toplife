@@ -504,6 +504,95 @@ class ShopScreen extends ConsumerWidget {
                 //     );
 
                 // print("*******RESULT: $result");
+
+                // await PersonTestUtil(ref: ref).createMultiplePeople(
+                //   gameID: 1,
+                //   currentDay: 1,
+                //   numberOfPeople: 1,
+                //   possibleLifeStage: LifeStage.teen,
+                // );
+
+                //
+                // final School school = School(
+                //   id: 0,
+                //   name: "Michigan State University",
+                //   state: "Ohio",
+                //   country: "United States",
+                //   tier: "mid",
+                // );
+                // await DegreeDaoImpl(db).createDegree(
+                //   Degree(
+                //     id: 0,
+                //     discipline: "Science",
+                //     branch: "Biology",
+                //     isSpecialDegree: false,
+                //   ),
+                // );
+                // final College college = College(
+                //   id: 0,
+                //   personId: 1,
+                //   schoolId: 1,
+                //   degreeId: 1,
+                //   schoolType: SchoolType.undergraduateSchool.name,
+                //   attendance: 40,
+                //   project: 70,
+                //   courseKnowledge: 30,
+                //   cumulativeGrade: 65,
+                //   totalSemesterNumber: 4,
+                //   currentSemesterNumber: 2,
+                //   classStartTime: 480,
+                //   classEndTime: 640,
+                //   semesterStartDay: 6,
+                //   tuitionPerSemester: 8000,
+                //   scholarshipPercentage: 20,
+                //   totalLoanAmount: 0,
+                //   status: CollegeStatus.completed.name,
+                // );
+                //
+                // final Faculty faculty = Faculty(
+                //   personId: 4,
+                //   schoolId: 2,
+                //   role: FacultyRole.professor.name,
+                // );
+                //
+                // final Precollege precollege = Precollege(
+                //   personId: 3,
+                //   schoolType: SchoolType.middleSchool.name,
+                //   currentSchoolId: 2,
+                //   active: true,
+                //   attendance: 89,
+                //   lastSchoolAttendanceDay: 3,
+                //   homework: 45,
+                //   lastHomeworkSubmissionDay: 3,
+                //   courseKnowledge: 55,
+                //   finalExam: 78,
+                // );
+
+                // final result = await PrecollegeDaoImpl(db)
+                //     .getAllActiveStudentsOfASchool(7);
+                // for (var r in result) {
+                //   final p = await PersonDaoImpl(db).getPerson(r.personId);
+                //   if (p != null) {
+                //     print("${p.id} -> ${p.firstName} -> ${p.gender}");
+                //   }
+                // }
+                // final Event event = Event(
+                //   id: 0,
+                //   gameId: 1,
+                //   eventType: EventType.birthday.name,
+                //   eventDay: 2,
+                //   mainPersonId: 34,
+                //   performed: false,
+                // );
+                //
+                // await EventDaoImpl(db).createEvent(event);
+                //
+                // print(await ref
+                //     .watch(ageUsecasesProvider)
+                //     .getLastWeekDayOfLifeStageUsecase
+                //     .execute(currentDay: 29, personID: 2));
+
+                // print(result);
               },
               child: const Text("Run"),
             ),
@@ -543,16 +632,16 @@ class ShopScreen extends ConsumerWidget {
 // );
 
 //  [
-              // const ShopListItem(
-              //     itemName: BabyFoodNames.fuzziesMegaOrganicBabyFormula,
-              //     itemDetails: "2 Servings",
-              //     itemPrice: 30,
-              //     itemImage: "itemImage"),
-              // const ShopListItem(
-              //     itemName: BabyFoodNames.mangoPuree,
-              //     itemDetails: "2 Servings",
-              //     itemPrice: 30,
-              //     itemImage: "itemImage"),
+// const ShopListItem(
+//     itemName: BabyFoodNames.fuzziesMegaOrganicBabyFormula,
+//     itemDetails: "2 Servings",
+//     itemPrice: 30,
+//     itemImage: "itemImage"),
+// const ShopListItem(
+//     itemName: BabyFoodNames.mangoPuree,
+//     itemDetails: "2 Servings",
+//     itemPrice: 30,
+//     itemImage: "itemImage"),
 //               const ShopListItem(
 //                   itemName: BabyFoodNames.bananaAppleMangoPuree,
 //                   itemDetails: "1 Servings",

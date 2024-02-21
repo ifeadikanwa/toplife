@@ -17,7 +17,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/manage_person
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_stats_usecase.dart';
 import 'package:toplife/main_systems/system_person/util/get_gender_enum_from_string.dart';
 
-class CreatePersonWithAttributesUsecase {
+class CreateGivenPersonWithAttributesUsecase {
   final PersonRepositories _personRepositories;
   final AgeUsecases _ageUsecases;
   final GeneratePersonalityUsecase _generatePersonalityUsecase;
@@ -31,7 +31,7 @@ class CreatePersonWithAttributesUsecase {
   final GeneratePersonTattooUsecase _generatePersonTattooUsecase;
   final GeneratePersonPiercingsUsecase _generatePersonPiercingsUsecase;
 
-  const CreatePersonWithAttributesUsecase({
+  const CreateGivenPersonWithAttributesUsecase({
     required PersonRepositories personRepositories,
     required AgeUsecases ageUsecases,
     required GeneratePersonalityUsecase generatePersonalityUsecase,
@@ -73,7 +73,8 @@ class CreatePersonWithAttributesUsecase {
       personID: createdPerson.id,
     );
 
-    _personRepositories.statsRepositoryImpl.createStats(createdPersonStats);
+    await _personRepositories.statsRepositoryImpl
+        .createStats(createdPersonStats);
 
     //Personality
     final Personality createdPersonPersonality =
@@ -93,7 +94,7 @@ class CreatePersonWithAttributesUsecase {
         .createStance(createdPersonStance);
 
     //--get lifestage
-    final LifeStage createdPersonLifeStage = _ageUsecases.getPersonAgeUsecase
+    final LifeStage createdPersonLifeStage = _ageUsecases.getPersonsAgeUsecase
         .execute(
           dayOfBirth: createdPerson.dayOfBirth,
           currentDay: currentDay,

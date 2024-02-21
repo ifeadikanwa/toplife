@@ -30,8 +30,7 @@ class CurrentSection extends ConsumerWidget {
                       : CurrentWorkListItem(
                           workTitle: currentSchoolAndEmployments
                               .schoolPair!.school.name,
-                          performance: currentSchoolAndEmployments
-                              .schoolPair!.school.grades,
+                          performance: 0,
                           onTap: () {},
                         ),
                   ...employmentWidgets(

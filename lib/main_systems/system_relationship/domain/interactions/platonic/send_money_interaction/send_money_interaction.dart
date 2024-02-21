@@ -21,11 +21,13 @@ class SendMoneyInteraction extends RelationshipInteraction {
   final RelationshipUsecases _relationshipUsecases;
   final JournalUsecases _journalUsecases;
   final PersonUsecases _personUsecases;
+  final AgeUsecases _ageUsecases;
 
   SendMoneyInteraction(
     this._relationshipUsecases,
     this._journalUsecases,
     this._personUsecases,
+    this._ageUsecases,
   );
 
   @override
@@ -39,7 +41,6 @@ class SendMoneyInteraction extends RelationshipInteraction {
 
   @override
   bool isAvailable({
-    required AgeUsecases ageUsecases,
     required int currentDay,
     required Person currentPlayer,
     required Person relationshipPerson,
@@ -50,13 +51,13 @@ class SendMoneyInteraction extends RelationshipInteraction {
     //the relationship person has to at least be a child
 
     final bool playerIsAtLeastAChild =
-        ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
+        _ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
       currentDay: currentDay,
       dayOfBirth: currentPlayer.dayOfBirth,
       age: LifeStage.child,
     );
     final bool relationshipPersonIsAtLeastAChild =
-        ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
+        _ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
       currentDay: currentDay,
       dayOfBirth: relationshipPerson.dayOfBirth,
       age: LifeStage.child,

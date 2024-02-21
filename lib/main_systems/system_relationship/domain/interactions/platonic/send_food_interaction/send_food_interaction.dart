@@ -20,11 +20,13 @@ class SendFoodInteraction extends RelationshipInteraction {
   final RelationshipUsecases _relationshipUsecases;
   final JournalUsecases _journalUsecases;
   final ShopAndStorageUsecases _shopAndStorageUsecases;
+  final AgeUsecases _ageUsecases;
 
   SendFoodInteraction(
     this._relationshipUsecases,
     this._journalUsecases,
     this._shopAndStorageUsecases,
+    this._ageUsecases,
   );
 
   @override
@@ -38,7 +40,6 @@ class SendFoodInteraction extends RelationshipInteraction {
 
   @override
   bool isAvailable({
-    required AgeUsecases ageUsecases,
     required int currentDay,
     required Person currentPlayer,
     required Person relationshipPerson,
@@ -50,13 +51,13 @@ class SendFoodInteraction extends RelationshipInteraction {
     //the player and relationship person must NOT be living together
 
     final bool playerIsAtLeastAChild =
-        ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
+        _ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
       currentDay: currentDay,
       dayOfBirth: currentPlayer.dayOfBirth,
       age: LifeStage.child,
     );
     final bool relationshipPersonIsAtLeastAChild =
-        ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
+        _ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
       currentDay: currentDay,
       dayOfBirth: relationshipPerson.dayOfBirth,
       age: LifeStage.child,

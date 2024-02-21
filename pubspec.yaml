@@ -50,10 +50,10 @@ dependencies:
   dropdown_button2: ^1.8.2
   #drift db
   drift: ^2.12.0
+  drift_sqflite: ^2.0.1
   sqlite3_flutter_libs: ^0.5.17
   path_provider: ^2.0.0
   drift_db_viewer: ^2.0.0
-  get_it: ^7.6.0
   #currency formatter for textfield
   currency_text_input_formatter: ^2.1.10
   mockito: ^5.4.2
@@ -73,6 +73,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+  #analyzer
+  analyzer: ^5.13.0
 
   # build runner
   build_runner: ^2.0.0
@@ -132,7 +135,7 @@ flutter:
           weight: 700
         - asset: assets/fonts/Ubuntu/Ubuntu-BoldItalic.ttf
           weight: 700
-          style: italic 
+          style: italic
         - asset: assets/fonts/Ubuntu/Ubuntu-Light.ttf
           weight: 300
         - asset: assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf
@@ -143,7 +146,7 @@ flutter:
         - asset: assets/fonts/Ubuntu/Ubuntu-MediumItalic.ttf
           weight: 500
           style: italic
-        
+
     - family: Beliber
       fonts:
         - asset: assets/fonts/Beliber/BeliberRegular.otf
@@ -175,7 +178,7 @@ flutter:
           weight: 900
           style: italic
 
-          
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

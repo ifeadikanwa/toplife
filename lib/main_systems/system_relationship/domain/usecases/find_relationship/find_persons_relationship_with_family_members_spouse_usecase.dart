@@ -3,7 +3,7 @@ import 'package:toplife/main_systems/system_relationship/constants/platonic_rela
 class FindPersonsRelationshipWithFamilyMembersSpouseUsecase {
   //even though we take in a list of relationships, we only return one because spouse can only have one.
   //the relationships types that have their spouses recognized can never co-exist so we never end up with multiple.
-  //example, your birthparent cannot also be your sister because blood related family cannot procreate
+  //example, your birth parent cannot also be your sister because blood related family cannot procreate
   PlatonicRelationshipType? execute({
     required List<PlatonicRelationshipType>
         familyMemberPlatonicRelationshipTypes,

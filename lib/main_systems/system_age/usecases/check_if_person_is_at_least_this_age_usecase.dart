@@ -1,12 +1,12 @@
-import 'package:toplife/main_systems/system_age/age.dart';
+import 'package:toplife/main_systems/system_age/age_constants.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
-import 'package:toplife/main_systems/system_age/usecases/get_days_lived_usecase.dart';
+import 'package:toplife/main_systems/system_age/usecases/get_persons_days_lived_usecase.dart';
 
 class CheckIfPersonIsAtLeastThisAgeUsecase {
-  final GetDaysLivedUsecase _getDaysLivedUsecase;
+  final GetPersonsDaysLivedUsecase _getPersonsDaysLivedUsecase;
 
   const CheckIfPersonIsAtLeastThisAgeUsecase(
-    this._getDaysLivedUsecase,
+    this._getPersonsDaysLivedUsecase,
   );
 
   bool execute({
@@ -14,26 +14,26 @@ class CheckIfPersonIsAtLeastThisAgeUsecase {
     required int dayOfBirth,
     required LifeStage age,
   }) {
-    final int daysLived = _getDaysLivedUsecase.execute(
+    final int daysLived = _getPersonsDaysLivedUsecase.execute(
       dayOfBirth: dayOfBirth,
       currentDay: currentDay,
     );
 
     switch (age) {
       case LifeStage.baby:
-        return daysLived > 0;
+        return daysLived >= 0;
       case LifeStage.toddler:
-        return daysLived >= Age.newToddlerDaysLived;
+        return daysLived >= AgeConstants.newToddlerDaysLived;
       case LifeStage.child:
-        return daysLived >= Age.newChildDaysLived;
+        return daysLived >= AgeConstants.newChildDaysLived;
       case LifeStage.teen:
-        return daysLived >= Age.newTeenDaysLived;
+        return daysLived >= AgeConstants.newTeenDaysLived;
       case LifeStage.youngAdult:
-        return daysLived >= Age.newYoungAdultDaysLived;
+        return daysLived >= AgeConstants.newYoungAdultDaysLived;
       case LifeStage.adult:
-        return daysLived >= Age.newAdultDaysLived;
+        return daysLived >= AgeConstants.newAdultDaysLived;
       case LifeStage.elder:
-        return daysLived >= Age.newElderDaysLived;
+        return daysLived >= AgeConstants.newElderDaysLived;
     }
   }
 }

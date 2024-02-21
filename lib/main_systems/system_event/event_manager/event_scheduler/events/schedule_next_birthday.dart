@@ -34,7 +34,6 @@ class ScheduleNextBirthday {
         eventType: EventType.birthday.name,
         eventDay: dayOfNextBirthday,
         mainPersonId: mainPersonID,
-        journalEntryOnly: true,
         performed: false,
       );
 

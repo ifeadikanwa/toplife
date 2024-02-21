@@ -17,7 +17,6 @@ class ActivitiesTestList {
     eventType: EventType.birthdayParty.name,
     eventDay: 34,
     mainPersonId: 2,
-    journalEntryOnly: false,
     performed: false,
   );
   static final testPerson = Person(

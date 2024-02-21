@@ -6,6 +6,8 @@ import 'package:toplife/core/common_states/dependencies/person/person_dependenci
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/create/create_or_update_death_record_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_death_record_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_living_people_in_specific_lifestage_and_country_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/get/get_living_people_in_specific_lifestage_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_available_piercing_locations_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_person_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_piercing_from_shop_usecase.dart';
@@ -17,7 +19,9 @@ import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplet
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_deplete_stats_flag/toggle_deplete_stats_flag_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/add_money_to_player_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_money/check_if_player_can_afford_it_usecase.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_person_with_attributes_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_given_person_with_attributes_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_people_from_scratch_with_attributes_usecase.dart';
+import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/create_person_from_scratch_with_attributes_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/delete_person_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_baby_traits_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_person/generate_person_appearance_from_parents_usecase.dart';
@@ -97,21 +101,35 @@ class PersonUsecases {
   GeneratePersonPiercingsUsecase get generatePersonPiercingsUsecase =>
       GeneratePersonPiercingsUsecase();
 
-  CreatePersonWithAttributesUsecase get createPersonWithAttributesUsecase =>
-      CreatePersonWithAttributesUsecase(
-        personRepositories: _ref.read(personRepositoriesProvider),
-        ageUsecases: _ref.read(ageUsecasesProvider),
-        generatePersonalityUsecase: generatePersonalityUsecase,
-        generateStatsUsecase: generateStatsUsecase,
-        generateStanceUsecase: generateStanceUsecase,
-        generateBabyTraitsUsecase: generateBabyTraitsUsecase,
-        generatePersonAppearanceFromParentsUsecase:
-            generatePersonAppearanceFromParentsUsecase,
-        generatePersonAppearanceFromScratchUsecase:
-            generatePersonAppearanceFromScratchUsecase,
-        generatePersonTattooUsecase: generatePersonTattooUsecase,
-        generatePersonPiercingsUsecase: generatePersonPiercingsUsecase,
-      );
+  CreateGivenPersonWithAttributesUsecase
+      get createGivenPersonWithAttributesUsecase =>
+          CreateGivenPersonWithAttributesUsecase(
+            personRepositories: _ref.read(personRepositoriesProvider),
+            ageUsecases: _ref.read(ageUsecasesProvider),
+            generatePersonalityUsecase: generatePersonalityUsecase,
+            generateStatsUsecase: generateStatsUsecase,
+            generateStanceUsecase: generateStanceUsecase,
+            generateBabyTraitsUsecase: generateBabyTraitsUsecase,
+            generatePersonAppearanceFromParentsUsecase:
+                generatePersonAppearanceFromParentsUsecase,
+            generatePersonAppearanceFromScratchUsecase:
+                generatePersonAppearanceFromScratchUsecase,
+            generatePersonTattooUsecase: generatePersonTattooUsecase,
+            generatePersonPiercingsUsecase: generatePersonPiercingsUsecase,
+          );
+
+  CreatePersonFromScratchWithAttributesUsecase
+      get createPersonFromScratchWithAttributesUsecase =>
+          CreatePersonFromScratchWithAttributesUsecase(
+            generateAPersonUsecase,
+            createGivenPersonWithAttributesUsecase,
+          );
+
+  CreatePeopleFromScratchWithAttributesUsecase
+      get createPeopleFromScratchWithAttributesUsecase =>
+          CreatePeopleFromScratchWithAttributesUsecase(
+            createPersonFromScratchWithAttributesUsecase,
+          );
 
   GetPersonAvailablePiercingLocationsUsecase
       get getPersonAvailablePiercingLocationsUsecase =>
@@ -392,4 +410,18 @@ class PersonUsecases {
   GetDeathRecordUsecase get getDeathRecordUsecase => GetDeathRecordUsecase(
         _ref.read(personRepositoriesProvider).deathRecordRepositoryImpl,
       );
+
+  GetLivingPeopleInSpecificLifeStageUsecase
+      get getLivingPeopleInSpecificLifeStageUsecase =>
+          GetLivingPeopleInSpecificLifeStageUsecase(
+            _ref.read(ageUsecasesProvider),
+            _ref.read(personRepositoriesProvider).personRepositoryImpl,
+          );
+
+  GetLivingPeopleInSpecificLifeStageAndCountryUsecase
+      get getLivingPeopleInSpecificLifeStageAndCountryUsecase =>
+          GetLivingPeopleInSpecificLifeStageAndCountryUsecase(
+            _ref.read(ageUsecasesProvider),
+            _ref.read(personRepositoriesProvider).personRepositoryImpl,
+          );
 }

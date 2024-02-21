@@ -1,13 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/main_systems/system_event/constants/event_category.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 
 void main() {
   group("Event type", () {
-    test(
-        "unmovable autonomous events contains correct event types",
-        () => expect(unmovableAutonomousEvents, [
-              EventType.death,
-            ]));
+    //duration
+
     test(
       "birthday event duration is 0",
       () {
@@ -78,7 +76,7 @@ void main() {
       },
     );
 
-//presentation name
+    //presentation name
 
     test(
       "birthday event presentation name is ",
@@ -151,37 +149,84 @@ void main() {
       },
     );
 
-    //Autonomous dialog event
-
-    test("death is an autonomous dialog event",
-        () => expect(EventType.death.isAutonomousDialogEvent, true));
+    //event category
 
     test(
-        "askForSchoolTuition is an autonomous dialog event",
-        () => expect(
-            EventType.askForSchoolTuition.isAutonomousDialogEvent, true));
-    test("birthdayParty is an autonomous dialog event",
-        () => expect(EventType.birthdayParty.isAutonomousDialogEvent, false));
+      "birthday event category is unmovableAutonomousEvent",
+      () {
+        expect(EventType.birthday.eventCategory,
+            EventCategory.unmovableAutonomousEvent);
+      },
+    );
 
-    test("funeral is an autonomous dialog event",
-        () => expect(EventType.funeral.isAutonomousDialogEvent, false));
+    test(
+      "birthday party event category is attendableEvent",
+      () {
+        expect(EventType.birthdayParty.eventCategory,
+            EventCategory.attendableEvent);
+      },
+    );
 
-    test("wedding is an autonomous dialog event",
-        () => expect(EventType.wedding.isAutonomousDialogEvent, false));
+    test(
+      "death event category is unmovableAutonomousEvent",
+      () {
+        expect(EventType.death.eventCategory,
+            EventCategory.unmovableAutonomousEvent);
+      },
+    );
 
-    test("graduation is an autonomous dialog event",
-        () => expect(EventType.graduation.isAutonomousDialogEvent, false));
+    test(
+      "funeral event category is attendableEvent",
+      () {
+        expect(EventType.funeral.eventCategory, EventCategory.attendableEvent);
+      },
+    );
 
-    test("birthday is an autonomous dialog event",
-        () => expect(EventType.birthday.isAutonomousDialogEvent, false));
+    test(
+      "school admission event category is journalOnlyEvent",
+      () {
+        expect(EventType.schoolAdmission.eventCategory,
+            EventCategory.journalOnlyEvent);
+      },
+    );
 
-    test("engagement is an autonomous dialog event",
-        () => expect(EventType.engagement.isAutonomousDialogEvent, false));
+    test(
+      "engagement event category is journalOnlyEvent",
+      () {
+        expect(
+            EventType.engagement.eventCategory, EventCategory.journalOnlyEvent);
+      },
+    );
 
-    test("employment is an autonomous dialog event",
-        () => expect(EventType.employment.isAutonomousDialogEvent, false));
+    test(
+      "wedding event category is attendableEvent",
+      () {
+        expect(EventType.wedding.eventCategory, EventCategory.attendableEvent);
+      },
+    );
 
-    test("schoolAdmission is an autonomous dialog event",
-        () => expect(EventType.schoolAdmission.isAutonomousDialogEvent, false));
+    test(
+      "employment event category is journalOnlyEvent",
+      () {
+        expect(
+            EventType.employment.eventCategory, EventCategory.journalOnlyEvent);
+      },
+    );
+
+    test(
+      "graduation event category is attendableEvent",
+      () {
+        expect(
+            EventType.graduation.eventCategory, EventCategory.attendableEvent);
+      },
+    );
+
+    test(
+      "askForSchoolTuition event category is movableAutonomousEvent",
+      () {
+        expect(EventType.askForSchoolTuition.eventCategory,
+            EventCategory.movableAutonomousEvent);
+      },
+    );
   });
 }

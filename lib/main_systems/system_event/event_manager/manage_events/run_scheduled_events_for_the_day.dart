@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_event/constants/event_category.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/manage_events/run_event.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
 
 class RunScheduledEventsForTheDay {
   final EventRepository _eventRepository;
@@ -33,8 +35,15 @@ class RunScheduledEventsForTheDay {
     );
 
     //get all the journal only events
+    final List<String> allGameJournalOnlyEventTypes =
+        EventUtil.getEventTypeNamesInCategory(EventCategory.journalOnlyEvent);
+
     final List<Event> journalOnlyEvents = unperformedEventsForTheDay
-        .where((event) => event.journalEntryOnly == true)
+        .where(
+          (event) => allGameJournalOnlyEventTypes.contains(
+            event.eventType,
+          ),
+        )
         .toList();
 
     //run them all
@@ -48,16 +57,17 @@ class RunScheduledEventsForTheDay {
       }
     }
 
-    //get all the untimed non-journal events
-    final List<Event> untimedNonJournalEvents = unperformedEventsForTheDay
+    //get all the untimed events
+    //we want to catch any strays, events that aren't journal only but also have not time set at all
+    final List<Event> untimedEvents = unperformedEventsForTheDay
         .where((event) =>
-            event.journalEntryOnly == false &&
+            !(journalOnlyEvents.contains(event)) &&
             event.startTime == null &&
             event.endTime == null)
         .toList();
 
     //run them all
-    for (var event in untimedNonJournalEvents) {
+    for (var event in untimedEvents) {
       if (context.mounted) {
         await _runEvent.execute(
           mainPlayerID: playerID,
@@ -67,17 +77,17 @@ class RunScheduledEventsForTheDay {
       }
     }
 
-    //get all the start time before or equal to current time but no end time journal events
-    final List<Event> startTimedNonJournalEvents = unperformedEventsForTheDay
+    //get all the start time before or equal to current time but no end time events
+    //I set start time on dialog events to space them out so there is a better chance they don't overwhelm the player
+    final List<Event> startTimedEvents = unperformedEventsForTheDay
         .where((event) =>
-            event.journalEntryOnly == false &&
             event.startTime != null &&
             event.startTime! <= currentTimeInMinutes &&
             event.endTime == null)
         .toList();
 
     //run them all
-    for (var event in startTimedNonJournalEvents) {
+    for (var event in startTimedEvents) {
       if (context.mounted) {
         await _runEvent.execute(
           mainPlayerID: playerID,

@@ -10,7 +10,6 @@ void main() {
       eventType: "birthday",
       eventDay: 34,
       mainPersonId: 2,
-      journalEntryOnly: false,
       performed: false,
       startTime: null,
       endTime: null,

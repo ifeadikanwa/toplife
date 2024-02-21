@@ -18,10 +18,12 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/relatio
 class TormentInteraction extends RelationshipInteraction {
   final RelationshipUsecases _relationshipUsecases;
   final JournalUsecases _journalUsecases;
+  final AgeUsecases _ageUsecases;
 
   TormentInteraction(
     this._relationshipUsecases,
     this._journalUsecases,
+    this._ageUsecases,
   );
 
   @override
@@ -35,7 +37,6 @@ class TormentInteraction extends RelationshipInteraction {
 
   @override
   bool isAvailable({
-    required AgeUsecases ageUsecases,
     required int currentDay,
     required Person currentPlayer,
     required Person relationshipPerson,
@@ -47,13 +48,13 @@ class TormentInteraction extends RelationshipInteraction {
     //relationshipPerson is at least a child
 
     final bool playerIsAtLeastAChild =
-        ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
+        _ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
       currentDay: currentDay,
       dayOfBirth: currentPlayer.dayOfBirth,
       age: LifeStage.child,
     );
     final bool relationshipPersonIsAtLeastAChild =
-        ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
+        _ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
       currentDay: currentDay,
       dayOfBirth: relationshipPerson.dayOfBirth,
       age: LifeStage.child,

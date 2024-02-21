@@ -7,13 +7,13 @@ void main() {
       expect(defaultMinValue, 10);
     });
 
-    test("defaultMaxValue is 70", () {
-      expect(defaultMaxValue, 70);
+    test("defaultMaxValue is 100", () {
+      expect(defaultMaxValue, 100);
     });
 
-    test("getValidRandomStatsValue returns a value between 10 and 70", () {
+    test("getValidRandomStatsValue returns a value between 10 and 100", () {
       final value = getValidRandomStatsValue();
-      assert(value <= 70 && value >= 10);
+      assert(value <= 100 && value >= 10);
     });
 
     test(

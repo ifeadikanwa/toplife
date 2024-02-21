@@ -19,7 +19,6 @@ class InteractionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //todo: needs to display duration
     return TimedActionListItem(
       icon: icon,
       actionTitle: interactionTitle,

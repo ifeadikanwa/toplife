@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
@@ -26,9 +27,14 @@ class BirthdayEvent {
     this._eventRepository,
   );
 
-  //the birthday event is a journal only event.
-  //It is meant to notify you about peoples birthdays including yours
-  Future<void> execute(int mainPlayerID, Event event) async {
+  //the birthday event is NOT a journal only event
+  //because It runs age up actions and that could potentially trigger dialogs
+  //It is meant to notify the player about peoples birthdays including theirs
+  Future<void> execute(
+    BuildContext context,
+    int mainPlayerID,
+    Event event,
+  ) async {
     //get the birthday person
     final Person? birthdayPerson = await _personUsecases.getPersonUsecase
         .execute(personID: event.mainPersonId);
@@ -58,6 +64,16 @@ class BirthdayEvent {
       await _eventRepository.updateEvent(
         event.copyWith(performed: true),
       );
+
+      //run the age up actions
+      if (context.mounted) {
+        await _ageUsecases.ageUpCharacterActionsUsecase.execute(
+          context: context,
+          characterID: event.mainPersonId,
+          currentPlayerID: mainPlayerID,
+          currentDay: event.eventDay,
+        );
+      }
     }
   }
 
@@ -67,7 +83,7 @@ class BirthdayEvent {
     Event event,
   ) async {
     //get birthday person age
-    final Age age = _ageUsecases.getPersonAgeUsecase.execute(
+    final Age age = _ageUsecases.getPersonsAgeUsecase.execute(
       dayOfBirth: birthdayPerson.dayOfBirth,
       currentDay: event.eventDay,
     );

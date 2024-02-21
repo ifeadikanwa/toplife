@@ -6133,15 +6133,6 @@ class $EventTableTable extends EventTable
   late final GeneratedColumn<int> endTime = GeneratedColumn<int>(
       'end_time', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _journalEntryOnlyMeta =
-      const VerificationMeta('journalEntryOnly');
-  @override
-  late final GeneratedColumn<bool> journalEntryOnly = GeneratedColumn<bool>(
-      'journal_entry_only', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("journal_entry_only" IN (0, 1))'));
   static const VerificationMeta _performedMeta =
       const VerificationMeta('performed');
   @override
@@ -6161,7 +6152,6 @@ class $EventTableTable extends EventTable
         otherPersonId,
         startTime,
         endTime,
-        journalEntryOnly,
         performed
       ];
   @override
@@ -6217,14 +6207,6 @@ class $EventTableTable extends EventTable
       context.handle(_endTimeMeta,
           endTime.isAcceptableOrUnknown(data['end_time']!, _endTimeMeta));
     }
-    if (data.containsKey('journal_entry_only')) {
-      context.handle(
-          _journalEntryOnlyMeta,
-          journalEntryOnly.isAcceptableOrUnknown(
-              data['journal_entry_only']!, _journalEntryOnlyMeta));
-    } else if (isInserting) {
-      context.missing(_journalEntryOnlyMeta);
-    }
     if (data.containsKey('performed')) {
       context.handle(_performedMeta,
           performed.isAcceptableOrUnknown(data['performed']!, _performedMeta));
@@ -6256,8 +6238,6 @@ class $EventTableTable extends EventTable
           .read(DriftSqlType.int, data['${effectivePrefix}start_time']),
       endTime: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}end_time']),
-      journalEntryOnly: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool, data['${effectivePrefix}journal_entry_only'])!,
       performed: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}performed'])!,
     );
@@ -6278,7 +6258,6 @@ class Event extends DataClass implements Insertable<Event> {
   final int? otherPersonId;
   final int? startTime;
   final int? endTime;
-  final bool journalEntryOnly;
   final bool performed;
   const Event(
       {required this.id,
@@ -6289,7 +6268,6 @@ class Event extends DataClass implements Insertable<Event> {
       this.otherPersonId,
       this.startTime,
       this.endTime,
-      required this.journalEntryOnly,
       required this.performed});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -6308,7 +6286,6 @@ class Event extends DataClass implements Insertable<Event> {
     if (!nullToAbsent || endTime != null) {
       map['end_time'] = Variable<int>(endTime);
     }
-    map['journal_entry_only'] = Variable<bool>(journalEntryOnly);
     map['performed'] = Variable<bool>(performed);
     return map;
   }
@@ -6329,7 +6306,6 @@ class Event extends DataClass implements Insertable<Event> {
       endTime: endTime == null && nullToAbsent
           ? const Value.absent()
           : Value(endTime),
-      journalEntryOnly: Value(journalEntryOnly),
       performed: Value(performed),
     );
   }
@@ -6346,7 +6322,6 @@ class Event extends DataClass implements Insertable<Event> {
       otherPersonId: serializer.fromJson<int?>(json['otherPersonId']),
       startTime: serializer.fromJson<int?>(json['startTime']),
       endTime: serializer.fromJson<int?>(json['endTime']),
-      journalEntryOnly: serializer.fromJson<bool>(json['journalEntryOnly']),
       performed: serializer.fromJson<bool>(json['performed']),
     );
   }
@@ -6362,7 +6337,6 @@ class Event extends DataClass implements Insertable<Event> {
       'otherPersonId': serializer.toJson<int?>(otherPersonId),
       'startTime': serializer.toJson<int?>(startTime),
       'endTime': serializer.toJson<int?>(endTime),
-      'journalEntryOnly': serializer.toJson<bool>(journalEntryOnly),
       'performed': serializer.toJson<bool>(performed),
     };
   }
@@ -6376,7 +6350,6 @@ class Event extends DataClass implements Insertable<Event> {
           Value<int?> otherPersonId = const Value.absent(),
           Value<int?> startTime = const Value.absent(),
           Value<int?> endTime = const Value.absent(),
-          bool? journalEntryOnly,
           bool? performed}) =>
       Event(
         id: id ?? this.id,
@@ -6388,7 +6361,6 @@ class Event extends DataClass implements Insertable<Event> {
             otherPersonId.present ? otherPersonId.value : this.otherPersonId,
         startTime: startTime.present ? startTime.value : this.startTime,
         endTime: endTime.present ? endTime.value : this.endTime,
-        journalEntryOnly: journalEntryOnly ?? this.journalEntryOnly,
         performed: performed ?? this.performed,
       );
   @override
@@ -6402,7 +6374,6 @@ class Event extends DataClass implements Insertable<Event> {
           ..write('otherPersonId: $otherPersonId, ')
           ..write('startTime: $startTime, ')
           ..write('endTime: $endTime, ')
-          ..write('journalEntryOnly: $journalEntryOnly, ')
           ..write('performed: $performed')
           ..write(')'))
         .toString();
@@ -6410,7 +6381,7 @@ class Event extends DataClass implements Insertable<Event> {
 
   @override
   int get hashCode => Object.hash(id, gameId, eventType, eventDay, mainPersonId,
-      otherPersonId, startTime, endTime, journalEntryOnly, performed);
+      otherPersonId, startTime, endTime, performed);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -6423,7 +6394,6 @@ class Event extends DataClass implements Insertable<Event> {
           other.otherPersonId == this.otherPersonId &&
           other.startTime == this.startTime &&
           other.endTime == this.endTime &&
-          other.journalEntryOnly == this.journalEntryOnly &&
           other.performed == this.performed);
 }
 
@@ -6436,7 +6406,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
   final Value<int?> otherPersonId;
   final Value<int?> startTime;
   final Value<int?> endTime;
-  final Value<bool> journalEntryOnly;
   final Value<bool> performed;
   const EventTableCompanion({
     this.id = const Value.absent(),
@@ -6447,7 +6416,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
     this.otherPersonId = const Value.absent(),
     this.startTime = const Value.absent(),
     this.endTime = const Value.absent(),
-    this.journalEntryOnly = const Value.absent(),
     this.performed = const Value.absent(),
   });
   EventTableCompanion.insert({
@@ -6459,13 +6427,11 @@ class EventTableCompanion extends UpdateCompanion<Event> {
     this.otherPersonId = const Value.absent(),
     this.startTime = const Value.absent(),
     this.endTime = const Value.absent(),
-    required bool journalEntryOnly,
     required bool performed,
   })  : gameId = Value(gameId),
         eventType = Value(eventType),
         eventDay = Value(eventDay),
         mainPersonId = Value(mainPersonId),
-        journalEntryOnly = Value(journalEntryOnly),
         performed = Value(performed);
   static Insertable<Event> custom({
     Expression<int>? id,
@@ -6476,7 +6442,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
     Expression<int>? otherPersonId,
     Expression<int>? startTime,
     Expression<int>? endTime,
-    Expression<bool>? journalEntryOnly,
     Expression<bool>? performed,
   }) {
     return RawValuesInsertable({
@@ -6488,7 +6453,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
       if (otherPersonId != null) 'other_person_id': otherPersonId,
       if (startTime != null) 'start_time': startTime,
       if (endTime != null) 'end_time': endTime,
-      if (journalEntryOnly != null) 'journal_entry_only': journalEntryOnly,
       if (performed != null) 'performed': performed,
     });
   }
@@ -6502,7 +6466,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
       Value<int?>? otherPersonId,
       Value<int?>? startTime,
       Value<int?>? endTime,
-      Value<bool>? journalEntryOnly,
       Value<bool>? performed}) {
     return EventTableCompanion(
       id: id ?? this.id,
@@ -6513,7 +6476,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
       otherPersonId: otherPersonId ?? this.otherPersonId,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
-      journalEntryOnly: journalEntryOnly ?? this.journalEntryOnly,
       performed: performed ?? this.performed,
     );
   }
@@ -6545,9 +6507,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
     if (endTime.present) {
       map['end_time'] = Variable<int>(endTime.value);
     }
-    if (journalEntryOnly.present) {
-      map['journal_entry_only'] = Variable<bool>(journalEntryOnly.value);
-    }
     if (performed.present) {
       map['performed'] = Variable<bool>(performed.value);
     }
@@ -6565,7 +6524,6 @@ class EventTableCompanion extends UpdateCompanion<Event> {
           ..write('otherPersonId: $otherPersonId, ')
           ..write('startTime: $startTime, ')
           ..write('endTime: $endTime, ')
-          ..write('journalEntryOnly: $journalEntryOnly, ')
           ..write('performed: $performed')
           ..write(')'))
         .toString();
@@ -11735,189 +11693,29 @@ class $SchoolTableTable extends SchoolTable
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _mainPersonIdMeta =
-      const VerificationMeta('mainPersonId');
-  @override
-  late final GeneratedColumn<int> mainPersonId = GeneratedColumn<int>(
-      'main_person_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
-  static const VerificationMeta _degreeIdMeta =
-      const VerificationMeta('degreeId');
-  @override
-  late final GeneratedColumn<int> degreeId = GeneratedColumn<int>(
-      'degree_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES degree (id) ON UPDATE CASCADE ON DELETE CASCADE'));
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _gradesMeta = const VerificationMeta('grades');
+  static const VerificationMeta _stateMeta = const VerificationMeta('state');
   @override
-  late final GeneratedColumn<int> grades = GeneratedColumn<int>(
-      'grades', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _attendanceMeta =
-      const VerificationMeta('attendance');
-  @override
-  late final GeneratedColumn<int> attendance = GeneratedColumn<int>(
-      'attendance', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _projectMeta =
-      const VerificationMeta('project');
-  @override
-  late final GeneratedColumn<int> project = GeneratedColumn<int>(
-      'project', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _examMeta = const VerificationMeta('exam');
-  @override
-  late final GeneratedColumn<int> exam = GeneratedColumn<int>(
-      'exam', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _classStartTimeMeta =
-      const VerificationMeta('classStartTime');
-  @override
-  late final GeneratedColumn<int> classStartTime = GeneratedColumn<int>(
-      'class_start_time', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _classEndTimeMeta =
-      const VerificationMeta('classEndTime');
-  @override
-  late final GeneratedColumn<int> classEndTime = GeneratedColumn<int>(
-      'class_end_time', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _totalSemesterNumberMeta =
-      const VerificationMeta('totalSemesterNumber');
-  @override
-  late final GeneratedColumn<int> totalSemesterNumber = GeneratedColumn<int>(
-      'total_semester_number', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentSemesterNumberMeta =
-      const VerificationMeta('currentSemesterNumber');
-  @override
-  late final GeneratedColumn<int> currentSemesterNumber = GeneratedColumn<int>(
-      'current_semester_number', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _schoolTypeMeta =
-      const VerificationMeta('schoolType');
-  @override
-  late final GeneratedColumn<String> schoolType = GeneratedColumn<String>(
-      'school_type', aliasedName, false,
+  late final GeneratedColumn<String> state = GeneratedColumn<String>(
+      'state', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _semesterStartDayMeta =
-      const VerificationMeta('semesterStartDay');
+  static const VerificationMeta _countryMeta =
+      const VerificationMeta('country');
   @override
-  late final GeneratedColumn<int> semesterStartDay = GeneratedColumn<int>(
-      'semester_start_day', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _currentDayInSemesterMeta =
-      const VerificationMeta('currentDayInSemester');
-  @override
-  late final GeneratedColumn<int> currentDayInSemester = GeneratedColumn<int>(
-      'current_day_in_semester', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _degreeLevelMeta =
-      const VerificationMeta('degreeLevel');
-  @override
-  late final GeneratedColumn<String> degreeLevel = GeneratedColumn<String>(
-      'degree_level', aliasedName, false,
+  late final GeneratedColumn<String> country = GeneratedColumn<String>(
+      'country', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _schoolFeesPerSemesterMeta =
-      const VerificationMeta('schoolFeesPerSemester');
+  static const VerificationMeta _tierMeta = const VerificationMeta('tier');
   @override
-  late final GeneratedColumn<int> schoolFeesPerSemester = GeneratedColumn<int>(
-      'school_fees_per_semester', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _scholarshipPercentageMeta =
-      const VerificationMeta('scholarshipPercentage');
+  late final GeneratedColumn<String> tier = GeneratedColumn<String>(
+      'tier', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  late final GeneratedColumn<int> scholarshipPercentage = GeneratedColumn<int>(
-      'scholarship_percentage', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _totalLoanAmountMeta =
-      const VerificationMeta('totalLoanAmount');
-  @override
-  late final GeneratedColumn<int> totalLoanAmount = GeneratedColumn<int>(
-      'total_loan_amount', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _loanProcessedMeta =
-      const VerificationMeta('loanProcessed');
-  @override
-  late final GeneratedColumn<bool> loanProcessed = GeneratedColumn<bool>(
-      'loan_processed', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("loan_processed" IN (0, 1))'));
-  static const VerificationMeta _hasTakenLeaveMeta =
-      const VerificationMeta('hasTakenLeave');
-  @override
-  late final GeneratedColumn<bool> hasTakenLeave = GeneratedColumn<bool>(
-      'has_taken_leave', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("has_taken_leave" IN (0, 1))'));
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
-  static const VerificationMeta _isCompletedMeta =
-      const VerificationMeta('isCompleted');
-  @override
-  late final GeneratedColumn<bool> isCompleted = GeneratedColumn<bool>(
-      'is_completed', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_completed" IN (0, 1))'));
-  static const VerificationMeta _wasExpelledMeta =
-      const VerificationMeta('wasExpelled');
-  @override
-  late final GeneratedColumn<bool> wasExpelled = GeneratedColumn<bool>(
-      'was_expelled', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("was_expelled" IN (0, 1))'));
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        mainPersonId,
-        degreeId,
-        name,
-        grades,
-        attendance,
-        project,
-        exam,
-        classStartTime,
-        classEndTime,
-        totalSemesterNumber,
-        currentSemesterNumber,
-        schoolType,
-        semesterStartDay,
-        currentDayInSemester,
-        degreeLevel,
-        schoolFeesPerSemester,
-        scholarshipPercentage,
-        totalLoanAmount,
-        loanProcessed,
-        hasTakenLeave,
-        isActive,
-        isCompleted,
-        wasExpelled
-      ];
+  List<GeneratedColumn> get $columns => [id, name, state, country, tier];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -11931,177 +11729,29 @@ class $SchoolTableTable extends SchoolTable
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('main_person_id')) {
-      context.handle(
-          _mainPersonIdMeta,
-          mainPersonId.isAcceptableOrUnknown(
-              data['main_person_id']!, _mainPersonIdMeta));
-    } else if (isInserting) {
-      context.missing(_mainPersonIdMeta);
-    }
-    if (data.containsKey('degree_id')) {
-      context.handle(_degreeIdMeta,
-          degreeId.isAcceptableOrUnknown(data['degree_id']!, _degreeIdMeta));
-    } else if (isInserting) {
-      context.missing(_degreeIdMeta);
-    }
     if (data.containsKey('name')) {
       context.handle(
           _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
-    if (data.containsKey('grades')) {
-      context.handle(_gradesMeta,
-          grades.isAcceptableOrUnknown(data['grades']!, _gradesMeta));
-    } else if (isInserting) {
-      context.missing(_gradesMeta);
-    }
-    if (data.containsKey('attendance')) {
+    if (data.containsKey('state')) {
       context.handle(
-          _attendanceMeta,
-          attendance.isAcceptableOrUnknown(
-              data['attendance']!, _attendanceMeta));
+          _stateMeta, state.isAcceptableOrUnknown(data['state']!, _stateMeta));
     } else if (isInserting) {
-      context.missing(_attendanceMeta);
+      context.missing(_stateMeta);
     }
-    if (data.containsKey('project')) {
-      context.handle(_projectMeta,
-          project.isAcceptableOrUnknown(data['project']!, _projectMeta));
+    if (data.containsKey('country')) {
+      context.handle(_countryMeta,
+          country.isAcceptableOrUnknown(data['country']!, _countryMeta));
     } else if (isInserting) {
-      context.missing(_projectMeta);
+      context.missing(_countryMeta);
     }
-    if (data.containsKey('exam')) {
+    if (data.containsKey('tier')) {
       context.handle(
-          _examMeta, exam.isAcceptableOrUnknown(data['exam']!, _examMeta));
+          _tierMeta, tier.isAcceptableOrUnknown(data['tier']!, _tierMeta));
     } else if (isInserting) {
-      context.missing(_examMeta);
-    }
-    if (data.containsKey('class_start_time')) {
-      context.handle(
-          _classStartTimeMeta,
-          classStartTime.isAcceptableOrUnknown(
-              data['class_start_time']!, _classStartTimeMeta));
-    } else if (isInserting) {
-      context.missing(_classStartTimeMeta);
-    }
-    if (data.containsKey('class_end_time')) {
-      context.handle(
-          _classEndTimeMeta,
-          classEndTime.isAcceptableOrUnknown(
-              data['class_end_time']!, _classEndTimeMeta));
-    } else if (isInserting) {
-      context.missing(_classEndTimeMeta);
-    }
-    if (data.containsKey('total_semester_number')) {
-      context.handle(
-          _totalSemesterNumberMeta,
-          totalSemesterNumber.isAcceptableOrUnknown(
-              data['total_semester_number']!, _totalSemesterNumberMeta));
-    } else if (isInserting) {
-      context.missing(_totalSemesterNumberMeta);
-    }
-    if (data.containsKey('current_semester_number')) {
-      context.handle(
-          _currentSemesterNumberMeta,
-          currentSemesterNumber.isAcceptableOrUnknown(
-              data['current_semester_number']!, _currentSemesterNumberMeta));
-    } else if (isInserting) {
-      context.missing(_currentSemesterNumberMeta);
-    }
-    if (data.containsKey('school_type')) {
-      context.handle(
-          _schoolTypeMeta,
-          schoolType.isAcceptableOrUnknown(
-              data['school_type']!, _schoolTypeMeta));
-    } else if (isInserting) {
-      context.missing(_schoolTypeMeta);
-    }
-    if (data.containsKey('semester_start_day')) {
-      context.handle(
-          _semesterStartDayMeta,
-          semesterStartDay.isAcceptableOrUnknown(
-              data['semester_start_day']!, _semesterStartDayMeta));
-    } else if (isInserting) {
-      context.missing(_semesterStartDayMeta);
-    }
-    if (data.containsKey('current_day_in_semester')) {
-      context.handle(
-          _currentDayInSemesterMeta,
-          currentDayInSemester.isAcceptableOrUnknown(
-              data['current_day_in_semester']!, _currentDayInSemesterMeta));
-    } else if (isInserting) {
-      context.missing(_currentDayInSemesterMeta);
-    }
-    if (data.containsKey('degree_level')) {
-      context.handle(
-          _degreeLevelMeta,
-          degreeLevel.isAcceptableOrUnknown(
-              data['degree_level']!, _degreeLevelMeta));
-    } else if (isInserting) {
-      context.missing(_degreeLevelMeta);
-    }
-    if (data.containsKey('school_fees_per_semester')) {
-      context.handle(
-          _schoolFeesPerSemesterMeta,
-          schoolFeesPerSemester.isAcceptableOrUnknown(
-              data['school_fees_per_semester']!, _schoolFeesPerSemesterMeta));
-    } else if (isInserting) {
-      context.missing(_schoolFeesPerSemesterMeta);
-    }
-    if (data.containsKey('scholarship_percentage')) {
-      context.handle(
-          _scholarshipPercentageMeta,
-          scholarshipPercentage.isAcceptableOrUnknown(
-              data['scholarship_percentage']!, _scholarshipPercentageMeta));
-    } else if (isInserting) {
-      context.missing(_scholarshipPercentageMeta);
-    }
-    if (data.containsKey('total_loan_amount')) {
-      context.handle(
-          _totalLoanAmountMeta,
-          totalLoanAmount.isAcceptableOrUnknown(
-              data['total_loan_amount']!, _totalLoanAmountMeta));
-    } else if (isInserting) {
-      context.missing(_totalLoanAmountMeta);
-    }
-    if (data.containsKey('loan_processed')) {
-      context.handle(
-          _loanProcessedMeta,
-          loanProcessed.isAcceptableOrUnknown(
-              data['loan_processed']!, _loanProcessedMeta));
-    } else if (isInserting) {
-      context.missing(_loanProcessedMeta);
-    }
-    if (data.containsKey('has_taken_leave')) {
-      context.handle(
-          _hasTakenLeaveMeta,
-          hasTakenLeave.isAcceptableOrUnknown(
-              data['has_taken_leave']!, _hasTakenLeaveMeta));
-    } else if (isInserting) {
-      context.missing(_hasTakenLeaveMeta);
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    } else if (isInserting) {
-      context.missing(_isActiveMeta);
-    }
-    if (data.containsKey('is_completed')) {
-      context.handle(
-          _isCompletedMeta,
-          isCompleted.isAcceptableOrUnknown(
-              data['is_completed']!, _isCompletedMeta));
-    } else if (isInserting) {
-      context.missing(_isCompletedMeta);
-    }
-    if (data.containsKey('was_expelled')) {
-      context.handle(
-          _wasExpelledMeta,
-          wasExpelled.isAcceptableOrUnknown(
-              data['was_expelled']!, _wasExpelledMeta));
-    } else if (isInserting) {
-      context.missing(_wasExpelledMeta);
+      context.missing(_tierMeta);
     }
     return context;
   }
@@ -12114,52 +11764,14 @@ class $SchoolTableTable extends SchoolTable
     return School(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      mainPersonId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}main_person_id'])!,
-      degreeId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}degree_id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      grades: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}grades'])!,
-      attendance: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}attendance'])!,
-      project: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}project'])!,
-      exam: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}exam'])!,
-      classStartTime: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}class_start_time'])!,
-      classEndTime: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}class_end_time'])!,
-      totalSemesterNumber: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}total_semester_number'])!,
-      currentSemesterNumber: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}current_semester_number'])!,
-      schoolType: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}school_type'])!,
-      semesterStartDay: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}semester_start_day'])!,
-      currentDayInSemester: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}current_day_in_semester'])!,
-      degreeLevel: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}degree_level'])!,
-      schoolFeesPerSemester: attachedDatabase.typeMapping.read(DriftSqlType.int,
-          data['${effectivePrefix}school_fees_per_semester'])!,
-      scholarshipPercentage: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}scholarship_percentage'])!,
-      totalLoanAmount: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}total_loan_amount'])!,
-      loanProcessed: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}loan_processed'])!,
-      hasTakenLeave: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}has_taken_leave'])!,
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-      isCompleted: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_completed'])!,
-      wasExpelled: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}was_expelled'])!,
+      state: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}state'])!,
+      country: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}country'])!,
+      tier: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tier'])!,
     );
   }
 
@@ -12171,110 +11783,34 @@ class $SchoolTableTable extends SchoolTable
 
 class School extends DataClass implements Insertable<School> {
   final int id;
-  final int mainPersonId;
-  final int degreeId;
   final String name;
-  final int grades;
-  final int attendance;
-  final int project;
-  final int exam;
-  final int classStartTime;
-  final int classEndTime;
-  final int totalSemesterNumber;
-  final int currentSemesterNumber;
-  final String schoolType;
-  final int semesterStartDay;
-  final int currentDayInSemester;
-  final String degreeLevel;
-  final int schoolFeesPerSemester;
-  final int scholarshipPercentage;
-  final int totalLoanAmount;
-  final bool loanProcessed;
-  final bool hasTakenLeave;
-  final bool isActive;
-  final bool isCompleted;
-  final bool wasExpelled;
+  final String state;
+  final String country;
+  final String tier;
   const School(
       {required this.id,
-      required this.mainPersonId,
-      required this.degreeId,
       required this.name,
-      required this.grades,
-      required this.attendance,
-      required this.project,
-      required this.exam,
-      required this.classStartTime,
-      required this.classEndTime,
-      required this.totalSemesterNumber,
-      required this.currentSemesterNumber,
-      required this.schoolType,
-      required this.semesterStartDay,
-      required this.currentDayInSemester,
-      required this.degreeLevel,
-      required this.schoolFeesPerSemester,
-      required this.scholarshipPercentage,
-      required this.totalLoanAmount,
-      required this.loanProcessed,
-      required this.hasTakenLeave,
-      required this.isActive,
-      required this.isCompleted,
-      required this.wasExpelled});
+      required this.state,
+      required this.country,
+      required this.tier});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['main_person_id'] = Variable<int>(mainPersonId);
-    map['degree_id'] = Variable<int>(degreeId);
     map['name'] = Variable<String>(name);
-    map['grades'] = Variable<int>(grades);
-    map['attendance'] = Variable<int>(attendance);
-    map['project'] = Variable<int>(project);
-    map['exam'] = Variable<int>(exam);
-    map['class_start_time'] = Variable<int>(classStartTime);
-    map['class_end_time'] = Variable<int>(classEndTime);
-    map['total_semester_number'] = Variable<int>(totalSemesterNumber);
-    map['current_semester_number'] = Variable<int>(currentSemesterNumber);
-    map['school_type'] = Variable<String>(schoolType);
-    map['semester_start_day'] = Variable<int>(semesterStartDay);
-    map['current_day_in_semester'] = Variable<int>(currentDayInSemester);
-    map['degree_level'] = Variable<String>(degreeLevel);
-    map['school_fees_per_semester'] = Variable<int>(schoolFeesPerSemester);
-    map['scholarship_percentage'] = Variable<int>(scholarshipPercentage);
-    map['total_loan_amount'] = Variable<int>(totalLoanAmount);
-    map['loan_processed'] = Variable<bool>(loanProcessed);
-    map['has_taken_leave'] = Variable<bool>(hasTakenLeave);
-    map['is_active'] = Variable<bool>(isActive);
-    map['is_completed'] = Variable<bool>(isCompleted);
-    map['was_expelled'] = Variable<bool>(wasExpelled);
+    map['state'] = Variable<String>(state);
+    map['country'] = Variable<String>(country);
+    map['tier'] = Variable<String>(tier);
     return map;
   }
 
   SchoolTableCompanion toCompanion(bool nullToAbsent) {
     return SchoolTableCompanion(
       id: Value(id),
-      mainPersonId: Value(mainPersonId),
-      degreeId: Value(degreeId),
       name: Value(name),
-      grades: Value(grades),
-      attendance: Value(attendance),
-      project: Value(project),
-      exam: Value(exam),
-      classStartTime: Value(classStartTime),
-      classEndTime: Value(classEndTime),
-      totalSemesterNumber: Value(totalSemesterNumber),
-      currentSemesterNumber: Value(currentSemesterNumber),
-      schoolType: Value(schoolType),
-      semesterStartDay: Value(semesterStartDay),
-      currentDayInSemester: Value(currentDayInSemester),
-      degreeLevel: Value(degreeLevel),
-      schoolFeesPerSemester: Value(schoolFeesPerSemester),
-      scholarshipPercentage: Value(scholarshipPercentage),
-      totalLoanAmount: Value(totalLoanAmount),
-      loanProcessed: Value(loanProcessed),
-      hasTakenLeave: Value(hasTakenLeave),
-      isActive: Value(isActive),
-      isCompleted: Value(isCompleted),
-      wasExpelled: Value(wasExpelled),
+      state: Value(state),
+      country: Value(country),
+      tier: Value(tier),
     );
   }
 
@@ -12283,34 +11819,10 @@ class School extends DataClass implements Insertable<School> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return School(
       id: serializer.fromJson<int>(json['id']),
-      mainPersonId: serializer.fromJson<int>(json['mainPersonId']),
-      degreeId: serializer.fromJson<int>(json['degreeId']),
       name: serializer.fromJson<String>(json['name']),
-      grades: serializer.fromJson<int>(json['grades']),
-      attendance: serializer.fromJson<int>(json['attendance']),
-      project: serializer.fromJson<int>(json['project']),
-      exam: serializer.fromJson<int>(json['exam']),
-      classStartTime: serializer.fromJson<int>(json['classStartTime']),
-      classEndTime: serializer.fromJson<int>(json['classEndTime']),
-      totalSemesterNumber:
-          serializer.fromJson<int>(json['totalSemesterNumber']),
-      currentSemesterNumber:
-          serializer.fromJson<int>(json['currentSemesterNumber']),
-      schoolType: serializer.fromJson<String>(json['schoolType']),
-      semesterStartDay: serializer.fromJson<int>(json['semesterStartDay']),
-      currentDayInSemester:
-          serializer.fromJson<int>(json['currentDayInSemester']),
-      degreeLevel: serializer.fromJson<String>(json['degreeLevel']),
-      schoolFeesPerSemester:
-          serializer.fromJson<int>(json['schoolFeesPerSemester']),
-      scholarshipPercentage:
-          serializer.fromJson<int>(json['scholarshipPercentage']),
-      totalLoanAmount: serializer.fromJson<int>(json['totalLoanAmount']),
-      loanProcessed: serializer.fromJson<bool>(json['loanProcessed']),
-      hasTakenLeave: serializer.fromJson<bool>(json['hasTakenLeave']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
-      isCompleted: serializer.fromJson<bool>(json['isCompleted']),
-      wasExpelled: serializer.fromJson<bool>(json['wasExpelled']),
+      state: serializer.fromJson<String>(json['state']),
+      country: serializer.fromJson<String>(json['country']),
+      tier: serializer.fromJson<String>(json['tier']),
     );
   }
   @override
@@ -12318,385 +11830,102 @@ class School extends DataClass implements Insertable<School> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'mainPersonId': serializer.toJson<int>(mainPersonId),
-      'degreeId': serializer.toJson<int>(degreeId),
       'name': serializer.toJson<String>(name),
-      'grades': serializer.toJson<int>(grades),
-      'attendance': serializer.toJson<int>(attendance),
-      'project': serializer.toJson<int>(project),
-      'exam': serializer.toJson<int>(exam),
-      'classStartTime': serializer.toJson<int>(classStartTime),
-      'classEndTime': serializer.toJson<int>(classEndTime),
-      'totalSemesterNumber': serializer.toJson<int>(totalSemesterNumber),
-      'currentSemesterNumber': serializer.toJson<int>(currentSemesterNumber),
-      'schoolType': serializer.toJson<String>(schoolType),
-      'semesterStartDay': serializer.toJson<int>(semesterStartDay),
-      'currentDayInSemester': serializer.toJson<int>(currentDayInSemester),
-      'degreeLevel': serializer.toJson<String>(degreeLevel),
-      'schoolFeesPerSemester': serializer.toJson<int>(schoolFeesPerSemester),
-      'scholarshipPercentage': serializer.toJson<int>(scholarshipPercentage),
-      'totalLoanAmount': serializer.toJson<int>(totalLoanAmount),
-      'loanProcessed': serializer.toJson<bool>(loanProcessed),
-      'hasTakenLeave': serializer.toJson<bool>(hasTakenLeave),
-      'isActive': serializer.toJson<bool>(isActive),
-      'isCompleted': serializer.toJson<bool>(isCompleted),
-      'wasExpelled': serializer.toJson<bool>(wasExpelled),
+      'state': serializer.toJson<String>(state),
+      'country': serializer.toJson<String>(country),
+      'tier': serializer.toJson<String>(tier),
     };
   }
 
   School copyWith(
           {int? id,
-          int? mainPersonId,
-          int? degreeId,
           String? name,
-          int? grades,
-          int? attendance,
-          int? project,
-          int? exam,
-          int? classStartTime,
-          int? classEndTime,
-          int? totalSemesterNumber,
-          int? currentSemesterNumber,
-          String? schoolType,
-          int? semesterStartDay,
-          int? currentDayInSemester,
-          String? degreeLevel,
-          int? schoolFeesPerSemester,
-          int? scholarshipPercentage,
-          int? totalLoanAmount,
-          bool? loanProcessed,
-          bool? hasTakenLeave,
-          bool? isActive,
-          bool? isCompleted,
-          bool? wasExpelled}) =>
+          String? state,
+          String? country,
+          String? tier}) =>
       School(
         id: id ?? this.id,
-        mainPersonId: mainPersonId ?? this.mainPersonId,
-        degreeId: degreeId ?? this.degreeId,
         name: name ?? this.name,
-        grades: grades ?? this.grades,
-        attendance: attendance ?? this.attendance,
-        project: project ?? this.project,
-        exam: exam ?? this.exam,
-        classStartTime: classStartTime ?? this.classStartTime,
-        classEndTime: classEndTime ?? this.classEndTime,
-        totalSemesterNumber: totalSemesterNumber ?? this.totalSemesterNumber,
-        currentSemesterNumber:
-            currentSemesterNumber ?? this.currentSemesterNumber,
-        schoolType: schoolType ?? this.schoolType,
-        semesterStartDay: semesterStartDay ?? this.semesterStartDay,
-        currentDayInSemester: currentDayInSemester ?? this.currentDayInSemester,
-        degreeLevel: degreeLevel ?? this.degreeLevel,
-        schoolFeesPerSemester:
-            schoolFeesPerSemester ?? this.schoolFeesPerSemester,
-        scholarshipPercentage:
-            scholarshipPercentage ?? this.scholarshipPercentage,
-        totalLoanAmount: totalLoanAmount ?? this.totalLoanAmount,
-        loanProcessed: loanProcessed ?? this.loanProcessed,
-        hasTakenLeave: hasTakenLeave ?? this.hasTakenLeave,
-        isActive: isActive ?? this.isActive,
-        isCompleted: isCompleted ?? this.isCompleted,
-        wasExpelled: wasExpelled ?? this.wasExpelled,
+        state: state ?? this.state,
+        country: country ?? this.country,
+        tier: tier ?? this.tier,
       );
   @override
   String toString() {
     return (StringBuffer('School(')
           ..write('id: $id, ')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('degreeId: $degreeId, ')
           ..write('name: $name, ')
-          ..write('grades: $grades, ')
-          ..write('attendance: $attendance, ')
-          ..write('project: $project, ')
-          ..write('exam: $exam, ')
-          ..write('classStartTime: $classStartTime, ')
-          ..write('classEndTime: $classEndTime, ')
-          ..write('totalSemesterNumber: $totalSemesterNumber, ')
-          ..write('currentSemesterNumber: $currentSemesterNumber, ')
-          ..write('schoolType: $schoolType, ')
-          ..write('semesterStartDay: $semesterStartDay, ')
-          ..write('currentDayInSemester: $currentDayInSemester, ')
-          ..write('degreeLevel: $degreeLevel, ')
-          ..write('schoolFeesPerSemester: $schoolFeesPerSemester, ')
-          ..write('scholarshipPercentage: $scholarshipPercentage, ')
-          ..write('totalLoanAmount: $totalLoanAmount, ')
-          ..write('loanProcessed: $loanProcessed, ')
-          ..write('hasTakenLeave: $hasTakenLeave, ')
-          ..write('isActive: $isActive, ')
-          ..write('isCompleted: $isCompleted, ')
-          ..write('wasExpelled: $wasExpelled')
+          ..write('state: $state, ')
+          ..write('country: $country, ')
+          ..write('tier: $tier')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hashAll([
-        id,
-        mainPersonId,
-        degreeId,
-        name,
-        grades,
-        attendance,
-        project,
-        exam,
-        classStartTime,
-        classEndTime,
-        totalSemesterNumber,
-        currentSemesterNumber,
-        schoolType,
-        semesterStartDay,
-        currentDayInSemester,
-        degreeLevel,
-        schoolFeesPerSemester,
-        scholarshipPercentage,
-        totalLoanAmount,
-        loanProcessed,
-        hasTakenLeave,
-        isActive,
-        isCompleted,
-        wasExpelled
-      ]);
+  int get hashCode => Object.hash(id, name, state, country, tier);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is School &&
           other.id == this.id &&
-          other.mainPersonId == this.mainPersonId &&
-          other.degreeId == this.degreeId &&
           other.name == this.name &&
-          other.grades == this.grades &&
-          other.attendance == this.attendance &&
-          other.project == this.project &&
-          other.exam == this.exam &&
-          other.classStartTime == this.classStartTime &&
-          other.classEndTime == this.classEndTime &&
-          other.totalSemesterNumber == this.totalSemesterNumber &&
-          other.currentSemesterNumber == this.currentSemesterNumber &&
-          other.schoolType == this.schoolType &&
-          other.semesterStartDay == this.semesterStartDay &&
-          other.currentDayInSemester == this.currentDayInSemester &&
-          other.degreeLevel == this.degreeLevel &&
-          other.schoolFeesPerSemester == this.schoolFeesPerSemester &&
-          other.scholarshipPercentage == this.scholarshipPercentage &&
-          other.totalLoanAmount == this.totalLoanAmount &&
-          other.loanProcessed == this.loanProcessed &&
-          other.hasTakenLeave == this.hasTakenLeave &&
-          other.isActive == this.isActive &&
-          other.isCompleted == this.isCompleted &&
-          other.wasExpelled == this.wasExpelled);
+          other.state == this.state &&
+          other.country == this.country &&
+          other.tier == this.tier);
 }
 
 class SchoolTableCompanion extends UpdateCompanion<School> {
   final Value<int> id;
-  final Value<int> mainPersonId;
-  final Value<int> degreeId;
   final Value<String> name;
-  final Value<int> grades;
-  final Value<int> attendance;
-  final Value<int> project;
-  final Value<int> exam;
-  final Value<int> classStartTime;
-  final Value<int> classEndTime;
-  final Value<int> totalSemesterNumber;
-  final Value<int> currentSemesterNumber;
-  final Value<String> schoolType;
-  final Value<int> semesterStartDay;
-  final Value<int> currentDayInSemester;
-  final Value<String> degreeLevel;
-  final Value<int> schoolFeesPerSemester;
-  final Value<int> scholarshipPercentage;
-  final Value<int> totalLoanAmount;
-  final Value<bool> loanProcessed;
-  final Value<bool> hasTakenLeave;
-  final Value<bool> isActive;
-  final Value<bool> isCompleted;
-  final Value<bool> wasExpelled;
+  final Value<String> state;
+  final Value<String> country;
+  final Value<String> tier;
   const SchoolTableCompanion({
     this.id = const Value.absent(),
-    this.mainPersonId = const Value.absent(),
-    this.degreeId = const Value.absent(),
     this.name = const Value.absent(),
-    this.grades = const Value.absent(),
-    this.attendance = const Value.absent(),
-    this.project = const Value.absent(),
-    this.exam = const Value.absent(),
-    this.classStartTime = const Value.absent(),
-    this.classEndTime = const Value.absent(),
-    this.totalSemesterNumber = const Value.absent(),
-    this.currentSemesterNumber = const Value.absent(),
-    this.schoolType = const Value.absent(),
-    this.semesterStartDay = const Value.absent(),
-    this.currentDayInSemester = const Value.absent(),
-    this.degreeLevel = const Value.absent(),
-    this.schoolFeesPerSemester = const Value.absent(),
-    this.scholarshipPercentage = const Value.absent(),
-    this.totalLoanAmount = const Value.absent(),
-    this.loanProcessed = const Value.absent(),
-    this.hasTakenLeave = const Value.absent(),
-    this.isActive = const Value.absent(),
-    this.isCompleted = const Value.absent(),
-    this.wasExpelled = const Value.absent(),
+    this.state = const Value.absent(),
+    this.country = const Value.absent(),
+    this.tier = const Value.absent(),
   });
   SchoolTableCompanion.insert({
     this.id = const Value.absent(),
-    required int mainPersonId,
-    required int degreeId,
     required String name,
-    required int grades,
-    required int attendance,
-    required int project,
-    required int exam,
-    required int classStartTime,
-    required int classEndTime,
-    required int totalSemesterNumber,
-    required int currentSemesterNumber,
-    required String schoolType,
-    required int semesterStartDay,
-    required int currentDayInSemester,
-    required String degreeLevel,
-    required int schoolFeesPerSemester,
-    required int scholarshipPercentage,
-    required int totalLoanAmount,
-    required bool loanProcessed,
-    required bool hasTakenLeave,
-    required bool isActive,
-    required bool isCompleted,
-    required bool wasExpelled,
-  })  : mainPersonId = Value(mainPersonId),
-        degreeId = Value(degreeId),
-        name = Value(name),
-        grades = Value(grades),
-        attendance = Value(attendance),
-        project = Value(project),
-        exam = Value(exam),
-        classStartTime = Value(classStartTime),
-        classEndTime = Value(classEndTime),
-        totalSemesterNumber = Value(totalSemesterNumber),
-        currentSemesterNumber = Value(currentSemesterNumber),
-        schoolType = Value(schoolType),
-        semesterStartDay = Value(semesterStartDay),
-        currentDayInSemester = Value(currentDayInSemester),
-        degreeLevel = Value(degreeLevel),
-        schoolFeesPerSemester = Value(schoolFeesPerSemester),
-        scholarshipPercentage = Value(scholarshipPercentage),
-        totalLoanAmount = Value(totalLoanAmount),
-        loanProcessed = Value(loanProcessed),
-        hasTakenLeave = Value(hasTakenLeave),
-        isActive = Value(isActive),
-        isCompleted = Value(isCompleted),
-        wasExpelled = Value(wasExpelled);
+    required String state,
+    required String country,
+    required String tier,
+  })  : name = Value(name),
+        state = Value(state),
+        country = Value(country),
+        tier = Value(tier);
   static Insertable<School> custom({
     Expression<int>? id,
-    Expression<int>? mainPersonId,
-    Expression<int>? degreeId,
     Expression<String>? name,
-    Expression<int>? grades,
-    Expression<int>? attendance,
-    Expression<int>? project,
-    Expression<int>? exam,
-    Expression<int>? classStartTime,
-    Expression<int>? classEndTime,
-    Expression<int>? totalSemesterNumber,
-    Expression<int>? currentSemesterNumber,
-    Expression<String>? schoolType,
-    Expression<int>? semesterStartDay,
-    Expression<int>? currentDayInSemester,
-    Expression<String>? degreeLevel,
-    Expression<int>? schoolFeesPerSemester,
-    Expression<int>? scholarshipPercentage,
-    Expression<int>? totalLoanAmount,
-    Expression<bool>? loanProcessed,
-    Expression<bool>? hasTakenLeave,
-    Expression<bool>? isActive,
-    Expression<bool>? isCompleted,
-    Expression<bool>? wasExpelled,
+    Expression<String>? state,
+    Expression<String>? country,
+    Expression<String>? tier,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (mainPersonId != null) 'main_person_id': mainPersonId,
-      if (degreeId != null) 'degree_id': degreeId,
       if (name != null) 'name': name,
-      if (grades != null) 'grades': grades,
-      if (attendance != null) 'attendance': attendance,
-      if (project != null) 'project': project,
-      if (exam != null) 'exam': exam,
-      if (classStartTime != null) 'class_start_time': classStartTime,
-      if (classEndTime != null) 'class_end_time': classEndTime,
-      if (totalSemesterNumber != null)
-        'total_semester_number': totalSemesterNumber,
-      if (currentSemesterNumber != null)
-        'current_semester_number': currentSemesterNumber,
-      if (schoolType != null) 'school_type': schoolType,
-      if (semesterStartDay != null) 'semester_start_day': semesterStartDay,
-      if (currentDayInSemester != null)
-        'current_day_in_semester': currentDayInSemester,
-      if (degreeLevel != null) 'degree_level': degreeLevel,
-      if (schoolFeesPerSemester != null)
-        'school_fees_per_semester': schoolFeesPerSemester,
-      if (scholarshipPercentage != null)
-        'scholarship_percentage': scholarshipPercentage,
-      if (totalLoanAmount != null) 'total_loan_amount': totalLoanAmount,
-      if (loanProcessed != null) 'loan_processed': loanProcessed,
-      if (hasTakenLeave != null) 'has_taken_leave': hasTakenLeave,
-      if (isActive != null) 'is_active': isActive,
-      if (isCompleted != null) 'is_completed': isCompleted,
-      if (wasExpelled != null) 'was_expelled': wasExpelled,
+      if (state != null) 'state': state,
+      if (country != null) 'country': country,
+      if (tier != null) 'tier': tier,
     });
   }
 
   SchoolTableCompanion copyWith(
       {Value<int>? id,
-      Value<int>? mainPersonId,
-      Value<int>? degreeId,
       Value<String>? name,
-      Value<int>? grades,
-      Value<int>? attendance,
-      Value<int>? project,
-      Value<int>? exam,
-      Value<int>? classStartTime,
-      Value<int>? classEndTime,
-      Value<int>? totalSemesterNumber,
-      Value<int>? currentSemesterNumber,
-      Value<String>? schoolType,
-      Value<int>? semesterStartDay,
-      Value<int>? currentDayInSemester,
-      Value<String>? degreeLevel,
-      Value<int>? schoolFeesPerSemester,
-      Value<int>? scholarshipPercentage,
-      Value<int>? totalLoanAmount,
-      Value<bool>? loanProcessed,
-      Value<bool>? hasTakenLeave,
-      Value<bool>? isActive,
-      Value<bool>? isCompleted,
-      Value<bool>? wasExpelled}) {
+      Value<String>? state,
+      Value<String>? country,
+      Value<String>? tier}) {
     return SchoolTableCompanion(
       id: id ?? this.id,
-      mainPersonId: mainPersonId ?? this.mainPersonId,
-      degreeId: degreeId ?? this.degreeId,
       name: name ?? this.name,
-      grades: grades ?? this.grades,
-      attendance: attendance ?? this.attendance,
-      project: project ?? this.project,
-      exam: exam ?? this.exam,
-      classStartTime: classStartTime ?? this.classStartTime,
-      classEndTime: classEndTime ?? this.classEndTime,
-      totalSemesterNumber: totalSemesterNumber ?? this.totalSemesterNumber,
-      currentSemesterNumber:
-          currentSemesterNumber ?? this.currentSemesterNumber,
-      schoolType: schoolType ?? this.schoolType,
-      semesterStartDay: semesterStartDay ?? this.semesterStartDay,
-      currentDayInSemester: currentDayInSemester ?? this.currentDayInSemester,
-      degreeLevel: degreeLevel ?? this.degreeLevel,
-      schoolFeesPerSemester:
-          schoolFeesPerSemester ?? this.schoolFeesPerSemester,
-      scholarshipPercentage:
-          scholarshipPercentage ?? this.scholarshipPercentage,
-      totalLoanAmount: totalLoanAmount ?? this.totalLoanAmount,
-      loanProcessed: loanProcessed ?? this.loanProcessed,
-      hasTakenLeave: hasTakenLeave ?? this.hasTakenLeave,
-      isActive: isActive ?? this.isActive,
-      isCompleted: isCompleted ?? this.isCompleted,
-      wasExpelled: wasExpelled ?? this.wasExpelled,
+      state: state ?? this.state,
+      country: country ?? this.country,
+      tier: tier ?? this.tier,
     );
   }
 
@@ -12706,78 +11935,17 @@ class SchoolTableCompanion extends UpdateCompanion<School> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (mainPersonId.present) {
-      map['main_person_id'] = Variable<int>(mainPersonId.value);
-    }
-    if (degreeId.present) {
-      map['degree_id'] = Variable<int>(degreeId.value);
-    }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
-    if (grades.present) {
-      map['grades'] = Variable<int>(grades.value);
+    if (state.present) {
+      map['state'] = Variable<String>(state.value);
     }
-    if (attendance.present) {
-      map['attendance'] = Variable<int>(attendance.value);
+    if (country.present) {
+      map['country'] = Variable<String>(country.value);
     }
-    if (project.present) {
-      map['project'] = Variable<int>(project.value);
-    }
-    if (exam.present) {
-      map['exam'] = Variable<int>(exam.value);
-    }
-    if (classStartTime.present) {
-      map['class_start_time'] = Variable<int>(classStartTime.value);
-    }
-    if (classEndTime.present) {
-      map['class_end_time'] = Variable<int>(classEndTime.value);
-    }
-    if (totalSemesterNumber.present) {
-      map['total_semester_number'] = Variable<int>(totalSemesterNumber.value);
-    }
-    if (currentSemesterNumber.present) {
-      map['current_semester_number'] =
-          Variable<int>(currentSemesterNumber.value);
-    }
-    if (schoolType.present) {
-      map['school_type'] = Variable<String>(schoolType.value);
-    }
-    if (semesterStartDay.present) {
-      map['semester_start_day'] = Variable<int>(semesterStartDay.value);
-    }
-    if (currentDayInSemester.present) {
-      map['current_day_in_semester'] =
-          Variable<int>(currentDayInSemester.value);
-    }
-    if (degreeLevel.present) {
-      map['degree_level'] = Variable<String>(degreeLevel.value);
-    }
-    if (schoolFeesPerSemester.present) {
-      map['school_fees_per_semester'] =
-          Variable<int>(schoolFeesPerSemester.value);
-    }
-    if (scholarshipPercentage.present) {
-      map['scholarship_percentage'] =
-          Variable<int>(scholarshipPercentage.value);
-    }
-    if (totalLoanAmount.present) {
-      map['total_loan_amount'] = Variable<int>(totalLoanAmount.value);
-    }
-    if (loanProcessed.present) {
-      map['loan_processed'] = Variable<bool>(loanProcessed.value);
-    }
-    if (hasTakenLeave.present) {
-      map['has_taken_leave'] = Variable<bool>(hasTakenLeave.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    if (isCompleted.present) {
-      map['is_completed'] = Variable<bool>(isCompleted.value);
-    }
-    if (wasExpelled.present) {
-      map['was_expelled'] = Variable<bool>(wasExpelled.value);
+    if (tier.present) {
+      map['tier'] = Variable<String>(tier.value);
     }
     return map;
   }
@@ -12786,29 +11954,10 @@ class SchoolTableCompanion extends UpdateCompanion<School> {
   String toString() {
     return (StringBuffer('SchoolTableCompanion(')
           ..write('id: $id, ')
-          ..write('mainPersonId: $mainPersonId, ')
-          ..write('degreeId: $degreeId, ')
           ..write('name: $name, ')
-          ..write('grades: $grades, ')
-          ..write('attendance: $attendance, ')
-          ..write('project: $project, ')
-          ..write('exam: $exam, ')
-          ..write('classStartTime: $classStartTime, ')
-          ..write('classEndTime: $classEndTime, ')
-          ..write('totalSemesterNumber: $totalSemesterNumber, ')
-          ..write('currentSemesterNumber: $currentSemesterNumber, ')
-          ..write('schoolType: $schoolType, ')
-          ..write('semesterStartDay: $semesterStartDay, ')
-          ..write('currentDayInSemester: $currentDayInSemester, ')
-          ..write('degreeLevel: $degreeLevel, ')
-          ..write('schoolFeesPerSemester: $schoolFeesPerSemester, ')
-          ..write('scholarshipPercentage: $scholarshipPercentage, ')
-          ..write('totalLoanAmount: $totalLoanAmount, ')
-          ..write('loanProcessed: $loanProcessed, ')
-          ..write('hasTakenLeave: $hasTakenLeave, ')
-          ..write('isActive: $isActive, ')
-          ..write('isCompleted: $isCompleted, ')
-          ..write('wasExpelled: $wasExpelled')
+          ..write('state: $state, ')
+          ..write('country: $country, ')
+          ..write('tier: $tier')
           ..write(')'))
         .toString();
   }
@@ -13822,6 +12971,1609 @@ class SchoolRelationshipTableCompanion
           ..write('professional: $professional, ')
           ..write('helpful: $helpful, ')
           ..write('personalityType: $personalityType')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CollegeTableTable extends CollegeTable
+    with TableInfo<$CollegeTableTable, College> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CollegeTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _schoolIdMeta =
+      const VerificationMeta('schoolId');
+  @override
+  late final GeneratedColumn<int> schoolId = GeneratedColumn<int>(
+      'school_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES school (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _degreeIdMeta =
+      const VerificationMeta('degreeId');
+  @override
+  late final GeneratedColumn<int> degreeId = GeneratedColumn<int>(
+      'degree_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES degree (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _schoolTypeMeta =
+      const VerificationMeta('schoolType');
+  @override
+  late final GeneratedColumn<String> schoolType = GeneratedColumn<String>(
+      'school_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _attendanceMeta =
+      const VerificationMeta('attendance');
+  @override
+  late final GeneratedColumn<int> attendance = GeneratedColumn<int>(
+      'attendance', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _projectMeta =
+      const VerificationMeta('project');
+  @override
+  late final GeneratedColumn<int> project = GeneratedColumn<int>(
+      'project', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _courseKnowledgeMeta =
+      const VerificationMeta('courseKnowledge');
+  @override
+  late final GeneratedColumn<int> courseKnowledge = GeneratedColumn<int>(
+      'course_knowledge', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _cumulativeGradeMeta =
+      const VerificationMeta('cumulativeGrade');
+  @override
+  late final GeneratedColumn<int> cumulativeGrade = GeneratedColumn<int>(
+      'cumulative_grade', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _totalSemesterNumberMeta =
+      const VerificationMeta('totalSemesterNumber');
+  @override
+  late final GeneratedColumn<int> totalSemesterNumber = GeneratedColumn<int>(
+      'total_semester_number', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _currentSemesterNumberMeta =
+      const VerificationMeta('currentSemesterNumber');
+  @override
+  late final GeneratedColumn<int> currentSemesterNumber = GeneratedColumn<int>(
+      'current_semester_number', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _classStartTimeMeta =
+      const VerificationMeta('classStartTime');
+  @override
+  late final GeneratedColumn<int> classStartTime = GeneratedColumn<int>(
+      'class_start_time', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _classEndTimeMeta =
+      const VerificationMeta('classEndTime');
+  @override
+  late final GeneratedColumn<int> classEndTime = GeneratedColumn<int>(
+      'class_end_time', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _semesterStartDayMeta =
+      const VerificationMeta('semesterStartDay');
+  @override
+  late final GeneratedColumn<int> semesterStartDay = GeneratedColumn<int>(
+      'semester_start_day', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _tuitionPerSemesterMeta =
+      const VerificationMeta('tuitionPerSemester');
+  @override
+  late final GeneratedColumn<int> tuitionPerSemester = GeneratedColumn<int>(
+      'tuition_per_semester', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _scholarshipPercentageMeta =
+      const VerificationMeta('scholarshipPercentage');
+  @override
+  late final GeneratedColumn<int> scholarshipPercentage = GeneratedColumn<int>(
+      'scholarship_percentage', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _totalLoanAmountMeta =
+      const VerificationMeta('totalLoanAmount');
+  @override
+  late final GeneratedColumn<int> totalLoanAmount = GeneratedColumn<int>(
+      'total_loan_amount', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+      'status', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        personId,
+        schoolId,
+        degreeId,
+        schoolType,
+        attendance,
+        project,
+        courseKnowledge,
+        cumulativeGrade,
+        totalSemesterNumber,
+        currentSemesterNumber,
+        classStartTime,
+        classEndTime,
+        semesterStartDay,
+        tuitionPerSemester,
+        scholarshipPercentage,
+        totalLoanAmount,
+        status
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'college';
+  @override
+  VerificationContext validateIntegrity(Insertable<College> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('school_id')) {
+      context.handle(_schoolIdMeta,
+          schoolId.isAcceptableOrUnknown(data['school_id']!, _schoolIdMeta));
+    } else if (isInserting) {
+      context.missing(_schoolIdMeta);
+    }
+    if (data.containsKey('degree_id')) {
+      context.handle(_degreeIdMeta,
+          degreeId.isAcceptableOrUnknown(data['degree_id']!, _degreeIdMeta));
+    } else if (isInserting) {
+      context.missing(_degreeIdMeta);
+    }
+    if (data.containsKey('school_type')) {
+      context.handle(
+          _schoolTypeMeta,
+          schoolType.isAcceptableOrUnknown(
+              data['school_type']!, _schoolTypeMeta));
+    } else if (isInserting) {
+      context.missing(_schoolTypeMeta);
+    }
+    if (data.containsKey('attendance')) {
+      context.handle(
+          _attendanceMeta,
+          attendance.isAcceptableOrUnknown(
+              data['attendance']!, _attendanceMeta));
+    } else if (isInserting) {
+      context.missing(_attendanceMeta);
+    }
+    if (data.containsKey('project')) {
+      context.handle(_projectMeta,
+          project.isAcceptableOrUnknown(data['project']!, _projectMeta));
+    } else if (isInserting) {
+      context.missing(_projectMeta);
+    }
+    if (data.containsKey('course_knowledge')) {
+      context.handle(
+          _courseKnowledgeMeta,
+          courseKnowledge.isAcceptableOrUnknown(
+              data['course_knowledge']!, _courseKnowledgeMeta));
+    } else if (isInserting) {
+      context.missing(_courseKnowledgeMeta);
+    }
+    if (data.containsKey('cumulative_grade')) {
+      context.handle(
+          _cumulativeGradeMeta,
+          cumulativeGrade.isAcceptableOrUnknown(
+              data['cumulative_grade']!, _cumulativeGradeMeta));
+    } else if (isInserting) {
+      context.missing(_cumulativeGradeMeta);
+    }
+    if (data.containsKey('total_semester_number')) {
+      context.handle(
+          _totalSemesterNumberMeta,
+          totalSemesterNumber.isAcceptableOrUnknown(
+              data['total_semester_number']!, _totalSemesterNumberMeta));
+    } else if (isInserting) {
+      context.missing(_totalSemesterNumberMeta);
+    }
+    if (data.containsKey('current_semester_number')) {
+      context.handle(
+          _currentSemesterNumberMeta,
+          currentSemesterNumber.isAcceptableOrUnknown(
+              data['current_semester_number']!, _currentSemesterNumberMeta));
+    } else if (isInserting) {
+      context.missing(_currentSemesterNumberMeta);
+    }
+    if (data.containsKey('class_start_time')) {
+      context.handle(
+          _classStartTimeMeta,
+          classStartTime.isAcceptableOrUnknown(
+              data['class_start_time']!, _classStartTimeMeta));
+    } else if (isInserting) {
+      context.missing(_classStartTimeMeta);
+    }
+    if (data.containsKey('class_end_time')) {
+      context.handle(
+          _classEndTimeMeta,
+          classEndTime.isAcceptableOrUnknown(
+              data['class_end_time']!, _classEndTimeMeta));
+    } else if (isInserting) {
+      context.missing(_classEndTimeMeta);
+    }
+    if (data.containsKey('semester_start_day')) {
+      context.handle(
+          _semesterStartDayMeta,
+          semesterStartDay.isAcceptableOrUnknown(
+              data['semester_start_day']!, _semesterStartDayMeta));
+    } else if (isInserting) {
+      context.missing(_semesterStartDayMeta);
+    }
+    if (data.containsKey('tuition_per_semester')) {
+      context.handle(
+          _tuitionPerSemesterMeta,
+          tuitionPerSemester.isAcceptableOrUnknown(
+              data['tuition_per_semester']!, _tuitionPerSemesterMeta));
+    } else if (isInserting) {
+      context.missing(_tuitionPerSemesterMeta);
+    }
+    if (data.containsKey('scholarship_percentage')) {
+      context.handle(
+          _scholarshipPercentageMeta,
+          scholarshipPercentage.isAcceptableOrUnknown(
+              data['scholarship_percentage']!, _scholarshipPercentageMeta));
+    } else if (isInserting) {
+      context.missing(_scholarshipPercentageMeta);
+    }
+    if (data.containsKey('total_loan_amount')) {
+      context.handle(
+          _totalLoanAmountMeta,
+          totalLoanAmount.isAcceptableOrUnknown(
+              data['total_loan_amount']!, _totalLoanAmountMeta));
+    } else if (isInserting) {
+      context.missing(_totalLoanAmountMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta,
+          status.isAcceptableOrUnknown(data['status']!, _statusMeta));
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  College map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return College(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      schoolId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}school_id'])!,
+      degreeId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}degree_id'])!,
+      schoolType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}school_type'])!,
+      attendance: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}attendance'])!,
+      project: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}project'])!,
+      courseKnowledge: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}course_knowledge'])!,
+      cumulativeGrade: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}cumulative_grade'])!,
+      totalSemesterNumber: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}total_semester_number'])!,
+      currentSemesterNumber: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}current_semester_number'])!,
+      classStartTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}class_start_time'])!,
+      classEndTime: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}class_end_time'])!,
+      semesterStartDay: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}semester_start_day'])!,
+      tuitionPerSemester: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}tuition_per_semester'])!,
+      scholarshipPercentage: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}scholarship_percentage'])!,
+      totalLoanAmount: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}total_loan_amount'])!,
+      status: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}status'])!,
+    );
+  }
+
+  @override
+  $CollegeTableTable createAlias(String alias) {
+    return $CollegeTableTable(attachedDatabase, alias);
+  }
+}
+
+class College extends DataClass implements Insertable<College> {
+  final int id;
+  final int personId;
+  final int schoolId;
+  final int degreeId;
+  final String schoolType;
+  final int attendance;
+  final int project;
+  final int courseKnowledge;
+  final int cumulativeGrade;
+  final int totalSemesterNumber;
+  final int currentSemesterNumber;
+  final int classStartTime;
+  final int classEndTime;
+  final int semesterStartDay;
+  final int tuitionPerSemester;
+  final int scholarshipPercentage;
+  final int totalLoanAmount;
+  final String status;
+  const College(
+      {required this.id,
+      required this.personId,
+      required this.schoolId,
+      required this.degreeId,
+      required this.schoolType,
+      required this.attendance,
+      required this.project,
+      required this.courseKnowledge,
+      required this.cumulativeGrade,
+      required this.totalSemesterNumber,
+      required this.currentSemesterNumber,
+      required this.classStartTime,
+      required this.classEndTime,
+      required this.semesterStartDay,
+      required this.tuitionPerSemester,
+      required this.scholarshipPercentage,
+      required this.totalLoanAmount,
+      required this.status});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['person_id'] = Variable<int>(personId);
+    map['school_id'] = Variable<int>(schoolId);
+    map['degree_id'] = Variable<int>(degreeId);
+    map['school_type'] = Variable<String>(schoolType);
+    map['attendance'] = Variable<int>(attendance);
+    map['project'] = Variable<int>(project);
+    map['course_knowledge'] = Variable<int>(courseKnowledge);
+    map['cumulative_grade'] = Variable<int>(cumulativeGrade);
+    map['total_semester_number'] = Variable<int>(totalSemesterNumber);
+    map['current_semester_number'] = Variable<int>(currentSemesterNumber);
+    map['class_start_time'] = Variable<int>(classStartTime);
+    map['class_end_time'] = Variable<int>(classEndTime);
+    map['semester_start_day'] = Variable<int>(semesterStartDay);
+    map['tuition_per_semester'] = Variable<int>(tuitionPerSemester);
+    map['scholarship_percentage'] = Variable<int>(scholarshipPercentage);
+    map['total_loan_amount'] = Variable<int>(totalLoanAmount);
+    map['status'] = Variable<String>(status);
+    return map;
+  }
+
+  CollegeTableCompanion toCompanion(bool nullToAbsent) {
+    return CollegeTableCompanion(
+      id: Value(id),
+      personId: Value(personId),
+      schoolId: Value(schoolId),
+      degreeId: Value(degreeId),
+      schoolType: Value(schoolType),
+      attendance: Value(attendance),
+      project: Value(project),
+      courseKnowledge: Value(courseKnowledge),
+      cumulativeGrade: Value(cumulativeGrade),
+      totalSemesterNumber: Value(totalSemesterNumber),
+      currentSemesterNumber: Value(currentSemesterNumber),
+      classStartTime: Value(classStartTime),
+      classEndTime: Value(classEndTime),
+      semesterStartDay: Value(semesterStartDay),
+      tuitionPerSemester: Value(tuitionPerSemester),
+      scholarshipPercentage: Value(scholarshipPercentage),
+      totalLoanAmount: Value(totalLoanAmount),
+      status: Value(status),
+    );
+  }
+
+  factory College.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return College(
+      id: serializer.fromJson<int>(json['id']),
+      personId: serializer.fromJson<int>(json['personId']),
+      schoolId: serializer.fromJson<int>(json['schoolId']),
+      degreeId: serializer.fromJson<int>(json['degreeId']),
+      schoolType: serializer.fromJson<String>(json['schoolType']),
+      attendance: serializer.fromJson<int>(json['attendance']),
+      project: serializer.fromJson<int>(json['project']),
+      courseKnowledge: serializer.fromJson<int>(json['courseKnowledge']),
+      cumulativeGrade: serializer.fromJson<int>(json['cumulativeGrade']),
+      totalSemesterNumber:
+          serializer.fromJson<int>(json['totalSemesterNumber']),
+      currentSemesterNumber:
+          serializer.fromJson<int>(json['currentSemesterNumber']),
+      classStartTime: serializer.fromJson<int>(json['classStartTime']),
+      classEndTime: serializer.fromJson<int>(json['classEndTime']),
+      semesterStartDay: serializer.fromJson<int>(json['semesterStartDay']),
+      tuitionPerSemester: serializer.fromJson<int>(json['tuitionPerSemester']),
+      scholarshipPercentage:
+          serializer.fromJson<int>(json['scholarshipPercentage']),
+      totalLoanAmount: serializer.fromJson<int>(json['totalLoanAmount']),
+      status: serializer.fromJson<String>(json['status']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'personId': serializer.toJson<int>(personId),
+      'schoolId': serializer.toJson<int>(schoolId),
+      'degreeId': serializer.toJson<int>(degreeId),
+      'schoolType': serializer.toJson<String>(schoolType),
+      'attendance': serializer.toJson<int>(attendance),
+      'project': serializer.toJson<int>(project),
+      'courseKnowledge': serializer.toJson<int>(courseKnowledge),
+      'cumulativeGrade': serializer.toJson<int>(cumulativeGrade),
+      'totalSemesterNumber': serializer.toJson<int>(totalSemesterNumber),
+      'currentSemesterNumber': serializer.toJson<int>(currentSemesterNumber),
+      'classStartTime': serializer.toJson<int>(classStartTime),
+      'classEndTime': serializer.toJson<int>(classEndTime),
+      'semesterStartDay': serializer.toJson<int>(semesterStartDay),
+      'tuitionPerSemester': serializer.toJson<int>(tuitionPerSemester),
+      'scholarshipPercentage': serializer.toJson<int>(scholarshipPercentage),
+      'totalLoanAmount': serializer.toJson<int>(totalLoanAmount),
+      'status': serializer.toJson<String>(status),
+    };
+  }
+
+  College copyWith(
+          {int? id,
+          int? personId,
+          int? schoolId,
+          int? degreeId,
+          String? schoolType,
+          int? attendance,
+          int? project,
+          int? courseKnowledge,
+          int? cumulativeGrade,
+          int? totalSemesterNumber,
+          int? currentSemesterNumber,
+          int? classStartTime,
+          int? classEndTime,
+          int? semesterStartDay,
+          int? tuitionPerSemester,
+          int? scholarshipPercentage,
+          int? totalLoanAmount,
+          String? status}) =>
+      College(
+        id: id ?? this.id,
+        personId: personId ?? this.personId,
+        schoolId: schoolId ?? this.schoolId,
+        degreeId: degreeId ?? this.degreeId,
+        schoolType: schoolType ?? this.schoolType,
+        attendance: attendance ?? this.attendance,
+        project: project ?? this.project,
+        courseKnowledge: courseKnowledge ?? this.courseKnowledge,
+        cumulativeGrade: cumulativeGrade ?? this.cumulativeGrade,
+        totalSemesterNumber: totalSemesterNumber ?? this.totalSemesterNumber,
+        currentSemesterNumber:
+            currentSemesterNumber ?? this.currentSemesterNumber,
+        classStartTime: classStartTime ?? this.classStartTime,
+        classEndTime: classEndTime ?? this.classEndTime,
+        semesterStartDay: semesterStartDay ?? this.semesterStartDay,
+        tuitionPerSemester: tuitionPerSemester ?? this.tuitionPerSemester,
+        scholarshipPercentage:
+            scholarshipPercentage ?? this.scholarshipPercentage,
+        totalLoanAmount: totalLoanAmount ?? this.totalLoanAmount,
+        status: status ?? this.status,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('College(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('schoolId: $schoolId, ')
+          ..write('degreeId: $degreeId, ')
+          ..write('schoolType: $schoolType, ')
+          ..write('attendance: $attendance, ')
+          ..write('project: $project, ')
+          ..write('courseKnowledge: $courseKnowledge, ')
+          ..write('cumulativeGrade: $cumulativeGrade, ')
+          ..write('totalSemesterNumber: $totalSemesterNumber, ')
+          ..write('currentSemesterNumber: $currentSemesterNumber, ')
+          ..write('classStartTime: $classStartTime, ')
+          ..write('classEndTime: $classEndTime, ')
+          ..write('semesterStartDay: $semesterStartDay, ')
+          ..write('tuitionPerSemester: $tuitionPerSemester, ')
+          ..write('scholarshipPercentage: $scholarshipPercentage, ')
+          ..write('totalLoanAmount: $totalLoanAmount, ')
+          ..write('status: $status')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      personId,
+      schoolId,
+      degreeId,
+      schoolType,
+      attendance,
+      project,
+      courseKnowledge,
+      cumulativeGrade,
+      totalSemesterNumber,
+      currentSemesterNumber,
+      classStartTime,
+      classEndTime,
+      semesterStartDay,
+      tuitionPerSemester,
+      scholarshipPercentage,
+      totalLoanAmount,
+      status);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is College &&
+          other.id == this.id &&
+          other.personId == this.personId &&
+          other.schoolId == this.schoolId &&
+          other.degreeId == this.degreeId &&
+          other.schoolType == this.schoolType &&
+          other.attendance == this.attendance &&
+          other.project == this.project &&
+          other.courseKnowledge == this.courseKnowledge &&
+          other.cumulativeGrade == this.cumulativeGrade &&
+          other.totalSemesterNumber == this.totalSemesterNumber &&
+          other.currentSemesterNumber == this.currentSemesterNumber &&
+          other.classStartTime == this.classStartTime &&
+          other.classEndTime == this.classEndTime &&
+          other.semesterStartDay == this.semesterStartDay &&
+          other.tuitionPerSemester == this.tuitionPerSemester &&
+          other.scholarshipPercentage == this.scholarshipPercentage &&
+          other.totalLoanAmount == this.totalLoanAmount &&
+          other.status == this.status);
+}
+
+class CollegeTableCompanion extends UpdateCompanion<College> {
+  final Value<int> id;
+  final Value<int> personId;
+  final Value<int> schoolId;
+  final Value<int> degreeId;
+  final Value<String> schoolType;
+  final Value<int> attendance;
+  final Value<int> project;
+  final Value<int> courseKnowledge;
+  final Value<int> cumulativeGrade;
+  final Value<int> totalSemesterNumber;
+  final Value<int> currentSemesterNumber;
+  final Value<int> classStartTime;
+  final Value<int> classEndTime;
+  final Value<int> semesterStartDay;
+  final Value<int> tuitionPerSemester;
+  final Value<int> scholarshipPercentage;
+  final Value<int> totalLoanAmount;
+  final Value<String> status;
+  const CollegeTableCompanion({
+    this.id = const Value.absent(),
+    this.personId = const Value.absent(),
+    this.schoolId = const Value.absent(),
+    this.degreeId = const Value.absent(),
+    this.schoolType = const Value.absent(),
+    this.attendance = const Value.absent(),
+    this.project = const Value.absent(),
+    this.courseKnowledge = const Value.absent(),
+    this.cumulativeGrade = const Value.absent(),
+    this.totalSemesterNumber = const Value.absent(),
+    this.currentSemesterNumber = const Value.absent(),
+    this.classStartTime = const Value.absent(),
+    this.classEndTime = const Value.absent(),
+    this.semesterStartDay = const Value.absent(),
+    this.tuitionPerSemester = const Value.absent(),
+    this.scholarshipPercentage = const Value.absent(),
+    this.totalLoanAmount = const Value.absent(),
+    this.status = const Value.absent(),
+  });
+  CollegeTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int personId,
+    required int schoolId,
+    required int degreeId,
+    required String schoolType,
+    required int attendance,
+    required int project,
+    required int courseKnowledge,
+    required int cumulativeGrade,
+    required int totalSemesterNumber,
+    required int currentSemesterNumber,
+    required int classStartTime,
+    required int classEndTime,
+    required int semesterStartDay,
+    required int tuitionPerSemester,
+    required int scholarshipPercentage,
+    required int totalLoanAmount,
+    required String status,
+  })  : personId = Value(personId),
+        schoolId = Value(schoolId),
+        degreeId = Value(degreeId),
+        schoolType = Value(schoolType),
+        attendance = Value(attendance),
+        project = Value(project),
+        courseKnowledge = Value(courseKnowledge),
+        cumulativeGrade = Value(cumulativeGrade),
+        totalSemesterNumber = Value(totalSemesterNumber),
+        currentSemesterNumber = Value(currentSemesterNumber),
+        classStartTime = Value(classStartTime),
+        classEndTime = Value(classEndTime),
+        semesterStartDay = Value(semesterStartDay),
+        tuitionPerSemester = Value(tuitionPerSemester),
+        scholarshipPercentage = Value(scholarshipPercentage),
+        totalLoanAmount = Value(totalLoanAmount),
+        status = Value(status);
+  static Insertable<College> custom({
+    Expression<int>? id,
+    Expression<int>? personId,
+    Expression<int>? schoolId,
+    Expression<int>? degreeId,
+    Expression<String>? schoolType,
+    Expression<int>? attendance,
+    Expression<int>? project,
+    Expression<int>? courseKnowledge,
+    Expression<int>? cumulativeGrade,
+    Expression<int>? totalSemesterNumber,
+    Expression<int>? currentSemesterNumber,
+    Expression<int>? classStartTime,
+    Expression<int>? classEndTime,
+    Expression<int>? semesterStartDay,
+    Expression<int>? tuitionPerSemester,
+    Expression<int>? scholarshipPercentage,
+    Expression<int>? totalLoanAmount,
+    Expression<String>? status,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (personId != null) 'person_id': personId,
+      if (schoolId != null) 'school_id': schoolId,
+      if (degreeId != null) 'degree_id': degreeId,
+      if (schoolType != null) 'school_type': schoolType,
+      if (attendance != null) 'attendance': attendance,
+      if (project != null) 'project': project,
+      if (courseKnowledge != null) 'course_knowledge': courseKnowledge,
+      if (cumulativeGrade != null) 'cumulative_grade': cumulativeGrade,
+      if (totalSemesterNumber != null)
+        'total_semester_number': totalSemesterNumber,
+      if (currentSemesterNumber != null)
+        'current_semester_number': currentSemesterNumber,
+      if (classStartTime != null) 'class_start_time': classStartTime,
+      if (classEndTime != null) 'class_end_time': classEndTime,
+      if (semesterStartDay != null) 'semester_start_day': semesterStartDay,
+      if (tuitionPerSemester != null)
+        'tuition_per_semester': tuitionPerSemester,
+      if (scholarshipPercentage != null)
+        'scholarship_percentage': scholarshipPercentage,
+      if (totalLoanAmount != null) 'total_loan_amount': totalLoanAmount,
+      if (status != null) 'status': status,
+    });
+  }
+
+  CollegeTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? personId,
+      Value<int>? schoolId,
+      Value<int>? degreeId,
+      Value<String>? schoolType,
+      Value<int>? attendance,
+      Value<int>? project,
+      Value<int>? courseKnowledge,
+      Value<int>? cumulativeGrade,
+      Value<int>? totalSemesterNumber,
+      Value<int>? currentSemesterNumber,
+      Value<int>? classStartTime,
+      Value<int>? classEndTime,
+      Value<int>? semesterStartDay,
+      Value<int>? tuitionPerSemester,
+      Value<int>? scholarshipPercentage,
+      Value<int>? totalLoanAmount,
+      Value<String>? status}) {
+    return CollegeTableCompanion(
+      id: id ?? this.id,
+      personId: personId ?? this.personId,
+      schoolId: schoolId ?? this.schoolId,
+      degreeId: degreeId ?? this.degreeId,
+      schoolType: schoolType ?? this.schoolType,
+      attendance: attendance ?? this.attendance,
+      project: project ?? this.project,
+      courseKnowledge: courseKnowledge ?? this.courseKnowledge,
+      cumulativeGrade: cumulativeGrade ?? this.cumulativeGrade,
+      totalSemesterNumber: totalSemesterNumber ?? this.totalSemesterNumber,
+      currentSemesterNumber:
+          currentSemesterNumber ?? this.currentSemesterNumber,
+      classStartTime: classStartTime ?? this.classStartTime,
+      classEndTime: classEndTime ?? this.classEndTime,
+      semesterStartDay: semesterStartDay ?? this.semesterStartDay,
+      tuitionPerSemester: tuitionPerSemester ?? this.tuitionPerSemester,
+      scholarshipPercentage:
+          scholarshipPercentage ?? this.scholarshipPercentage,
+      totalLoanAmount: totalLoanAmount ?? this.totalLoanAmount,
+      status: status ?? this.status,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (schoolId.present) {
+      map['school_id'] = Variable<int>(schoolId.value);
+    }
+    if (degreeId.present) {
+      map['degree_id'] = Variable<int>(degreeId.value);
+    }
+    if (schoolType.present) {
+      map['school_type'] = Variable<String>(schoolType.value);
+    }
+    if (attendance.present) {
+      map['attendance'] = Variable<int>(attendance.value);
+    }
+    if (project.present) {
+      map['project'] = Variable<int>(project.value);
+    }
+    if (courseKnowledge.present) {
+      map['course_knowledge'] = Variable<int>(courseKnowledge.value);
+    }
+    if (cumulativeGrade.present) {
+      map['cumulative_grade'] = Variable<int>(cumulativeGrade.value);
+    }
+    if (totalSemesterNumber.present) {
+      map['total_semester_number'] = Variable<int>(totalSemesterNumber.value);
+    }
+    if (currentSemesterNumber.present) {
+      map['current_semester_number'] =
+          Variable<int>(currentSemesterNumber.value);
+    }
+    if (classStartTime.present) {
+      map['class_start_time'] = Variable<int>(classStartTime.value);
+    }
+    if (classEndTime.present) {
+      map['class_end_time'] = Variable<int>(classEndTime.value);
+    }
+    if (semesterStartDay.present) {
+      map['semester_start_day'] = Variable<int>(semesterStartDay.value);
+    }
+    if (tuitionPerSemester.present) {
+      map['tuition_per_semester'] = Variable<int>(tuitionPerSemester.value);
+    }
+    if (scholarshipPercentage.present) {
+      map['scholarship_percentage'] =
+          Variable<int>(scholarshipPercentage.value);
+    }
+    if (totalLoanAmount.present) {
+      map['total_loan_amount'] = Variable<int>(totalLoanAmount.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CollegeTableCompanion(')
+          ..write('id: $id, ')
+          ..write('personId: $personId, ')
+          ..write('schoolId: $schoolId, ')
+          ..write('degreeId: $degreeId, ')
+          ..write('schoolType: $schoolType, ')
+          ..write('attendance: $attendance, ')
+          ..write('project: $project, ')
+          ..write('courseKnowledge: $courseKnowledge, ')
+          ..write('cumulativeGrade: $cumulativeGrade, ')
+          ..write('totalSemesterNumber: $totalSemesterNumber, ')
+          ..write('currentSemesterNumber: $currentSemesterNumber, ')
+          ..write('classStartTime: $classStartTime, ')
+          ..write('classEndTime: $classEndTime, ')
+          ..write('semesterStartDay: $semesterStartDay, ')
+          ..write('tuitionPerSemester: $tuitionPerSemester, ')
+          ..write('scholarshipPercentage: $scholarshipPercentage, ')
+          ..write('totalLoanAmount: $totalLoanAmount, ')
+          ..write('status: $status')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PrecollegeTableTable extends PrecollegeTable
+    with TableInfo<$PrecollegeTableTable, Precollege> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PrecollegeTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _schoolTypeMeta =
+      const VerificationMeta('schoolType');
+  @override
+  late final GeneratedColumn<String> schoolType = GeneratedColumn<String>(
+      'school_type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _currentSchoolIdMeta =
+      const VerificationMeta('currentSchoolId');
+  @override
+  late final GeneratedColumn<int> currentSchoolId = GeneratedColumn<int>(
+      'current_school_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES school (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _activeMeta = const VerificationMeta('active');
+  @override
+  late final GeneratedColumn<bool> active = GeneratedColumn<bool>(
+      'active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("active" IN (0, 1))'));
+  static const VerificationMeta _attendanceMeta =
+      const VerificationMeta('attendance');
+  @override
+  late final GeneratedColumn<int> attendance = GeneratedColumn<int>(
+      'attendance', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lastSchoolAttendanceDayMeta =
+      const VerificationMeta('lastSchoolAttendanceDay');
+  @override
+  late final GeneratedColumn<int> lastSchoolAttendanceDay =
+      GeneratedColumn<int>('last_school_attendance_day', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _homeworkMeta =
+      const VerificationMeta('homework');
+  @override
+  late final GeneratedColumn<int> homework = GeneratedColumn<int>(
+      'homework', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _lastHomeworkSubmissionDayMeta =
+      const VerificationMeta('lastHomeworkSubmissionDay');
+  @override
+  late final GeneratedColumn<int> lastHomeworkSubmissionDay =
+      GeneratedColumn<int>('last_homework_submission_day', aliasedName, false,
+          type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _courseKnowledgeMeta =
+      const VerificationMeta('courseKnowledge');
+  @override
+  late final GeneratedColumn<int> courseKnowledge = GeneratedColumn<int>(
+      'course_knowledge', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _finalExamMeta =
+      const VerificationMeta('finalExam');
+  @override
+  late final GeneratedColumn<int> finalExam = GeneratedColumn<int>(
+      'final_exam', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        personId,
+        schoolType,
+        currentSchoolId,
+        active,
+        attendance,
+        lastSchoolAttendanceDay,
+        homework,
+        lastHomeworkSubmissionDay,
+        courseKnowledge,
+        finalExam
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'precollege';
+  @override
+  VerificationContext validateIntegrity(Insertable<Precollege> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('school_type')) {
+      context.handle(
+          _schoolTypeMeta,
+          schoolType.isAcceptableOrUnknown(
+              data['school_type']!, _schoolTypeMeta));
+    } else if (isInserting) {
+      context.missing(_schoolTypeMeta);
+    }
+    if (data.containsKey('current_school_id')) {
+      context.handle(
+          _currentSchoolIdMeta,
+          currentSchoolId.isAcceptableOrUnknown(
+              data['current_school_id']!, _currentSchoolIdMeta));
+    } else if (isInserting) {
+      context.missing(_currentSchoolIdMeta);
+    }
+    if (data.containsKey('active')) {
+      context.handle(_activeMeta,
+          active.isAcceptableOrUnknown(data['active']!, _activeMeta));
+    } else if (isInserting) {
+      context.missing(_activeMeta);
+    }
+    if (data.containsKey('attendance')) {
+      context.handle(
+          _attendanceMeta,
+          attendance.isAcceptableOrUnknown(
+              data['attendance']!, _attendanceMeta));
+    } else if (isInserting) {
+      context.missing(_attendanceMeta);
+    }
+    if (data.containsKey('last_school_attendance_day')) {
+      context.handle(
+          _lastSchoolAttendanceDayMeta,
+          lastSchoolAttendanceDay.isAcceptableOrUnknown(
+              data['last_school_attendance_day']!,
+              _lastSchoolAttendanceDayMeta));
+    } else if (isInserting) {
+      context.missing(_lastSchoolAttendanceDayMeta);
+    }
+    if (data.containsKey('homework')) {
+      context.handle(_homeworkMeta,
+          homework.isAcceptableOrUnknown(data['homework']!, _homeworkMeta));
+    } else if (isInserting) {
+      context.missing(_homeworkMeta);
+    }
+    if (data.containsKey('last_homework_submission_day')) {
+      context.handle(
+          _lastHomeworkSubmissionDayMeta,
+          lastHomeworkSubmissionDay.isAcceptableOrUnknown(
+              data['last_homework_submission_day']!,
+              _lastHomeworkSubmissionDayMeta));
+    } else if (isInserting) {
+      context.missing(_lastHomeworkSubmissionDayMeta);
+    }
+    if (data.containsKey('course_knowledge')) {
+      context.handle(
+          _courseKnowledgeMeta,
+          courseKnowledge.isAcceptableOrUnknown(
+              data['course_knowledge']!, _courseKnowledgeMeta));
+    } else if (isInserting) {
+      context.missing(_courseKnowledgeMeta);
+    }
+    if (data.containsKey('final_exam')) {
+      context.handle(_finalExamMeta,
+          finalExam.isAcceptableOrUnknown(data['final_exam']!, _finalExamMeta));
+    } else if (isInserting) {
+      context.missing(_finalExamMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {personId, schoolType};
+  @override
+  Precollege map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Precollege(
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      schoolType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}school_type'])!,
+      currentSchoolId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}current_school_id'])!,
+      active: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}active'])!,
+      attendance: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}attendance'])!,
+      lastSchoolAttendanceDay: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}last_school_attendance_day'])!,
+      homework: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}homework'])!,
+      lastHomeworkSubmissionDay: attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}last_homework_submission_day'])!,
+      courseKnowledge: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}course_knowledge'])!,
+      finalExam: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}final_exam'])!,
+    );
+  }
+
+  @override
+  $PrecollegeTableTable createAlias(String alias) {
+    return $PrecollegeTableTable(attachedDatabase, alias);
+  }
+}
+
+class Precollege extends DataClass implements Insertable<Precollege> {
+  final int personId;
+  final String schoolType;
+  final int currentSchoolId;
+  final bool active;
+  final int attendance;
+  final int lastSchoolAttendanceDay;
+  final int homework;
+  final int lastHomeworkSubmissionDay;
+  final int courseKnowledge;
+  final int finalExam;
+  const Precollege(
+      {required this.personId,
+      required this.schoolType,
+      required this.currentSchoolId,
+      required this.active,
+      required this.attendance,
+      required this.lastSchoolAttendanceDay,
+      required this.homework,
+      required this.lastHomeworkSubmissionDay,
+      required this.courseKnowledge,
+      required this.finalExam});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['person_id'] = Variable<int>(personId);
+    map['school_type'] = Variable<String>(schoolType);
+    map['current_school_id'] = Variable<int>(currentSchoolId);
+    map['active'] = Variable<bool>(active);
+    map['attendance'] = Variable<int>(attendance);
+    map['last_school_attendance_day'] = Variable<int>(lastSchoolAttendanceDay);
+    map['homework'] = Variable<int>(homework);
+    map['last_homework_submission_day'] =
+        Variable<int>(lastHomeworkSubmissionDay);
+    map['course_knowledge'] = Variable<int>(courseKnowledge);
+    map['final_exam'] = Variable<int>(finalExam);
+    return map;
+  }
+
+  PrecollegeTableCompanion toCompanion(bool nullToAbsent) {
+    return PrecollegeTableCompanion(
+      personId: Value(personId),
+      schoolType: Value(schoolType),
+      currentSchoolId: Value(currentSchoolId),
+      active: Value(active),
+      attendance: Value(attendance),
+      lastSchoolAttendanceDay: Value(lastSchoolAttendanceDay),
+      homework: Value(homework),
+      lastHomeworkSubmissionDay: Value(lastHomeworkSubmissionDay),
+      courseKnowledge: Value(courseKnowledge),
+      finalExam: Value(finalExam),
+    );
+  }
+
+  factory Precollege.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Precollege(
+      personId: serializer.fromJson<int>(json['personId']),
+      schoolType: serializer.fromJson<String>(json['schoolType']),
+      currentSchoolId: serializer.fromJson<int>(json['currentSchoolId']),
+      active: serializer.fromJson<bool>(json['active']),
+      attendance: serializer.fromJson<int>(json['attendance']),
+      lastSchoolAttendanceDay:
+          serializer.fromJson<int>(json['lastSchoolAttendanceDay']),
+      homework: serializer.fromJson<int>(json['homework']),
+      lastHomeworkSubmissionDay:
+          serializer.fromJson<int>(json['lastHomeworkSubmissionDay']),
+      courseKnowledge: serializer.fromJson<int>(json['courseKnowledge']),
+      finalExam: serializer.fromJson<int>(json['finalExam']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'personId': serializer.toJson<int>(personId),
+      'schoolType': serializer.toJson<String>(schoolType),
+      'currentSchoolId': serializer.toJson<int>(currentSchoolId),
+      'active': serializer.toJson<bool>(active),
+      'attendance': serializer.toJson<int>(attendance),
+      'lastSchoolAttendanceDay':
+          serializer.toJson<int>(lastSchoolAttendanceDay),
+      'homework': serializer.toJson<int>(homework),
+      'lastHomeworkSubmissionDay':
+          serializer.toJson<int>(lastHomeworkSubmissionDay),
+      'courseKnowledge': serializer.toJson<int>(courseKnowledge),
+      'finalExam': serializer.toJson<int>(finalExam),
+    };
+  }
+
+  Precollege copyWith(
+          {int? personId,
+          String? schoolType,
+          int? currentSchoolId,
+          bool? active,
+          int? attendance,
+          int? lastSchoolAttendanceDay,
+          int? homework,
+          int? lastHomeworkSubmissionDay,
+          int? courseKnowledge,
+          int? finalExam}) =>
+      Precollege(
+        personId: personId ?? this.personId,
+        schoolType: schoolType ?? this.schoolType,
+        currentSchoolId: currentSchoolId ?? this.currentSchoolId,
+        active: active ?? this.active,
+        attendance: attendance ?? this.attendance,
+        lastSchoolAttendanceDay:
+            lastSchoolAttendanceDay ?? this.lastSchoolAttendanceDay,
+        homework: homework ?? this.homework,
+        lastHomeworkSubmissionDay:
+            lastHomeworkSubmissionDay ?? this.lastHomeworkSubmissionDay,
+        courseKnowledge: courseKnowledge ?? this.courseKnowledge,
+        finalExam: finalExam ?? this.finalExam,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Precollege(')
+          ..write('personId: $personId, ')
+          ..write('schoolType: $schoolType, ')
+          ..write('currentSchoolId: $currentSchoolId, ')
+          ..write('active: $active, ')
+          ..write('attendance: $attendance, ')
+          ..write('lastSchoolAttendanceDay: $lastSchoolAttendanceDay, ')
+          ..write('homework: $homework, ')
+          ..write('lastHomeworkSubmissionDay: $lastHomeworkSubmissionDay, ')
+          ..write('courseKnowledge: $courseKnowledge, ')
+          ..write('finalExam: $finalExam')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      personId,
+      schoolType,
+      currentSchoolId,
+      active,
+      attendance,
+      lastSchoolAttendanceDay,
+      homework,
+      lastHomeworkSubmissionDay,
+      courseKnowledge,
+      finalExam);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Precollege &&
+          other.personId == this.personId &&
+          other.schoolType == this.schoolType &&
+          other.currentSchoolId == this.currentSchoolId &&
+          other.active == this.active &&
+          other.attendance == this.attendance &&
+          other.lastSchoolAttendanceDay == this.lastSchoolAttendanceDay &&
+          other.homework == this.homework &&
+          other.lastHomeworkSubmissionDay == this.lastHomeworkSubmissionDay &&
+          other.courseKnowledge == this.courseKnowledge &&
+          other.finalExam == this.finalExam);
+}
+
+class PrecollegeTableCompanion extends UpdateCompanion<Precollege> {
+  final Value<int> personId;
+  final Value<String> schoolType;
+  final Value<int> currentSchoolId;
+  final Value<bool> active;
+  final Value<int> attendance;
+  final Value<int> lastSchoolAttendanceDay;
+  final Value<int> homework;
+  final Value<int> lastHomeworkSubmissionDay;
+  final Value<int> courseKnowledge;
+  final Value<int> finalExam;
+  final Value<int> rowid;
+  const PrecollegeTableCompanion({
+    this.personId = const Value.absent(),
+    this.schoolType = const Value.absent(),
+    this.currentSchoolId = const Value.absent(),
+    this.active = const Value.absent(),
+    this.attendance = const Value.absent(),
+    this.lastSchoolAttendanceDay = const Value.absent(),
+    this.homework = const Value.absent(),
+    this.lastHomeworkSubmissionDay = const Value.absent(),
+    this.courseKnowledge = const Value.absent(),
+    this.finalExam = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PrecollegeTableCompanion.insert({
+    required int personId,
+    required String schoolType,
+    required int currentSchoolId,
+    required bool active,
+    required int attendance,
+    required int lastSchoolAttendanceDay,
+    required int homework,
+    required int lastHomeworkSubmissionDay,
+    required int courseKnowledge,
+    required int finalExam,
+    this.rowid = const Value.absent(),
+  })  : personId = Value(personId),
+        schoolType = Value(schoolType),
+        currentSchoolId = Value(currentSchoolId),
+        active = Value(active),
+        attendance = Value(attendance),
+        lastSchoolAttendanceDay = Value(lastSchoolAttendanceDay),
+        homework = Value(homework),
+        lastHomeworkSubmissionDay = Value(lastHomeworkSubmissionDay),
+        courseKnowledge = Value(courseKnowledge),
+        finalExam = Value(finalExam);
+  static Insertable<Precollege> custom({
+    Expression<int>? personId,
+    Expression<String>? schoolType,
+    Expression<int>? currentSchoolId,
+    Expression<bool>? active,
+    Expression<int>? attendance,
+    Expression<int>? lastSchoolAttendanceDay,
+    Expression<int>? homework,
+    Expression<int>? lastHomeworkSubmissionDay,
+    Expression<int>? courseKnowledge,
+    Expression<int>? finalExam,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (personId != null) 'person_id': personId,
+      if (schoolType != null) 'school_type': schoolType,
+      if (currentSchoolId != null) 'current_school_id': currentSchoolId,
+      if (active != null) 'active': active,
+      if (attendance != null) 'attendance': attendance,
+      if (lastSchoolAttendanceDay != null)
+        'last_school_attendance_day': lastSchoolAttendanceDay,
+      if (homework != null) 'homework': homework,
+      if (lastHomeworkSubmissionDay != null)
+        'last_homework_submission_day': lastHomeworkSubmissionDay,
+      if (courseKnowledge != null) 'course_knowledge': courseKnowledge,
+      if (finalExam != null) 'final_exam': finalExam,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PrecollegeTableCompanion copyWith(
+      {Value<int>? personId,
+      Value<String>? schoolType,
+      Value<int>? currentSchoolId,
+      Value<bool>? active,
+      Value<int>? attendance,
+      Value<int>? lastSchoolAttendanceDay,
+      Value<int>? homework,
+      Value<int>? lastHomeworkSubmissionDay,
+      Value<int>? courseKnowledge,
+      Value<int>? finalExam,
+      Value<int>? rowid}) {
+    return PrecollegeTableCompanion(
+      personId: personId ?? this.personId,
+      schoolType: schoolType ?? this.schoolType,
+      currentSchoolId: currentSchoolId ?? this.currentSchoolId,
+      active: active ?? this.active,
+      attendance: attendance ?? this.attendance,
+      lastSchoolAttendanceDay:
+          lastSchoolAttendanceDay ?? this.lastSchoolAttendanceDay,
+      homework: homework ?? this.homework,
+      lastHomeworkSubmissionDay:
+          lastHomeworkSubmissionDay ?? this.lastHomeworkSubmissionDay,
+      courseKnowledge: courseKnowledge ?? this.courseKnowledge,
+      finalExam: finalExam ?? this.finalExam,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (schoolType.present) {
+      map['school_type'] = Variable<String>(schoolType.value);
+    }
+    if (currentSchoolId.present) {
+      map['current_school_id'] = Variable<int>(currentSchoolId.value);
+    }
+    if (active.present) {
+      map['active'] = Variable<bool>(active.value);
+    }
+    if (attendance.present) {
+      map['attendance'] = Variable<int>(attendance.value);
+    }
+    if (lastSchoolAttendanceDay.present) {
+      map['last_school_attendance_day'] =
+          Variable<int>(lastSchoolAttendanceDay.value);
+    }
+    if (homework.present) {
+      map['homework'] = Variable<int>(homework.value);
+    }
+    if (lastHomeworkSubmissionDay.present) {
+      map['last_homework_submission_day'] =
+          Variable<int>(lastHomeworkSubmissionDay.value);
+    }
+    if (courseKnowledge.present) {
+      map['course_knowledge'] = Variable<int>(courseKnowledge.value);
+    }
+    if (finalExam.present) {
+      map['final_exam'] = Variable<int>(finalExam.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PrecollegeTableCompanion(')
+          ..write('personId: $personId, ')
+          ..write('schoolType: $schoolType, ')
+          ..write('currentSchoolId: $currentSchoolId, ')
+          ..write('active: $active, ')
+          ..write('attendance: $attendance, ')
+          ..write('lastSchoolAttendanceDay: $lastSchoolAttendanceDay, ')
+          ..write('homework: $homework, ')
+          ..write('lastHomeworkSubmissionDay: $lastHomeworkSubmissionDay, ')
+          ..write('courseKnowledge: $courseKnowledge, ')
+          ..write('finalExam: $finalExam, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $FacultyTableTable extends FacultyTable
+    with TableInfo<$FacultyTableTable, Faculty> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $FacultyTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _personIdMeta =
+      const VerificationMeta('personId');
+  @override
+  late final GeneratedColumn<int> personId = GeneratedColumn<int>(
+      'person_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'UNIQUE REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _schoolIdMeta =
+      const VerificationMeta('schoolId');
+  @override
+  late final GeneratedColumn<int> schoolId = GeneratedColumn<int>(
+      'school_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES school (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _roleMeta = const VerificationMeta('role');
+  @override
+  late final GeneratedColumn<String> role = GeneratedColumn<String>(
+      'role', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [personId, schoolId, role];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'faculty';
+  @override
+  VerificationContext validateIntegrity(Insertable<Faculty> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('person_id')) {
+      context.handle(_personIdMeta,
+          personId.isAcceptableOrUnknown(data['person_id']!, _personIdMeta));
+    } else if (isInserting) {
+      context.missing(_personIdMeta);
+    }
+    if (data.containsKey('school_id')) {
+      context.handle(_schoolIdMeta,
+          schoolId.isAcceptableOrUnknown(data['school_id']!, _schoolIdMeta));
+    } else if (isInserting) {
+      context.missing(_schoolIdMeta);
+    }
+    if (data.containsKey('role')) {
+      context.handle(
+          _roleMeta, role.isAcceptableOrUnknown(data['role']!, _roleMeta));
+    } else if (isInserting) {
+      context.missing(_roleMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  Faculty map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Faculty(
+      personId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}person_id'])!,
+      schoolId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}school_id'])!,
+      role: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}role'])!,
+    );
+  }
+
+  @override
+  $FacultyTableTable createAlias(String alias) {
+    return $FacultyTableTable(attachedDatabase, alias);
+  }
+}
+
+class Faculty extends DataClass implements Insertable<Faculty> {
+  final int personId;
+  final int schoolId;
+  final String role;
+  const Faculty(
+      {required this.personId, required this.schoolId, required this.role});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['person_id'] = Variable<int>(personId);
+    map['school_id'] = Variable<int>(schoolId);
+    map['role'] = Variable<String>(role);
+    return map;
+  }
+
+  FacultyTableCompanion toCompanion(bool nullToAbsent) {
+    return FacultyTableCompanion(
+      personId: Value(personId),
+      schoolId: Value(schoolId),
+      role: Value(role),
+    );
+  }
+
+  factory Faculty.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Faculty(
+      personId: serializer.fromJson<int>(json['personId']),
+      schoolId: serializer.fromJson<int>(json['schoolId']),
+      role: serializer.fromJson<String>(json['role']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'personId': serializer.toJson<int>(personId),
+      'schoolId': serializer.toJson<int>(schoolId),
+      'role': serializer.toJson<String>(role),
+    };
+  }
+
+  Faculty copyWith({int? personId, int? schoolId, String? role}) => Faculty(
+        personId: personId ?? this.personId,
+        schoolId: schoolId ?? this.schoolId,
+        role: role ?? this.role,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Faculty(')
+          ..write('personId: $personId, ')
+          ..write('schoolId: $schoolId, ')
+          ..write('role: $role')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(personId, schoolId, role);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Faculty &&
+          other.personId == this.personId &&
+          other.schoolId == this.schoolId &&
+          other.role == this.role);
+}
+
+class FacultyTableCompanion extends UpdateCompanion<Faculty> {
+  final Value<int> personId;
+  final Value<int> schoolId;
+  final Value<String> role;
+  final Value<int> rowid;
+  const FacultyTableCompanion({
+    this.personId = const Value.absent(),
+    this.schoolId = const Value.absent(),
+    this.role = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  FacultyTableCompanion.insert({
+    required int personId,
+    required int schoolId,
+    required String role,
+    this.rowid = const Value.absent(),
+  })  : personId = Value(personId),
+        schoolId = Value(schoolId),
+        role = Value(role);
+  static Insertable<Faculty> custom({
+    Expression<int>? personId,
+    Expression<int>? schoolId,
+    Expression<String>? role,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (personId != null) 'person_id': personId,
+      if (schoolId != null) 'school_id': schoolId,
+      if (role != null) 'role': role,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  FacultyTableCompanion copyWith(
+      {Value<int>? personId,
+      Value<int>? schoolId,
+      Value<String>? role,
+      Value<int>? rowid}) {
+    return FacultyTableCompanion(
+      personId: personId ?? this.personId,
+      schoolId: schoolId ?? this.schoolId,
+      role: role ?? this.role,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (personId.present) {
+      map['person_id'] = Variable<int>(personId.value);
+    }
+    if (schoolId.present) {
+      map['school_id'] = Variable<int>(schoolId.value);
+    }
+    if (role.present) {
+      map['role'] = Variable<String>(role.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FacultyTableCompanion(')
+          ..write('personId: $personId, ')
+          ..write('schoolId: $schoolId, ')
+          ..write('role: $role, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -17072,6 +17824,10 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       $SchoolProjectTableTable(this);
   late final $SchoolRelationshipTableTable schoolRelationshipTable =
       $SchoolRelationshipTableTable(this);
+  late final $CollegeTableTable collegeTable = $CollegeTableTable(this);
+  late final $PrecollegeTableTable precollegeTable =
+      $PrecollegeTableTable(this);
+  late final $FacultyTableTable facultyTable = $FacultyTableTable(this);
   late final $JobTableTable jobTable = $JobTableTable(this);
   late final $EmploymentTableTable employmentTable =
       $EmploymentTableTable(this);
@@ -17125,6 +17881,12 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
       DegreeDaoImpl(this as DatabaseProvider);
   late final SchoolDaoImpl schoolDaoImpl =
       SchoolDaoImpl(this as DatabaseProvider);
+  late final CollegeDaoImpl collegeDaoImpl =
+      CollegeDaoImpl(this as DatabaseProvider);
+  late final PrecollegeDaoImpl precollegeDaoImpl =
+      PrecollegeDaoImpl(this as DatabaseProvider);
+  late final FacultyDaoImpl facultyDaoImpl =
+      FacultyDaoImpl(this as DatabaseProvider);
   late final SchoolProjectDaoImpl schoolProjectDaoImpl =
       SchoolProjectDaoImpl(this as DatabaseProvider);
   late final SchoolRelationshipDaoImpl schoolRelationshipDaoImpl =
@@ -17171,6 +17933,9 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
         schoolTable,
         schoolProjectTable,
         schoolRelationshipTable,
+        collegeTable,
+        precollegeTable,
+        facultyTable,
         jobTable,
         employmentTable,
         jobRelationshipTable,
@@ -17559,115 +18324,185 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
             ],
           ),
           WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.delete),
             result: [
-              TableUpdate('school', kind: UpdateKind.delete),
+              TableUpdate('school_project', kind: UpdateKind.delete),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.update),
             result: [
-              TableUpdate('school', kind: UpdateKind.update),
+              TableUpdate('school_project', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_project', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('school_relationship', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('college', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('college', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('college', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('school',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('college', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('degree',
                 limitUpdateKind: UpdateKind.delete),
             result: [
-              TableUpdate('school', kind: UpdateKind.delete),
+              TableUpdate('college', kind: UpdateKind.delete),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('degree',
                 limitUpdateKind: UpdateKind.update),
             result: [
-              TableUpdate('school', kind: UpdateKind.update),
+              TableUpdate('college', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('precollege', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('person',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('precollege', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('school',
                 limitUpdateKind: UpdateKind.delete),
             result: [
-              TableUpdate('school_project', kind: UpdateKind.delete),
+              TableUpdate('precollege', kind: UpdateKind.delete),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('school',
                 limitUpdateKind: UpdateKind.update),
             result: [
-              TableUpdate('school_project', kind: UpdateKind.update),
+              TableUpdate('precollege', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.delete),
             result: [
-              TableUpdate('school_project', kind: UpdateKind.delete),
+              TableUpdate('faculty', kind: UpdateKind.delete),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('person',
                 limitUpdateKind: UpdateKind.update),
             result: [
-              TableUpdate('school_project', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('school_project', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('school_project', kind: UpdateKind.update),
+              TableUpdate('faculty', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('school',
                 limitUpdateKind: UpdateKind.delete),
             result: [
-              TableUpdate('school_relationship', kind: UpdateKind.delete),
+              TableUpdate('faculty', kind: UpdateKind.delete),
             ],
           ),
           WritePropagation(
             on: TableUpdateQuery.onTableName('school',
                 limitUpdateKind: UpdateKind.update),
             result: [
-              TableUpdate('school_relationship', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('school_relationship', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('school_relationship', kind: UpdateKind.update),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('school_relationship', kind: UpdateKind.delete),
-            ],
-          ),
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('person',
-                limitUpdateKind: UpdateKind.update),
-            result: [
-              TableUpdate('school_relationship', kind: UpdateKind.update),
+              TableUpdate('faculty', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(

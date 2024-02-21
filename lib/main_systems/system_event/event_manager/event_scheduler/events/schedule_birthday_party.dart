@@ -5,10 +5,11 @@ import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
 
 class ScheduleBirthdayParty {
-
   final ScheduleEvent _scheduleEvent;
 
-  const ScheduleBirthdayParty( this._scheduleEvent,);
+  const ScheduleBirthdayParty(
+    this._scheduleEvent,
+  );
 
   Future<Event> execute({
     required int gameID,
@@ -31,7 +32,6 @@ class ScheduleBirthdayParty {
       startTime: startTime,
       endTime: startTime + birthdayPartyEvent.eventDuration,
       mainPersonId: mainPersonID,
-      journalEntryOnly: false,
       performed: false,
     );
 

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 
 const defaultMinValue = 10;
-const defaultMaxValue = 70;
+const defaultMaxValue = 100;
 
 int getValidRandomStatsValue({
   int minValue = defaultMinValue,

@@ -20,7 +20,7 @@ class ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase {
 
   Future<void> execute({
     required List<PlatonicRelationshipTypeWithParentTypeIndicator>
-        parentRelationshipTypeWithIndicatorsList,
+        parentRelationshipToPlayerWithIndicatorsList,
     required int playerPersonID,
     required int childPersonID,
   }) async {
@@ -32,12 +32,12 @@ class ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase {
 
     //for each parent relationship type
     for (var parentRelationshipTypeWithIndicator
-        in parentRelationshipTypeWithIndicatorsList) {
+        in parentRelationshipToPlayerWithIndicatorsList) {
       //find the familial relationship
       final PlatonicRelationshipType? familialRelationship =
           await _findPersonsFamilialRelationshipToPlayerThroughParentUsecase
               .execute(
-        parentRelationshipType: parentRelationshipTypeWithIndicator,
+        parentRelationshipToPlayer: parentRelationshipTypeWithIndicator,
         childPersonID: childPersonID,
         playerPersonID: playerPersonID,
       );

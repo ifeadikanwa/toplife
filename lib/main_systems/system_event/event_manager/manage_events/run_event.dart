@@ -20,6 +20,7 @@ class RunEvent {
         //NON-attendable events
         case EventType.birthday:
           return _scheduledEvents.birthdayEvent.execute(
+            context,
             mainPlayerID,
             event,
           );

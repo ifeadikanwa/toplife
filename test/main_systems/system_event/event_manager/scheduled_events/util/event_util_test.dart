@@ -1,4 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:toplife/main_systems/system_event/constants/event_category.dart';
+import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
 
 void main() {
@@ -109,5 +111,29 @@ void main() {
         );
       },
     );
+
+    test(
+        "getEventTypeNamesInCategory return event type names in that event category",
+        () {
+      final List<String> eventTypeNames = EventUtil.getEventTypeNamesInCategory(
+        EventCategory.unmovableAutonomousEvent,
+      );
+
+      for (var eventTypeName in eventTypeNames) {
+        final EventType? eventType =
+            EventType.values.asNameMap()[eventTypeName];
+        expect(
+          eventType,
+          isNotNull,
+          reason: "$eventTypeName is not a valid event type",
+        );
+
+        expect(
+          eventType?.eventCategory,
+          EventCategory.unmovableAutonomousEvent,
+          reason: "Event type does not have the correct event category",
+        );
+      }
+    });
   });
 }

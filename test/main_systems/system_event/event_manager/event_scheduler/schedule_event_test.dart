@@ -4,6 +4,6 @@ import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/
 void main() {
   group("Schedule Event:", () {
     test("maxAutonomousDialogEventsInADay is 3",
-        () => expect(ScheduleEvent.maxAutonomousDialogEventsInADay, 3));
+        () => expect(ScheduleEvent.maxMovableAutonomousDialogEventsInADay, 3));
   });
 }

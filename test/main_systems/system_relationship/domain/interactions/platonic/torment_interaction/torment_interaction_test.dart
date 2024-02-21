@@ -1,7 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
-import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
+import 'package:toplife/main_systems/system_age/usecases/get_day_of_birth_from_days_lived_usecase.dart';
+import 'package:toplife/main_systems/system_age/usecases/get_days_lived_range_for_a_lifestage_usecase.dart';
+import 'package:toplife/main_systems/system_age/usecases/get_random_day_of_birth_in_a_life_stage_usecase.dart';
+import 'package:toplife/main_systems/system_age/usecases/get_random_days_lived_for_a_lifestage_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/platonic/torment_interaction/torment_interaction.dart';
 
 import '../../../../../_mocks/system_mocks.mocks.dart';
@@ -9,13 +12,23 @@ import '../../../../../_mocks/system_mocks.mocks.dart';
 void main() {
   group("Torment Interaction:", () {
     late TormentInteraction tormentInteraction;
-    const int currentDay = 100;
+
     late Person testPerson;
+
+    const int currentDay = 100;
+    final GetRandomDayOfBirthInALifeStageUsecase
+        getRandomDayOfBirthInALifeStageUsecase =
+        GetRandomDayOfBirthInALifeStageUsecase(
+      const GetRandomDaysLivedInALifestage(
+          GetDaysLivedRangeForALifestageUsecase()),
+      GetDayOfBirthFromDaysLivedUsecase(),
+    );
 
     setUp(() {
       tormentInteraction = TormentInteraction(
         MockRelationshipUsecases(),
         MockJournalUsecases(),
+        MockAgeUsecases(),
       );
       testPerson = const Person(
         id: 0,
@@ -69,17 +82,16 @@ void main() {
     test(
         "isAvailable is false if player is younger than child and relationship person is older or equal to child whether they live together or not",
         () {
-      final int playerDOB =
-          AgeUsecases().getRandomDayOfBirthInALifeStageUsecase.execute(
-                lifeStage: LifeStage.toddler,
-                currentDay: currentDay,
-              );
+      final int playerDOB = getRandomDayOfBirthInALifeStageUsecase.execute(
+        lifeStage: LifeStage.toddler,
+        currentDay: currentDay,
+      );
 
       final int relationshipPersonsDOB =
-          AgeUsecases().getRandomDayOfBirthInALifeStageUsecase.execute(
-                lifeStage: LifeStage.child,
-                currentDay: currentDay,
-              );
+          getRandomDayOfBirthInALifeStageUsecase.execute(
+        lifeStage: LifeStage.child,
+        currentDay: currentDay,
+      );
 
       final Person currentPlayer = testPerson.copyWith(
         dayOfBirth: playerDOB,
@@ -90,7 +102,6 @@ void main() {
 
       expect(
         tormentInteraction.isAvailable(
-          ageUsecases: AgeUsecases(),
           currentDay: currentDay,
           currentPlayer: currentPlayer,
           relationshipPerson: relationshipPerson,
@@ -102,7 +113,6 @@ void main() {
 
       expect(
         tormentInteraction.isAvailable(
-          ageUsecases: AgeUsecases(),
           currentDay: currentDay,
           currentPlayer: currentPlayer,
           relationshipPerson: relationshipPerson,
@@ -116,17 +126,16 @@ void main() {
     test(
         "isAvailable is false if player is older or equal to child and relationship person is younger than child whether they live together or not",
         () {
-      final int playerDOB =
-          AgeUsecases().getRandomDayOfBirthInALifeStageUsecase.execute(
-                lifeStage: LifeStage.youngAdult,
-                currentDay: currentDay,
-              );
+      final int playerDOB = getRandomDayOfBirthInALifeStageUsecase.execute(
+        lifeStage: LifeStage.youngAdult,
+        currentDay: currentDay,
+      );
 
       final int relationshipPersonsDOB =
-          AgeUsecases().getRandomDayOfBirthInALifeStageUsecase.execute(
-                lifeStage: LifeStage.baby,
-                currentDay: currentDay,
-              );
+          getRandomDayOfBirthInALifeStageUsecase.execute(
+        lifeStage: LifeStage.baby,
+        currentDay: currentDay,
+      );
 
       final Person currentPlayer = testPerson.copyWith(
         dayOfBirth: playerDOB,
@@ -137,7 +146,6 @@ void main() {
 
       expect(
         tormentInteraction.isAvailable(
-          ageUsecases: AgeUsecases(),
           currentDay: currentDay,
           currentPlayer: currentPlayer,
           relationshipPerson: relationshipPerson,
@@ -149,7 +157,6 @@ void main() {
 
       expect(
         tormentInteraction.isAvailable(
-          ageUsecases: AgeUsecases(),
           currentDay: currentDay,
           currentPlayer: currentPlayer,
           relationshipPerson: relationshipPerson,
@@ -163,17 +170,16 @@ void main() {
     test(
         "isAvailable is true if player is older or equal to child and relationship person is older or equal to child whether they live together or not",
         () {
-      final int playerDOB =
-          AgeUsecases().getRandomDayOfBirthInALifeStageUsecase.execute(
-                lifeStage: LifeStage.elder,
-                currentDay: currentDay,
-              );
+      final int playerDOB = getRandomDayOfBirthInALifeStageUsecase.execute(
+        lifeStage: LifeStage.elder,
+        currentDay: currentDay,
+      );
 
       final int relationshipPersonsDOB =
-          AgeUsecases().getRandomDayOfBirthInALifeStageUsecase.execute(
-                lifeStage: LifeStage.child,
-                currentDay: currentDay,
-              );
+          getRandomDayOfBirthInALifeStageUsecase.execute(
+        lifeStage: LifeStage.child,
+        currentDay: currentDay,
+      );
 
       final Person currentPlayer = testPerson.copyWith(
         dayOfBirth: playerDOB,
@@ -184,7 +190,6 @@ void main() {
 
       expect(
         tormentInteraction.isAvailable(
-          ageUsecases: AgeUsecases(),
           currentDay: currentDay,
           currentPlayer: currentPlayer,
           relationshipPerson: relationshipPerson,
@@ -196,7 +201,6 @@ void main() {
 
       expect(
         tormentInteraction.isAvailable(
-          ageUsecases: AgeUsecases(),
           currentDay: currentDay,
           currentPlayer: currentPlayer,
           relationshipPerson: relationshipPerson,

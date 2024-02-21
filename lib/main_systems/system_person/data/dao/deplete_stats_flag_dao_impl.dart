@@ -16,7 +16,7 @@ class DepleteStatsFlagDaoImpl extends DatabaseAccessor<DatabaseProvider>
     DepleteStatsFlag depleteStatsFlag,
   ) async {
     //I use insert with a replace mode because insertOnConflictUpdate
-    //does not recognize unique contraints that aren't primary keys.
+    //does not recognize unique constraints that aren't primary keys.
     //This table has no primary key, only a UNIQUE column
     await into(depleteStatsFlagTable)
         .insert(depleteStatsFlag, mode: InsertMode.insertOrReplace);

@@ -41,7 +41,8 @@ class GetAllStepFamilyFromDifferentGenerationsUsecase {
       final PlatonicRelationshipType? givenChildrensRelationshipToPlayer =
           await _findPersonsFamilialRelationshipToPlayerThroughParentUsecase
               .execute(
-        parentRelationshipType: PlatonicRelationshipTypeWithParentTypeIndicator(
+        parentRelationshipToPlayer:
+            PlatonicRelationshipTypeWithParentTypeIndicator(
           platonicRelationshipType: parentRelationshipToPlayer,
           isStepParent: true,
         ),

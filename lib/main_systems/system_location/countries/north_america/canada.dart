@@ -4,6 +4,8 @@ import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/core/utils/get_random_value_from_collections.dart';
 import 'package:toplife/main_systems/system_person/constants/appearance/skin_color.dart';
 import 'package:toplife/main_systems/system_person/constants/piercing/piercing_body_location.dart';
+import 'package:toplife/main_systems/system_school/constants/precollege_naming_suffix.dart';
+import 'package:toplife/main_systems/system_school/constants/precollege_study_hour_requirement.dart';
 
 class Canada implements Country {
   @override
@@ -71,6 +73,14 @@ class Canada implements Country {
   String get randomMaleFirstName {
     return getRandomValueFromSet(set: maleFirstNames);
   }
+
+  @override
+  PrecollegeNamingSuffix get precollegeNamingSuffix =>
+      PrecollegeNamingSuffix.american;
+
+  @override
+  PrecollegeStudyHourRequirement get precollegeStudyHourRequirement =>
+      PrecollegeStudyHourRequirement.regular;
 
   @override
   bool get requiresCarInsurance => true;

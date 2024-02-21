@@ -33,7 +33,7 @@ class GetPlayerInformationFromDataUsecase {
       playerInformation = playerInformation.copyWith(
         firstName: player.firstName,
         lastName: player.lastName,
-        age: _ageUsecases.getPersonAgeUsecase
+        age: _ageUsecases.getPersonsAgeUsecase
             .execute(dayOfBirth: player.dayOfBirth, currentDay: game.currentDay)
             .lifeStage
             .stageName,
