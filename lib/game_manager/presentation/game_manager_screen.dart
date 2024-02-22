@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
@@ -10,6 +11,7 @@ import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
+@RoutePage()
 class GameManagerScreen extends ConsumerWidget {
   const GameManagerScreen({Key? key}) : super(key: key);
 

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
@@ -7,6 +8,7 @@ import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/items_list_screen.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/supplies/supplies_shop_screen_view_model.dart';
 
+@RoutePage()
 class SuppliesShopScreen extends ConsumerWidget {
   const SuppliesShopScreen({Key? key}) : super(key: key);
 

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/app_bars/top_level_app_bar.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
@@ -8,6 +9,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/player_information/player_information_card_widget.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/todays_journal/todays_journal_card.dart';
 
+@RoutePage()
 class PlayerScreen extends StatelessWidget {
   const PlayerScreen({Key? key}) : super(key: key);
 

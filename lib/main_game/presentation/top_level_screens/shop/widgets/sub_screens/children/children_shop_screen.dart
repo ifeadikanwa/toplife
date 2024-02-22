@@ -6,6 +6,7 @@ import 'package:toplife/core/common_widgets/app_screens/inner_level_screen.dart'
 import 'package:toplife/core/common_widgets/tab/app_tab.dart';
 import 'package:toplife/core/text_constants.dart';
 
+@RoutePage()
 class ChildrenShopScreen extends StatelessWidget {
   const ChildrenShopScreen({Key? key}) : super(key: key);
 

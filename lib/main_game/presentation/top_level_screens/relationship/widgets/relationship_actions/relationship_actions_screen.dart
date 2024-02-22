@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
@@ -13,6 +14,7 @@ import 'package:toplife/main_systems/system_person/domain/model/info_models/pers
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_interaction.dart';
 
 //view model data is list of interactions
+@RoutePage()
 class RelationshipActionsScreen extends ConsumerWidget {
   final PersonRelationshipPair personRelationshipPair;
 

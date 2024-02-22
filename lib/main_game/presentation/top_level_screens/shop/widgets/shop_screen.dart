@@ -19,6 +19,7 @@ import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
 import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
 import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
 
+@RoutePage()
 class ShopScreen extends ConsumerWidget {
   const ShopScreen({Key? key}) : super(key: key);
 
@@ -105,13 +106,7 @@ class ShopScreen extends ConsumerWidget {
 
             //test
             const AddVerticalSpace(height: 16.0),
-            ElevatedButton(
-              onPressed: () => AutoRouter.of(context).push(
-                DriftDbViewer(db: ref.read(databaseProvider)),
-              ),
-              child: const Text("Database Viewer"),
-            ),
-            const AddVerticalSpace(height: 16.0),
+          
             OutlinedButton(
               onPressed: () {
                 showDialog(

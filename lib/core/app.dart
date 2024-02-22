@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:toplife/config/routing/app_router.gr.dart';
+import 'package:toplife/config/routing/app_router.dart';
 import 'package:toplife/config/theme/app_theme.dart';
 import 'package:toplife/core/text_constants.dart';
 
@@ -15,8 +15,7 @@ class MyApp extends StatelessWidget {
       title: TextConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.oceanBlueTheme,
-      routerDelegate: _appRouter.delegate(),
-      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerConfig: _appRouter.config(),
     );
   }
 }

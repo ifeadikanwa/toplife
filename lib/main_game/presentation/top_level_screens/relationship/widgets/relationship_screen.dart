@@ -6,6 +6,7 @@ import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/common_widgets/tab/app_tab.dart';
 import 'package:toplife/core/text_constants.dart';
 
+@RoutePage()
 class RelationshipScreen extends StatelessWidget {
   const RelationshipScreen({Key? key}) : super(key: key);
 

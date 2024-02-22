@@ -9,6 +9,7 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/text_constants.dart';
 
+@RoutePage()
 class MainGameScreen extends ConsumerWidget {
   const MainGameScreen({Key? key}) : super(key: key);
 
@@ -20,7 +21,6 @@ class MainGameScreen extends ConsumerWidget {
       Future<Game?>? previousGameFuture,
       Future<Game?> nextGameFuture,
     ) async {
-
       //call the game controller
       ref.watch(gameUsecasesProvider).gameControllerUsecase.execute(
             previousGameFuture: previousGameFuture,
@@ -34,11 +34,11 @@ class MainGameScreen extends ConsumerWidget {
     return SafeArea(
       child: AutoTabsScaffold(
         routes: const [
-          PlayerRouter(),
-          WorkRouter(),
-          ShopRouter(),
-          RelationshipRouter(),
-          ActivitiesRouter(),
+          PlayerRoute(),
+          WorkRoute(),
+          ShopRoute(),
+          RelationshipRoute(),
+          ActivitiesRoute(),
         ],
         bottomNavigationBuilder: (context, tabsRouter) {
           return SnakeNavigationBar.color(
