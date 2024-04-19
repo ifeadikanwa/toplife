@@ -1,8 +1,4 @@
-//the called dialogs already check for context mount status
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
@@ -15,15 +11,16 @@ class BreakOldLeaseSignNewLease {
   final EndLeaseUsecase _endLeaseUsecase;
   final SignLeaseForRentalUsecase _signLeaseForRentalUsecase;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const BreakOldLeaseSignNewLease(
     this._endLeaseUsecase,
     this._signLeaseForRentalUsecase,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
-  Future<bool> execute({
-    required BuildContext context,
+  Future<void> execute({
     required int personID,
     required House newHouse,
     required House oldHouse,
@@ -76,12 +73,9 @@ class BreakOldLeaseSignNewLease {
         ShopResultConstants.houseRentCheckoutSuccessTitle;
 
     //return result dialog
-    ResultDialog.show(
-      context: context,
+    _dialogHandler.showResultDialog(
       title: resultTitle,
       result: secondPersonResult,
     );
-
-    return true;
   }
 }

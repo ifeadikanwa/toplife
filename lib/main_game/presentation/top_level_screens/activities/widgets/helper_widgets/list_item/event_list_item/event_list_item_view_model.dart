@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
@@ -9,7 +8,7 @@ import 'package:toplife/main_systems/system_event/util/get_attendable_event_time
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
 
 //provider
-final eventListItemViewModelProvider = Provider((ref) {
+final eventListItemViewModelProvider = Provider.autoDispose((ref) {
   //create viewmodel instance
   final eventListItemViewModel = EventListItemViewModel(
     ref.watch(gameUsecasesProvider).getLastPlayedActiveGameUsecase,
@@ -32,11 +31,10 @@ class EventListItemViewModel {
 
   void attendEvent(
     Event event,
-    BuildContext context,
   ) async {
     final Game? currentGame = await _getLastPlayedActiveGameUsecase.execute();
 
-    if (currentGame != null && context.mounted) {
+    if (currentGame != null) {
       //if we have a valid current player
       final int? currentPlayerId = currentGame.currentPlayerID;
 
@@ -44,7 +42,6 @@ class EventListItemViewModel {
         _eventManager.runEvent.execute(
           mainPlayerID: currentPlayerId,
           event: event,
-          context: context,
         );
       }
     }

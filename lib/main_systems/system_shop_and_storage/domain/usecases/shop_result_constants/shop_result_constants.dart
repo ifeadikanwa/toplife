@@ -1,3 +1,4 @@
+import 'package:toplife/core/utils/money/get_currency_and_money_string.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
 
 class ShopResultConstants {
@@ -142,15 +143,17 @@ class ShopResultConstants {
       "My application for a loan to buy a $itemName was rejected because I didn't have enough money for the down payment.";
 
   static String recurringPaymentResultEntry({
+    required String country,
     required int recurringPayment,
   }) =>
-      "You are expected to pay $recurringPayment every ${RecurringBillConstants.recurringPaymentDuration} days until the entire loan is paid off.";
+      "You are expected to pay ${getCurrencyAndMoneyString(country: country, amount: recurringPayment, adjustToEconomy: false)} every ${RecurringBillConstants.recurringPaymentDuration} days until the entire loan is paid off.";
 
   static String loanSuccesfulJournalEntry({
     required String itemName,
     required int recurringPayment,
+    required String country,
   }) =>
-      "I bought a $itemName with a loan. I agreed to pay $recurringPayment every ${RecurringBillConstants.recurringPaymentDuration} days until the entire loan is paid off.";
+      "I bought a $itemName with a loan. I agreed to pay ${getCurrencyAndMoneyString(country: country, amount: recurringPayment, adjustToEconomy: false)} every ${RecurringBillConstants.recurringPaymentDuration} days until the entire loan is paid off.";
 
   //Car Loan
   static const existingCarLoanRejectionResultEntry =
@@ -161,13 +164,18 @@ class ShopResultConstants {
   }) =>
       "My application for a loan to buy a $carName was rejected because I haven't paid off my current car loan.";
 
-  static String carLoanSuccesfulResultEntry({required int recurringPayment}) =>
-      "$carDeliveredResultEntry ${recurringPaymentResultEntry(recurringPayment: recurringPayment)}";
+  static String carLoanSuccesfulResultEntry({
+    required String country,
+    required int recurringPayment,
+  }) =>
+      "$carDeliveredResultEntry ${recurringPaymentResultEntry(country: country, recurringPayment: recurringPayment)}";
 
   //Mortgage loan
-  static String mortgageLoanSuccesfulResultEntry(
-          {required int recurringPayment}) =>
-      "$housePurchasedResultEntry ${recurringPaymentResultEntry(recurringPayment: recurringPayment)}";
+  static String mortgageLoanSuccesfulResultEntry({
+    required String country,
+    required int recurringPayment,
+  }) =>
+      "$housePurchasedResultEntry ${recurringPaymentResultEntry(country: country, recurringPayment: recurringPayment)}";
 
   static const notEnoughInReserveLoanRejectionResultEntry =
       "After looking through your bank statements lenders don't feel confident enough to approve the loan.";

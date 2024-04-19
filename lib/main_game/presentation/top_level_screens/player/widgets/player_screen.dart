@@ -6,7 +6,7 @@ import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/baby_monitor/baby_monitor_card.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/home_options/home_options.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/money_and_time/money_and_time_card.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/player_information/player_information_card_widget.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/player_information/player_information_card.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/todays_journal/todays_journal_card.dart';
 
 @RoutePage()

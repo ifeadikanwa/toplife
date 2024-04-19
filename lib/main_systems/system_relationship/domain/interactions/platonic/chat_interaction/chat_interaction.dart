@@ -1,8 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
 import 'package:toplife/core/utils/words/sentence_pair.dart';
@@ -16,10 +15,12 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/relatio
 class ChatInteraction extends RelationshipInteraction {
   final RelationshipUsecases _relationshipUsecases;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   ChatInteraction(
     this._relationshipUsecases,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   @override
@@ -45,7 +46,6 @@ class ChatInteraction extends RelationshipInteraction {
 
   @override
   Future<void> execute({
-    required BuildContext context,
     required Game currentGame,
     required Person currentPlayer,
     required PersonRelationshipPair personRelationshipPair,
@@ -151,12 +151,9 @@ class ChatInteraction extends RelationshipInteraction {
     );
 
     //return result dialog
-    if (context.mounted) {
-      return ResultDialog.show(
-        context: context,
-        title: title,
-        result: resultDesc,
-      );
-    }
+    return _dialogHandler.showResultDialog(
+      title: title,
+      result: resultDesc,
+    );
   }
 }

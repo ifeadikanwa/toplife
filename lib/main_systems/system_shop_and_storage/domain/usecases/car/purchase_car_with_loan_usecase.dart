@@ -1,13 +1,10 @@
-//the called dialogs already check for context mount status
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/info_models/economy_adjusted_loan_information.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/add_purchased_car_to_storage_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
@@ -18,6 +15,7 @@ class PurchaseCarWithLoanUsecase {
   final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
   final RecurringBillsUsecases _recurringBillsUsecases;
+  final DialogHandler _dialogHandler;
 
   const PurchaseCarWithLoanUsecase(
     this._addPurchasedCarToStorageUsecase,
@@ -25,13 +23,13 @@ class PurchaseCarWithLoanUsecase {
     this._journalUsecases,
     this._gameUsecases,
     this._recurringBillsUsecases,
+    this._dialogHandler,
   );
 
   Future<bool> execute({
-    required BuildContext context,
     required Car car,
     required int personID,
-    required int downPaymentPercentage,
+    required EconomyAdjustedLoanInformation economyAdjustedLoanInformation,
   }) async {
     late final String journalEntry;
     late final String secondPersonResult;
@@ -72,14 +70,11 @@ class PurchaseCarWithLoanUsecase {
       }
       //if no: check if they can afford the down payment
       else {
-        final int baseDownPayment =
-            ((downPaymentPercentage / 100) * car.basePrice).ceil();
-
         final bool canAffordDownPayment =
             await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
           personID: personID,
-          basePrice: baseDownPayment,
-          adjustToEconomy: true,
+          basePrice: economyAdjustedLoanInformation.downPayment,
+          adjustToEconomy: false,
         );
 
         //if no: reject application
@@ -98,8 +93,8 @@ class PurchaseCarWithLoanUsecase {
           //pay down payment
           await _personUsecases.takeMoneyFromPlayerUsecase.execute(
             mainPlayerID: personID,
-            baseAmountToTake: baseDownPayment,
-            adjustToEconomy: true,
+            baseAmountToTake: economyAdjustedLoanInformation.downPayment,
+            adjustToEconomy: false,
           );
 
           //add car to storage
@@ -110,33 +105,24 @@ class PurchaseCarWithLoanUsecase {
             fullyPaidFor: false,
           );
 
-          //calculate the loan amount
-          final int baseLoanAmount = car.basePrice - baseDownPayment;
-
           //add loan to bills
           await _recurringBillsUsecases.addCarLoanToBillsUsecase.execute(
             personID: personID,
-            baseLoanAmount: baseLoanAmount,
             carID: createdCar.id,
             carName: createdCar.name,
-          );
-
-          //get the recurring payment amount for use in the entries
-          final int recurringPayment = _recurringBillsUsecases
-              .carLoanRecurringPaymentCalculatorUsecase
-              .execute(
-            baseLoanAmount: baseLoanAmount,
-            country: person.currentCountry,
+            economyAdjustedLoanInformation: economyAdjustedLoanInformation,
           );
 
           //set all entries
           resultTitle = ShopResultConstants.acceptedLoanApplicationTitle;
           secondPersonResult = ShopResultConstants.carLoanSuccesfulResultEntry(
-            recurringPayment: recurringPayment,
+            country: person.currentCountry,
+            recurringPayment: economyAdjustedLoanInformation.installment,
           );
           journalEntry = ShopResultConstants.loanSuccesfulJournalEntry(
             itemName: carNameAndState,
-            recurringPayment: recurringPayment,
+            recurringPayment: economyAdjustedLoanInformation.installment,
+            country: person.currentCountry,
           );
           //set purchase successful to true
           purchaseSuccessful = true;
@@ -152,8 +138,7 @@ class PurchaseCarWithLoanUsecase {
       );
 
       //show result
-      ResultDialog.show(
-        context: context,
+      _dialogHandler.showResultDialog(
         title: resultTitle,
         result: secondPersonResult,
       );
@@ -161,8 +146,7 @@ class PurchaseCarWithLoanUsecase {
 
     //game and person are not valid
     else {
-      ResultDialog.show(
-        context: context,
+      _dialogHandler.showResultDialog(
         title: ShopResultConstants.rejectedLoanApplicationTitle,
         result: ShopResultConstants.loanInvalidIDsResultEntry,
       );

@@ -10,6 +10,7 @@ void main() {
       chatInteraction = ChatInteraction(
         MockRelationshipUsecases(),
         MockJournalUsecases(),
+        MockDialogHandler(),
       );
     });
     test("title is Chat", () {

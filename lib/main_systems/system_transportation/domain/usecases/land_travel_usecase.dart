@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
@@ -35,6 +34,7 @@ class LandTravelUsecase {
   final GetDrivingModeUsecase _getDrivingModeUsecase;
   final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
+  final DialogHandler _dialogHandler;
 
   const LandTravelUsecase(
     this._personUsecases,
@@ -48,11 +48,11 @@ class LandTravelUsecase {
     this._getDrivingModeUsecase,
     this._journalUsecases,
     this._gameUsecases,
+    this._dialogHandler,
   );
 
   //travels based on transportation and settlement
   Future<TravelResponse> execute({
-    required BuildContext context,
     required int currentGameID,
     required int travellerPersonID,
     required List<int> npcPassengersPersonIDs,
@@ -113,38 +113,32 @@ class LandTravelUsecase {
           case TransportMode.bus:
           case TransportMode.train:
           case TransportMode.taxi:
-            if (context.mounted) {
-              travelResponse = await _takePublicTransport(
-                context: context,
-                transportMode: transportMode,
-                drivingMode: drivingMode,
-                currentTransportation: currentTransportation,
-                traveller: person,
-                currentGame: currentGame,
-                npcPassengersPersonIDs: npcPassengersPersonIDs,
-                eventStartTimeInMinutes: eventStartTimeInMinutes,
-                travelTime: transportAdjustedTravelTime,
-                travelType: travelType,
-              );
-            }
+            travelResponse = await _takePublicTransport(
+              transportMode: transportMode,
+              drivingMode: drivingMode,
+              currentTransportation: currentTransportation,
+              traveller: person,
+              currentGame: currentGame,
+              npcPassengersPersonIDs: npcPassengersPersonIDs,
+              eventStartTimeInMinutes: eventStartTimeInMinutes,
+              travelTime: transportAdjustedTravelTime,
+              travelType: travelType,
+            );
 
           case TransportMode.private:
-            if (context.mounted) {
-              travelResponse = await _takePrivateTransport(
-                context: context,
-                transportMode: transportMode,
-                drivingMode: drivingMode,
-                currentTransportation: currentTransportation,
-                settlement: settlement,
-                traveller: person,
-                currentGame: currentGame,
-                npcPassengersPersonIDs: npcPassengersPersonIDs,
-                travelTime: transportAdjustedTravelTime,
-                eventStartTimeInMinutes: eventStartTimeInMinutes,
-                travelType: travelType,
-                travelDetail: travelDetail,
-              );
-            }
+            travelResponse = await _takePrivateTransport(
+              transportMode: transportMode,
+              drivingMode: drivingMode,
+              currentTransportation: currentTransportation,
+              settlement: settlement,
+              traveller: person,
+              currentGame: currentGame,
+              npcPassengersPersonIDs: npcPassengersPersonIDs,
+              travelTime: transportAdjustedTravelTime,
+              eventStartTimeInMinutes: eventStartTimeInMinutes,
+              travelType: travelType,
+              travelDetail: travelDetail,
+            );
         }
       }
     }
@@ -175,13 +169,10 @@ class LandTravelUsecase {
       }
 
       //send result dialog
-      if (context.mounted) {
-        await ResultDialog.show(
-          context: context,
-          title: TravelProblemTexts.title,
-          result: travelResponse.problem.secondPersonSentence,
-        );
-      }
+      await _dialogHandler.showResultDialog(
+        title: TravelProblemTexts.title,
+        result: travelResponse.problem.secondPersonSentence,
+      );
     }
 
     //return the travel response
@@ -189,7 +180,6 @@ class LandTravelUsecase {
   }
 
   Future<TravelResponse> _takePublicTransport({
-    required BuildContext context,
     required TransportMode transportMode,
     required DrivingMode drivingMode,
     required Car currentTransportation,
@@ -209,26 +199,19 @@ class LandTravelUsecase {
 
     if (paymentSuccessful) {
       //check if there is an accident
-      late final bool accidentOccured;
-
-      if (context.mounted) {
-        accidentOccured =
-            await _checkAndHandleLandTravelAccidentsUsecase.execute(
-          context: context,
-          gameID: currentGame.id,
-          currentDay: currentGame.currentDay,
-          currentPLayerID: traveller.id,
-          npcPassengersPersonIDs: npcPassengersPersonIDs,
-          currentTransportMode: transportMode,
-          currentTransportation: currentTransportation,
-          currentDrivingMode: drivingMode,
-        );
-      } else {
-        accidentOccured = false;
-      }
+      final bool accidentOccurred =
+          await _checkAndHandleLandTravelAccidentsUsecase.execute(
+        gameID: currentGame.id,
+        currentDay: currentGame.currentDay,
+        currentPLayerID: traveller.id,
+        npcPassengersPersonIDs: npcPassengersPersonIDs,
+        currentTransportMode: transportMode,
+        currentTransportation: currentTransportation,
+        currentDrivingMode: drivingMode,
+      );
 
       //if there is an accident, dont travel
-      if (accidentOccured) {
+      if (accidentOccurred) {
         return const TravelResponse(
           isSuccesful: false,
           problem: TravelProblemTexts.accident,
@@ -254,7 +237,6 @@ class LandTravelUsecase {
   }
 
   Future<TravelResponse> _takePrivateTransport({
-    required BuildContext context,
     required TransportMode transportMode,
     required DrivingMode drivingMode,
     required Car currentTransportation,
@@ -319,25 +301,19 @@ class LandTravelUsecase {
     //car can be driven
     //-
     //check if there is an accident
-    late final bool accidentOccured;
-
-    if (context.mounted) {
-      accidentOccured = await _checkAndHandleLandTravelAccidentsUsecase.execute(
-        context: context,
-        gameID: currentGame.id,
-        currentDay: currentGame.currentDay,
-        currentPLayerID: traveller.id,
-        npcPassengersPersonIDs: npcPassengersPersonIDs,
-        currentTransportMode: transportMode,
-        currentTransportation: currentTransportation,
-        currentDrivingMode: drivingMode,
-      );
-    } else {
-      accidentOccured = false;
-    }
+    final bool accidentOccurred =
+        await _checkAndHandleLandTravelAccidentsUsecase.execute(
+      gameID: currentGame.id,
+      currentDay: currentGame.currentDay,
+      currentPLayerID: traveller.id,
+      npcPassengersPersonIDs: npcPassengersPersonIDs,
+      currentTransportMode: transportMode,
+      currentTransportation: currentTransportation,
+      currentDrivingMode: drivingMode,
+    );
 
     //if there is an accident, dont travel
-    if (accidentOccured) {
+    if (accidentOccurred) {
       return const TravelResponse(
         isSuccesful: false,
         problem: TravelProblemTexts.accident,

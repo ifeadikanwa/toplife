@@ -46,6 +46,7 @@ class GameAction extends Equatable {
     return const ActionResult(
       isSuccessful: false,
       reportActionFail: ReportActionFail.lowStats,
+      durationInMinutes: null,
     );
   }
 

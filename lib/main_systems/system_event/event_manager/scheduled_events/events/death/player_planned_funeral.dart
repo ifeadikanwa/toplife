@@ -1,10 +1,5 @@
-//the called dialogs already check for context mount status
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/player_planned_funeral/player_planned_funeral_dialog.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
@@ -18,15 +13,16 @@ class PlayerPlannedFuneral {
   final PersonUsecases _personUsecases;
   final EventSchedulers _eventScheduler;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const PlayerPlannedFuneral(
     this._personUsecases,
     this._eventScheduler,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   Future<void> run({
-    required BuildContext context,
     required int mainPlayerID,
     required Event deathEvent,
     required String firstPersonEventDescription,
@@ -34,8 +30,7 @@ class PlayerPlannedFuneral {
   }) async {
     //prompt the player for their funeral plan
     final FuneralEventDetail? funeralEventDetail =
-        await PlayerPlannedFuneralDialog.show(
-      context: context,
+        await _dialogHandler.showPlayerPlannedFuneralDialog(
       firstPersonEventDescription: firstPersonEventDescription,
       playerCountry: playerCountry,
     );
@@ -50,8 +45,8 @@ class PlayerPlannedFuneral {
       );
 
       if (playerCanAffordFuneralPlan) {
-        //recieve your choice
-        //recieve the cost of your choice
+        //receive your choice
+        //receive the cost of your choice
         //check that you have enough money to pay for your choice
         //schedule the funeral
         //show a result pop up saying the invitation for the funeral your [relationship], [name]'s has been sent out and the event will happen tomorrow, day [number] at [time chosen].
@@ -82,8 +77,7 @@ class PlayerPlannedFuneral {
         final secondPersonResultDesc =
             "The funeral event has been arranged for Day ${scheduledFuneral.eventDay} at ${getClockTime(timeInMinutes: funeralEventDetail.funeralStartTime)} and the invitations have been sent out.";
 
-        ResultDialog.show(
-          context: context,
+        return _dialogHandler.showResultDialog(
           title: DeathEvent.resultTitle,
           result: secondPersonResultDesc,
         );
@@ -95,8 +89,7 @@ class PlayerPlannedFuneral {
             "You do not have enough money for a ${funeralEventDetail.funeralType.name.toLowerCase()}. You might want to consider a more affordable funeral arrangement.";
 
         //show a dialog to let the player know
-        await ResultDialog.show(
-          context: context,
+        await _dialogHandler.showResultDialog(
           title: title,
           result: desc,
         );
@@ -104,7 +97,6 @@ class PlayerPlannedFuneral {
         //after the player exits the above dialog
         //run the player planned funeral again
         await run(
-          context: context,
           mainPlayerID: mainPlayerID,
           deathEvent: deathEvent,
           firstPersonEventDescription: firstPersonEventDescription,

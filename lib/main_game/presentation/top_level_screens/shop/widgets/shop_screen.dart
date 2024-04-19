@@ -1,3 +1,4 @@
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,16 +9,15 @@ import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
-import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/dialogs/custom_dialogs/relationship/send_money_dialog/send_money_dialog_widget.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_game/presentation/inner_level_screens/activities/neighborhood/tattoo_shop/widgets/tattoo_shop_dialog_widget.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
-import 'package:toplife/main_systems/system_person/constants/emotional_state.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/main_systems/system_shop_and_storage/data/dao/current_home_dao_impl.dart';
+import 'package:toplife/testing_utility/game_test_util.dart';
+import 'package:toplife/testing_utility/person_test_util.dart';
+import 'package:toplife/testing_utility/relationship_test_util.dart';
 
 @RoutePage()
 class ShopScreen extends ConsumerWidget {
@@ -105,19 +105,40 @@ class ShopScreen extends ConsumerWidget {
             ),
 
             //test
-            const AddVerticalSpace(height: 16.0),
-          
+            const AddVerticalSpace(height: 4.0),
+
             OutlinedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => const TattooShopDialogWidget(),
+              onPressed: () async {
+                final Person person =
+                    PersonTestUtil(ref: ref).generateARandomPerson(
+                  1,
+                  1,
                 );
+                final Relationship relationship = RelationshipTestUtil(ref: ref)
+                    .generateTestRelationship(1, 3);
+
+                await showDialog(
+                    context: context,
+                    builder: (context) => SendMoneyDialogWidget(
+                          personRelationshipPair: PersonRelationshipPair(
+                              person: person, relationship: relationship),
+                          relationshipLabel: "Step-sister",
+                        ));
+
               },
               child: const Text("Dialog"),
             ),
 
-            const AddVerticalSpace(height: 16.0),
+            const AddVerticalSpace(height: 4.0),
+
+            OutlinedButton(
+              onPressed: () async {
+                await GameTestUtil(ref: ref).createGameAndPlayer();
+              },
+              child: const Text("Create New Game"),
+            ),
+
+            const AddVerticalSpace(height: 4.0),
             OutlinedButton(
               onPressed: () async {
                 // ref.read(gameManagerViewModel.notifier).createGame(Person(
@@ -187,40 +208,40 @@ class ShopScreen extends ConsumerWidget {
                 //     .execute(personID: 1));
 
                 // print(await ref.watch(currentGameProvider).value);
-                final person = Person(
-                  id: DatabaseConstants.dummyId,
-                  gameId: 1,
-                  firstName: "Ryan",
-                  lastName: "Howard",
-                  dayOfBirth: 89,
-                  gender: Gender.Male.name,
-                  subjectPronoun: Gender.Male.subjectPronoun,
-                  objectPronoun: Gender.Male.objectPronoun,
-                  possessivePronoun: Gender.Male.possessivepronoun,
-                  sexuality: Sexuality.Straight.name,
-                  birthState: "Michigan",
-                  birthCountry: "United States",
-                  currentState: "Michigan",
-                  currentCountry: "United States",
-                  money: 864000,
-                  emotionalState: EmotionalState.normal.name,
-                  zodiacSign: ZodiacSign.Libra.name,
-                  transportMode: "bus",
-                  drivingMode: "normal",
-                  hasDriversLicense: false,
-                  hasFertilityIssues: false,
-                  onBirthControl: false,
-                  isSterile: false,
-                  sickly: false,
-                  dead: false,
-                );
+                // final person = Person(
+                //   id: DatabaseConstants.dummyId,
+                //   gameId: 1,
+                //   firstName: "Ryan",
+                //   lastName: "Howard",
+                //   dayOfBirth: 89,
+                //   gender: Gender.Male.name,
+                //   subjectPronoun: Gender.Male.subjectPronoun,
+                //   objectPronoun: Gender.Male.objectPronoun,
+                //   possessivePronoun: Gender.Male.possessivepronoun,
+                //   sexuality: Sexuality.Straight.name,
+                //   birthState: "Michigan",
+                //   birthCountry: "United States",
+                //   currentState: "Michigan",
+                //   currentCountry: "United States",
+                //   money: 864000,
+                //   emotionalState: EmotionalState.normal.name,
+                //   zodiacSign: ZodiacSign.Libra.name,
+                //   transportMode: "bus",
+                //   drivingMode: "normal",
+                //   hasDriversLicense: false,
+                //   hasFertilityIssues: false,
+                //   onBirthControl: false,
+                //   isSterile: false,
+                //   sickly: false,
+                //   dead: false,
+                // );
 
                 // await ref
                 //     .read(gameUsecasesProvider)
                 //     .createGameUsecase
                 //     .execute(person);
 
-                (await PersonDaoImpl(db).createPerson(person));
+                // (await PersonDaoImpl(db).createPerson(person));
 
                 // await GameDaoImpl(db).updateGame(
                 //   Game(
@@ -279,32 +300,29 @@ class ShopScreen extends ConsumerWidget {
                 //   ),
                 // );
                 // final Relationship relationship = Relationship(
-                //   firstPersonId: 2,
-                //   secondPersonId: 3,
+                //   firstPersonId: 1,
+                //   secondPersonId: 2,
                 //   platonicRelationshipType:
                 //       getDbFormattedPlatonicRelationshipTypeString(
-                //     PlatonicRelationshipType.friend,
+                //     PlatonicRelationshipType.stepCousin,
                 //   ),
-                //   romanticRelationshipType:
-                //       RomanticRelationshipType.married.name,
+                //   romanticRelationshipType: RomanticRelationshipType.none.name,
                 //   interestedInRelationship: true,
                 //   level: (1 * Random().nextInt(100)).toInt(),
                 //   activeRomance: true,
-                //   previousFamilialRelationship:
-                //       getDbFormattedPlatonicRelationshipTypeString(
-                //     PlatonicRelationshipType.parentInLaw,
-                //   ),
+                //   previousFamilialRelationship: "",
+                //   //     getDbFormattedPlatonicRelationshipTypeString(
+                //   //   PlatonicRelationshipType.parentInLaw,
+                //   // ),
                 //   isCoParent: false,
                 //   jointMoney: 0,
                 //   romanceCumulativeDuration: 0,
                 //   romanceStartDay: 20,
                 //   romanceEndDay: 0,
-                //   // romanticRelationshipInfoId: 1,
                 // );
-
+                // // //
                 // (await RelationshipDaoImpl(db)
                 //     .createRelationship(relationship));
-
                 // }
 
                 // await GraveDaoImpl(db).createGrave(
@@ -551,8 +569,8 @@ class ShopScreen extends ConsumerWidget {
                 // );
                 //
                 // final Precollege precollege = Precollege(
-                //   personId: 3,
-                //   schoolType: SchoolType.middleSchool.name,
+                //   personId: 2,
+                //   schoolType: SchoolType.highSchool.name,
                 //   currentSchoolId: 2,
                 //   active: true,
                 //   attendance: 89,
@@ -572,14 +590,16 @@ class ShopScreen extends ConsumerWidget {
                 //   }
                 // }
                 // final Event event = Event(
-                //   id: 0,
+                //   id: 2,
                 //   gameId: 1,
-                //   eventType: EventType.birthday.name,
+                //   eventType: EventType.birthdayParty.name,
                 //   eventDay: 2,
-                //   mainPersonId: 34,
+                //   mainPersonId: 5,
                 //   performed: false,
+                //   startTime: 1240,
+                //   endTime: 1340,
                 // );
-                //
+
                 // await EventDaoImpl(db).createEvent(event);
                 //
                 // print(await ref
@@ -588,6 +608,82 @@ class ShopScreen extends ConsumerWidget {
                 //     .execute(currentDay: 29, personID: 2));
 
                 // print(result);
+
+                // PersonTestUtil(ref: ref).createMultiplePeople(
+                //     gameID: 1, currentDay: 1, numberOfPeople: 10);
+
+                // print(ref
+                //     .watch(ageUsecasesProvider)
+                //     .getPersonsAgeUsecase
+                //     .execute(currentDay: 1, dayOfBirth: -48));
+
+                // await ref
+                //     .watch(schoolUsecasesProvider)
+                //     .createStatePrecollegeSchoolAndRegisterPersonUsecase
+                //     .execute(
+                //       personID: 2,
+                //       currentDay: 1,
+                //       generateRandomGrades: true,
+                //     );
+                //
+                // final game = await GameDaoImpl(db).getGame(1);
+                // if (game != null) {
+                //   GameDaoImpl(db).updateGame(
+                //     game.copyWith(currentDay: 2),
+                //   );
+                // }
+
+                // await ref.watch(eventManagerProvider).runTestEvent.execute(
+                //       testEventType: TestEventType.sayHello,
+                //       mainPlayerID: 1,
+                //       gameId: 1,
+                //       eventDay: 3,
+                //     );
+                // await ref.watch(eventManagerProvider).runTestEvent.execute(
+                //       testEventType: TestEventType.playing,
+                //       mainPlayerID: 1,
+                //       gameId: 1,
+                //       eventDay: 3,
+                //     );
+                // await ref.watch(eventManagerProvider).runTestEvent.execute(
+                //       testEventType: TestEventType.sayGoodDay,
+                //       mainPlayerID: 1,
+                //       gameId: 1,
+                //       eventDay: 3,
+                //     );
+                // await ref.watch(eventManagerProvider).runTestEvent.execute(
+                //       testEventType: TestEventType.sayBye,
+                //       mainPlayerID: 1,
+                //       gameId: 1,
+                //       eventDay: 3,
+                //     );
+                // await ref.watch(eventManagerProvider).runTestEvent.execute(
+                //       testEventType: TestEventType.sayGoodNight,
+                //       mainPlayerID: 1,
+                //       gameId: 1,
+                //       eventDay: 3,
+                //     );
+
+                // await FridgeFoodDaoImpl(db).createFridgeFood(
+                //   FridgeFood(
+                //     id: 1,
+                //     personId: 1,
+                //     foodId: 1,
+                //     servingsLeft: 10,
+                //     expiryDay: 78,
+                //   ),
+                // );
+
+                await CurrentHomeDaoImpl(db).createCurrentHome(
+                  const CurrentHome(
+                    personId: 6,
+                    houseId: 2,
+                    hasManagementRights: true,
+                    isAtHome: true,
+                    stayType: "stayType",
+                    exitDay: 4,
+                  ),
+                );
               },
               child: const Text("Run"),
             ),

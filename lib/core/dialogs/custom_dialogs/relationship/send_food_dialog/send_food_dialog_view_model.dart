@@ -1,31 +1,53 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/fridge_food_pair.dart';
 
-final sendFoodDialogViewModelProvider =
-    StateNotifierProvider.autoDispose<SendFoodDialogViewModel, FridgeFoodPair?>(
-  (ref) => SendFoodDialogViewModel(),
-);
+part "send_food_dialog_view_model.g.dart";
 
-class SendFoodDialogViewModel extends StateNotifier<FridgeFoodPair?> {
-  SendFoodDialogViewModel() : super(null);
+@CopyWith()
+class SendFoodDialogData extends Equatable {
+  final String title;
+  final String prompt;
+  final FridgeFoodPair? chosenFoodOption;
 
-  String getTitle() {
-    return "Send Food";
-  }
+  const SendFoodDialogData({
+    required this.title,
+    required this.prompt,
+    required this.chosenFoodOption,
+  });
 
-  String getPrompt({
+  @override
+  List<Object?> get props => [
+        title,
+        prompt,
+        chosenFoodOption,
+      ];
+}
+
+@riverpod
+class SendFoodDialogViewModel extends _$SendFoodDialogViewModel {
+  @override
+  SendFoodDialogData build({
     required String relationshipLabel,
-    required String recieverFirstName,
-    required String recieverLastName,
+    required String receiverFirstName,
+    required String receiverLastName,
   }) {
-    return "What food do you want to send to your ${relationshipLabel.toLowerCase()}, ${getFullNameString(
-      firstName: recieverFirstName,
-      lastName: recieverLastName,
-    )}?";
+    return SendFoodDialogData(
+      title: "Send Food",
+      prompt:
+          "What food do you want to send to your ${relationshipLabel.toLowerCase()}, ${getFullNameString(
+        firstName: receiverFirstName,
+        lastName: receiverLastName,
+      )}?",
+      chosenFoodOption: null,
+    );
   }
 
   void updateChosenFood(FridgeFoodPair? fridgeFoodPair) {
-    state = fridgeFoodPair;
+    state = state.copyWith(
+      chosenFoodOption: fridgeFoodPair,
+    );
   }
 }

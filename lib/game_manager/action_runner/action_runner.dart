@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/game_manager/action_runner/constants/report_action_fail.dart';
 import 'package:toplife/game_manager/action_runner/info_models/action_result.dart';
 import 'package:toplife/game_manager/action_runner/info_models/affected_by_stats.dart';
@@ -22,20 +21,20 @@ class ActionRunner {
   final GetCurrentGameAndPlayerUsecase _getCurrentGameAndPlayerUsecase;
   final PersonUsecases _personUsecases;
   final TransportationUsecases _transportationUsecases;
+  final DialogHandler _dialogHandler;
 
   const ActionRunner(
     this._moveTimeForwardUsecase,
     this._getCurrentGameAndPlayerUsecase,
     this._personUsecases,
     this._transportationUsecases,
+    this._dialogHandler,
   );
 
   Future<void> performNoTravelAction({
-    required BuildContext context,
     required ActionDetail actionDetail,
   }) {
     return _perform(
-      context: context,
       actionDetail: actionDetail,
       travelDetail: null,
       travelType: TravelType.none,
@@ -44,12 +43,10 @@ class ActionRunner {
 
   //has no action duration
   Future<void> performOneWayTravelAction({
-    required BuildContext context,
     required ActionDetail actionDetail,
     required TravelDetail travelDetail,
   }) {
     return _perform(
-      context: context,
       actionDetail: actionDetail.copyWith(
         actionDuration: ActionDuration.none(),
       ),
@@ -59,12 +56,10 @@ class ActionRunner {
   }
 
   Future<void> performTwoWayTravelAction({
-    required BuildContext context,
     required ActionDetail actionDetail,
     required TravelDetail travelDetail,
   }) {
     return _perform(
-      context: context,
       actionDetail: actionDetail,
       travelDetail: travelDetail,
       travelType: TravelType.twoWay,
@@ -73,7 +68,6 @@ class ActionRunner {
 
   //main
   Future<void> _perform({
-    required BuildContext context,
     required ActionDetail actionDetail,
     required TravelDetail? travelDetail,
     required TravelType travelType,
@@ -92,39 +86,35 @@ class ActionRunner {
       if (playerStats != null) {
         //if energy is less than or equal to 0, we tell the player and don't do anything
         if (playerStats.energy <= 0) {
-          if (context.mounted) {
-            return ResultDialog.show(
-              context: context,
-              title: "What?? Where?? How??",
-              result:
-                  "What was I going to do again? The room is currently spinning, I think I need to lay down",
-            );
-          }
+          return _dialogHandler.showResultDialog(
+            title: "What?? Where?? How??",
+            result:
+                "What was I going to do again? The room is currently spinning, I think I need to lay down",
+          );
         }
         //there's enough energy to do something
         else {
           //handle travel
           if (travelDetail != null) {
             //check if context is valid
-            if (context.mounted) {
-              //travel
-              final TravelResponse travelResponse =
-                  await _transportationUsecases.landTravelUsecase.execute(
-                context: context,
-                currentGameID: currentGameAndPlayer.game.id,
-                travellerPersonID: currentGameAndPlayer.person.id,
-                npcPassengersPersonIDs: [],
-                eventStartTimeInMinutes:
-                    actionDetail.actionDuration.startTimeInMinutes,
-                travelType: travelType,
-                travelDetail: travelDetail,
-              );
 
-              //if travel is not successful we assume they didnt get to their destination so we cant run the action
-              if (!travelResponse.isSuccesful) {
-                return;
-              }
+            //travel
+            final TravelResponse travelResponse =
+                await _transportationUsecases.landTravelUsecase.execute(
+              currentGameID: currentGameAndPlayer.game.id,
+              travellerPersonID: currentGameAndPlayer.person.id,
+              npcPassengersPersonIDs: [],
+              eventStartTimeInMinutes:
+                  actionDetail.actionDuration.startTimeInMinutes,
+              travelType: travelType,
+              travelDetail: travelDetail,
+            );
+
+            //if travel is not successful we assume they didnt get to their destination so we cant run the action
+            if (!travelResponse.isSuccesful) {
+              return;
             }
+
             //if we need to travel but we couldnt because of context error, I would rather we do nothing at all
             //than we keep going and have a buggy situation where the action ran but we didnt travel.
             else {
@@ -170,20 +160,30 @@ class ActionRunner {
           if (!actionResult.isSuccessful &&
               actionResult.reportActionFail != ReportActionFail.none) {
             //send a result dialog
-            if (context.mounted) {
-              return ResultDialog.show(
-                context: context,
-                title: "Oh No!",
-                result: actionResult.reportActionFail.description,
-              );
-            }
+
+            return _dialogHandler.showResultDialog(
+              title: "Oh No!",
+              result: actionResult.reportActionFail.description,
+            );
           }
 
-          //if actions succeeded, move time forward by action duration ONLY
+          //if actions succeeded, move time forward by:
+          //duration from ACTION DETAIL + duration from ACTION RESULT
+          //we want our game actions to be able to decide that an action takes,
+          // x amount of time in addition to the default
           else {
+            //from detail
+            final int durationFromActionDetail =
+                actionDetail.actionDuration.durationInMinutes;
+            //from result
+            final int durationFromActionResult =
+                actionResult.durationInMinutes ?? 0;
+
+            //move time
             await _moveTimeForwardUsecase.execute(
               gameID: currentGameAndPlayer.game.id,
-              timeInMinutes: actionDetail.actionDuration.durationInMinutes,
+              timeInMinutes:
+                  durationFromActionDetail + durationFromActionResult,
             );
           }
         }

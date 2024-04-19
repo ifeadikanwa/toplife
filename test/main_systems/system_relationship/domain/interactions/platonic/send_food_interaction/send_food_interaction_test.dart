@@ -35,6 +35,7 @@ void main() {
         MockJournalUsecases(),
         MockShopAndStorageUsecases(),
         mockAgeUsecases,
+        MockDialogHandler(),
       );
 
       //create stubs for our test:

@@ -1,8 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/numbers/get_random_int_in_positive_range.dart';
 import 'package:toplife/core/utils/numbers/remap_value_in_range_to_any_range.dart';
@@ -22,15 +21,16 @@ class CheckAndHandleLandTravelAccidentsUsecase {
   final PersonUsecases _personUsecases;
   final ShopAndStorageUsecases _shopAndStorageUsecases;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const CheckAndHandleLandTravelAccidentsUsecase(
     this._personUsecases,
     this._shopAndStorageUsecases,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   Future<bool> execute({
-    required BuildContext context,
     required int gameID,
     required int currentDay,
     required int currentPLayerID,
@@ -53,7 +53,6 @@ class CheckAndHandleLandTravelAccidentsUsecase {
 
         //report to player
         await logAndReportAccident(
-          context: context,
           gameID: gameID,
           currentDay: currentDay,
           currentPLayerID: currentPLayerID,
@@ -244,15 +243,12 @@ class CheckAndHandleLandTravelAccidentsUsecase {
         //!Do: -Insurance Payout
 
         //report to player
-        if (context.mounted) {
-          await logAndReportAccident(
-            context: context,
-            gameID: gameID,
-            currentDay: currentDay,
-            currentPLayerID: currentPLayerID,
-            transportMode: currentTransportMode,
-          );
-        }
+        await logAndReportAccident(
+          gameID: gameID,
+          currentDay: currentDay,
+          currentPLayerID: currentPLayerID,
+          transportMode: currentTransportMode,
+        );
 
         //return true
         return true;
@@ -264,12 +260,12 @@ class CheckAndHandleLandTravelAccidentsUsecase {
   }
 
   //Log accident in journal and report it to the player
-  Future<void> logAndReportAccident(
-      {required BuildContext context,
-      required int gameID,
-      required int currentDay,
-      required int currentPLayerID,
-      required TransportMode transportMode}) async {
+  Future<void> logAndReportAccident({
+    required int gameID,
+    required int currentDay,
+    required int currentPLayerID,
+    required TransportMode transportMode,
+  }) async {
     const String resultTitle = "Boom! Crash!";
     final String firstPersonResultDesc = (transportMode ==
             TransportMode.private)
@@ -285,14 +281,11 @@ class CheckAndHandleLandTravelAccidentsUsecase {
     );
 
     //show result dialog to player
-    if (context.mounted) {
-      await ResultDialog.show(
-        context: context,
-        title: resultTitle,
-        result: SentenceUtil.convertFromFirstPersonToSecondPerson(
-          firstPersonSentence: firstPersonResultDesc,
-        ),
-      );
-    }
+    await _dialogHandler.showResultDialog(
+      title: resultTitle,
+      result: SentenceUtil.convertFromFirstPersonToSecondPerson(
+        firstPersonSentence: firstPersonResultDesc,
+      ),
+    );
   }
 }

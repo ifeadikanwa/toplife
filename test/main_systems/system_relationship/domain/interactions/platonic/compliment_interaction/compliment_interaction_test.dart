@@ -11,6 +11,7 @@ void main() {
       complimentInteraction = ComplimentInteraction(
         MockRelationshipUsecases(),
         MockJournalUsecases(),
+        MockDialogHandler(),
       );
     });
     test("title is Compliment", () {

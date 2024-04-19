@@ -1,13 +1,9 @@
-//the called dialogs already check for context mount status
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/cupertino.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/recurring_bill_constants.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/info_models/economy_adjusted_loan_information.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/sign_mortgage_loan_contract.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
@@ -19,6 +15,7 @@ class PurchaseHouseWithLoanUsecase {
   final GameUsecases _gameUsecases;
   final RecurringBillsUsecases _recurringBillsUsecases;
   final SignMortgageLoanContract _signMortgageLoanContract;
+  final DialogHandler _dialogHandler;
 
   const PurchaseHouseWithLoanUsecase(
     this._personUsecases,
@@ -26,13 +23,13 @@ class PurchaseHouseWithLoanUsecase {
     this._gameUsecases,
     this._recurringBillsUsecases,
     this._signMortgageLoanContract,
+    this._dialogHandler,
   );
 
   Future<bool> execute({
-    required BuildContext context,
     required House house,
-    required int downPaymentPercentage,
     required int personID,
+    required EconomyAdjustedLoanInformation economyAdjustedLoanInformation,
   }) async {
     //does not check the storage limit because the user would have to manually move in, it's not automatic on purchase like renting is.
 
@@ -57,15 +54,12 @@ class PurchaseHouseWithLoanUsecase {
 
     //if game and person is valid
     if (currentGame != null && person != null) {
-      final int baseDownPayment =
-          ((downPaymentPercentage / 100) * house.basePrice).ceil();
-
       //check if player can afford to pay down payment
       final bool canAffordDownPayment =
           await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
         personID: personID,
-        basePrice: baseDownPayment,
-        adjustToEconomy: true,
+        basePrice: economyAdjustedLoanInformation.downPayment,
+        adjustToEconomy: false,
       );
 
       //if no: reject application
@@ -90,11 +84,10 @@ class PurchaseHouseWithLoanUsecase {
         if (!hasExistingMortgageLoan) {
           //return is used because we don't need to run anything else outside this block.
           await _signMortgageLoanContract.execute(
-            context: context,
             person: person,
             currentGame: currentGame,
             house: house,
-            baseDownPayment: baseDownPayment,
+            economyAdjustedLoanInformation: economyAdjustedLoanInformation,
           );
 
           purchaseSuccessful = true;
@@ -104,21 +97,21 @@ class PurchaseHouseWithLoanUsecase {
 
         //if yes: check if they have expected reserve in the bank, in addition to the down payment
         else {
-          final int baseExpectedReserveAmount = ((RecurringBillConstants
-                          .multipleLoansExpectedBankReservePercentage /
-                      100) *
-                  house.basePrice)
-              .ceil();
-
-          final int baseAllExpectedAmount =
-              baseExpectedReserveAmount + baseDownPayment;
+          final int adjustedExpectedAmountInReserve = _recurringBillsUsecases
+              .expectedReserveForMultipleMortgageCalculatorUsecase
+              .execute(
+            economyAdjustedDownPayment:
+                economyAdjustedLoanInformation.downPayment,
+            houseBasePrice: house.basePrice,
+            country: person.currentCountry,
+          );
 
           //checking
           final bool hasEnoughInReserve =
               await _personUsecases.checkIfPlayerCanAffordItUsecase.execute(
             personID: personID,
-            basePrice: baseAllExpectedAmount,
-            adjustToEconomy: true,
+            basePrice: adjustedExpectedAmountInReserve,
+            adjustToEconomy: false,
           );
 
           //if no: reject application
@@ -135,11 +128,10 @@ class PurchaseHouseWithLoanUsecase {
           else {
             //return is used because we don't need to run anything else outside this block.
             await _signMortgageLoanContract.execute(
-              context: context,
               person: person,
               currentGame: currentGame,
               house: house,
-              baseDownPayment: baseDownPayment,
+              economyAdjustedLoanInformation: economyAdjustedLoanInformation,
             );
 
             purchaseSuccessful = true;
@@ -159,8 +151,7 @@ class PurchaseHouseWithLoanUsecase {
       );
 
       //show result
-      ResultDialog.show(
-        context: context,
+      _dialogHandler.showResultDialog(
         title: resultTitle,
         result: secondPersonResult,
       );
@@ -168,8 +159,7 @@ class PurchaseHouseWithLoanUsecase {
 
     //if game and person is not valid
     else {
-      ResultDialog.show(
-        context: context,
+      _dialogHandler.showResultDialog(
         title: ShopResultConstants.rejectedLoanApplicationTitle,
         result: ShopResultConstants.loanInvalidIDsResultEntry,
       );

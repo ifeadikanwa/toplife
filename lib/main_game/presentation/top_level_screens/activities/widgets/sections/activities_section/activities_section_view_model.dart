@@ -1,9 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final activitiesSectionViewModelProvider =
-    Provider<ActivitiesSectionViewModel>((ref) => ActivitiesSectionViewModel());
+part 'activities_section_view_model.g.dart';
 
-//ViewModel
-class ActivitiesSectionViewModel {
-  //handles no state, we create functions that get called in onTap
+@riverpod
+class ActivitiesSectionViewModel extends _$ActivitiesSectionViewModel {
+  @override
+  void build() {}
 }

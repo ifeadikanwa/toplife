@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/check_if_platonic_relationship_type_contains.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
+import 'package:toplife/main_systems/system_relationship/util/check/check_if_platonic_relationship_type_contains.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 import 'package:toplife/main_systems/system_school/constants/school_type.dart';
 import 'package:toplife/main_systems/system_school/domain/model/info_models/precollege_info.dart';
 import 'package:toplife/main_systems/system_school/domain/repository/school_repository.dart';
@@ -24,6 +23,7 @@ class ReportPlayerAndNPCPrecollegeGraduationGradeUsecase {
   final SchoolRepository _schoolRepository;
   final RelationshipUsecases _relationshipUsecases;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const ReportPlayerAndNPCPrecollegeGraduationGradeUsecase(
     this._personUsecases,
@@ -32,6 +32,7 @@ class ReportPlayerAndNPCPrecollegeGraduationGradeUsecase {
     this._schoolRepository,
     this._relationshipUsecases,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   Future<void> execute({
@@ -39,7 +40,6 @@ class ReportPlayerAndNPCPrecollegeGraduationGradeUsecase {
     required int currentPlayerID,
     required int currentDay,
     required SchoolType precollegeSchoolType,
-    required BuildContext context,
   }) async {
     //get person
     final Person? person = await _personUsecases.getPersonUsecase.execute(
@@ -129,7 +129,7 @@ class ReportPlayerAndNPCPrecollegeGraduationGradeUsecase {
         }
 
         //if it is the player, we want to show a dialog
-        if (personIsCurrentPlayer && context.mounted) {
+        if (personIsCurrentPlayer) {
           //get the precollege naming suffix
           final String precollegeNamingSuffix =
               getPrecollegeNamingSuffixForALifeStageInACountry(
@@ -138,8 +138,7 @@ class ReportPlayerAndNPCPrecollegeGraduationGradeUsecase {
           );
 
           //show dialog
-          ResultDialog.show(
-            context: context,
+          return _dialogHandler.showResultDialog(
             title: "$precollegeNamingSuffix Graduate",
             result: SentenceUtil.convertFromFirstPersonToSecondPerson(
               firstPersonSentence: journalEntry,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
@@ -31,7 +30,6 @@ class BirthdayEvent {
   //because It runs age up actions and that could potentially trigger dialogs
   //It is meant to notify the player about peoples birthdays including theirs
   Future<void> execute(
-    BuildContext context,
     int mainPlayerID,
     Event event,
   ) async {
@@ -66,14 +64,11 @@ class BirthdayEvent {
       );
 
       //run the age up actions
-      if (context.mounted) {
-        await _ageUsecases.ageUpCharacterActionsUsecase.execute(
-          context: context,
-          characterID: event.mainPersonId,
-          currentPlayerID: mainPlayerID,
-          currentDay: event.eventDay,
-        );
-      }
+      await _ageUsecases.ageUpCharacterActionsUsecase.execute(
+        characterID: event.mainPersonId,
+        currentPlayerID: mainPlayerID,
+        currentDay: event.eventDay,
+      );
     }
   }
 

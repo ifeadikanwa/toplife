@@ -22,9 +22,9 @@ class DialogEventChoicesToWidgets extends StatelessWidget {
               vertical: DialogConstants.verticalChoiceButtonSpacing,
             ),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 AutoRouter.of(context).popForced();
-                eventChoice.choiceAction(context);
+                await eventChoice.choiceAction();
               },
               child: Text(
                 eventChoice.choiceDescription,

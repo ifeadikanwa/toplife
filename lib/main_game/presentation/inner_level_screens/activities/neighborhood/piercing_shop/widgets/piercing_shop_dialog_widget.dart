@@ -21,68 +21,63 @@ class PiercingShopDialogWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PiercingShopDialogWidgetViewModel piercingShopDialogWidgetViewModel =
-        ref.watch(piercingShopDialogWidgetViewModelProvider.notifier);
-
     final piercingShopDialogWidgetViewModelDataProvider =
         ref.watch(piercingShopDialogWidgetViewModelProvider);
 
     //
     return piercingShopDialogWidgetViewModelDataProvider.when(
-      data: (chosenAndAvailablePiercingLocationsPair) {
-        return DialogContainer(
-          //
-          //
-          title: const DialogTitleText(
-            text: PiercingShopTextConstants.piercingsShop,
-          ),
+      data: (piercingShopDialogData) {
+        return piercingShopDialogData == null
+            ? const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DialogBodyText(
+                      text: PiercingShopTextConstants.noAvailableLocation),
+                ],
+              )
+            : DialogContainer(
+                //
+                //
+                title: const DialogTitleText(
+                  text: PiercingShopTextConstants.piercingsShop,
+                ),
 
-          //
-          //
-          children: [
-            //
-            //
-            DescriptorRow(
-              descriptor: "${TextConstants.cost}:",
-              value: piercingShopDialogWidgetViewModel.getCost(),
-            ),
-            const AddVerticalSpace(
-              height: DialogConstants.defaultWidgetSpacing,
-            ),
+                //
+                //
+                children: [
+                  //
+                  //
+                  DescriptorRow(
+                    descriptor: "${TextConstants.cost}:",
+                    value: piercingShopDialogData.chosenPiercingLocationPrice,
+                  ),
+                  const AddVerticalSpace(
+                    height: DialogConstants.defaultWidgetSpacing,
+                  ),
 
-            //
-            //
-            DescriptorRow(
-              descriptor: "${TextConstants.duration}:",
-              value: piercingShopDialogWidgetViewModel.getDuration(),
-            ),
-            const AddVerticalSpace(
-              height: DialogConstants.doubleDefaultWidgetSpacing,
-            ),
+                  //
+                  //
+                  DescriptorRow(
+                    descriptor: "${TextConstants.duration}:",
+                    value: piercingShopDialogData.piercingDuration,
+                  ),
+                  const AddVerticalSpace(
+                    height: DialogConstants.doubleDefaultWidgetSpacing,
+                  ),
 
-            //
-            //
-            const DialogDropdownLabelText(
-              text: PiercingShopTextConstants.choosPiercingLocation,
-            ),
-            //
-            (chosenAndAvailablePiercingLocationsPair == null)
-                ? const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DialogBodyText(
-                          text: PiercingShopTextConstants.noAvailableLocation),
-                    ],
-                  )
-                : Column(
+                  //
+                  //
+                  const DialogDropdownLabelText(
+                    text: PiercingShopTextConstants.choosPiercingLocation,
+                  ),
+                  //
+                  Column(
                     children: [
                       //
                       //drop dowm
                       DialogDropdown<PiercingBodyLocation>(
-                        value: chosenAndAvailablePiercingLocationsPair
-                            .chosenPiercingLocation,
-                        items: chosenAndAvailablePiercingLocationsPair
-                            .availablePiercingLocations
+                        value: piercingShopDialogData.chosenPiercingLocation,
+                        items: piercingShopDialogData.availablePiercingLocations
                             .map((location) =>
                                 DropdownMenuItem<PiercingBodyLocation>(
                                     value: location,
@@ -92,7 +87,9 @@ class PiercingShopDialogWidget extends ConsumerWidget {
                             .toList(),
                         onChanged: (value) {
                           if (value != null) {
-                            piercingShopDialogWidgetViewModel
+                            ref
+                                .read(piercingShopDialogWidgetViewModelProvider
+                                    .notifier)
                                 .updateChosenLocation(value);
                           }
                         },
@@ -107,16 +104,17 @@ class PiercingShopDialogWidget extends ConsumerWidget {
                         onPressed: () async {
                           AutoRouter.of(context).pop();
 
-                          await piercingShopDialogWidgetViewModel.getPiercing(
-                            context: context,
-                          );
+                          await ref
+                              .read(piercingShopDialogWidgetViewModelProvider
+                                  .notifier)
+                              .getPiercing();
                         },
                         child: const Text(TextConstants.getUppercase),
                       ),
                     ],
                   )
-          ],
-        );
+                ],
+              );
       },
       error: (error, stackTrace) => Container(),
       loading: () => Container(),

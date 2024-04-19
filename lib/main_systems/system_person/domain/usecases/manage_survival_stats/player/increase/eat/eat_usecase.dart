@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_with_stats_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/constants/text/eat_result_dialog_texts.dart';
 import 'package:toplife/core/utils/stats/stats_item_builder.dart';
@@ -17,11 +15,15 @@ class EatUsecase {
   final StatsRepository _statsRepository;
   final UpdateHungerStatsUsecase _updateHungerStatsUsecase;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
+  final ShopAndStorageUsecases _shopAndStorageUsecases;
 
   const EatUsecase(
     this._statsRepository,
     this._updateHungerStatsUsecase,
     this._journalUsecases,
+    this._dialogHandler,
+    this._shopAndStorageUsecases,
   );
 
   Future<void> execute({
@@ -30,16 +32,13 @@ class EatUsecase {
     required int currentDay,
     required int activityDurationInMinutes,
     required List<FridgeFoodServingPair> fridgeFoodServingPairs,
-    required BuildContext context,
-    required ShopAndStorageUsecases shopAndStorageUsecases,
-    required GameUsecases gameUsecases,
   }) async {
     //if the fridge food list is empty, do nothing
 
     if (fridgeFoodServingPairs.isNotEmpty) {
       //take food out of the fridge
       for (var fridgeFoodServingPair in fridgeFoodServingPairs) {
-        await shopAndStorageUsecases.useFoodUsecase.execute(
+        await _shopAndStorageUsecases.useFoodUsecase.execute(
           fridgeFoodID: fridgeFoodServingPair.fridgeFood.id,
           servingsToUse: fridgeFoodServingPair.servings,
         );
@@ -100,32 +99,23 @@ class EatUsecase {
         entry: firstPersonResultStringBuffer.toString(),
       );
 
-      //move time forward
-      await gameUsecases.moveTimeForwardUsecase.execute(
-        gameID: gameID,
-        timeInMinutes: activityDurationInMinutes,
-      );
-
       //get updated hunger value
       final Stats? updatedStats = await _statsRepository.getStats(mainPersonID);
       final int newHunger = (updatedStats != null) ? updatedStats.hunger : 0;
 
       //return result dialog
-      if (context.mounted) {
-        return ResultWithStatsDialog.show(
-          context: context,
-          title: EatResultDialogTexts.eatenTitle,
-          result: SentenceUtil.convertFromFirstPersonToSecondPerson(
-            firstPersonSentence: firstPersonResultStringBuffer.toString(),
+      return _dialogHandler.showResultWithStatsDialog(
+        title: EatResultDialogTexts.eatenTitle,
+        result: SentenceUtil.convertFromFirstPersonToSecondPerson(
+          firstPersonSentence: firstPersonResultStringBuffer.toString(),
+        ),
+        statsList: [
+          StatsItemBuilder.defaultStat(
+            statsName: TextConstants.hunger,
+            statsLevel: newHunger,
           ),
-          statsList: [
-            StatsItemBuilder.defaultStat(
-              statsName: TextConstants.hunger,
-              statsLevel: newHunger,
-            ),
-          ],
-        );
-      }
+        ],
+      );
     }
   }
 }

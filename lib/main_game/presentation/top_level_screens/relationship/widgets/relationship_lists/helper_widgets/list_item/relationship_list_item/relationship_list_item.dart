@@ -2,15 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
+import 'package:toplife/core/common_states/watch/home/ids_of_current_people_in_players_home_provider.dart';
 import 'package:toplife/core/common_widgets/list_templates/case/list_view_item_case.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/list_item/relationship_label_and_name.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/list_item/relationship_list_item/relationship_list_item_view_model.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/relationship_bar.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 
 class RelationshipListItem extends ConsumerWidget {
   final PersonRelationshipPair personRelationshipPair;
@@ -25,11 +25,11 @@ class RelationshipListItem extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    //watch the viewModel that provides a list of personIDs for people currently in the players home
-    final relationshipListItemViewModel =
-        ref.watch(relationshipListItemViewModelProvider);
+    //watch a list of personIDs for people currently in the players home
+    final personIdsOfPeopleInPlayersHomeProvider =
+        ref.watch(idsOfCurrentPeopleInPlayersHomeProvider);
 
-    return relationshipListItemViewModel.when(
+    return personIdsOfPeopleInPlayersHomeProvider.when(
       data: (personIdsOfPeopleInPlayersHome) {
         //check if they are currently living together
         final currentlyLivingTogether = personIdsOfPeopleInPlayersHome.contains(

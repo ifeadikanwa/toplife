@@ -9,8 +9,8 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/check_if_platonic_relationship_type_contains.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
+import 'package:toplife/main_systems/system_relationship/util/check/check_if_platonic_relationship_type_contains.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 
 class NpcBirthday {
   final RelationshipUsecases _relationshipUsecases;

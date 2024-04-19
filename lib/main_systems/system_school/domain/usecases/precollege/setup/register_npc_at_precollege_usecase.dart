@@ -8,9 +8,9 @@ import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart
 import 'package:toplife/main_systems/system_relationship/constants/existing_relationship_override_instruction.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/check_if_platonic_relationship_type_contains.dart';
+import 'package:toplife/main_systems/system_relationship/util/check/check_if_platonic_relationship_type_contains.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_acquaintance_relationship_from_template.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 import 'package:toplife/main_systems/system_school/domain/model/info_models/school_precollege_info.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/create/create_state_precollege_school_and_register_person_usecase.dart';
 

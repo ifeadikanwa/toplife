@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_school/constants/school_type.dart';
@@ -13,7 +12,6 @@ class AgeUpToChildActionsUsecase {
   //inside that private function, we can now divide into -general -player -npc
   //that means we decide how the subject matter will affect everyone or player and npcs specifically.
   Future<void> execute({
-    required BuildContext context,
     required int currentDay,
     required Person childPerson,
     required Age childAge,
@@ -22,7 +20,6 @@ class AgeUpToChildActionsUsecase {
   }) async {
     //start middle school
     await _startMiddleSchool(
-      context: context,
       currentDay: currentDay,
       childPerson: childPerson,
       childAge: childAge,
@@ -32,7 +29,6 @@ class AgeUpToChildActionsUsecase {
   }
 
   Future<void> _startMiddleSchool({
-    required BuildContext context,
     required int currentDay,
     required Person childPerson,
     required Age childAge,
@@ -46,16 +42,13 @@ class AgeUpToChildActionsUsecase {
       precollegeSchoolType: SchoolType.elementarySchool,
     );
     //report elementary school grade
-    if (context.mounted) {
-      await _schoolUsecases.reportPlayerAndNPCPrecollegeGraduationGradeUsecase
-          .execute(
-        personID: childPerson.id,
-        currentPlayerID: currentPlayerID,
-        currentDay: currentDay,
-        precollegeSchoolType: SchoolType.elementarySchool,
-        context: context,
-      );
-    }
+    await _schoolUsecases.reportPlayerAndNPCPrecollegeGraduationGradeUsecase
+        .execute(
+      personID: childPerson.id,
+      currentPlayerID: currentPlayerID,
+      currentDay: currentDay,
+      precollegeSchoolType: SchoolType.elementarySchool,
+    );
 
     //PLAYER
     if (characterIsCurrentPlayer) {

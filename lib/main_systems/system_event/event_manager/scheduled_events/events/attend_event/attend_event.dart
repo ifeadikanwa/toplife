@@ -1,10 +1,5 @@
-//the called dialogs already check for context mount status
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/attend_event_dialog/dialog/attend_event_dialog.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/numbers/get_random_int_in_positive_range.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
@@ -24,7 +19,7 @@ import 'package:toplife/main_systems/system_event/util/convert_event_type_string
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 
 class AttendEvent {
@@ -37,6 +32,7 @@ class AttendEvent {
   final PerformPartyActivity _performPartyActivity;
   final GetFirstPersonEventPartnerAttendanceDescription
       _getFirstPersonEventPartnerAttendanceDescription;
+  final DialogHandler _dialogHandler;
 
   const AttendEvent(
     this._eventRepository,
@@ -47,10 +43,10 @@ class AttendEvent {
     this._shopAndStorageUsecases,
     this._performPartyActivity,
     this._getFirstPersonEventPartnerAttendanceDescription,
+    this._dialogHandler,
   );
 
   Future<void> execute({
-    required BuildContext context,
     required Event event,
     required int mainPlayerID,
   }) async {
@@ -103,8 +99,8 @@ class AttendEvent {
 
       //*ATTEND INPUT
       //Show dialog and get player input
-      final AttendEventDetail? attendEventDetail = await AttendEventDialog.show(
-        context: context,
+      final AttendEventDetail? attendEventDetail =
+          await _dialogHandler.showAttendEventDialog(
         event: event,
         mainPlayerID: mainPlayerID,
         eventMainPerson: eventMainPerson,
@@ -231,8 +227,7 @@ class AttendEvent {
         );
 
         //show result dialog
-        return ResultDialog.show(
-          context: context,
+        return _dialogHandler.showResultDialog(
           title: eventText.resultTitle,
           result: "${eventText.resultDescription}\n$secondPersonSecondPart",
         );

@@ -1,13 +1,8 @@
-//the called dialogs already check for context mount status
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/numbers/get_random_int_in_positive_range.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/death_event_dialogs/family_planned_funeral/family_planned_funeral_dialog.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
@@ -23,24 +18,25 @@ import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart
 import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/check_if_platonic_relationship_type_contains.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
+import 'package:toplife/main_systems/system_relationship/util/check/check_if_platonic_relationship_type_contains.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 
 class FamilyPlannedFuneral {
   final PersonUsecases _personUsecases;
   final RelationshipUsecases _relationshipUsecases;
   final EventSchedulers _eventScheduler;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const FamilyPlannedFuneral(
     this._personUsecases,
     this._relationshipUsecases,
     this._eventScheduler,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   Future<void> run({
-    required BuildContext context,
     required int mainPlayerID,
     required Event deathEvent,
     required String firstPersonEventDescription,
@@ -67,8 +63,8 @@ class FamilyPlannedFuneral {
         "The family decided to hold a ${chosenFuneralType.name.toLowerCase()} funeral, because ${DeathDescriptions.getRandomFuneralArrangementReason(deadPerson.gender)}.";
 
     //collect player input
-    final bool? playerWillContribute = await FamilyPlannedFuneralDialog.show(
-      context: context,
+    final bool? playerWillContribute =
+        await _dialogHandler.showFamilyPlannedFuneralDialog(
       eventDescription: SentenceUtil.convertFromFirstPersonToSecondPerson(
         firstPersonSentence: firstPersonEventDescription,
       ),
@@ -96,7 +92,6 @@ class FamilyPlannedFuneral {
       //run the corresponding function
       (playerWillContribute)
           ? await agreeToContributeToFuneral(
-              context: context,
               mainPlayerID: mainPlayerID,
               deathEvent: deathEvent,
               firstPersonEventDescription: firstPersonEventDescription,
@@ -109,7 +104,6 @@ class FamilyPlannedFuneral {
               chosenFuneralType: chosenFuneralType,
             )
           : await refuseToContributeToFuneral(
-              context: context,
               mainPlayerID: mainPlayerID,
               deathEvent: deathEvent,
               firstPersonEventDescription: firstPersonEventDescription,
@@ -125,7 +119,6 @@ class FamilyPlannedFuneral {
   }
 
   Future<void> agreeToContributeToFuneral({
-    required BuildContext context,
     required int mainPlayerID,
     required Event deathEvent,
     required String firstPersonEventDescription,
@@ -182,15 +175,13 @@ class FamilyPlannedFuneral {
     final String result =
         "$resultActionDesc\n$comment.\n${SentenceUtil.convertFromFirstPersonToSecondPerson(firstPersonSentence: firstPersonResultDesc)}";
 
-    ResultDialog.show(
-      context: context,
+    return _dialogHandler.showResultDialog(
       title: DeathEvent.resultTitle,
       result: result,
     );
   }
 
   Future<void> refuseToContributeToFuneral({
-    required BuildContext context,
     required int mainPlayerID,
     required Event deathEvent,
     required String firstPersonEventDescription,
@@ -345,8 +336,8 @@ class FamilyPlannedFuneral {
         "$resultComment.\n${SentenceUtil.convertFromFirstPersonToSecondPerson(
       firstPersonSentence: firstPersonResultDesc,
     )}";
-    ResultDialog.show(
-      context: context,
+
+    return _dialogHandler.showResultDialog(
       title: DeathEvent.resultTitle,
       result: result,
     );

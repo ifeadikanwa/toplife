@@ -7,6 +7,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_count_labe
 
 class BuyItemDialog extends ConsumerWidget {
   final Item item;
+
   const BuyItemDialog({
     super.key,
     required this.item,
@@ -14,22 +15,15 @@ class BuyItemDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final buyItemViewModelDataProvider =
-        ref.watch(buyItemDialogViewModelProvider);
-
-    return buyItemViewModelDataProvider.when(
-      data: (buyItemViewModel) {
-        return SimpleBuyDialog(
-          title: item.name,
-          subtitle1: getCountLabel(counts: item.count),
-          basePrice: item.basePrice,
-          onCheckout: (int quantity) {
-            buyItemViewModel.checkoutItem(context, item, quantity);
-          },
-        );
+    return SimpleBuyDialog(
+      title: item.name,
+      subtitle1: getCountLabel(counts: item.count),
+      basePrice: item.basePrice,
+      onCheckout: (int quantity) {
+        ref
+            .read(buyItemDialogViewModelProvider.notifier)
+            .checkoutItem(item, quantity);
       },
-      error: (error, stackTrace) => Container(),
-      loading: () => Container(),
     );
   }
 }

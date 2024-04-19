@@ -25,32 +25,34 @@ class TormentDialogWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TormentOption chosenTormentOption =
-        ref.watch(tormentDialogViewModelProvider);
+    final TormentDialogViewModelProvider viewModelProvider =
+        tormentDialogViewModelProvider(
+      relationshipLabel: relationshipLabel,
+      receiverFirstName: personRelationshipPair.person.firstName,
+      receiverLastName: personRelationshipPair.person.lastName,
+    );
 
-    final TormentDialogViewModel tormentDialogViewModel =
-        ref.watch(tormentDialogViewModelProvider.notifier);
+    final TormentDialogData tormentDialogData = ref.watch(viewModelProvider);
 
     return DialogContainer(
       title: DialogTitleText(
-        text: tormentDialogViewModel.getTitle(),
+        text: tormentDialogData.title,
       ),
       children: [
         DialogDropdownLabelText(
-          text: tormentDialogViewModel.getPrompt(
-            relationshipLabel: relationshipLabel,
-            recieverFirstName: personRelationshipPair.person.firstName,
-            recieverLastName: personRelationshipPair.person.lastName,
-          ),
+          text: tormentDialogData.prompt,
         ),
         tormentOptionsDropdown(
-          chosenTormentOption,
-          tormentDialogViewModel,
+          tormentDialogData.chosenTormentOption,
+          ref,
+          viewModelProvider,
         ),
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
         ElevatedButton(
           onPressed: () async {
-            AutoRouter.of(context).pop<TormentOption>(chosenTormentOption);
+            AutoRouter.of(context).pop<TormentOption>(
+              tormentDialogData.chosenTormentOption,
+            );
           },
           child: Text(
             TextConstants.doString.toUpperCase(),
@@ -62,7 +64,8 @@ class TormentDialogWidget extends ConsumerWidget {
 
   DialogDropdown tormentOptionsDropdown(
     TormentOption chosenTormentOption,
-    TormentDialogViewModel tormentDialogViewModel,
+    WidgetRef ref,
+    TormentDialogViewModelProvider tormentDialogViewModelProvider,
   ) {
     return DialogDropdown<TormentOption>(
       value: chosenTormentOption,
@@ -76,7 +79,9 @@ class TormentDialogWidget extends ConsumerWidget {
             ),
           )
           .toList(),
-      onChanged: (value) => tormentDialogViewModel.updateTormentOption(value!),
+      onChanged: (value) => ref
+          .read(tormentDialogViewModelProvider.notifier)
+          .updateTormentOption(value!),
     );
   }
 }

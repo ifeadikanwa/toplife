@@ -10,6 +10,7 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/helper_widgets/relationship_info_card_widget.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_actions/relationship_actions_screen_view_model.dart';
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_interaction.dart';
 
@@ -25,104 +26,102 @@ class RelationshipActionsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final relationshipActionsScreenViewModelDataProvider = ref.watch(
-        relationshipActionsScreenViewModelProvider(personRelationshipPair));
+    //
+    final RelationshipActionsScreenViewModelProvider viewModelProvider =
+        relationshipActionsScreenViewModelProvider(
+      relationshipPersonId: personRelationshipPair.person.id,
+      playerAndPersonIdPair: PersonIdPair(
+        firstId: personRelationshipPair.relationship.firstPersonId,
+        secondId: personRelationshipPair.relationship.secondPersonId,
+      ),
+    );
+    //
+    final relationshipActionsScreenViewModel = ref.watch(viewModelProvider);
 
-    return relationshipActionsScreenViewModelDataProvider.when(
-      data: (relationshipInteractions) {
-        //get the view model class
-        final RelationshipActionsScreenViewModel
-            relationshipActionsScreenViewModel = ref.watch(
-                relationshipActionsScreenViewModelProvider(
-                        personRelationshipPair)
-                    .notifier);
+    return relationshipActionsScreenViewModel.when(
+      data: (relationshipActionsScreenData) => (relationshipActionsScreenData ==
+              null)
+          ? const SizedBox()
+          :
+          //widget
+          InnerLevelScreen(
+              title: relationshipActionsScreenData.currentRelationshipLabel,
+              child: Expanded(
+                child: ScreenContent(
+                  content: ListView.separated(
+                    itemCount:
+                        relationshipActionsScreenData.interactions.length,
+                    itemBuilder: (context, index) {
+                      //interaction
+                      final RelationshipInteraction relationshipInteraction =
+                          relationshipActionsScreenData.interactions[index];
 
-        //widget
-        return InnerLevelScreen(
-          title:
-              relationshipActionsScreenViewModel.getCurrentRelationshipLabel(),
-          child: Expanded(
-            child: ScreenContent(
-              content: ListView.separated(
-                itemCount: relationshipInteractions.length,
-                itemBuilder: (context, index) {
-                  //interaction
-                  final RelationshipInteraction relationshipInteraction =
-                      relationshipInteractions[index];
-                  //person
-                  // final Person relationshipPerson = relationshipActionsScreenViewModel.relationshipPair.person;
-
-                  //Add person info, section header, and list item
-                  if (index == 0) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RelationshipInfoCardWidget(
-                          firstName:
-                              relationshipActionsScreenViewModel.getFirstName(),
-                          lastName:
-                              relationshipActionsScreenViewModel.getLastName(),
-                          age: relationshipActionsScreenViewModel.getAge(),
-                          relationshipLevel: relationshipActionsScreenViewModel
-                              .getRelationshipLevel(),
-                          romanticRelationshipLength:
-                              relationshipActionsScreenViewModel
-                                  .getRomanticRelationshipDuration(),
-                          previousRelationshipLabel:
-                              relationshipActionsScreenViewModel
-                                  .getPrevRelationshipLabel(),
-                          showInfoButton: relationshipActionsScreenViewModel
-                              .showInfoButton(),
-                        ),
-                        const Padding(
-                          padding:
-                              EdgeInsets.symmetric(vertical: listHeaderPadding),
-                          child: SectionHeader(
-                            sectionTitle: TextConstants.interactions,
-                          ),
-                        ),
-                        InteractionListItem(
+                      //Add person info, section header, and list item
+                      if (index == 0) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RelationshipInfoCardWidget(
+                              firstName:
+                                  relationshipActionsScreenData.firstName,
+                              lastName: relationshipActionsScreenData.lastName,
+                              age: relationshipActionsScreenData.age,
+                              relationshipLevel: relationshipActionsScreenData
+                                  .relationshipLevel,
+                              romanticRelationshipLength:
+                                  relationshipActionsScreenData
+                                      .romanticRelationshipDuration,
+                              previousRelationshipLabel:
+                                  relationshipActionsScreenData
+                                      .previousRelationshipLabel,
+                              showInfoButton: true,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: listHeaderPadding),
+                              child: SectionHeader(
+                                sectionTitle: TextConstants.interactions,
+                              ),
+                            ),
+                            InteractionListItem(
+                              interactionTitle: relationshipInteraction.title,
+                              interactionDescription:
+                                  relationshipInteraction.description,
+                              timeInMinutes:
+                                  relationshipInteraction.durationInMinutes,
+                              onTap: () async {
+                                await ref
+                                    .read(viewModelProvider.notifier)
+                                    .executeInteraction(
+                                        relationshipInteraction);
+                              },
+                            ),
+                          ],
+                        );
+                      }
+                      //just add list item
+                      else {
+                        return InteractionListItem(
                           interactionTitle: relationshipInteraction.title,
                           interactionDescription:
                               relationshipInteraction.description,
                           timeInMinutes:
                               relationshipInteraction.durationInMinutes,
                           onTap: () async {
-                            await relationshipActionsScreenViewModel
-                                .executeInteraction(
-                              relationshipInteraction: relationshipInteraction,
-                              context: context,
-                            );
+                            await ref
+                                .read(viewModelProvider.notifier)
+                                .executeInteraction(relationshipInteraction);
                           },
-                        ),
-                      ],
-                    );
-                  }
-                  //just add list item
-                  else {
-                    return InteractionListItem(
-                      interactionTitle: relationshipInteraction.title,
-                      interactionDescription:
-                          relationshipInteraction.description,
-                      timeInMinutes: relationshipInteraction.durationInMinutes,
-                      onTap: () async {
-                        await relationshipActionsScreenViewModel
-                            .executeInteraction(
-                          relationshipInteraction: relationshipInteraction,
-                          context: context,
                         );
-                      },
-                    );
-                  }
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const ListDivider();
-                },
+                      }
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const ListDivider();
+                    },
+                  ),
+                ),
               ),
             ),
-          ),
-        );
-      },
       error: (error, stackTrace) => const SizedBox(),
       loading: () => const SizedBox(),
     );

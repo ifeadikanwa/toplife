@@ -34,6 +34,7 @@ void main() {
         MockRelationshipUsecases(),
         MockJournalUsecases(),
         mockAgeUsecases,
+        MockDialogHandler(),
       );
 
       //create stubs for our test:

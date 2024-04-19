@@ -1,117 +1,124 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/sub_screens/house/tab_screens/rental_houses_screen/rental_houses_screen_view_model.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/house_constants.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_storage_space_usecase.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/rent_house_usecase.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_storage_change_label.dart';
 
-final rentHouseDialogViewModelProvider = StateNotifierProvider.autoDispose<
-    RentHouseDialogViewModel, AsyncValue<int>>((ref) {
-  //get recent
-  final Future<int?> currentPlayerIDFuture = ref.watch(
-    currentPlayerProvider.selectAsync((currentPlayer) => currentPlayer?.id),
-  );
-  final RentalHousesScreenViewModel rentalHousesScreenViewModel =
-      ref.watch(rentalHousesScreenViewModelProvider.notifier);
+part 'rent_house_dialog_view_model.g.dart';
 
-  return RentHouseDialogViewModel(
-    rentHouseUsecase:
-        ref.watch(shopAndStorageUsecasesProvider).rentHouseUsecase,
-    rentalHousesScreenViewModel: rentalHousesScreenViewModel,
-    currentPlayerIDFuture: currentPlayerIDFuture,
-    getCurrentHouseStorageSpaceUsecase: ref
-        .watch(shopAndStorageUsecasesProvider)
-        .getCurrentHouseStorageSpaceUsecase,
-  );
-});
+@CopyWith()
+class RentHouseDialogData extends Equatable {
+  final int chosenLeaseDuration;
+  final String homeStorageChangeLabel;
+  final int totalRentBasePrice;
 
-class RentHouseDialogViewModel extends StateNotifier<AsyncValue<int>> {
-  final RentHouseUsecase _rentHouseUsecase;
-  final RentalHousesScreenViewModel _rentalHousesScreenViewModel;
-  late final int? _currentPlayerID;
-  late final int _currentHouseStorage;
+  const RentHouseDialogData({
+    required this.chosenLeaseDuration,
+    required this.homeStorageChangeLabel,
+    required this.totalRentBasePrice,
+  });
 
-  //state = lease duration
-  RentHouseDialogViewModel({
-    required RentHouseUsecase rentHouseUsecase,
-    required RentalHousesScreenViewModel rentalHousesScreenViewModel,
-    required Future<int?> currentPlayerIDFuture,
-    required GetCurrentHouseStorageSpaceUsecase
-        getCurrentHouseStorageSpaceUsecase,
-  })  : _rentHouseUsecase = rentHouseUsecase,
-        _rentalHousesScreenViewModel = rentalHousesScreenViewModel,
-        super(const AsyncLoading()) {
-    _setup(
-      currentPlayerIDFuture: currentPlayerIDFuture,
-      getCurrentHouseStorageSpaceUsecase: getCurrentHouseStorageSpaceUsecase,
-    );
-  }
+  @override
+  List<Object?> get props => [
+        chosenLeaseDuration,
+        homeStorageChangeLabel,
+        totalRentBasePrice,
+      ];
+}
 
-  void _setup({
-    required Future<int?> currentPlayerIDFuture,
-    required GetCurrentHouseStorageSpaceUsecase
-        getCurrentHouseStorageSpaceUsecase,
+@riverpod
+class RentHouseDialogViewModel extends _$RentHouseDialogViewModel {
+  @override
+  Future<RentHouseDialogData?> build({
+    required int newHouseBasePrice,
+    required int newHouseStorage,
   }) async {
-    state = const AsyncLoading();
-
-    _currentPlayerID = await currentPlayerIDFuture;
-    _currentHouseStorage = (_currentPlayerID != null)
-        ? await getCurrentHouseStorageSpaceUsecase.execute(
-            personID: _currentPlayerID)
-        : HouseConstants.homelessStorageSpace;
-
-    state = await AsyncValue.guard(
-      () async => HouseConstants.minLeaseAgreementDuration,
+    final int? currentPlayerId = await ref.watch(
+      currentPlayerProvider.selectAsync((data) => data?.id),
     );
-  }
 
-  void rentHouse(
-    BuildContext context,
-    House house,
-  ) async {
-    if (_currentPlayerID != null && state.valueOrNull != null) {
-      final bool rentSuccessful = await _rentHouseUsecase.execute(
-        context: context,
-        house: house,
-        personID: _currentPlayerID,
-        leaseDuration: state.valueOrNull!,
+    if (currentPlayerId != null) {
+      //total base price is rent * 2 (this means deposit + first rent)
+      final totalRentBasePrice = newHouseBasePrice * 2;
+
+      //storage change label
+      //get current storage
+      final int currentStorage = await ref
+          .watch(shopAndStorageUsecasesProvider)
+          .getCurrentHouseStorageSpaceUsecase
+          .execute(personID: currentPlayerId);
+      final storageChangeLabel = getHouseStorageChangeLabel(
+        newHouseStorage: newHouseStorage,
+        currentHouseStorage: currentStorage,
       );
 
-      if (rentSuccessful) {
-        _rentalHousesScreenViewModel.removeRentedHouseFromShop(house);
-      }
+      return RentHouseDialogData(
+        chosenLeaseDuration: HouseConstants.minLeaseAgreementDuration,
+        homeStorageChangeLabel: storageChangeLabel,
+        totalRentBasePrice: totalRentBasePrice,
+      );
     }
+
+    return null;
   }
 
-  String getStorageChangeLabel({
-    required int newHouseStorage,
-  }) {
-    return getHouseStorageChangeLabel(
-      newHouseStorage: newHouseStorage,
-      currentHouseStorage: _currentHouseStorage,
+  void rentHouse(House house) async {
+    final int? currentPlayerId = await ref.read(
+      currentPlayerProvider.selectAsync((data) => data?.id),
     );
-  }
 
-  void increaseLeaseDuration() async {
-    final int? currentState = state.valueOrNull;
-    if (currentState != null) {
-      if (currentState < HouseConstants.maxLeaseAgreementDuration) {
-        state = await AsyncValue.guard(() async =>
-            currentState + HouseConstants.leaseAgreementDurationIncrement);
+    final RentHouseDialogData? currentState = state.valueOrNull;
+
+    if (currentPlayerId != null && currentState != null) {
+      final bool rentSuccessful = await ref
+          .read(shopAndStorageUsecasesProvider)
+          .rentHouseUsecase
+          .execute(
+            house: house,
+            personID: currentPlayerId,
+            leaseDuration: currentState.chosenLeaseDuration,
+          );
+
+      if (rentSuccessful) {
+        ref
+            .read(rentalHousesScreenViewModelProvider.notifier)
+            .removeRentedHouseFromShop(house);
       }
     }
   }
 
-  void decreaseLeaseDuration() async {
-    final int? currentState = state.valueOrNull;
+  void increaseLeaseDuration() {
+    final RentHouseDialogData? currentState = state.valueOrNull;
+
     if (currentState != null) {
-      if (currentState > HouseConstants.minLeaseAgreementDuration) {
-        state = await AsyncValue.guard(() async =>
-            currentState - HouseConstants.leaseAgreementDurationIncrement);
+      final int currentLeaseDuration = currentState.chosenLeaseDuration;
+      //
+      if (currentLeaseDuration < HouseConstants.maxLeaseAgreementDuration) {
+        state = AsyncData(
+          currentState.copyWith(
+              chosenLeaseDuration: currentLeaseDuration +
+                  HouseConstants.leaseAgreementDurationIncrement),
+        );
+      }
+    }
+  }
+
+  void decreaseLeaseDuration() {
+    final RentHouseDialogData? currentState = state.valueOrNull;
+
+    if (currentState != null) {
+      final int currentLeaseDuration = currentState.chosenLeaseDuration;
+      //
+      if (currentLeaseDuration > HouseConstants.minLeaseAgreementDuration) {
+        state = AsyncData(
+          currentState.copyWith(
+              chosenLeaseDuration: currentLeaseDuration -
+                  HouseConstants.leaseAgreementDurationIncrement),
+        );
       }
     }
   }

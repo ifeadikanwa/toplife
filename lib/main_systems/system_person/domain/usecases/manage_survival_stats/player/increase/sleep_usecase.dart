@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_with_stats_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/date_and_time/get_sentence_time.dart';
 import 'package:toplife/core/utils/date_and_time/time.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/text/sleep_result_dialog_texts.dart';
@@ -19,11 +17,13 @@ class SleepUsecase {
   final UpdateEnergyStatsUsecase _updateEnergyStatsUsecase;
   final StatsRepository _statsRepository;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const SleepUsecase(
     this._updateEnergyStatsUsecase,
     this._statsRepository,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   //let people pick hours and minutes to sleep for
@@ -32,8 +32,6 @@ class SleepUsecase {
     required int gameID,
     required int currentDay,
     required int activityDurationInMinutes,
-    required GameUsecases gameUsecases,
-    required BuildContext context,
   }) async {
     final Stats? personStats = await _statsRepository.getStats(personID);
 
@@ -89,10 +87,7 @@ class SleepUsecase {
               .round()
           : activityDurationInMinutes;
       //move time
-      await gameUsecases.moveTimeForwardUsecase.execute(
-        gameID: gameID,
-        timeInMinutes: minutesPassed,
-      );
+      //-------------!We need to give action runner the time
 
       //RESULT DESC
       //get title
@@ -124,21 +119,18 @@ class SleepUsecase {
       );
 
       //RETURN DIALOG
-      if (context.mounted) {
-        ResultWithStatsDialog.show(
-          context: context,
-          title: resultTitle,
-          result: SentenceUtil.convertFromFirstPersonToSecondPerson(
-            firstPersonSentence: firstPersonResultDesc,
+      return _dialogHandler.showResultWithStatsDialog(
+        title: resultTitle,
+        result: SentenceUtil.convertFromFirstPersonToSecondPerson(
+          firstPersonSentence: firstPersonResultDesc,
+        ),
+        statsList: [
+          StatsItemBuilder.defaultStat(
+            statsName: TextConstants.energy,
+            statsLevel: newEnergy,
           ),
-          statsList: [
-            StatsItemBuilder.defaultStat(
-              statsName: TextConstants.energy,
-              statsLevel: newEnergy,
-            ),
-          ],
-        );
-      }
+        ],
+      );
     }
   }
 }

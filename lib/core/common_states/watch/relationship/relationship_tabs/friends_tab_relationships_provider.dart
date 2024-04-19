@@ -1,5 +1,5 @@
-//
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
@@ -9,10 +9,12 @@ import 'package:toplife/main_systems/system_person/domain/model/info_models/pers
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 
+part 'friends_tab_relationships_provider.g.dart';
 //ONLY LIVING PEOPLE RELATIONSHIPS
 
-final friendsTabRelationshipsProvider =
-    StreamProvider.autoDispose<NoSection<PersonRelationshipPair>>((ref) async* {
+@riverpod
+Stream<NoSection<PersonRelationshipPair>> friendsTabRelationships(
+    FriendsTabRelationshipsRef ref) async* {
   //watch player id
   final int? playerID = await ref.watch(
     currentPlayerProvider.selectAsync((data) => data?.id),
@@ -69,4 +71,4 @@ final friendsTabRelationshipsProvider =
       yield NoSection(content: personRelationshipPairs);
     }
   }
-});
+}

@@ -1,13 +1,14 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final simpleBuyDialogViewModelProvider =
-    StateNotifierProvider.autoDispose<SimpleBuyDialogViewModel, int>((ref) {
-  return SimpleBuyDialogViewModel();
-});
+part 'simple_buy_dialog_view_model.g.dart';
 
-class SimpleBuyDialogViewModel extends StateNotifier<int> {
-  //state = quantity. intialize state with 1
-  SimpleBuyDialogViewModel() : super(1);
+@riverpod
+class SimpleBuyDialogViewModel extends _$SimpleBuyDialogViewModel {
+  //state = quantity. initialize state with 1
+  @override
+  int build() {
+    return 1;
+  }
 
   void increaseQuantity() {
     if (state < 10) {

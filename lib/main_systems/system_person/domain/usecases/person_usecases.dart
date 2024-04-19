@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/dialog_handler/dialog_handler_provider.dart';
 import 'package:toplife/core/common_states/dependencies/job/job_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
+import 'package:toplife/core/common_states/dependencies/shop_and_storage/shop_and_storage_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/create/create_or_update_death_record_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_death_record_usecase.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_living_people_in_specific_lifestage_and_country_usecase.dart';
@@ -143,6 +145,7 @@ class PersonUsecases {
         checkIfPlayerCanAffordItUsecase,
         takeMoneyFromPlayerUsecase,
         _ref.read(journalUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   GetTattooFromShopUsecase get getTattooFromShopUsecase =>
@@ -150,7 +153,9 @@ class PersonUsecases {
         _ref.read(personRepositoriesProvider).tattooRepositoryImpl,
         checkIfPlayerCanAffordItUsecase,
         takeMoneyFromPlayerUsecase,
+        getPersonUsecase,
         _ref.read(journalUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   DepleteBabyEnergyUsecase get depleteBabyEnergyUsecase =>
@@ -217,17 +222,22 @@ class PersonUsecases {
         _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         updateHungerStatsUsecase,
         _ref.read(journalUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
+        _ref.read(shopAndStorageUsecasesProvider),
       );
 
   QuickEatUsecase get quickEatUsecase => QuickEatUsecase(
         _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         eatUsecase,
+        _ref.read(dialogHandlerProvider),
+        _ref.read(shopAndStorageUsecasesProvider),
       );
 
   SleepUsecase get sleepUsecase => SleepUsecase(
         updateEnergyStatsUsecase,
         _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         _ref.read(journalUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   MakeNonPlayerHungryUsecase get makeNonPlayerHungryUsecase =>

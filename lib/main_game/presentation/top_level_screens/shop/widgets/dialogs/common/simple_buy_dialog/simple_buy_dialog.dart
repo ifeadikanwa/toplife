@@ -28,9 +28,7 @@ class SimpleBuyDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quantity = ref.watch(simpleBuyDialogViewModelProvider);
-    final simpleBuyDialogViewModel =
-        ref.watch(simpleBuyDialogViewModelProvider.notifier);
+    final int quantity = ref.watch(simpleBuyDialogViewModelProvider);
 
     return DialogContainer(
       children: [
@@ -45,8 +43,12 @@ class SimpleBuyDialog extends ConsumerWidget {
         EditableQuantityDescriptorRow(
           descriptor: ShopDialogConstants.quantity,
           quantity: "$quantity",
-          onIncrease: simpleBuyDialogViewModel.increaseQuantity,
-          onDecrease: simpleBuyDialogViewModel.decreaseQuantity,
+          onIncrease: ref
+              .read(simpleBuyDialogViewModelProvider.notifier)
+              .increaseQuantity,
+          onDecrease: ref
+              .read(simpleBuyDialogViewModelProvider.notifier)
+              .decreaseQuantity,
         ),
         const AddVerticalSpace(
           height: ShopDialogConstants.sectionVerticalSpacing,

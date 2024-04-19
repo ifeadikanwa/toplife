@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/scheduled_events.dart';
@@ -12,7 +11,6 @@ class RunEvent {
   Future<void> execute({
     required int mainPlayerID,
     required Event event,
-    required BuildContext context,
   }) async {
     final eventTypeEnum = convertEventTypeStringToEnum(event.eventType);
     if (eventTypeEnum != null) {
@@ -20,13 +18,11 @@ class RunEvent {
         //NON-attendable events
         case EventType.birthday:
           return _scheduledEvents.birthdayEvent.execute(
-            context,
             mainPlayerID,
             event,
           );
         case EventType.death:
           return _scheduledEvents.deathEvent.execute(
-            context: context,
             deathEvent: event,
             mainPlayerID: mainPlayerID,
           );
@@ -44,7 +40,6 @@ class RunEvent {
         case EventType.birthdayParty:
         case EventType.funeral:
           return _scheduledEvents.attendEvent.execute(
-            context: context,
             event: event,
             mainPlayerID: mainPlayerID,
           );

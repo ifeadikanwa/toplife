@@ -35,14 +35,11 @@ class _TattooShopDialogWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final TattooShopDialogWidgetViewModel tattooShopDialogWidgetViewModel =
-        ref.watch(tattooShopDialogWidgetViewModelProvider.notifier);
-
     final tattooShopDialogWidgetViewModelDataProvider =
         ref.watch(tattooShopDialogWidgetViewModelProvider);
 
     return tattooShopDialogWidgetViewModelDataProvider.when(
-      data: (tattooShopDetails) {
+      data: (tattooShopDialogData) {
         return DialogContainer(
           title: const DialogTitleText(
             text: TattooShopTextConstants.tattooShop,
@@ -52,14 +49,14 @@ class _TattooShopDialogWidgetState
             //
             DescriptorRow(
               descriptor: "${TextConstants.cost}:",
-              value: tattooShopDialogWidgetViewModel.getCost(),
+              value: tattooShopDialogData.chosenTattooPrice,
             ),
             const AddVerticalSpace(
               height: DialogConstants.defaultWidgetSpacing,
             ),
             DescriptorRow(
               descriptor: "${TextConstants.duration}:",
-              value: tattooShopDialogWidgetViewModel.getDuration(),
+              value: tattooShopDialogData.tattooDuration,
             ),
             const AddVerticalSpace(
               height: DialogConstants.doubleDefaultWidgetSpacing,
@@ -71,7 +68,7 @@ class _TattooShopDialogWidgetState
               text: TattooShopTextConstants.chooseTattooShop,
             ),
             DialogDropdown<TattooShop>(
-              value: tattooShopDetails.tattooShop,
+              value: tattooShopDialogData.tattooShop,
               items: TattooShop.values
                   .map(
                     (tattooShop) => DropdownMenuItem<TattooShop>(
@@ -84,7 +81,9 @@ class _TattooShopDialogWidgetState
                   .toList(),
               onChanged: (value) {
                 if (value != null) {
-                  tattooShopDialogWidgetViewModel.updateTattooShop(value);
+                  ref
+                      .read(tattooShopDialogWidgetViewModelProvider.notifier)
+                      .updateTattooDetail(tattooShop: value);
                 }
               },
             ),
@@ -98,7 +97,7 @@ class _TattooShopDialogWidgetState
               text: TattooShopTextConstants.chooseTattooLocation,
             ),
             DialogDropdown<TattooBodyLocation>(
-              value: tattooShopDetails.tattooBodyLocation,
+              value: tattooShopDialogData.tattooBodyLocation,
               items: TattooBodyLocation.values
                   .map(
                     (tattooBodyLocation) =>
@@ -112,8 +111,9 @@ class _TattooShopDialogWidgetState
                   .toList(),
               onChanged: (value) {
                 if (value != null) {
-                  tattooShopDialogWidgetViewModel
-                      .updateTattooBodyLocation(value);
+                  ref
+                      .read(tattooShopDialogWidgetViewModelProvider.notifier)
+                      .updateTattooDetail(tattooBodyLocation: value);
                 }
               },
             ),
@@ -127,7 +127,7 @@ class _TattooShopDialogWidgetState
               text: TattooShopTextConstants.chooseTattooSize,
             ),
             DialogDropdown<TattooSize>(
-              value: tattooShopDetails.tattooSize,
+              value: tattooShopDialogData.tattooSize,
               items: TattooSize.values
                   .map(
                     (tattooSize) => DropdownMenuItem<TattooSize>(
@@ -140,7 +140,9 @@ class _TattooShopDialogWidgetState
                   .toList(),
               onChanged: (value) {
                 if (value != null) {
-                  tattooShopDialogWidgetViewModel.updateTattooSize(value);
+                  ref
+                      .read(tattooShopDialogWidgetViewModelProvider.notifier)
+                      .updateTattooDetail(tattooSize: value);
                 }
               },
             ),
@@ -155,8 +157,7 @@ class _TattooShopDialogWidgetState
             ),
             TextField(
               controller: textEditingController,
-              maxLength:
-                  tattooShopDialogWidgetViewModel.getTattooDescriptionLength(),
+              maxLength: tattooShopDialogData.tattooDescriptionLength,
               decoration: const InputDecoration(
                 hintText: TattooShopTextConstants.enterTattooDescription,
               ),
@@ -173,10 +174,11 @@ class _TattooShopDialogWidgetState
               onPressed: () async {
                 AutoRouter.of(context).pop();
 
-                await tattooShopDialogWidgetViewModel.getTattoo(
-                  context: context,
-                  tattooDescription: textEditingController.text,
-                );
+                await ref
+                    .read(tattooShopDialogWidgetViewModelProvider.notifier)
+                    .getTattoo(
+                      tattooDescription: textEditingController.text,
+                    );
               },
               child: const Text(TextConstants.getUppercase),
             ),

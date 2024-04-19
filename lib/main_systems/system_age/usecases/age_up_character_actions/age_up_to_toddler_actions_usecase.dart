@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_school/domain/usecases/school_usecases.dart';
@@ -12,7 +11,6 @@ class AgeUpToToddlerActionsUsecase {
   //inside that private function, we can now divide into -general -player -npc
   //that means we decide how the subject matter will affect everyone or player and npcs specifically.
   Future<void> execute({
-    required BuildContext context,
     required int currentDay,
     required Person toddlerPerson,
     required Age toddlerAge,
@@ -21,7 +19,6 @@ class AgeUpToToddlerActionsUsecase {
   }) async {
     //start elementary school
     await _startElementarySchool(
-      context: context,
       currentDay: currentDay,
       toddlerPerson: toddlerPerson,
       toddlerAge: toddlerAge,
@@ -31,7 +28,6 @@ class AgeUpToToddlerActionsUsecase {
   }
 
   Future<void> _startElementarySchool({
-    required BuildContext context,
     required int currentDay,
     required Person toddlerPerson,
     required Age toddlerAge,

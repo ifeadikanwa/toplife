@@ -1,36 +1,24 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_states/get/school/current_active_school_and_employments_pair_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:toplife/core/common_states/get/job/current_active_employment_pairs_provider.dart';
+import 'package:toplife/core/common_states/get/school/current_active_school_pair_provider.dart';
+import 'package:toplife/main_systems/system_job/domain/model/info_models/employment_pair.dart';
 import 'package:toplife/main_systems/system_school/domain/model/info_models/school_and_employments_pair.dart';
+import 'package:toplife/main_systems/system_school/domain/model/info_models/school_pair.dart';
 
-final currentSectionViewModelProvider = StateNotifierProvider<
-    CurrentSectionViewModel, AsyncValue<SchoolAndEmploymentsPair>>((ref) {
-  //get recent
-  final currentActiveSchoolAndEmploymentsPairFuture =
-      ref.watch(currentActiveSchoolAndEmploymentsPairProvider.future);
+part 'current_section_view_model.g.dart';
 
-  return CurrentSectionViewModel(
-    currentActiveSchoolAndEmploymentsPairFuture:
-        currentActiveSchoolAndEmploymentsPairFuture,
+@riverpod
+Future<SchoolAndEmploymentsPair> currentSectionViewModel(
+  CurrentSectionViewModelRef ref,
+) async {
+  final SchoolPair? activeSchoolPair =
+      await ref.watch(currentActiveSchoolPairProvider.future);
+
+  final List<EmploymentPair> activeEmploymentPairs =
+      await ref.watch(currentActiveEmploymentPairsProvider.future);
+
+  return SchoolAndEmploymentsPair(
+    schoolPair: activeSchoolPair,
+    employmentPairs: activeEmploymentPairs,
   );
-});
-
-class CurrentSectionViewModel
-    extends StateNotifier<AsyncValue<SchoolAndEmploymentsPair>> {
-  CurrentSectionViewModel({
-    required Future<SchoolAndEmploymentsPair>
-        currentActiveSchoolAndEmploymentsPairFuture,
-  }) : super(const AsyncLoading()) {
-    _fetch(
-      currentActiveSchoolAndEmploymentsPairFuture:
-          currentActiveSchoolAndEmploymentsPairFuture,
-    );
-  }
-
-  void _fetch({
-    required Future<SchoolAndEmploymentsPair>
-        currentActiveSchoolAndEmploymentsPairFuture,
-  }) async {
-    state = await AsyncValue.guard(
-        () => currentActiveSchoolAndEmploymentsPairFuture);
-  }
 }

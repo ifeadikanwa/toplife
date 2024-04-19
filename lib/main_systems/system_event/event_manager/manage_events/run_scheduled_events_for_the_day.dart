@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_event/constants/event_category.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
@@ -20,7 +19,6 @@ class RunScheduledEventsForTheDay {
     required int dayToCheckForEvents,
     required int dayToLogEventTo, //journal entry day
     required int currentTimeInMinutes,
-    required BuildContext context,
   }) async {
     //this is the heart of daily events
     //We run the unperformed scheduled events for the day
@@ -48,13 +46,10 @@ class RunScheduledEventsForTheDay {
 
     //run them all
     for (var event in journalOnlyEvents) {
-      if (context.mounted) {
-        await _runEvent.execute(
-          mainPlayerID: playerID,
-          event: event.copyWith(eventDay: dayToLogEventTo),
-          context: context,
-        );
-      }
+      await _runEvent.execute(
+        mainPlayerID: playerID,
+        event: event.copyWith(eventDay: dayToLogEventTo),
+      );
     }
 
     //get all the untimed events
@@ -68,13 +63,10 @@ class RunScheduledEventsForTheDay {
 
     //run them all
     for (var event in untimedEvents) {
-      if (context.mounted) {
-        await _runEvent.execute(
-          mainPlayerID: playerID,
-          event: event.copyWith(eventDay: dayToLogEventTo),
-          context: context,
-        );
-      }
+      await _runEvent.execute(
+        mainPlayerID: playerID,
+        event: event.copyWith(eventDay: dayToLogEventTo),
+      );
     }
 
     //get all the start time before or equal to current time but no end time events
@@ -88,13 +80,10 @@ class RunScheduledEventsForTheDay {
 
     //run them all
     for (var event in startTimedEvents) {
-      if (context.mounted) {
-        await _runEvent.execute(
-          mainPlayerID: playerID,
-          event: event.copyWith(eventDay: dayToLogEventTo),
-          context: context,
-        );
-      }
+      await _runEvent.execute(
+        mainPlayerID: playerID,
+        event: event.copyWith(eventDay: dayToLogEventTo),
+      );
     }
   }
 }

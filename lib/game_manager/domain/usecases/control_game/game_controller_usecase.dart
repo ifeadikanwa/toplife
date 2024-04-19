@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/day_and_minutes.dart';
 import 'package:toplife/core/utils/date_and_time/get_minutes_between_two_times.dart';
@@ -18,7 +17,6 @@ class GameControllerUsecase {
   Future<void> execute({
     required Future<Game?>? previousGameFuture,
     required Future<Game?> nextGameFuture,
-    required BuildContext context,
   }) async {
     //Check if game controller actually needs to do work:
 
@@ -84,34 +82,27 @@ class GameControllerUsecase {
                   dayToLogReportTo: newGame.currentDay,
                 );
 
-                //we check that the build context is valid
-                if (context.mounted) {
-                  //run scheduled events
-                  await _eventManager.runScheduledEventsForTheDay.execute(
-                    gameID: newGame.id,
-                    playerID: newGameCurrentPlayerId,
-                    dayToCheckForEvents: day,
-                    dayToLogEventTo: newGame.currentDay,
-                    currentTimeInMinutes: Time.minutesInADay,
-                    //we want the entire days events to run
-                    context: context,
-                  );
-                }
+                //run scheduled events
+                await _eventManager.runScheduledEventsForTheDay.execute(
+                  gameID: newGame.id,
+                  playerID: newGameCurrentPlayerId,
+                  dayToCheckForEvents: day,
+                  dayToLogEventTo: newGame.currentDay,
+                  currentTimeInMinutes: Time.minutesInADay,
+                  //we want the entire days events to run
+                );
               }
             }
 
             //PRESENT
-            if (context.mounted) {
-              //run scheduled events for the current day
-              await _eventManager.runScheduledEventsForTheDay.execute(
-                gameID: newGame.id,
-                playerID: newGameCurrentPlayerId,
-                dayToCheckForEvents: newGame.currentDay,
-                dayToLogEventTo: newGame.currentDay,
-                currentTimeInMinutes: newGame.currentTimeInMinutes,
-                context: context,
-              );
-            }
+            //run scheduled events for the current day
+            await _eventManager.runScheduledEventsForTheDay.execute(
+              gameID: newGame.id,
+              playerID: newGameCurrentPlayerId,
+              dayToCheckForEvents: newGame.currentDay,
+              dayToLogEventTo: newGame.currentDay,
+              currentTimeInMinutes: newGame.currentTimeInMinutes,
+            );
           }
         }
       }

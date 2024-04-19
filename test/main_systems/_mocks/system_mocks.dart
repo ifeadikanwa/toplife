@@ -1,5 +1,6 @@
 import 'package:mockito/annotations.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart';
@@ -54,5 +55,8 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/sho
 
   //age
   MockSpec<AgeUsecases>(),
+
+  //dialog
+  MockSpec<DialogHandler>(),
 ])
 void main() {}

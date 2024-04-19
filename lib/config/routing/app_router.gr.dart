@@ -104,7 +104,7 @@ abstract class $AppRouter extends _i43.RootStackRouter {
     ActivitiesEmptyRouter.name: (routeData) {
       return _i43.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.ActivitiesEmptyRouterScreen(),
+        child: const _i1.ActivitiesEmptyRouterScreen(),
       );
     },
     ActivitiesRoute.name: (routeData) {

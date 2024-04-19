@@ -4,8 +4,8 @@ import 'package:toplife/main_systems/system_person/domain/model/info_models/pers
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/npc_union_info.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_players_living_extended_step_family_and_in_laws_from_union_between_two_npcs_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_converters/convert_temporary_familial_relationship_to_past_family_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_list_of_names_and_platonic_relationship_labels.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_name_and_platonic_relationship_label.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_list_of_names_and_platonic_relationship_labels.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_name_and_platonic_relationship_label.dart';
 
 class ProcessRelationshipChangesFromNpcDivorceUsecase {
   final ConvertTemporaryFamilialRelationshipToPastFamilyUsecase

@@ -3,6 +3,8 @@ import 'package:toplife/config/routing/app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: "Screen,Route")
 class AppRouter extends $AppRouter {
+  AppRouter({super.navigatorKey});
+
   @override
   RouteType get defaultRouteType => const RouteType.material();
 

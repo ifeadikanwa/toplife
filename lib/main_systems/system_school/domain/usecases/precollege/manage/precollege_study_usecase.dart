@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_school/domain/model/info_models/precollege_info.dart';
@@ -15,6 +14,7 @@ class PrecollegeStudyUsecase {
   final SchoolRepository _schoolRepository;
   final PersonUsecases _personUsecases;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const PrecollegeStudyUsecase(
     this._getCurrentPrecollegeUsecase,
@@ -22,13 +22,13 @@ class PrecollegeStudyUsecase {
     this._schoolRepository,
     this._personUsecases,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   Future<void> execute({
     required int currentPlayerID,
     required int currentGameID,
     required int currentDay,
-    required BuildContext context,
   }) async {
     //get the current precollege
     final PrecollegeInfo? currentPrecollegeInfo =
@@ -75,13 +75,10 @@ class PrecollegeStudyUsecase {
         );
 
         //result dialog
-        if (context.mounted) {
-          await ResultDialog.show(
-            context: context,
-            title: "Study! Study! Study!",
-            result: "You completed a study session.",
-          );
-        }
+        await _dialogHandler.showResultDialog(
+          title: "Study! Study! Study!",
+          result: "You completed a study session.",
+        );
       }
     }
   }

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/dialog_handler/dialog_handler_provider.dart';
 import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
@@ -45,6 +46,7 @@ class TransportationUsecases {
             _ref.read(personUsecasesProvider),
             _ref.read(shopAndStorageUsecasesProvider),
             _ref.read(journalUsecasesProvider),
+            _ref.read(dialogHandlerProvider),
           );
 
   LandTravelUsecase get landTravelUsecase => LandTravelUsecase(
@@ -59,6 +61,7 @@ class TransportationUsecases {
         getDrivingModeUsecase,
         _ref.read(journalUsecasesProvider),
         _ref.read(gameUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   GetCarFuelConsumptionUsecase get getCarFuelConsumptionUsecase =>

@@ -1,8 +1,7 @@
 //the called dialogs already check for context mount status
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
@@ -21,6 +20,7 @@ class PurchaseItemUsecase {
   final AddItemToStoreroomUsecase _addItemToStoreroomUsecase;
   final GameUsecases _gameUsecases;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const PurchaseItemUsecase(
     this._getItemRecordUsecase,
@@ -30,10 +30,10 @@ class PurchaseItemUsecase {
     this._addItemToStoreroomUsecase,
     this._gameUsecases,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   Future<void> execute({
-    required BuildContext context,
     required int personID,
     required Item item,
     required int quantity,
@@ -125,8 +125,7 @@ class PurchaseItemUsecase {
     }
 
     //return results
-    ResultDialog.show(
-      context: context,
+    _dialogHandler.showResultDialog(
       title: resultTitle,
       result: secondPersonResult,
     );

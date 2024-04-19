@@ -16,6 +16,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_jewelry_qu
 
 class BuyJewelryDialog extends ConsumerWidget {
   final Jewelry jewelry;
+
   const BuyJewelryDialog({
     super.key,
     required this.jewelry,
@@ -23,50 +24,42 @@ class BuyJewelryDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final buyJewelryViewModelDataProvider =
-        ref.watch(buyJewelryDialogViewModelProvider);
-
-    return buyJewelryViewModelDataProvider.when(
-      data: (buyJewelryViewModel) {
-        return DialogContainer(
-          children: [
-            ShopDialogItemInfoRow(
-              title: getJewelryName(
-                jewel: jewelry.jewel,
-                type: jewelry.type,
-              ),
-              subtitle1:
-                  "${TextConstants.quality}: ${getJewelryQualityLabel(quality: jewelry.quality)}",
-              subtitle2:
-                  getCaratLabel(jewel: jewelry.jewel, carat: jewelry.carat),
-            ),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            const ListDivider(),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            TotalPriceRow(
-              basePrice: jewelry.basePrice,
-            ),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                AutoRouter.of(context).popForced();
-                buyJewelryViewModel.checkoutJewelry(context, jewelry);
-              },
-              child: const Text(
-                ShopDialogConstants.checkout,
-              ),
-            )
-          ],
-        );
-      },
-      error: (error, stackTrace) => Container(),
-      loading: () => Container(),
+    return DialogContainer(
+      children: [
+        ShopDialogItemInfoRow(
+          title: getJewelryName(
+            jewel: jewelry.jewel,
+            type: jewelry.type,
+          ),
+          subtitle1:
+              "${TextConstants.quality}: ${getJewelryQualityLabel(quality: jewelry.quality)}",
+          subtitle2: getCaratLabel(jewel: jewelry.jewel, carat: jewelry.carat),
+        ),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        const ListDivider(),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        TotalPriceRow(
+          basePrice: jewelry.basePrice,
+        ),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            AutoRouter.of(context).popForced();
+            ref
+                .read(buyJewelryDialogViewModelProvider.notifier)
+                .checkoutJewelry(jewelry);
+          },
+          child: const Text(
+            ShopDialogConstants.checkout,
+          ),
+        )
+      ],
     );
   }
 }

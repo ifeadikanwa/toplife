@@ -1,30 +1,33 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_states/watch/journal/current_journal_for_today_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
+import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
-//provider
-final todaysJournalCardViewModelProvider =
-    StateNotifierProvider<TodaysJournalCardViewModel, AsyncValue<Journal?>>(
-        (ref) {
-  //get recent future
-  final currentJournalForTodayFuture =
-      ref.watch(currentJournalForTodayProvider.future);
+part 'todays_journal_card_view_model.g.dart';
 
-
-  return TodaysJournalCardViewModel(
-    currentJournalForTodayFuture: currentJournalForTodayFuture,
+@riverpod
+Stream<Journal?> todaysJournalCardViewModel(
+    TodaysJournalCardViewModelRef ref) async* {
+  //get recent
+  final int? currentGameId = await ref.watch(
+    currentGameProvider.selectAsync((data) => data?.id),
   );
-});
+  final int? currentDay = await ref.watch(
+    currentGameProvider.selectAsync((data) => data?.currentDay),
+  );
 
-class TodaysJournalCardViewModel extends StateNotifier<AsyncValue<Journal?>> {
-  TodaysJournalCardViewModel({
-    required Future<Journal?> currentJournalForTodayFuture,
-  }) : super(const AsyncLoading()) {
-    _fetch(currentJournalForTodayFuture);
-  }
+  //yield
+  if (currentGameId != null && currentDay != null) {
+    final Stream<Journal?> todaysJournalStream =
+        ref.watch(journalUsecasesProvider).watchJournalUsecase.execute(
+              gameID: currentGameId,
+              day: currentDay,
+            );
 
-  void _fetch(Future<Journal?> currentJournalForTodayFuture) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async => currentJournalForTodayFuture);
+    await for (final journal in todaysJournalStream) {
+      yield journal;
+    }
+  } else {
+    yield null;
   }
 }

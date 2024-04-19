@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
-import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
@@ -16,19 +15,14 @@ import 'package:toplife/main_game/presentation/top_level_screens/activities/widg
 import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
 
 class SleepActionDialog extends ConsumerWidget {
-  final Game currentGame;
-
   const SleepActionDialog({
     super.key,
-    required this.currentGame,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final SleepActionDialogViewModel sleepActionDialogViewModel =
-        ref.watch(sleepActionDialogViewModelProvider.notifier);
-
-    final Time chosenTime = ref.watch(sleepActionDialogViewModelProvider);
+    final SleepActionDialogData sleepActionDialogData =
+        ref.watch(sleepActionDialogViewModelProvider);
 
     return DialogContainer(
       title: const DialogTitleText(text: ActivitiesDialogText.restTime),
@@ -39,13 +33,13 @@ class SleepActionDialog extends ConsumerWidget {
         ),
         const DialogDropdownLabelText(text: ActivitiesDialogText.hoursPrompt),
         hourDurationDropdown(
-          sleepActionDialogViewModel,
-          chosenTime.hours,
+          sleepActionDialogData.hours,
+          ref,
         ),
         const DialogDropdownLabelText(text: ActivitiesDialogText.minutesPrompt),
         minutesDurationDropdown(
-          sleepActionDialogViewModel,
-          chosenTime.minutes,
+          sleepActionDialogData.minutes,
+          ref,
         ),
         const AddVerticalSpace(
           height: DialogConstants.verticalDescriptionButtonSpacing,
@@ -53,10 +47,7 @@ class SleepActionDialog extends ConsumerWidget {
         ElevatedButton(
           onPressed: () async {
             AutoRouter.of(context).pop();
-            await sleepActionDialogViewModel.sleep(
-              context: context,
-              currentGame: currentGame,
-            );
+            await ref.read(sleepActionDialogViewModelProvider.notifier).sleep();
           },
           child: const Text(ActivitiesDialogText.sleep),
         ),
@@ -65,8 +56,8 @@ class SleepActionDialog extends ConsumerWidget {
   }
 
   DialogDropdown hourDurationDropdown(
-    SleepActionDialogViewModel sleepActionDialogViewModel,
     int chosenHourDuration,
+    WidgetRef ref,
   ) {
     return DialogDropdown<int>(
       value: (chosenHourDuration * Time.minutesInAnHour),
@@ -80,14 +71,16 @@ class SleepActionDialog extends ConsumerWidget {
             ),
           )
           .toList(),
-      onChanged: (value) => sleepActionDialogViewModel.updateHours(value!),
+      onChanged: (value) => ref
+          .read(sleepActionDialogViewModelProvider.notifier)
+          .updateHours(value!),
     );
   }
 }
 
 DialogDropdown minutesDurationDropdown(
-  SleepActionDialogViewModel sleepActionDialogViewModel,
   int chosenMinutesDuration,
+  WidgetRef ref,
 ) {
   return DialogDropdown<int>(
     value: chosenMinutesDuration,
@@ -101,6 +94,8 @@ DialogDropdown minutesDurationDropdown(
           ),
         )
         .toList(),
-    onChanged: (value) => sleepActionDialogViewModel.updateMinutes(value!),
+    onChanged: (value) => ref
+        .read(sleepActionDialogViewModelProvider.notifier)
+        .updateMinutes(value!),
   );
 }

@@ -1,7 +1,7 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
-import 'package:toplife/main_systems/system_relationship/util/check_if_platonic_relationship_type_is_temporary_familial_relationship.dart';
+import 'package:toplife/main_systems/system_relationship/util/check/check_if_platonic_relationship_type_is_temporary_familial_relationship.dart';
 import 'package:toplife/main_systems/system_relationship/util/get_db_formatted_platonic_relationship_type_string.dart';
 
 //Previous familial relationship should only ever refer to a temporary familial relationship,

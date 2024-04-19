@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_school/domain/model/info_models/precollege_info.dart';
 import 'package:toplife/main_systems/system_school/domain/repository/precollege_repository.dart';
@@ -12,19 +11,20 @@ class DoHomeworkUsecase {
   final PrecollegeRepository _precollegeRepository;
   final SchoolRepository _schoolRepository;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const DoHomeworkUsecase(
     this._getCurrentPrecollegeUsecase,
     this._precollegeRepository,
     this._schoolRepository,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   Future<void> execute({
     required int currentPlayerID,
     required int currentGameID,
     required int currentDay,
-    required BuildContext context,
   }) async {
     //get the current precollege
     final PrecollegeInfo? currentPrecollegeInfo =
@@ -59,14 +59,11 @@ class DoHomeworkUsecase {
         );
 
         //result dialog
-        if (context.mounted) {
-          await ResultDialog.show(
-            context: context,
-            title: "Complete!",
-            result:
-                "Your homework for Day $currentDay is finished and submitted.",
-          );
-        }
+        await _dialogHandler.showResultDialog(
+          title: "Complete!",
+          result:
+              "Your homework for Day $currentDay is finished and submitted.",
+        );
       }
     }
   }

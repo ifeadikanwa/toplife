@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/dialog_handler/dialog_handler_provider.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
@@ -337,6 +338,7 @@ class SchoolUsecases {
         _ref.read(schoolRepositoriesProvider).precollegeRepositoryImpl,
         _ref.read(schoolRepositoriesProvider).schoolRepositoryImpl,
         _ref.read(journalUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   PrecollegeStudyUsecase get precollegeStudyUsecase => PrecollegeStudyUsecase(
@@ -345,6 +347,7 @@ class SchoolUsecases {
         _ref.read(schoolRepositoriesProvider).schoolRepositoryImpl,
         _ref.read(personUsecasesProvider),
         _ref.read(journalUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   ReportPlayerAndNPCPrecollegeGraduationGradeUsecase
@@ -356,6 +359,7 @@ class SchoolUsecases {
             _ref.read(schoolRepositoriesProvider).schoolRepositoryImpl,
             _ref.read(relationshipUsecasesProvider),
             _ref.read(journalUsecasesProvider),
+            _ref.read(dialogHandlerProvider),
           );
 
   GetSpecificPrecollegeSchoolUsecase get getSpecificPrecollegeSchoolUsecase =>

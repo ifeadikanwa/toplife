@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/dependencies/dialog_handler/dialog_handler_provider.dart';
 import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
@@ -116,6 +117,7 @@ class ShopAndStorageUsecases {
   UpdateCarUsecase get updateCarUsecase => UpdateCarUsecase(
         _ref.read(shopAndStorageRepositoriesProvider).carRepositoryImpl,
       );
+
   AddPurchasedCarToStorageUsecase get addPurchasedCarToStorageUsecase =>
       AddPurchasedCarToStorageUsecase(
         _ref.read(shopAndStorageRepositoriesProvider).carRepositoryImpl,
@@ -128,6 +130,7 @@ class ShopAndStorageUsecases {
         _ref.read(personUsecasesProvider),
         _ref.read(journalUsecasesProvider),
         _ref.read(gameUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   AddFoodToFridgeUsecase get addFoodToFridgeUsecase => AddFoodToFridgeUsecase(
@@ -150,6 +153,7 @@ class ShopAndStorageUsecases {
         _ref.read(personUsecasesProvider),
         _ref.read(journalUsecasesProvider),
         _ref.read(gameUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   GetCurrentHouseStorageSpaceUsecase get getCurrentHouseStorageSpaceUsecase =>
@@ -163,6 +167,7 @@ class ShopAndStorageUsecases {
         _ref.read(personUsecasesProvider),
         _ref.read(journalUsecasesProvider),
         _ref.read(gameUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   AddItemToStoreroomUsecase get addItemToStoreroomUsecase =>
@@ -190,6 +195,7 @@ class ShopAndStorageUsecases {
         addItemToStoreroomUsecase,
         _ref.read(gameUsecasesProvider),
         _ref.read(journalUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   PurchaseJewelryUsecase get purchaseJewelryUsecase => PurchaseJewelryUsecase(
@@ -197,6 +203,7 @@ class ShopAndStorageUsecases {
         _ref.read(personUsecasesProvider),
         _ref.read(journalUsecasesProvider),
         _ref.read(gameUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   RentHouseUsecase get rentHouseUsecase => RentHouseUsecase(
@@ -207,6 +214,7 @@ class ShopAndStorageUsecases {
         signLeaseForRentalUsecase,
         _ref.read(journalUsecasesProvider),
         breakOldLeaseSignNewLease,
+        _ref.read(dialogHandlerProvider),
       );
 
   BreakOldLeaseSignNewLease get breakOldLeaseSignNewLease =>
@@ -214,18 +222,19 @@ class ShopAndStorageUsecases {
         endLeaseUsecase,
         signLeaseForRentalUsecase,
         _ref.read(journalUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   EndLeaseUsecase get endLeaseUsecase => EndLeaseUsecase(
         _ref.read(shopAndStorageRepositoriesProvider).houseRepositoryImpl,
         _ref.read(personUsecasesProvider),
-        _ref.read(recurringBillUsecasesProvider),
+        _ref.read(recurringBillsUsecasesProvider),
       );
 
   SignLeaseForRentalUsecase get signLeaseForRentalUsecase =>
       SignLeaseForRentalUsecase(
         _ref.read(shopAndStorageRepositoriesProvider).houseRepositoryImpl,
-        _ref.read(recurringBillUsecasesProvider),
+        _ref.read(recurringBillsUsecasesProvider),
         moveIntoNewHouseUsecase,
         _ref.read(personUsecasesProvider),
       );
@@ -255,7 +264,8 @@ class ShopAndStorageUsecases {
         _ref.read(personUsecasesProvider),
         _ref.read(journalUsecasesProvider),
         _ref.read(gameUsecasesProvider),
-        _ref.read(recurringBillUsecasesProvider),
+        _ref.read(recurringBillsUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   PurchaseHouseWithLoanUsecase get purchaseHouseWithLoanUsecase =>
@@ -263,8 +273,9 @@ class ShopAndStorageUsecases {
         _ref.read(personUsecasesProvider),
         _ref.read(journalUsecasesProvider),
         _ref.read(gameUsecasesProvider),
-        _ref.read(recurringBillUsecasesProvider),
+        _ref.read(recurringBillsUsecasesProvider),
         signMortgageLoanContract,
+        _ref.read(dialogHandlerProvider),
       );
 
   SignMortgageLoanContract get signMortgageLoanContract =>
@@ -272,7 +283,8 @@ class ShopAndStorageUsecases {
         _ref.read(shopAndStorageRepositoriesProvider).houseRepositoryImpl,
         _ref.read(personUsecasesProvider),
         _ref.read(journalUsecasesProvider),
-        _ref.read(recurringBillUsecasesProvider),
+        _ref.read(recurringBillsUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   AddLocationToBuildingsUsecase get addLocationToBuildingsUsecase =>

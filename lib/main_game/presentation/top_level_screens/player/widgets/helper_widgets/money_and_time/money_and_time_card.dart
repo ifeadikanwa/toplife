@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/get/player_and_game/current_player_bar_info_provider.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/helper_widgets/money_and_time/money_and_time_card_view_model.dart';
 
 class MoneyAndTimeCard extends ConsumerWidget {
   const MoneyAndTimeCard({
@@ -14,10 +14,9 @@ class MoneyAndTimeCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final moneyAndTimeCardViewModel =
-        ref.watch(moneyAndTimeCardViewModelProvider);
+    final playerBarInfoProvider = ref.watch(currentPlayerBarInfoProvider);
 
-    return moneyAndTimeCardViewModel.when(
+    return playerBarInfoProvider.when(
       data: (playerBarInfo) {
         return moneyAndTimeWidget(
           playerBarInfo: playerBarInfo,
@@ -44,7 +43,7 @@ class MoneyAndTimeCard extends ConsumerWidget {
               children: [
                 Text(
                   "${playerBarInfo.currency}${playerBarInfo.bankBalance}",
-                  style: headerTextStyle,
+                  style: moneyHeaderTextStyle,
                 ),
                 const AddVerticalSpace(height: verticalTextSpacing),
                 const Text(

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/dialog_handler/dialog_handler_provider.dart';
 import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
@@ -32,6 +33,7 @@ class GameUsecases {
         getCurrentGameAndPlayerUsecase,
         _ref.read(personUsecasesProvider),
         _ref.read(transportationUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   CreateNewGameUsecase get createGameUsecase => CreateNewGameUsecase(

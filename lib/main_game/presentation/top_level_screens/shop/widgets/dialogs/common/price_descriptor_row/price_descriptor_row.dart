@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_states/get/player_and_game/formatted_money_provider.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/descriptor_row.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/price_descriptor_row/price_descriptor_row_view_model.dart';
 
 class PriceDescriptorRow extends ConsumerWidget {
   final String descriptor;
@@ -16,22 +16,25 @@ class PriceDescriptorRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final priceDescriptorRowViewModelDataProvider =
-        ref.watch(priceDescriptorRowViewModelProvider);
+    //adjust and format base price
+    final formattedPriceProvider = ref.watch(
+      formattedMoneyProvider(
+        amount: basePrice,
+        adjustToEconomy: true,
+      ),
+    );
 
-    return priceDescriptorRowViewModelDataProvider.when(
-        data: (priceDescriptorRowViewModel) {
+    return formattedPriceProvider.when(
+        data: (formattedPrice) {
           return DescriptorRow(
             descriptor: descriptor,
-            value: priceDescriptorRowViewModel.getEconomyAdjustedPrice(
-              basePrice: basePrice,
-            ),
+            value: formattedPrice,
           );
         },
         loading: () => const DescriptorRow(
               descriptor: TextConstants.dash,
               value: TextConstants.dash,
             ),
-        error: (error, stackTrace) => Container());
+        error: (error, stackTrace) => const SizedBox());
   }
 }

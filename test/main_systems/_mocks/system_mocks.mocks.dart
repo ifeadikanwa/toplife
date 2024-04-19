@@ -3,13 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i332;
+import 'dart:async' as _i338;
 
-import 'package:drift/drift.dart' as _i323;
+import 'package:drift/drift.dart' as _i329;
+import 'package:flutter/cupertino.dart' as _i327;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i322;
+import 'package:mockito/src/dummies.dart' as _i328;
 import 'package:toplife/core/data_source/drift_database/database_provider.dart'
     as _i2;
+import 'package:toplife/core/dialogs/dialog_handler.dart' as _i342;
+import 'package:toplife/core/utils/stats/stats_item.dart' as _i343;
 import 'package:toplife/game_manager/action_runner/action_runner.dart' as _i62;
 import 'package:toplife/game_manager/domain/usecases/change_current_player_usecase.dart'
     as _i69;
@@ -22,7 +25,7 @@ import 'package:toplife/game_manager/domain/usecases/create_new_game_usecase.dar
 import 'package:toplife/game_manager/domain/usecases/delete_game_usecase.dart'
     as _i65;
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart'
-    as _i325;
+    as _i331;
 import 'package:toplife/game_manager/domain/usecases/get_all_active_games_usecase.dart'
     as _i66;
 import 'package:toplife/game_manager/domain/usecases/get_current_game_and_player_usecase.dart'
@@ -44,47 +47,53 @@ import 'package:toplife/game_manager/domain/usecases/update_game_usecase.dart'
 import 'package:toplife/game_manager/domain/usecases/watch_last_played_active_game_usecase.dart'
     as _i75;
 import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_character_actions_usecase.dart'
-    as _i313;
-import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_adult_actions_usecase.dart'
     as _i318;
+import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_adult_actions_usecase.dart'
+    as _i323;
 import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_child_actions_usecase.dart'
-    as _i315;
-import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_elder_actions_usecase.dart'
-    as _i319;
-import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_teen_actions_usecase.dart'
-    as _i316;
-import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_toddler_actions_usecase.dart'
-    as _i314;
-import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_young_adult_actions_usecase.dart'
-    as _i317;
-import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart'
-    as _i335;
-import 'package:toplife/main_systems/system_age/usecases/check_if_person_is_at_least_this_age_usecase.dart'
-    as _i311;
-import 'package:toplife/main_systems/system_age/usecases/get_a_day_of_birth_from_a_list_of_possible_life_stages_usecase.dart'
-    as _i310;
-import 'package:toplife/main_systems/system_age/usecases/get_current_day_of_birth_range_for_a_lifestage_usecase.dart'
-    as _i312;
-import 'package:toplife/main_systems/system_age/usecases/get_day_of_birth_from_days_lived_usecase.dart'
-    as _i304;
-import 'package:toplife/main_systems/system_age/usecases/get_day_of_next_birthday_usecase.dart'
-    as _i305;
-import 'package:toplife/main_systems/system_age/usecases/get_days_lived_range_for_a_lifestage_usecase.dart'
-    as _i306;
-import 'package:toplife/main_systems/system_age/usecases/get_last_day_of_lifestage_usecase.dart'
     as _i320;
-import 'package:toplife/main_systems/system_age/usecases/get_last_weekday_of_lifestage_usecase.dart'
+import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_elder_actions_usecase.dart'
+    as _i324;
+import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_teen_actions_usecase.dart'
     as _i321;
-import 'package:toplife/main_systems/system_age/usecases/get_persons_age_usecase.dart'
-    as _i303;
-import 'package:toplife/main_systems/system_age/usecases/get_persons_days_lived_usecase.dart'
-    as _i307;
-import 'package:toplife/main_systems/system_age/usecases/get_random_day_of_birth_in_a_life_stage_usecase.dart'
-    as _i308;
-import 'package:toplife/main_systems/system_age/usecases/get_random_days_lived_for_a_lifestage_usecase.dart'
+import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_toddler_actions_usecase.dart'
+    as _i319;
+import 'package:toplife/main_systems/system_age/usecases/age_up_character_actions/age_up_to_young_adult_actions_usecase.dart'
+    as _i322;
+import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart'
+    as _i341;
+import 'package:toplife/main_systems/system_age/usecases/check_if_person_is_at_least_this_age_usecase.dart'
+    as _i316;
+import 'package:toplife/main_systems/system_age/usecases/get_a_day_of_birth_from_a_list_of_possible_life_stages_usecase.dart'
+    as _i315;
+import 'package:toplife/main_systems/system_age/usecases/get_current_day_of_birth_range_for_a_lifestage_usecase.dart'
+    as _i317;
+import 'package:toplife/main_systems/system_age/usecases/get_day_of_birth_from_days_lived_usecase.dart'
     as _i309;
+import 'package:toplife/main_systems/system_age/usecases/get_day_of_next_birthday_usecase.dart'
+    as _i310;
+import 'package:toplife/main_systems/system_age/usecases/get_days_lived_range_for_a_lifestage_usecase.dart'
+    as _i311;
+import 'package:toplife/main_systems/system_age/usecases/get_last_day_of_lifestage_usecase.dart'
+    as _i325;
+import 'package:toplife/main_systems/system_age/usecases/get_last_weekday_of_lifestage_usecase.dart'
+    as _i326;
+import 'package:toplife/main_systems/system_age/usecases/get_persons_age_usecase.dart'
+    as _i308;
+import 'package:toplife/main_systems/system_age/usecases/get_persons_days_lived_usecase.dart'
+    as _i312;
+import 'package:toplife/main_systems/system_age/usecases/get_random_day_of_birth_in_a_life_stage_usecase.dart'
+    as _i313;
+import 'package:toplife/main_systems/system_age/usecases/get_random_days_lived_for_a_lifestage_usecase.dart'
+    as _i314;
+import 'package:toplife/main_systems/system_event/domain/model/info_models/attend_event_detail.dart'
+    as _i345;
+import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart'
+    as _i344;
+import 'package:toplife/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart'
+    as _i346;
 import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart'
-    as _i329;
+    as _i335;
 import 'package:toplife/main_systems/system_event/event_manager/manage_events/check_if_event_can_still_be_attended.dart'
     as _i154;
 import 'package:toplife/main_systems/system_event/event_manager/manage_events/check_if_event_is_open.dart'
@@ -116,7 +125,7 @@ import 'package:toplife/main_systems/system_job/domain/usecases/get/get_job_titl
 import 'package:toplife/main_systems/system_job/domain/usecases/get_a_valid_list_of_fulltime_jobs_usecase.dart'
     as _i81;
 import 'package:toplife/main_systems/system_job/domain/usecases/job_usecases.dart'
-    as _i326;
+    as _i332;
 import 'package:toplife/main_systems/system_job/domain/usecases/watch/watch_active_employments_usecase.dart'
     as _i82;
 import 'package:toplife/main_systems/system_journal/domain/usecases/add_to_journal_usecase.dart'
@@ -126,13 +135,17 @@ import 'package:toplife/main_systems/system_journal/domain/usecases/get_players_
 import 'package:toplife/main_systems/system_journal/domain/usecases/get_todays_journal_usecase.dart'
     as _i147;
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart'
-    as _i328;
+    as _i334;
 import 'package:toplife/main_systems/system_journal/domain/usecases/prepare_journal_entry_usecase.dart'
     as _i145;
 import 'package:toplife/main_systems/system_journal/domain/usecases/watch_journal_usecase.dart'
     as _i148;
+import 'package:toplife/main_systems/system_location/countries/country.dart'
+    as _i347;
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart'
-    as _i333;
+    as _i339;
+import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart'
+    as _i349;
 import 'package:toplife/main_systems/system_person/domain/usecases/create/create_or_update_death_record_usecase.dart'
     as _i58;
 import 'package:toplife/main_systems/system_person/domain/usecases/get/get_death_record_usecase.dart'
@@ -228,7 +241,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/manage_surviv
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/side_effects/energy_and_hunger_emergency_mode_side_effects_usecase.dart'
     as _i57;
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart'
-    as _i324;
+    as _i330;
 import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_person_usecase.dart'
     as _i32;
 import 'package:toplife/main_systems/system_person/domain/usecases/update_general/update_stats_usecase.dart'
@@ -265,14 +278,22 @@ import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/use
     as _i170;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/check_if_there_is_an_existing_car_loan_usecase.dart'
     as _i173;
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/get_calculated_car_loan_information_usecase.dart'
+    as _i178;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/car/remove_car_loan_from_bills_usecase.dart'
     as _i160;
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/get_calculated_loan_information_using_bill_type_ussecase.dart'
+    as _i181;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/add_mortgage_loan_to_bills_usecase.dart'
     as _i161;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/add_property_tax_to_bills_usecase.dart'
     as _i163;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/check_if_there_is_an_existing_mortgage_loan_usecase.dart'
     as _i174;
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/expected_reserve_for_multiple_mortgage_calculator_usecase.dart'
+    as _i177;
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/get_calculated_mortgage_loan_information_usecase.dart'
+    as _i179;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/mortgage_loan_calculator_usecase.dart'
     as _i168;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/house/mortgage_loan_recurring_payment_calculator_usecase.dart'
@@ -283,6 +304,8 @@ import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/use
     as _i164;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/school/add_student_loan_to_bills_usecase.dart'
     as _i165;
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/school/get_calculated_student_loan_information_usecase.dart'
+    as _i180;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/school/remove_student_loan_from_bills_usecase.dart'
     as _i166;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/school/student_loan_calculator_usecase.dart'
@@ -290,175 +313,177 @@ import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/use
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/loans/school/student_loan_recurring_payment_calculator_usecase.dart'
     as _i172;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/recurring_bills_usecases.dart'
-    as _i330;
+    as _i336;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/regular/add_rent_to_bills_usecase.dart'
     as _i157;
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/usecases/regular/remove_rent_from_bills_usecase.dart'
     as _i158;
+import 'package:toplife/main_systems/system_relationship/domain/interactions/constants/torment_option.dart'
+    as _i350;
 import 'package:toplife/main_systems/system_relationship/domain/usecases/add_to_family/add_child_to_npc_family_usecase.dart'
-    as _i194;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/check/check_if_person_is_in_player_family_lineage_usecase.dart'
-    as _i195;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_multiple_relationships_from_person_platonic_relationship_type_pair_usecase.dart'
-    as _i204;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_parent_child_link_usecase.dart'
-    as _i196;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_platonic_relationship_or_grave_usecase.dart'
-    as _i205;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_relationship_usecase.dart'
-    as _i197;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_familial_relationship_to_player_through_parent_usecase.dart'
-    as _i202;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_relationship_with_family_members_spouse_usecase.dart'
-    as _i206;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/generate/generate_acquaintances_usecase.dart'
-    as _i257;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_marriage_partner_relationship_usecase.dart'
-    as _i220;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_relationship_usecase.dart'
-    as _i198;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_total_romantic_relationship_duration_usecase.dart'
-    as _i253;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_children_additions_to_the_family_from_family_members_spouse_usecase.dart'
-    as _i234;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_parent_additions_to_the_family_from_family_members_spouse_usecase.dart'
-    as _i235;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_sibling_additions_along_with_their_children_from_family_members_spouse_usecase.dart'
-    as _i236;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_step_family_from_different_generations_usecase.dart'
-    as _i237;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_children_of_person_not_belonging_to_another_person_usecase.dart'
-    as _i238;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_players_living_extended_step_family_and_in_laws_from_union_between_two_npcs_usecase.dart'
-    as _i239;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_players_living_step_family_and_inlaws_using_their_spouse_usecase.dart'
-    as _i240;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_in_law_through_deduction_usecase.dart'
-    as _i193;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart'
-    as _i177;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_cousins_through_deduction_usecase.dart'
-    as _i178;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandchildren_through_deduction_usecase.dart'
-    as _i180;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandcousins_through_deduction_usecase.dart'
-    as _i179;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandniblings_through_deduction_usecase.dart'
-    as _i185;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandparents_through_deduction_usecase.dart'
-    as _i181;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandchildren_through_deduction_usecase.dart'
-    as _i183;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandcousins_through_deduction_usecase.dart'
-    as _i189;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandniblings_through_deduction_usecase.dart'
-    as _i190;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandparents_through_deduction_usecase.dart'
-    as _i182;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_niblings_through_deduction_usecase.dart'
-    as _i184;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parent_in_laws_through_deduction_usecase.dart'
-    as _i191;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parents_through_deduction_usecase.dart'
-    as _i186;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_piblings_through_deduction_usecase.dart'
-    as _i187;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_sibling_in_laws_through_deduction_usecase.dart'
-    as _i192;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_siblings_through_deduction_usecase.dart'
-    as _i188;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_acquaintances_usecase.dart'
-    as _i207;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_active_partners_usecase.dart'
-    as _i208;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_children_usecase.dart'
-    as _i209;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_exes_usecase.dart'
-    as _i210;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_friends_usecase.dart'
-    as _i211;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_in_laws_usecase.dart'
-    as _i212;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_parents_usecase.dart'
-    as _i213;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_partners_usecase.dart'
-    as _i214;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_past_family_usecase.dart'
-    as _i215;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_relationships_involving_usecase.dart'
-    as _i216;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_relatives_usecase.dart'
-    as _i217;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_siblings_usecase.dart'
-    as _i218;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_step_children_usecase.dart'
-    as _i219;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_npc_divorce_usecase.dart'
-    as _i241;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_npc_marriage_usecase.dart'
-    as _i242;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_player_divorce_usecase.dart'
-    as _i243;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_player_marriage_usecase.dart'
-    as _i244;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_the_addition_of_persons_child_to_the_game_usecase.dart'
-    as _i203;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_childrens_tab_relationships_usecase.dart'
-    as _i247;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_inlaws_tab_relationships_usecase.dart'
-    as _i248;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_parents_tab_relationships_usecase.dart'
-    as _i249;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_partners_tab_relationships_usecase.dart'
-    as _i250;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_relatives_tab_relationships_usecase.dart'
-    as _i251;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_siblings_tab_relationships_usecase.dart'
-    as _i252;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_converters/convert_relationship_to_grave_usecase.dart'
-    as _i201;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_converters/convert_temporary_familial_relationship_to_past_family_usecase.dart'
-    as _i245;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart'
-    as _i331;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/end_all_romantic_relationships_usecase.dart'
-    as _i256;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/end_romantic_relationship_and_return_updated_object_usecase.dart'
-    as _i254;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/start_romantic_relationship_and_return_updated_object_usecase.dart'
-    as _i255;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/setup_relationships/setup_new_generation_player_relationships_usecase.dart'
-    as _i246;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_relationship_level_usecase.dart'
-    as _i200;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_relationship_usecase.dart'
     as _i199;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_exes_usecase.dart'
-    as _i224;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_friends_usecase.dart'
+import 'package:toplife/main_systems/system_relationship/domain/usecases/check/check_if_person_is_in_player_family_lineage_usecase.dart'
+    as _i200;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_multiple_relationships_from_person_platonic_relationship_type_pair_usecase.dart'
+    as _i209;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_parent_child_link_usecase.dart'
+    as _i201;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_platonic_relationship_or_grave_usecase.dart'
+    as _i210;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_relationship_usecase.dart'
+    as _i202;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_familial_relationship_to_player_through_parent_usecase.dart'
+    as _i207;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_relationship_with_family_members_spouse_usecase.dart'
+    as _i211;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/generate/generate_acquaintances_usecase.dart'
+    as _i262;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_marriage_partner_relationship_usecase.dart'
     as _i225;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_graves_usecase.dart'
-    as _i222;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_in_laws_usecase.dart'
-    as _i226;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_past_family_usecase.dart'
-    as _i229;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_relationships_involving_usecase.dart'
-    as _i230;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_childrens_tab_relationships_usecase.dart'
-    as _i223;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_marriage_partner_relationship_usecase.dart'
-    as _i233;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_parents_tab_relationships_usecase.dart'
-    as _i227;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_partners_tab_relationships_usecase.dart'
-    as _i228;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_relationship_usecase.dart'
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_relationship_usecase.dart'
+    as _i203;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_total_romantic_relationship_duration_usecase.dart'
+    as _i258;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_children_additions_to_the_family_from_family_members_spouse_usecase.dart'
+    as _i239;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_parent_additions_to_the_family_from_family_members_spouse_usecase.dart'
+    as _i240;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_sibling_additions_along_with_their_children_from_family_members_spouse_usecase.dart'
+    as _i241;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_step_family_from_different_generations_usecase.dart'
+    as _i242;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_children_of_person_not_belonging_to_another_person_usecase.dart'
+    as _i243;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_players_living_extended_step_family_and_in_laws_from_union_between_two_npcs_usecase.dart'
+    as _i244;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_players_living_step_family_and_inlaws_using_their_spouse_usecase.dart'
+    as _i245;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_in_law_through_deduction_usecase.dart'
+    as _i198;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart'
+    as _i182;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_cousins_through_deduction_usecase.dart'
+    as _i183;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandchildren_through_deduction_usecase.dart'
+    as _i185;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandcousins_through_deduction_usecase.dart'
+    as _i184;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandniblings_through_deduction_usecase.dart'
+    as _i190;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandparents_through_deduction_usecase.dart'
+    as _i186;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandchildren_through_deduction_usecase.dart'
+    as _i188;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandcousins_through_deduction_usecase.dart'
+    as _i194;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandniblings_through_deduction_usecase.dart'
+    as _i195;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_great_grandparents_through_deduction_usecase.dart'
+    as _i187;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_niblings_through_deduction_usecase.dart'
+    as _i189;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parent_in_laws_through_deduction_usecase.dart'
+    as _i196;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parents_through_deduction_usecase.dart'
+    as _i191;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_piblings_through_deduction_usecase.dart'
+    as _i192;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_sibling_in_laws_through_deduction_usecase.dart'
+    as _i197;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_siblings_through_deduction_usecase.dart'
+    as _i193;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_acquaintances_usecase.dart'
+    as _i212;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_active_partners_usecase.dart'
+    as _i213;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_children_usecase.dart'
+    as _i214;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_exes_usecase.dart'
+    as _i215;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_friends_usecase.dart'
+    as _i216;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_in_laws_usecase.dart'
+    as _i217;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_parents_usecase.dart'
+    as _i218;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_partners_usecase.dart'
+    as _i219;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_past_family_usecase.dart'
+    as _i220;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_relationships_involving_usecase.dart'
     as _i221;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_relatives_tab_relationships_usecase.dart'
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_relatives_usecase.dart'
+    as _i222;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_siblings_usecase.dart'
+    as _i223;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_step_children_usecase.dart'
+    as _i224;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_npc_divorce_usecase.dart'
+    as _i246;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_npc_marriage_usecase.dart'
+    as _i247;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_player_divorce_usecase.dart'
+    as _i248;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_player_marriage_usecase.dart'
+    as _i249;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_the_addition_of_persons_child_to_the_game_usecase.dart'
+    as _i208;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_childrens_tab_relationships_usecase.dart'
+    as _i252;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_inlaws_tab_relationships_usecase.dart'
+    as _i253;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_parents_tab_relationships_usecase.dart'
+    as _i254;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_partners_tab_relationships_usecase.dart'
+    as _i255;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_relatives_tab_relationships_usecase.dart'
+    as _i256;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_siblings_tab_relationships_usecase.dart'
+    as _i257;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_converters/convert_relationship_to_grave_usecase.dart'
+    as _i206;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_converters/convert_temporary_familial_relationship_to_past_family_usecase.dart'
+    as _i250;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart'
+    as _i337;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/end_all_romantic_relationships_usecase.dart'
+    as _i261;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/end_romantic_relationship_and_return_updated_object_usecase.dart'
+    as _i259;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/romantic_relationships/start_romantic_relationship_and_return_updated_object_usecase.dart'
+    as _i260;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/setup_relationships/setup_new_generation_player_relationships_usecase.dart'
+    as _i251;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_relationship_level_usecase.dart'
+    as _i205;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/update/update_relationship_usecase.dart'
+    as _i204;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_exes_usecase.dart'
+    as _i229;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_friends_usecase.dart'
+    as _i230;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_graves_usecase.dart'
+    as _i227;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_in_laws_usecase.dart'
     as _i231;
-import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_siblings_tab_relationships_usecase.dart'
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_past_family_usecase.dart'
+    as _i234;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_all_relationships_involving_usecase.dart'
+    as _i235;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_childrens_tab_relationships_usecase.dart'
+    as _i228;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_marriage_partner_relationship_usecase.dart'
+    as _i238;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_parents_tab_relationships_usecase.dart'
     as _i232;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_partners_tab_relationships_usecase.dart'
+    as _i233;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_relationship_usecase.dart'
+    as _i226;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_relatives_tab_relationships_usecase.dart'
+    as _i236;
+import 'package:toplife/main_systems/system_relationship/domain/usecases/watch/watch_siblings_tab_relationships_usecase.dart'
+    as _i237;
 import 'package:toplife/main_systems/system_school/domain/usecases/admission/admit_into_doctorate_school_usecase.dart'
     as _i111;
 import 'package:toplife/main_systems/system_school/domain/usecases/admission/admit_into_graduate_school_usecase.dart'
@@ -574,101 +599,103 @@ import 'package:toplife/main_systems/system_school/domain/usecases/precollege/se
 import 'package:toplife/main_systems/system_school/domain/usecases/precollege/setup/setup_player_precollege_school_usecase.dart'
     as _i126;
 import 'package:toplife/main_systems/system_school/domain/usecases/school_usecases.dart'
-    as _i327;
+    as _i333;
 import 'package:toplife/main_systems/system_school/domain/usecases/watch/watch_active_school_usecase.dart'
     as _i92;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/fridge_food_pair.dart'
+    as _i348;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/add_purchased_car_to_storage_usecase.dart'
-    as _i270;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_is_not_dead_usecase.dart'
-    as _i267;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/check_if_car_has_problems_usecase.dart'
-    as _i266;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/create_car_problem_usecase.dart'
-    as _i265;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/drive_car_usecase.dart'
-    as _i264;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_car_max_condition.dart'
-    as _i263;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_current_car_usecase.dart'
-    as _i261;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/purchase_car_fully_paid_usecase.dart'
-    as _i271;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/purchase_car_with_loan_usecase.dart'
-    as _i290;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/set_all_person_cars_to_not_currently_driving_usecase.dart'
-    as _i268;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/update_car_usecase.dart'
-    as _i269;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/add_food_to_fridge_usecase.dart'
-    as _i272;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_all_person_fridge_food_pairs_usecase.dart'
-    as _i289;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_food_record_usecase.dart'
-    as _i273;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_fridge_food_count_usecase.dart'
-    as _i274;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/purchase_food_usecase.dart'
     as _i275;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/use_food_usecase.dart'
-    as _i288;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/delete_current_home_usecase.dart'
-    as _i297;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_all_people_in_a_house_usecase.dart'
-    as _i298;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_current_home_usecase.dart'
-    as _i299;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/set_current_home_usecase.dart'
-    as _i300;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_all_people_in_a_house_usecase.dart'
-    as _i301;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_current_home_usecase.dart'
-    as _i302;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/add_location_to_building_usecase.dart'
-    as _i293;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_purchase_houses_usecase.dart'
-    as _i294;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_rental_houses_usecase.dart'
-    as _i295;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_storage_space_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_is_not_dead_usecase.dart'
+    as _i272;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/check_if_car_has_problems_usecase.dart'
+    as _i271;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/car_problem/create_car_problem_usecase.dart'
+    as _i270;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/drive_car_usecase.dart'
+    as _i269;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_car_max_condition.dart'
+    as _i268;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/get_current_car_usecase.dart'
+    as _i266;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/purchase_car_fully_paid_usecase.dart'
     as _i276;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_usecase.dart'
-    as _i262;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_into_new_house_usecase.dart'
-    as _i296;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_storage_to_new_house_usecase.dart'
-    as _i287;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_fully_paid_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/purchase_car_with_loan_usecase.dart'
+    as _i295;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/set_all_person_cars_to_not_currently_driving_usecase.dart'
+    as _i273;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/car/update_car_usecase.dart'
+    as _i274;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/add_food_to_fridge_usecase.dart'
     as _i277;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_with_loan_usecase.dart'
-    as _i291;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/sign_mortgage_loan_contract.dart'
-    as _i292;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/break_old_lease_sign_new_lease_usecase.dart'
-    as _i284;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/end_lease_usecase.dart'
-    as _i285;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/rent_house_usecase.dart'
-    as _i283;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/sign_lease_for_rental_usecase.dart'
-    as _i286;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/add_item_to_storeroom_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_all_person_fridge_food_pairs_usecase.dart'
+    as _i294;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_food_record_usecase.dart'
     as _i278;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_available_storeroom_items_usecase.dart'
-    as _i259;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_item_record_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/get_fridge_food_count_usecase.dart'
     as _i279;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_storeroom_item_count_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/purchase_food_usecase.dart'
     as _i280;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_storeroom_item_pairs_usecase.dart'
-    as _i258;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/purchase_item_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/food/use_food_usecase.dart'
+    as _i293;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/delete_current_home_usecase.dart'
+    as _i302;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_all_people_in_a_house_usecase.dart'
+    as _i303;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/get_current_home_usecase.dart'
+    as _i304;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/set_current_home_usecase.dart'
+    as _i305;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_all_people_in_a_house_usecase.dart'
+    as _i306;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/current_home/watch_current_home_usecase.dart'
+    as _i307;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/add_location_to_building_usecase.dart'
+    as _i298;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_purchase_houses_usecase.dart'
+    as _i299;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_buildings/get_rental_houses_usecase.dart'
+    as _i300;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_storage_space_usecase.dart'
     as _i281;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/use_storeroom_item_usecase.dart'
-    as _i260;
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/jewelry/purchase_jewelry_usecase.dart'
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/get_current_house_usecase.dart'
+    as _i267;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_into_new_house_usecase.dart'
+    as _i301;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/move_storage_to_new_house_usecase.dart'
+    as _i292;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_fully_paid_usecase.dart'
     as _i282;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/purchase_house_with_loan_usecase.dart'
+    as _i296;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/purchase/sign_mortgage_loan_contract.dart'
+    as _i297;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/break_old_lease_sign_new_lease_usecase.dart'
+    as _i289;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/end_lease_usecase.dart'
+    as _i290;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/rent_house_usecase.dart'
+    as _i288;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/house/rent/sign_lease_for_rental_usecase.dart'
+    as _i291;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/add_item_to_storeroom_usecase.dart'
+    as _i283;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_available_storeroom_items_usecase.dart'
+    as _i264;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_item_record_usecase.dart'
+    as _i284;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_storeroom_item_count_usecase.dart'
+    as _i285;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/get_storeroom_item_pairs_usecase.dart'
+    as _i263;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/purchase_item_usecase.dart'
+    as _i286;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/items/use_storeroom_item_usecase.dart'
+    as _i265;
+import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/jewelry/purchase_jewelry_usecase.dart'
+    as _i287;
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart'
-    as _i334;
+    as _i340;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -2831,9 +2858,10 @@ class _FakeBaseLoanAmountCalculatorUsecase_195 extends _i1.SmartFake
         );
 }
 
-class _FakeGetChildrenThroughDeductionUsecase_196 extends _i1.SmartFake
-    implements _i177.GetChildrenThroughDeductionUsecase {
-  _FakeGetChildrenThroughDeductionUsecase_196(
+class _FakeExpectedReserveForMultipleMortgageCalculatorUsecase_196
+    extends _i1.SmartFake
+    implements _i177.ExpectedReserveForMultipleMortgageCalculatorUsecase {
+  _FakeExpectedReserveForMultipleMortgageCalculatorUsecase_196(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2842,9 +2870,9 @@ class _FakeGetChildrenThroughDeductionUsecase_196 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCousinsThroughDeductionUsecase_197 extends _i1.SmartFake
-    implements _i178.GetCousinsThroughDeductionUsecase {
-  _FakeGetCousinsThroughDeductionUsecase_197(
+class _FakeGetCalculatedCarLoanInformationUsecase_197 extends _i1.SmartFake
+    implements _i178.GetCalculatedCarLoanInformationUsecase {
+  _FakeGetCalculatedCarLoanInformationUsecase_197(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2853,9 +2881,9 @@ class _FakeGetCousinsThroughDeductionUsecase_197 extends _i1.SmartFake
         );
 }
 
-class _FakeGetGrandCousinsThroughDeductionUsecase_198 extends _i1.SmartFake
-    implements _i179.GetGrandCousinsThroughDeductionUsecase {
-  _FakeGetGrandCousinsThroughDeductionUsecase_198(
+class _FakeGetCalculatedMortgageLoanInformationUsecase_198 extends _i1.SmartFake
+    implements _i179.GetCalculatedMortgageLoanInformationUsecase {
+  _FakeGetCalculatedMortgageLoanInformationUsecase_198(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2864,9 +2892,9 @@ class _FakeGetGrandCousinsThroughDeductionUsecase_198 extends _i1.SmartFake
         );
 }
 
-class _FakeGetGrandChildrenThroughDeductionUsecase_199 extends _i1.SmartFake
-    implements _i180.GetGrandChildrenThroughDeductionUsecase {
-  _FakeGetGrandChildrenThroughDeductionUsecase_199(
+class _FakeGetCalculatedStudentLoanInformationUsecase_199 extends _i1.SmartFake
+    implements _i180.GetCalculatedStudentLoanInformationUsecase {
+  _FakeGetCalculatedStudentLoanInformationUsecase_199(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2875,9 +2903,10 @@ class _FakeGetGrandChildrenThroughDeductionUsecase_199 extends _i1.SmartFake
         );
 }
 
-class _FakeGetGrandParentsThroughDeductionUsecase_200 extends _i1.SmartFake
-    implements _i181.GetGrandParentsThroughDeductionUsecase {
-  _FakeGetGrandParentsThroughDeductionUsecase_200(
+class _FakeGetCalculatedLoanInformationUsingBillTypeUsecase_200
+    extends _i1.SmartFake
+    implements _i181.GetCalculatedLoanInformationUsingBillTypeUsecase {
+  _FakeGetCalculatedLoanInformationUsingBillTypeUsecase_200(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2886,9 +2915,9 @@ class _FakeGetGrandParentsThroughDeductionUsecase_200 extends _i1.SmartFake
         );
 }
 
-class _FakeGetGreatGrandParentsThroughDeductionUsecase_201 extends _i1.SmartFake
-    implements _i182.GetGreatGrandParentsThroughDeductionUsecase {
-  _FakeGetGreatGrandParentsThroughDeductionUsecase_201(
+class _FakeGetChildrenThroughDeductionUsecase_201 extends _i1.SmartFake
+    implements _i182.GetChildrenThroughDeductionUsecase {
+  _FakeGetChildrenThroughDeductionUsecase_201(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2897,9 +2926,9 @@ class _FakeGetGreatGrandParentsThroughDeductionUsecase_201 extends _i1.SmartFake
         );
 }
 
-class _FakeGetGreatGrandChildrenThroughDeductionUsecase_202 extends _i1
-    .SmartFake implements _i183.GetGreatGrandChildrenThroughDeductionUsecase {
-  _FakeGetGreatGrandChildrenThroughDeductionUsecase_202(
+class _FakeGetCousinsThroughDeductionUsecase_202 extends _i1.SmartFake
+    implements _i183.GetCousinsThroughDeductionUsecase {
+  _FakeGetCousinsThroughDeductionUsecase_202(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2908,9 +2937,9 @@ class _FakeGetGreatGrandChildrenThroughDeductionUsecase_202 extends _i1
         );
 }
 
-class _FakeGetNiblingsThroughDeductionUsecase_203 extends _i1.SmartFake
-    implements _i184.GetNiblingsThroughDeductionUsecase {
-  _FakeGetNiblingsThroughDeductionUsecase_203(
+class _FakeGetGrandCousinsThroughDeductionUsecase_203 extends _i1.SmartFake
+    implements _i184.GetGrandCousinsThroughDeductionUsecase {
+  _FakeGetGrandCousinsThroughDeductionUsecase_203(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2919,9 +2948,9 @@ class _FakeGetNiblingsThroughDeductionUsecase_203 extends _i1.SmartFake
         );
 }
 
-class _FakeGetGrandNiblingsThroughDeductionUsecase_204 extends _i1.SmartFake
-    implements _i185.GetGrandNiblingsThroughDeductionUsecase {
-  _FakeGetGrandNiblingsThroughDeductionUsecase_204(
+class _FakeGetGrandChildrenThroughDeductionUsecase_204 extends _i1.SmartFake
+    implements _i185.GetGrandChildrenThroughDeductionUsecase {
+  _FakeGetGrandChildrenThroughDeductionUsecase_204(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2930,9 +2959,9 @@ class _FakeGetGrandNiblingsThroughDeductionUsecase_204 extends _i1.SmartFake
         );
 }
 
-class _FakeGetParentsThroughDeductionUsecase_205 extends _i1.SmartFake
-    implements _i186.GetParentsThroughDeductionUsecase {
-  _FakeGetParentsThroughDeductionUsecase_205(
+class _FakeGetGrandParentsThroughDeductionUsecase_205 extends _i1.SmartFake
+    implements _i186.GetGrandParentsThroughDeductionUsecase {
+  _FakeGetGrandParentsThroughDeductionUsecase_205(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2941,9 +2970,9 @@ class _FakeGetParentsThroughDeductionUsecase_205 extends _i1.SmartFake
         );
 }
 
-class _FakeGetPiblingsThroughDeductionUsecase_206 extends _i1.SmartFake
-    implements _i187.GetPiblingsThroughDeductionUsecase {
-  _FakeGetPiblingsThroughDeductionUsecase_206(
+class _FakeGetGreatGrandParentsThroughDeductionUsecase_206 extends _i1.SmartFake
+    implements _i187.GetGreatGrandParentsThroughDeductionUsecase {
+  _FakeGetGreatGrandParentsThroughDeductionUsecase_206(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2952,9 +2981,9 @@ class _FakeGetPiblingsThroughDeductionUsecase_206 extends _i1.SmartFake
         );
 }
 
-class _FakeGetSiblingsThroughDeductionUsecase_207 extends _i1.SmartFake
-    implements _i188.GetSiblingsThroughDeductionUsecase {
-  _FakeGetSiblingsThroughDeductionUsecase_207(
+class _FakeGetGreatGrandChildrenThroughDeductionUsecase_207 extends _i1
+    .SmartFake implements _i188.GetGreatGrandChildrenThroughDeductionUsecase {
+  _FakeGetGreatGrandChildrenThroughDeductionUsecase_207(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2963,9 +2992,9 @@ class _FakeGetSiblingsThroughDeductionUsecase_207 extends _i1.SmartFake
         );
 }
 
-class _FakeGetGreatGrandCousinsThroughDeductionUsecase_208 extends _i1.SmartFake
-    implements _i189.GetGreatGrandCousinsThroughDeductionUsecase {
-  _FakeGetGreatGrandCousinsThroughDeductionUsecase_208(
+class _FakeGetNiblingsThroughDeductionUsecase_208 extends _i1.SmartFake
+    implements _i189.GetNiblingsThroughDeductionUsecase {
+  _FakeGetNiblingsThroughDeductionUsecase_208(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2974,9 +3003,9 @@ class _FakeGetGreatGrandCousinsThroughDeductionUsecase_208 extends _i1.SmartFake
         );
 }
 
-class _FakeGetGreatGrandNiblingsThroughDeductionUsecase_209 extends _i1
-    .SmartFake implements _i190.GetGreatGrandNiblingsThroughDeductionUsecase {
-  _FakeGetGreatGrandNiblingsThroughDeductionUsecase_209(
+class _FakeGetGrandNiblingsThroughDeductionUsecase_209 extends _i1.SmartFake
+    implements _i190.GetGrandNiblingsThroughDeductionUsecase {
+  _FakeGetGrandNiblingsThroughDeductionUsecase_209(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2985,9 +3014,9 @@ class _FakeGetGreatGrandNiblingsThroughDeductionUsecase_209 extends _i1
         );
 }
 
-class _FakeGetParentInLawsThroughDeductionUsecase_210 extends _i1.SmartFake
-    implements _i191.GetParentInLawsThroughDeductionUsecase {
-  _FakeGetParentInLawsThroughDeductionUsecase_210(
+class _FakeGetParentsThroughDeductionUsecase_210 extends _i1.SmartFake
+    implements _i191.GetParentsThroughDeductionUsecase {
+  _FakeGetParentsThroughDeductionUsecase_210(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -2996,9 +3025,9 @@ class _FakeGetParentInLawsThroughDeductionUsecase_210 extends _i1.SmartFake
         );
 }
 
-class _FakeGetSiblingInLawsThroughDeductionUsecase_211 extends _i1.SmartFake
-    implements _i192.GetSiblingInLawsThroughDeductionUsecase {
-  _FakeGetSiblingInLawsThroughDeductionUsecase_211(
+class _FakeGetPiblingsThroughDeductionUsecase_211 extends _i1.SmartFake
+    implements _i192.GetPiblingsThroughDeductionUsecase {
+  _FakeGetPiblingsThroughDeductionUsecase_211(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3007,9 +3036,9 @@ class _FakeGetSiblingInLawsThroughDeductionUsecase_211 extends _i1.SmartFake
         );
 }
 
-class _FakeGetChildrenInLawThroughDeductionUsecase_212 extends _i1.SmartFake
-    implements _i193.GetChildrenInLawThroughDeductionUsecase {
-  _FakeGetChildrenInLawThroughDeductionUsecase_212(
+class _FakeGetSiblingsThroughDeductionUsecase_212 extends _i1.SmartFake
+    implements _i193.GetSiblingsThroughDeductionUsecase {
+  _FakeGetSiblingsThroughDeductionUsecase_212(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3018,9 +3047,9 @@ class _FakeGetChildrenInLawThroughDeductionUsecase_212 extends _i1.SmartFake
         );
 }
 
-class _FakeAddChildToNPCFamilyUsecase_213 extends _i1.SmartFake
-    implements _i194.AddChildToNPCFamilyUsecase {
-  _FakeAddChildToNPCFamilyUsecase_213(
+class _FakeGetGreatGrandCousinsThroughDeductionUsecase_213 extends _i1.SmartFake
+    implements _i194.GetGreatGrandCousinsThroughDeductionUsecase {
+  _FakeGetGreatGrandCousinsThroughDeductionUsecase_213(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3029,9 +3058,9 @@ class _FakeAddChildToNPCFamilyUsecase_213 extends _i1.SmartFake
         );
 }
 
-class _FakeCheckIfPersonIsInPlayerFamilyLineageUsecase_214 extends _i1.SmartFake
-    implements _i195.CheckIfPersonIsInPlayerFamilyLineageUsecase {
-  _FakeCheckIfPersonIsInPlayerFamilyLineageUsecase_214(
+class _FakeGetGreatGrandNiblingsThroughDeductionUsecase_214 extends _i1
+    .SmartFake implements _i195.GetGreatGrandNiblingsThroughDeductionUsecase {
+  _FakeGetGreatGrandNiblingsThroughDeductionUsecase_214(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3040,9 +3069,9 @@ class _FakeCheckIfPersonIsInPlayerFamilyLineageUsecase_214 extends _i1.SmartFake
         );
 }
 
-class _FakeCreateParentChildLinkUsecase_215 extends _i1.SmartFake
-    implements _i196.CreateParentChildLinkUsecase {
-  _FakeCreateParentChildLinkUsecase_215(
+class _FakeGetParentInLawsThroughDeductionUsecase_215 extends _i1.SmartFake
+    implements _i196.GetParentInLawsThroughDeductionUsecase {
+  _FakeGetParentInLawsThroughDeductionUsecase_215(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3051,9 +3080,9 @@ class _FakeCreateParentChildLinkUsecase_215 extends _i1.SmartFake
         );
 }
 
-class _FakeCreateRelationshipUsecase_216 extends _i1.SmartFake
-    implements _i197.CreateRelationshipUsecase {
-  _FakeCreateRelationshipUsecase_216(
+class _FakeGetSiblingInLawsThroughDeductionUsecase_216 extends _i1.SmartFake
+    implements _i197.GetSiblingInLawsThroughDeductionUsecase {
+  _FakeGetSiblingInLawsThroughDeductionUsecase_216(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3062,9 +3091,9 @@ class _FakeCreateRelationshipUsecase_216 extends _i1.SmartFake
         );
 }
 
-class _FakeGetRelationshipUsecase_217 extends _i1.SmartFake
-    implements _i198.GetRelationshipUsecase {
-  _FakeGetRelationshipUsecase_217(
+class _FakeGetChildrenInLawThroughDeductionUsecase_217 extends _i1.SmartFake
+    implements _i198.GetChildrenInLawThroughDeductionUsecase {
+  _FakeGetChildrenInLawThroughDeductionUsecase_217(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3073,9 +3102,9 @@ class _FakeGetRelationshipUsecase_217 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateRelationshipUsecase_218 extends _i1.SmartFake
-    implements _i199.UpdateRelationshipUsecase {
-  _FakeUpdateRelationshipUsecase_218(
+class _FakeAddChildToNPCFamilyUsecase_218 extends _i1.SmartFake
+    implements _i199.AddChildToNPCFamilyUsecase {
+  _FakeAddChildToNPCFamilyUsecase_218(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3084,9 +3113,9 @@ class _FakeUpdateRelationshipUsecase_218 extends _i1.SmartFake
         );
 }
 
-class _FakeUpdateRelationshipLevelUsecase_219 extends _i1.SmartFake
-    implements _i200.UpdateRelationshipLevelUsecase {
-  _FakeUpdateRelationshipLevelUsecase_219(
+class _FakeCheckIfPersonIsInPlayerFamilyLineageUsecase_219 extends _i1.SmartFake
+    implements _i200.CheckIfPersonIsInPlayerFamilyLineageUsecase {
+  _FakeCheckIfPersonIsInPlayerFamilyLineageUsecase_219(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3095,9 +3124,9 @@ class _FakeUpdateRelationshipLevelUsecase_219 extends _i1.SmartFake
         );
 }
 
-class _FakeConvertRelationshipToGraveUsecase_220 extends _i1.SmartFake
-    implements _i201.ConvertRelationshipToGraveUsecase {
-  _FakeConvertRelationshipToGraveUsecase_220(
+class _FakeCreateParentChildLinkUsecase_220 extends _i1.SmartFake
+    implements _i201.CreateParentChildLinkUsecase {
+  _FakeCreateParentChildLinkUsecase_220(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3106,11 +3135,66 @@ class _FakeConvertRelationshipToGraveUsecase_220 extends _i1.SmartFake
         );
 }
 
-class _FakeFindPersonsFamilialRelationshipToPlayerThroughParentUsecase_221
+class _FakeCreateRelationshipUsecase_221 extends _i1.SmartFake
+    implements _i202.CreateRelationshipUsecase {
+  _FakeCreateRelationshipUsecase_221(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetRelationshipUsecase_222 extends _i1.SmartFake
+    implements _i203.GetRelationshipUsecase {
+  _FakeGetRelationshipUsecase_222(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUpdateRelationshipUsecase_223 extends _i1.SmartFake
+    implements _i204.UpdateRelationshipUsecase {
+  _FakeUpdateRelationshipUsecase_223(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeUpdateRelationshipLevelUsecase_224 extends _i1.SmartFake
+    implements _i205.UpdateRelationshipLevelUsecase {
+  _FakeUpdateRelationshipLevelUsecase_224(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeConvertRelationshipToGraveUsecase_225 extends _i1.SmartFake
+    implements _i206.ConvertRelationshipToGraveUsecase {
+  _FakeConvertRelationshipToGraveUsecase_225(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFindPersonsFamilialRelationshipToPlayerThroughParentUsecase_226
     extends _i1.SmartFake
     implements
-        _i202.FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
-  _FakeFindPersonsFamilialRelationshipToPlayerThroughParentUsecase_221(
+        _i207.FindPersonsFamilialRelationshipToPlayerThroughParentUsecase {
+  _FakeFindPersonsFamilialRelationshipToPlayerThroughParentUsecase_226(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3119,12 +3203,12 @@ class _FakeFindPersonsFamilialRelationshipToPlayerThroughParentUsecase_221
         );
 }
 
-class _FakeProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase_222
+class _FakeProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase_227
     extends _i1.SmartFake
     implements
-        _i203
+        _i208
         .ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase {
-  _FakeProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase_222(
+  _FakeProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase_227(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3133,12 +3217,12 @@ class _FakeProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUseca
         );
 }
 
-class _FakeCreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase_223
+class _FakeCreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase_228
     extends _i1.SmartFake
     implements
-        _i204
+        _i209
         .CreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase {
-  _FakeCreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase_223(
+  _FakeCreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase_228(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3147,9 +3231,9 @@ class _FakeCreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsec
         );
 }
 
-class _FakeCreatePlatonicRelationshipOrGraveUsecase_224 extends _i1.SmartFake
-    implements _i205.CreatePlatonicRelationshipOrGraveUsecase {
-  _FakeCreatePlatonicRelationshipOrGraveUsecase_224(
+class _FakeCreatePlatonicRelationshipOrGraveUsecase_229 extends _i1.SmartFake
+    implements _i210.CreatePlatonicRelationshipOrGraveUsecase {
+  _FakeCreatePlatonicRelationshipOrGraveUsecase_229(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3158,10 +3242,10 @@ class _FakeCreatePlatonicRelationshipOrGraveUsecase_224 extends _i1.SmartFake
         );
 }
 
-class _FakeFindPersonsRelationshipWithFamilyMembersSpouseUsecase_225
+class _FakeFindPersonsRelationshipWithFamilyMembersSpouseUsecase_230
     extends _i1.SmartFake
-    implements _i206.FindPersonsRelationshipWithFamilyMembersSpouseUsecase {
-  _FakeFindPersonsRelationshipWithFamilyMembersSpouseUsecase_225(
+    implements _i211.FindPersonsRelationshipWithFamilyMembersSpouseUsecase {
+  _FakeFindPersonsRelationshipWithFamilyMembersSpouseUsecase_230(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3170,9 +3254,9 @@ class _FakeFindPersonsRelationshipWithFamilyMembersSpouseUsecase_225
         );
 }
 
-class _FakeGetAllAcquaintancesUsecase_226 extends _i1.SmartFake
-    implements _i207.GetAllAcquaintancesUsecase {
-  _FakeGetAllAcquaintancesUsecase_226(
+class _FakeGetAllAcquaintancesUsecase_231 extends _i1.SmartFake
+    implements _i212.GetAllAcquaintancesUsecase {
+  _FakeGetAllAcquaintancesUsecase_231(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3181,9 +3265,9 @@ class _FakeGetAllAcquaintancesUsecase_226 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllActivePartnersUsecase_227 extends _i1.SmartFake
-    implements _i208.GetAllActivePartnersUsecase {
-  _FakeGetAllActivePartnersUsecase_227(
+class _FakeGetAllActivePartnersUsecase_232 extends _i1.SmartFake
+    implements _i213.GetAllActivePartnersUsecase {
+  _FakeGetAllActivePartnersUsecase_232(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3192,9 +3276,9 @@ class _FakeGetAllActivePartnersUsecase_227 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllChildrenUsecase_228 extends _i1.SmartFake
-    implements _i209.GetAllChildrenUsecase {
-  _FakeGetAllChildrenUsecase_228(
+class _FakeGetAllChildrenUsecase_233 extends _i1.SmartFake
+    implements _i214.GetAllChildrenUsecase {
+  _FakeGetAllChildrenUsecase_233(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3203,9 +3287,9 @@ class _FakeGetAllChildrenUsecase_228 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllExesUsecase_229 extends _i1.SmartFake
-    implements _i210.GetAllExesUsecase {
-  _FakeGetAllExesUsecase_229(
+class _FakeGetAllExesUsecase_234 extends _i1.SmartFake
+    implements _i215.GetAllExesUsecase {
+  _FakeGetAllExesUsecase_234(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3214,9 +3298,9 @@ class _FakeGetAllExesUsecase_229 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllFriendsUsecase_230 extends _i1.SmartFake
-    implements _i211.GetAllFriendsUsecase {
-  _FakeGetAllFriendsUsecase_230(
+class _FakeGetAllFriendsUsecase_235 extends _i1.SmartFake
+    implements _i216.GetAllFriendsUsecase {
+  _FakeGetAllFriendsUsecase_235(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3225,9 +3309,9 @@ class _FakeGetAllFriendsUsecase_230 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllInLawsUsecase_231 extends _i1.SmartFake
-    implements _i212.GetAllInLawsUsecase {
-  _FakeGetAllInLawsUsecase_231(
+class _FakeGetAllInLawsUsecase_236 extends _i1.SmartFake
+    implements _i217.GetAllInLawsUsecase {
+  _FakeGetAllInLawsUsecase_236(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3236,9 +3320,9 @@ class _FakeGetAllInLawsUsecase_231 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllParentsUsecase_232 extends _i1.SmartFake
-    implements _i213.GetAllParentsUsecase {
-  _FakeGetAllParentsUsecase_232(
+class _FakeGetAllParentsUsecase_237 extends _i1.SmartFake
+    implements _i218.GetAllParentsUsecase {
+  _FakeGetAllParentsUsecase_237(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3247,9 +3331,9 @@ class _FakeGetAllParentsUsecase_232 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllPartnersUsecase_233 extends _i1.SmartFake
-    implements _i214.GetAllPartnersUsecase {
-  _FakeGetAllPartnersUsecase_233(
+class _FakeGetAllPartnersUsecase_238 extends _i1.SmartFake
+    implements _i219.GetAllPartnersUsecase {
+  _FakeGetAllPartnersUsecase_238(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3258,9 +3342,9 @@ class _FakeGetAllPartnersUsecase_233 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllPastFamilyUsecase_234 extends _i1.SmartFake
-    implements _i215.GetAllPastFamilyUsecase {
-  _FakeGetAllPastFamilyUsecase_234(
+class _FakeGetAllPastFamilyUsecase_239 extends _i1.SmartFake
+    implements _i220.GetAllPastFamilyUsecase {
+  _FakeGetAllPastFamilyUsecase_239(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3269,9 +3353,9 @@ class _FakeGetAllPastFamilyUsecase_234 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllRelationshipsInvolvingUsecase_235 extends _i1.SmartFake
-    implements _i216.GetAllRelationshipsInvolvingUsecase {
-  _FakeGetAllRelationshipsInvolvingUsecase_235(
+class _FakeGetAllRelationshipsInvolvingUsecase_240 extends _i1.SmartFake
+    implements _i221.GetAllRelationshipsInvolvingUsecase {
+  _FakeGetAllRelationshipsInvolvingUsecase_240(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3280,9 +3364,9 @@ class _FakeGetAllRelationshipsInvolvingUsecase_235 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllRelativesUsecase_236 extends _i1.SmartFake
-    implements _i217.GetAllRelativesUsecase {
-  _FakeGetAllRelativesUsecase_236(
+class _FakeGetAllRelativesUsecase_241 extends _i1.SmartFake
+    implements _i222.GetAllRelativesUsecase {
+  _FakeGetAllRelativesUsecase_241(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3291,9 +3375,9 @@ class _FakeGetAllRelativesUsecase_236 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllSiblingsUsecase_237 extends _i1.SmartFake
-    implements _i218.GetAllSiblingsUsecase {
-  _FakeGetAllSiblingsUsecase_237(
+class _FakeGetAllSiblingsUsecase_242 extends _i1.SmartFake
+    implements _i223.GetAllSiblingsUsecase {
+  _FakeGetAllSiblingsUsecase_242(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3302,9 +3386,9 @@ class _FakeGetAllSiblingsUsecase_237 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllStepChildrenUsecase_238 extends _i1.SmartFake
-    implements _i219.GetAllStepChildrenUsecase {
-  _FakeGetAllStepChildrenUsecase_238(
+class _FakeGetAllStepChildrenUsecase_243 extends _i1.SmartFake
+    implements _i224.GetAllStepChildrenUsecase {
+  _FakeGetAllStepChildrenUsecase_243(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3313,9 +3397,9 @@ class _FakeGetAllStepChildrenUsecase_238 extends _i1.SmartFake
         );
 }
 
-class _FakeGetMarriagePartnerRelationshipUsecase_239 extends _i1.SmartFake
-    implements _i220.GetMarriagePartnerRelationshipUsecase {
-  _FakeGetMarriagePartnerRelationshipUsecase_239(
+class _FakeGetMarriagePartnerRelationshipUsecase_244 extends _i1.SmartFake
+    implements _i225.GetMarriagePartnerRelationshipUsecase {
+  _FakeGetMarriagePartnerRelationshipUsecase_244(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3324,9 +3408,9 @@ class _FakeGetMarriagePartnerRelationshipUsecase_239 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchRelationshipUsecase_240 extends _i1.SmartFake
-    implements _i221.WatchRelationshipUsecase {
-  _FakeWatchRelationshipUsecase_240(
+class _FakeWatchRelationshipUsecase_245 extends _i1.SmartFake
+    implements _i226.WatchRelationshipUsecase {
+  _FakeWatchRelationshipUsecase_245(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3335,9 +3419,9 @@ class _FakeWatchRelationshipUsecase_240 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchAllGravesUsecase_241 extends _i1.SmartFake
-    implements _i222.WatchAllGravesUsecase {
-  _FakeWatchAllGravesUsecase_241(
+class _FakeWatchAllGravesUsecase_246 extends _i1.SmartFake
+    implements _i227.WatchAllGravesUsecase {
+  _FakeWatchAllGravesUsecase_246(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3346,9 +3430,9 @@ class _FakeWatchAllGravesUsecase_241 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchChildrensTabRelationshipsUsecase_242 extends _i1.SmartFake
-    implements _i223.WatchChildrensTabRelationshipsUsecase {
-  _FakeWatchChildrensTabRelationshipsUsecase_242(
+class _FakeWatchChildrensTabRelationshipsUsecase_247 extends _i1.SmartFake
+    implements _i228.WatchChildrensTabRelationshipsUsecase {
+  _FakeWatchChildrensTabRelationshipsUsecase_247(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3357,9 +3441,9 @@ class _FakeWatchChildrensTabRelationshipsUsecase_242 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchAllExesUsecase_243 extends _i1.SmartFake
-    implements _i224.WatchAllExesUsecase {
-  _FakeWatchAllExesUsecase_243(
+class _FakeWatchAllExesUsecase_248 extends _i1.SmartFake
+    implements _i229.WatchAllExesUsecase {
+  _FakeWatchAllExesUsecase_248(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3368,9 +3452,9 @@ class _FakeWatchAllExesUsecase_243 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchAllFriendsUsecase_244 extends _i1.SmartFake
-    implements _i225.WatchAllFriendsUsecase {
-  _FakeWatchAllFriendsUsecase_244(
+class _FakeWatchAllFriendsUsecase_249 extends _i1.SmartFake
+    implements _i230.WatchAllFriendsUsecase {
+  _FakeWatchAllFriendsUsecase_249(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3379,9 +3463,9 @@ class _FakeWatchAllFriendsUsecase_244 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchAllInLawsUsecase_245 extends _i1.SmartFake
-    implements _i226.WatchAllInLawsUsecase {
-  _FakeWatchAllInLawsUsecase_245(
+class _FakeWatchAllInLawsUsecase_250 extends _i1.SmartFake
+    implements _i231.WatchAllInLawsUsecase {
+  _FakeWatchAllInLawsUsecase_250(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3390,9 +3474,9 @@ class _FakeWatchAllInLawsUsecase_245 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchParentsTabRelationshipsUsecase_246 extends _i1.SmartFake
-    implements _i227.WatchParentsTabRelationshipsUsecase {
-  _FakeWatchParentsTabRelationshipsUsecase_246(
+class _FakeWatchParentsTabRelationshipsUsecase_251 extends _i1.SmartFake
+    implements _i232.WatchParentsTabRelationshipsUsecase {
+  _FakeWatchParentsTabRelationshipsUsecase_251(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3401,9 +3485,9 @@ class _FakeWatchParentsTabRelationshipsUsecase_246 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchPartnersTabRelationshipsUsecase_247 extends _i1.SmartFake
-    implements _i228.WatchPartnersTabRelationshipsUsecase {
-  _FakeWatchPartnersTabRelationshipsUsecase_247(
+class _FakeWatchPartnersTabRelationshipsUsecase_252 extends _i1.SmartFake
+    implements _i233.WatchPartnersTabRelationshipsUsecase {
+  _FakeWatchPartnersTabRelationshipsUsecase_252(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3412,9 +3496,9 @@ class _FakeWatchPartnersTabRelationshipsUsecase_247 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchAllPastFamilyUsecase_248 extends _i1.SmartFake
-    implements _i229.WatchAllPastFamilyUsecase {
-  _FakeWatchAllPastFamilyUsecase_248(
+class _FakeWatchAllPastFamilyUsecase_253 extends _i1.SmartFake
+    implements _i234.WatchAllPastFamilyUsecase {
+  _FakeWatchAllPastFamilyUsecase_253(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3423,9 +3507,9 @@ class _FakeWatchAllPastFamilyUsecase_248 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchAllRelationshipsInvolvingUsecase_249 extends _i1.SmartFake
-    implements _i230.WatchAllRelationshipsInvolvingUsecase {
-  _FakeWatchAllRelationshipsInvolvingUsecase_249(
+class _FakeWatchAllRelationshipsInvolvingUsecase_254 extends _i1.SmartFake
+    implements _i235.WatchAllRelationshipsInvolvingUsecase {
+  _FakeWatchAllRelationshipsInvolvingUsecase_254(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3434,9 +3518,9 @@ class _FakeWatchAllRelationshipsInvolvingUsecase_249 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchRelativesTabRelationshipsUsecase_250 extends _i1.SmartFake
-    implements _i231.WatchRelativesTabRelationshipsUsecase {
-  _FakeWatchRelativesTabRelationshipsUsecase_250(
+class _FakeWatchRelativesTabRelationshipsUsecase_255 extends _i1.SmartFake
+    implements _i236.WatchRelativesTabRelationshipsUsecase {
+  _FakeWatchRelativesTabRelationshipsUsecase_255(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3445,9 +3529,9 @@ class _FakeWatchRelativesTabRelationshipsUsecase_250 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchSiblingsTabRelationshipsUsecase_251 extends _i1.SmartFake
-    implements _i232.WatchSiblingsTabRelationshipsUsecase {
-  _FakeWatchSiblingsTabRelationshipsUsecase_251(
+class _FakeWatchSiblingsTabRelationshipsUsecase_256 extends _i1.SmartFake
+    implements _i237.WatchSiblingsTabRelationshipsUsecase {
+  _FakeWatchSiblingsTabRelationshipsUsecase_256(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3456,9 +3540,9 @@ class _FakeWatchSiblingsTabRelationshipsUsecase_251 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchMarriagePartnerRelationshipUsecase_252 extends _i1.SmartFake
-    implements _i233.WatchMarriagePartnerRelationshipUsecase {
-  _FakeWatchMarriagePartnerRelationshipUsecase_252(
+class _FakeWatchMarriagePartnerRelationshipUsecase_257 extends _i1.SmartFake
+    implements _i238.WatchMarriagePartnerRelationshipUsecase {
+  _FakeWatchMarriagePartnerRelationshipUsecase_257(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3467,24 +3551,11 @@ class _FakeWatchMarriagePartnerRelationshipUsecase_252 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_253
-    extends _i1.SmartFake
-    implements
-        _i234.GetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase {
-  _FakeGetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_253(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeGetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_254
+class _FakeGetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_258
     extends _i1.SmartFake
     implements
-        _i235.GetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase {
-  _FakeGetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_254(
+        _i239.GetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase {
+  _FakeGetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_258(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3493,12 +3564,25 @@ class _FakeGetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_254
         );
 }
 
-class _FakeGetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase_255
+class _FakeGetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_259
     extends _i1.SmartFake
     implements
-        _i236
+        _i240.GetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase {
+  _FakeGetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_259(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase_260
+    extends _i1.SmartFake
+    implements
+        _i241
         .GetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase {
-  _FakeGetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase_255(
+  _FakeGetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase_260(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3507,10 +3591,10 @@ class _FakeGetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUs
         );
 }
 
-class _FakeGetAllStepFamilyFromDifferentGenerationsUsecase_256
+class _FakeGetAllStepFamilyFromDifferentGenerationsUsecase_261
     extends _i1.SmartFake
-    implements _i237.GetAllStepFamilyFromDifferentGenerationsUsecase {
-  _FakeGetAllStepFamilyFromDifferentGenerationsUsecase_256(
+    implements _i242.GetAllStepFamilyFromDifferentGenerationsUsecase {
+  _FakeGetAllStepFamilyFromDifferentGenerationsUsecase_261(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3519,10 +3603,10 @@ class _FakeGetAllStepFamilyFromDifferentGenerationsUsecase_256
         );
 }
 
-class _FakeGetChildrenOfPersonNotBelongingToAnotherPersonUsecase_257
+class _FakeGetChildrenOfPersonNotBelongingToAnotherPersonUsecase_262
     extends _i1.SmartFake
-    implements _i238.GetChildrenOfPersonNotBelongingToAnotherPersonUsecase {
-  _FakeGetChildrenOfPersonNotBelongingToAnotherPersonUsecase_257(
+    implements _i243.GetChildrenOfPersonNotBelongingToAnotherPersonUsecase {
+  _FakeGetChildrenOfPersonNotBelongingToAnotherPersonUsecase_262(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3531,12 +3615,12 @@ class _FakeGetChildrenOfPersonNotBelongingToAnotherPersonUsecase_257
         );
 }
 
-class _FakeGetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase_258
+class _FakeGetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase_263
     extends _i1.SmartFake
     implements
-        _i239
+        _i244
         .GetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase {
-  _FakeGetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase_258(
+  _FakeGetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase_263(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3545,11 +3629,11 @@ class _FakeGetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUse
         );
 }
 
-class _FakeGetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase_259
+class _FakeGetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase_264
     extends _i1.SmartFake
     implements
-        _i240.GetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase {
-  _FakeGetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase_259(
+        _i245.GetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase {
+  _FakeGetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase_264(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3558,10 +3642,10 @@ class _FakeGetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase_259
         );
 }
 
-class _FakeProcessRelationshipChangesFromNpcDivorceUsecase_260
+class _FakeProcessRelationshipChangesFromNpcDivorceUsecase_265
     extends _i1.SmartFake
-    implements _i241.ProcessRelationshipChangesFromNpcDivorceUsecase {
-  _FakeProcessRelationshipChangesFromNpcDivorceUsecase_260(
+    implements _i246.ProcessRelationshipChangesFromNpcDivorceUsecase {
+  _FakeProcessRelationshipChangesFromNpcDivorceUsecase_265(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3570,10 +3654,10 @@ class _FakeProcessRelationshipChangesFromNpcDivorceUsecase_260
         );
 }
 
-class _FakeProcessRelationshipChangesFromNpcMarriageUsecase_261
+class _FakeProcessRelationshipChangesFromNpcMarriageUsecase_266
     extends _i1.SmartFake
-    implements _i242.ProcessRelationshipChangesFromNpcMarriageUsecase {
-  _FakeProcessRelationshipChangesFromNpcMarriageUsecase_261(
+    implements _i247.ProcessRelationshipChangesFromNpcMarriageUsecase {
+  _FakeProcessRelationshipChangesFromNpcMarriageUsecase_266(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3582,10 +3666,10 @@ class _FakeProcessRelationshipChangesFromNpcMarriageUsecase_261
         );
 }
 
-class _FakeProcessRelationshipChangesFromPlayerDivorceUsecase_262
+class _FakeProcessRelationshipChangesFromPlayerDivorceUsecase_267
     extends _i1.SmartFake
-    implements _i243.ProcessRelationshipChangesFromPlayerDivorceUsecase {
-  _FakeProcessRelationshipChangesFromPlayerDivorceUsecase_262(
+    implements _i248.ProcessRelationshipChangesFromPlayerDivorceUsecase {
+  _FakeProcessRelationshipChangesFromPlayerDivorceUsecase_267(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3594,10 +3678,10 @@ class _FakeProcessRelationshipChangesFromPlayerDivorceUsecase_262
         );
 }
 
-class _FakeProcessRelationshipChangesFromPlayerMarriageUsecase_263
+class _FakeProcessRelationshipChangesFromPlayerMarriageUsecase_268
     extends _i1.SmartFake
-    implements _i244.ProcessRelationshipChangesFromPlayerMarriageUsecase {
-  _FakeProcessRelationshipChangesFromPlayerMarriageUsecase_263(
+    implements _i249.ProcessRelationshipChangesFromPlayerMarriageUsecase {
+  _FakeProcessRelationshipChangesFromPlayerMarriageUsecase_268(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3606,10 +3690,10 @@ class _FakeProcessRelationshipChangesFromPlayerMarriageUsecase_263
         );
 }
 
-class _FakeConvertTemporaryFamilialRelationshipToPastFamilyUsecase_264
+class _FakeConvertTemporaryFamilialRelationshipToPastFamilyUsecase_269
     extends _i1.SmartFake
-    implements _i245.ConvertTemporaryFamilialRelationshipToPastFamilyUsecase {
-  _FakeConvertTemporaryFamilialRelationshipToPastFamilyUsecase_264(
+    implements _i250.ConvertTemporaryFamilialRelationshipToPastFamilyUsecase {
+  _FakeConvertTemporaryFamilialRelationshipToPastFamilyUsecase_269(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3618,9 +3702,9 @@ class _FakeConvertTemporaryFamilialRelationshipToPastFamilyUsecase_264
         );
 }
 
-class _FakeSetupNewGenerationPlayerRelationshipsUsecase_265 extends _i1
-    .SmartFake implements _i246.SetupNewGenerationPlayerRelationshipsUsecase {
-  _FakeSetupNewGenerationPlayerRelationshipsUsecase_265(
+class _FakeSetupNewGenerationPlayerRelationshipsUsecase_270 extends _i1
+    .SmartFake implements _i251.SetupNewGenerationPlayerRelationshipsUsecase {
+  _FakeSetupNewGenerationPlayerRelationshipsUsecase_270(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3629,9 +3713,9 @@ class _FakeSetupNewGenerationPlayerRelationshipsUsecase_265 extends _i1
         );
 }
 
-class _FakeRearrangeChildrensTabRelationshipsUsecase_266 extends _i1.SmartFake
-    implements _i247.RearrangeChildrensTabRelationshipsUsecase {
-  _FakeRearrangeChildrensTabRelationshipsUsecase_266(
+class _FakeRearrangeChildrensTabRelationshipsUsecase_271 extends _i1.SmartFake
+    implements _i252.RearrangeChildrensTabRelationshipsUsecase {
+  _FakeRearrangeChildrensTabRelationshipsUsecase_271(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3640,9 +3724,9 @@ class _FakeRearrangeChildrensTabRelationshipsUsecase_266 extends _i1.SmartFake
         );
 }
 
-class _FakeRearrangeInLawsTabRelationshipsUsecase_267 extends _i1.SmartFake
-    implements _i248.RearrangeInLawsTabRelationshipsUsecase {
-  _FakeRearrangeInLawsTabRelationshipsUsecase_267(
+class _FakeRearrangeInLawsTabRelationshipsUsecase_272 extends _i1.SmartFake
+    implements _i253.RearrangeInLawsTabRelationshipsUsecase {
+  _FakeRearrangeInLawsTabRelationshipsUsecase_272(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3651,9 +3735,9 @@ class _FakeRearrangeInLawsTabRelationshipsUsecase_267 extends _i1.SmartFake
         );
 }
 
-class _FakeRearrangeParentsTabRelationshipsUsecase_268 extends _i1.SmartFake
-    implements _i249.RearrangeParentsTabRelationshipsUsecase {
-  _FakeRearrangeParentsTabRelationshipsUsecase_268(
+class _FakeRearrangeParentsTabRelationshipsUsecase_273 extends _i1.SmartFake
+    implements _i254.RearrangeParentsTabRelationshipsUsecase {
+  _FakeRearrangeParentsTabRelationshipsUsecase_273(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3662,9 +3746,9 @@ class _FakeRearrangeParentsTabRelationshipsUsecase_268 extends _i1.SmartFake
         );
 }
 
-class _FakeRearrangePartnersTabRelationshipsUsecase_269 extends _i1.SmartFake
-    implements _i250.RearrangePartnersTabRelationshipsUsecase {
-  _FakeRearrangePartnersTabRelationshipsUsecase_269(
+class _FakeRearrangePartnersTabRelationshipsUsecase_274 extends _i1.SmartFake
+    implements _i255.RearrangePartnersTabRelationshipsUsecase {
+  _FakeRearrangePartnersTabRelationshipsUsecase_274(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3673,9 +3757,9 @@ class _FakeRearrangePartnersTabRelationshipsUsecase_269 extends _i1.SmartFake
         );
 }
 
-class _FakeRearrangeRelativesTabRelationshipsUsecase_270 extends _i1.SmartFake
-    implements _i251.RearrangeRelativesTabRelationshipsUsecase {
-  _FakeRearrangeRelativesTabRelationshipsUsecase_270(
+class _FakeRearrangeRelativesTabRelationshipsUsecase_275 extends _i1.SmartFake
+    implements _i256.RearrangeRelativesTabRelationshipsUsecase {
+  _FakeRearrangeRelativesTabRelationshipsUsecase_275(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3684,9 +3768,9 @@ class _FakeRearrangeRelativesTabRelationshipsUsecase_270 extends _i1.SmartFake
         );
 }
 
-class _FakeRearrangeSiblingsTabRelationshipsUsecase_271 extends _i1.SmartFake
-    implements _i252.RearrangeSiblingsTabRelationshipsUsecase {
-  _FakeRearrangeSiblingsTabRelationshipsUsecase_271(
+class _FakeRearrangeSiblingsTabRelationshipsUsecase_276 extends _i1.SmartFake
+    implements _i257.RearrangeSiblingsTabRelationshipsUsecase {
+  _FakeRearrangeSiblingsTabRelationshipsUsecase_276(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3695,9 +3779,9 @@ class _FakeRearrangeSiblingsTabRelationshipsUsecase_271 extends _i1.SmartFake
         );
 }
 
-class _FakeGetTotalRomanticRelationshipDuration_272 extends _i1.SmartFake
-    implements _i253.GetTotalRomanticRelationshipDuration {
-  _FakeGetTotalRomanticRelationshipDuration_272(
+class _FakeGetTotalRomanticRelationshipDuration_277 extends _i1.SmartFake
+    implements _i258.GetTotalRomanticRelationshipDuration {
+  _FakeGetTotalRomanticRelationshipDuration_277(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3706,10 +3790,10 @@ class _FakeGetTotalRomanticRelationshipDuration_272 extends _i1.SmartFake
         );
 }
 
-class _FakeEndRomanticRelationshipAndReturnUpdatedObjectUsecase_273
+class _FakeEndRomanticRelationshipAndReturnUpdatedObjectUsecase_278
     extends _i1.SmartFake
-    implements _i254.EndRomanticRelationshipAndReturnUpdatedObjectUsecase {
-  _FakeEndRomanticRelationshipAndReturnUpdatedObjectUsecase_273(
+    implements _i259.EndRomanticRelationshipAndReturnUpdatedObjectUsecase {
+  _FakeEndRomanticRelationshipAndReturnUpdatedObjectUsecase_278(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3718,10 +3802,10 @@ class _FakeEndRomanticRelationshipAndReturnUpdatedObjectUsecase_273
         );
 }
 
-class _FakeStartRomanticRelationshipAndReturnUpdatedObjectUsecase_274
+class _FakeStartRomanticRelationshipAndReturnUpdatedObjectUsecase_279
     extends _i1.SmartFake
-    implements _i255.StartRomanticRelationshipAndReturnUpdatedObjectUsecase {
-  _FakeStartRomanticRelationshipAndReturnUpdatedObjectUsecase_274(
+    implements _i260.StartRomanticRelationshipAndReturnUpdatedObjectUsecase {
+  _FakeStartRomanticRelationshipAndReturnUpdatedObjectUsecase_279(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3730,9 +3814,9 @@ class _FakeStartRomanticRelationshipAndReturnUpdatedObjectUsecase_274
         );
 }
 
-class _FakeEndAllActiveRomanticRelationshipsUsecase_275 extends _i1.SmartFake
-    implements _i256.EndAllActiveRomanticRelationshipsUsecase {
-  _FakeEndAllActiveRomanticRelationshipsUsecase_275(
+class _FakeEndAllActiveRomanticRelationshipsUsecase_280 extends _i1.SmartFake
+    implements _i261.EndAllActiveRomanticRelationshipsUsecase {
+  _FakeEndAllActiveRomanticRelationshipsUsecase_280(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3741,9 +3825,9 @@ class _FakeEndAllActiveRomanticRelationshipsUsecase_275 extends _i1.SmartFake
         );
 }
 
-class _FakeGenerateAcquaintancesUsecase_276 extends _i1.SmartFake
-    implements _i257.GenerateAcquaintancesUsecase {
-  _FakeGenerateAcquaintancesUsecase_276(
+class _FakeGenerateAcquaintancesUsecase_281 extends _i1.SmartFake
+    implements _i262.GenerateAcquaintancesUsecase {
+  _FakeGenerateAcquaintancesUsecase_281(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3752,9 +3836,9 @@ class _FakeGenerateAcquaintancesUsecase_276 extends _i1.SmartFake
         );
 }
 
-class _FakeGetStoreroomItemPairsUsecase_277 extends _i1.SmartFake
-    implements _i258.GetStoreroomItemPairsUsecase {
-  _FakeGetStoreroomItemPairsUsecase_277(
+class _FakeGetStoreroomItemPairsUsecase_282 extends _i1.SmartFake
+    implements _i263.GetStoreroomItemPairsUsecase {
+  _FakeGetStoreroomItemPairsUsecase_282(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3763,9 +3847,9 @@ class _FakeGetStoreroomItemPairsUsecase_277 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAvailbleStoreroomItemUsecase_278 extends _i1.SmartFake
-    implements _i259.GetAvailbleStoreroomItemUsecase {
-  _FakeGetAvailbleStoreroomItemUsecase_278(
+class _FakeGetAvailbleStoreroomItemUsecase_283 extends _i1.SmartFake
+    implements _i264.GetAvailbleStoreroomItemUsecase {
+  _FakeGetAvailbleStoreroomItemUsecase_283(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3774,9 +3858,9 @@ class _FakeGetAvailbleStoreroomItemUsecase_278 extends _i1.SmartFake
         );
 }
 
-class _FakeUseStoreroomItemUsecase_279 extends _i1.SmartFake
-    implements _i260.UseStoreroomItemUsecase {
-  _FakeUseStoreroomItemUsecase_279(
+class _FakeUseStoreroomItemUsecase_284 extends _i1.SmartFake
+    implements _i265.UseStoreroomItemUsecase {
+  _FakeUseStoreroomItemUsecase_284(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3785,9 +3869,9 @@ class _FakeUseStoreroomItemUsecase_279 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCurrentCarUsecase_280 extends _i1.SmartFake
-    implements _i261.GetCurrentCarUsecase {
-  _FakeGetCurrentCarUsecase_280(
+class _FakeGetCurrentCarUsecase_285 extends _i1.SmartFake
+    implements _i266.GetCurrentCarUsecase {
+  _FakeGetCurrentCarUsecase_285(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3796,9 +3880,9 @@ class _FakeGetCurrentCarUsecase_280 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCurrentHouseUsecase_281 extends _i1.SmartFake
-    implements _i262.GetCurrentHouseUsecase {
-  _FakeGetCurrentHouseUsecase_281(
+class _FakeGetCurrentHouseUsecase_286 extends _i1.SmartFake
+    implements _i267.GetCurrentHouseUsecase {
+  _FakeGetCurrentHouseUsecase_286(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3807,9 +3891,9 @@ class _FakeGetCurrentHouseUsecase_281 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCarMaxConditionUsecase_282 extends _i1.SmartFake
-    implements _i263.GetCarMaxConditionUsecase {
-  _FakeGetCarMaxConditionUsecase_282(
+class _FakeGetCarMaxConditionUsecase_287 extends _i1.SmartFake
+    implements _i268.GetCarMaxConditionUsecase {
+  _FakeGetCarMaxConditionUsecase_287(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3818,9 +3902,9 @@ class _FakeGetCarMaxConditionUsecase_282 extends _i1.SmartFake
         );
 }
 
-class _FakeDriveCarUsecase_283 extends _i1.SmartFake
-    implements _i264.DriveCarUsecase {
-  _FakeDriveCarUsecase_283(
+class _FakeDriveCarUsecase_288 extends _i1.SmartFake
+    implements _i269.DriveCarUsecase {
+  _FakeDriveCarUsecase_288(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3829,9 +3913,9 @@ class _FakeDriveCarUsecase_283 extends _i1.SmartFake
         );
 }
 
-class _FakeCreateCarProblemUsecase_284 extends _i1.SmartFake
-    implements _i265.CreateCarProblemUsecase {
-  _FakeCreateCarProblemUsecase_284(
+class _FakeCreateCarProblemUsecase_289 extends _i1.SmartFake
+    implements _i270.CreateCarProblemUsecase {
+  _FakeCreateCarProblemUsecase_289(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3840,9 +3924,9 @@ class _FakeCreateCarProblemUsecase_284 extends _i1.SmartFake
         );
 }
 
-class _FakeCheckIfCarHasProblemUsecase_285 extends _i1.SmartFake
-    implements _i266.CheckIfCarHasProblemUsecase {
-  _FakeCheckIfCarHasProblemUsecase_285(
+class _FakeCheckIfCarHasProblemUsecase_290 extends _i1.SmartFake
+    implements _i271.CheckIfCarHasProblemUsecase {
+  _FakeCheckIfCarHasProblemUsecase_290(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3851,9 +3935,9 @@ class _FakeCheckIfCarHasProblemUsecase_285 extends _i1.SmartFake
         );
 }
 
-class _FakeCarIsNotDeadUsecase_286 extends _i1.SmartFake
-    implements _i267.CarIsNotDeadUsecase {
-  _FakeCarIsNotDeadUsecase_286(
+class _FakeCarIsNotDeadUsecase_291 extends _i1.SmartFake
+    implements _i272.CarIsNotDeadUsecase {
+  _FakeCarIsNotDeadUsecase_291(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3862,9 +3946,9 @@ class _FakeCarIsNotDeadUsecase_286 extends _i1.SmartFake
         );
 }
 
-class _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_287 extends _i1
-    .SmartFake implements _i268.SetAllPersonCarsToNotCurrentlyDrivingUsecase {
-  _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_287(
+class _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_292 extends _i1
+    .SmartFake implements _i273.SetAllPersonCarsToNotCurrentlyDrivingUsecase {
+  _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_292(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3873,9 +3957,9 @@ class _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_287 extends _i1
         );
 }
 
-class _FakeUpdateCarUsecase_288 extends _i1.SmartFake
-    implements _i269.UpdateCarUsecase {
-  _FakeUpdateCarUsecase_288(
+class _FakeUpdateCarUsecase_293 extends _i1.SmartFake
+    implements _i274.UpdateCarUsecase {
+  _FakeUpdateCarUsecase_293(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3884,9 +3968,9 @@ class _FakeUpdateCarUsecase_288 extends _i1.SmartFake
         );
 }
 
-class _FakeAddPurchasedCarToStorageUsecase_289 extends _i1.SmartFake
-    implements _i270.AddPurchasedCarToStorageUsecase {
-  _FakeAddPurchasedCarToStorageUsecase_289(
+class _FakeAddPurchasedCarToStorageUsecase_294 extends _i1.SmartFake
+    implements _i275.AddPurchasedCarToStorageUsecase {
+  _FakeAddPurchasedCarToStorageUsecase_294(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3895,9 +3979,9 @@ class _FakeAddPurchasedCarToStorageUsecase_289 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseCarFullyPaidUsecase_290 extends _i1.SmartFake
-    implements _i271.PurchaseCarFullyPaidUsecase {
-  _FakePurchaseCarFullyPaidUsecase_290(
+class _FakePurchaseCarFullyPaidUsecase_295 extends _i1.SmartFake
+    implements _i276.PurchaseCarFullyPaidUsecase {
+  _FakePurchaseCarFullyPaidUsecase_295(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3906,9 +3990,9 @@ class _FakePurchaseCarFullyPaidUsecase_290 extends _i1.SmartFake
         );
 }
 
-class _FakeAddFoodToFridgeUsecase_291 extends _i1.SmartFake
-    implements _i272.AddFoodToFridgeUsecase {
-  _FakeAddFoodToFridgeUsecase_291(
+class _FakeAddFoodToFridgeUsecase_296 extends _i1.SmartFake
+    implements _i277.AddFoodToFridgeUsecase {
+  _FakeAddFoodToFridgeUsecase_296(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3917,9 +4001,9 @@ class _FakeAddFoodToFridgeUsecase_291 extends _i1.SmartFake
         );
 }
 
-class _FakeGetFoodRecordUsecase_292 extends _i1.SmartFake
-    implements _i273.GetFoodRecordUsecase {
-  _FakeGetFoodRecordUsecase_292(
+class _FakeGetFoodRecordUsecase_297 extends _i1.SmartFake
+    implements _i278.GetFoodRecordUsecase {
+  _FakeGetFoodRecordUsecase_297(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3928,9 +4012,9 @@ class _FakeGetFoodRecordUsecase_292 extends _i1.SmartFake
         );
 }
 
-class _FakeGetFridgeFoodCountUsecase_293 extends _i1.SmartFake
-    implements _i274.GetFridgeFoodCountUsecase {
-  _FakeGetFridgeFoodCountUsecase_293(
+class _FakeGetFridgeFoodCountUsecase_298 extends _i1.SmartFake
+    implements _i279.GetFridgeFoodCountUsecase {
+  _FakeGetFridgeFoodCountUsecase_298(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3939,9 +4023,9 @@ class _FakeGetFridgeFoodCountUsecase_293 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseFoodUsecase_294 extends _i1.SmartFake
-    implements _i275.PurchaseFoodUsecase {
-  _FakePurchaseFoodUsecase_294(
+class _FakePurchaseFoodUsecase_299 extends _i1.SmartFake
+    implements _i280.PurchaseFoodUsecase {
+  _FakePurchaseFoodUsecase_299(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3950,9 +4034,9 @@ class _FakePurchaseFoodUsecase_294 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCurrentHouseStorageSpaceUsecase_295 extends _i1.SmartFake
-    implements _i276.GetCurrentHouseStorageSpaceUsecase {
-  _FakeGetCurrentHouseStorageSpaceUsecase_295(
+class _FakeGetCurrentHouseStorageSpaceUsecase_300 extends _i1.SmartFake
+    implements _i281.GetCurrentHouseStorageSpaceUsecase {
+  _FakeGetCurrentHouseStorageSpaceUsecase_300(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3961,9 +4045,9 @@ class _FakeGetCurrentHouseStorageSpaceUsecase_295 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseHouseFullyPaidUsecase_296 extends _i1.SmartFake
-    implements _i277.PurchaseHouseFullyPaidUsecase {
-  _FakePurchaseHouseFullyPaidUsecase_296(
+class _FakePurchaseHouseFullyPaidUsecase_301 extends _i1.SmartFake
+    implements _i282.PurchaseHouseFullyPaidUsecase {
+  _FakePurchaseHouseFullyPaidUsecase_301(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3972,9 +4056,9 @@ class _FakePurchaseHouseFullyPaidUsecase_296 extends _i1.SmartFake
         );
 }
 
-class _FakeAddItemToStoreroomUsecase_297 extends _i1.SmartFake
-    implements _i278.AddItemToStoreroomUsecase {
-  _FakeAddItemToStoreroomUsecase_297(
+class _FakeAddItemToStoreroomUsecase_302 extends _i1.SmartFake
+    implements _i283.AddItemToStoreroomUsecase {
+  _FakeAddItemToStoreroomUsecase_302(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3983,9 +4067,9 @@ class _FakeAddItemToStoreroomUsecase_297 extends _i1.SmartFake
         );
 }
 
-class _FakeGetItemRecordUsecase_298 extends _i1.SmartFake
-    implements _i279.GetItemRecordUsecase {
-  _FakeGetItemRecordUsecase_298(
+class _FakeGetItemRecordUsecase_303 extends _i1.SmartFake
+    implements _i284.GetItemRecordUsecase {
+  _FakeGetItemRecordUsecase_303(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -3994,9 +4078,9 @@ class _FakeGetItemRecordUsecase_298 extends _i1.SmartFake
         );
 }
 
-class _FakeGetStoreroomItemCountUsecase_299 extends _i1.SmartFake
-    implements _i280.GetStoreroomItemCountUsecase {
-  _FakeGetStoreroomItemCountUsecase_299(
+class _FakeGetStoreroomItemCountUsecase_304 extends _i1.SmartFake
+    implements _i285.GetStoreroomItemCountUsecase {
+  _FakeGetStoreroomItemCountUsecase_304(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4005,9 +4089,9 @@ class _FakeGetStoreroomItemCountUsecase_299 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseItemUsecase_300 extends _i1.SmartFake
-    implements _i281.PurchaseItemUsecase {
-  _FakePurchaseItemUsecase_300(
+class _FakePurchaseItemUsecase_305 extends _i1.SmartFake
+    implements _i286.PurchaseItemUsecase {
+  _FakePurchaseItemUsecase_305(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4016,9 +4100,9 @@ class _FakePurchaseItemUsecase_300 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseJewelryUsecase_301 extends _i1.SmartFake
-    implements _i282.PurchaseJewelryUsecase {
-  _FakePurchaseJewelryUsecase_301(
+class _FakePurchaseJewelryUsecase_306 extends _i1.SmartFake
+    implements _i287.PurchaseJewelryUsecase {
+  _FakePurchaseJewelryUsecase_306(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4027,9 +4111,9 @@ class _FakePurchaseJewelryUsecase_301 extends _i1.SmartFake
         );
 }
 
-class _FakeRentHouseUsecase_302 extends _i1.SmartFake
-    implements _i283.RentHouseUsecase {
-  _FakeRentHouseUsecase_302(
+class _FakeRentHouseUsecase_307 extends _i1.SmartFake
+    implements _i288.RentHouseUsecase {
+  _FakeRentHouseUsecase_307(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4038,9 +4122,9 @@ class _FakeRentHouseUsecase_302 extends _i1.SmartFake
         );
 }
 
-class _FakeBreakOldLeaseSignNewLease_303 extends _i1.SmartFake
-    implements _i284.BreakOldLeaseSignNewLease {
-  _FakeBreakOldLeaseSignNewLease_303(
+class _FakeBreakOldLeaseSignNewLease_308 extends _i1.SmartFake
+    implements _i289.BreakOldLeaseSignNewLease {
+  _FakeBreakOldLeaseSignNewLease_308(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4049,9 +4133,9 @@ class _FakeBreakOldLeaseSignNewLease_303 extends _i1.SmartFake
         );
 }
 
-class _FakeEndLeaseUsecase_304 extends _i1.SmartFake
-    implements _i285.EndLeaseUsecase {
-  _FakeEndLeaseUsecase_304(
+class _FakeEndLeaseUsecase_309 extends _i1.SmartFake
+    implements _i290.EndLeaseUsecase {
+  _FakeEndLeaseUsecase_309(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4060,9 +4144,9 @@ class _FakeEndLeaseUsecase_304 extends _i1.SmartFake
         );
 }
 
-class _FakeSignLeaseForRentalUsecase_305 extends _i1.SmartFake
-    implements _i286.SignLeaseForRentalUsecase {
-  _FakeSignLeaseForRentalUsecase_305(
+class _FakeSignLeaseForRentalUsecase_310 extends _i1.SmartFake
+    implements _i291.SignLeaseForRentalUsecase {
+  _FakeSignLeaseForRentalUsecase_310(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4071,9 +4155,9 @@ class _FakeSignLeaseForRentalUsecase_305 extends _i1.SmartFake
         );
 }
 
-class _FakeMoveStorageToNewHouseUsecase_306 extends _i1.SmartFake
-    implements _i287.MoveStorageToNewHouseUsecase {
-  _FakeMoveStorageToNewHouseUsecase_306(
+class _FakeMoveStorageToNewHouseUsecase_311 extends _i1.SmartFake
+    implements _i292.MoveStorageToNewHouseUsecase {
+  _FakeMoveStorageToNewHouseUsecase_311(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4082,9 +4166,9 @@ class _FakeMoveStorageToNewHouseUsecase_306 extends _i1.SmartFake
         );
 }
 
-class _FakeUseFoodUsecase_307 extends _i1.SmartFake
-    implements _i288.UseFoodUsecase {
-  _FakeUseFoodUsecase_307(
+class _FakeUseFoodUsecase_312 extends _i1.SmartFake
+    implements _i293.UseFoodUsecase {
+  _FakeUseFoodUsecase_312(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4093,9 +4177,9 @@ class _FakeUseFoodUsecase_307 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllPersonFridgeFoodPairsUsecase_308 extends _i1.SmartFake
-    implements _i289.GetAllPersonFridgeFoodPairsUsecase {
-  _FakeGetAllPersonFridgeFoodPairsUsecase_308(
+class _FakeGetAllPersonFridgeFoodPairsUsecase_313 extends _i1.SmartFake
+    implements _i294.GetAllPersonFridgeFoodPairsUsecase {
+  _FakeGetAllPersonFridgeFoodPairsUsecase_313(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4104,9 +4188,9 @@ class _FakeGetAllPersonFridgeFoodPairsUsecase_308 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseCarWithLoanUsecase_309 extends _i1.SmartFake
-    implements _i290.PurchaseCarWithLoanUsecase {
-  _FakePurchaseCarWithLoanUsecase_309(
+class _FakePurchaseCarWithLoanUsecase_314 extends _i1.SmartFake
+    implements _i295.PurchaseCarWithLoanUsecase {
+  _FakePurchaseCarWithLoanUsecase_314(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4115,9 +4199,9 @@ class _FakePurchaseCarWithLoanUsecase_309 extends _i1.SmartFake
         );
 }
 
-class _FakePurchaseHouseWithLoanUsecase_310 extends _i1.SmartFake
-    implements _i291.PurchaseHouseWithLoanUsecase {
-  _FakePurchaseHouseWithLoanUsecase_310(
+class _FakePurchaseHouseWithLoanUsecase_315 extends _i1.SmartFake
+    implements _i296.PurchaseHouseWithLoanUsecase {
+  _FakePurchaseHouseWithLoanUsecase_315(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4126,9 +4210,9 @@ class _FakePurchaseHouseWithLoanUsecase_310 extends _i1.SmartFake
         );
 }
 
-class _FakeSignMortgageLoanContract_311 extends _i1.SmartFake
-    implements _i292.SignMortgageLoanContract {
-  _FakeSignMortgageLoanContract_311(
+class _FakeSignMortgageLoanContract_316 extends _i1.SmartFake
+    implements _i297.SignMortgageLoanContract {
+  _FakeSignMortgageLoanContract_316(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4137,9 +4221,9 @@ class _FakeSignMortgageLoanContract_311 extends _i1.SmartFake
         );
 }
 
-class _FakeAddLocationToBuildingsUsecase_312 extends _i1.SmartFake
-    implements _i293.AddLocationToBuildingsUsecase {
-  _FakeAddLocationToBuildingsUsecase_312(
+class _FakeAddLocationToBuildingsUsecase_317 extends _i1.SmartFake
+    implements _i298.AddLocationToBuildingsUsecase {
+  _FakeAddLocationToBuildingsUsecase_317(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4148,9 +4232,9 @@ class _FakeAddLocationToBuildingsUsecase_312 extends _i1.SmartFake
         );
 }
 
-class _FakeGetPurchaseHousesUsecase_313 extends _i1.SmartFake
-    implements _i294.GetPurchaseHousesUsecase {
-  _FakeGetPurchaseHousesUsecase_313(
+class _FakeGetPurchaseHousesUsecase_318 extends _i1.SmartFake
+    implements _i299.GetPurchaseHousesUsecase {
+  _FakeGetPurchaseHousesUsecase_318(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4159,9 +4243,9 @@ class _FakeGetPurchaseHousesUsecase_313 extends _i1.SmartFake
         );
 }
 
-class _FakeGetRentalHousesUsecase_314 extends _i1.SmartFake
-    implements _i295.GetRentalHousesUsecase {
-  _FakeGetRentalHousesUsecase_314(
+class _FakeGetRentalHousesUsecase_319 extends _i1.SmartFake
+    implements _i300.GetRentalHousesUsecase {
+  _FakeGetRentalHousesUsecase_319(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4170,9 +4254,9 @@ class _FakeGetRentalHousesUsecase_314 extends _i1.SmartFake
         );
 }
 
-class _FakeMoveIntoNewHouseUsecase_315 extends _i1.SmartFake
-    implements _i296.MoveIntoNewHouseUsecase {
-  _FakeMoveIntoNewHouseUsecase_315(
+class _FakeMoveIntoNewHouseUsecase_320 extends _i1.SmartFake
+    implements _i301.MoveIntoNewHouseUsecase {
+  _FakeMoveIntoNewHouseUsecase_320(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4181,9 +4265,9 @@ class _FakeMoveIntoNewHouseUsecase_315 extends _i1.SmartFake
         );
 }
 
-class _FakeDeleteCurrentHomeUsecase_316 extends _i1.SmartFake
-    implements _i297.DeleteCurrentHomeUsecase {
-  _FakeDeleteCurrentHomeUsecase_316(
+class _FakeDeleteCurrentHomeUsecase_321 extends _i1.SmartFake
+    implements _i302.DeleteCurrentHomeUsecase {
+  _FakeDeleteCurrentHomeUsecase_321(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4192,9 +4276,9 @@ class _FakeDeleteCurrentHomeUsecase_316 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAllPeopleInAHouseUsecase_317 extends _i1.SmartFake
-    implements _i298.GetAllPeopleInAHouseUsecase {
-  _FakeGetAllPeopleInAHouseUsecase_317(
+class _FakeGetAllPeopleInAHouseUsecase_322 extends _i1.SmartFake
+    implements _i303.GetAllPeopleInAHouseUsecase {
+  _FakeGetAllPeopleInAHouseUsecase_322(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4203,9 +4287,9 @@ class _FakeGetAllPeopleInAHouseUsecase_317 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCurrentHomeUsecase_318 extends _i1.SmartFake
-    implements _i299.GetCurrentHomeUsecase {
-  _FakeGetCurrentHomeUsecase_318(
+class _FakeGetCurrentHomeUsecase_323 extends _i1.SmartFake
+    implements _i304.GetCurrentHomeUsecase {
+  _FakeGetCurrentHomeUsecase_323(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4214,9 +4298,9 @@ class _FakeGetCurrentHomeUsecase_318 extends _i1.SmartFake
         );
 }
 
-class _FakeSetCurrentHomeUsecase_319 extends _i1.SmartFake
-    implements _i300.SetCurrentHomeUsecase {
-  _FakeSetCurrentHomeUsecase_319(
+class _FakeSetCurrentHomeUsecase_324 extends _i1.SmartFake
+    implements _i305.SetCurrentHomeUsecase {
+  _FakeSetCurrentHomeUsecase_324(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4225,9 +4309,9 @@ class _FakeSetCurrentHomeUsecase_319 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchAllPeopleInAHouseUsecase_320 extends _i1.SmartFake
-    implements _i301.WatchAllPeopleInAHouseUsecase {
-  _FakeWatchAllPeopleInAHouseUsecase_320(
+class _FakeWatchAllPeopleInAHouseUsecase_325 extends _i1.SmartFake
+    implements _i306.WatchAllPeopleInAHouseUsecase {
+  _FakeWatchAllPeopleInAHouseUsecase_325(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4236,9 +4320,9 @@ class _FakeWatchAllPeopleInAHouseUsecase_320 extends _i1.SmartFake
         );
 }
 
-class _FakeWatchCurrentHomeUsecase_321 extends _i1.SmartFake
-    implements _i302.WatchCurrentHomeUsecase {
-  _FakeWatchCurrentHomeUsecase_321(
+class _FakeWatchCurrentHomeUsecase_326 extends _i1.SmartFake
+    implements _i307.WatchCurrentHomeUsecase {
+  _FakeWatchCurrentHomeUsecase_326(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4247,9 +4331,9 @@ class _FakeWatchCurrentHomeUsecase_321 extends _i1.SmartFake
         );
 }
 
-class _FakeGetPersonsAgeUsecase_322 extends _i1.SmartFake
-    implements _i303.GetPersonsAgeUsecase {
-  _FakeGetPersonsAgeUsecase_322(
+class _FakeGetPersonsAgeUsecase_327 extends _i1.SmartFake
+    implements _i308.GetPersonsAgeUsecase {
+  _FakeGetPersonsAgeUsecase_327(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4258,9 +4342,9 @@ class _FakeGetPersonsAgeUsecase_322 extends _i1.SmartFake
         );
 }
 
-class _FakeGetDayOfBirthFromDaysLivedUsecase_323 extends _i1.SmartFake
-    implements _i304.GetDayOfBirthFromDaysLivedUsecase {
-  _FakeGetDayOfBirthFromDaysLivedUsecase_323(
+class _FakeGetDayOfBirthFromDaysLivedUsecase_328 extends _i1.SmartFake
+    implements _i309.GetDayOfBirthFromDaysLivedUsecase {
+  _FakeGetDayOfBirthFromDaysLivedUsecase_328(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4269,9 +4353,9 @@ class _FakeGetDayOfBirthFromDaysLivedUsecase_323 extends _i1.SmartFake
         );
 }
 
-class _FakeGetDayOfNextBirthdayUsecase_324 extends _i1.SmartFake
-    implements _i305.GetDayOfNextBirthdayUsecase {
-  _FakeGetDayOfNextBirthdayUsecase_324(
+class _FakeGetDayOfNextBirthdayUsecase_329 extends _i1.SmartFake
+    implements _i310.GetDayOfNextBirthdayUsecase {
+  _FakeGetDayOfNextBirthdayUsecase_329(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4280,9 +4364,9 @@ class _FakeGetDayOfNextBirthdayUsecase_324 extends _i1.SmartFake
         );
 }
 
-class _FakeGetDaysLivedRangeForALifestageUsecase_325 extends _i1.SmartFake
-    implements _i306.GetDaysLivedRangeForALifestageUsecase {
-  _FakeGetDaysLivedRangeForALifestageUsecase_325(
+class _FakeGetDaysLivedRangeForALifestageUsecase_330 extends _i1.SmartFake
+    implements _i311.GetDaysLivedRangeForALifestageUsecase {
+  _FakeGetDaysLivedRangeForALifestageUsecase_330(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4291,9 +4375,9 @@ class _FakeGetDaysLivedRangeForALifestageUsecase_325 extends _i1.SmartFake
         );
 }
 
-class _FakeGetPersonsDaysLivedUsecase_326 extends _i1.SmartFake
-    implements _i307.GetPersonsDaysLivedUsecase {
-  _FakeGetPersonsDaysLivedUsecase_326(
+class _FakeGetPersonsDaysLivedUsecase_331 extends _i1.SmartFake
+    implements _i312.GetPersonsDaysLivedUsecase {
+  _FakeGetPersonsDaysLivedUsecase_331(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4302,9 +4386,9 @@ class _FakeGetPersonsDaysLivedUsecase_326 extends _i1.SmartFake
         );
 }
 
-class _FakeGetRandomDayOfBirthInALifeStageUsecase_327 extends _i1.SmartFake
-    implements _i308.GetRandomDayOfBirthInALifeStageUsecase {
-  _FakeGetRandomDayOfBirthInALifeStageUsecase_327(
+class _FakeGetRandomDayOfBirthInALifeStageUsecase_332 extends _i1.SmartFake
+    implements _i313.GetRandomDayOfBirthInALifeStageUsecase {
+  _FakeGetRandomDayOfBirthInALifeStageUsecase_332(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4313,9 +4397,9 @@ class _FakeGetRandomDayOfBirthInALifeStageUsecase_327 extends _i1.SmartFake
         );
 }
 
-class _FakeGetRandomDaysLivedInALifestage_328 extends _i1.SmartFake
-    implements _i309.GetRandomDaysLivedInALifestage {
-  _FakeGetRandomDaysLivedInALifestage_328(
+class _FakeGetRandomDaysLivedInALifestage_333 extends _i1.SmartFake
+    implements _i314.GetRandomDaysLivedInALifestage {
+  _FakeGetRandomDaysLivedInALifestage_333(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4324,10 +4408,10 @@ class _FakeGetRandomDaysLivedInALifestage_328 extends _i1.SmartFake
         );
 }
 
-class _FakeGetADayOfBirthFromAListOfPossibleLifeStagesUsecase_329
+class _FakeGetADayOfBirthFromAListOfPossibleLifeStagesUsecase_334
     extends _i1.SmartFake
-    implements _i310.GetADayOfBirthFromAListOfPossibleLifeStagesUsecase {
-  _FakeGetADayOfBirthFromAListOfPossibleLifeStagesUsecase_329(
+    implements _i315.GetADayOfBirthFromAListOfPossibleLifeStagesUsecase {
+  _FakeGetADayOfBirthFromAListOfPossibleLifeStagesUsecase_334(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4336,9 +4420,9 @@ class _FakeGetADayOfBirthFromAListOfPossibleLifeStagesUsecase_329
         );
 }
 
-class _FakeCheckIfPersonIsAtLeastThisAgeUsecase_330 extends _i1.SmartFake
-    implements _i311.CheckIfPersonIsAtLeastThisAgeUsecase {
-  _FakeCheckIfPersonIsAtLeastThisAgeUsecase_330(
+class _FakeCheckIfPersonIsAtLeastThisAgeUsecase_335 extends _i1.SmartFake
+    implements _i316.CheckIfPersonIsAtLeastThisAgeUsecase {
+  _FakeCheckIfPersonIsAtLeastThisAgeUsecase_335(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4347,9 +4431,9 @@ class _FakeCheckIfPersonIsAtLeastThisAgeUsecase_330 extends _i1.SmartFake
         );
 }
 
-class _FakeGetCurrentDayOfBirthRangeForALifeStageUsecase_331 extends _i1
-    .SmartFake implements _i312.GetCurrentDayOfBirthRangeForALifeStageUsecase {
-  _FakeGetCurrentDayOfBirthRangeForALifeStageUsecase_331(
+class _FakeGetCurrentDayOfBirthRangeForALifeStageUsecase_336 extends _i1
+    .SmartFake implements _i317.GetCurrentDayOfBirthRangeForALifeStageUsecase {
+  _FakeGetCurrentDayOfBirthRangeForALifeStageUsecase_336(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4358,9 +4442,9 @@ class _FakeGetCurrentDayOfBirthRangeForALifeStageUsecase_331 extends _i1
         );
 }
 
-class _FakeAgeUpCharacterActionsUsecase_332 extends _i1.SmartFake
-    implements _i313.AgeUpCharacterActionsUsecase {
-  _FakeAgeUpCharacterActionsUsecase_332(
+class _FakeAgeUpCharacterActionsUsecase_337 extends _i1.SmartFake
+    implements _i318.AgeUpCharacterActionsUsecase {
+  _FakeAgeUpCharacterActionsUsecase_337(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4369,9 +4453,9 @@ class _FakeAgeUpCharacterActionsUsecase_332 extends _i1.SmartFake
         );
 }
 
-class _FakeAgeUpToToddlerActionsUsecase_333 extends _i1.SmartFake
-    implements _i314.AgeUpToToddlerActionsUsecase {
-  _FakeAgeUpToToddlerActionsUsecase_333(
+class _FakeAgeUpToToddlerActionsUsecase_338 extends _i1.SmartFake
+    implements _i319.AgeUpToToddlerActionsUsecase {
+  _FakeAgeUpToToddlerActionsUsecase_338(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4380,9 +4464,9 @@ class _FakeAgeUpToToddlerActionsUsecase_333 extends _i1.SmartFake
         );
 }
 
-class _FakeAgeUpToChildActionsUsecase_334 extends _i1.SmartFake
-    implements _i315.AgeUpToChildActionsUsecase {
-  _FakeAgeUpToChildActionsUsecase_334(
+class _FakeAgeUpToChildActionsUsecase_339 extends _i1.SmartFake
+    implements _i320.AgeUpToChildActionsUsecase {
+  _FakeAgeUpToChildActionsUsecase_339(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4391,9 +4475,9 @@ class _FakeAgeUpToChildActionsUsecase_334 extends _i1.SmartFake
         );
 }
 
-class _FakeAgeUpToTeenActionsUsecase_335 extends _i1.SmartFake
-    implements _i316.AgeUpToTeenActionsUsecase {
-  _FakeAgeUpToTeenActionsUsecase_335(
+class _FakeAgeUpToTeenActionsUsecase_340 extends _i1.SmartFake
+    implements _i321.AgeUpToTeenActionsUsecase {
+  _FakeAgeUpToTeenActionsUsecase_340(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4402,9 +4486,9 @@ class _FakeAgeUpToTeenActionsUsecase_335 extends _i1.SmartFake
         );
 }
 
-class _FakeAgeUpToYoungAdultActionsUsecase_336 extends _i1.SmartFake
-    implements _i317.AgeUpToYoungAdultActionsUsecase {
-  _FakeAgeUpToYoungAdultActionsUsecase_336(
+class _FakeAgeUpToYoungAdultActionsUsecase_341 extends _i1.SmartFake
+    implements _i322.AgeUpToYoungAdultActionsUsecase {
+  _FakeAgeUpToYoungAdultActionsUsecase_341(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4413,9 +4497,9 @@ class _FakeAgeUpToYoungAdultActionsUsecase_336 extends _i1.SmartFake
         );
 }
 
-class _FakeAgeUpToAdultActionsUsecase_337 extends _i1.SmartFake
-    implements _i318.AgeUpToAdultActionsUsecase {
-  _FakeAgeUpToAdultActionsUsecase_337(
+class _FakeAgeUpToAdultActionsUsecase_342 extends _i1.SmartFake
+    implements _i323.AgeUpToAdultActionsUsecase {
+  _FakeAgeUpToAdultActionsUsecase_342(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4424,9 +4508,9 @@ class _FakeAgeUpToAdultActionsUsecase_337 extends _i1.SmartFake
         );
 }
 
-class _FakeAgeUpToElderActionsUsecase_338 extends _i1.SmartFake
-    implements _i319.AgeUpToElderActionsUsecase {
-  _FakeAgeUpToElderActionsUsecase_338(
+class _FakeAgeUpToElderActionsUsecase_343 extends _i1.SmartFake
+    implements _i324.AgeUpToElderActionsUsecase {
+  _FakeAgeUpToElderActionsUsecase_343(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4435,9 +4519,9 @@ class _FakeAgeUpToElderActionsUsecase_338 extends _i1.SmartFake
         );
 }
 
-class _FakeGetLastDayOfLifeStageUsecase_339 extends _i1.SmartFake
-    implements _i320.GetLastDayOfLifeStageUsecase {
-  _FakeGetLastDayOfLifeStageUsecase_339(
+class _FakeGetLastDayOfLifeStageUsecase_344 extends _i1.SmartFake
+    implements _i325.GetLastDayOfLifeStageUsecase {
+  _FakeGetLastDayOfLifeStageUsecase_344(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4446,9 +4530,20 @@ class _FakeGetLastDayOfLifeStageUsecase_339 extends _i1.SmartFake
         );
 }
 
-class _FakeGetLastWeekDayOfLifeStageUsecase_340 extends _i1.SmartFake
-    implements _i321.GetLastWeekDayOfLifeStageUsecase {
-  _FakeGetLastWeekDayOfLifeStageUsecase_340(
+class _FakeGetLastWeekDayOfLifeStageUsecase_345 extends _i1.SmartFake
+    implements _i326.GetLastWeekDayOfLifeStageUsecase {
+  _FakeGetLastWeekDayOfLifeStageUsecase_345(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGlobalKey_346<T extends _i327.State<_i327.StatefulWidget>>
+    extends _i1.SmartFake implements _i327.GlobalKey<T> {
+  _FakeGlobalKey_346(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -4478,11 +4573,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get firstName => (super.noSuchMethod(
         Invocation.getter(#firstName),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#firstName),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#firstName),
         ),
@@ -4491,11 +4586,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get lastName => (super.noSuchMethod(
         Invocation.getter(#lastName),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#lastName),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#lastName),
         ),
@@ -4511,11 +4606,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get gender => (super.noSuchMethod(
         Invocation.getter(#gender),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#gender),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#gender),
         ),
@@ -4524,11 +4619,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get subjectPronoun => (super.noSuchMethod(
         Invocation.getter(#subjectPronoun),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#subjectPronoun),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#subjectPronoun),
         ),
@@ -4537,11 +4632,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get objectPronoun => (super.noSuchMethod(
         Invocation.getter(#objectPronoun),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#objectPronoun),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#objectPronoun),
         ),
@@ -4550,11 +4645,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get possessivePronoun => (super.noSuchMethod(
         Invocation.getter(#possessivePronoun),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#possessivePronoun),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#possessivePronoun),
         ),
@@ -4563,11 +4658,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get sexuality => (super.noSuchMethod(
         Invocation.getter(#sexuality),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#sexuality),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#sexuality),
         ),
@@ -4576,11 +4671,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get currentState => (super.noSuchMethod(
         Invocation.getter(#currentState),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#currentState),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#currentState),
         ),
@@ -4589,11 +4684,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get currentCountry => (super.noSuchMethod(
         Invocation.getter(#currentCountry),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#currentCountry),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#currentCountry),
         ),
@@ -4602,11 +4697,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get birthState => (super.noSuchMethod(
         Invocation.getter(#birthState),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#birthState),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#birthState),
         ),
@@ -4615,11 +4710,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get birthCountry => (super.noSuchMethod(
         Invocation.getter(#birthCountry),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#birthCountry),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#birthCountry),
         ),
@@ -4635,11 +4730,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get emotionalState => (super.noSuchMethod(
         Invocation.getter(#emotionalState),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#emotionalState),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#emotionalState),
         ),
@@ -4648,11 +4743,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get zodiacSign => (super.noSuchMethod(
         Invocation.getter(#zodiacSign),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#zodiacSign),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#zodiacSign),
         ),
@@ -4668,11 +4763,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get transportMode => (super.noSuchMethod(
         Invocation.getter(#transportMode),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#transportMode),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#transportMode),
         ),
@@ -4681,11 +4776,11 @@ class MockPerson extends _i1.Mock implements _i2.Person {
   @override
   String get drivingMode => (super.noSuchMethod(
         Invocation.getter(#drivingMode),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#drivingMode),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#drivingMode),
         ),
@@ -4727,15 +4822,15 @@ class MockPerson extends _i1.Mock implements _i2.Person {
       ) as bool);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.PersonTableCompanion toCompanion(bool? nullToAbsent) =>
@@ -4761,7 +4856,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
       ) as _i2.PersonTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -4903,14 +4998,14 @@ class MockPerson extends _i1.Mock implements _i2.Person {
       ) as _i2.Person);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -4918,7 +5013,7 @@ class MockPerson extends _i1.Mock implements _i2.Person {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -5011,15 +5106,15 @@ class MockStats extends _i1.Mock implements _i2.Stats {
       ) as int);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.StatsTableCompanion toCompanion(bool? nullToAbsent) =>
@@ -5045,7 +5140,7 @@ class MockStats extends _i1.Mock implements _i2.Stats {
       ) as _i2.StatsTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -5131,14 +5226,14 @@ class MockStats extends _i1.Mock implements _i2.Stats {
       ) as _i2.Stats);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -5146,7 +5241,7 @@ class MockStats extends _i1.Mock implements _i2.Stats {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -5309,15 +5404,15 @@ class MockStance extends _i1.Mock implements _i2.Stance {
       ) as bool);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.StanceTableCompanion toCompanion(bool? nullToAbsent) =>
@@ -5343,7 +5438,7 @@ class MockStance extends _i1.Mock implements _i2.Stance {
       ) as _i2.StanceTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -5475,14 +5570,14 @@ class MockStance extends _i1.Mock implements _i2.Stance {
       ) as _i2.Stance);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -5490,7 +5585,7 @@ class MockStance extends _i1.Mock implements _i2.Stance {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -5504,7 +5599,7 @@ class MockStance extends _i1.Mock implements _i2.Stance {
 /// A class which mocks [PersonUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPersonUsecases extends _i1.Mock implements _i324.PersonUsecases {
+class MockPersonUsecases extends _i1.Mock implements _i330.PersonUsecases {
   @override
   _i3.GenerateAPersonUsecase get generateAPersonUsecase => (super.noSuchMethod(
         Invocation.getter(#generateAPersonUsecase),
@@ -6383,15 +6478,15 @@ class MockGame extends _i1.Mock implements _i2.Game {
       ) as int);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.GameTableCompanion toCompanion(bool? nullToAbsent) => (super.noSuchMethod(
@@ -6416,7 +6511,7 @@ class MockGame extends _i1.Mock implements _i2.Game {
       ) as _i2.GameTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -6430,7 +6525,7 @@ class MockGame extends _i1.Mock implements _i2.Game {
   @override
   _i2.Game copyWith({
     int? id,
-    _i323.Value<int?>? currentPlayerID = const _i323.Value.absent(),
+    _i329.Value<int?>? currentPlayerID = const _i329.Value.absent(),
     bool? isActive,
     int? lastPlayedTime,
     int? currentDay,
@@ -6486,14 +6581,14 @@ class MockGame extends _i1.Mock implements _i2.Game {
       ) as _i2.Game);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -6501,7 +6596,7 @@ class MockGame extends _i1.Mock implements _i2.Game {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -6515,7 +6610,7 @@ class MockGame extends _i1.Mock implements _i2.Game {
 /// A class which mocks [GameUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGameUsecases extends _i1.Mock implements _i325.GameUsecases {
+class MockGameUsecases extends _i1.Mock implements _i331.GameUsecases {
   @override
   _i62.ActionRunner get actionRunner => (super.noSuchMethod(
         Invocation.getter(#actionRunner),
@@ -6748,11 +6843,11 @@ class MockJob extends _i1.Mock implements _i2.Job {
   @override
   String get jobTitle => (super.noSuchMethod(
         Invocation.getter(#jobTitle),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#jobTitle),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#jobTitle),
         ),
@@ -6761,11 +6856,11 @@ class MockJob extends _i1.Mock implements _i2.Job {
   @override
   String get jobType => (super.noSuchMethod(
         Invocation.getter(#jobType),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#jobType),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#jobType),
         ),
@@ -6774,11 +6869,11 @@ class MockJob extends _i1.Mock implements _i2.Job {
   @override
   String get companySuffix => (super.noSuchMethod(
         Invocation.getter(#companySuffix),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#companySuffix),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#companySuffix),
         ),
@@ -6787,11 +6882,11 @@ class MockJob extends _i1.Mock implements _i2.Job {
   @override
   String get employmentType => (super.noSuchMethod(
         Invocation.getter(#employmentType),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#employmentType),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#employmentType),
         ),
@@ -6807,11 +6902,11 @@ class MockJob extends _i1.Mock implements _i2.Job {
   @override
   String get levelOneTitle => (super.noSuchMethod(
         Invocation.getter(#levelOneTitle),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#levelOneTitle),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#levelOneTitle),
         ),
@@ -6827,11 +6922,11 @@ class MockJob extends _i1.Mock implements _i2.Job {
   @override
   String get levelTwoTitle => (super.noSuchMethod(
         Invocation.getter(#levelTwoTitle),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#levelTwoTitle),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#levelTwoTitle),
         ),
@@ -6847,11 +6942,11 @@ class MockJob extends _i1.Mock implements _i2.Job {
   @override
   String get levelThreeTitle => (super.noSuchMethod(
         Invocation.getter(#levelThreeTitle),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#levelThreeTitle),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#levelThreeTitle),
         ),
@@ -6867,11 +6962,11 @@ class MockJob extends _i1.Mock implements _i2.Job {
   @override
   String get qualifiedDisciplines => (super.noSuchMethod(
         Invocation.getter(#qualifiedDisciplines),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#qualifiedDisciplines),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#qualifiedDisciplines),
         ),
@@ -6880,11 +6975,11 @@ class MockJob extends _i1.Mock implements _i2.Job {
   @override
   String get qualifiedBranches => (super.noSuchMethod(
         Invocation.getter(#qualifiedBranches),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#qualifiedBranches),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#qualifiedBranches),
         ),
@@ -6898,15 +6993,15 @@ class MockJob extends _i1.Mock implements _i2.Job {
       ) as int);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.JobTableCompanion toCompanion(bool? nullToAbsent) => (super.noSuchMethod(
@@ -6931,7 +7026,7 @@ class MockJob extends _i1.Mock implements _i2.Job {
       ) as _i2.JobTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -7033,14 +7128,14 @@ class MockJob extends _i1.Mock implements _i2.Job {
       ) as _i2.Job);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -7048,7 +7143,7 @@ class MockJob extends _i1.Mock implements _i2.Job {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -7062,7 +7157,7 @@ class MockJob extends _i1.Mock implements _i2.Job {
 /// A class which mocks [JobUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockJobUsecases extends _i1.Mock implements _i326.JobUsecases {
+class MockJobUsecases extends _i1.Mock implements _i332.JobUsecases {
   @override
   _i78.CheckIfQualifiedForFullTimeJobUsecase
       get checkIfQualifiedForFullTimeJobUsecase => (super.noSuchMethod(
@@ -7196,11 +7291,11 @@ class MockSchool extends _i1.Mock implements _i2.School {
   @override
   String get name => (super.noSuchMethod(
         Invocation.getter(#name),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#name),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#name),
         ),
@@ -7209,11 +7304,11 @@ class MockSchool extends _i1.Mock implements _i2.School {
   @override
   String get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#state),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#state),
         ),
@@ -7222,11 +7317,11 @@ class MockSchool extends _i1.Mock implements _i2.School {
   @override
   String get country => (super.noSuchMethod(
         Invocation.getter(#country),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#country),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#country),
         ),
@@ -7235,26 +7330,26 @@ class MockSchool extends _i1.Mock implements _i2.School {
   @override
   String get tier => (super.noSuchMethod(
         Invocation.getter(#tier),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#tier),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#tier),
         ),
       ) as String);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.SchoolTableCompanion toCompanion(bool? nullToAbsent) =>
@@ -7280,7 +7375,7 @@ class MockSchool extends _i1.Mock implements _i2.School {
       ) as _i2.SchoolTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -7342,14 +7437,14 @@ class MockSchool extends _i1.Mock implements _i2.School {
       ) as _i2.School);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -7357,7 +7452,7 @@ class MockSchool extends _i1.Mock implements _i2.School {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -7404,11 +7499,11 @@ class MockSchoolRelationship extends _i1.Mock
   @override
   String get schoolRelationshipType => (super.noSuchMethod(
         Invocation.getter(#schoolRelationshipType),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#schoolRelationshipType),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#schoolRelationshipType),
         ),
@@ -7417,11 +7512,11 @@ class MockSchoolRelationship extends _i1.Mock
   @override
   String get informalRelationshipType => (super.noSuchMethod(
         Invocation.getter(#informalRelationshipType),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#informalRelationshipType),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#informalRelationshipType),
         ),
@@ -7451,26 +7546,26 @@ class MockSchoolRelationship extends _i1.Mock
   @override
   String get personalityType => (super.noSuchMethod(
         Invocation.getter(#personalityType),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#personalityType),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#personalityType),
         ),
       ) as String);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.SchoolRelationshipTableCompanion toCompanion(bool? nullToAbsent) =>
@@ -7496,7 +7591,7 @@ class MockSchoolRelationship extends _i1.Mock
       ) as _i2.SchoolRelationshipTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -7578,14 +7673,14 @@ class MockSchoolRelationship extends _i1.Mock
       ) as _i2.SchoolRelationship);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -7593,7 +7688,7 @@ class MockSchoolRelationship extends _i1.Mock
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -7665,15 +7760,15 @@ class MockSchoolProject extends _i1.Mock implements _i2.SchoolProject {
       ) as bool);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.SchoolProjectTableCompanion toCompanion(bool? nullToAbsent) =>
@@ -7699,7 +7794,7 @@ class MockSchoolProject extends _i1.Mock implements _i2.SchoolProject {
       ) as _i2.SchoolProjectTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -7776,14 +7871,14 @@ class MockSchoolProject extends _i1.Mock implements _i2.SchoolProject {
       ) as _i2.SchoolProject);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -7791,7 +7886,7 @@ class MockSchoolProject extends _i1.Mock implements _i2.SchoolProject {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -7805,7 +7900,7 @@ class MockSchoolProject extends _i1.Mock implements _i2.SchoolProject {
 /// A class which mocks [SchoolUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSchoolUsecases extends _i1.Mock implements _i327.SchoolUsecases {
+class MockSchoolUsecases extends _i1.Mock implements _i333.SchoolUsecases {
   @override
   _i86.GetCompletedDegreesUsecase get getCompletedDegreesUsecase =>
       (super.noSuchMethod(
@@ -8689,26 +8784,26 @@ class MockJournal extends _i1.Mock implements _i2.Journal {
   @override
   String get entry => (super.noSuchMethod(
         Invocation.getter(#entry),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#entry),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#entry),
         ),
       ) as String);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.JournalTableCompanion toCompanion(bool? nullToAbsent) =>
@@ -8734,7 +8829,7 @@ class MockJournal extends _i1.Mock implements _i2.Journal {
       ) as _i2.JournalTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -8792,14 +8887,14 @@ class MockJournal extends _i1.Mock implements _i2.Journal {
       ) as _i2.Journal);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -8807,7 +8902,7 @@ class MockJournal extends _i1.Mock implements _i2.Journal {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -8821,7 +8916,7 @@ class MockJournal extends _i1.Mock implements _i2.Journal {
 /// A class which mocks [JournalUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockJournalUsecases extends _i1.Mock implements _i328.JournalUsecases {
+class MockJournalUsecases extends _i1.Mock implements _i334.JournalUsecases {
   @override
   _i144.AddToJournalUsecase get addToJournalUsecase => (super.noSuchMethod(
         Invocation.getter(#addToJournalUsecase),
@@ -8912,11 +9007,11 @@ class MockEvent extends _i1.Mock implements _i2.Event {
   @override
   String get eventType => (super.noSuchMethod(
         Invocation.getter(#eventType),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#eventType),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#eventType),
         ),
@@ -8944,15 +9039,15 @@ class MockEvent extends _i1.Mock implements _i2.Event {
       ) as bool);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.EventTableCompanion toCompanion(bool? nullToAbsent) =>
@@ -8978,7 +9073,7 @@ class MockEvent extends _i1.Mock implements _i2.Event {
       ) as _i2.EventTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -8996,9 +9091,9 @@ class MockEvent extends _i1.Mock implements _i2.Event {
     String? eventType,
     int? eventDay,
     int? mainPersonId,
-    _i323.Value<int?>? otherPersonId = const _i323.Value.absent(),
-    _i323.Value<int?>? startTime = const _i323.Value.absent(),
-    _i323.Value<int?>? endTime = const _i323.Value.absent(),
+    _i329.Value<int?>? otherPersonId = const _i329.Value.absent(),
+    _i329.Value<int?>? startTime = const _i329.Value.absent(),
+    _i329.Value<int?>? endTime = const _i329.Value.absent(),
     bool? performed,
   }) =>
       (super.noSuchMethod(
@@ -9056,14 +9151,14 @@ class MockEvent extends _i1.Mock implements _i2.Event {
       ) as _i2.Event);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -9071,7 +9166,7 @@ class MockEvent extends _i1.Mock implements _i2.Event {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -9085,7 +9180,7 @@ class MockEvent extends _i1.Mock implements _i2.Event {
 /// A class which mocks [EventManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEventManager extends _i1.Mock implements _i329.EventManager {
+class MockEventManager extends _i1.Mock implements _i335.EventManager {
   @override
   _i149.RunScheduledEventsForTheDay get runScheduledEventsForTheDay =>
       (super.noSuchMethod(
@@ -9218,11 +9313,11 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
   @override
   String get billType => (super.noSuchMethod(
         Invocation.getter(#billType),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#billType),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#billType),
         ),
@@ -9231,11 +9326,11 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
   @override
   String get billDescription => (super.noSuchMethod(
         Invocation.getter(#billDescription),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.getter(#billDescription),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.getter(#billDescription),
         ),
@@ -9284,15 +9379,15 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
       ) as bool);
 
   @override
-  Map<String, _i323.Expression<Object>> toColumns(bool? nullToAbsent) =>
+  Map<String, _i329.Expression<Object>> toColumns(bool? nullToAbsent) =>
       (super.noSuchMethod(
         Invocation.method(
           #toColumns,
           [nullToAbsent],
         ),
-        returnValue: <String, _i323.Expression<Object>>{},
-        returnValueForMissingStub: <String, _i323.Expression<Object>>{},
-      ) as Map<String, _i323.Expression<Object>>);
+        returnValue: <String, _i329.Expression<Object>>{},
+        returnValueForMissingStub: <String, _i329.Expression<Object>>{},
+      ) as Map<String, _i329.Expression<Object>>);
 
   @override
   _i2.RecurringBillTableCompanion toCompanion(bool? nullToAbsent) =>
@@ -9318,7 +9413,7 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
       ) as _i2.RecurringBillTableCompanion);
 
   @override
-  Map<String, dynamic> toJson({_i323.ValueSerializer? serializer}) =>
+  Map<String, dynamic> toJson({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJson,
@@ -9400,14 +9495,14 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
       ) as _i2.RecurringBill);
 
   @override
-  String toJsonString({_i323.ValueSerializer? serializer}) =>
+  String toJsonString({_i329.ValueSerializer? serializer}) =>
       (super.noSuchMethod(
         Invocation.method(
           #toJsonString,
           [],
           {#serializer: serializer},
         ),
-        returnValue: _i322.dummyValue<String>(
+        returnValue: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -9415,7 +9510,7 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
             {#serializer: serializer},
           ),
         ),
-        returnValueForMissingStub: _i322.dummyValue<String>(
+        returnValueForMissingStub: _i328.dummyValue<String>(
           this,
           Invocation.method(
             #toJsonString,
@@ -9430,7 +9525,7 @@ class MockRecurringBill extends _i1.Mock implements _i2.RecurringBill {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRecurringBillsUsecases extends _i1.Mock
-    implements _i330.RecurringBillsUsecases {
+    implements _i336.RecurringBillsUsecases {
   @override
   _i157.AddRentToBillsUsecase get addRentToBillsUsecase => (super.noSuchMethod(
         Invocation.getter(#addRentToBillsUsecase),
@@ -9717,1299 +9812,1384 @@ class MockRecurringBillsUsecases extends _i1.Mock
           Invocation.getter(#baseLoanAmountCalculatorUsecase),
         ),
       ) as _i176.BaseLoanAmountCalculatorUsecase);
+
+  @override
+  _i177.ExpectedReserveForMultipleMortgageCalculatorUsecase
+      get expectedReserveForMultipleMortgageCalculatorUsecase =>
+          (super.noSuchMethod(
+            Invocation.getter(
+                #expectedReserveForMultipleMortgageCalculatorUsecase),
+            returnValue:
+                _FakeExpectedReserveForMultipleMortgageCalculatorUsecase_196(
+              this,
+              Invocation.getter(
+                  #expectedReserveForMultipleMortgageCalculatorUsecase),
+            ),
+            returnValueForMissingStub:
+                _FakeExpectedReserveForMultipleMortgageCalculatorUsecase_196(
+              this,
+              Invocation.getter(
+                  #expectedReserveForMultipleMortgageCalculatorUsecase),
+            ),
+          ) as _i177.ExpectedReserveForMultipleMortgageCalculatorUsecase);
+
+  @override
+  _i178.GetCalculatedCarLoanInformationUsecase
+      get getCalculatedCarLoanInformationUsecase => (super.noSuchMethod(
+            Invocation.getter(#getCalculatedCarLoanInformationUsecase),
+            returnValue: _FakeGetCalculatedCarLoanInformationUsecase_197(
+              this,
+              Invocation.getter(#getCalculatedCarLoanInformationUsecase),
+            ),
+            returnValueForMissingStub:
+                _FakeGetCalculatedCarLoanInformationUsecase_197(
+              this,
+              Invocation.getter(#getCalculatedCarLoanInformationUsecase),
+            ),
+          ) as _i178.GetCalculatedCarLoanInformationUsecase);
+
+  @override
+  _i179.GetCalculatedMortgageLoanInformationUsecase
+      get getCalculatedMortgageLoanInformationUsecase => (super.noSuchMethod(
+            Invocation.getter(#getCalculatedMortgageLoanInformationUsecase),
+            returnValue: _FakeGetCalculatedMortgageLoanInformationUsecase_198(
+              this,
+              Invocation.getter(#getCalculatedMortgageLoanInformationUsecase),
+            ),
+            returnValueForMissingStub:
+                _FakeGetCalculatedMortgageLoanInformationUsecase_198(
+              this,
+              Invocation.getter(#getCalculatedMortgageLoanInformationUsecase),
+            ),
+          ) as _i179.GetCalculatedMortgageLoanInformationUsecase);
+
+  @override
+  _i180.GetCalculatedStudentLoanInformationUsecase
+      get getCalculatedStudentLoanInformationUsecase => (super.noSuchMethod(
+            Invocation.getter(#getCalculatedStudentLoanInformationUsecase),
+            returnValue: _FakeGetCalculatedStudentLoanInformationUsecase_199(
+              this,
+              Invocation.getter(#getCalculatedStudentLoanInformationUsecase),
+            ),
+            returnValueForMissingStub:
+                _FakeGetCalculatedStudentLoanInformationUsecase_199(
+              this,
+              Invocation.getter(#getCalculatedStudentLoanInformationUsecase),
+            ),
+          ) as _i180.GetCalculatedStudentLoanInformationUsecase);
+
+  @override
+  _i181.GetCalculatedLoanInformationUsingBillTypeUsecase
+      get getCalculatedLoanInformationUsingBillTypeUsecase =>
+          (super.noSuchMethod(
+            Invocation.getter(
+                #getCalculatedLoanInformationUsingBillTypeUsecase),
+            returnValue:
+                _FakeGetCalculatedLoanInformationUsingBillTypeUsecase_200(
+              this,
+              Invocation.getter(
+                  #getCalculatedLoanInformationUsingBillTypeUsecase),
+            ),
+            returnValueForMissingStub:
+                _FakeGetCalculatedLoanInformationUsingBillTypeUsecase_200(
+              this,
+              Invocation.getter(
+                  #getCalculatedLoanInformationUsingBillTypeUsecase),
+            ),
+          ) as _i181.GetCalculatedLoanInformationUsingBillTypeUsecase);
 }
 
 /// A class which mocks [RelationshipUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRelationshipUsecases extends _i1.Mock
-    implements _i331.RelationshipUsecases {
+    implements _i337.RelationshipUsecases {
   @override
-  _i177.GetChildrenThroughDeductionUsecase
+  _i182.GetChildrenThroughDeductionUsecase
       get getChildrenThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getChildrenThroughDeductionUsecase),
-            returnValue: _FakeGetChildrenThroughDeductionUsecase_196(
+            returnValue: _FakeGetChildrenThroughDeductionUsecase_201(
               this,
               Invocation.getter(#getChildrenThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetChildrenThroughDeductionUsecase_196(
+                _FakeGetChildrenThroughDeductionUsecase_201(
               this,
               Invocation.getter(#getChildrenThroughDeductionUsecase),
             ),
-          ) as _i177.GetChildrenThroughDeductionUsecase);
+          ) as _i182.GetChildrenThroughDeductionUsecase);
 
   @override
-  _i178.GetCousinsThroughDeductionUsecase
+  _i183.GetCousinsThroughDeductionUsecase
       get getCousinsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getCousinsThroughDeductionUsecase),
-            returnValue: _FakeGetCousinsThroughDeductionUsecase_197(
+            returnValue: _FakeGetCousinsThroughDeductionUsecase_202(
               this,
               Invocation.getter(#getCousinsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetCousinsThroughDeductionUsecase_197(
+                _FakeGetCousinsThroughDeductionUsecase_202(
               this,
               Invocation.getter(#getCousinsThroughDeductionUsecase),
             ),
-          ) as _i178.GetCousinsThroughDeductionUsecase);
+          ) as _i183.GetCousinsThroughDeductionUsecase);
 
   @override
-  _i179.GetGrandCousinsThroughDeductionUsecase
+  _i184.GetGrandCousinsThroughDeductionUsecase
       get getGrandCousinsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getGrandCousinsThroughDeductionUsecase),
-            returnValue: _FakeGetGrandCousinsThroughDeductionUsecase_198(
+            returnValue: _FakeGetGrandCousinsThroughDeductionUsecase_203(
               this,
               Invocation.getter(#getGrandCousinsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetGrandCousinsThroughDeductionUsecase_198(
+                _FakeGetGrandCousinsThroughDeductionUsecase_203(
               this,
               Invocation.getter(#getGrandCousinsThroughDeductionUsecase),
             ),
-          ) as _i179.GetGrandCousinsThroughDeductionUsecase);
+          ) as _i184.GetGrandCousinsThroughDeductionUsecase);
 
   @override
-  _i180.GetGrandChildrenThroughDeductionUsecase
+  _i185.GetGrandChildrenThroughDeductionUsecase
       get getGrandChildrenThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getGrandChildrenThroughDeductionUsecase),
-            returnValue: _FakeGetGrandChildrenThroughDeductionUsecase_199(
+            returnValue: _FakeGetGrandChildrenThroughDeductionUsecase_204(
               this,
               Invocation.getter(#getGrandChildrenThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetGrandChildrenThroughDeductionUsecase_199(
+                _FakeGetGrandChildrenThroughDeductionUsecase_204(
               this,
               Invocation.getter(#getGrandChildrenThroughDeductionUsecase),
             ),
-          ) as _i180.GetGrandChildrenThroughDeductionUsecase);
+          ) as _i185.GetGrandChildrenThroughDeductionUsecase);
 
   @override
-  _i181.GetGrandParentsThroughDeductionUsecase
+  _i186.GetGrandParentsThroughDeductionUsecase
       get getGrandParentsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getGrandParentsThroughDeductionUsecase),
-            returnValue: _FakeGetGrandParentsThroughDeductionUsecase_200(
+            returnValue: _FakeGetGrandParentsThroughDeductionUsecase_205(
               this,
               Invocation.getter(#getGrandParentsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetGrandParentsThroughDeductionUsecase_200(
+                _FakeGetGrandParentsThroughDeductionUsecase_205(
               this,
               Invocation.getter(#getGrandParentsThroughDeductionUsecase),
             ),
-          ) as _i181.GetGrandParentsThroughDeductionUsecase);
+          ) as _i186.GetGrandParentsThroughDeductionUsecase);
 
   @override
-  _i182.GetGreatGrandParentsThroughDeductionUsecase
+  _i187.GetGreatGrandParentsThroughDeductionUsecase
       get getGreatGrandParentsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getGreatGrandParentsThroughDeductionUsecase),
-            returnValue: _FakeGetGreatGrandParentsThroughDeductionUsecase_201(
+            returnValue: _FakeGetGreatGrandParentsThroughDeductionUsecase_206(
               this,
               Invocation.getter(#getGreatGrandParentsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetGreatGrandParentsThroughDeductionUsecase_201(
+                _FakeGetGreatGrandParentsThroughDeductionUsecase_206(
               this,
               Invocation.getter(#getGreatGrandParentsThroughDeductionUsecase),
             ),
-          ) as _i182.GetGreatGrandParentsThroughDeductionUsecase);
+          ) as _i187.GetGreatGrandParentsThroughDeductionUsecase);
 
   @override
-  _i183.GetGreatGrandChildrenThroughDeductionUsecase
+  _i188.GetGreatGrandChildrenThroughDeductionUsecase
       get getGreatGrandChildrenThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getGreatGrandChildrenThroughDeductionUsecase),
-            returnValue: _FakeGetGreatGrandChildrenThroughDeductionUsecase_202(
+            returnValue: _FakeGetGreatGrandChildrenThroughDeductionUsecase_207(
               this,
               Invocation.getter(#getGreatGrandChildrenThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetGreatGrandChildrenThroughDeductionUsecase_202(
+                _FakeGetGreatGrandChildrenThroughDeductionUsecase_207(
               this,
               Invocation.getter(#getGreatGrandChildrenThroughDeductionUsecase),
             ),
-          ) as _i183.GetGreatGrandChildrenThroughDeductionUsecase);
+          ) as _i188.GetGreatGrandChildrenThroughDeductionUsecase);
 
   @override
-  _i184.GetNiblingsThroughDeductionUsecase
+  _i189.GetNiblingsThroughDeductionUsecase
       get getNiblingsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getNiblingsThroughDeductionUsecase),
-            returnValue: _FakeGetNiblingsThroughDeductionUsecase_203(
+            returnValue: _FakeGetNiblingsThroughDeductionUsecase_208(
               this,
               Invocation.getter(#getNiblingsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetNiblingsThroughDeductionUsecase_203(
+                _FakeGetNiblingsThroughDeductionUsecase_208(
               this,
               Invocation.getter(#getNiblingsThroughDeductionUsecase),
             ),
-          ) as _i184.GetNiblingsThroughDeductionUsecase);
+          ) as _i189.GetNiblingsThroughDeductionUsecase);
 
   @override
-  _i185.GetGrandNiblingsThroughDeductionUsecase
+  _i190.GetGrandNiblingsThroughDeductionUsecase
       get getGrandNiblingsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getGrandNiblingsThroughDeductionUsecase),
-            returnValue: _FakeGetGrandNiblingsThroughDeductionUsecase_204(
+            returnValue: _FakeGetGrandNiblingsThroughDeductionUsecase_209(
               this,
               Invocation.getter(#getGrandNiblingsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetGrandNiblingsThroughDeductionUsecase_204(
+                _FakeGetGrandNiblingsThroughDeductionUsecase_209(
               this,
               Invocation.getter(#getGrandNiblingsThroughDeductionUsecase),
             ),
-          ) as _i185.GetGrandNiblingsThroughDeductionUsecase);
+          ) as _i190.GetGrandNiblingsThroughDeductionUsecase);
 
   @override
-  _i186.GetParentsThroughDeductionUsecase
+  _i191.GetParentsThroughDeductionUsecase
       get getParentsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getParentsThroughDeductionUsecase),
-            returnValue: _FakeGetParentsThroughDeductionUsecase_205(
+            returnValue: _FakeGetParentsThroughDeductionUsecase_210(
               this,
               Invocation.getter(#getParentsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetParentsThroughDeductionUsecase_205(
+                _FakeGetParentsThroughDeductionUsecase_210(
               this,
               Invocation.getter(#getParentsThroughDeductionUsecase),
             ),
-          ) as _i186.GetParentsThroughDeductionUsecase);
+          ) as _i191.GetParentsThroughDeductionUsecase);
 
   @override
-  _i187.GetPiblingsThroughDeductionUsecase
+  _i192.GetPiblingsThroughDeductionUsecase
       get getPiblingsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getPiblingsThroughDeductionUsecase),
-            returnValue: _FakeGetPiblingsThroughDeductionUsecase_206(
+            returnValue: _FakeGetPiblingsThroughDeductionUsecase_211(
               this,
               Invocation.getter(#getPiblingsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetPiblingsThroughDeductionUsecase_206(
+                _FakeGetPiblingsThroughDeductionUsecase_211(
               this,
               Invocation.getter(#getPiblingsThroughDeductionUsecase),
             ),
-          ) as _i187.GetPiblingsThroughDeductionUsecase);
+          ) as _i192.GetPiblingsThroughDeductionUsecase);
 
   @override
-  _i188.GetSiblingsThroughDeductionUsecase
+  _i193.GetSiblingsThroughDeductionUsecase
       get getSiblingsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getSiblingsThroughDeductionUsecase),
-            returnValue: _FakeGetSiblingsThroughDeductionUsecase_207(
+            returnValue: _FakeGetSiblingsThroughDeductionUsecase_212(
               this,
               Invocation.getter(#getSiblingsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetSiblingsThroughDeductionUsecase_207(
+                _FakeGetSiblingsThroughDeductionUsecase_212(
               this,
               Invocation.getter(#getSiblingsThroughDeductionUsecase),
             ),
-          ) as _i188.GetSiblingsThroughDeductionUsecase);
+          ) as _i193.GetSiblingsThroughDeductionUsecase);
 
   @override
-  _i189.GetGreatGrandCousinsThroughDeductionUsecase
+  _i194.GetGreatGrandCousinsThroughDeductionUsecase
       get getGreatGrandCousinsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getGreatGrandCousinsThroughDeductionUsecase),
-            returnValue: _FakeGetGreatGrandCousinsThroughDeductionUsecase_208(
+            returnValue: _FakeGetGreatGrandCousinsThroughDeductionUsecase_213(
               this,
               Invocation.getter(#getGreatGrandCousinsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetGreatGrandCousinsThroughDeductionUsecase_208(
+                _FakeGetGreatGrandCousinsThroughDeductionUsecase_213(
               this,
               Invocation.getter(#getGreatGrandCousinsThroughDeductionUsecase),
             ),
-          ) as _i189.GetGreatGrandCousinsThroughDeductionUsecase);
+          ) as _i194.GetGreatGrandCousinsThroughDeductionUsecase);
 
   @override
-  _i190.GetGreatGrandNiblingsThroughDeductionUsecase
+  _i195.GetGreatGrandNiblingsThroughDeductionUsecase
       get getGreatGrandNiblingsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getGreatGrandNiblingsThroughDeductionUsecase),
-            returnValue: _FakeGetGreatGrandNiblingsThroughDeductionUsecase_209(
+            returnValue: _FakeGetGreatGrandNiblingsThroughDeductionUsecase_214(
               this,
               Invocation.getter(#getGreatGrandNiblingsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetGreatGrandNiblingsThroughDeductionUsecase_209(
+                _FakeGetGreatGrandNiblingsThroughDeductionUsecase_214(
               this,
               Invocation.getter(#getGreatGrandNiblingsThroughDeductionUsecase),
             ),
-          ) as _i190.GetGreatGrandNiblingsThroughDeductionUsecase);
+          ) as _i195.GetGreatGrandNiblingsThroughDeductionUsecase);
 
   @override
-  _i191.GetParentInLawsThroughDeductionUsecase
+  _i196.GetParentInLawsThroughDeductionUsecase
       get getParentInLawsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getParentInLawsThroughDeductionUsecase),
-            returnValue: _FakeGetParentInLawsThroughDeductionUsecase_210(
+            returnValue: _FakeGetParentInLawsThroughDeductionUsecase_215(
               this,
               Invocation.getter(#getParentInLawsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetParentInLawsThroughDeductionUsecase_210(
+                _FakeGetParentInLawsThroughDeductionUsecase_215(
               this,
               Invocation.getter(#getParentInLawsThroughDeductionUsecase),
             ),
-          ) as _i191.GetParentInLawsThroughDeductionUsecase);
+          ) as _i196.GetParentInLawsThroughDeductionUsecase);
 
   @override
-  _i192.GetSiblingInLawsThroughDeductionUsecase
+  _i197.GetSiblingInLawsThroughDeductionUsecase
       get getSiblingInLawsThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getSiblingInLawsThroughDeductionUsecase),
-            returnValue: _FakeGetSiblingInLawsThroughDeductionUsecase_211(
+            returnValue: _FakeGetSiblingInLawsThroughDeductionUsecase_216(
               this,
               Invocation.getter(#getSiblingInLawsThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetSiblingInLawsThroughDeductionUsecase_211(
+                _FakeGetSiblingInLawsThroughDeductionUsecase_216(
               this,
               Invocation.getter(#getSiblingInLawsThroughDeductionUsecase),
             ),
-          ) as _i192.GetSiblingInLawsThroughDeductionUsecase);
+          ) as _i197.GetSiblingInLawsThroughDeductionUsecase);
 
   @override
-  _i193.GetChildrenInLawThroughDeductionUsecase
+  _i198.GetChildrenInLawThroughDeductionUsecase
       get getChildrenInLawThroughDeductionUsecase => (super.noSuchMethod(
             Invocation.getter(#getChildrenInLawThroughDeductionUsecase),
-            returnValue: _FakeGetChildrenInLawThroughDeductionUsecase_212(
+            returnValue: _FakeGetChildrenInLawThroughDeductionUsecase_217(
               this,
               Invocation.getter(#getChildrenInLawThroughDeductionUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetChildrenInLawThroughDeductionUsecase_212(
+                _FakeGetChildrenInLawThroughDeductionUsecase_217(
               this,
               Invocation.getter(#getChildrenInLawThroughDeductionUsecase),
             ),
-          ) as _i193.GetChildrenInLawThroughDeductionUsecase);
+          ) as _i198.GetChildrenInLawThroughDeductionUsecase);
 
   @override
-  _i194.AddChildToNPCFamilyUsecase get addChildToNPCFamilyUsecase =>
+  _i199.AddChildToNPCFamilyUsecase get addChildToNPCFamilyUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#addChildToNPCFamilyUsecase),
-        returnValue: _FakeAddChildToNPCFamilyUsecase_213(
+        returnValue: _FakeAddChildToNPCFamilyUsecase_218(
           this,
           Invocation.getter(#addChildToNPCFamilyUsecase),
         ),
-        returnValueForMissingStub: _FakeAddChildToNPCFamilyUsecase_213(
+        returnValueForMissingStub: _FakeAddChildToNPCFamilyUsecase_218(
           this,
           Invocation.getter(#addChildToNPCFamilyUsecase),
         ),
-      ) as _i194.AddChildToNPCFamilyUsecase);
+      ) as _i199.AddChildToNPCFamilyUsecase);
 
   @override
-  _i195.CheckIfPersonIsInPlayerFamilyLineageUsecase
+  _i200.CheckIfPersonIsInPlayerFamilyLineageUsecase
       get checkIfPersonIsInPlayerFamilyLineageUsecase => (super.noSuchMethod(
             Invocation.getter(#checkIfPersonIsInPlayerFamilyLineageUsecase),
-            returnValue: _FakeCheckIfPersonIsInPlayerFamilyLineageUsecase_214(
+            returnValue: _FakeCheckIfPersonIsInPlayerFamilyLineageUsecase_219(
               this,
               Invocation.getter(#checkIfPersonIsInPlayerFamilyLineageUsecase),
             ),
             returnValueForMissingStub:
-                _FakeCheckIfPersonIsInPlayerFamilyLineageUsecase_214(
+                _FakeCheckIfPersonIsInPlayerFamilyLineageUsecase_219(
               this,
               Invocation.getter(#checkIfPersonIsInPlayerFamilyLineageUsecase),
             ),
-          ) as _i195.CheckIfPersonIsInPlayerFamilyLineageUsecase);
+          ) as _i200.CheckIfPersonIsInPlayerFamilyLineageUsecase);
 
   @override
-  _i196.CreateParentChildLinkUsecase get createParentChildLinkUsecase =>
+  _i201.CreateParentChildLinkUsecase get createParentChildLinkUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#createParentChildLinkUsecase),
-        returnValue: _FakeCreateParentChildLinkUsecase_215(
+        returnValue: _FakeCreateParentChildLinkUsecase_220(
           this,
           Invocation.getter(#createParentChildLinkUsecase),
         ),
-        returnValueForMissingStub: _FakeCreateParentChildLinkUsecase_215(
+        returnValueForMissingStub: _FakeCreateParentChildLinkUsecase_220(
           this,
           Invocation.getter(#createParentChildLinkUsecase),
         ),
-      ) as _i196.CreateParentChildLinkUsecase);
+      ) as _i201.CreateParentChildLinkUsecase);
 
   @override
-  _i197.CreateRelationshipUsecase get createRelationshipUsecase =>
+  _i202.CreateRelationshipUsecase get createRelationshipUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#createRelationshipUsecase),
-        returnValue: _FakeCreateRelationshipUsecase_216(
+        returnValue: _FakeCreateRelationshipUsecase_221(
           this,
           Invocation.getter(#createRelationshipUsecase),
         ),
-        returnValueForMissingStub: _FakeCreateRelationshipUsecase_216(
+        returnValueForMissingStub: _FakeCreateRelationshipUsecase_221(
           this,
           Invocation.getter(#createRelationshipUsecase),
         ),
-      ) as _i197.CreateRelationshipUsecase);
+      ) as _i202.CreateRelationshipUsecase);
 
   @override
-  _i198.GetRelationshipUsecase get getRelationshipUsecase =>
+  _i203.GetRelationshipUsecase get getRelationshipUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getRelationshipUsecase),
-        returnValue: _FakeGetRelationshipUsecase_217(
+        returnValue: _FakeGetRelationshipUsecase_222(
           this,
           Invocation.getter(#getRelationshipUsecase),
         ),
-        returnValueForMissingStub: _FakeGetRelationshipUsecase_217(
+        returnValueForMissingStub: _FakeGetRelationshipUsecase_222(
           this,
           Invocation.getter(#getRelationshipUsecase),
         ),
-      ) as _i198.GetRelationshipUsecase);
+      ) as _i203.GetRelationshipUsecase);
 
   @override
-  _i199.UpdateRelationshipUsecase get updateRelationshipUsecase =>
+  _i204.UpdateRelationshipUsecase get updateRelationshipUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#updateRelationshipUsecase),
-        returnValue: _FakeUpdateRelationshipUsecase_218(
+        returnValue: _FakeUpdateRelationshipUsecase_223(
           this,
           Invocation.getter(#updateRelationshipUsecase),
         ),
-        returnValueForMissingStub: _FakeUpdateRelationshipUsecase_218(
+        returnValueForMissingStub: _FakeUpdateRelationshipUsecase_223(
           this,
           Invocation.getter(#updateRelationshipUsecase),
         ),
-      ) as _i199.UpdateRelationshipUsecase);
+      ) as _i204.UpdateRelationshipUsecase);
 
   @override
-  _i200.UpdateRelationshipLevelUsecase get updateRelationshipLevelUsecase =>
+  _i205.UpdateRelationshipLevelUsecase get updateRelationshipLevelUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#updateRelationshipLevelUsecase),
-        returnValue: _FakeUpdateRelationshipLevelUsecase_219(
+        returnValue: _FakeUpdateRelationshipLevelUsecase_224(
           this,
           Invocation.getter(#updateRelationshipLevelUsecase),
         ),
-        returnValueForMissingStub: _FakeUpdateRelationshipLevelUsecase_219(
+        returnValueForMissingStub: _FakeUpdateRelationshipLevelUsecase_224(
           this,
           Invocation.getter(#updateRelationshipLevelUsecase),
         ),
-      ) as _i200.UpdateRelationshipLevelUsecase);
+      ) as _i205.UpdateRelationshipLevelUsecase);
 
   @override
-  _i201.ConvertRelationshipToGraveUsecase
+  _i206.ConvertRelationshipToGraveUsecase
       get convertRelationshipToGraveUsecase => (super.noSuchMethod(
             Invocation.getter(#convertRelationshipToGraveUsecase),
-            returnValue: _FakeConvertRelationshipToGraveUsecase_220(
+            returnValue: _FakeConvertRelationshipToGraveUsecase_225(
               this,
               Invocation.getter(#convertRelationshipToGraveUsecase),
             ),
             returnValueForMissingStub:
-                _FakeConvertRelationshipToGraveUsecase_220(
+                _FakeConvertRelationshipToGraveUsecase_225(
               this,
               Invocation.getter(#convertRelationshipToGraveUsecase),
             ),
-          ) as _i201.ConvertRelationshipToGraveUsecase);
+          ) as _i206.ConvertRelationshipToGraveUsecase);
 
   @override
-  _i202.FindPersonsFamilialRelationshipToPlayerThroughParentUsecase
+  _i207.FindPersonsFamilialRelationshipToPlayerThroughParentUsecase
       get findPersonsFamilialRelationshipToPlayerThroughParentUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #findPersonsFamilialRelationshipToPlayerThroughParentUsecase),
             returnValue:
-                _FakeFindPersonsFamilialRelationshipToPlayerThroughParentUsecase_221(
+                _FakeFindPersonsFamilialRelationshipToPlayerThroughParentUsecase_226(
               this,
               Invocation.getter(
                   #findPersonsFamilialRelationshipToPlayerThroughParentUsecase),
             ),
             returnValueForMissingStub:
-                _FakeFindPersonsFamilialRelationshipToPlayerThroughParentUsecase_221(
+                _FakeFindPersonsFamilialRelationshipToPlayerThroughParentUsecase_226(
               this,
               Invocation.getter(
                   #findPersonsFamilialRelationshipToPlayerThroughParentUsecase),
             ),
-          ) as _i202
+          ) as _i207
               .FindPersonsFamilialRelationshipToPlayerThroughParentUsecase);
 
   @override
-  _i203.ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
+  _i208.ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
       get processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase),
             returnValue:
-                _FakeProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase_222(
+                _FakeProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase_227(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase),
             ),
             returnValueForMissingStub:
-                _FakeProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase_222(
+                _FakeProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase_227(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase),
             ),
-          ) as _i203
+          ) as _i208
               .ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase);
 
   @override
-  _i204.CreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase
+  _i209.CreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase
       get createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase),
             returnValue:
-                _FakeCreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase_223(
+                _FakeCreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase_228(
               this,
               Invocation.getter(
                   #createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase),
             ),
             returnValueForMissingStub:
-                _FakeCreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase_223(
+                _FakeCreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase_228(
               this,
               Invocation.getter(
                   #createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase),
             ),
-          ) as _i204
+          ) as _i209
               .CreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase);
 
   @override
-  _i205.CreatePlatonicRelationshipOrGraveUsecase
+  _i210.CreatePlatonicRelationshipOrGraveUsecase
       get createPlatonicRelationshipOrGraveUsecase => (super.noSuchMethod(
             Invocation.getter(#createPlatonicRelationshipOrGraveUsecase),
-            returnValue: _FakeCreatePlatonicRelationshipOrGraveUsecase_224(
+            returnValue: _FakeCreatePlatonicRelationshipOrGraveUsecase_229(
               this,
               Invocation.getter(#createPlatonicRelationshipOrGraveUsecase),
             ),
             returnValueForMissingStub:
-                _FakeCreatePlatonicRelationshipOrGraveUsecase_224(
+                _FakeCreatePlatonicRelationshipOrGraveUsecase_229(
               this,
               Invocation.getter(#createPlatonicRelationshipOrGraveUsecase),
             ),
-          ) as _i205.CreatePlatonicRelationshipOrGraveUsecase);
+          ) as _i210.CreatePlatonicRelationshipOrGraveUsecase);
 
   @override
-  _i206.FindPersonsRelationshipWithFamilyMembersSpouseUsecase
+  _i211.FindPersonsRelationshipWithFamilyMembersSpouseUsecase
       get findPersonsRelationshipWithFamilyMembersSpouseUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #findPersonsRelationshipWithFamilyMembersSpouseUsecase),
             returnValue:
-                _FakeFindPersonsRelationshipWithFamilyMembersSpouseUsecase_225(
+                _FakeFindPersonsRelationshipWithFamilyMembersSpouseUsecase_230(
               this,
               Invocation.getter(
                   #findPersonsRelationshipWithFamilyMembersSpouseUsecase),
             ),
             returnValueForMissingStub:
-                _FakeFindPersonsRelationshipWithFamilyMembersSpouseUsecase_225(
+                _FakeFindPersonsRelationshipWithFamilyMembersSpouseUsecase_230(
               this,
               Invocation.getter(
                   #findPersonsRelationshipWithFamilyMembersSpouseUsecase),
             ),
-          ) as _i206.FindPersonsRelationshipWithFamilyMembersSpouseUsecase);
+          ) as _i211.FindPersonsRelationshipWithFamilyMembersSpouseUsecase);
 
   @override
-  _i207.GetAllAcquaintancesUsecase get getAllAcquaintancesUsecase =>
+  _i212.GetAllAcquaintancesUsecase get getAllAcquaintancesUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getAllAcquaintancesUsecase),
-        returnValue: _FakeGetAllAcquaintancesUsecase_226(
+        returnValue: _FakeGetAllAcquaintancesUsecase_231(
           this,
           Invocation.getter(#getAllAcquaintancesUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllAcquaintancesUsecase_226(
+        returnValueForMissingStub: _FakeGetAllAcquaintancesUsecase_231(
           this,
           Invocation.getter(#getAllAcquaintancesUsecase),
         ),
-      ) as _i207.GetAllAcquaintancesUsecase);
+      ) as _i212.GetAllAcquaintancesUsecase);
 
   @override
-  _i208.GetAllActivePartnersUsecase get getAllActivePartnersUsecase =>
+  _i213.GetAllActivePartnersUsecase get getAllActivePartnersUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getAllActivePartnersUsecase),
-        returnValue: _FakeGetAllActivePartnersUsecase_227(
+        returnValue: _FakeGetAllActivePartnersUsecase_232(
           this,
           Invocation.getter(#getAllActivePartnersUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllActivePartnersUsecase_227(
+        returnValueForMissingStub: _FakeGetAllActivePartnersUsecase_232(
           this,
           Invocation.getter(#getAllActivePartnersUsecase),
         ),
-      ) as _i208.GetAllActivePartnersUsecase);
+      ) as _i213.GetAllActivePartnersUsecase);
 
   @override
-  _i209.GetAllChildrenUsecase get getAllChildrenUsecase => (super.noSuchMethod(
+  _i214.GetAllChildrenUsecase get getAllChildrenUsecase => (super.noSuchMethod(
         Invocation.getter(#getAllChildrenUsecase),
-        returnValue: _FakeGetAllChildrenUsecase_228(
+        returnValue: _FakeGetAllChildrenUsecase_233(
           this,
           Invocation.getter(#getAllChildrenUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllChildrenUsecase_228(
+        returnValueForMissingStub: _FakeGetAllChildrenUsecase_233(
           this,
           Invocation.getter(#getAllChildrenUsecase),
         ),
-      ) as _i209.GetAllChildrenUsecase);
+      ) as _i214.GetAllChildrenUsecase);
 
   @override
-  _i210.GetAllExesUsecase get getAllExesUsecase => (super.noSuchMethod(
+  _i215.GetAllExesUsecase get getAllExesUsecase => (super.noSuchMethod(
         Invocation.getter(#getAllExesUsecase),
-        returnValue: _FakeGetAllExesUsecase_229(
+        returnValue: _FakeGetAllExesUsecase_234(
           this,
           Invocation.getter(#getAllExesUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllExesUsecase_229(
+        returnValueForMissingStub: _FakeGetAllExesUsecase_234(
           this,
           Invocation.getter(#getAllExesUsecase),
         ),
-      ) as _i210.GetAllExesUsecase);
+      ) as _i215.GetAllExesUsecase);
 
   @override
-  _i211.GetAllFriendsUsecase get getAllFriendsUsecase => (super.noSuchMethod(
+  _i216.GetAllFriendsUsecase get getAllFriendsUsecase => (super.noSuchMethod(
         Invocation.getter(#getAllFriendsUsecase),
-        returnValue: _FakeGetAllFriendsUsecase_230(
+        returnValue: _FakeGetAllFriendsUsecase_235(
           this,
           Invocation.getter(#getAllFriendsUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllFriendsUsecase_230(
+        returnValueForMissingStub: _FakeGetAllFriendsUsecase_235(
           this,
           Invocation.getter(#getAllFriendsUsecase),
         ),
-      ) as _i211.GetAllFriendsUsecase);
+      ) as _i216.GetAllFriendsUsecase);
 
   @override
-  _i212.GetAllInLawsUsecase get getAllInLawsUsecase => (super.noSuchMethod(
+  _i217.GetAllInLawsUsecase get getAllInLawsUsecase => (super.noSuchMethod(
         Invocation.getter(#getAllInLawsUsecase),
-        returnValue: _FakeGetAllInLawsUsecase_231(
+        returnValue: _FakeGetAllInLawsUsecase_236(
           this,
           Invocation.getter(#getAllInLawsUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllInLawsUsecase_231(
+        returnValueForMissingStub: _FakeGetAllInLawsUsecase_236(
           this,
           Invocation.getter(#getAllInLawsUsecase),
         ),
-      ) as _i212.GetAllInLawsUsecase);
+      ) as _i217.GetAllInLawsUsecase);
 
   @override
-  _i213.GetAllParentsUsecase get getAllParentsUsecase => (super.noSuchMethod(
+  _i218.GetAllParentsUsecase get getAllParentsUsecase => (super.noSuchMethod(
         Invocation.getter(#getAllParentsUsecase),
-        returnValue: _FakeGetAllParentsUsecase_232(
+        returnValue: _FakeGetAllParentsUsecase_237(
           this,
           Invocation.getter(#getAllParentsUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllParentsUsecase_232(
+        returnValueForMissingStub: _FakeGetAllParentsUsecase_237(
           this,
           Invocation.getter(#getAllParentsUsecase),
         ),
-      ) as _i213.GetAllParentsUsecase);
+      ) as _i218.GetAllParentsUsecase);
 
   @override
-  _i214.GetAllPartnersUsecase get getAllPartnersUsecase => (super.noSuchMethod(
+  _i219.GetAllPartnersUsecase get getAllPartnersUsecase => (super.noSuchMethod(
         Invocation.getter(#getAllPartnersUsecase),
-        returnValue: _FakeGetAllPartnersUsecase_233(
+        returnValue: _FakeGetAllPartnersUsecase_238(
           this,
           Invocation.getter(#getAllPartnersUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllPartnersUsecase_233(
+        returnValueForMissingStub: _FakeGetAllPartnersUsecase_238(
           this,
           Invocation.getter(#getAllPartnersUsecase),
         ),
-      ) as _i214.GetAllPartnersUsecase);
+      ) as _i219.GetAllPartnersUsecase);
 
   @override
-  _i215.GetAllPastFamilyUsecase get getAllPastFamilyUsecase =>
+  _i220.GetAllPastFamilyUsecase get getAllPastFamilyUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getAllPastFamilyUsecase),
-        returnValue: _FakeGetAllPastFamilyUsecase_234(
+        returnValue: _FakeGetAllPastFamilyUsecase_239(
           this,
           Invocation.getter(#getAllPastFamilyUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllPastFamilyUsecase_234(
+        returnValueForMissingStub: _FakeGetAllPastFamilyUsecase_239(
           this,
           Invocation.getter(#getAllPastFamilyUsecase),
         ),
-      ) as _i215.GetAllPastFamilyUsecase);
+      ) as _i220.GetAllPastFamilyUsecase);
 
   @override
-  _i216.GetAllRelationshipsInvolvingUsecase
+  _i221.GetAllRelationshipsInvolvingUsecase
       get getAllRelationshipsInvolvingUsecase => (super.noSuchMethod(
             Invocation.getter(#getAllRelationshipsInvolvingUsecase),
-            returnValue: _FakeGetAllRelationshipsInvolvingUsecase_235(
+            returnValue: _FakeGetAllRelationshipsInvolvingUsecase_240(
               this,
               Invocation.getter(#getAllRelationshipsInvolvingUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetAllRelationshipsInvolvingUsecase_235(
+                _FakeGetAllRelationshipsInvolvingUsecase_240(
               this,
               Invocation.getter(#getAllRelationshipsInvolvingUsecase),
             ),
-          ) as _i216.GetAllRelationshipsInvolvingUsecase);
+          ) as _i221.GetAllRelationshipsInvolvingUsecase);
 
   @override
-  _i217.GetAllRelativesUsecase get getAllRelativesUsecase =>
+  _i222.GetAllRelativesUsecase get getAllRelativesUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getAllRelativesUsecase),
-        returnValue: _FakeGetAllRelativesUsecase_236(
+        returnValue: _FakeGetAllRelativesUsecase_241(
           this,
           Invocation.getter(#getAllRelativesUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllRelativesUsecase_236(
+        returnValueForMissingStub: _FakeGetAllRelativesUsecase_241(
           this,
           Invocation.getter(#getAllRelativesUsecase),
         ),
-      ) as _i217.GetAllRelativesUsecase);
+      ) as _i222.GetAllRelativesUsecase);
 
   @override
-  _i218.GetAllSiblingsUsecase get getAllSiblingsUsecase => (super.noSuchMethod(
+  _i223.GetAllSiblingsUsecase get getAllSiblingsUsecase => (super.noSuchMethod(
         Invocation.getter(#getAllSiblingsUsecase),
-        returnValue: _FakeGetAllSiblingsUsecase_237(
+        returnValue: _FakeGetAllSiblingsUsecase_242(
           this,
           Invocation.getter(#getAllSiblingsUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllSiblingsUsecase_237(
+        returnValueForMissingStub: _FakeGetAllSiblingsUsecase_242(
           this,
           Invocation.getter(#getAllSiblingsUsecase),
         ),
-      ) as _i218.GetAllSiblingsUsecase);
+      ) as _i223.GetAllSiblingsUsecase);
 
   @override
-  _i219.GetAllStepChildrenUsecase get getAllStepChildrenUsecase =>
+  _i224.GetAllStepChildrenUsecase get getAllStepChildrenUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getAllStepChildrenUsecase),
-        returnValue: _FakeGetAllStepChildrenUsecase_238(
+        returnValue: _FakeGetAllStepChildrenUsecase_243(
           this,
           Invocation.getter(#getAllStepChildrenUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllStepChildrenUsecase_238(
+        returnValueForMissingStub: _FakeGetAllStepChildrenUsecase_243(
           this,
           Invocation.getter(#getAllStepChildrenUsecase),
         ),
-      ) as _i219.GetAllStepChildrenUsecase);
+      ) as _i224.GetAllStepChildrenUsecase);
 
   @override
-  _i220.GetMarriagePartnerRelationshipUsecase
+  _i225.GetMarriagePartnerRelationshipUsecase
       get getMarriagePartnerRelationshipUsecase => (super.noSuchMethod(
             Invocation.getter(#getMarriagePartnerRelationshipUsecase),
-            returnValue: _FakeGetMarriagePartnerRelationshipUsecase_239(
+            returnValue: _FakeGetMarriagePartnerRelationshipUsecase_244(
               this,
               Invocation.getter(#getMarriagePartnerRelationshipUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetMarriagePartnerRelationshipUsecase_239(
+                _FakeGetMarriagePartnerRelationshipUsecase_244(
               this,
               Invocation.getter(#getMarriagePartnerRelationshipUsecase),
             ),
-          ) as _i220.GetMarriagePartnerRelationshipUsecase);
+          ) as _i225.GetMarriagePartnerRelationshipUsecase);
 
   @override
-  _i221.WatchRelationshipUsecase get watchRelationshipUsecase =>
+  _i226.WatchRelationshipUsecase get watchRelationshipUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#watchRelationshipUsecase),
-        returnValue: _FakeWatchRelationshipUsecase_240(
+        returnValue: _FakeWatchRelationshipUsecase_245(
           this,
           Invocation.getter(#watchRelationshipUsecase),
         ),
-        returnValueForMissingStub: _FakeWatchRelationshipUsecase_240(
+        returnValueForMissingStub: _FakeWatchRelationshipUsecase_245(
           this,
           Invocation.getter(#watchRelationshipUsecase),
         ),
-      ) as _i221.WatchRelationshipUsecase);
+      ) as _i226.WatchRelationshipUsecase);
 
   @override
-  _i222.WatchAllGravesUsecase get watchAllGravesUsecase => (super.noSuchMethod(
+  _i227.WatchAllGravesUsecase get watchAllGravesUsecase => (super.noSuchMethod(
         Invocation.getter(#watchAllGravesUsecase),
-        returnValue: _FakeWatchAllGravesUsecase_241(
+        returnValue: _FakeWatchAllGravesUsecase_246(
           this,
           Invocation.getter(#watchAllGravesUsecase),
         ),
-        returnValueForMissingStub: _FakeWatchAllGravesUsecase_241(
+        returnValueForMissingStub: _FakeWatchAllGravesUsecase_246(
           this,
           Invocation.getter(#watchAllGravesUsecase),
         ),
-      ) as _i222.WatchAllGravesUsecase);
+      ) as _i227.WatchAllGravesUsecase);
 
   @override
-  _i223.WatchChildrensTabRelationshipsUsecase
+  _i228.WatchChildrensTabRelationshipsUsecase
       get watchChildrensTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#watchChildrensTabRelationshipsUsecase),
-            returnValue: _FakeWatchChildrensTabRelationshipsUsecase_242(
+            returnValue: _FakeWatchChildrensTabRelationshipsUsecase_247(
               this,
               Invocation.getter(#watchChildrensTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeWatchChildrensTabRelationshipsUsecase_242(
+                _FakeWatchChildrensTabRelationshipsUsecase_247(
               this,
               Invocation.getter(#watchChildrensTabRelationshipsUsecase),
             ),
-          ) as _i223.WatchChildrensTabRelationshipsUsecase);
+          ) as _i228.WatchChildrensTabRelationshipsUsecase);
 
   @override
-  _i224.WatchAllExesUsecase get watchAllExesUsecase => (super.noSuchMethod(
+  _i229.WatchAllExesUsecase get watchAllExesUsecase => (super.noSuchMethod(
         Invocation.getter(#watchAllExesUsecase),
-        returnValue: _FakeWatchAllExesUsecase_243(
+        returnValue: _FakeWatchAllExesUsecase_248(
           this,
           Invocation.getter(#watchAllExesUsecase),
         ),
-        returnValueForMissingStub: _FakeWatchAllExesUsecase_243(
+        returnValueForMissingStub: _FakeWatchAllExesUsecase_248(
           this,
           Invocation.getter(#watchAllExesUsecase),
         ),
-      ) as _i224.WatchAllExesUsecase);
+      ) as _i229.WatchAllExesUsecase);
 
   @override
-  _i225.WatchAllFriendsUsecase get watchAllFriendsUsecase =>
+  _i230.WatchAllFriendsUsecase get watchAllFriendsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#watchAllFriendsUsecase),
-        returnValue: _FakeWatchAllFriendsUsecase_244(
+        returnValue: _FakeWatchAllFriendsUsecase_249(
           this,
           Invocation.getter(#watchAllFriendsUsecase),
         ),
-        returnValueForMissingStub: _FakeWatchAllFriendsUsecase_244(
+        returnValueForMissingStub: _FakeWatchAllFriendsUsecase_249(
           this,
           Invocation.getter(#watchAllFriendsUsecase),
         ),
-      ) as _i225.WatchAllFriendsUsecase);
+      ) as _i230.WatchAllFriendsUsecase);
 
   @override
-  _i226.WatchAllInLawsUsecase get watchAllInLawsUsecase => (super.noSuchMethod(
+  _i231.WatchAllInLawsUsecase get watchAllInLawsUsecase => (super.noSuchMethod(
         Invocation.getter(#watchAllInLawsUsecase),
-        returnValue: _FakeWatchAllInLawsUsecase_245(
+        returnValue: _FakeWatchAllInLawsUsecase_250(
           this,
           Invocation.getter(#watchAllInLawsUsecase),
         ),
-        returnValueForMissingStub: _FakeWatchAllInLawsUsecase_245(
+        returnValueForMissingStub: _FakeWatchAllInLawsUsecase_250(
           this,
           Invocation.getter(#watchAllInLawsUsecase),
         ),
-      ) as _i226.WatchAllInLawsUsecase);
+      ) as _i231.WatchAllInLawsUsecase);
 
   @override
-  _i227.WatchParentsTabRelationshipsUsecase
+  _i232.WatchParentsTabRelationshipsUsecase
       get watchParentsTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#watchParentsTabRelationshipsUsecase),
-            returnValue: _FakeWatchParentsTabRelationshipsUsecase_246(
+            returnValue: _FakeWatchParentsTabRelationshipsUsecase_251(
               this,
               Invocation.getter(#watchParentsTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeWatchParentsTabRelationshipsUsecase_246(
+                _FakeWatchParentsTabRelationshipsUsecase_251(
               this,
               Invocation.getter(#watchParentsTabRelationshipsUsecase),
             ),
-          ) as _i227.WatchParentsTabRelationshipsUsecase);
+          ) as _i232.WatchParentsTabRelationshipsUsecase);
 
   @override
-  _i228.WatchPartnersTabRelationshipsUsecase
+  _i233.WatchPartnersTabRelationshipsUsecase
       get watchPartnersTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#watchPartnersTabRelationshipsUsecase),
-            returnValue: _FakeWatchPartnersTabRelationshipsUsecase_247(
+            returnValue: _FakeWatchPartnersTabRelationshipsUsecase_252(
               this,
               Invocation.getter(#watchPartnersTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeWatchPartnersTabRelationshipsUsecase_247(
+                _FakeWatchPartnersTabRelationshipsUsecase_252(
               this,
               Invocation.getter(#watchPartnersTabRelationshipsUsecase),
             ),
-          ) as _i228.WatchPartnersTabRelationshipsUsecase);
+          ) as _i233.WatchPartnersTabRelationshipsUsecase);
 
   @override
-  _i229.WatchAllPastFamilyUsecase get watchAllPastFamilyUsecase =>
+  _i234.WatchAllPastFamilyUsecase get watchAllPastFamilyUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#watchAllPastFamilyUsecase),
-        returnValue: _FakeWatchAllPastFamilyUsecase_248(
+        returnValue: _FakeWatchAllPastFamilyUsecase_253(
           this,
           Invocation.getter(#watchAllPastFamilyUsecase),
         ),
-        returnValueForMissingStub: _FakeWatchAllPastFamilyUsecase_248(
+        returnValueForMissingStub: _FakeWatchAllPastFamilyUsecase_253(
           this,
           Invocation.getter(#watchAllPastFamilyUsecase),
         ),
-      ) as _i229.WatchAllPastFamilyUsecase);
+      ) as _i234.WatchAllPastFamilyUsecase);
 
   @override
-  _i230.WatchAllRelationshipsInvolvingUsecase
+  _i235.WatchAllRelationshipsInvolvingUsecase
       get watchAllRelationshipsInvolvingUsecase => (super.noSuchMethod(
             Invocation.getter(#watchAllRelationshipsInvolvingUsecase),
-            returnValue: _FakeWatchAllRelationshipsInvolvingUsecase_249(
+            returnValue: _FakeWatchAllRelationshipsInvolvingUsecase_254(
               this,
               Invocation.getter(#watchAllRelationshipsInvolvingUsecase),
             ),
             returnValueForMissingStub:
-                _FakeWatchAllRelationshipsInvolvingUsecase_249(
+                _FakeWatchAllRelationshipsInvolvingUsecase_254(
               this,
               Invocation.getter(#watchAllRelationshipsInvolvingUsecase),
             ),
-          ) as _i230.WatchAllRelationshipsInvolvingUsecase);
+          ) as _i235.WatchAllRelationshipsInvolvingUsecase);
 
   @override
-  _i231.WatchRelativesTabRelationshipsUsecase
+  _i236.WatchRelativesTabRelationshipsUsecase
       get watchRelativesTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#watchRelativesTabRelationshipsUsecase),
-            returnValue: _FakeWatchRelativesTabRelationshipsUsecase_250(
+            returnValue: _FakeWatchRelativesTabRelationshipsUsecase_255(
               this,
               Invocation.getter(#watchRelativesTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeWatchRelativesTabRelationshipsUsecase_250(
+                _FakeWatchRelativesTabRelationshipsUsecase_255(
               this,
               Invocation.getter(#watchRelativesTabRelationshipsUsecase),
             ),
-          ) as _i231.WatchRelativesTabRelationshipsUsecase);
+          ) as _i236.WatchRelativesTabRelationshipsUsecase);
 
   @override
-  _i232.WatchSiblingsTabRelationshipsUsecase
+  _i237.WatchSiblingsTabRelationshipsUsecase
       get watchSiblingsTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#watchSiblingsTabRelationshipsUsecase),
-            returnValue: _FakeWatchSiblingsTabRelationshipsUsecase_251(
+            returnValue: _FakeWatchSiblingsTabRelationshipsUsecase_256(
               this,
               Invocation.getter(#watchSiblingsTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeWatchSiblingsTabRelationshipsUsecase_251(
+                _FakeWatchSiblingsTabRelationshipsUsecase_256(
               this,
               Invocation.getter(#watchSiblingsTabRelationshipsUsecase),
             ),
-          ) as _i232.WatchSiblingsTabRelationshipsUsecase);
+          ) as _i237.WatchSiblingsTabRelationshipsUsecase);
 
   @override
-  _i233.WatchMarriagePartnerRelationshipUsecase
+  _i238.WatchMarriagePartnerRelationshipUsecase
       get watchMarriagePartnerRelationshipUsecase => (super.noSuchMethod(
             Invocation.getter(#watchMarriagePartnerRelationshipUsecase),
-            returnValue: _FakeWatchMarriagePartnerRelationshipUsecase_252(
+            returnValue: _FakeWatchMarriagePartnerRelationshipUsecase_257(
               this,
               Invocation.getter(#watchMarriagePartnerRelationshipUsecase),
             ),
             returnValueForMissingStub:
-                _FakeWatchMarriagePartnerRelationshipUsecase_252(
+                _FakeWatchMarriagePartnerRelationshipUsecase_257(
               this,
               Invocation.getter(#watchMarriagePartnerRelationshipUsecase),
             ),
-          ) as _i233.WatchMarriagePartnerRelationshipUsecase);
+          ) as _i238.WatchMarriagePartnerRelationshipUsecase);
 
   @override
-  _i234.GetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase
+  _i239.GetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase
       get getAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #getAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase),
             returnValue:
-                _FakeGetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_253(
+                _FakeGetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_258(
               this,
               Invocation.getter(
                   #getAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_253(
+                _FakeGetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_258(
               this,
               Invocation.getter(
                   #getAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase),
             ),
-          ) as _i234
+          ) as _i239
               .GetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase);
 
   @override
-  _i235.GetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase
+  _i240.GetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase
       get getAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #getAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase),
             returnValue:
-                _FakeGetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_254(
+                _FakeGetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_259(
               this,
               Invocation.getter(
                   #getAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_254(
+                _FakeGetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase_259(
               this,
               Invocation.getter(
                   #getAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase),
             ),
-          ) as _i235
+          ) as _i240
               .GetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase);
 
   @override
-  _i236
+  _i241
       .GetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase
       get getAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #getAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase),
             returnValue:
-                _FakeGetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase_255(
+                _FakeGetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase_260(
               this,
               Invocation.getter(
                   #getAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase_255(
+                _FakeGetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase_260(
               this,
               Invocation.getter(
                   #getAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase),
             ),
-          ) as _i236
+          ) as _i241
               .GetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase);
 
   @override
-  _i237.GetAllStepFamilyFromDifferentGenerationsUsecase
+  _i242.GetAllStepFamilyFromDifferentGenerationsUsecase
       get getAllStepFamilyFromDifferentGenerationsUsecase =>
           (super.noSuchMethod(
             Invocation.getter(#getAllStepFamilyFromDifferentGenerationsUsecase),
             returnValue:
-                _FakeGetAllStepFamilyFromDifferentGenerationsUsecase_256(
+                _FakeGetAllStepFamilyFromDifferentGenerationsUsecase_261(
               this,
               Invocation.getter(
                   #getAllStepFamilyFromDifferentGenerationsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetAllStepFamilyFromDifferentGenerationsUsecase_256(
+                _FakeGetAllStepFamilyFromDifferentGenerationsUsecase_261(
               this,
               Invocation.getter(
                   #getAllStepFamilyFromDifferentGenerationsUsecase),
             ),
-          ) as _i237.GetAllStepFamilyFromDifferentGenerationsUsecase);
+          ) as _i242.GetAllStepFamilyFromDifferentGenerationsUsecase);
 
   @override
-  _i238.GetChildrenOfPersonNotBelongingToAnotherPersonUsecase
+  _i243.GetChildrenOfPersonNotBelongingToAnotherPersonUsecase
       get getChildrenOfPersonNotBelongingToAnotherPersonUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #getChildrenOfPersonNotBelongingToAnotherPersonUsecase),
             returnValue:
-                _FakeGetChildrenOfPersonNotBelongingToAnotherPersonUsecase_257(
+                _FakeGetChildrenOfPersonNotBelongingToAnotherPersonUsecase_262(
               this,
               Invocation.getter(
                   #getChildrenOfPersonNotBelongingToAnotherPersonUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetChildrenOfPersonNotBelongingToAnotherPersonUsecase_257(
+                _FakeGetChildrenOfPersonNotBelongingToAnotherPersonUsecase_262(
               this,
               Invocation.getter(
                   #getChildrenOfPersonNotBelongingToAnotherPersonUsecase),
             ),
-          ) as _i238.GetChildrenOfPersonNotBelongingToAnotherPersonUsecase);
+          ) as _i243.GetChildrenOfPersonNotBelongingToAnotherPersonUsecase);
 
   @override
-  _i239
+  _i244
       .GetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase
       get getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase),
             returnValue:
-                _FakeGetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase_258(
+                _FakeGetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase_263(
               this,
               Invocation.getter(
                   #getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase_258(
+                _FakeGetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase_263(
               this,
               Invocation.getter(
                   #getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase),
             ),
-          ) as _i239
+          ) as _i244
               .GetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase);
 
   @override
-  _i240.GetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase
+  _i245.GetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase
       get getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase),
             returnValue:
-                _FakeGetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase_259(
+                _FakeGetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase_264(
               this,
               Invocation.getter(
                   #getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase_259(
+                _FakeGetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase_264(
               this,
               Invocation.getter(
                   #getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase),
             ),
-          ) as _i240
+          ) as _i245
               .GetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase);
 
   @override
-  _i241.ProcessRelationshipChangesFromNpcDivorceUsecase
+  _i246.ProcessRelationshipChangesFromNpcDivorceUsecase
       get processRelationshipChangesFromNpcDivorceUsecase =>
           (super.noSuchMethod(
             Invocation.getter(#processRelationshipChangesFromNpcDivorceUsecase),
             returnValue:
-                _FakeProcessRelationshipChangesFromNpcDivorceUsecase_260(
+                _FakeProcessRelationshipChangesFromNpcDivorceUsecase_265(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromNpcDivorceUsecase),
             ),
             returnValueForMissingStub:
-                _FakeProcessRelationshipChangesFromNpcDivorceUsecase_260(
+                _FakeProcessRelationshipChangesFromNpcDivorceUsecase_265(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromNpcDivorceUsecase),
             ),
-          ) as _i241.ProcessRelationshipChangesFromNpcDivorceUsecase);
+          ) as _i246.ProcessRelationshipChangesFromNpcDivorceUsecase);
 
   @override
-  _i242.ProcessRelationshipChangesFromNpcMarriageUsecase
+  _i247.ProcessRelationshipChangesFromNpcMarriageUsecase
       get processRelationshipChangesFromNpcMarriageUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #processRelationshipChangesFromNpcMarriageUsecase),
             returnValue:
-                _FakeProcessRelationshipChangesFromNpcMarriageUsecase_261(
+                _FakeProcessRelationshipChangesFromNpcMarriageUsecase_266(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromNpcMarriageUsecase),
             ),
             returnValueForMissingStub:
-                _FakeProcessRelationshipChangesFromNpcMarriageUsecase_261(
+                _FakeProcessRelationshipChangesFromNpcMarriageUsecase_266(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromNpcMarriageUsecase),
             ),
-          ) as _i242.ProcessRelationshipChangesFromNpcMarriageUsecase);
+          ) as _i247.ProcessRelationshipChangesFromNpcMarriageUsecase);
 
   @override
-  _i243.ProcessRelationshipChangesFromPlayerDivorceUsecase
+  _i248.ProcessRelationshipChangesFromPlayerDivorceUsecase
       get processRelationshipChangesFromPlayerDivorceUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #processRelationshipChangesFromPlayerDivorceUsecase),
             returnValue:
-                _FakeProcessRelationshipChangesFromPlayerDivorceUsecase_262(
+                _FakeProcessRelationshipChangesFromPlayerDivorceUsecase_267(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromPlayerDivorceUsecase),
             ),
             returnValueForMissingStub:
-                _FakeProcessRelationshipChangesFromPlayerDivorceUsecase_262(
+                _FakeProcessRelationshipChangesFromPlayerDivorceUsecase_267(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromPlayerDivorceUsecase),
             ),
-          ) as _i243.ProcessRelationshipChangesFromPlayerDivorceUsecase);
+          ) as _i248.ProcessRelationshipChangesFromPlayerDivorceUsecase);
 
   @override
-  _i244.ProcessRelationshipChangesFromPlayerMarriageUsecase
+  _i249.ProcessRelationshipChangesFromPlayerMarriageUsecase
       get processRelationshipChangesFromPlayerMarriageUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #processRelationshipChangesFromPlayerMarriageUsecase),
             returnValue:
-                _FakeProcessRelationshipChangesFromPlayerMarriageUsecase_263(
+                _FakeProcessRelationshipChangesFromPlayerMarriageUsecase_268(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromPlayerMarriageUsecase),
             ),
             returnValueForMissingStub:
-                _FakeProcessRelationshipChangesFromPlayerMarriageUsecase_263(
+                _FakeProcessRelationshipChangesFromPlayerMarriageUsecase_268(
               this,
               Invocation.getter(
                   #processRelationshipChangesFromPlayerMarriageUsecase),
             ),
-          ) as _i244.ProcessRelationshipChangesFromPlayerMarriageUsecase);
+          ) as _i249.ProcessRelationshipChangesFromPlayerMarriageUsecase);
 
   @override
-  _i245.ConvertTemporaryFamilialRelationshipToPastFamilyUsecase
+  _i250.ConvertTemporaryFamilialRelationshipToPastFamilyUsecase
       get convertTemporaryFamilialRelationshipToPastFamilyUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #convertTemporaryFamilialRelationshipToPastFamilyUsecase),
             returnValue:
-                _FakeConvertTemporaryFamilialRelationshipToPastFamilyUsecase_264(
+                _FakeConvertTemporaryFamilialRelationshipToPastFamilyUsecase_269(
               this,
               Invocation.getter(
                   #convertTemporaryFamilialRelationshipToPastFamilyUsecase),
             ),
             returnValueForMissingStub:
-                _FakeConvertTemporaryFamilialRelationshipToPastFamilyUsecase_264(
+                _FakeConvertTemporaryFamilialRelationshipToPastFamilyUsecase_269(
               this,
               Invocation.getter(
                   #convertTemporaryFamilialRelationshipToPastFamilyUsecase),
             ),
-          ) as _i245.ConvertTemporaryFamilialRelationshipToPastFamilyUsecase);
+          ) as _i250.ConvertTemporaryFamilialRelationshipToPastFamilyUsecase);
 
   @override
-  _i246.SetupNewGenerationPlayerRelationshipsUsecase
+  _i251.SetupNewGenerationPlayerRelationshipsUsecase
       get setupNewGenerationPlayerRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#setupNewGenerationPlayerRelationshipsUsecase),
-            returnValue: _FakeSetupNewGenerationPlayerRelationshipsUsecase_265(
+            returnValue: _FakeSetupNewGenerationPlayerRelationshipsUsecase_270(
               this,
               Invocation.getter(#setupNewGenerationPlayerRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeSetupNewGenerationPlayerRelationshipsUsecase_265(
+                _FakeSetupNewGenerationPlayerRelationshipsUsecase_270(
               this,
               Invocation.getter(#setupNewGenerationPlayerRelationshipsUsecase),
             ),
-          ) as _i246.SetupNewGenerationPlayerRelationshipsUsecase);
+          ) as _i251.SetupNewGenerationPlayerRelationshipsUsecase);
 
   @override
-  _i247.RearrangeChildrensTabRelationshipsUsecase
+  _i252.RearrangeChildrensTabRelationshipsUsecase
       get rearrangeChildrensTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#rearrangeChildrensTabRelationshipsUsecase),
-            returnValue: _FakeRearrangeChildrensTabRelationshipsUsecase_266(
+            returnValue: _FakeRearrangeChildrensTabRelationshipsUsecase_271(
               this,
               Invocation.getter(#rearrangeChildrensTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeRearrangeChildrensTabRelationshipsUsecase_266(
+                _FakeRearrangeChildrensTabRelationshipsUsecase_271(
               this,
               Invocation.getter(#rearrangeChildrensTabRelationshipsUsecase),
             ),
-          ) as _i247.RearrangeChildrensTabRelationshipsUsecase);
+          ) as _i252.RearrangeChildrensTabRelationshipsUsecase);
 
   @override
-  _i248.RearrangeInLawsTabRelationshipsUsecase
+  _i253.RearrangeInLawsTabRelationshipsUsecase
       get rearrangeInLawsTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#rearrangeInLawsTabRelationshipsUsecase),
-            returnValue: _FakeRearrangeInLawsTabRelationshipsUsecase_267(
+            returnValue: _FakeRearrangeInLawsTabRelationshipsUsecase_272(
               this,
               Invocation.getter(#rearrangeInLawsTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeRearrangeInLawsTabRelationshipsUsecase_267(
+                _FakeRearrangeInLawsTabRelationshipsUsecase_272(
               this,
               Invocation.getter(#rearrangeInLawsTabRelationshipsUsecase),
             ),
-          ) as _i248.RearrangeInLawsTabRelationshipsUsecase);
+          ) as _i253.RearrangeInLawsTabRelationshipsUsecase);
 
   @override
-  _i249.RearrangeParentsTabRelationshipsUsecase
+  _i254.RearrangeParentsTabRelationshipsUsecase
       get rearrangeParentsTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#rearrangeParentsTabRelationshipsUsecase),
-            returnValue: _FakeRearrangeParentsTabRelationshipsUsecase_268(
+            returnValue: _FakeRearrangeParentsTabRelationshipsUsecase_273(
               this,
               Invocation.getter(#rearrangeParentsTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeRearrangeParentsTabRelationshipsUsecase_268(
+                _FakeRearrangeParentsTabRelationshipsUsecase_273(
               this,
               Invocation.getter(#rearrangeParentsTabRelationshipsUsecase),
             ),
-          ) as _i249.RearrangeParentsTabRelationshipsUsecase);
+          ) as _i254.RearrangeParentsTabRelationshipsUsecase);
 
   @override
-  _i250.RearrangePartnersTabRelationshipsUsecase
+  _i255.RearrangePartnersTabRelationshipsUsecase
       get rearrangePartnersTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#rearrangePartnersTabRelationshipsUsecase),
-            returnValue: _FakeRearrangePartnersTabRelationshipsUsecase_269(
+            returnValue: _FakeRearrangePartnersTabRelationshipsUsecase_274(
               this,
               Invocation.getter(#rearrangePartnersTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeRearrangePartnersTabRelationshipsUsecase_269(
+                _FakeRearrangePartnersTabRelationshipsUsecase_274(
               this,
               Invocation.getter(#rearrangePartnersTabRelationshipsUsecase),
             ),
-          ) as _i250.RearrangePartnersTabRelationshipsUsecase);
+          ) as _i255.RearrangePartnersTabRelationshipsUsecase);
 
   @override
-  _i251.RearrangeRelativesTabRelationshipsUsecase
+  _i256.RearrangeRelativesTabRelationshipsUsecase
       get rearrangeRelativesTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#rearrangeRelativesTabRelationshipsUsecase),
-            returnValue: _FakeRearrangeRelativesTabRelationshipsUsecase_270(
+            returnValue: _FakeRearrangeRelativesTabRelationshipsUsecase_275(
               this,
               Invocation.getter(#rearrangeRelativesTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeRearrangeRelativesTabRelationshipsUsecase_270(
+                _FakeRearrangeRelativesTabRelationshipsUsecase_275(
               this,
               Invocation.getter(#rearrangeRelativesTabRelationshipsUsecase),
             ),
-          ) as _i251.RearrangeRelativesTabRelationshipsUsecase);
+          ) as _i256.RearrangeRelativesTabRelationshipsUsecase);
 
   @override
-  _i252.RearrangeSiblingsTabRelationshipsUsecase
+  _i257.RearrangeSiblingsTabRelationshipsUsecase
       get rearrangeSiblingsTabRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#rearrangeSiblingsTabRelationshipsUsecase),
-            returnValue: _FakeRearrangeSiblingsTabRelationshipsUsecase_271(
+            returnValue: _FakeRearrangeSiblingsTabRelationshipsUsecase_276(
               this,
               Invocation.getter(#rearrangeSiblingsTabRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeRearrangeSiblingsTabRelationshipsUsecase_271(
+                _FakeRearrangeSiblingsTabRelationshipsUsecase_276(
               this,
               Invocation.getter(#rearrangeSiblingsTabRelationshipsUsecase),
             ),
-          ) as _i252.RearrangeSiblingsTabRelationshipsUsecase);
+          ) as _i257.RearrangeSiblingsTabRelationshipsUsecase);
 
   @override
-  _i253.GetTotalRomanticRelationshipDuration
+  _i258.GetTotalRomanticRelationshipDuration
       get getTotalRomanticRelationshipDuration => (super.noSuchMethod(
             Invocation.getter(#getTotalRomanticRelationshipDuration),
-            returnValue: _FakeGetTotalRomanticRelationshipDuration_272(
+            returnValue: _FakeGetTotalRomanticRelationshipDuration_277(
               this,
               Invocation.getter(#getTotalRomanticRelationshipDuration),
             ),
             returnValueForMissingStub:
-                _FakeGetTotalRomanticRelationshipDuration_272(
+                _FakeGetTotalRomanticRelationshipDuration_277(
               this,
               Invocation.getter(#getTotalRomanticRelationshipDuration),
             ),
-          ) as _i253.GetTotalRomanticRelationshipDuration);
+          ) as _i258.GetTotalRomanticRelationshipDuration);
 
   @override
-  _i254.EndRomanticRelationshipAndReturnUpdatedObjectUsecase
+  _i259.EndRomanticRelationshipAndReturnUpdatedObjectUsecase
       get endRomanticRelationshipAndReturnUpdatedObjectUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #endRomanticRelationshipAndReturnUpdatedObjectUsecase),
             returnValue:
-                _FakeEndRomanticRelationshipAndReturnUpdatedObjectUsecase_273(
+                _FakeEndRomanticRelationshipAndReturnUpdatedObjectUsecase_278(
               this,
               Invocation.getter(
                   #endRomanticRelationshipAndReturnUpdatedObjectUsecase),
             ),
             returnValueForMissingStub:
-                _FakeEndRomanticRelationshipAndReturnUpdatedObjectUsecase_273(
+                _FakeEndRomanticRelationshipAndReturnUpdatedObjectUsecase_278(
               this,
               Invocation.getter(
                   #endRomanticRelationshipAndReturnUpdatedObjectUsecase),
             ),
-          ) as _i254.EndRomanticRelationshipAndReturnUpdatedObjectUsecase);
+          ) as _i259.EndRomanticRelationshipAndReturnUpdatedObjectUsecase);
 
   @override
-  _i255.StartRomanticRelationshipAndReturnUpdatedObjectUsecase
+  _i260.StartRomanticRelationshipAndReturnUpdatedObjectUsecase
       get startRomanticRelationshipAndReturnUpdatedObjectUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #startRomanticRelationshipAndReturnUpdatedObjectUsecase),
             returnValue:
-                _FakeStartRomanticRelationshipAndReturnUpdatedObjectUsecase_274(
+                _FakeStartRomanticRelationshipAndReturnUpdatedObjectUsecase_279(
               this,
               Invocation.getter(
                   #startRomanticRelationshipAndReturnUpdatedObjectUsecase),
             ),
             returnValueForMissingStub:
-                _FakeStartRomanticRelationshipAndReturnUpdatedObjectUsecase_274(
+                _FakeStartRomanticRelationshipAndReturnUpdatedObjectUsecase_279(
               this,
               Invocation.getter(
                   #startRomanticRelationshipAndReturnUpdatedObjectUsecase),
             ),
-          ) as _i255.StartRomanticRelationshipAndReturnUpdatedObjectUsecase);
+          ) as _i260.StartRomanticRelationshipAndReturnUpdatedObjectUsecase);
 
   @override
-  _i256.EndAllActiveRomanticRelationshipsUsecase
+  _i261.EndAllActiveRomanticRelationshipsUsecase
       get endAllActiveRomanticRelationshipsUsecase => (super.noSuchMethod(
             Invocation.getter(#endAllActiveRomanticRelationshipsUsecase),
-            returnValue: _FakeEndAllActiveRomanticRelationshipsUsecase_275(
+            returnValue: _FakeEndAllActiveRomanticRelationshipsUsecase_280(
               this,
               Invocation.getter(#endAllActiveRomanticRelationshipsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeEndAllActiveRomanticRelationshipsUsecase_275(
+                _FakeEndAllActiveRomanticRelationshipsUsecase_280(
               this,
               Invocation.getter(#endAllActiveRomanticRelationshipsUsecase),
             ),
-          ) as _i256.EndAllActiveRomanticRelationshipsUsecase);
+          ) as _i261.EndAllActiveRomanticRelationshipsUsecase);
 
   @override
-  _i257.GenerateAcquaintancesUsecase get generateAcquaintancesUsecase =>
+  _i262.GenerateAcquaintancesUsecase get generateAcquaintancesUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#generateAcquaintancesUsecase),
-        returnValue: _FakeGenerateAcquaintancesUsecase_276(
+        returnValue: _FakeGenerateAcquaintancesUsecase_281(
           this,
           Invocation.getter(#generateAcquaintancesUsecase),
         ),
-        returnValueForMissingStub: _FakeGenerateAcquaintancesUsecase_276(
+        returnValueForMissingStub: _FakeGenerateAcquaintancesUsecase_281(
           this,
           Invocation.getter(#generateAcquaintancesUsecase),
         ),
-      ) as _i257.GenerateAcquaintancesUsecase);
+      ) as _i262.GenerateAcquaintancesUsecase);
 }
 
 /// A class which mocks [GetSiblingsThroughDeductionUsecase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetSiblingsThroughDeductionUsecase extends _i1.Mock
-    implements _i188.GetSiblingsThroughDeductionUsecase {
+    implements _i193.GetSiblingsThroughDeductionUsecase {
   @override
-  _i332.Future<List<_i333.PersonPlatonicRelationshipTypePair>> execute({
+  _i338.Future<List<_i339.PersonPlatonicRelationshipTypePair>> execute({
     required int? personID,
     required bool? onlyLivingPeople,
   }) =>
@@ -11023,917 +11203,1132 @@ class MockGetSiblingsThroughDeductionUsecase extends _i1.Mock
           },
         ),
         returnValue:
-            _i332.Future<List<_i333.PersonPlatonicRelationshipTypePair>>.value(
-                <_i333.PersonPlatonicRelationshipTypePair>[]),
+            _i338.Future<List<_i339.PersonPlatonicRelationshipTypePair>>.value(
+                <_i339.PersonPlatonicRelationshipTypePair>[]),
         returnValueForMissingStub:
-            _i332.Future<List<_i333.PersonPlatonicRelationshipTypePair>>.value(
-                <_i333.PersonPlatonicRelationshipTypePair>[]),
-      ) as _i332.Future<List<_i333.PersonPlatonicRelationshipTypePair>>);
+            _i338.Future<List<_i339.PersonPlatonicRelationshipTypePair>>.value(
+                <_i339.PersonPlatonicRelationshipTypePair>[]),
+      ) as _i338.Future<List<_i339.PersonPlatonicRelationshipTypePair>>);
 }
 
 /// A class which mocks [ShopAndStorageUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockShopAndStorageUsecases extends _i1.Mock
-    implements _i334.ShopAndStorageUsecases {
+    implements _i340.ShopAndStorageUsecases {
   @override
-  _i258.GetStoreroomItemPairsUsecase get getStoreroomItemPairsUsecase =>
+  _i263.GetStoreroomItemPairsUsecase get getStoreroomItemPairsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getStoreroomItemPairsUsecase),
-        returnValue: _FakeGetStoreroomItemPairsUsecase_277(
+        returnValue: _FakeGetStoreroomItemPairsUsecase_282(
           this,
           Invocation.getter(#getStoreroomItemPairsUsecase),
         ),
-        returnValueForMissingStub: _FakeGetStoreroomItemPairsUsecase_277(
+        returnValueForMissingStub: _FakeGetStoreroomItemPairsUsecase_282(
           this,
           Invocation.getter(#getStoreroomItemPairsUsecase),
         ),
-      ) as _i258.GetStoreroomItemPairsUsecase);
+      ) as _i263.GetStoreroomItemPairsUsecase);
 
   @override
-  _i259.GetAvailbleStoreroomItemUsecase get getAvailbleStoreroomItemUsecase =>
+  _i264.GetAvailbleStoreroomItemUsecase get getAvailbleStoreroomItemUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getAvailbleStoreroomItemUsecase),
-        returnValue: _FakeGetAvailbleStoreroomItemUsecase_278(
+        returnValue: _FakeGetAvailbleStoreroomItemUsecase_283(
           this,
           Invocation.getter(#getAvailbleStoreroomItemUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAvailbleStoreroomItemUsecase_278(
+        returnValueForMissingStub: _FakeGetAvailbleStoreroomItemUsecase_283(
           this,
           Invocation.getter(#getAvailbleStoreroomItemUsecase),
         ),
-      ) as _i259.GetAvailbleStoreroomItemUsecase);
+      ) as _i264.GetAvailbleStoreroomItemUsecase);
 
   @override
-  _i260.UseStoreroomItemUsecase get useStoreroomItemUsecase =>
+  _i265.UseStoreroomItemUsecase get useStoreroomItemUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#useStoreroomItemUsecase),
-        returnValue: _FakeUseStoreroomItemUsecase_279(
+        returnValue: _FakeUseStoreroomItemUsecase_284(
           this,
           Invocation.getter(#useStoreroomItemUsecase),
         ),
-        returnValueForMissingStub: _FakeUseStoreroomItemUsecase_279(
+        returnValueForMissingStub: _FakeUseStoreroomItemUsecase_284(
           this,
           Invocation.getter(#useStoreroomItemUsecase),
         ),
-      ) as _i260.UseStoreroomItemUsecase);
+      ) as _i265.UseStoreroomItemUsecase);
 
   @override
-  _i261.GetCurrentCarUsecase get getCurrentCarUsecase => (super.noSuchMethod(
+  _i266.GetCurrentCarUsecase get getCurrentCarUsecase => (super.noSuchMethod(
         Invocation.getter(#getCurrentCarUsecase),
-        returnValue: _FakeGetCurrentCarUsecase_280(
+        returnValue: _FakeGetCurrentCarUsecase_285(
           this,
           Invocation.getter(#getCurrentCarUsecase),
         ),
-        returnValueForMissingStub: _FakeGetCurrentCarUsecase_280(
+        returnValueForMissingStub: _FakeGetCurrentCarUsecase_285(
           this,
           Invocation.getter(#getCurrentCarUsecase),
         ),
-      ) as _i261.GetCurrentCarUsecase);
+      ) as _i266.GetCurrentCarUsecase);
 
   @override
-  _i262.GetCurrentHouseUsecase get getCurrentHouseUsecase =>
+  _i267.GetCurrentHouseUsecase get getCurrentHouseUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getCurrentHouseUsecase),
-        returnValue: _FakeGetCurrentHouseUsecase_281(
+        returnValue: _FakeGetCurrentHouseUsecase_286(
           this,
           Invocation.getter(#getCurrentHouseUsecase),
         ),
-        returnValueForMissingStub: _FakeGetCurrentHouseUsecase_281(
+        returnValueForMissingStub: _FakeGetCurrentHouseUsecase_286(
           this,
           Invocation.getter(#getCurrentHouseUsecase),
         ),
-      ) as _i262.GetCurrentHouseUsecase);
+      ) as _i267.GetCurrentHouseUsecase);
 
   @override
-  _i263.GetCarMaxConditionUsecase get getCarMaxConditionUsecase =>
+  _i268.GetCarMaxConditionUsecase get getCarMaxConditionUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getCarMaxConditionUsecase),
-        returnValue: _FakeGetCarMaxConditionUsecase_282(
+        returnValue: _FakeGetCarMaxConditionUsecase_287(
           this,
           Invocation.getter(#getCarMaxConditionUsecase),
         ),
-        returnValueForMissingStub: _FakeGetCarMaxConditionUsecase_282(
+        returnValueForMissingStub: _FakeGetCarMaxConditionUsecase_287(
           this,
           Invocation.getter(#getCarMaxConditionUsecase),
         ),
-      ) as _i263.GetCarMaxConditionUsecase);
+      ) as _i268.GetCarMaxConditionUsecase);
 
   @override
-  _i264.DriveCarUsecase get driveCarUsecase => (super.noSuchMethod(
+  _i269.DriveCarUsecase get driveCarUsecase => (super.noSuchMethod(
         Invocation.getter(#driveCarUsecase),
-        returnValue: _FakeDriveCarUsecase_283(
+        returnValue: _FakeDriveCarUsecase_288(
           this,
           Invocation.getter(#driveCarUsecase),
         ),
-        returnValueForMissingStub: _FakeDriveCarUsecase_283(
+        returnValueForMissingStub: _FakeDriveCarUsecase_288(
           this,
           Invocation.getter(#driveCarUsecase),
         ),
-      ) as _i264.DriveCarUsecase);
+      ) as _i269.DriveCarUsecase);
 
   @override
-  _i265.CreateCarProblemUsecase get createCarProblemUsecase =>
+  _i270.CreateCarProblemUsecase get createCarProblemUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#createCarProblemUsecase),
-        returnValue: _FakeCreateCarProblemUsecase_284(
+        returnValue: _FakeCreateCarProblemUsecase_289(
           this,
           Invocation.getter(#createCarProblemUsecase),
         ),
-        returnValueForMissingStub: _FakeCreateCarProblemUsecase_284(
+        returnValueForMissingStub: _FakeCreateCarProblemUsecase_289(
           this,
           Invocation.getter(#createCarProblemUsecase),
         ),
-      ) as _i265.CreateCarProblemUsecase);
+      ) as _i270.CreateCarProblemUsecase);
 
   @override
-  _i266.CheckIfCarHasProblemUsecase get checkIfCarHasProblemUsecase =>
+  _i271.CheckIfCarHasProblemUsecase get checkIfCarHasProblemUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#checkIfCarHasProblemUsecase),
-        returnValue: _FakeCheckIfCarHasProblemUsecase_285(
+        returnValue: _FakeCheckIfCarHasProblemUsecase_290(
           this,
           Invocation.getter(#checkIfCarHasProblemUsecase),
         ),
-        returnValueForMissingStub: _FakeCheckIfCarHasProblemUsecase_285(
+        returnValueForMissingStub: _FakeCheckIfCarHasProblemUsecase_290(
           this,
           Invocation.getter(#checkIfCarHasProblemUsecase),
         ),
-      ) as _i266.CheckIfCarHasProblemUsecase);
+      ) as _i271.CheckIfCarHasProblemUsecase);
 
   @override
-  _i267.CarIsNotDeadUsecase get carIsNotDeadUsecase => (super.noSuchMethod(
+  _i272.CarIsNotDeadUsecase get carIsNotDeadUsecase => (super.noSuchMethod(
         Invocation.getter(#carIsNotDeadUsecase),
-        returnValue: _FakeCarIsNotDeadUsecase_286(
+        returnValue: _FakeCarIsNotDeadUsecase_291(
           this,
           Invocation.getter(#carIsNotDeadUsecase),
         ),
-        returnValueForMissingStub: _FakeCarIsNotDeadUsecase_286(
+        returnValueForMissingStub: _FakeCarIsNotDeadUsecase_291(
           this,
           Invocation.getter(#carIsNotDeadUsecase),
         ),
-      ) as _i267.CarIsNotDeadUsecase);
+      ) as _i272.CarIsNotDeadUsecase);
 
   @override
-  _i268.SetAllPersonCarsToNotCurrentlyDrivingUsecase
+  _i273.SetAllPersonCarsToNotCurrentlyDrivingUsecase
       get setAllPersonCarsToNotCurrentlyDrivingUsecase => (super.noSuchMethod(
             Invocation.getter(#setAllPersonCarsToNotCurrentlyDrivingUsecase),
-            returnValue: _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_287(
+            returnValue: _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_292(
               this,
               Invocation.getter(#setAllPersonCarsToNotCurrentlyDrivingUsecase),
             ),
             returnValueForMissingStub:
-                _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_287(
+                _FakeSetAllPersonCarsToNotCurrentlyDrivingUsecase_292(
               this,
               Invocation.getter(#setAllPersonCarsToNotCurrentlyDrivingUsecase),
             ),
-          ) as _i268.SetAllPersonCarsToNotCurrentlyDrivingUsecase);
+          ) as _i273.SetAllPersonCarsToNotCurrentlyDrivingUsecase);
 
   @override
-  _i269.UpdateCarUsecase get updateCarUsecase => (super.noSuchMethod(
+  _i274.UpdateCarUsecase get updateCarUsecase => (super.noSuchMethod(
         Invocation.getter(#updateCarUsecase),
-        returnValue: _FakeUpdateCarUsecase_288(
+        returnValue: _FakeUpdateCarUsecase_293(
           this,
           Invocation.getter(#updateCarUsecase),
         ),
-        returnValueForMissingStub: _FakeUpdateCarUsecase_288(
+        returnValueForMissingStub: _FakeUpdateCarUsecase_293(
           this,
           Invocation.getter(#updateCarUsecase),
         ),
-      ) as _i269.UpdateCarUsecase);
+      ) as _i274.UpdateCarUsecase);
 
   @override
-  _i270.AddPurchasedCarToStorageUsecase get addPurchasedCarToStorageUsecase =>
+  _i275.AddPurchasedCarToStorageUsecase get addPurchasedCarToStorageUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#addPurchasedCarToStorageUsecase),
-        returnValue: _FakeAddPurchasedCarToStorageUsecase_289(
+        returnValue: _FakeAddPurchasedCarToStorageUsecase_294(
           this,
           Invocation.getter(#addPurchasedCarToStorageUsecase),
         ),
-        returnValueForMissingStub: _FakeAddPurchasedCarToStorageUsecase_289(
+        returnValueForMissingStub: _FakeAddPurchasedCarToStorageUsecase_294(
           this,
           Invocation.getter(#addPurchasedCarToStorageUsecase),
         ),
-      ) as _i270.AddPurchasedCarToStorageUsecase);
+      ) as _i275.AddPurchasedCarToStorageUsecase);
 
   @override
-  _i271.PurchaseCarFullyPaidUsecase get purchaseCarFullyPaidUsecase =>
+  _i276.PurchaseCarFullyPaidUsecase get purchaseCarFullyPaidUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseCarFullyPaidUsecase),
-        returnValue: _FakePurchaseCarFullyPaidUsecase_290(
+        returnValue: _FakePurchaseCarFullyPaidUsecase_295(
           this,
           Invocation.getter(#purchaseCarFullyPaidUsecase),
         ),
-        returnValueForMissingStub: _FakePurchaseCarFullyPaidUsecase_290(
+        returnValueForMissingStub: _FakePurchaseCarFullyPaidUsecase_295(
           this,
           Invocation.getter(#purchaseCarFullyPaidUsecase),
         ),
-      ) as _i271.PurchaseCarFullyPaidUsecase);
+      ) as _i276.PurchaseCarFullyPaidUsecase);
 
   @override
-  _i272.AddFoodToFridgeUsecase get addFoodToFridgeUsecase =>
+  _i277.AddFoodToFridgeUsecase get addFoodToFridgeUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#addFoodToFridgeUsecase),
-        returnValue: _FakeAddFoodToFridgeUsecase_291(
+        returnValue: _FakeAddFoodToFridgeUsecase_296(
           this,
           Invocation.getter(#addFoodToFridgeUsecase),
         ),
-        returnValueForMissingStub: _FakeAddFoodToFridgeUsecase_291(
+        returnValueForMissingStub: _FakeAddFoodToFridgeUsecase_296(
           this,
           Invocation.getter(#addFoodToFridgeUsecase),
         ),
-      ) as _i272.AddFoodToFridgeUsecase);
+      ) as _i277.AddFoodToFridgeUsecase);
 
   @override
-  _i273.GetFoodRecordUsecase get getFoodRecordUsecase => (super.noSuchMethod(
+  _i278.GetFoodRecordUsecase get getFoodRecordUsecase => (super.noSuchMethod(
         Invocation.getter(#getFoodRecordUsecase),
-        returnValue: _FakeGetFoodRecordUsecase_292(
+        returnValue: _FakeGetFoodRecordUsecase_297(
           this,
           Invocation.getter(#getFoodRecordUsecase),
         ),
-        returnValueForMissingStub: _FakeGetFoodRecordUsecase_292(
+        returnValueForMissingStub: _FakeGetFoodRecordUsecase_297(
           this,
           Invocation.getter(#getFoodRecordUsecase),
         ),
-      ) as _i273.GetFoodRecordUsecase);
+      ) as _i278.GetFoodRecordUsecase);
 
   @override
-  _i274.GetFridgeFoodCountUsecase get getFridgeFoodCountUsecase =>
+  _i279.GetFridgeFoodCountUsecase get getFridgeFoodCountUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getFridgeFoodCountUsecase),
-        returnValue: _FakeGetFridgeFoodCountUsecase_293(
+        returnValue: _FakeGetFridgeFoodCountUsecase_298(
           this,
           Invocation.getter(#getFridgeFoodCountUsecase),
         ),
-        returnValueForMissingStub: _FakeGetFridgeFoodCountUsecase_293(
+        returnValueForMissingStub: _FakeGetFridgeFoodCountUsecase_298(
           this,
           Invocation.getter(#getFridgeFoodCountUsecase),
         ),
-      ) as _i274.GetFridgeFoodCountUsecase);
+      ) as _i279.GetFridgeFoodCountUsecase);
 
   @override
-  _i275.PurchaseFoodUsecase get purchaseFoodUsecase => (super.noSuchMethod(
+  _i280.PurchaseFoodUsecase get purchaseFoodUsecase => (super.noSuchMethod(
         Invocation.getter(#purchaseFoodUsecase),
-        returnValue: _FakePurchaseFoodUsecase_294(
+        returnValue: _FakePurchaseFoodUsecase_299(
           this,
           Invocation.getter(#purchaseFoodUsecase),
         ),
-        returnValueForMissingStub: _FakePurchaseFoodUsecase_294(
+        returnValueForMissingStub: _FakePurchaseFoodUsecase_299(
           this,
           Invocation.getter(#purchaseFoodUsecase),
         ),
-      ) as _i275.PurchaseFoodUsecase);
+      ) as _i280.PurchaseFoodUsecase);
 
   @override
-  _i276.GetCurrentHouseStorageSpaceUsecase
+  _i281.GetCurrentHouseStorageSpaceUsecase
       get getCurrentHouseStorageSpaceUsecase => (super.noSuchMethod(
             Invocation.getter(#getCurrentHouseStorageSpaceUsecase),
-            returnValue: _FakeGetCurrentHouseStorageSpaceUsecase_295(
+            returnValue: _FakeGetCurrentHouseStorageSpaceUsecase_300(
               this,
               Invocation.getter(#getCurrentHouseStorageSpaceUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetCurrentHouseStorageSpaceUsecase_295(
+                _FakeGetCurrentHouseStorageSpaceUsecase_300(
               this,
               Invocation.getter(#getCurrentHouseStorageSpaceUsecase),
             ),
-          ) as _i276.GetCurrentHouseStorageSpaceUsecase);
+          ) as _i281.GetCurrentHouseStorageSpaceUsecase);
 
   @override
-  _i277.PurchaseHouseFullyPaidUsecase get purchaseHouseFullyPaidUsecase =>
+  _i282.PurchaseHouseFullyPaidUsecase get purchaseHouseFullyPaidUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseHouseFullyPaidUsecase),
-        returnValue: _FakePurchaseHouseFullyPaidUsecase_296(
+        returnValue: _FakePurchaseHouseFullyPaidUsecase_301(
           this,
           Invocation.getter(#purchaseHouseFullyPaidUsecase),
         ),
-        returnValueForMissingStub: _FakePurchaseHouseFullyPaidUsecase_296(
+        returnValueForMissingStub: _FakePurchaseHouseFullyPaidUsecase_301(
           this,
           Invocation.getter(#purchaseHouseFullyPaidUsecase),
         ),
-      ) as _i277.PurchaseHouseFullyPaidUsecase);
+      ) as _i282.PurchaseHouseFullyPaidUsecase);
 
   @override
-  _i278.AddItemToStoreroomUsecase get addItemToStoreroomUsecase =>
+  _i283.AddItemToStoreroomUsecase get addItemToStoreroomUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#addItemToStoreroomUsecase),
-        returnValue: _FakeAddItemToStoreroomUsecase_297(
+        returnValue: _FakeAddItemToStoreroomUsecase_302(
           this,
           Invocation.getter(#addItemToStoreroomUsecase),
         ),
-        returnValueForMissingStub: _FakeAddItemToStoreroomUsecase_297(
+        returnValueForMissingStub: _FakeAddItemToStoreroomUsecase_302(
           this,
           Invocation.getter(#addItemToStoreroomUsecase),
         ),
-      ) as _i278.AddItemToStoreroomUsecase);
+      ) as _i283.AddItemToStoreroomUsecase);
 
   @override
-  _i279.GetItemRecordUsecase get getItemRecordUsecase => (super.noSuchMethod(
+  _i284.GetItemRecordUsecase get getItemRecordUsecase => (super.noSuchMethod(
         Invocation.getter(#getItemRecordUsecase),
-        returnValue: _FakeGetItemRecordUsecase_298(
+        returnValue: _FakeGetItemRecordUsecase_303(
           this,
           Invocation.getter(#getItemRecordUsecase),
         ),
-        returnValueForMissingStub: _FakeGetItemRecordUsecase_298(
+        returnValueForMissingStub: _FakeGetItemRecordUsecase_303(
           this,
           Invocation.getter(#getItemRecordUsecase),
         ),
-      ) as _i279.GetItemRecordUsecase);
+      ) as _i284.GetItemRecordUsecase);
 
   @override
-  _i280.GetStoreroomItemCountUsecase get getStoreroomItemCountUsecase =>
+  _i285.GetStoreroomItemCountUsecase get getStoreroomItemCountUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getStoreroomItemCountUsecase),
-        returnValue: _FakeGetStoreroomItemCountUsecase_299(
+        returnValue: _FakeGetStoreroomItemCountUsecase_304(
           this,
           Invocation.getter(#getStoreroomItemCountUsecase),
         ),
-        returnValueForMissingStub: _FakeGetStoreroomItemCountUsecase_299(
+        returnValueForMissingStub: _FakeGetStoreroomItemCountUsecase_304(
           this,
           Invocation.getter(#getStoreroomItemCountUsecase),
         ),
-      ) as _i280.GetStoreroomItemCountUsecase);
+      ) as _i285.GetStoreroomItemCountUsecase);
 
   @override
-  _i281.PurchaseItemUsecase get purchaseItemUsecase => (super.noSuchMethod(
+  _i286.PurchaseItemUsecase get purchaseItemUsecase => (super.noSuchMethod(
         Invocation.getter(#purchaseItemUsecase),
-        returnValue: _FakePurchaseItemUsecase_300(
+        returnValue: _FakePurchaseItemUsecase_305(
           this,
           Invocation.getter(#purchaseItemUsecase),
         ),
-        returnValueForMissingStub: _FakePurchaseItemUsecase_300(
+        returnValueForMissingStub: _FakePurchaseItemUsecase_305(
           this,
           Invocation.getter(#purchaseItemUsecase),
         ),
-      ) as _i281.PurchaseItemUsecase);
+      ) as _i286.PurchaseItemUsecase);
 
   @override
-  _i282.PurchaseJewelryUsecase get purchaseJewelryUsecase =>
+  _i287.PurchaseJewelryUsecase get purchaseJewelryUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseJewelryUsecase),
-        returnValue: _FakePurchaseJewelryUsecase_301(
+        returnValue: _FakePurchaseJewelryUsecase_306(
           this,
           Invocation.getter(#purchaseJewelryUsecase),
         ),
-        returnValueForMissingStub: _FakePurchaseJewelryUsecase_301(
+        returnValueForMissingStub: _FakePurchaseJewelryUsecase_306(
           this,
           Invocation.getter(#purchaseJewelryUsecase),
         ),
-      ) as _i282.PurchaseJewelryUsecase);
+      ) as _i287.PurchaseJewelryUsecase);
 
   @override
-  _i283.RentHouseUsecase get rentHouseUsecase => (super.noSuchMethod(
+  _i288.RentHouseUsecase get rentHouseUsecase => (super.noSuchMethod(
         Invocation.getter(#rentHouseUsecase),
-        returnValue: _FakeRentHouseUsecase_302(
+        returnValue: _FakeRentHouseUsecase_307(
           this,
           Invocation.getter(#rentHouseUsecase),
         ),
-        returnValueForMissingStub: _FakeRentHouseUsecase_302(
+        returnValueForMissingStub: _FakeRentHouseUsecase_307(
           this,
           Invocation.getter(#rentHouseUsecase),
         ),
-      ) as _i283.RentHouseUsecase);
+      ) as _i288.RentHouseUsecase);
 
   @override
-  _i284.BreakOldLeaseSignNewLease get breakOldLeaseSignNewLease =>
+  _i289.BreakOldLeaseSignNewLease get breakOldLeaseSignNewLease =>
       (super.noSuchMethod(
         Invocation.getter(#breakOldLeaseSignNewLease),
-        returnValue: _FakeBreakOldLeaseSignNewLease_303(
+        returnValue: _FakeBreakOldLeaseSignNewLease_308(
           this,
           Invocation.getter(#breakOldLeaseSignNewLease),
         ),
-        returnValueForMissingStub: _FakeBreakOldLeaseSignNewLease_303(
+        returnValueForMissingStub: _FakeBreakOldLeaseSignNewLease_308(
           this,
           Invocation.getter(#breakOldLeaseSignNewLease),
         ),
-      ) as _i284.BreakOldLeaseSignNewLease);
+      ) as _i289.BreakOldLeaseSignNewLease);
 
   @override
-  _i285.EndLeaseUsecase get endLeaseUsecase => (super.noSuchMethod(
+  _i290.EndLeaseUsecase get endLeaseUsecase => (super.noSuchMethod(
         Invocation.getter(#endLeaseUsecase),
-        returnValue: _FakeEndLeaseUsecase_304(
+        returnValue: _FakeEndLeaseUsecase_309(
           this,
           Invocation.getter(#endLeaseUsecase),
         ),
-        returnValueForMissingStub: _FakeEndLeaseUsecase_304(
+        returnValueForMissingStub: _FakeEndLeaseUsecase_309(
           this,
           Invocation.getter(#endLeaseUsecase),
         ),
-      ) as _i285.EndLeaseUsecase);
+      ) as _i290.EndLeaseUsecase);
 
   @override
-  _i286.SignLeaseForRentalUsecase get signLeaseForRentalUsecase =>
+  _i291.SignLeaseForRentalUsecase get signLeaseForRentalUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#signLeaseForRentalUsecase),
-        returnValue: _FakeSignLeaseForRentalUsecase_305(
+        returnValue: _FakeSignLeaseForRentalUsecase_310(
           this,
           Invocation.getter(#signLeaseForRentalUsecase),
         ),
-        returnValueForMissingStub: _FakeSignLeaseForRentalUsecase_305(
+        returnValueForMissingStub: _FakeSignLeaseForRentalUsecase_310(
           this,
           Invocation.getter(#signLeaseForRentalUsecase),
         ),
-      ) as _i286.SignLeaseForRentalUsecase);
+      ) as _i291.SignLeaseForRentalUsecase);
 
   @override
-  _i287.MoveStorageToNewHouseUsecase get moveStorageToNewHouseUsecase =>
+  _i292.MoveStorageToNewHouseUsecase get moveStorageToNewHouseUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#moveStorageToNewHouseUsecase),
-        returnValue: _FakeMoveStorageToNewHouseUsecase_306(
+        returnValue: _FakeMoveStorageToNewHouseUsecase_311(
           this,
           Invocation.getter(#moveStorageToNewHouseUsecase),
         ),
-        returnValueForMissingStub: _FakeMoveStorageToNewHouseUsecase_306(
+        returnValueForMissingStub: _FakeMoveStorageToNewHouseUsecase_311(
           this,
           Invocation.getter(#moveStorageToNewHouseUsecase),
         ),
-      ) as _i287.MoveStorageToNewHouseUsecase);
+      ) as _i292.MoveStorageToNewHouseUsecase);
 
   @override
-  _i288.UseFoodUsecase get useFoodUsecase => (super.noSuchMethod(
+  _i293.UseFoodUsecase get useFoodUsecase => (super.noSuchMethod(
         Invocation.getter(#useFoodUsecase),
-        returnValue: _FakeUseFoodUsecase_307(
+        returnValue: _FakeUseFoodUsecase_312(
           this,
           Invocation.getter(#useFoodUsecase),
         ),
-        returnValueForMissingStub: _FakeUseFoodUsecase_307(
+        returnValueForMissingStub: _FakeUseFoodUsecase_312(
           this,
           Invocation.getter(#useFoodUsecase),
         ),
-      ) as _i288.UseFoodUsecase);
+      ) as _i293.UseFoodUsecase);
 
   @override
-  _i289.GetAllPersonFridgeFoodPairsUsecase
+  _i294.GetAllPersonFridgeFoodPairsUsecase
       get getAllPersonFridgeFoodPairsUsecase => (super.noSuchMethod(
             Invocation.getter(#getAllPersonFridgeFoodPairsUsecase),
-            returnValue: _FakeGetAllPersonFridgeFoodPairsUsecase_308(
+            returnValue: _FakeGetAllPersonFridgeFoodPairsUsecase_313(
               this,
               Invocation.getter(#getAllPersonFridgeFoodPairsUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetAllPersonFridgeFoodPairsUsecase_308(
+                _FakeGetAllPersonFridgeFoodPairsUsecase_313(
               this,
               Invocation.getter(#getAllPersonFridgeFoodPairsUsecase),
             ),
-          ) as _i289.GetAllPersonFridgeFoodPairsUsecase);
+          ) as _i294.GetAllPersonFridgeFoodPairsUsecase);
 
   @override
-  _i290.PurchaseCarWithLoanUsecase get purchaseCarWithLoanUsecase =>
+  _i295.PurchaseCarWithLoanUsecase get purchaseCarWithLoanUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseCarWithLoanUsecase),
-        returnValue: _FakePurchaseCarWithLoanUsecase_309(
+        returnValue: _FakePurchaseCarWithLoanUsecase_314(
           this,
           Invocation.getter(#purchaseCarWithLoanUsecase),
         ),
-        returnValueForMissingStub: _FakePurchaseCarWithLoanUsecase_309(
+        returnValueForMissingStub: _FakePurchaseCarWithLoanUsecase_314(
           this,
           Invocation.getter(#purchaseCarWithLoanUsecase),
         ),
-      ) as _i290.PurchaseCarWithLoanUsecase);
+      ) as _i295.PurchaseCarWithLoanUsecase);
 
   @override
-  _i291.PurchaseHouseWithLoanUsecase get purchaseHouseWithLoanUsecase =>
+  _i296.PurchaseHouseWithLoanUsecase get purchaseHouseWithLoanUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#purchaseHouseWithLoanUsecase),
-        returnValue: _FakePurchaseHouseWithLoanUsecase_310(
+        returnValue: _FakePurchaseHouseWithLoanUsecase_315(
           this,
           Invocation.getter(#purchaseHouseWithLoanUsecase),
         ),
-        returnValueForMissingStub: _FakePurchaseHouseWithLoanUsecase_310(
+        returnValueForMissingStub: _FakePurchaseHouseWithLoanUsecase_315(
           this,
           Invocation.getter(#purchaseHouseWithLoanUsecase),
         ),
-      ) as _i291.PurchaseHouseWithLoanUsecase);
+      ) as _i296.PurchaseHouseWithLoanUsecase);
 
   @override
-  _i292.SignMortgageLoanContract get signMortgageLoanContract =>
+  _i297.SignMortgageLoanContract get signMortgageLoanContract =>
       (super.noSuchMethod(
         Invocation.getter(#signMortgageLoanContract),
-        returnValue: _FakeSignMortgageLoanContract_311(
+        returnValue: _FakeSignMortgageLoanContract_316(
           this,
           Invocation.getter(#signMortgageLoanContract),
         ),
-        returnValueForMissingStub: _FakeSignMortgageLoanContract_311(
+        returnValueForMissingStub: _FakeSignMortgageLoanContract_316(
           this,
           Invocation.getter(#signMortgageLoanContract),
         ),
-      ) as _i292.SignMortgageLoanContract);
+      ) as _i297.SignMortgageLoanContract);
 
   @override
-  _i293.AddLocationToBuildingsUsecase get addLocationToBuildingsUsecase =>
+  _i298.AddLocationToBuildingsUsecase get addLocationToBuildingsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#addLocationToBuildingsUsecase),
-        returnValue: _FakeAddLocationToBuildingsUsecase_312(
+        returnValue: _FakeAddLocationToBuildingsUsecase_317(
           this,
           Invocation.getter(#addLocationToBuildingsUsecase),
         ),
-        returnValueForMissingStub: _FakeAddLocationToBuildingsUsecase_312(
+        returnValueForMissingStub: _FakeAddLocationToBuildingsUsecase_317(
           this,
           Invocation.getter(#addLocationToBuildingsUsecase),
         ),
-      ) as _i293.AddLocationToBuildingsUsecase);
+      ) as _i298.AddLocationToBuildingsUsecase);
 
   @override
-  _i294.GetPurchaseHousesUsecase get getPurchaseHousesUsecase =>
+  _i299.GetPurchaseHousesUsecase get getPurchaseHousesUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getPurchaseHousesUsecase),
-        returnValue: _FakeGetPurchaseHousesUsecase_313(
+        returnValue: _FakeGetPurchaseHousesUsecase_318(
           this,
           Invocation.getter(#getPurchaseHousesUsecase),
         ),
-        returnValueForMissingStub: _FakeGetPurchaseHousesUsecase_313(
+        returnValueForMissingStub: _FakeGetPurchaseHousesUsecase_318(
           this,
           Invocation.getter(#getPurchaseHousesUsecase),
         ),
-      ) as _i294.GetPurchaseHousesUsecase);
+      ) as _i299.GetPurchaseHousesUsecase);
 
   @override
-  _i295.GetRentalHousesUsecase get getRentalHousesUsecase =>
+  _i300.GetRentalHousesUsecase get getRentalHousesUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getRentalHousesUsecase),
-        returnValue: _FakeGetRentalHousesUsecase_314(
+        returnValue: _FakeGetRentalHousesUsecase_319(
           this,
           Invocation.getter(#getRentalHousesUsecase),
         ),
-        returnValueForMissingStub: _FakeGetRentalHousesUsecase_314(
+        returnValueForMissingStub: _FakeGetRentalHousesUsecase_319(
           this,
           Invocation.getter(#getRentalHousesUsecase),
         ),
-      ) as _i295.GetRentalHousesUsecase);
+      ) as _i300.GetRentalHousesUsecase);
 
   @override
-  _i296.MoveIntoNewHouseUsecase get moveIntoNewHouseUsecase =>
+  _i301.MoveIntoNewHouseUsecase get moveIntoNewHouseUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#moveIntoNewHouseUsecase),
-        returnValue: _FakeMoveIntoNewHouseUsecase_315(
+        returnValue: _FakeMoveIntoNewHouseUsecase_320(
           this,
           Invocation.getter(#moveIntoNewHouseUsecase),
         ),
-        returnValueForMissingStub: _FakeMoveIntoNewHouseUsecase_315(
+        returnValueForMissingStub: _FakeMoveIntoNewHouseUsecase_320(
           this,
           Invocation.getter(#moveIntoNewHouseUsecase),
         ),
-      ) as _i296.MoveIntoNewHouseUsecase);
+      ) as _i301.MoveIntoNewHouseUsecase);
 
   @override
-  _i297.DeleteCurrentHomeUsecase get deleteCurrentHomeUsecase =>
+  _i302.DeleteCurrentHomeUsecase get deleteCurrentHomeUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#deleteCurrentHomeUsecase),
-        returnValue: _FakeDeleteCurrentHomeUsecase_316(
+        returnValue: _FakeDeleteCurrentHomeUsecase_321(
           this,
           Invocation.getter(#deleteCurrentHomeUsecase),
         ),
-        returnValueForMissingStub: _FakeDeleteCurrentHomeUsecase_316(
+        returnValueForMissingStub: _FakeDeleteCurrentHomeUsecase_321(
           this,
           Invocation.getter(#deleteCurrentHomeUsecase),
         ),
-      ) as _i297.DeleteCurrentHomeUsecase);
+      ) as _i302.DeleteCurrentHomeUsecase);
 
   @override
-  _i298.GetAllPeopleInAHouseUsecase get getAllPeopleInAHouseUsecase =>
+  _i303.GetAllPeopleInAHouseUsecase get getAllPeopleInAHouseUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getAllPeopleInAHouseUsecase),
-        returnValue: _FakeGetAllPeopleInAHouseUsecase_317(
+        returnValue: _FakeGetAllPeopleInAHouseUsecase_322(
           this,
           Invocation.getter(#getAllPeopleInAHouseUsecase),
         ),
-        returnValueForMissingStub: _FakeGetAllPeopleInAHouseUsecase_317(
+        returnValueForMissingStub: _FakeGetAllPeopleInAHouseUsecase_322(
           this,
           Invocation.getter(#getAllPeopleInAHouseUsecase),
         ),
-      ) as _i298.GetAllPeopleInAHouseUsecase);
+      ) as _i303.GetAllPeopleInAHouseUsecase);
 
   @override
-  _i299.GetCurrentHomeUsecase get getCurrentHomeUsecase => (super.noSuchMethod(
+  _i304.GetCurrentHomeUsecase get getCurrentHomeUsecase => (super.noSuchMethod(
         Invocation.getter(#getCurrentHomeUsecase),
-        returnValue: _FakeGetCurrentHomeUsecase_318(
+        returnValue: _FakeGetCurrentHomeUsecase_323(
           this,
           Invocation.getter(#getCurrentHomeUsecase),
         ),
-        returnValueForMissingStub: _FakeGetCurrentHomeUsecase_318(
+        returnValueForMissingStub: _FakeGetCurrentHomeUsecase_323(
           this,
           Invocation.getter(#getCurrentHomeUsecase),
         ),
-      ) as _i299.GetCurrentHomeUsecase);
+      ) as _i304.GetCurrentHomeUsecase);
 
   @override
-  _i300.SetCurrentHomeUsecase get setCurrentHomeUsecase => (super.noSuchMethod(
+  _i305.SetCurrentHomeUsecase get setCurrentHomeUsecase => (super.noSuchMethod(
         Invocation.getter(#setCurrentHomeUsecase),
-        returnValue: _FakeSetCurrentHomeUsecase_319(
+        returnValue: _FakeSetCurrentHomeUsecase_324(
           this,
           Invocation.getter(#setCurrentHomeUsecase),
         ),
-        returnValueForMissingStub: _FakeSetCurrentHomeUsecase_319(
+        returnValueForMissingStub: _FakeSetCurrentHomeUsecase_324(
           this,
           Invocation.getter(#setCurrentHomeUsecase),
         ),
-      ) as _i300.SetCurrentHomeUsecase);
+      ) as _i305.SetCurrentHomeUsecase);
 
   @override
-  _i301.WatchAllPeopleInAHouseUsecase get watchAllPeopleInAHouseUsecase =>
+  _i306.WatchAllPeopleInAHouseUsecase get watchAllPeopleInAHouseUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#watchAllPeopleInAHouseUsecase),
-        returnValue: _FakeWatchAllPeopleInAHouseUsecase_320(
+        returnValue: _FakeWatchAllPeopleInAHouseUsecase_325(
           this,
           Invocation.getter(#watchAllPeopleInAHouseUsecase),
         ),
-        returnValueForMissingStub: _FakeWatchAllPeopleInAHouseUsecase_320(
+        returnValueForMissingStub: _FakeWatchAllPeopleInAHouseUsecase_325(
           this,
           Invocation.getter(#watchAllPeopleInAHouseUsecase),
         ),
-      ) as _i301.WatchAllPeopleInAHouseUsecase);
+      ) as _i306.WatchAllPeopleInAHouseUsecase);
 
   @override
-  _i302.WatchCurrentHomeUsecase get watchCurrentHomeUsecase =>
+  _i307.WatchCurrentHomeUsecase get watchCurrentHomeUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#watchCurrentHomeUsecase),
-        returnValue: _FakeWatchCurrentHomeUsecase_321(
+        returnValue: _FakeWatchCurrentHomeUsecase_326(
           this,
           Invocation.getter(#watchCurrentHomeUsecase),
         ),
-        returnValueForMissingStub: _FakeWatchCurrentHomeUsecase_321(
+        returnValueForMissingStub: _FakeWatchCurrentHomeUsecase_326(
           this,
           Invocation.getter(#watchCurrentHomeUsecase),
         ),
-      ) as _i302.WatchCurrentHomeUsecase);
+      ) as _i307.WatchCurrentHomeUsecase);
 }
 
 /// A class which mocks [AgeUsecases].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAgeUsecases extends _i1.Mock implements _i335.AgeUsecases {
+class MockAgeUsecases extends _i1.Mock implements _i341.AgeUsecases {
   @override
-  _i303.GetPersonsAgeUsecase get getPersonsAgeUsecase => (super.noSuchMethod(
+  _i308.GetPersonsAgeUsecase get getPersonsAgeUsecase => (super.noSuchMethod(
         Invocation.getter(#getPersonsAgeUsecase),
-        returnValue: _FakeGetPersonsAgeUsecase_322(
+        returnValue: _FakeGetPersonsAgeUsecase_327(
           this,
           Invocation.getter(#getPersonsAgeUsecase),
         ),
-        returnValueForMissingStub: _FakeGetPersonsAgeUsecase_322(
+        returnValueForMissingStub: _FakeGetPersonsAgeUsecase_327(
           this,
           Invocation.getter(#getPersonsAgeUsecase),
         ),
-      ) as _i303.GetPersonsAgeUsecase);
+      ) as _i308.GetPersonsAgeUsecase);
 
   @override
-  _i304.GetDayOfBirthFromDaysLivedUsecase
+  _i309.GetDayOfBirthFromDaysLivedUsecase
       get getDayOfBirthFromDaysLivedUsecase => (super.noSuchMethod(
             Invocation.getter(#getDayOfBirthFromDaysLivedUsecase),
-            returnValue: _FakeGetDayOfBirthFromDaysLivedUsecase_323(
+            returnValue: _FakeGetDayOfBirthFromDaysLivedUsecase_328(
               this,
               Invocation.getter(#getDayOfBirthFromDaysLivedUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetDayOfBirthFromDaysLivedUsecase_323(
+                _FakeGetDayOfBirthFromDaysLivedUsecase_328(
               this,
               Invocation.getter(#getDayOfBirthFromDaysLivedUsecase),
             ),
-          ) as _i304.GetDayOfBirthFromDaysLivedUsecase);
+          ) as _i309.GetDayOfBirthFromDaysLivedUsecase);
 
   @override
-  _i305.GetDayOfNextBirthdayUsecase get getDayOfNextBirthdayUsecase =>
+  _i310.GetDayOfNextBirthdayUsecase get getDayOfNextBirthdayUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getDayOfNextBirthdayUsecase),
-        returnValue: _FakeGetDayOfNextBirthdayUsecase_324(
+        returnValue: _FakeGetDayOfNextBirthdayUsecase_329(
           this,
           Invocation.getter(#getDayOfNextBirthdayUsecase),
         ),
-        returnValueForMissingStub: _FakeGetDayOfNextBirthdayUsecase_324(
+        returnValueForMissingStub: _FakeGetDayOfNextBirthdayUsecase_329(
           this,
           Invocation.getter(#getDayOfNextBirthdayUsecase),
         ),
-      ) as _i305.GetDayOfNextBirthdayUsecase);
+      ) as _i310.GetDayOfNextBirthdayUsecase);
 
   @override
-  _i306.GetDaysLivedRangeForALifestageUsecase
+  _i311.GetDaysLivedRangeForALifestageUsecase
       get getDaysLivedRangeForALifestageUsecase => (super.noSuchMethod(
             Invocation.getter(#getDaysLivedRangeForALifestageUsecase),
-            returnValue: _FakeGetDaysLivedRangeForALifestageUsecase_325(
+            returnValue: _FakeGetDaysLivedRangeForALifestageUsecase_330(
               this,
               Invocation.getter(#getDaysLivedRangeForALifestageUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetDaysLivedRangeForALifestageUsecase_325(
+                _FakeGetDaysLivedRangeForALifestageUsecase_330(
               this,
               Invocation.getter(#getDaysLivedRangeForALifestageUsecase),
             ),
-          ) as _i306.GetDaysLivedRangeForALifestageUsecase);
+          ) as _i311.GetDaysLivedRangeForALifestageUsecase);
 
   @override
-  _i307.GetPersonsDaysLivedUsecase get getPersonsDaysLived =>
+  _i312.GetPersonsDaysLivedUsecase get getPersonsDaysLived =>
       (super.noSuchMethod(
         Invocation.getter(#getPersonsDaysLived),
-        returnValue: _FakeGetPersonsDaysLivedUsecase_326(
+        returnValue: _FakeGetPersonsDaysLivedUsecase_331(
           this,
           Invocation.getter(#getPersonsDaysLived),
         ),
-        returnValueForMissingStub: _FakeGetPersonsDaysLivedUsecase_326(
+        returnValueForMissingStub: _FakeGetPersonsDaysLivedUsecase_331(
           this,
           Invocation.getter(#getPersonsDaysLived),
         ),
-      ) as _i307.GetPersonsDaysLivedUsecase);
+      ) as _i312.GetPersonsDaysLivedUsecase);
 
   @override
-  _i308.GetRandomDayOfBirthInALifeStageUsecase
+  _i313.GetRandomDayOfBirthInALifeStageUsecase
       get getRandomDayOfBirthInALifeStageUsecase => (super.noSuchMethod(
             Invocation.getter(#getRandomDayOfBirthInALifeStageUsecase),
-            returnValue: _FakeGetRandomDayOfBirthInALifeStageUsecase_327(
+            returnValue: _FakeGetRandomDayOfBirthInALifeStageUsecase_332(
               this,
               Invocation.getter(#getRandomDayOfBirthInALifeStageUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetRandomDayOfBirthInALifeStageUsecase_327(
+                _FakeGetRandomDayOfBirthInALifeStageUsecase_332(
               this,
               Invocation.getter(#getRandomDayOfBirthInALifeStageUsecase),
             ),
-          ) as _i308.GetRandomDayOfBirthInALifeStageUsecase);
+          ) as _i313.GetRandomDayOfBirthInALifeStageUsecase);
 
   @override
-  _i309.GetRandomDaysLivedInALifestage get getRandomDaysLivedInALifestage =>
+  _i314.GetRandomDaysLivedInALifestage get getRandomDaysLivedInALifestage =>
       (super.noSuchMethod(
         Invocation.getter(#getRandomDaysLivedInALifestage),
-        returnValue: _FakeGetRandomDaysLivedInALifestage_328(
+        returnValue: _FakeGetRandomDaysLivedInALifestage_333(
           this,
           Invocation.getter(#getRandomDaysLivedInALifestage),
         ),
-        returnValueForMissingStub: _FakeGetRandomDaysLivedInALifestage_328(
+        returnValueForMissingStub: _FakeGetRandomDaysLivedInALifestage_333(
           this,
           Invocation.getter(#getRandomDaysLivedInALifestage),
         ),
-      ) as _i309.GetRandomDaysLivedInALifestage);
+      ) as _i314.GetRandomDaysLivedInALifestage);
 
   @override
-  _i310.GetADayOfBirthFromAListOfPossibleLifeStagesUsecase
+  _i315.GetADayOfBirthFromAListOfPossibleLifeStagesUsecase
       get getADayOfBirthFromAListOfPossibleLifeStagesUsecase =>
           (super.noSuchMethod(
             Invocation.getter(
                 #getADayOfBirthFromAListOfPossibleLifeStagesUsecase),
             returnValue:
-                _FakeGetADayOfBirthFromAListOfPossibleLifeStagesUsecase_329(
+                _FakeGetADayOfBirthFromAListOfPossibleLifeStagesUsecase_334(
               this,
               Invocation.getter(
                   #getADayOfBirthFromAListOfPossibleLifeStagesUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetADayOfBirthFromAListOfPossibleLifeStagesUsecase_329(
+                _FakeGetADayOfBirthFromAListOfPossibleLifeStagesUsecase_334(
               this,
               Invocation.getter(
                   #getADayOfBirthFromAListOfPossibleLifeStagesUsecase),
             ),
-          ) as _i310.GetADayOfBirthFromAListOfPossibleLifeStagesUsecase);
+          ) as _i315.GetADayOfBirthFromAListOfPossibleLifeStagesUsecase);
 
   @override
-  _i311.CheckIfPersonIsAtLeastThisAgeUsecase
+  _i316.CheckIfPersonIsAtLeastThisAgeUsecase
       get checkIfPersonIsAtLeastThisAgeUsecase => (super.noSuchMethod(
             Invocation.getter(#checkIfPersonIsAtLeastThisAgeUsecase),
-            returnValue: _FakeCheckIfPersonIsAtLeastThisAgeUsecase_330(
+            returnValue: _FakeCheckIfPersonIsAtLeastThisAgeUsecase_335(
               this,
               Invocation.getter(#checkIfPersonIsAtLeastThisAgeUsecase),
             ),
             returnValueForMissingStub:
-                _FakeCheckIfPersonIsAtLeastThisAgeUsecase_330(
+                _FakeCheckIfPersonIsAtLeastThisAgeUsecase_335(
               this,
               Invocation.getter(#checkIfPersonIsAtLeastThisAgeUsecase),
             ),
-          ) as _i311.CheckIfPersonIsAtLeastThisAgeUsecase);
+          ) as _i316.CheckIfPersonIsAtLeastThisAgeUsecase);
 
   @override
-  _i312.GetCurrentDayOfBirthRangeForALifeStageUsecase
+  _i317.GetCurrentDayOfBirthRangeForALifeStageUsecase
       get getCurrentDayOfBirthRangeForALifeStageUsecase => (super.noSuchMethod(
             Invocation.getter(#getCurrentDayOfBirthRangeForALifeStageUsecase),
-            returnValue: _FakeGetCurrentDayOfBirthRangeForALifeStageUsecase_331(
+            returnValue: _FakeGetCurrentDayOfBirthRangeForALifeStageUsecase_336(
               this,
               Invocation.getter(#getCurrentDayOfBirthRangeForALifeStageUsecase),
             ),
             returnValueForMissingStub:
-                _FakeGetCurrentDayOfBirthRangeForALifeStageUsecase_331(
+                _FakeGetCurrentDayOfBirthRangeForALifeStageUsecase_336(
               this,
               Invocation.getter(#getCurrentDayOfBirthRangeForALifeStageUsecase),
             ),
-          ) as _i312.GetCurrentDayOfBirthRangeForALifeStageUsecase);
+          ) as _i317.GetCurrentDayOfBirthRangeForALifeStageUsecase);
 
   @override
-  _i313.AgeUpCharacterActionsUsecase get ageUpCharacterActionsUsecase =>
+  _i318.AgeUpCharacterActionsUsecase get ageUpCharacterActionsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#ageUpCharacterActionsUsecase),
-        returnValue: _FakeAgeUpCharacterActionsUsecase_332(
+        returnValue: _FakeAgeUpCharacterActionsUsecase_337(
           this,
           Invocation.getter(#ageUpCharacterActionsUsecase),
         ),
-        returnValueForMissingStub: _FakeAgeUpCharacterActionsUsecase_332(
+        returnValueForMissingStub: _FakeAgeUpCharacterActionsUsecase_337(
           this,
           Invocation.getter(#ageUpCharacterActionsUsecase),
         ),
-      ) as _i313.AgeUpCharacterActionsUsecase);
+      ) as _i318.AgeUpCharacterActionsUsecase);
 
   @override
-  _i314.AgeUpToToddlerActionsUsecase get ageUpToToddlerActionsUsecase =>
+  _i319.AgeUpToToddlerActionsUsecase get ageUpToToddlerActionsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#ageUpToToddlerActionsUsecase),
-        returnValue: _FakeAgeUpToToddlerActionsUsecase_333(
+        returnValue: _FakeAgeUpToToddlerActionsUsecase_338(
           this,
           Invocation.getter(#ageUpToToddlerActionsUsecase),
         ),
-        returnValueForMissingStub: _FakeAgeUpToToddlerActionsUsecase_333(
+        returnValueForMissingStub: _FakeAgeUpToToddlerActionsUsecase_338(
           this,
           Invocation.getter(#ageUpToToddlerActionsUsecase),
         ),
-      ) as _i314.AgeUpToToddlerActionsUsecase);
+      ) as _i319.AgeUpToToddlerActionsUsecase);
 
   @override
-  _i315.AgeUpToChildActionsUsecase get ageUpToChildActionsUsecase =>
+  _i320.AgeUpToChildActionsUsecase get ageUpToChildActionsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#ageUpToChildActionsUsecase),
-        returnValue: _FakeAgeUpToChildActionsUsecase_334(
+        returnValue: _FakeAgeUpToChildActionsUsecase_339(
           this,
           Invocation.getter(#ageUpToChildActionsUsecase),
         ),
-        returnValueForMissingStub: _FakeAgeUpToChildActionsUsecase_334(
+        returnValueForMissingStub: _FakeAgeUpToChildActionsUsecase_339(
           this,
           Invocation.getter(#ageUpToChildActionsUsecase),
         ),
-      ) as _i315.AgeUpToChildActionsUsecase);
+      ) as _i320.AgeUpToChildActionsUsecase);
 
   @override
-  _i316.AgeUpToTeenActionsUsecase get ageUpToTeenActionsUsecase =>
+  _i321.AgeUpToTeenActionsUsecase get ageUpToTeenActionsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#ageUpToTeenActionsUsecase),
-        returnValue: _FakeAgeUpToTeenActionsUsecase_335(
+        returnValue: _FakeAgeUpToTeenActionsUsecase_340(
           this,
           Invocation.getter(#ageUpToTeenActionsUsecase),
         ),
-        returnValueForMissingStub: _FakeAgeUpToTeenActionsUsecase_335(
+        returnValueForMissingStub: _FakeAgeUpToTeenActionsUsecase_340(
           this,
           Invocation.getter(#ageUpToTeenActionsUsecase),
         ),
-      ) as _i316.AgeUpToTeenActionsUsecase);
+      ) as _i321.AgeUpToTeenActionsUsecase);
 
   @override
-  _i317.AgeUpToYoungAdultActionsUsecase get ageUpToYoungAdultActionsUsecase =>
+  _i322.AgeUpToYoungAdultActionsUsecase get ageUpToYoungAdultActionsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#ageUpToYoungAdultActionsUsecase),
-        returnValue: _FakeAgeUpToYoungAdultActionsUsecase_336(
+        returnValue: _FakeAgeUpToYoungAdultActionsUsecase_341(
           this,
           Invocation.getter(#ageUpToYoungAdultActionsUsecase),
         ),
-        returnValueForMissingStub: _FakeAgeUpToYoungAdultActionsUsecase_336(
+        returnValueForMissingStub: _FakeAgeUpToYoungAdultActionsUsecase_341(
           this,
           Invocation.getter(#ageUpToYoungAdultActionsUsecase),
         ),
-      ) as _i317.AgeUpToYoungAdultActionsUsecase);
+      ) as _i322.AgeUpToYoungAdultActionsUsecase);
 
   @override
-  _i318.AgeUpToAdultActionsUsecase get ageUpToAdultActionsUsecase =>
+  _i323.AgeUpToAdultActionsUsecase get ageUpToAdultActionsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#ageUpToAdultActionsUsecase),
-        returnValue: _FakeAgeUpToAdultActionsUsecase_337(
+        returnValue: _FakeAgeUpToAdultActionsUsecase_342(
           this,
           Invocation.getter(#ageUpToAdultActionsUsecase),
         ),
-        returnValueForMissingStub: _FakeAgeUpToAdultActionsUsecase_337(
+        returnValueForMissingStub: _FakeAgeUpToAdultActionsUsecase_342(
           this,
           Invocation.getter(#ageUpToAdultActionsUsecase),
         ),
-      ) as _i318.AgeUpToAdultActionsUsecase);
+      ) as _i323.AgeUpToAdultActionsUsecase);
 
   @override
-  _i319.AgeUpToElderActionsUsecase get ageUpToElderActionsUsecase =>
+  _i324.AgeUpToElderActionsUsecase get ageUpToElderActionsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#ageUpToElderActionsUsecase),
-        returnValue: _FakeAgeUpToElderActionsUsecase_338(
+        returnValue: _FakeAgeUpToElderActionsUsecase_343(
           this,
           Invocation.getter(#ageUpToElderActionsUsecase),
         ),
-        returnValueForMissingStub: _FakeAgeUpToElderActionsUsecase_338(
+        returnValueForMissingStub: _FakeAgeUpToElderActionsUsecase_343(
           this,
           Invocation.getter(#ageUpToElderActionsUsecase),
         ),
-      ) as _i319.AgeUpToElderActionsUsecase);
+      ) as _i324.AgeUpToElderActionsUsecase);
 
   @override
-  _i320.GetLastDayOfLifeStageUsecase get getLastDayOfLifeStageUsecase =>
+  _i325.GetLastDayOfLifeStageUsecase get getLastDayOfLifeStageUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getLastDayOfLifeStageUsecase),
-        returnValue: _FakeGetLastDayOfLifeStageUsecase_339(
+        returnValue: _FakeGetLastDayOfLifeStageUsecase_344(
           this,
           Invocation.getter(#getLastDayOfLifeStageUsecase),
         ),
-        returnValueForMissingStub: _FakeGetLastDayOfLifeStageUsecase_339(
+        returnValueForMissingStub: _FakeGetLastDayOfLifeStageUsecase_344(
           this,
           Invocation.getter(#getLastDayOfLifeStageUsecase),
         ),
-      ) as _i320.GetLastDayOfLifeStageUsecase);
+      ) as _i325.GetLastDayOfLifeStageUsecase);
 
   @override
-  _i321.GetLastWeekDayOfLifeStageUsecase get getLastWeekDayOfLifeStageUsecase =>
+  _i326.GetLastWeekDayOfLifeStageUsecase get getLastWeekDayOfLifeStageUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#getLastWeekDayOfLifeStageUsecase),
-        returnValue: _FakeGetLastWeekDayOfLifeStageUsecase_340(
+        returnValue: _FakeGetLastWeekDayOfLifeStageUsecase_345(
           this,
           Invocation.getter(#getLastWeekDayOfLifeStageUsecase),
         ),
-        returnValueForMissingStub: _FakeGetLastWeekDayOfLifeStageUsecase_340(
+        returnValueForMissingStub: _FakeGetLastWeekDayOfLifeStageUsecase_345(
           this,
           Invocation.getter(#getLastWeekDayOfLifeStageUsecase),
         ),
-      ) as _i321.GetLastWeekDayOfLifeStageUsecase);
+      ) as _i326.GetLastWeekDayOfLifeStageUsecase);
+}
+
+/// A class which mocks [DialogHandler].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDialogHandler extends _i1.Mock implements _i342.DialogHandler {
+  @override
+  _i327.GlobalKey<_i327.NavigatorState> get navigatorKey => (super.noSuchMethod(
+        Invocation.getter(#navigatorKey),
+        returnValue: _FakeGlobalKey_346<_i327.NavigatorState>(
+          this,
+          Invocation.getter(#navigatorKey),
+        ),
+        returnValueForMissingStub: _FakeGlobalKey_346<_i327.NavigatorState>(
+          this,
+          Invocation.getter(#navigatorKey),
+        ),
+      ) as _i327.GlobalKey<_i327.NavigatorState>);
+
+  @override
+  _i338.Future<void> showResultDialog({
+    required String? title,
+    required String? result,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showResultDialog,
+          [],
+          {
+            #title: title,
+            #result: result,
+          },
+        ),
+        returnValue: _i338.Future<void>.value(),
+        returnValueForMissingStub: _i338.Future<void>.value(),
+      ) as _i338.Future<void>);
+
+  @override
+  _i338.Future<void> showResultWithStatsDialog({
+    required String? title,
+    required String? result,
+    required List<_i343.StatsItem>? statsList,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showResultWithStatsDialog,
+          [],
+          {
+            #title: title,
+            #result: result,
+            #statsList: statsList,
+          },
+        ),
+        returnValue: _i338.Future<void>.value(),
+        returnValueForMissingStub: _i338.Future<void>.value(),
+      ) as _i338.Future<void>);
+
+  @override
+  _i338.Future<void> showChoiceDialog({
+    required String? categoryTitle,
+    required String? eventDescription,
+    required List<_i344.EventChoice>? choices,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showChoiceDialog,
+          [],
+          {
+            #categoryTitle: categoryTitle,
+            #eventDescription: eventDescription,
+            #choices: choices,
+          },
+        ),
+        returnValue: _i338.Future<void>.value(),
+        returnValueForMissingStub: _i338.Future<void>.value(),
+      ) as _i338.Future<void>);
+
+  @override
+  _i338.Future<_i345.AttendEventDetail?> showAttendEventDialog({
+    required _i2.Event? event,
+    required int? mainPlayerID,
+    required _i2.Person? eventMainPerson,
+    required String? eventTitle,
+    required String? secondPersonEventDescription,
+    required String? relationshipLabel,
+    required bool? isParty,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showAttendEventDialog,
+          [],
+          {
+            #event: event,
+            #mainPlayerID: mainPlayerID,
+            #eventMainPerson: eventMainPerson,
+            #eventTitle: eventTitle,
+            #secondPersonEventDescription: secondPersonEventDescription,
+            #relationshipLabel: relationshipLabel,
+            #isParty: isParty,
+          },
+        ),
+        returnValue: _i338.Future<_i345.AttendEventDetail?>.value(),
+        returnValueForMissingStub:
+            _i338.Future<_i345.AttendEventDetail?>.value(),
+      ) as _i338.Future<_i345.AttendEventDetail?>);
+
+  @override
+  _i338.Future<bool?> showFamilyPlannedFuneralDialog({
+    required String? eventDescription,
+    required String? funeralArrangementsDescription,
+    required int? playerContribution,
+    required String? playerCurrency,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showFamilyPlannedFuneralDialog,
+          [],
+          {
+            #eventDescription: eventDescription,
+            #funeralArrangementsDescription: funeralArrangementsDescription,
+            #playerContribution: playerContribution,
+            #playerCurrency: playerCurrency,
+          },
+        ),
+        returnValue: _i338.Future<bool?>.value(),
+        returnValueForMissingStub: _i338.Future<bool?>.value(),
+      ) as _i338.Future<bool?>);
+
+  @override
+  _i338.Future<_i346.FuneralEventDetail?> showPlayerPlannedFuneralDialog({
+    required String? firstPersonEventDescription,
+    required _i347.Country? playerCountry,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showPlayerPlannedFuneralDialog,
+          [],
+          {
+            #firstPersonEventDescription: firstPersonEventDescription,
+            #playerCountry: playerCountry,
+          },
+        ),
+        returnValue: _i338.Future<_i346.FuneralEventDetail?>.value(),
+        returnValueForMissingStub:
+            _i338.Future<_i346.FuneralEventDetail?>.value(),
+      ) as _i338.Future<_i346.FuneralEventDetail?>);
+
+  @override
+  _i338.Future<_i348.FridgeFoodPair?> showSendFoodDialog({
+    required List<_i348.FridgeFoodPair>? fridgeFoodPairs,
+    required _i349.PersonRelationshipPair? personRelationshipPair,
+    required String? relationshipLabel,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showSendFoodDialog,
+          [],
+          {
+            #fridgeFoodPairs: fridgeFoodPairs,
+            #personRelationshipPair: personRelationshipPair,
+            #relationshipLabel: relationshipLabel,
+          },
+        ),
+        returnValue: _i338.Future<_i348.FridgeFoodPair?>.value(),
+        returnValueForMissingStub: _i338.Future<_i348.FridgeFoodPair?>.value(),
+      ) as _i338.Future<_i348.FridgeFoodPair?>);
+
+  @override
+  _i338.Future<int?> showSendMoneyDialog({
+    required _i349.PersonRelationshipPair? personRelationshipPair,
+    required String? relationshipLabel,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showSendMoneyDialog,
+          [],
+          {
+            #personRelationshipPair: personRelationshipPair,
+            #relationshipLabel: relationshipLabel,
+          },
+        ),
+        returnValue: _i338.Future<int?>.value(),
+        returnValueForMissingStub: _i338.Future<int?>.value(),
+      ) as _i338.Future<int?>);
+
+  @override
+  _i338.Future<_i350.TormentOption?> showTormentDialog({
+    required _i349.PersonRelationshipPair? personRelationshipPair,
+    required String? relationshipLabel,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showTormentDialog,
+          [],
+          {
+            #personRelationshipPair: personRelationshipPair,
+            #relationshipLabel: relationshipLabel,
+          },
+        ),
+        returnValue: _i338.Future<_i350.TormentOption?>.value(),
+        returnValueForMissingStub: _i338.Future<_i350.TormentOption?>.value(),
+      ) as _i338.Future<_i350.TormentOption?>);
+
+  @override
+  _i338.Future<bool?> showBreakOldRentLeaseDialog(
+          {required _i2.House? house}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #showBreakOldRentLeaseDialog,
+          [],
+          {#house: house},
+        ),
+        returnValue: _i338.Future<bool?>.value(),
+        returnValueForMissingStub: _i338.Future<bool?>.value(),
+      ) as _i338.Future<bool?>);
 }

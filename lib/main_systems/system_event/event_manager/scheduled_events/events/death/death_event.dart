@@ -1,7 +1,4 @@
-//the called dialogs already check for context mount status
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/material.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
@@ -20,8 +17,8 @@ import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart
 import 'package:toplife/main_systems/system_relationship/constants/relationship_category.dart';
 import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/check_if_platonic_relationship_type_contains_category.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
+import 'package:toplife/main_systems/system_relationship/util/check/check_if_platonic_relationship_type_contains_category.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 
 class DeathEvent {
   final EventRepository _eventRepository;
@@ -30,6 +27,7 @@ class DeathEvent {
   final EventSchedulers _eventScheduler;
   final JournalUsecases _journalUsecases;
   final AgeUsecases _ageUsecases;
+  final DialogHandler _dialogHandler;
 
   const DeathEvent(
     this._eventRepository,
@@ -38,12 +36,12 @@ class DeathEvent {
     this._eventScheduler,
     this._journalUsecases,
     this._ageUsecases,
+    this._dialogHandler,
   );
 
   static const resultTitle = "Funeral Arrangements";
 
   Future<void> execute({
-    required BuildContext context,
     required Event deathEvent,
     required int mainPlayerID,
     String? causeOfDeath,
@@ -133,7 +131,6 @@ class DeathEvent {
 
           //run the planned funeral
           await runPlannedFuneral(
-            context,
             deathEvent,
             mainPlayerPerson,
             deadPerson,
@@ -222,7 +219,6 @@ class DeathEvent {
   }
 
   Future<void> runPlannedFuneral(
-    BuildContext context,
     Event deathEvent,
     Person mainPlayerPerson,
     Person deadPerson,
@@ -239,16 +235,19 @@ class DeathEvent {
       _personUsecases,
       _eventScheduler,
       _journalUsecases,
+      _dialogHandler,
     );
     final FamilyPlannedFuneral familyPlannedFuneral = FamilyPlannedFuneral(
       _personUsecases,
       _relationshipUsecases,
       _eventScheduler,
       _journalUsecases,
+      _dialogHandler,
     );
     final NpcPlannedFuneral npcPlannedFuneral = NpcPlannedFuneral(
       _eventScheduler,
       _journalUsecases,
+      _dialogHandler,
     );
 
     //if player is baby - teen. all funerals are npc planned
@@ -265,7 +264,6 @@ class DeathEvent {
         RelationshipCategory.parent,
       )) {
         await familyPlannedFuneral.run(
-          context: context,
           mainPlayerID: mainPlayerPerson.id,
           deathEvent: deathEvent,
           firstPersonEventDescription: firstPersonEventDesc,
@@ -278,7 +276,6 @@ class DeathEvent {
           relationship.romanticRelationshipType ==
               RomanticRelationshipType.married.name) {
         await playerPlannedFuneral.run(
-          context: context,
           mainPlayerID: mainPlayerPerson.id,
           deathEvent: deathEvent,
           firstPersonEventDescription: firstPersonEventDesc,
@@ -299,7 +296,6 @@ class DeathEvent {
               )) ==
               null) {
         await playerPlannedFuneral.run(
-          context: context,
           mainPlayerID: mainPlayerPerson.id,
           deathEvent: deathEvent,
           firstPersonEventDescription: firstPersonEventDesc,
@@ -309,7 +305,6 @@ class DeathEvent {
       //any other relationship type
       else {
         await npcPlannedFuneral.run(
-          context: context,
           mainPlayerID: mainPlayerPerson.id,
           deathEvent: deathEvent,
           firstPersonEventDescription: firstPersonEventDesc,
@@ -319,7 +314,6 @@ class DeathEvent {
     //player is younger than young adult
     else {
       await npcPlannedFuneral.run(
-        context: context,
         mainPlayerID: mainPlayerPerson.id,
         deathEvent: deathEvent,
         firstPersonEventDescription: firstPersonEventDesc,

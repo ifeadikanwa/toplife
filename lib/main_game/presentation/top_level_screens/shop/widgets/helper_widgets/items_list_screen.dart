@@ -3,11 +3,12 @@ import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/item/buy_item_dialog.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item/shop_list_item.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_list_item.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/util/get_count_label.dart';
 
 class ItemsListScreen extends StatelessWidget {
   final List<Item> itemsList;
+
   const ItemsListScreen({
     Key? key,
     required this.itemsList,

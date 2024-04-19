@@ -27,33 +27,35 @@ class SendFoodDialogWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final FridgeFoodPair? chosenFoodOption =
-        ref.watch(sendFoodDialogViewModelProvider);
+    final SendFoodDialogViewModelProvider viewModelProvider =
+        sendFoodDialogViewModelProvider(
+      relationshipLabel: relationshipLabel,
+      receiverFirstName: personRelationshipPair.person.firstName,
+      receiverLastName: personRelationshipPair.person.lastName,
+    );
 
-    final SendFoodDialogViewModel sendFoodDialogViewModel =
-        ref.watch(sendFoodDialogViewModelProvider.notifier);
+    final SendFoodDialogData sendFoodDialogData = ref.watch(viewModelProvider);
 
     return DialogContainer(
       title: DialogTitleText(
-        text: sendFoodDialogViewModel.getTitle(),
+        text: sendFoodDialogData.title,
       ),
       children: [
         DialogDropdownLabelText(
-          text: sendFoodDialogViewModel.getPrompt(
-            relationshipLabel: relationshipLabel,
-            recieverFirstName: personRelationshipPair.person.firstName,
-            recieverLastName: personRelationshipPair.person.lastName,
-          ),
+          text: sendFoodDialogData.prompt,
         ),
         foodOptionsDropdown(
-          chosenFoodOption,
-          sendFoodDialogViewModel,
+          sendFoodDialogData.chosenFoodOption,
+          ref,
+          viewModelProvider,
         ),
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
         ElevatedButton(
           onPressed: () {
             //send back the chosen food option
-            AutoRouter.of(context).pop<FridgeFoodPair>(chosenFoodOption);
+            AutoRouter.of(context).pop<FridgeFoodPair>(
+              sendFoodDialogData.chosenFoodOption,
+            );
           },
           child: Text(
             TextConstants.send.toUpperCase(),
@@ -65,7 +67,8 @@ class SendFoodDialogWidget extends ConsumerWidget {
 
   DialogDropdown foodOptionsDropdown(
     FridgeFoodPair? chosenFridgeFoodPair,
-    SendFoodDialogViewModel sendFoodDialogViewModel,
+    WidgetRef ref,
+    SendFoodDialogViewModelProvider sendFoodDialogViewModelProvider,
   ) {
     return DialogDropdown<FridgeFoodPair?>(
       value: chosenFridgeFoodPair,
@@ -80,7 +83,9 @@ class SendFoodDialogWidget extends ConsumerWidget {
           )
           .toList(),
       onChanged: (value) {
-        sendFoodDialogViewModel.updateChosenFood(value);
+        ref
+            .read(sendFoodDialogViewModelProvider.notifier)
+            .updateChosenFood(value);
       },
     );
   }

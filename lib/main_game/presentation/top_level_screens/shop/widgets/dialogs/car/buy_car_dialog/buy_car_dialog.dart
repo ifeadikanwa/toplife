@@ -5,9 +5,11 @@ import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
+import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/car/buy_car_dialog/buy_car_dialog_view_model.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/car/car_loan_dialog/car_loan_dialog.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/descriptor_row.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/total_price_row.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
@@ -18,6 +20,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_type_l
 
 class BuyCarDialog extends ConsumerWidget {
   final Car car;
+
   const BuyCarDialog({
     Key? key,
     required this.car,
@@ -25,44 +28,35 @@ class BuyCarDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final buyCarDialogViewModelDataProvider =
-        ref.watch(buyCarDialogViewModelProvider);
-
-    return buyCarDialogViewModelDataProvider.when(
-      data: (buyCarDialogViewModel) {
-        return DialogContainer(
-          children: [
-            ShopDialogItemInfoRow(
-              title: car.name,
-              subtitle1: getCarTypeLabel(car.type),
-              subtitle2: null,
-            ),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            descriptors(),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            const ListDivider(),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            TotalPriceRow(
-              basePrice: car.basePrice,
-            ),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            choiceButtons(
-              context,
-              buyCarDialogViewModel,
-            ),
-          ],
-        );
-      },
-      error: (error, stackTrace) => Container(),
-      loading: () => Container(),
+    return DialogContainer(
+      children: [
+        ShopDialogItemInfoRow(
+          title: car.name,
+          subtitle1: getCarTypeLabel(car.type),
+          subtitle2: null,
+        ),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        descriptors(),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        const ListDivider(),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        TotalPriceRow(
+          basePrice: car.basePrice,
+        ),
+        const AddVerticalSpace(
+          height: ShopDialogConstants.sectionVerticalSpacing,
+        ),
+        choiceButtons(
+          context,
+          ref,
+        ),
+      ],
     );
   }
 
@@ -101,7 +95,7 @@ class BuyCarDialog extends ConsumerWidget {
 
   Widget choiceButtons(
     BuildContext context,
-    BuyCarDialogViewModel buyCarDialogViewModel,
+    WidgetRef ref,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -109,7 +103,7 @@ class BuyCarDialog extends ConsumerWidget {
         ElevatedButton(
           onPressed: () {
             AutoRouter.of(context).popForced();
-            buyCarDialogViewModel.purchaseCar(context, car);
+            ref.read(buyCarDialogViewModelProvider.notifier).purchaseCar(car);
           },
           child: const Text(ShopDialogConstants.payFullAmount),
         ),
@@ -119,7 +113,11 @@ class BuyCarDialog extends ConsumerWidget {
         ElevatedButton(
           onPressed: () {
             AutoRouter.of(context).popForced();
-            buyCarDialogViewModel.goToCarLoanDialog(context, car);
+            //show car loan dialog
+            showDismissableDialog(
+              context: context,
+              child: CarLoanDialog(car: car),
+            );
           },
           child: const Text(ShopDialogConstants.applyForCarLoan),
         ),

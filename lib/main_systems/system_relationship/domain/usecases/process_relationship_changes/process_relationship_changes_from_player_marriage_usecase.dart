@@ -4,7 +4,7 @@ import 'package:toplife/main_systems/system_person/domain/model/info_models/pers
 import 'package:toplife/main_systems/system_relationship/constants/existing_relationship_override_instruction.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_multiple_relationships_from_person_platonic_relationship_type_pair_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_players_living_step_family_and_inlaws_using_their_spouse_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_list_of_names_and_platonic_relationship_labels.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_list_of_names_and_platonic_relationship_labels.dart';
 
 class ProcessRelationshipChangesFromPlayerMarriageUsecase {
   final JournalUsecases _journalUsecases;

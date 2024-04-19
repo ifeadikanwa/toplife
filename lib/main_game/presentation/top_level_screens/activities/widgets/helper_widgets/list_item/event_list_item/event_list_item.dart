@@ -53,10 +53,7 @@ class EventListItem extends ConsumerWidget {
                 eventCanStillBeAttended: eventCanStillBeAttended,
               )
                   ? null //disable button
-                  : () => eventListItemViewModel.attendEvent(
-                        event,
-                        context,
-                      ),
+                  : () => eventListItemViewModel.attendEvent(event),
               child: const Text(TextConstants.attend),
             ),
           ],

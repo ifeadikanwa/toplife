@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_problem_dao_impl.dart';
@@ -12,8 +12,11 @@ import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_
 import 'package:toplife/main_systems/system_shop_and_storage/data/repository/shop_and_storage_repositories.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
 
-final shopAndStorageRepositoriesProvider =
-    Provider<ShopAndStorageRepositories>((ref) {
+part 'shop_and_storage_dependencies_providers.g.dart';
+
+@riverpod
+ShopAndStorageRepositories shopAndStorageRepositories(
+    ShopAndStorageRepositoriesRef ref) {
   final database = ref.watch(databaseProvider);
   return ShopAndStorageRepositories(
     carDao: CarDaoImpl(database),
@@ -26,10 +29,9 @@ final shopAndStorageRepositoriesProvider =
     currentHomeDao: CurrentHomeDaoImpl(database),
     carProblemDao: CarProblemDaoImpl(database),
   );
-});
+}
 
-final shopAndStorageUsecasesProvider = Provider<ShopAndStorageUsecases>((ref) {
-  return ShopAndStorageUsecases(
-    ref: ref,
-  );
-});
+@riverpod
+ShopAndStorageUsecases shopAndStorageUsecases(ShopAndStorageUsecasesRef ref) {
+  return ShopAndStorageUsecases(ref: ref);
+}

@@ -18,6 +18,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_styl
 
 class RentHouseDialog extends ConsumerWidget {
   final House house;
+
   const RentHouseDialog({
     Key? key,
     required this.house,
@@ -25,58 +26,63 @@ class RentHouseDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final rentHouseDialogViewModelDataProvider =
-        ref.watch(rentHouseDialogViewModelProvider);
+    final RentHouseDialogViewModelProvider viewModelProvider =
+        rentHouseDialogViewModelProvider(
+      newHouseBasePrice: house.basePrice,
+      newHouseStorage: house.storage,
+    );
 
-    final rentHouseDialogViewModel =
-        ref.watch(rentHouseDialogViewModelProvider.notifier);
+    final rentHouseDialogViewModel = ref.watch(viewModelProvider);
 
-    return rentHouseDialogViewModelDataProvider.when(
-      data: (leaseDuration) {
-        return DialogContainer(
-          children: [
-            ShopDialogItemInfoRow(
-              title: getBuildingTypeLabel(house.buildingType),
-              subtitle1: getHouseStyleLabel(house.style),
-              subtitle2: null,
+    return rentHouseDialogViewModel.when(
+      data: (rentHouseDialogData) => (rentHouseDialogData == null)
+          ? const SizedBox()
+          : DialogContainer(
+              children: [
+                ShopDialogItemInfoRow(
+                  title: getBuildingTypeLabel(house.buildingType),
+                  subtitle1: getHouseStyleLabel(house.style),
+                  subtitle2: null,
+                ),
+                const AddVerticalSpace(
+                  height: ShopDialogConstants.sectionVerticalSpacing,
+                ),
+                descriptors(
+                  rentHouseDialogData: rentHouseDialogData,
+                  viewModelProvider: viewModelProvider,
+                  ref: ref,
+                ),
+                const AddVerticalSpace(
+                  height: ShopDialogConstants.sectionVerticalSpacing,
+                ),
+                const ListDivider(),
+                const AddVerticalSpace(
+                  height: ShopDialogConstants.sectionVerticalSpacing,
+                ),
+                TotalPriceRow(
+                  basePrice: rentHouseDialogData.totalRentBasePrice,
+                ),
+                const AddVerticalSpace(
+                  height: ShopDialogConstants.sectionVerticalSpacing,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    AutoRouter.of(context).popForced();
+                    ref.read(viewModelProvider.notifier).rentHouse(house);
+                  },
+                  child: const Text(ShopDialogConstants.signLease),
+                ),
+              ],
             ),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            descriptors(
-                chosenLeaseDuration: leaseDuration,
-                rentHouseDialogViewModel: rentHouseDialogViewModel),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            const ListDivider(),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            TotalPriceRow(
-              basePrice: house.basePrice * 2,
-            ),
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                AutoRouter.of(context).popForced();
-                rentHouseDialogViewModel.rentHouse(context, house);
-              },
-              child: const Text(ShopDialogConstants.signLease),
-            ),
-          ],
-        );
-      },
       error: (error, stackTrace) => Container(),
       loading: () => Container(),
     );
   }
 
   Widget descriptors({
-    required int chosenLeaseDuration,
-    required RentHouseDialogViewModel rentHouseDialogViewModel,
+    required RentHouseDialogData rentHouseDialogData,
+    required RentHouseDialogViewModelProvider viewModelProvider,
+    required WidgetRef ref,
   }) {
     return Column(
       children: [
@@ -97,9 +103,7 @@ class RentHouseDialog extends ConsumerWidget {
         DescriptorRow(
           descriptor: TextConstants.storage,
           value:
-              "${house.storage} ${rentHouseDialogViewModel.getStorageChangeLabel(
-            newHouseStorage: house.storage,
-          )}",
+              "${house.storage} ${rentHouseDialogData.homeStorageChangeLabel}",
         ),
         const AddVerticalSpace(
           height: ShopDialogConstants.sectionVerticalSpacing,
@@ -120,9 +124,12 @@ class RentHouseDialog extends ConsumerWidget {
         ),
         EditableQuantityDescriptorRow(
           descriptor: TextConstants.leaseTerm,
-          quantity: "$chosenLeaseDuration ${TextConstants.days.toLowerCase()}",
-          onIncrease: rentHouseDialogViewModel.increaseLeaseDuration,
-          onDecrease: rentHouseDialogViewModel.decreaseLeaseDuration,
+          quantity:
+              "${rentHouseDialogData.chosenLeaseDuration} ${TextConstants.days.toLowerCase()}",
+          onIncrease:
+              ref.read(viewModelProvider.notifier).increaseLeaseDuration,
+          onDecrease:
+              ref.read(viewModelProvider.notifier).decreaseLeaseDuration,
         ),
         const AddVerticalSpace(
           height: ShopDialogConstants.sectionVerticalSpacing,

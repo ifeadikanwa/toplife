@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/database_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/constants/piercing/piercing_body_location.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/piercing_repository.dart';
@@ -13,16 +12,18 @@ class GetPiercingFromShopUsecase {
   final CheckIfPlayerCanAffordItUsecase _checkIfPlayerCanAffordItUsecase;
   final TakeMoneyFromPlayerUsecase _takeMoneyFromPlayerUsecase;
   final JournalUsecases _journalUsecases;
+  final DialogHandler _dialogHandler;
 
   const GetPiercingFromShopUsecase(
     this._piercingRepository,
     this._checkIfPlayerCanAffordItUsecase,
     this._takeMoneyFromPlayerUsecase,
     this._journalUsecases,
+    this._dialogHandler,
   );
 
   Future<void> execute({
-    required BuildContext context,
+    // required BuildContext context,
     required int personID,
     required int gameID,
     required int currentDay,
@@ -106,12 +107,17 @@ class GetPiercingFromShopUsecase {
     );
 
     //return result dialog
-    if (context.mounted) {
-      return ResultDialog.show(
-        context: context,
-        title: resultTitle,
-        result: resultDescription,
-      );
-    }
+    // if (context.mounted) {
+    //   return ResultDialog.show(
+    //     context: context,
+    //     title: resultTitle,
+    //     result: resultDescription,
+    //   );
+    // }
+
+    return _dialogHandler.showResultDialog(
+      title: resultTitle,
+      result: resultDescription,
+    );
   }
 }

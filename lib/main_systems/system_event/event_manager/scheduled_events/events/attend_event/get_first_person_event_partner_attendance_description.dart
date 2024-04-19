@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_person/domain/usecases/person_usecas
 import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
 import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
+import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 
 class GetFirstPersonEventPartnerAttendanceDescription {
   final PersonUsecases _personUsecases;

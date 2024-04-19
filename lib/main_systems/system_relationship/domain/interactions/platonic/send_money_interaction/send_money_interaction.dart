@@ -1,9 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/relationship/send_money_dialog/send_money_dialog.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
 import 'package:toplife/core/utils/money/format_money_to_string.dart';
 import 'package:toplife/core/utils/words/sentence_pair.dart';
@@ -22,12 +20,14 @@ class SendMoneyInteraction extends RelationshipInteraction {
   final JournalUsecases _journalUsecases;
   final PersonUsecases _personUsecases;
   final AgeUsecases _ageUsecases;
+  final DialogHandler _dialogHandler;
 
   SendMoneyInteraction(
     this._relationshipUsecases,
     this._journalUsecases,
     this._personUsecases,
     this._ageUsecases,
+    this._dialogHandler,
   );
 
   @override
@@ -68,15 +68,13 @@ class SendMoneyInteraction extends RelationshipInteraction {
 
   @override
   Future<void> execute({
-    required BuildContext context,
     required Game currentGame,
     required Person currentPlayer,
     required PersonRelationshipPair personRelationshipPair,
     required String relationshipLabel,
   }) async {
     //prompt the player for an amount and retrieve it
-    final int? chosenMoneyAmount = await SendMoneyDialog.show(
-      context: context,
+    final int? chosenMoneyAmount = await _dialogHandler.showSendMoneyDialog(
       personRelationshipPair: personRelationshipPair,
       relationshipLabel: relationshipLabel,
     );
@@ -167,13 +165,10 @@ class SendMoneyInteraction extends RelationshipInteraction {
         );
 
         //return result dialog
-        if (context.mounted) {
-          return ResultDialog.show(
-            context: context,
-            title: "Money Recieved",
-            result: resultDescription.secondPersonSentence,
-          );
-        }
+        return _dialogHandler.showResultDialog(
+          title: "Money Received",
+          result: resultDescription.secondPersonSentence,
+        );
       }
       //if player does not have that money
       else {
@@ -187,14 +182,11 @@ class SendMoneyInteraction extends RelationshipInteraction {
         );
 
         //return result
-        if (context.mounted) {
-          return ResultDialog.show(
-            context: context,
-            title: "Nothing To Give",
-            result:
-                "Your bank called to remind you that you do not have that money to give.",
-          );
-        }
+        return _dialogHandler.showResultDialog(
+          title: "Nothing To Give",
+          result:
+              "Your bank called to remind you that you do not have that money to give.",
+        );
       }
     }
   }

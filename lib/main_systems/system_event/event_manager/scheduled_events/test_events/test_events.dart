@@ -1,27 +1,24 @@
-// ignore_for_file: unused_field, avoid_print
-
-import 'package:flutter/cupertino.dart';
-import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/choice_dialog.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
-import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 
 class TestEvents {
   final JournalUsecases _journalUsecases;
-  final EventRepository _eventRepository;
   final PersonUsecases _personUsecases;
+  final DialogHandler _dialogHandler;
 
   const TestEvents(
     this._journalUsecases,
-    this._eventRepository,
     this._personUsecases,
+    this._dialogHandler,
   );
 
-  Future<void> playingEvent(Event event, int mainPlayerID) async {
-
+  Future<void> playingEvent(
+    int gameId,
+    int eventDay,
+    int mainPlayerID,
+  ) async {
     await _personUsecases.updateEnergyStatsUsecase.execute(
       mainPersonID: mainPlayerID,
       change: 5,
@@ -35,8 +32,8 @@ class TestEvents {
     );
 
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I played.",
     );
@@ -49,7 +46,11 @@ class TestEvents {
     // });
   }
 
-  Future<void> dancingEvent(Event event, int mainPlayerID) async {
+  Future<void> dancingEvent(
+    int gameId,
+    int eventDay,
+    int mainPlayerID,
+  ) async {
     // Future.delayed(const Duration(seconds: 5), () async {
 
     await _personUsecases.updateEnergyStatsUsecase.execute(
@@ -64,8 +65,8 @@ class TestEvents {
       override: false,
     );
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I dancing.",
     );
@@ -78,7 +79,11 @@ class TestEvents {
     // });
   }
 
-  Future<void> singingEvent(Event event, int mainPlayerID) async {
+  Future<void> singingEvent(
+    int gameId,
+    int eventDay,
+    int mainPlayerID,
+  ) async {
     // Future.delayed(const Duration(seconds: 5), () async {
 
     await _personUsecases.updateEnergyStatsUsecase.execute(
@@ -94,8 +99,8 @@ class TestEvents {
     );
 
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I sang.",
     );
@@ -108,7 +113,11 @@ class TestEvents {
     // });
   }
 
-  Future<void> eatingEvent(Event event, int mainPlayerID) async {
+  Future<void> eatingEvent(
+    int gameId,
+    int eventDay,
+    int mainPlayerID,
+  ) async {
     // Future.delayed(const Duration(seconds: 5), () async {
 
     await _personUsecases.updateEnergyStatsUsecase.execute(
@@ -124,8 +133,8 @@ class TestEvents {
     );
 
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I ate.",
     );
@@ -139,9 +148,9 @@ class TestEvents {
   }
 
   Future<void> sayHelloEvent(
-    Event event,
+    int gameId,
+    int eventDay,
     int mainPlayerID,
-    BuildContext context,
   ) async {
     // Future.delayed(const Duration(seconds: 5), () async {
 
@@ -158,8 +167,8 @@ class TestEvents {
     );
 
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I said HELLO.",
     );
@@ -170,22 +179,18 @@ class TestEvents {
     //   ),
     // );
 
-    if (context.mounted) {
-      ResultDialog.show(
-        context: context,
-        title: "I'm Saying",
-        result: "HELLO",
-      );
-    } else {
-      print("CONTEXT NOT MOUNTED");
-    }
+    return _dialogHandler.showResultDialog(
+      title: "I'm Saying",
+      result: "HELLO",
+    );
+
     // });
   }
 
   Future<void> sayByeEvent(
-    Event event,
+    int gameId,
+    int eventDay,
     int mainPlayerID,
-    BuildContext context,
   ) async {
     // Future.delayed(const Duration(seconds: 5), () async {
 
@@ -201,8 +206,8 @@ class TestEvents {
       override: false,
     );
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I said BYE.",
     );
@@ -213,22 +218,18 @@ class TestEvents {
     //   ),
     // );
 
-    if (context.mounted) {
-      ResultDialog.show(
-        context: context,
-        title: "I'm Saying",
-        result: "BYE",
-      );
-    } else {
-      print("CONTEXT NOT MOUNTED");
-    }
+    return _dialogHandler.showResultDialog(
+      title: "I'm Saying",
+      result: "BYE",
+    );
+
     // });
   }
 
   Future<void> sayGoodluckEvent(
-    Event event,
+    int gameId,
+    int eventDay,
     int mainPlayerID,
-    BuildContext context,
   ) async {
     // Future.delayed(const Duration(seconds: 5), () async {
 
@@ -245,8 +246,8 @@ class TestEvents {
     );
 
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I said GOODLUCK.",
     );
@@ -257,22 +258,18 @@ class TestEvents {
     //   ),
     // );
 
-    if (context.mounted) {
-      ResultDialog.show(
-        context: context,
-        title: "I'm Saying",
-        result: "GOODLUCK",
-      );
-    } else {
-      print("CONTEXT NOT MOUNTED");
-    }
+    return _dialogHandler.showResultDialog(
+      title: "I'm Saying",
+      result: "GOODLUCK",
+    );
+
     // });
   }
 
   Future<void> sayGoodMorningEvent(
-    Event event,
+    int gameId,
+    int eventDay,
     int mainPlayerID,
-    BuildContext context,
   ) async {
     // Future.delayed(const Duration(seconds: 5), () async {
 
@@ -289,8 +286,8 @@ class TestEvents {
     );
 
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I said GOOD MORNING.",
     );
@@ -301,22 +298,18 @@ class TestEvents {
     //   ),
     // );
 
-    if (context.mounted) {
-      ResultDialog.show(
-        context: context,
-        title: "I'm Saying",
-        result: "GOOD MORNING",
-      );
-    } else {
-      print("CONTEXT NOT MOUNTED");
-    }
+    return _dialogHandler.showResultDialog(
+      title: "I'm Saying",
+      result: "GOOD MORNING",
+    );
+
     // });
   }
 
   Future<void> sayGoodDayEvent(
-    Event event,
+    int gameId,
+    int eventDay,
     int mainPlayerID,
-    BuildContext context,
   ) async {
     // Future.delayed(const Duration(seconds: 5), () async {
 
@@ -333,8 +326,8 @@ class TestEvents {
     );
 
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I said GOOD DAY.",
     );
@@ -345,41 +338,36 @@ class TestEvents {
     //   ),
     // );
 
-    if (context.mounted) {
-      // ResultDialog.show(
-      //   context: context,
-      //   title: "I'm Saying",
-      //   result: "GOOD DAY",
-      // );
+    // _dialogHandler.showResultDialog(
+    //   title: "I'm Saying",
+    //   result: "GOOD DAY",
+    // );
 
-      ChoiceDialog.show(
-          context: context,
-          categoryTitle: "Choose",
-          eventDescription: "Good Day?",
-          choices: [
-            EventChoice(
-                choiceDescription: "Yes",
-                choiceAction: (context) {
-                  ResultDialog.show(
-                      context: context, title: "You said:", result: "Yes");
-                }),
-            EventChoice(
-                choiceDescription: "No",
-                choiceAction: (context) {
-                  ResultDialog.show(
-                      context: context, title: "You said:", result: "No");
-                }),
-          ]);
-    } else {
-      print("CONTEXT NOT MOUNTED");
-    }
+    return _dialogHandler.showChoiceDialog(
+        categoryTitle: "Choose",
+        eventDescription: "Good Day?",
+        choices: [
+          EventChoice(
+              choiceDescription: "Yes",
+              choiceAction: () async {
+                await _dialogHandler.showResultDialog(
+                    title: "You said:", result: "Yes");
+              }),
+          EventChoice(
+              choiceDescription: "No",
+              choiceAction: () async {
+                await _dialogHandler.showResultDialog(
+                    title: "You said:", result: "No");
+              }),
+        ]);
+
     // });
   }
 
   Future<void> sayGoodNightEvent(
-    Event event,
+    int gameId,
+    int eventDay,
     int mainPlayerID,
-    BuildContext context,
   ) async {
     // Future.delayed(const Duration(seconds: 5), () async {
 
@@ -396,8 +384,8 @@ class TestEvents {
     );
 
     await _journalUsecases.addToJournalUsecase.execute(
-      gameID: event.gameId,
-      day: event.eventDay,
+      gameID: gameId,
+      day: eventDay,
       mainPlayerID: mainPlayerID,
       entry: "In this event I said GOOD NIGHT.",
     );
@@ -408,15 +396,11 @@ class TestEvents {
     //   ),
     // );
 
-    if (context.mounted) {
-      ResultDialog.show(
-        context: context,
-        title: "I'm Saying",
-        result: "GOOD NIGHT",
-      );
-    } else {
-      print("CONTEXT NOT MOUNTED");
-    }
+    return _dialogHandler.showResultDialog(
+      title: "I'm Saying",
+      result: "GOOD NIGHT",
+    );
+
     // });
   }
 }

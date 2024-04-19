@@ -12,12 +12,12 @@ import 'package:toplife/main_systems/system_relationship/domain/model/info_model
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_parent_child_link_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/process_relationship_changes/process_relationship_changes_from_the_addition_of_persons_child_to_the_game_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/util/check_if_list_contains_familial_platonic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/util/create_basic_parent_introduction_string.dart';
-import 'package:toplife/main_systems/system_relationship/util/create_spouse_parent_introduction_string.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_platonic_relationship_type_enum_from_string.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_previous_familial_relatonship_enum_from_string.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_romantic_relationship_type_enum_from_string.dart';
+import 'package:toplife/main_systems/system_relationship/util/check/check_if_list_contains_familial_platonic_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/util/parent_intro_string/create_basic_parent_introduction_string.dart';
+import 'package:toplife/main_systems/system_relationship/util/parent_intro_string/create_spouse_parent_introduction_string.dart';
+import 'package:toplife/main_systems/system_relationship/util/enum/get_platonic_relationship_type_enum_from_string.dart';
+import 'package:toplife/main_systems/system_relationship/util/enum/get_previous_familial_relatonship_enum_from_string.dart';
+import 'package:toplife/main_systems/system_relationship/util/enum/get_romantic_relationship_type_enum_from_string.dart';
 
 class AddChildToNPCFamilyUsecase {
   final RelationshipRepository _relationshipRepository;

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/dialog_handler/dialog_handler_provider.dart';
 import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
@@ -22,8 +23,8 @@ class ScheduledEvents {
 
   TestEvents get testEvents => TestEvents(
         _ref.read(journalUsecasesProvider),
-        _ref.read(eventRepositoryProvider),
         _ref.read(personUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   BirthdayEvent get birthdayEvent => BirthdayEvent(
@@ -42,6 +43,7 @@ class ScheduledEvents {
         _ref.read(eventSchedulersProvider),
         _ref.read(journalUsecasesProvider),
         _ref.read(ageUsecasesProvider),
+        _ref.read(dialogHandlerProvider),
       );
 
   AttendEvent get attendEvent => AttendEvent(
@@ -53,6 +55,7 @@ class ScheduledEvents {
         _ref.read(shopAndStorageUsecasesProvider),
         _performPartyActivity,
         _getFirstPersonEventPartnerAttendanceDescription,
+        _ref.read(dialogHandlerProvider),
       );
 
   PerformPartyActivity get _performPartyActivity => PerformPartyActivity(

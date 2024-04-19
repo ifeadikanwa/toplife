@@ -25,7 +25,6 @@ class MainGameScreen extends ConsumerWidget {
       ref.watch(gameUsecasesProvider).gameControllerUsecase.execute(
             previousGameFuture: previousGameFuture,
             nextGameFuture: nextGameFuture,
-            context: context,
           );
     });
 

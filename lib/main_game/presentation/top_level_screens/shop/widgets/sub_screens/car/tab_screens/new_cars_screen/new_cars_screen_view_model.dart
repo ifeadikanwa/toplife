@@ -1,27 +1,28 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/car_generator.dart';
 
-final newCarsScreenViewModelProvider =
-    StateNotifierProvider<NewCarsScreenViewModel, List<Car>>((ref) {
-  return NewCarsScreenViewModel();
-});
+part 'new_cars_screen_view_model.g.dart';
 
-class NewCarsScreenViewModel extends StateNotifier<List<Car>> {
-  NewCarsScreenViewModel() : super([]) {
-    _fetch();
-  }
-
-  void _fetch() {
-    state = CarGenerator.generateNewCars();
+@riverpod
+class NewCarsScreenViewModel extends _$NewCarsScreenViewModel {
+  @override
+  List<Car> build() {
+    return CarGenerator.generateNewCars();
   }
 
   void regenerateCars() {
-    _fetch();
+    ref.invalidateSelf();
   }
 
   void removePurchasedCarFromShop(Car car) {
-    if (state.isNotEmpty) {
+    //we don't have any/enough cars in the list
+    if (state.isEmpty || state.length == 1) {
+      regenerateCars();
+    }
+
+    //remove the purchased car
+    else {
       //remove the purchased car this way so the ui reacts immediately
       state = state
           .where(

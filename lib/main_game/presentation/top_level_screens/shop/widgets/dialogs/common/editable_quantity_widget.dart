@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toplife/core/common_widgets/button/app_icon_button.dart';
 
 class EditableQuantity extends StatelessWidget {
   final String text;
@@ -16,7 +17,8 @@ class EditableQuantity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        IconButton(
+        appIconButton(
+          smallIconButton: true,
           onPressed: onDecrease,
           icon: const Icon(Icons.remove),
         ),
@@ -24,7 +26,8 @@ class EditableQuantity extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(text),
         ),
-        IconButton(
+        appIconButton(
+          smallIconButton: true,
           onPressed: onIncrease,
           icon: const Icon(Icons.add),
         ),

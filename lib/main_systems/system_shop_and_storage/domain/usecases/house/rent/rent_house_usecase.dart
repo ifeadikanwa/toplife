@@ -1,12 +1,7 @@
-//the called dialogs already check for context mount status
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/house/break_old_rent_lease_dialog_widget.dart/break_old_rent_lease_dialog.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/repository/house_repository.dart';
@@ -24,6 +19,7 @@ class RentHouseUsecase {
   final SignLeaseForRentalUsecase _signLeaseForRentalUsecase;
   final JournalUsecases _journalUsecases;
   final BreakOldLeaseSignNewLease _breakOldLeaseSignNewLease;
+  final DialogHandler _dialogHandler;
 
   const RentHouseUsecase(
     this._houseRepository,
@@ -33,10 +29,10 @@ class RentHouseUsecase {
     this._signLeaseForRentalUsecase,
     this._journalUsecases,
     this._breakOldLeaseSignNewLease,
+    this._dialogHandler,
   );
 
   Future<bool> execute({
-    required BuildContext context,
     required int personID,
     required House house,
     required int leaseDuration,
@@ -187,37 +183,43 @@ class RentHouseUsecase {
           purchaseSuccessful = true;
         }
 
-        //currently renting a house, so DONT rent
+        //currently renting a house, so DON'T rent
         else {
           //tell the player that they are currently renting a house
 
           //they have the options to
           //break active lease and rent the house
-          //or nevermind
-          BreakOldRentLeaseDialog.show(
-            context: context,
+          //or never mind
+          final bool? playerBreakOldLease =
+              await _dialogHandler.showBreakOldRentLeaseDialog(
             house: house,
-            breakLeaseChoiceAction: (context) {
-              return _breakOldLeaseSignNewLease.execute(
-                context: context,
-                personID: personID,
-                newHouse: house,
-                oldHouse: rentals.first,
-                leaseDuration: leaseDuration,
-                currentGame: currentGame,
-                country: person.currentCountry,
-              );
-            },
           );
 
-          //return result because we don't want to execute anything outside this block
+          //if result is valid and player breaks lease
+          if (playerBreakOldLease != null && playerBreakOldLease == true) {
+            //break the lease and rent new house (handles its ow result dialog
+            await _breakOldLeaseSignNewLease.execute(
+              personID: personID,
+              newHouse: house,
+              oldHouse: rentals.first,
+              leaseDuration: leaseDuration,
+              currentGame: currentGame,
+              country: person.currentCountry,
+            );
+
+            //set purchase as successful
+            purchaseSuccessful = true;
+          }
+
+          //return result
+          //will be true: if old lease was broken
+          //will be false: if result is null or player doesn't break old lease
           return purchaseSuccessful;
         }
       }
 
       //show result dialog
-      ResultDialog.show(
-        context: context,
+      _dialogHandler.showResultDialog(
         title: resultTitle,
         result: secondPersonResult,
       );
@@ -225,8 +227,7 @@ class RentHouseUsecase {
 
     //if invalid game or person
     else {
-      ResultDialog.show(
-        context: context,
+      _dialogHandler.showResultDialog(
         title: ShopResultConstants.houseCheckoutFailedTitle,
         result: ShopResultConstants.houseInvalidIDsResultEntry,
       );

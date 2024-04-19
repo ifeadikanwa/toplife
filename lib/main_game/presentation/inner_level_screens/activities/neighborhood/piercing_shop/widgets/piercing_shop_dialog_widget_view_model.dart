@@ -1,146 +1,129 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
+import 'package:toplife/core/common_states/get/player_and_game/formatted_money_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/get_sentence_time.dart';
-import 'package:toplife/core/utils/money/format_money_to_string.dart';
-import 'package:toplife/core/utils/money/get_currency_label_from_country_string.dart';
-import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 import 'package:toplife/main_systems/system_person/constants/piercing/piercing_body_location.dart';
 import 'package:toplife/main_systems/system_person/constants/piercing/piercing_constants.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/chosen_and_available_piercing_locations_pair.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 
-final piercingShopDialogWidgetViewModelProvider =
-    StateNotifierProvider.autoDispose<PiercingShopDialogWidgetViewModel,
-        AsyncValue<ChosenAndAvailablePiercingLocationsPair?>>((ref) {
-  //
-  return PiercingShopDialogWidgetViewModel(
-    personUsecases: ref.watch(personUsecasesProvider),
-    currentPlayerFuture: ref.watch(currentPlayerProvider.future),
-    currentGameFuture: ref.watch(currentGameProvider.future),
-  );
-});
+part 'piercing_shop_dialog_widget_view_model.g.dart';
 
-class PiercingShopDialogWidgetViewModel extends StateNotifier<
-    AsyncValue<ChosenAndAvailablePiercingLocationsPair?>> {
-  //
-  final PersonUsecases _personUsecases;
-  //
-  late final Game? _game;
-  late final Person? _currentPlayer;
-  String _playerCountry = "";
+//Piercing shop widget data class
+@CopyWith()
+class PiercingShopWidgetData extends Equatable {
+  final PiercingBodyLocation chosenPiercingLocation;
+  final List<PiercingBodyLocation> availablePiercingLocations;
+  final String chosenPiercingLocationPrice;
+  final String piercingDuration;
 
-  //
-  PiercingShopDialogWidgetViewModel({
-    required PersonUsecases personUsecases,
-    required Future<Person?> currentPlayerFuture,
-    required Future<Game?> currentGameFuture,
-  })  : _personUsecases = personUsecases,
-        super(const AsyncLoading()) {
-    //
-    _fetch(
-      currentPlayerFuture: currentPlayerFuture,
-      currentGameFuture: currentGameFuture,
+  const PiercingShopWidgetData({
+    required this.chosenPiercingLocation,
+    required this.availablePiercingLocations,
+    required this.chosenPiercingLocationPrice,
+    required this.piercingDuration,
+  });
+
+  @override
+  List<Object?> get props => [
+        chosenPiercingLocation,
+        availablePiercingLocations,
+        chosenPiercingLocationPrice,
+        piercingDuration,
+      ];
+}
+
+//VIEWMODEL
+@riverpod
+class PiercingShopDialogWidgetViewModel
+    extends _$PiercingShopDialogWidgetViewModel {
+  static const adjustPiercingCostToEconomy = true;
+
+  @override
+  Future<PiercingShopWidgetData?> build() async {
+    //get current player id
+    final int? currentPlayerId = await ref.watch(
+      currentPlayerProvider.selectAsync(
+        (data) => data?.id,
+      ),
     );
-  }
 
-  Future<void> _fetch({
-    required Future<Person?> currentPlayerFuture,
-    required Future<Game?> currentGameFuture,
-  }) async {
-    state = const AsyncLoading();
-
-    //get current game
-    _game = await currentGameFuture;
-
-    //get current player
-    final Person? currentPlayer = await currentPlayerFuture;
-
-    //if we dont have a valid player, set state to null
-    if (currentPlayer == null) {
-      state = await AsyncValue.guard(() async => null);
-    }
-    //we have a valid player
-    else {
-      //set the player variable
-      _currentPlayer = currentPlayer;
-      //set player country
-      _playerCountry = currentPlayer.currentCountry;
-
+    //if we have a valid player id
+    if (currentPlayerId != null) {
       //get available locations
-      final List<PiercingBodyLocation> availableLocations =
-          await _personUsecases.getPersonAvailablePiercingLocationsUsecase
-              .execute(
-        personID: currentPlayer.id,
-      );
+      final List<PiercingBodyLocation> availableLocations = await ref
+          .watch(personUsecasesProvider)
+          .getPersonAvailablePiercingLocationsUsecase
+          .execute(
+            personID: currentPlayerId,
+          );
 
-      //if there is no available location, we have nothing to show
-      if (availableLocations.isEmpty) {
-        state = await AsyncValue.guard(() async => null);
-      } else {
-        // if there are available locations, set state value to it
-        state = await AsyncValue.guard(
-          () async => ChosenAndAvailablePiercingLocationsPair(
-            chosenPiercingLocation: availableLocations.first,
-            availablePiercingLocations: availableLocations,
+      //if there are available locations
+      if (availableLocations.isNotEmpty) {
+        //set chosen as the first location
+        final PiercingBodyLocation chosenLocation = availableLocations.first;
+        //get the formatted cost
+        final String chosenLocationPrice = await ref.watch(
+          formattedMoneyProvider(
+            amount: chosenLocation.basePrice,
+            adjustToEconomy: adjustPiercingCostToEconomy,
+          ).future,
+        );
+        //return the data
+        return PiercingShopWidgetData(
+          chosenPiercingLocation: chosenLocation,
+          availablePiercingLocations: availableLocations,
+          chosenPiercingLocationPrice: chosenLocationPrice,
+          piercingDuration: getSentenceTime(
+            timeInMinutes: PiercingConstants.piercingDurationInMinutes,
           ),
         );
       }
     }
+
+    //if we can't get a valid result
+    return null;
   }
 
-  void updateChosenLocation(PiercingBodyLocation piercingBodyLocation) async {
-    final ChosenAndAvailablePiercingLocationsPair? currentValue =
-        state.valueOrNull;
+  Future<void> updateChosenLocation(
+    PiercingBodyLocation piercingBodyLocation,
+  ) async {
+    //get price for new location
+    final String chosenLocationPrice = await ref.read(
+      formattedMoneyProvider(
+        amount: piercingBodyLocation.basePrice,
+        adjustToEconomy: adjustPiercingCostToEconomy,
+      ).future,
+    );
+    //get the current state of the provider
+    final PiercingShopWidgetData? currentValue = state.valueOrNull;
 
     if (currentValue != null) {
-      state = await AsyncValue.guard(
-        () async => ChosenAndAvailablePiercingLocationsPair(
+      state = AsyncData(
+        currentValue.copyWith(
           chosenPiercingLocation: piercingBodyLocation,
-          availablePiercingLocations: currentValue.availablePiercingLocations,
+          chosenPiercingLocationPrice: chosenLocationPrice,
         ),
       );
     }
   }
 
-  String getCost() {
-    final int? basePrice = state.valueOrNull?.chosenPiercingLocation.basePrice;
+  Future<void> getPiercing() async {
+    //get current value, player and game
+    final PiercingShopWidgetData? currentValue = state.valueOrNull;
+    final Person? currentPlayer = await ref.read(currentPlayerProvider.future);
+    final Game? currentGame = await ref.read(currentGameProvider.future);
 
-    // final int? basePrice = (state.valueOrNull != null)
-    //     ? PiercingUtils.getPiercingBasePrice(
-    //         chosenLocation: state.valueOrNull!.chosenPiercingLocation)
-    //     : null;
-
-    if (basePrice != null) {
-      return "${getCurrencyLabelFromCountryString(_playerCountry)}${formatMoneyToString(getCountryEconomyAdjustedPrice(
-        country: _playerCountry,
-        basePrice: basePrice,
-      ))}";
-    } else {
-      return "${getCurrencyLabelFromCountryString(_playerCountry)}0";
-    }
-  }
-
-  String getDuration() {
-    return getSentenceTime(
-      timeInMinutes: PiercingConstants.piercingDurationInMinutes,
-    );
-  }
-
-  Future<void> getPiercing({
-    required BuildContext context,
-  }) async {
-    if (_game != null && _currentPlayer != null && state.valueOrNull != null) {
-      _personUsecases.getPiercingFromShopUsecase.execute(
-        context: context,
-        personID: _currentPlayer.id,
-        gameID: _game.id,
-        currentDay: _game.currentDay,
-        chosenLocation: state.valueOrNull!.chosenPiercingLocation,
-      );
+    if (currentValue != null && currentPlayer != null && currentGame != null) {
+      ref.read(personUsecasesProvider).getPiercingFromShopUsecase.execute(
+            personID: currentPlayer.id,
+            gameID: currentGame.id,
+            currentDay: currentGame.currentDay,
+            chosenLocation: currentValue.chosenPiercingLocation,
+          );
     }
   }
 }

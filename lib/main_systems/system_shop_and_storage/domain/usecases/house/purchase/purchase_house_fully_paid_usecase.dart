@@ -1,8 +1,4 @@
-//the called dialogs already check for context mount status
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:flutter/material.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
@@ -17,16 +13,17 @@ class PurchaseHouseFullyPaidUsecase {
   final PersonUsecases _personUsecases;
   final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
+  final DialogHandler _dialogHandler;
 
   const PurchaseHouseFullyPaidUsecase(
     this._houseRepository,
     this._personUsecases,
     this._journalUsecases,
     this._gameUsecases,
+    this._dialogHandler,
   );
 
   Future<bool> execute({
-    required BuildContext context,
     required House house,
     required int personID,
   }) async {
@@ -111,8 +108,7 @@ class PurchaseHouseFullyPaidUsecase {
     }
 
     //return results
-    ResultDialog.show(
-      context: context,
+    _dialogHandler.showResultDialog(
       title: resultTitle,
       result: secondPersonResult,
     );

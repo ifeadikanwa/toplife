@@ -1,9 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/relationship/torment_dialog/torment_dialog.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
 import 'package:toplife/core/utils/words/sentence_pair.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
@@ -19,11 +17,13 @@ class TormentInteraction extends RelationshipInteraction {
   final RelationshipUsecases _relationshipUsecases;
   final JournalUsecases _journalUsecases;
   final AgeUsecases _ageUsecases;
+  final DialogHandler _dialogHandler;
 
   TormentInteraction(
     this._relationshipUsecases,
     this._journalUsecases,
     this._ageUsecases,
+    this._dialogHandler,
   );
 
   @override
@@ -64,7 +64,6 @@ class TormentInteraction extends RelationshipInteraction {
 
   @override
   Future<void> execute({
-    required BuildContext context,
     required Game currentGame,
     required Person currentPlayer,
     required PersonRelationshipPair personRelationshipPair,
@@ -72,8 +71,8 @@ class TormentInteraction extends RelationshipInteraction {
   }) async {
     //prompt the player for a torment option
 
-    final TormentOption? chosenTormentOption = await TormentDialog.show(
-      context: context,
+    final TormentOption? chosenTormentOption =
+        await _dialogHandler.showTormentDialog(
       personRelationshipPair: personRelationshipPair,
       relationshipLabel: relationshipLabel,
     );
@@ -155,13 +154,10 @@ class TormentInteraction extends RelationshipInteraction {
       );
 
       //return result dialog
-      if (context.mounted) {
-        return ResultDialog.show(
-          context: context,
-          title: "Feels Good To Be Bad",
-          result: tormentAction.secondPersonSentence,
-        );
-      }
+      return _dialogHandler.showResultDialog(
+        title: "Feels Good To Be Bad",
+        result: tormentAction.secondPersonSentence,
+      );
     }
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
@@ -33,7 +32,6 @@ class AgeUpCharacterActionsUsecase {
   );
 
   Future<void> execute({
-    required BuildContext context,
     required int characterID,
     required int currentPlayerID,
     required int currentDay,
@@ -62,67 +60,59 @@ class AgeUpCharacterActionsUsecase {
       //SPECIFIC LOGIC:
       //age specific actions
       //redirect to the appropriate usecase
-      if (context.mounted) {
-        switch (characterAge.lifeStage) {
-          case LifeStage.baby:
-            //do nothing
-            return;
-          case LifeStage.toddler:
-            return _ageUpToToddlerActionsUsecase.execute(
-              context: context,
-              currentDay: currentDay,
-              toddlerPerson: characterPerson,
-              toddlerAge: characterAge,
-              characterIsCurrentPlayer: characterIsCurrentPlayer,
-              currentPlayerID: currentPlayerID,
-            );
-          case LifeStage.child:
-            return _ageUpToChildActionsUsecase.execute(
-              context: context,
-              currentDay: currentDay,
-              childPerson: characterPerson,
-              childAge: characterAge,
-              characterIsCurrentPlayer: characterIsCurrentPlayer,
-              currentPlayerID: currentPlayerID,
-            );
-          case LifeStage.teen:
-            return _ageUpToTeenActionsUsecase.execute(
-              context: context,
-              currentDay: currentDay,
-              teenPerson: characterPerson,
-              teenAge: characterAge,
-              characterIsCurrentPlayer: characterIsCurrentPlayer,
-              currentPlayerID: currentPlayerID,
-            );
-          case LifeStage.youngAdult:
-            return _ageUpToYoungAdultActionsUsecase.execute(
-              context: context,
-              currentDay: currentDay,
-              youngAdultPerson: characterPerson,
-              youngAdultAge: characterAge,
-              characterIsCurrentPlayer: characterIsCurrentPlayer,
-              currentPlayerID: currentPlayerID,
-            );
+      switch (characterAge.lifeStage) {
+        case LifeStage.baby:
+          //do nothing
+          return;
+        case LifeStage.toddler:
+          return _ageUpToToddlerActionsUsecase.execute(
+            currentDay: currentDay,
+            toddlerPerson: characterPerson,
+            toddlerAge: characterAge,
+            characterIsCurrentPlayer: characterIsCurrentPlayer,
+            currentPlayerID: currentPlayerID,
+          );
+        case LifeStage.child:
+          return _ageUpToChildActionsUsecase.execute(
+            currentDay: currentDay,
+            childPerson: characterPerson,
+            childAge: characterAge,
+            characterIsCurrentPlayer: characterIsCurrentPlayer,
+            currentPlayerID: currentPlayerID,
+          );
+        case LifeStage.teen:
+          return _ageUpToTeenActionsUsecase.execute(
+            currentDay: currentDay,
+            teenPerson: characterPerson,
+            teenAge: characterAge,
+            characterIsCurrentPlayer: characterIsCurrentPlayer,
+            currentPlayerID: currentPlayerID,
+          );
+        case LifeStage.youngAdult:
+          return _ageUpToYoungAdultActionsUsecase.execute(
+            currentDay: currentDay,
+            youngAdultPerson: characterPerson,
+            youngAdultAge: characterAge,
+            characterIsCurrentPlayer: characterIsCurrentPlayer,
+            currentPlayerID: currentPlayerID,
+          );
 
-          case LifeStage.adult:
-            return _ageUpToAdultActionsUsecase.execute(
-              context: context,
-              currentDay: currentDay,
-              adultPerson: characterPerson,
-              adultAge: characterAge,
-              characterIsCurrentPlayer: characterIsCurrentPlayer,
-              currentPlayerID: currentPlayerID,
-            );
-          case LifeStage.elder:
-            return _ageUpToElderActionsUsecase.execute(
-              context: context,
-              currentDay: currentDay,
-              elderPerson: characterPerson,
-              elderAge: characterAge,
-              characterIsCurrentPlayer: characterIsCurrentPlayer,
-              currentPlayerID: currentPlayerID,
-            );
-        }
+        case LifeStage.adult:
+          return _ageUpToAdultActionsUsecase.execute(
+            currentDay: currentDay,
+            adultPerson: characterPerson,
+            adultAge: characterAge,
+            characterIsCurrentPlayer: characterIsCurrentPlayer,
+            currentPlayerID: currentPlayerID,
+          );
+        case LifeStage.elder:
+          return _ageUpToElderActionsUsecase.execute(
+            currentDay: currentDay,
+            elderPerson: characterPerson,
+            elderAge: characterAge,
+            characterIsCurrentPlayer: characterIsCurrentPlayer,
+            currentPlayerID: currentPlayerID,
+          );
       }
     }
   }

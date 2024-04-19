@@ -26,6 +26,7 @@ class TextConstants {
   static const and = "And";
   static const alongWith = "Along with";
   static const ageSemiColonSpace = "Age: ";
+  static const enterAmount = "Enter Amount";
 
   //player
   static const babyMonitor = "Baby Monitor";

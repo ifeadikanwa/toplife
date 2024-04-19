@@ -11,6 +11,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/di
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/simple_loan_dialog/simple_loan_dialog_view_model.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/constants/shop_dialog_constants.dart';
 import 'package:toplife/main_systems/system_recurring_bills_and_loans/constants/bill_type.dart';
+import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/info_models/economy_adjusted_loan_information.dart';
 
 class SimpleLoanDialog extends ConsumerWidget {
   final String loanApplicationTitle;
@@ -18,7 +19,8 @@ class SimpleLoanDialog extends ConsumerWidget {
   final BillType billType;
   final int basePrice;
   final bool useMultipleLoanDownPaymentRange;
-  final void Function(int downPaymentPercentage) onApply;
+  final void Function(
+      EconomyAdjustedLoanInformation economyAdjustedLoanInformation) onApply;
 
   const SimpleLoanDialog({
     Key? key,
@@ -32,84 +34,81 @@ class SimpleLoanDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final simpleLoanDialogViewModelDataProvider = ref.watch(
-        simpleLoanDialogViewModelProvider(useMultipleLoanDownPaymentRange));
+    //
+    final SimpleLoanDialogViewModelProvider viewModelProvider =
+        SimpleLoanDialogViewModelProvider(
+      basePrice: basePrice,
+      billType: billType,
+      useMultipleLoanDownPaymentRange: useMultipleLoanDownPaymentRange,
+    );
+    //
+    final simpleLoanDialogViewModel = ref.watch(viewModelProvider);
 
-    final simpleLoanDialogViewModel = ref.watch(
-        simpleLoanDialogViewModelProvider(useMultipleLoanDownPaymentRange)
-            .notifier);
-
-    return simpleLoanDialogViewModelDataProvider.when(
-      data: (downPaymentPercentage) {
-        return DialogContainer(
-          title: DialogTitleText(
-            text: loanApplicationTitle,
-          ),
-          children: [
-            //item
-            itemNameRow(),
-
-            //down payment
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            DescriptorRow(
-              descriptor: ShopDialogConstants.downPayment,
-              value: simpleLoanDialogViewModel.getEconomyAdjustedDownPayment(
-                basePrice,
+    return simpleLoanDialogViewModel.when(
+      data: (simpleLoanDialogData) => (simpleLoanDialogData == null)
+          ? const SizedBox()
+          : DialogContainer(
+              title: DialogTitleText(
+                text: loanApplicationTitle,
               ),
-            ),
+              children: [
+                //item
+                itemNameRow(),
 
-            //slider
-            DialogSlider(
-              value: downPaymentPercentage,
-              min: simpleLoanDialogViewModel.getSliderMin(),
-              max: simpleLoanDialogViewModel.getSliderMax(),
-              onChanged: (value) => simpleLoanDialogViewModel
-                  .updateDownPaymentPercentage(value.roundToDouble()),
-            ),
+                //down payment
+                const AddVerticalSpace(
+                  height: ShopDialogConstants.sectionVerticalSpacing,
+                ),
+                DescriptorRow(
+                  descriptor: ShopDialogConstants.downPayment,
+                  value: simpleLoanDialogData.downPaymentString,
+                ),
 
-            //loan
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            DescriptorRow(
-              descriptor: ShopDialogConstants.loan,
-              value: simpleLoanDialogViewModel.getEconomyAdjustedLoanAmount(
-                billType,
-                basePrice,
-              ),
-            ),
+                //slider
+                DialogSlider(
+                  value: simpleLoanDialogData.chosenDownPaymentPercentage,
+                  min: simpleLoanDialogData.sliderMin,
+                  max: simpleLoanDialogData.sliderMax,
+                  onChanged: (value) => ref
+                      .read(viewModelProvider.notifier)
+                      .updateDownPaymentPercentage(value.roundToDouble()),
+                ),
 
-            //installment
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
-            ),
-            DescriptorRow(
-              descriptor: ShopDialogConstants.installment,
-              value:
-                  simpleLoanDialogViewModel.getEconomyAdjustedInstallmentAmount(
-                billType,
-                basePrice,
-              ),
-            ),
+                //loan
+                const AddVerticalSpace(
+                  height: ShopDialogConstants.sectionVerticalSpacing,
+                ),
+                DescriptorRow(
+                  descriptor: ShopDialogConstants.loan,
+                  value: simpleLoanDialogData.loanString,
+                ),
 
-            //apply
-            const AddVerticalSpace(
-              height: ShopDialogConstants.sectionVerticalSpacing,
+                //installment
+                const AddVerticalSpace(
+                  height: ShopDialogConstants.sectionVerticalSpacing,
+                ),
+                DescriptorRow(
+                  descriptor: ShopDialogConstants.installment,
+                  value: simpleLoanDialogData.installmentString,
+                ),
+
+                //apply
+                const AddVerticalSpace(
+                  height: ShopDialogConstants.sectionVerticalSpacing,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    AutoRouter.of(context).pop();
+                    onApply(
+                      simpleLoanDialogData.economyAdjustedLoanInformation,
+                    );
+                  },
+                  child: const Text(
+                    ShopDialogConstants.apply,
+                  ),
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                AutoRouter.of(context).pop();
-                onApply(downPaymentPercentage.toInt());
-              },
-              child: const Text(
-                ShopDialogConstants.apply,
-              ),
-            ),
-          ],
-        );
-      },
       error: (error, stackTrace) => Container(),
       loading: () => Container(),
     );

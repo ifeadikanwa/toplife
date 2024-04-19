@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/result_dialog.dart';
+import 'package:toplife/core/dialogs/dialog_handler.dart';
+import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/stats/cross_check_stats.dart';
-import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
+import 'package:toplife/core/utils/stats/stats_item.dart';
+import 'package:toplife/core/utils/stats/stats_range/stats_range_constants.dart';
 import 'package:toplife/main_systems/system_person/constants/text/eat_result_dialog_texts.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/increase/eat/eat_usecase.dart';
@@ -13,10 +14,14 @@ import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/sho
 class QuickEatUsecase {
   final StatsRepository _statsRepository;
   final EatUsecase _eatUsecase;
+  final DialogHandler _dialogHandler;
+  final ShopAndStorageUsecases _shopAndStorageUsecases;
 
   const QuickEatUsecase(
     this._statsRepository,
     this._eatUsecase,
+    this._dialogHandler,
+    this._shopAndStorageUsecases,
   );
 
   Future<void> execute({
@@ -24,30 +29,20 @@ class QuickEatUsecase {
     required int gameID,
     required int currentDay,
     required int activityDurationInMinutes,
-    required BuildContext context,
-    required ShopAndStorageUsecases shopAndStorageUsecases,
-    required GameUsecases gameUsecases,
   }) async {
     //get food-fridgefood pair
-    final List<FridgeFoodPair> fridgeFoodPairs =
-        await shopAndStorageUsecases.getAllPersonFridgeFoodPairsUsecase.execute(
+    final List<FridgeFoodPair> fridgeFoodPairs = await _shopAndStorageUsecases
+        .getAllPersonFridgeFoodPairsUsecase
+        .execute(
       personID: mainPersonID,
     );
 
     //if the list is empty, there's no food
     if (fridgeFoodPairs.isEmpty) {
-      //if context is valid, show dialog
-      if (context.mounted) {
-        return ResultDialog.show(
-          context: context,
-          title: EatResultDialogTexts.noFoodTitle,
-          result: EatResultDialogTexts.noFoodDesc,
-        );
-      }
-      //if context is not valid, leave silently
-      else {
-        return;
-      }
+      return _dialogHandler.showResultDialog(
+        title: EatResultDialogTexts.noFoodTitle,
+        result: EatResultDialogTexts.noFoodDesc,
+      );
     }
 
     //if the list is not empty
@@ -103,17 +98,31 @@ class QuickEatUsecase {
       }
 
       //after we've decided what to eat
-      //call eat usecase
-      if (context.mounted) {
+      //if there is nothing selected -> there is no food needed
+      if (foodToEat.isEmpty) {
+        //tell the player they are not hungry
+        return _dialogHandler.showResultWithStatsDialog(
+          title: "Satisfied!",
+          result: "You're not hungry",
+          statsList: [
+            const StatsItem(
+              statsName: TextConstants.hunger,
+              statsLevel: defaultMaxStatsValue,
+              statsRange: StatsRangeConstants.defaultRange,
+              positiveIsAlwaysGreen: false,
+            ),
+          ],
+        );
+      }
+      //food to eat has been chosen
+      else {
+        //call eat usecase
         await _eatUsecase.execute(
           mainPersonID: mainPersonID,
           gameID: gameID,
           currentDay: currentDay,
           activityDurationInMinutes: activityDurationInMinutes,
           fridgeFoodServingPairs: foodToEat,
-          context: context,
-          shopAndStorageUsecases: shopAndStorageUsecases,
-          gameUsecases: gameUsecases,
         );
       }
     }

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 //App
@@ -34,6 +35,8 @@ const relationshipListHomeIconSize = 20.0;
 const listClockIconSize = 15.0;
 const listArrowIconSize = 15.0;
 const shopCategoryIconSize = 40.0;
+const defaultIconButtonSize = flutterDefaultIconSize;
+const smallIconButtonSize = 15.0;
 
 //Text
 const verticalTextSpacing = 2.0;
@@ -46,6 +49,9 @@ const appBarTextStyle = TextStyle(
 const headerTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 15.0,
+);
+final moneyHeaderTextStyle = headerTextStyle.copyWith(
+  color: Colors.green,
 );
 const cardSecondaryTextStyle = TextStyle(
   fontSize: 12,

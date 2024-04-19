@@ -10,6 +10,7 @@ void main() {
         return const ActionResult(
           isSuccessful: true,
           reportActionFail: ReportActionFail.none,
+          durationInMinutes: null,
         );
       }
 
@@ -35,6 +36,7 @@ void main() {
         return const ActionResult(
           isSuccessful: true,
           reportActionFail: ReportActionFail.none,
+          durationInMinutes: null,
         );
       }
 
@@ -60,6 +62,7 @@ void main() {
         return const ActionResult(
           isSuccessful: true,
           reportActionFail: ReportActionFail.none,
+          durationInMinutes: 33,
         );
       }
 
@@ -67,6 +70,7 @@ void main() {
         return const ActionResult(
           isSuccessful: true,
           reportActionFail: ReportActionFail.lowStats,
+          durationInMinutes: null,
         );
       }
 
@@ -98,6 +102,7 @@ void main() {
         const ActionResult(
           isSuccessful: false,
           reportActionFail: ReportActionFail.lowStats,
+          durationInMinutes: 70,
         ),
       );
     });

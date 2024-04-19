@@ -1,66 +1,54 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
+import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/convert_hours_to_minutes.dart';
 import 'package:toplife/core/utils/date_and_time/convert_minutes_to_truncated_hours.dart';
-import 'package:toplife/core/utils/date_and_time/time.dart';
-import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/usecases/manage_survival_stats/player/increase/sleep_usecase.dart';
 
-final sleepActionDialogViewModelProvider =
-    StateNotifierProvider.autoDispose<SleepActionDialogViewModel, Time>(
-  (ref) => SleepActionDialogViewModel(
-    ref.watch(personUsecasesProvider).sleepUsecase,
-    ref.watch(gameUsecasesProvider),
-  ),
-);
+part 'sleep_action_dialog_view_model.g.dart';
 
-class SleepActionDialogViewModel extends StateNotifier<Time> {
-  final SleepUsecase _sleepUsecase;
-  final GameUsecases _gameUsecases;
-  SleepActionDialogViewModel(
-    this._sleepUsecase,
-    this._gameUsecases,
-  ) : super(const Time(hours: 0, minutes: 0));
+@CopyWith()
+class SleepActionDialogData extends Equatable {
+  final int hours;
+  final int minutes;
+
+  const SleepActionDialogData({required this.hours, required this.minutes});
+
+  @override
+  List<Object?> get props => [hours, minutes];
+}
+
+@riverpod
+class SleepActionDialogViewModel extends _$SleepActionDialogViewModel {
+  @override
+  SleepActionDialogData build() {
+    return const SleepActionDialogData(hours: 0, minutes: 0);
+  }
 
   void updateHours(int hoursInMinutes) {
-    final Time oldTime = state;
-    state = Time(
+    state = state.copyWith(
       hours: convertMinutesToTruncatedHours(hoursInMinutes),
-      minutes: oldTime.minutes,
     );
   }
 
   void updateMinutes(int minutes) {
-    final Time oldTime = state;
-    state = Time(
-      hours: oldTime.hours,
-      minutes: minutes,
-    );
+    state = state.copyWith(minutes: minutes);
   }
 
-  Future<void> sleep({
-    required BuildContext context,
-    required Game currentGame,
-  }) async {
-    //if we have a valid current player
-    final int? currentPlayerId = currentGame.currentPlayerID;
-    if (currentPlayerId != null) {
-      await _sleepUsecase.execute(
-        personID: currentPlayerId,
-        gameID: currentGame.id,
-        currentDay: currentGame.currentDay,
-        activityDurationInMinutes: _getTotalTimeInMinutes(),
-        gameUsecases: _gameUsecases,
-        context: context,
-      );
+  Future<void> sleep() async {
+    //if we have a valid current game
+    final Game? currentGame = await ref.read(currentGameProvider.future);
+
+    if (currentGame != null && currentGame.currentPlayerID != null) {
+      await ref.read(personUsecasesProvider).sleepUsecase.execute(
+            personID: currentGame.currentPlayerID!,
+            gameID: currentGame.id,
+            currentDay: currentGame.currentDay,
+            activityDurationInMinutes:
+                convertHoursToMinutes(state.hours) + state.minutes,
+          );
     }
-  }
-
-  int _getTotalTimeInMinutes() {
-    //convert the hours to minutes and add to the chosen minutes
-    return convertHoursToMinutes(state.hours) + state.minutes;
   }
 }

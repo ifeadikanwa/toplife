@@ -17,7 +17,7 @@ List<StringPair> packageRelationshipExtraInformation({
             )
           : null;
 
-  //add if it isnt empty
+  //add if it isn't empty
   if (romanticRelationshipLengthString != null) {
     extraInfo.add(romanticRelationshipLengthString);
   }
@@ -31,7 +31,7 @@ List<StringPair> packageRelationshipExtraInformation({
             )
           : null;
 
-  //add if it isnt empty
+  //add if it isn't empty
   if (previousRelationshipString != null) {
     extraInfo.add(previousRelationshipString);
   }
