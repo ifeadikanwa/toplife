@@ -10,7 +10,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/activities/widg
 
 @RoutePage()
 class ActivitiesScreen extends ConsumerWidget {
-  const ActivitiesScreen({Key? key}) : super(key: key);
+  const ActivitiesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

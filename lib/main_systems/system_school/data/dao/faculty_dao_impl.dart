@@ -9,7 +9,7 @@ part 'faculty_dao_impl.g.dart';
 class FacultyDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$FacultyDaoImplMixin
     implements FacultyDao {
-  FacultyDaoImpl(DatabaseProvider database) : super(database);
+  FacultyDaoImpl(super.database);
 
   @override
   Future<Faculty> createOrUpdateFaculty(Faculty faculty) async {

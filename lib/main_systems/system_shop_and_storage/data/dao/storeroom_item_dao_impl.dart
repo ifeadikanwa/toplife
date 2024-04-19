@@ -9,7 +9,7 @@ part 'storeroom_item_dao_impl.g.dart';
 class StoreroomItemDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$StoreroomItemDaoImplMixin
     implements StoreroomItemDao {
-  StoreroomItemDaoImpl(DatabaseProvider database) : super(database);
+  StoreroomItemDaoImpl(super.database);
 
   @override
   Future<StoreroomItem> createStoreroomItem(StoreroomItem storeroomItem) async {

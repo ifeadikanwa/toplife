@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class DialogTitleText extends StatelessWidget {
   final String text;
   final TextStyle? style;
-  const DialogTitleText({Key? key, required this.text, this.style})
-      : super(key: key);
+  const DialogTitleText({super.key, required this.text, this.style});
 
   @override
   Widget build(BuildContext context) {

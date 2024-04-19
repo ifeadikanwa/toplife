@@ -172,7 +172,7 @@ class _TattooShopDialogWidgetState
             //button
             ElevatedButton(
               onPressed: () async {
-                AutoRouter.of(context).pop();
+                AutoRouter.of(context).popForced();
 
                 await ref
                     .read(tattooShopDialogWidgetViewModelProvider.notifier)

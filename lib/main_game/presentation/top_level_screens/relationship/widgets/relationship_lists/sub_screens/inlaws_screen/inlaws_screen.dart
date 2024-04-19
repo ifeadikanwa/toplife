@@ -7,7 +7,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/relationship/wi
 
 @RoutePage()
 class InLawsScreen extends ConsumerWidget {
-  const InLawsScreen({Key? key}) : super(key: key);
+  const InLawsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

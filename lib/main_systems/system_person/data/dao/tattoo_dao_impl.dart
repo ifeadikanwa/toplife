@@ -9,7 +9,7 @@ part 'tattoo_dao_impl.g.dart';
 class TattooDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$TattooDaoImplMixin
     implements TattooDao {
-  TattooDaoImpl(DatabaseProvider database) : super(database);
+  TattooDaoImpl(super.database);
 
   @override
   Future<Tattoo> createTattoo(Tattoo tattoo) async {

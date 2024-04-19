@@ -9,7 +9,7 @@ part 'game_dao_impl.g.dart';
 class GameDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$GameDaoImplMixin
     implements GameDao {
-  GameDaoImpl(DatabaseProvider database) : super(database);
+  GameDaoImpl(super.database);
 
 //Game in dao and repo should point to new game data class
 

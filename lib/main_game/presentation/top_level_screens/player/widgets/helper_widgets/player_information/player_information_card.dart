@@ -14,8 +14,8 @@ import 'package:toplife/core/utils/stats/stats_item_builder.dart';
 
 class PlayerInformationCard extends ConsumerWidget {
   const PlayerInformationCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -9,7 +9,7 @@ part 'fridge_food_dao_impl.g.dart';
 class FridgeFoodDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$FridgeFoodDaoImplMixin
     implements FridgeFoodDao {
-  FridgeFoodDaoImpl(DatabaseProvider database) : super(database);
+  FridgeFoodDaoImpl(super.database);
 
   @override
   Future<FridgeFood> createFridgeFood(FridgeFood fridgeFood) async {

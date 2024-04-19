@@ -10,12 +10,12 @@ class AvatarWithFlag extends StatelessWidget {
   final String flagImagePath;
 
   const AvatarWithFlag({
-    Key? key,
+    super.key,
     this.avatarSize = defaultAvatarSize,
     this.flagSize = 15.0,
     required this.avatarImagePath,
     required this.flagImagePath,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

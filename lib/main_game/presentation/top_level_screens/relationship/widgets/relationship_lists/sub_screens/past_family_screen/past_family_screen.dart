@@ -8,8 +8,8 @@ import 'package:toplife/main_game/presentation/top_level_screens/relationship/wi
 @RoutePage()
 class PastFamilyScreen extends ConsumerWidget {
   const PastFamilyScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

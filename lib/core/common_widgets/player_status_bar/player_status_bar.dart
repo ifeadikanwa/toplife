@@ -17,7 +17,7 @@ class PlayerStatusBar extends StatelessWidget {
   final String dayOfWeek;
 
   const PlayerStatusBar({
-    Key? key,
+    super.key,
     required this.firstName,
     required this.lastName,
     required this.avatarImagePath,
@@ -27,7 +27,7 @@ class PlayerStatusBar extends StatelessWidget {
     required this.time,
     required this.dayNumber,
     required this.dayOfWeek,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

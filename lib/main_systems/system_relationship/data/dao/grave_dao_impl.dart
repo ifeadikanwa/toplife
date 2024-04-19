@@ -9,7 +9,7 @@ part 'grave_dao_impl.g.dart';
 class GraveDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$GraveDaoImplMixin
     implements GraveDao {
-  GraveDaoImpl(DatabaseProvider database) : super(database);
+  GraveDaoImpl(super.database);
 
   @override
   Future<Grave> createGrave(Grave grave) async {

@@ -13,12 +13,12 @@ class EventListItem extends ConsumerWidget {
   final bool eventCanStillBeAttended;
 
   const EventListItem({
-    Key? key,
+    super.key,
     required this.eventMainPerson,
     required this.event,
     required this.eventIsOpen,
     required this.eventCanStillBeAttended,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

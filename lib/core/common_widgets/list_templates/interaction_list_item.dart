@@ -9,13 +9,13 @@ class InteractionListItem extends StatelessWidget {
   final void Function() onTap;
 
   const InteractionListItem({
-    Key? key,
+    super.key,
     this.icon,
     required this.interactionTitle,
     required this.interactionDescription,
     required this.timeInMinutes,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

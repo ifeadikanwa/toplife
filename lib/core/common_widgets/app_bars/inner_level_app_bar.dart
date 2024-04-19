@@ -6,12 +6,13 @@ class InnerLevelAppBar extends StatelessWidget {
   final String title;
   final IconButton? leading;
   final List<IconButton>? actions;
+
   const InnerLevelAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.leading,
     this.actions,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,6 @@ class InnerLevelAppBar extends StatelessWidget {
 IconButton backButton(BuildContext context) {
   return IconButton(
     icon: const Icon(Icons.arrow_back_outlined),
-    onPressed: () => AutoRouter.of(context).pop(),
+    onPressed: () => AutoRouter.of(context).popForced(),
   );
 }

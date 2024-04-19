@@ -8,8 +8,8 @@ import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/su
 @RoutePage()
 class NaturalJewelryScreen extends ConsumerWidget {
   const NaturalJewelryScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

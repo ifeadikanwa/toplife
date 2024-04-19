@@ -16,8 +16,8 @@ import 'package:toplife/main_systems/system_person/constants/piercing/piercing_b
 
 class PiercingShopDialogWidget extends ConsumerWidget {
   const PiercingShopDialogWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -102,7 +102,7 @@ class PiercingShopDialogWidget extends ConsumerWidget {
                       //button
                       ElevatedButton(
                         onPressed: () async {
-                          AutoRouter.of(context).pop();
+                          AutoRouter.of(context).popForced();
 
                           await ref
                               .read(piercingShopDialogWidgetViewModelProvider

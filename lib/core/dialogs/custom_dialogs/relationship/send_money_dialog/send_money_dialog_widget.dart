@@ -66,7 +66,7 @@ class SendMoneyDialogWidgetState extends ConsumerState<SendMoneyDialogWidget> {
 
             //send back the chosen amount
             AutoRouter.of(context)
-                .pop(convertMoneyStringToInt(textEditingController.text));
+                .popForced(convertMoneyStringToInt(textEditingController.text));
           },
           child: Text(
             TextConstants.send.toUpperCase(),

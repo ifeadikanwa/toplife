@@ -15,12 +15,12 @@ part 'relationship_dao_impl.g.dart';
 class RelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$RelationshipDaoImplMixin
     implements RelationshipDao {
-  RelationshipDaoImpl(DatabaseProvider database) : super(database);
+  RelationshipDaoImpl(super.database);
 
   //// some relationships are same level while others are multilevel.
-  //// So sometimes it is important thet the correct person is labeled main.
+  //// So sometimes it is important that the correct person is labeled main.
   // SCRAP EVERYTHING ABOVE.
-  //It shouldnt matter who is main or other because that just creates room for error.
+  //It shouldn't matter who is main or other because that just creates room for error.
   //ONLY  the players family relationships are stored.
   //so at the start of every new player, ALL family relationships should change to their perspective.
   //Example: Old player -> John, has a relationship: John -> Frank - CHILD

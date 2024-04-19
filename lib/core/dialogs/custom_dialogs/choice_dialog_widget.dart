@@ -13,11 +13,11 @@ class ChoiceDialogWidget extends StatelessWidget {
   final List<EventChoice> choices;
 
   const ChoiceDialogWidget({
-    Key? key,
+    super.key,
     required this.categoryTitle,
     required this.eventDescription,
     required this.choices,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

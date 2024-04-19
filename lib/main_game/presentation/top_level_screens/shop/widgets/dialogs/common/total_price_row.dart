@@ -7,9 +7,9 @@ class TotalPriceRow extends ConsumerWidget {
   final int basePrice;
 
   const TotalPriceRow({
-    Key? key,
+    super.key,
     required this.basePrice,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

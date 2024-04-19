@@ -7,11 +7,11 @@ class ClickableGeneralListItemCase extends StatelessWidget {
   final bool hasDivider;
 
   const ClickableGeneralListItemCase({
-    Key? key,
+    super.key,
     this.hasDivider = true,
     required this.content,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

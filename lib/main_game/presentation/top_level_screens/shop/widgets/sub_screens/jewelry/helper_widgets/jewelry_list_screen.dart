@@ -10,8 +10,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_jewelry_na
 class JewelryListScreen extends StatelessWidget {
   final List<Jewelry> jewelryList;
 
-  const JewelryListScreen({Key? key, required this.jewelryList})
-      : super(key: key);
+  const JewelryListScreen({super.key, required this.jewelryList});
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ part 'event_dao_impl.g.dart';
 class EventDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$EventDaoImplMixin
     implements EventDao {
-  EventDaoImpl(DatabaseProvider database) : super(database);
+  EventDaoImpl(super.database);
 
   @override
   Future<Event> createEvent(Event event) async {

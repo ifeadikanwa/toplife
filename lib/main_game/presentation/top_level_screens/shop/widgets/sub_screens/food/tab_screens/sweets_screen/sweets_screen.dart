@@ -8,8 +8,8 @@ import 'package:toplife/main_systems/system_shop_and_storage/shop_info/shop.dart
 @RoutePage()
 class SweetsScreen extends StatelessWidget {
   const SweetsScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

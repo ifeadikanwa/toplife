@@ -7,11 +7,11 @@ class ShopDialogItemInfoRow extends StatelessWidget {
   final String? subtitle2;
 
   const ShopDialogItemInfoRow({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle1,
     required this.subtitle2,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

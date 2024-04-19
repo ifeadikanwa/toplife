@@ -9,7 +9,7 @@ part 'baby_traits_dao_impl.g.dart';
 class BabyTraitsDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$BabyTraitsDaoImplMixin
     implements BabyTraitsDao {
-  BabyTraitsDaoImpl(DatabaseProvider database) : super(database);
+  BabyTraitsDaoImpl(super.database);
 
   @override
   Future<BabyTraits> createBabyTraits(BabyTraits babyTraits) async {
@@ -33,8 +33,8 @@ class BabyTraitsDaoImpl extends DatabaseAccessor<DatabaseProvider>
   }
 
   @override
-  Future<BabyTraits?> getBabyTraits(int personID)async {
-   return (select(babyTraitsTable)
+  Future<BabyTraits?> getBabyTraits(int personID) async {
+    return (select(babyTraitsTable)
           ..where((babyTraits) => babyTraits.personId.equals(personID))
           ..limit(1))
         .getSingleOrNull();

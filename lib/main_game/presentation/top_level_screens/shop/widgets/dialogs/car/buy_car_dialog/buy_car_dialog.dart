@@ -22,9 +22,9 @@ class BuyCarDialog extends ConsumerWidget {
   final Car car;
 
   const BuyCarDialog({
-    Key? key,
+    super.key,
     required this.car,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

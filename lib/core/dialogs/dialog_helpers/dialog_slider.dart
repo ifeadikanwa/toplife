@@ -6,12 +6,12 @@ class DialogSlider extends StatelessWidget {
   final double max;
   final void Function(double)? onChanged;
   const DialogSlider({
-    Key? key,
+    super.key,
     required this.value,
     this.min,
     required this.max,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

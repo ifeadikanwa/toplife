@@ -8,8 +8,7 @@ class HomeOptionCard extends StatelessWidget {
   final void Function() onTap;
   
   const HomeOptionCard(
-      {Key? key, required this.iconData, required this.optionName, required this.onTap,})
-      : super(key: key);
+      {super.key, required this.iconData, required this.optionName, required this.onTap,});
 
   @override
   Widget build(BuildContext context) {

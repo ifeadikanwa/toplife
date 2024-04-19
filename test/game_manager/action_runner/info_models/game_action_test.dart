@@ -102,7 +102,7 @@ void main() {
         const ActionResult(
           isSuccessful: false,
           reportActionFail: ReportActionFail.lowStats,
-          durationInMinutes: 70,
+          durationInMinutes: null,
         ),
       );
     });

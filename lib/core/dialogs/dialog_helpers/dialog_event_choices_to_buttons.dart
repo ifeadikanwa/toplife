@@ -7,9 +7,9 @@ class DialogEventChoicesToWidgets extends StatelessWidget {
   final List<EventChoice> eventChoices;
 
   const DialogEventChoicesToWidgets({
-    Key? key,
+    super.key,
     required this.eventChoices,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -3,8 +3,7 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 
 class DialogDropdownLabelText extends StatelessWidget {
   final String text;
-  const DialogDropdownLabelText({Key? key, required this.text})
-      : super(key: key);
+  const DialogDropdownLabelText({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_house_size
 class HouseListScreen extends StatelessWidget {
   final List<House> houseList;
 
-  const HouseListScreen({Key? key, required this.houseList}) : super(key: key);
+  const HouseListScreen({super.key, required this.houseList});
 
   @override
   Widget build(BuildContext context) {

@@ -6,9 +6,9 @@ import 'package:toplife/core/utils/stats/stats_item_builder.dart';
 class WorkBar extends StatelessWidget {
   final int performance;
   const WorkBar({
-    Key? key,
+    super.key,
     required this.performance,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

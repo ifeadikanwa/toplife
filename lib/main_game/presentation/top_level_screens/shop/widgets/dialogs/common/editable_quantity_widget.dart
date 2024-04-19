@@ -7,11 +7,11 @@ class EditableQuantity extends StatelessWidget {
   final Function() onDecrease;
 
   const EditableQuantity({
-    Key? key,
+    super.key,
     required this.text,
     required this.onIncrease,
     required this.onDecrease,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -22,10 +22,10 @@ class PlayerPlannedFuneralDialogWidget extends ConsumerWidget {
   final Country playerCountry;
 
   const PlayerPlannedFuneralDialogWidget({
-    Key? key,
+    super.key,
     required this.firstPersonEventDescription,
     required this.playerCountry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

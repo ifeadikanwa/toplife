@@ -50,7 +50,7 @@ class TormentDialogWidget extends ConsumerWidget {
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
         ElevatedButton(
           onPressed: () async {
-            AutoRouter.of(context).pop<TormentOption>(
+            AutoRouter.of(context).popForced<TormentOption>(
               tormentDialogData.chosenTormentOption,
             );
           },

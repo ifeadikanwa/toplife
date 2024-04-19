@@ -10,7 +10,7 @@ part 'job_relationship_dao_impl.g.dart';
 class JobRelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$JobRelationshipDaoImplMixin
     implements JobRelationshipDao {
-  JobRelationshipDaoImpl(DatabaseProvider database) : super(database);
+  JobRelationshipDaoImpl(super.database);
 
   @override
   Future<JobRelationship> createJobRelationship(

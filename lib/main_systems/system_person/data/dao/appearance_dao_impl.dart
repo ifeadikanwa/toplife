@@ -9,7 +9,7 @@ part 'appearance_dao_impl.g.dart';
 class AppearanceDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$AppearanceDaoImplMixin
     implements AppearanceDao {
-  AppearanceDaoImpl(DatabaseProvider database) : super(database);
+  AppearanceDaoImpl(super.database);
 
   @override
   Future<Appearance> createOrUpdateAppearance(

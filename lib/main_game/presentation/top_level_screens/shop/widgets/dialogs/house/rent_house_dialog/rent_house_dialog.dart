@@ -20,9 +20,9 @@ class RentHouseDialog extends ConsumerWidget {
   final House house;
 
   const RentHouseDialog({
-    Key? key,
+    super.key,
     required this.house,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

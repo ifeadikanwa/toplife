@@ -8,7 +8,7 @@ import 'package:toplife/core/text_constants.dart';
 
 @RoutePage()
 class ChildrenShopScreen extends StatelessWidget {
-  const ChildrenShopScreen({Key? key}) : super(key: key);
+  const ChildrenShopScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

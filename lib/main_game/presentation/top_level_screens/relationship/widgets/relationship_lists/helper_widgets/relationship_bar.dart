@@ -5,9 +5,9 @@ import 'package:toplife/core/utils/stats/stats_item_builder.dart';
 class RelationshipBar extends StatelessWidget {
   final int relationshipAmount;
   const RelationshipBar({
-    Key? key,
+    super.key,
     required this.relationshipAmount,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

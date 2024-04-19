@@ -10,11 +10,11 @@ class CurrentWorkListItem extends StatelessWidget {
   final int performance;
   final void Function() onTap;
   const CurrentWorkListItem({
-    Key? key,
+    super.key,
     required this.workTitle,
     required this.performance,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

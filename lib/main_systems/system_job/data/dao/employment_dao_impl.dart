@@ -11,7 +11,7 @@ part 'employment_dao_impl.g.dart';
 class EmploymentDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$EmploymentDaoImplMixin
     implements EmploymentDao {
-  EmploymentDaoImpl(DatabaseProvider database) : super(database);
+  EmploymentDaoImpl(super.database);
 
   @override
   Future<Employment> createEmployment(Employment employment) async {

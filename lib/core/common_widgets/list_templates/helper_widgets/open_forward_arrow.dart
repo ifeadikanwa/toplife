@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class OpenForwardArrow extends StatelessWidget {
-  const OpenForwardArrow({Key? key}) : super(key: key);
+  const OpenForwardArrow({super.key});
 
   @override
   Widget build(BuildContext context) {

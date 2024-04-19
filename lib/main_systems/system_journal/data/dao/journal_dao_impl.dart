@@ -9,7 +9,7 @@ part 'journal_dao_impl.g.dart';
 class JournalDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$JournalDaoImplMixin
     implements JournalDao {
-  JournalDaoImpl(DatabaseProvider database) : super(database);
+  JournalDaoImpl(super.database);
 
   @override
   Future<Journal> createJournal(Journal journal) async {

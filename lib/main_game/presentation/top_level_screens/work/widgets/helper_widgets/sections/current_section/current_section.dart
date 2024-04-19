@@ -9,8 +9,8 @@ import 'package:toplife/main_systems/system_job/util/get_full_job_title.dart';
 
 class CurrentSection extends ConsumerWidget {
   const CurrentSection({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

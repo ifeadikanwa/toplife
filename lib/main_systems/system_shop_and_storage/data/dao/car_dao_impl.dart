@@ -11,7 +11,7 @@ part 'car_dao_impl.g.dart';
 class CarDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$CarDaoImplMixin
     implements CarDao {
-  CarDaoImpl(DatabaseProvider database) : super(database);
+  CarDaoImpl(super.database);
 
   @override
   Future<Car> createCar(Car car) async {

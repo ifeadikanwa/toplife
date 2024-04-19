@@ -53,7 +53,7 @@ class SendFoodDialogWidget extends ConsumerWidget {
         ElevatedButton(
           onPressed: () {
             //send back the chosen food option
-            AutoRouter.of(context).pop<FridgeFoodPair>(
+            AutoRouter.of(context).popForced<FridgeFoodPair>(
               sendFoodDialogData.chosenFoodOption,
             );
           },

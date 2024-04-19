@@ -14,12 +14,12 @@ class FamilyPlannedFuneralDialogWidget extends StatelessWidget {
   final String playerCurrency;
 
   const FamilyPlannedFuneralDialogWidget({
-    Key? key,
+    super.key,
     required this.eventDescription,
     required this.funeralArrangementsDescription,
     required this.playerContribution,
     required this.playerCurrency,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

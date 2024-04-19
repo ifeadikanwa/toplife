@@ -9,7 +9,7 @@ part 'recurring_bill_dao_impl.g.dart';
 class RecurringBillDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$RecurringBillDaoImplMixin
     implements RecurringBillDao {
-  RecurringBillDaoImpl(DatabaseProvider database) : super(database);
+  RecurringBillDaoImpl(super.database);
 
   @override
   Future<RecurringBill> createRecurringBill(RecurringBill recurringBill) async {

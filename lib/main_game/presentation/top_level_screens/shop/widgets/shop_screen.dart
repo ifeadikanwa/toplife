@@ -21,7 +21,7 @@ import 'package:toplife/testing_utility/relationship_test_util.dart';
 
 @RoutePage()
 class ShopScreen extends ConsumerWidget {
-  const ShopScreen({Key? key}) : super(key: key);
+  const ShopScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -18,13 +18,13 @@ class SimpleBuyDialog extends ConsumerWidget {
   final void Function(int quantity) onCheckout;
 
   const SimpleBuyDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle1,
     this.subtitle2,
     required this.basePrice,
     required this.onCheckout,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

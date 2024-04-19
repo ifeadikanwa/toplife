@@ -11,7 +11,7 @@ part 'jewelry_dao_impl.g.dart';
 class JewelryDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$JewelryDaoImplMixin
     implements JewelryDao {
-  JewelryDaoImpl(DatabaseProvider database) : super(database);
+  JewelryDaoImpl(super.database);
 
   @override
   Future<Jewelry> createJewelry(Jewelry jewelry) async {

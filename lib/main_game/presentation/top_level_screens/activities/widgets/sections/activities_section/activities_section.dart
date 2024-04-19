@@ -8,7 +8,7 @@ import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/activities/constants/activities_screen_text.dart';
 
 class ActivitiesSection extends ConsumerWidget {
-  const ActivitiesSection({Key? key}) : super(key: key);
+  const ActivitiesSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

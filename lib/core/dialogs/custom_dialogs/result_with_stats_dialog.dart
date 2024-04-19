@@ -13,11 +13,11 @@ class ResultWithStatsDialogWidget extends StatelessWidget {
   final List<StatsItem> statsList;
 
   const ResultWithStatsDialogWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.result,
     required this.statsList,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

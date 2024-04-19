@@ -5,7 +5,7 @@ import 'package:toplife/core/common_states/navigation/app_router_provider.dart';
 import 'package:toplife/core/text_constants.dart';
 
 class MyApp extends ConsumerWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override

@@ -9,10 +9,10 @@ class PriceDescriptorRow extends ConsumerWidget {
   final int basePrice;
 
   const PriceDescriptorRow({
-    Key? key,
+    super.key,
     required this.descriptor,
     required this.basePrice,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

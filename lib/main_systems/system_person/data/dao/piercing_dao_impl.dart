@@ -9,7 +9,7 @@ part 'piercing_dao_impl.g.dart';
 class PiercingDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$PiercingDaoImplMixin
     implements PiercingDao {
-  PiercingDaoImpl(DatabaseProvider database) : super(database);
+  PiercingDaoImpl(super.database);
 
   @override
   Future<Piercing> createPiercing(Piercing piercing) async {

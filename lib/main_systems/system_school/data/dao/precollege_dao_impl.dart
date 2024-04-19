@@ -12,7 +12,7 @@ part 'precollege_dao_impl.g.dart';
 class PrecollegeDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$PrecollegeDaoImplMixin
     implements PrecollegeDao {
-  PrecollegeDaoImpl(DatabaseProvider database) : super(database);
+  PrecollegeDaoImpl(super.database);
 
   @override
   Future<Precollege> createPrecollege(Precollege precollege) async {

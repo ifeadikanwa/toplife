@@ -9,7 +9,7 @@ part 'item_dao_impl.g.dart';
 class ItemDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$ItemDaoImplMixin
     implements ItemDao {
-  ItemDaoImpl(DatabaseProvider database) : super(database);
+  ItemDaoImpl(super.database);
 
   @override
   Future<Item> createItem(Item item) async {

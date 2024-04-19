@@ -11,9 +11,9 @@ class GravesListItem extends StatelessWidget {
   final PersonGravePair personGravePair;
 
   const GravesListItem({
-    Key? key,
+    super.key,
     required this.personGravePair,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -46,7 +46,7 @@ class SleepActionDialog extends ConsumerWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            AutoRouter.of(context).pop();
+            AutoRouter.of(context).popForced();
             await ref.read(sleepActionDialogViewModelProvider.notifier).sleep();
           },
           child: const Text(ActivitiesDialogText.sleep),

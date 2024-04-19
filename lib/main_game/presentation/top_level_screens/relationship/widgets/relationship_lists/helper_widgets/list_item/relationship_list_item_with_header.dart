@@ -10,10 +10,10 @@ class RelationshipListItemWithHeader extends StatelessWidget {
   final PersonRelationshipPair personRelationshipPair;
 
   const RelationshipListItemWithHeader({
-    Key? key,
+    super.key,
     required this.sectionTitle,
     required this.personRelationshipPair,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ part 'school_project_dao_impl.g.dart';
 class SchoolProjectDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$SchoolProjectDaoImplMixin
     implements SchoolProjectDao {
-  SchoolProjectDaoImpl(DatabaseProvider database) : super(database);
+  SchoolProjectDaoImpl(super.database);
 
   @override
   Future<SchoolProject> createSchoolProject(SchoolProject schoolProject) async {

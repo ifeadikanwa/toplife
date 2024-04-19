@@ -27,7 +27,7 @@ class AttendEventDialogWidget extends ConsumerWidget {
   final bool isParty; //if isn't a party, it is a regular event
 
   const AttendEventDialogWidget({
-    Key? key,
+    super.key,
     required this.event,
     required this.eventMainPerson,
     required this.mainPlayerID,
@@ -35,7 +35,7 @@ class AttendEventDialogWidget extends ConsumerWidget {
     required this.secondPersonEventDescription,
     required this.relationshipLabel,
     required this.isParty,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -95,7 +95,7 @@ class AttendEventDialogWidget extends ConsumerWidget {
                       child: const Text(TextConstants.attend),
                       onPressed: () {
                         //return party detail
-                        AutoRouter.of(context).pop(
+                        AutoRouter.of(context).popForced(
                           attendEventDialogData.attendEventDetail,
                         );
                       },

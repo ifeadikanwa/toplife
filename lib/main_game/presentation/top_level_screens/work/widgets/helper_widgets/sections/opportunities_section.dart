@@ -4,7 +4,7 @@ import 'package:toplife/core/common_widgets/list_templates/action_list_item.dart
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/work/constants/work_screen_text.dart';
 class OpportunitiesSection extends StatelessWidget {
-  const OpportunitiesSection({Key? key}) : super(key: key);
+  const OpportunitiesSection({super.key});
 
   @override
   Widget build(BuildContext context) {

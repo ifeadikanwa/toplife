@@ -9,7 +9,7 @@ part 'car_problem_dao_impl.g.dart';
 class CarProblemDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$CarProblemDaoImplMixin
     implements CarProblemDao {
-  CarProblemDaoImpl(DatabaseProvider database) : super(database);
+  CarProblemDaoImpl(super.database);
 
   @override
   Future<CarProblem> createCarProblem(CarProblem carProblem) async {

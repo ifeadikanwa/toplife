@@ -7,7 +7,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/relationship/wi
 
 @RoutePage()
 class RelativesScreen extends ConsumerWidget {
-  const RelativesScreen({Key? key}) : super(key: key);
+  const RelativesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

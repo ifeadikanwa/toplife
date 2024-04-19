@@ -9,12 +9,12 @@ class ActionText extends StatelessWidget {
   final bool disabled;
 
   const ActionText({
-    Key? key,
+    super.key,
     required this.actionTitle,
     required this.actionDescription,
     this.anotherActionDescription,
     this.disabled = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

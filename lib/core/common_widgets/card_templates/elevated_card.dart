@@ -3,7 +3,7 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class ElevatedCard extends StatelessWidget {
   final List<Widget> children;
-  const ElevatedCard({Key? key, required this.children}) : super(key: key);
+  const ElevatedCard({super.key, required this.children});
 
   @override
   Widget build(BuildContext context) {

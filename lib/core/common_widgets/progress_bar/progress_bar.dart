@@ -11,13 +11,13 @@ class ProgressBar extends StatelessWidget {
   final double minHeight;
   final bool showProgressValue;
   const ProgressBar({
-    Key? key,
+    super.key,
     required this.progressValue,
     required this.progressStatsRange,
     required this.positveIsAlwaysGreen,
     this.minHeight = 10.0,
     this.showProgressValue = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -23,14 +23,14 @@ class SimpleLoanDialog extends ConsumerWidget {
       EconomyAdjustedLoanInformation economyAdjustedLoanInformation) onApply;
 
   const SimpleLoanDialog({
-    Key? key,
+    super.key,
     required this.loanApplicationTitle,
     required this.itemName,
     required this.billType,
     required this.basePrice,
     this.useMultipleLoanDownPaymentRange = false,
     required this.onApply,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -98,7 +98,7 @@ class SimpleLoanDialog extends ConsumerWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    AutoRouter.of(context).pop();
+                    AutoRouter.of(context).popForced();
                     onApply(
                       simpleLoanDialogData.economyAdjustedLoanInformation,
                     );

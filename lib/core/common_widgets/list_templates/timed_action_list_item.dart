@@ -15,14 +15,14 @@ class TimedActionListItem extends StatelessWidget {
   final bool hasDivider;
 
   const TimedActionListItem({
-    Key? key,
+    super.key,
     this.icon,
     required this.actionTitle,
     required this.actionDescription,
     required this.timeInMinutes,
     required this.hasDivider,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

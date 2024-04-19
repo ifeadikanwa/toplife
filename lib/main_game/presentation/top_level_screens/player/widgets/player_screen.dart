@@ -11,7 +11,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/player/widgets/
 
 @RoutePage()
 class PlayerScreen extends StatelessWidget {
-  const PlayerScreen({Key? key}) : super(key: key);
+  const PlayerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

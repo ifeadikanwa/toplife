@@ -6,12 +6,13 @@ class DialogDropdown<T> extends StatelessWidget {
   final T value;
   final List<DropdownMenuItem<T>> items;
   final void Function(T?)? onChanged;
+
   const DialogDropdown({
-    Key? key,
+    super.key,
     required this.value,
     required this.items,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +27,33 @@ class DialogDropdown<T> extends StatelessWidget {
 
     return DropdownButton2<T>(
       isExpanded: true,
-      scrollbarAlwaysShow: true,
+      dropdownStyleData: DropdownStyleData(
+        maxHeight: DialogConstants.dropdownMenuMaxHeight,
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: MaterialStatePropertyAll(appTheme.colorScheme.secondary),
+          thumbVisibility:
+              const MaterialStatePropertyAll(true), //always show scrollbar
+        ),
+        decoration: BoxDecoration(
+          color: appTheme.cardTheme.color,
+          border: Border(
+            left: dropDownBorder,
+            right: dropDownBorder,
+            bottom: dropDownBorder,
+          ),
+        ),
+      ),
+      buttonStyleData: ButtonStyleData(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: dropDownBorder,
+          ),
+        ),
+      ),
       style: DialogConstants.defaultBodyTextStyle.copyWith(
         color: (appTheme.brightness == Brightness.light)
             ? Colors.black
             : Colors.white,
-      ),
-      dropdownMaxHeight: DialogConstants.dropdownMenuMaxHeight,
-      dropdownDecoration: BoxDecoration(
-        color: appTheme.cardTheme.color,
-        border: Border(
-          left: dropDownBorder,
-          right: dropDownBorder,
-          bottom: dropDownBorder,
-        ),
       ),
       value: value,
       items: items,

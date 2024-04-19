@@ -8,8 +8,7 @@ class WorkTitleAndPerformance extends StatelessWidget {
   final String workTitle;
   final int performance;
   const WorkTitleAndPerformance(
-      {Key? key, required this.workTitle, required this.performance})
-      : super(key: key);
+      {super.key, required this.workTitle, required this.performance});
 
   @override
   Widget build(BuildContext context) {

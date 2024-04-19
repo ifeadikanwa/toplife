@@ -9,7 +9,7 @@ part 'stance_dao_impl.g.dart';
 class StanceDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$StanceDaoImplMixin
     implements StanceDao {
-  StanceDaoImpl(DatabaseProvider database) : super(database);
+  StanceDaoImpl(super.database);
 
   @override
   Future<Stance> createStance(Stance stance) async {

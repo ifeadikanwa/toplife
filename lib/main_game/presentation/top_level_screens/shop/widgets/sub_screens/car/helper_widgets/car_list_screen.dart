@@ -9,7 +9,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_car_speed_
 class CarListScreen extends StatelessWidget {
   final List<Car> carsList;
 
-  const CarListScreen({Key? key, required this.carsList}) : super(key: key);
+  const CarListScreen({super.key, required this.carsList});
 
   @override
   Widget build(BuildContext context) {

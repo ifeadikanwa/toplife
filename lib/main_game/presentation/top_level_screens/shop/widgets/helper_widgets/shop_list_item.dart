@@ -14,13 +14,13 @@ class ShopListItem extends ConsumerWidget {
   final void Function() onTap;
 
   const ShopListItem({
-    Key? key,
+    super.key,
     required this.itemName,
     required this.itemDetails,
     required this.itemBasePrice,
     required this.itemImage,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

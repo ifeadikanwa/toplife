@@ -8,8 +8,8 @@ import 'package:toplife/main_systems/system_shop_and_storage/shop_info/shop.dart
 @RoutePage()
 class ChildrenItemsScreen extends StatelessWidget {
   const ChildrenItemsScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

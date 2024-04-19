@@ -8,10 +8,10 @@ class ResultDialogWidget extends StatelessWidget {
   final String result;
 
   const ResultDialogWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.result,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

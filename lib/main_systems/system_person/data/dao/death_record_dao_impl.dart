@@ -9,7 +9,7 @@ part 'death_record_dao_impl.g.dart';
 class DeathRecordDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$DeathRecordDaoImplMixin
     implements DeathRecordDao {
-  DeathRecordDaoImpl(DatabaseProvider database) : super(database);
+  DeathRecordDaoImpl(super.database);
 
   @override
   Future<DeathRecord> createOrUpdateDeathRecord(

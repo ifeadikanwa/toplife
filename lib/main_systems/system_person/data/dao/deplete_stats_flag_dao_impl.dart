@@ -9,7 +9,7 @@ part 'deplete_stats_flag_dao_impl.g.dart';
 class DepleteStatsFlagDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$DepleteStatsFlagDaoImplMixin
     implements DepleteStatsFlagDao {
-  DepleteStatsFlagDaoImpl(DatabaseProvider database) : super(database);
+  DepleteStatsFlagDaoImpl(super.database);
 
   @override
   Future<DepleteStatsFlag> createOrUpdateDepleteStatsFlag(

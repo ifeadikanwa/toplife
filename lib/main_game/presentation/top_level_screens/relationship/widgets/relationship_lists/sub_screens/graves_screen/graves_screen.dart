@@ -8,7 +8,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/relationship/wi
 
 @RoutePage()
 class GravesScreen extends ConsumerWidget {
-  const GravesScreen({Key? key}) : super(key: key);
+  const GravesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

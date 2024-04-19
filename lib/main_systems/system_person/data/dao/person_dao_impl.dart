@@ -9,7 +9,7 @@ part 'person_dao_impl.g.dart';
 class PersonDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$PersonDaoImplMixin
     implements PersonDao {
-  PersonDaoImpl(DatabaseProvider database) : super(database);
+  PersonDaoImpl(super.database);
 
   @override
   Future<Person> createPerson(Person person) async {

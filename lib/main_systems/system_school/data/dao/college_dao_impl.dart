@@ -13,7 +13,7 @@ part 'college_dao_impl.g.dart';
 class CollegeDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$CollegeDaoImplMixin
     implements CollegeDao {
-  CollegeDaoImpl(DatabaseProvider database) : super(database);
+  CollegeDaoImpl(super.database);
 
   @override
   Future<College> createCollege(College college) async {

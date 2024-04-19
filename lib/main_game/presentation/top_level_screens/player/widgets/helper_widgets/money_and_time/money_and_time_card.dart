@@ -9,8 +9,8 @@ import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.da
 
 class MoneyAndTimeCard extends ConsumerWidget {
   const MoneyAndTimeCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

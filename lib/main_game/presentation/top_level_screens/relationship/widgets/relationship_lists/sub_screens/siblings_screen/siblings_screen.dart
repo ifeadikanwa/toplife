@@ -8,8 +8,8 @@ import 'package:toplife/main_game/presentation/top_level_screens/relationship/wi
 @RoutePage()
 class SiblingsScreen extends ConsumerWidget {
   const SiblingsScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

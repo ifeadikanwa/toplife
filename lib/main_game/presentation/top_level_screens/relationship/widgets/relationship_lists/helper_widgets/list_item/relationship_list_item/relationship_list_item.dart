@@ -16,9 +16,9 @@ class RelationshipListItem extends ConsumerWidget {
   final PersonRelationshipPair personRelationshipPair;
 
   const RelationshipListItem({
-    Key? key,
+    super.key,
     required this.personRelationshipPair,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(

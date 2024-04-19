@@ -5,7 +5,7 @@ import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/work/constants/work_screen_text.dart';
 
 class HistorySection extends StatelessWidget {
-  const HistorySection({Key? key}) : super(key: key);
+  const HistorySection({super.key});
 
   @override
   Widget build(BuildContext context) {

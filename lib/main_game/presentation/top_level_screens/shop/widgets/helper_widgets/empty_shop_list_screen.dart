@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class EmptyShopListScreen extends StatelessWidget {
   const EmptyShopListScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

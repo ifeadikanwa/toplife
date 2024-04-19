@@ -6,10 +6,10 @@ class DialogContainer extends StatelessWidget {
   final List<Widget>? children;
 
   const DialogContainer({
-    Key? key,
+    super.key,
     this.title,
     this.children,
-  }) : super(key: key);
+  });
 
   //persistent dialogs that want to give the player an option to exit the dialog should just be dismissable dialogs.
   //If we are consistently making required dialogs persistent and optional dialogs dismissable,

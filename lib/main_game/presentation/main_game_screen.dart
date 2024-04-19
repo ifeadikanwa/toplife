@@ -11,7 +11,7 @@ import 'package:toplife/core/text_constants.dart';
 
 @RoutePage()
 class MainGameScreen extends ConsumerWidget {
-  const MainGameScreen({Key? key}) : super(key: key);
+  const MainGameScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

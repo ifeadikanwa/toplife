@@ -12,12 +12,12 @@ void main() {
 
     test("defaultCurrencyTextInputFormatter is the correct value", () {
       expect(
-        MoneyConstants.defaultCurrencyTextInputFormatter.symbol,
+        MoneyConstants.defaultCurrencyTextInputFormatter.format.currencySymbol,
         "",
         reason: "Cause: Symbol",
       );
       expect(
-        MoneyConstants.defaultCurrencyTextInputFormatter.decimalDigits,
+        MoneyConstants.defaultCurrencyTextInputFormatter.format.decimalDigits,
         0,
         reason: "Cause: Decimal digits",
       );

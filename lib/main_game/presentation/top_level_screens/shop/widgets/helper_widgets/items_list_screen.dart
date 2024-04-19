@@ -10,9 +10,9 @@ class ItemsListScreen extends StatelessWidget {
   final List<Item> itemsList;
 
   const ItemsListScreen({
-    Key? key,
+    super.key,
     required this.itemsList,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

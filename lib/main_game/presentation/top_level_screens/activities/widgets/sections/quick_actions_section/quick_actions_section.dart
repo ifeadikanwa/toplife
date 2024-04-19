@@ -10,7 +10,7 @@ import 'package:toplife/main_game/presentation/top_level_screens/activities/widg
 import 'package:toplife/main_game/presentation/top_level_screens/activities/widgets/sections/quick_actions_section/quick_actions_section_view_model.dart';
 
 class QuickActionsSection extends ConsumerWidget {
-  const QuickActionsSection({Key? key}) : super(key: key);
+  const QuickActionsSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

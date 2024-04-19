@@ -8,11 +8,11 @@ class TabScreenContent extends StatelessWidget {
   final List<Widget> tabs;
 
   const TabScreenContent({
-    Key? key,
+    super.key,
     required this.child,
     required this.tabController,
     required this.tabs,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

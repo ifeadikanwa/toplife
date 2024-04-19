@@ -12,13 +12,13 @@ class QuickActionListItem extends StatelessWidget {
   final void Function() onTap;
 
   const QuickActionListItem({
-    Key? key,
+    super.key,
     required this.timeInMinutes,
     required this.onTap,
     required this.quickActionTitle,
     required this.icon,
     this.addPlusToTime = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

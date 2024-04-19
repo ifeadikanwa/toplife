@@ -7,10 +7,10 @@ class RelationshipLabelAndName extends StatelessWidget {
   final String name;
 
   const RelationshipLabelAndName({
-    Key? key,
+    super.key,
     required this.relationshipLabel,
     required this.name,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

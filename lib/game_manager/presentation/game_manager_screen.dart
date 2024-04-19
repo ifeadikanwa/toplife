@@ -13,7 +13,7 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
 @RoutePage()
 class GameManagerScreen extends ConsumerWidget {
-  const GameManagerScreen({Key? key}) : super(key: key);
+  const GameManagerScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

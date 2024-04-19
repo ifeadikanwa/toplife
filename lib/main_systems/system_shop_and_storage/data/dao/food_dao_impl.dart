@@ -11,7 +11,7 @@ part 'food_dao_impl.g.dart';
 class FoodDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$FoodDaoImplMixin
     implements FoodDao {
-  FoodDaoImpl(DatabaseProvider database) : super(database);
+  FoodDaoImpl(super.database);
 
   @override
   Future<Food> createFood(Food food) async {

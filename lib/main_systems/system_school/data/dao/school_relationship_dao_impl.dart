@@ -12,7 +12,7 @@ part 'school_relationship_dao_impl.g.dart';
 class SchoolRelationshipDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$SchoolRelationshipDaoImplMixin
     implements SchoolRelationshipDao {
-  SchoolRelationshipDaoImpl(DatabaseProvider database) : super(database);
+  SchoolRelationshipDaoImpl(super.database);
 
   @override
   Future<SchoolRelationship> createSchoolRelationship(

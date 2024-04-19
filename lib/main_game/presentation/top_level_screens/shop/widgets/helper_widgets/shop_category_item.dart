@@ -7,11 +7,11 @@ class ShopCategoryItem extends StatelessWidget {
   final String categoryTitle;
   final void Function() onTap;
   const ShopCategoryItem({
-    Key? key,
+    super.key,
     required this.icon,
     required this.categoryTitle,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -5,10 +5,10 @@ class AvatarWidget extends StatelessWidget {
   final double avatarSize;
   final String imagePath;
   const AvatarWidget({
-    Key? key,
+    super.key,
     this.avatarSize = defaultAvatarSize,
     required this.imagePath,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

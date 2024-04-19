@@ -8,11 +8,10 @@ class UpNextCard extends StatelessWidget {
   final String dayNumber;
   final String event;
   const UpNextCard(
-      {Key? key,
+      {super.key,
       required this.time,
       required this.dayNumber,
-      required this.event})
-      : super(key: key);
+      required this.event});
 
   @override
   Widget build(BuildContext context) {

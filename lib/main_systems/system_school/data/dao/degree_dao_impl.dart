@@ -9,7 +9,7 @@ part 'degree_dao_impl.g.dart';
 class DegreeDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$DegreeDaoImplMixin
     implements DegreeDao {
-  DegreeDaoImpl(DatabaseProvider database) : super(database);
+  DegreeDaoImpl(super.database);
 
   @override
   Future<Degree> createDegree(Degree degree) async {

@@ -8,7 +8,7 @@ import 'package:toplife/core/utils/extensions/string_extensions.dart';
 
 class BabyMonitorCard extends StatelessWidget {
   final List<List<String>> babies;
-  const BabyMonitorCard({Key? key, required this.babies}) : super(key: key);
+  const BabyMonitorCard({super.key, required this.babies});
 
   @override
   Widget build(BuildContext context) {

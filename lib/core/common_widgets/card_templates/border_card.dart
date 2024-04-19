@@ -3,7 +3,7 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class BorderCard extends StatelessWidget {
   final List<Widget> children;
-  const BorderCard({Key? key, required this.children}) : super(key: key);
+  const BorderCard({super.key, required this.children});
 
   @override
   Widget build(BuildContext context) {

@@ -9,7 +9,7 @@ part 'parent_child_link_dao_impl.g.dart';
 class ParentChildLinkDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$ParentChildLinkDaoImplMixin
     implements ParentChildLinkDao {
-  ParentChildLinkDaoImpl(DatabaseProvider database) : super(database);
+  ParentChildLinkDaoImpl(super.database);
 
   @override
   Future<ParentChildLink> createParentChildLink(

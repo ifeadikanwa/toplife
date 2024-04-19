@@ -11,7 +11,7 @@ part 'stats_dao_impl.g.dart';
 class StatsDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$StatsDaoImplMixin
     implements StatsDao {
-  StatsDaoImpl(DatabaseProvider database) : super(database);
+  StatsDaoImpl(super.database);
 
   @override
   Future<Stats> createStats(Stats stats) async {

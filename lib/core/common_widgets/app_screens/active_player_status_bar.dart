@@ -5,7 +5,7 @@ import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.
 import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.dart';
 
 class ActivePlayerStatusBar extends ConsumerWidget {
-  const ActivePlayerStatusBar({Key? key}) : super(key: key);
+  const ActivePlayerStatusBar({super.key});
 
   @override
   Widget build(

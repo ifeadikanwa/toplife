@@ -8,7 +8,7 @@ import 'package:toplife/core/text_constants.dart';
 
 @RoutePage()
 class RelationshipScreen extends StatelessWidget {
-  const RelationshipScreen({Key? key}) : super(key: key);
+  const RelationshipScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

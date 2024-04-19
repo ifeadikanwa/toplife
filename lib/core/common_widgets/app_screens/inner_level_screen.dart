@@ -8,12 +8,12 @@ class InnerLevelScreen extends StatelessWidget {
   final List<IconButton>? appBarActions;
   final Widget child;
   const InnerLevelScreen({
-    Key? key,
+    super.key,
     required this.title,
     required this.child,
     this.appBarLeading,
     this.appBarActions,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

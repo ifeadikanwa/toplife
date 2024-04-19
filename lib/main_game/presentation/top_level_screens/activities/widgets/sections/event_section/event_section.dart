@@ -8,8 +8,8 @@ import 'package:toplife/main_game/presentation/top_level_screens/activities/widg
 
 class EventSection extends ConsumerWidget {
   const EventSection({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,17 +24,15 @@ class EventSection extends ConsumerWidget {
                   const NoEventListItem(),
                 ]
               : [
-                  ...eventItems
-                      .map(
-                        (eventItem) => EventListItem(
-                          eventMainPerson: eventItem.eventPersonPair.person,
-                          event: eventItem.eventPersonPair.event,
-                          eventIsOpen: eventItem.eventIsOpen,
-                          eventCanStillBeAttended:
-                              eventItem.eventCanStillBeAttended,
-                        ),
-                      )
-                      .toList(),
+                  ...eventItems.map(
+                    (eventItem) => EventListItem(
+                      eventMainPerson: eventItem.eventPersonPair.person,
+                      event: eventItem.eventPersonPair.event,
+                      eventIsOpen: eventItem.eventIsOpen,
+                      eventCanStillBeAttended:
+                          eventItem.eventCanStillBeAttended,
+                    ),
+                  ),
                 ],
         );
       },

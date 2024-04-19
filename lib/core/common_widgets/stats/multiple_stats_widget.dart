@@ -7,9 +7,9 @@ class MultipleStatsWidget extends StatelessWidget {
   final List<StatsItem> statsList;
 
   const MultipleStatsWidget({
-    Key? key,
+    super.key,
     required this.statsList,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

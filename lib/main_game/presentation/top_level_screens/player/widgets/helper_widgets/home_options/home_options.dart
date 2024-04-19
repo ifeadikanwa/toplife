@@ -4,7 +4,7 @@ import 'package:toplife/core/common_widgets/card_templates/home_option_card.dart
 import 'package:toplife/core/text_constants.dart';
 
 class HomeOptions extends ConsumerWidget {
-  const HomeOptions({Key? key}) : super(key: key);
+  const HomeOptions({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

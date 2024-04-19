@@ -10,9 +10,9 @@ class FoodListScreen extends StatelessWidget {
   final List<Food> foodList;
 
   const FoodListScreen({
-    Key? key,
+    super.key,
     required this.foodList,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

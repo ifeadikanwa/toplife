@@ -6,10 +6,10 @@ class ListViewItemCase extends StatelessWidget {
   final void Function() onTap;
 
   const ListViewItemCase({
-    Key? key,
+    super.key,
     required this.content,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

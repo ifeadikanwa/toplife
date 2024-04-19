@@ -9,7 +9,7 @@ part 'school_dao_impl.g.dart';
 class SchoolDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$SchoolDaoImplMixin
     implements SchoolDao {
-  SchoolDaoImpl(DatabaseProvider database) : super(database);
+  SchoolDaoImpl(super.database);
 
   @override
   Future<School> createSchool(School school) async {

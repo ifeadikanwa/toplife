@@ -10,7 +10,7 @@ import 'package:toplife/main_systems/system_shop_and_storage/shop_info/shop.dart
 
 @RoutePage()
 class SuppliesShopScreen extends StatelessWidget {
-  const SuppliesShopScreen({Key? key}) : super(key: key);
+  const SuppliesShopScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

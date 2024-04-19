@@ -9,7 +9,7 @@ part 'current_home_dao_impl.g.dart';
 class CurrentHomeDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$CurrentHomeDaoImplMixin
     implements CurrentHomeDao {
-  CurrentHomeDaoImpl(DatabaseProvider database) : super(database);
+  CurrentHomeDaoImpl(super.database);
 
   @override
   Future<CurrentHome> createCurrentHome(CurrentHome currentHome) async {

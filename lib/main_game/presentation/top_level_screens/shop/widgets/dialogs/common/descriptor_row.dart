@@ -7,10 +7,10 @@ class DescriptorRow extends StatelessWidget {
   final String descriptor;
   final String value;
   const DescriptorRow({
-    Key? key,
+    super.key,
     required this.descriptor,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

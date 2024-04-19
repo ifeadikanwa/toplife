@@ -12,7 +12,7 @@ part 'job_dao_impl.g.dart';
 class JobDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$JobDaoImplMixin
     implements JobDao {
-  JobDaoImpl(DatabaseProvider database) : super(database);
+  JobDaoImpl(super.database);
 
   @override
   Future<Job> createJob(Job job) async {

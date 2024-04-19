@@ -9,7 +9,7 @@ part 'personality_dao_impl.g.dart';
 class PersonalityDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$PersonalityDaoImplMixin
     implements PersonalityDao {
-  PersonalityDaoImpl(DatabaseProvider database) : super(database);
+  PersonalityDaoImpl(super.database);
 
   @override
   Future<Personality> createOrUpdatePersonality(

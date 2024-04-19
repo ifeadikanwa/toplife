@@ -11,7 +11,7 @@ part 'house_dao_impl.g.dart';
 class HouseDaoImpl extends DatabaseAccessor<DatabaseProvider>
     with _$HouseDaoImplMixin
     implements HouseDao {
-  HouseDaoImpl(DatabaseProvider database) : super(database);
+  HouseDaoImpl(super.database);
 
   @override
   Future<House> createHouse(House house) async {

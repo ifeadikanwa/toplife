@@ -8,7 +8,7 @@ import 'package:toplife/core/text_constants.dart';
 
 @RoutePage()
 class JewelryShopScreen extends StatelessWidget {
-  const JewelryShopScreen({Key? key}) : super(key: key);
+  const JewelryShopScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
