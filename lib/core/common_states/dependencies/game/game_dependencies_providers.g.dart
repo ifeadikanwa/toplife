@@ -21,6 +21,24 @@ final gameRepositoryProvider = AutoDisposeProvider<GameRepositoryImpl>.internal(
 );
 
 typedef GameRepositoryRef = AutoDisposeProviderRef<GameRepositoryImpl>;
+String _$pendingTimeUpdateRepositoryHash() =>
+    r'5b55d9c7873314830c85324abc375ba0025e25fa';
+
+/// See also [pendingTimeUpdateRepository].
+@ProviderFor(pendingTimeUpdateRepository)
+final pendingTimeUpdateRepositoryProvider =
+    AutoDisposeProvider<PendingTimeUpdateRepositoryImpl>.internal(
+  pendingTimeUpdateRepository,
+  name: r'pendingTimeUpdateRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$pendingTimeUpdateRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef PendingTimeUpdateRepositoryRef
+    = AutoDisposeProviderRef<PendingTimeUpdateRepositoryImpl>;
 String _$gameUsecasesHash() => r'cf0e1455a5f0e91c0e5c88cd8a30bc2dba13cf5c';
 
 /// See also [gameUsecases].

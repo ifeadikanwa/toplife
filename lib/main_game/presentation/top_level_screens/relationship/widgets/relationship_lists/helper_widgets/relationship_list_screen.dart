@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
-
 import 'package:toplife/core/utils/sectioned_list/sectioned_list.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/list_item/relationship_list_item/relationship_list_item.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/relationship/widgets/relationship_lists/helper_widgets/list_item/relationship_list_item_with_header.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
 
 class RelationshipListScreen extends StatelessWidget {
   final SectionedList<PersonRelationshipPair> relationshipsData;
+
   const RelationshipListScreen({
     super.key,
     required this.relationshipsData,

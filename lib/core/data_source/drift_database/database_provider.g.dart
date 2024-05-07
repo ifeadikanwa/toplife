@@ -1497,6 +1497,198 @@ class GameTableCompanion extends UpdateCompanion<Game> {
   }
 }
 
+class $PendingTimeUpdateTableTable extends PendingTimeUpdateTable
+    with TableInfo<$PendingTimeUpdateTableTable, PendingTimeUpdate> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PendingTimeUpdateTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _gameIdMeta = const VerificationMeta('gameId');
+  @override
+  late final GeneratedColumn<int> gameId = GeneratedColumn<int>(
+      'game_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'UNIQUE REFERENCES game (id) ON UPDATE CASCADE ON DELETE CASCADE'));
+  static const VerificationMeta _timeInMinutesMeta =
+      const VerificationMeta('timeInMinutes');
+  @override
+  late final GeneratedColumn<int> timeInMinutes = GeneratedColumn<int>(
+      'time_in_minutes', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [gameId, timeInMinutes];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'pending_time_update';
+  @override
+  VerificationContext validateIntegrity(Insertable<PendingTimeUpdate> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('game_id')) {
+      context.handle(_gameIdMeta,
+          gameId.isAcceptableOrUnknown(data['game_id']!, _gameIdMeta));
+    } else if (isInserting) {
+      context.missing(_gameIdMeta);
+    }
+    if (data.containsKey('time_in_minutes')) {
+      context.handle(
+          _timeInMinutesMeta,
+          timeInMinutes.isAcceptableOrUnknown(
+              data['time_in_minutes']!, _timeInMinutesMeta));
+    } else if (isInserting) {
+      context.missing(_timeInMinutesMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  PendingTimeUpdate map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PendingTimeUpdate(
+      gameId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}game_id'])!,
+      timeInMinutes: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}time_in_minutes'])!,
+    );
+  }
+
+  @override
+  $PendingTimeUpdateTableTable createAlias(String alias) {
+    return $PendingTimeUpdateTableTable(attachedDatabase, alias);
+  }
+}
+
+class PendingTimeUpdate extends DataClass
+    implements Insertable<PendingTimeUpdate> {
+  final int gameId;
+  final int timeInMinutes;
+  const PendingTimeUpdate({required this.gameId, required this.timeInMinutes});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['game_id'] = Variable<int>(gameId);
+    map['time_in_minutes'] = Variable<int>(timeInMinutes);
+    return map;
+  }
+
+  PendingTimeUpdateTableCompanion toCompanion(bool nullToAbsent) {
+    return PendingTimeUpdateTableCompanion(
+      gameId: Value(gameId),
+      timeInMinutes: Value(timeInMinutes),
+    );
+  }
+
+  factory PendingTimeUpdate.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PendingTimeUpdate(
+      gameId: serializer.fromJson<int>(json['gameId']),
+      timeInMinutes: serializer.fromJson<int>(json['timeInMinutes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'gameId': serializer.toJson<int>(gameId),
+      'timeInMinutes': serializer.toJson<int>(timeInMinutes),
+    };
+  }
+
+  PendingTimeUpdate copyWith({int? gameId, int? timeInMinutes}) =>
+      PendingTimeUpdate(
+        gameId: gameId ?? this.gameId,
+        timeInMinutes: timeInMinutes ?? this.timeInMinutes,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('PendingTimeUpdate(')
+          ..write('gameId: $gameId, ')
+          ..write('timeInMinutes: $timeInMinutes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(gameId, timeInMinutes);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PendingTimeUpdate &&
+          other.gameId == this.gameId &&
+          other.timeInMinutes == this.timeInMinutes);
+}
+
+class PendingTimeUpdateTableCompanion
+    extends UpdateCompanion<PendingTimeUpdate> {
+  final Value<int> gameId;
+  final Value<int> timeInMinutes;
+  final Value<int> rowid;
+  const PendingTimeUpdateTableCompanion({
+    this.gameId = const Value.absent(),
+    this.timeInMinutes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PendingTimeUpdateTableCompanion.insert({
+    required int gameId,
+    required int timeInMinutes,
+    this.rowid = const Value.absent(),
+  })  : gameId = Value(gameId),
+        timeInMinutes = Value(timeInMinutes);
+  static Insertable<PendingTimeUpdate> custom({
+    Expression<int>? gameId,
+    Expression<int>? timeInMinutes,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (gameId != null) 'game_id': gameId,
+      if (timeInMinutes != null) 'time_in_minutes': timeInMinutes,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PendingTimeUpdateTableCompanion copyWith(
+      {Value<int>? gameId, Value<int>? timeInMinutes, Value<int>? rowid}) {
+    return PendingTimeUpdateTableCompanion(
+      gameId: gameId ?? this.gameId,
+      timeInMinutes: timeInMinutes ?? this.timeInMinutes,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (gameId.present) {
+      map['game_id'] = Variable<int>(gameId.value);
+    }
+    if (timeInMinutes.present) {
+      map['time_in_minutes'] = Variable<int>(timeInMinutes.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PendingTimeUpdateTableCompanion(')
+          ..write('gameId: $gameId, ')
+          ..write('timeInMinutes: $timeInMinutes, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $AppearanceTableTable extends AppearanceTable
     with TableInfo<$AppearanceTableTable, Appearance> {
   @override
@@ -17786,6 +17978,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   _$DatabaseProvider(QueryExecutor e) : super(e);
   late final $PersonTableTable personTable = $PersonTableTable(this);
   late final $GameTableTable gameTable = $GameTableTable(this);
+  late final $PendingTimeUpdateTableTable pendingTimeUpdateTable =
+      $PendingTimeUpdateTableTable(this);
   late final $AppearanceTableTable appearanceTable =
       $AppearanceTableTable(this);
   late final $StatsTableTable statsTable = $StatsTableTable(this);
@@ -17838,6 +18032,8 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   late final $RelationshipTableTable relationshipTable =
       $RelationshipTableTable(this);
   late final GameDaoImpl gameDaoImpl = GameDaoImpl(this as DatabaseProvider);
+  late final PendingTimeUpdateDaoImpl pendingTimeUpdateDaoImpl =
+      PendingTimeUpdateDaoImpl(this as DatabaseProvider);
   late final PersonDaoImpl personDaoImpl =
       PersonDaoImpl(this as DatabaseProvider);
   late final AppearanceDaoImpl appearanceDaoImpl =
@@ -17907,6 +18103,7 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         personTable,
         gameTable,
+        pendingTimeUpdateTable,
         appearanceTable,
         statsTable,
         depleteStatsFlagTable,
@@ -17957,6 +18154,20 @@ abstract class _$DatabaseProvider extends GeneratedDatabase {
                 limitUpdateKind: UpdateKind.update),
             result: [
               TableUpdate('game', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('game',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('pending_time_update', kind: UpdateKind.delete),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('game',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('pending_time_update', kind: UpdateKind.update),
             ],
           ),
           WritePropagation(

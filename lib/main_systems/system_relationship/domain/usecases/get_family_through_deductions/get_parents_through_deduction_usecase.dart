@@ -1,11 +1,12 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/parent_child_link_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 
 class GetParentsThroughDeductionUsecase {
   final ParentChildLinkRepository _parentChildLinkRepository;
@@ -20,7 +21,7 @@ class GetParentsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
-    required bool onlyLivingPeople,
+    required VitalStatus includeOnly,
   }) async {
     List<PersonPlatonicRelationshipTypePair> parents = [];
 
@@ -94,8 +95,18 @@ class GetParentsThroughDeductionUsecase {
     }
 
     //return based on request
-    return (onlyLivingPeople)
-        ? parents.where((pair) => pair.person.dead == false).toList()
-        : parents;
+    switch (includeOnly) {
+      // return all
+      case VitalStatus.livingAndDead:
+        return parents;
+
+      // return only living
+      case VitalStatus.living:
+        return parents.where((pair) => pair.person.dead == false).toList();
+
+      // return only dead
+      case VitalStatus.dead:
+        return parents.where((pair) => pair.person.dead == true).toList();
+    }
   }
 }

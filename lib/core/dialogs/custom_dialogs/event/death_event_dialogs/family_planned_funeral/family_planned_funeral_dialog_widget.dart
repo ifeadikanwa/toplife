@@ -10,15 +10,13 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 class FamilyPlannedFuneralDialogWidget extends StatelessWidget {
   final String eventDescription;
   final String funeralArrangementsDescription;
-  final int playerContribution;
-  final String playerCurrency;
+  final String formattedAdjustedPlayerContribution;
 
   const FamilyPlannedFuneralDialogWidget({
     super.key,
     required this.eventDescription,
     required this.funeralArrangementsDescription,
-    required this.playerContribution,
-    required this.playerCurrency,
+    required this.formattedAdjustedPlayerContribution,
   });
 
   @override
@@ -42,7 +40,7 @@ class FamilyPlannedFuneralDialogWidget extends StatelessWidget {
         ),
         DialogBodyText(
           text:
-              "${DeathEventDialogsTextConstants.yourContribution}: $playerCurrency$playerContribution",
+              "${DeathEventDialogsTextConstants.yourContribution}: $formattedAdjustedPlayerContribution",
         ),
         const AddVerticalSpace(
           height: DialogConstants.verticalDescriptionButtonSpacing,

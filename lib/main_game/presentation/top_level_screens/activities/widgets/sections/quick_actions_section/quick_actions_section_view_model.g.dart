@@ -7,7 +7,7 @@ part of 'quick_actions_section_view_model.dart';
 // **************************************************************************
 
 String _$quickActionsSectionViewModelHash() =>
-    r'eaa182034e5cfc28112b8b14adbaec0c9e8785ad';
+    r'fb3922d8a35d96f6e12baf13b69fbb580ae71e68';
 
 /// See also [QuickActionsSectionViewModel].
 @ProviderFor(QuickActionsSectionViewModel)

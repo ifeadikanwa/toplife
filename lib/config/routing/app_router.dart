@@ -10,13 +10,19 @@ class AppRouter extends $AppRouter {
 
   @override
   List<AutoRoute> get routes => [
+        //* Main Menu
+        AutoRoute(
+          page: MainMenuRoute.page,
+          initial: true,
+        ),
+
         //* Game Manager
         AutoRoute(page: GameManagerRoute.page),
 
         //* Main Game
         AutoRoute(
           page: MainGameRoute.page,
-          initial: true,
+          initial: false,
           children: [
             //* PLAYER
             AutoRoute(

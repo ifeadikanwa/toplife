@@ -51,6 +51,9 @@ class ThemeUtils {
       fontFamily: appFont,
       primaryColor: Colors.white,
       scaffoldBackgroundColor: primaryColor,
+      scrollbarTheme: ScrollbarThemeData(
+        thumbColor: MaterialStatePropertyAll(tertiaryColor),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: tertiaryColor,
@@ -98,6 +101,9 @@ class ThemeUtils {
       fontFamily: appFont,
       primaryColor: Colors.black,
       scaffoldBackgroundColor: darkThemeBlack,
+      scrollbarTheme: const ScrollbarThemeData(
+        thumbColor: MaterialStatePropertyAll(Colors.white),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: tertiaryColor,

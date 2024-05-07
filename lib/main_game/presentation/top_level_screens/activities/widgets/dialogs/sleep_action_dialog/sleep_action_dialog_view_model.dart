@@ -2,8 +2,6 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
-import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
-import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/convert_hours_to_minutes.dart';
 import 'package:toplife/core/utils/date_and_time/convert_minutes_to_truncated_hours.dart';
 
@@ -38,17 +36,9 @@ class SleepActionDialogViewModel extends _$SleepActionDialogViewModel {
   }
 
   Future<void> sleep() async {
-    //if we have a valid current game
-    final Game? currentGame = await ref.read(currentGameProvider.future);
-
-    if (currentGame != null && currentGame.currentPlayerID != null) {
-      await ref.read(personUsecasesProvider).sleepUsecase.execute(
-            personID: currentGame.currentPlayerID!,
-            gameID: currentGame.id,
-            currentDay: currentGame.currentDay,
-            activityDurationInMinutes:
-                convertHoursToMinutes(state.hours) + state.minutes,
-          );
-    }
+    await ref.read(personUsecasesProvider).sleepUsecase.perform(
+          activityDurationInMinutes:
+              convertHoursToMinutes(state.hours) + state.minutes,
+        );
   }
 }

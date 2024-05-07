@@ -95,6 +95,7 @@ class TextConstants {
   static const noEventDesc = "You have no event invitations";
   static const attendAlone = "Attend alone";
   static const attendWithPartner = "Attend with partner";
+  static const location = "Location";
 
   //shop
   static const shop = "Shop";

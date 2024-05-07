@@ -24,6 +24,9 @@ class EventManager {
 
   static const int eventAttendanceAllowanceTime = 30;
 
+  //the min amount of time the player has to stay at an event for it to count as an attendance
+  static const int eventMinimumAttendanceTime = 30;
+
   RunScheduledEventsForTheDay get runScheduledEventsForTheDay =>
       RunScheduledEventsForTheDay(
         _ref.read(eventRepositoryProvider),

@@ -7,7 +7,7 @@ import 'package:toplife/core/utils/words/sentence_pair.dart';
 import 'package:toplife/main_systems/system_age/life_stage.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/constants/torment_option.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/platonic/torment_interaction/torment_action_generator.dart';
 import 'package:toplife/main_systems/system_relationship/domain/model/info_models/relationship_interaction.dart';

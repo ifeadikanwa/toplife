@@ -1,5 +1,6 @@
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_types_list_pair.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_types_list_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/create/create_platonic_relationship_or_grave_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_in_law_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart';
@@ -127,13 +128,13 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     }
 
     //deductions:
-    const bool doWeGetOnlyLivingPeople = false;
+    const VitalStatus livingAndDeadPeople = VitalStatus.livingAndDead;
 
     //-parents
     final List<PersonPlatonicRelationshipTypePair> parents =
         await _getParentsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: parents);
@@ -142,7 +143,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> siblings =
         await _getSiblingsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: siblings);
@@ -151,7 +152,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> children =
         await _getChildrenThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: children);
@@ -160,7 +161,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> grandParents =
         await _getGrandParentsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: grandParents);
@@ -169,7 +170,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> greatGrandParents =
         await _getGreatGrandParentsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: greatGrandParents);
@@ -178,7 +179,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> grandChildren =
         await _getGrandChildrenThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: grandChildren);
@@ -187,7 +188,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> greatGrandChildren =
         await _getGreatGrandChildrenThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: greatGrandChildren);
@@ -196,7 +197,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> piblings =
         await _getPiblingsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: piblings);
@@ -205,7 +206,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> cousins =
         await _getCousinsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: cousins);
@@ -214,7 +215,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> grandCousins =
         await _getGrandCousinsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: grandCousins);
@@ -223,7 +224,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> greatGrandCousins =
         await _getGreatGrandCousinsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: greatGrandCousins);
@@ -232,7 +233,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> niblings =
         await _getNiblingsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: niblings);
@@ -241,7 +242,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> grandNiblings =
         await _getGrandNiblingsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: grandNiblings);
@@ -250,7 +251,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> greatGrandNiblings =
         await _getGreatGrandNiblingsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: greatGrandNiblings);
@@ -259,7 +260,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> parentInLaws =
         await _getParentInLawsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: parentInLaws);
@@ -268,7 +269,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> childrenInLaw =
         await _getChildrenInLawThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: childrenInLaw);
@@ -277,7 +278,7 @@ class SetupNewGenerationPlayerRelationshipsUsecase {
     final List<PersonPlatonicRelationshipTypePair> siblingInLaws =
         await _getSiblingInLawsThroughDeductionUsecase.execute(
       personID: playerPersonID,
-      onlyLivingPeople: doWeGetOnlyLivingPeople,
+      includeOnly: livingAndDeadPeople,
     );
 
     addToDeducedRelationshipsList(relationshipsToAdd: siblingInLaws);

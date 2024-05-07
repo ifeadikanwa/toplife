@@ -1,10 +1,11 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parents_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 
 class GetParentInLawsThroughDeductionUsecase {
   final GetParentsThroughDeductionUsecase _getParentsThroughDeductionUsecase;
@@ -17,7 +18,7 @@ class GetParentInLawsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
-    required bool onlyLivingPeople,
+    required VitalStatus includeOnly,
   }) async {
     //Parent in laws are person's spouse parents
     List<PersonPlatonicRelationshipTypePair> parentInLaws = [];
@@ -42,7 +43,7 @@ class GetParentInLawsThroughDeductionUsecase {
       final List<PersonPlatonicRelationshipTypePair> spousesParents =
           await _getParentsThroughDeductionUsecase.execute(
         personID: spouseID,
-        onlyLivingPeople: false,
+        includeOnly: VitalStatus.livingAndDead,
       );
 
       //add each to the parentinlaws list
@@ -57,8 +58,18 @@ class GetParentInLawsThroughDeductionUsecase {
     }
 
     //return based on request
-    return (onlyLivingPeople)
-        ? parentInLaws.where((pair) => pair.person.dead == false).toList()
-        : parentInLaws;
+    switch (includeOnly) {
+      // return all
+      case VitalStatus.livingAndDead:
+        return parentInLaws;
+
+      // return only living
+      case VitalStatus.living:
+        return parentInLaws.where((pair) => pair.person.dead == false).toList();
+
+      // return only dead
+      case VitalStatus.dead:
+        return parentInLaws.where((pair) => pair.person.dead == true).toList();
+    }
   }
 }

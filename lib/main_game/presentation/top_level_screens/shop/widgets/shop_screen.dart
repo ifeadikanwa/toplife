@@ -1,23 +1,22 @@
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_states/dependencies/data_source_dependencies_providers.dart';
+import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/relationship/send_money_dialog/send_money_dialog_widget.dart';
 import 'package:toplife/core/text_constants.dart';
+import 'package:toplife/main_game/presentation/top_level_screens/activities/widgets/dialogs/attendable_event_dialog/dialog/attendable_event_dialog_widget.dart';
 import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/helper_widgets/shop_category_item.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/current_home_dao_impl.dart';
+import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
+import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
+import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
 import 'package:toplife/testing_utility/game_test_util.dart';
-import 'package:toplife/testing_utility/person_test_util.dart';
-import 'package:toplife/testing_utility/relationship_test_util.dart';
 
 @RoutePage()
 class ShopScreen extends ConsumerWidget {
@@ -109,22 +108,24 @@ class ShopScreen extends ConsumerWidget {
 
             OutlinedButton(
               onPressed: () async {
-                final Person person =
-                    PersonTestUtil(ref: ref).generateARandomPerson(
-                  1,
-                  1,
-                );
-                final Relationship relationship = RelationshipTestUtil(ref: ref)
-                    .generateTestRelationship(1, 3);
-
-                await showDialog(
+                final Person? person = await ref
+                    .watch(personUsecasesProvider)
+                    .getPersonUsecase
+                    .execute(personID: 3);
+                final Event event =
+                    (await EventDaoImpl(db).getAttendableEventsForDay(3, 1))
+                        .first;
+                if (context.mounted) {
+                  await showDialog(
                     context: context,
-                    builder: (context) => SendMoneyDialogWidget(
-                          personRelationshipPair: PersonRelationshipPair(
-                              person: person, relationship: relationship),
-                          relationshipLabel: "Step-sister",
-                        ));
-
+                    builder: (context) => AttendableEventDialogWidget(
+                      eventPersonPair: EventPersonPair(
+                        person: person!,
+                        event: event,
+                      ),
+                    ),
+                  );
+                }
               },
               child: const Text("Dialog"),
             ),
@@ -301,10 +302,10 @@ class ShopScreen extends ConsumerWidget {
                 // );
                 // final Relationship relationship = Relationship(
                 //   firstPersonId: 1,
-                //   secondPersonId: 2,
+                //   secondPersonId: 5,
                 //   platonicRelationshipType:
                 //       getDbFormattedPlatonicRelationshipTypeString(
-                //     PlatonicRelationshipType.stepCousin,
+                //     PlatonicRelationshipType.halfSibling,
                 //   ),
                 //   romanticRelationshipType: RomanticRelationshipType.none.name,
                 //   interestedInRelationship: true,
@@ -454,13 +455,12 @@ class ShopScreen extends ConsumerWidget {
                 //   Event(
                 //     id: 10,
                 //     gameId: 1,
-                //     eventType: EventType.birthdayParty.name,
-                //     eventDay: 90,
-                //     mainPersonId: 2,
-                //     journalEntryOnly: false,
+                //     eventType: EventType.death.name,
+                //     eventDay: 3,
+                //     mainPersonId: 3,
                 //     performed: false,
-                //     startTime: 500,
-                //     endTime: 640,
+                //     startTime: null,
+                //     endTime: null,
                 //   ),
                 // );
                 // if (context.mounted) {
@@ -521,8 +521,8 @@ class ShopScreen extends ConsumerWidget {
                 // await PersonTestUtil(ref: ref).createMultiplePeople(
                 //   gameID: 1,
                 //   currentDay: 1,
-                //   numberOfPeople: 1,
-                //   possibleLifeStage: LifeStage.teen,
+                //   numberOfPeople: 4,
+                //   possibleLifeStage: LifeStage.youngAdult,
                 // );
 
                 //
@@ -592,14 +592,14 @@ class ShopScreen extends ConsumerWidget {
                 // final Event event = Event(
                 //   id: 2,
                 //   gameId: 1,
-                //   eventType: EventType.birthdayParty.name,
+                //   eventType: EventType.death.name,
                 //   eventDay: 2,
-                //   mainPersonId: 5,
+                //   mainPersonId: 2,
                 //   performed: false,
-                //   startTime: 1240,
-                //   endTime: 1340,
+                //   startTime: null,
+                //   endTime: null,
                 // );
-
+                //
                 // await EventDaoImpl(db).createEvent(event);
                 //
                 // print(await ref
@@ -629,7 +629,7 @@ class ShopScreen extends ConsumerWidget {
                 // final game = await GameDaoImpl(db).getGame(1);
                 // if (game != null) {
                 //   GameDaoImpl(db).updateGame(
-                //     game.copyWith(currentDay: 2),
+                //     game.copyWith(currentDay: 3),
                 //   );
                 // }
 
@@ -674,16 +674,28 @@ class ShopScreen extends ConsumerWidget {
                 //   ),
                 // );
 
-                await CurrentHomeDaoImpl(db).createCurrentHome(
-                  const CurrentHome(
-                    personId: 6,
-                    houseId: 2,
-                    hasManagementRights: true,
-                    isAtHome: true,
-                    stayType: "stayType",
-                    exitDay: 4,
-                  ),
-                );
+                // await CurrentHomeDaoImpl(db).createCurrentHome(
+                //   const CurrentHome(
+                //     personId: 6,
+                //     houseId: 2,
+                //     hasManagementRights: true,
+                //     isAtHome: true,
+                //     stayType: "stayType",
+                //     exitDay: 4,
+                //   ),
+                // );
+
+                // print(
+                //   ref
+                //       .watch(ageUsecasesProvider)
+                //       .getPersonsAgeUsecase
+                //       .execute(currentDay: 2, dayOfBirth: -21),
+                // );
+
+                await StatsDaoImpl(db).createStats(ref
+                    .watch(personUsecasesProvider)
+                    .generateStatsUsecase
+                    .execute(personID: 1));
               },
               child: const Text("Run"),
             ),

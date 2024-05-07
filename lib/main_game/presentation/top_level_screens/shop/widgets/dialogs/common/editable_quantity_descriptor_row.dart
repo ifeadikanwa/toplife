@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
-import 'package:toplife/main_game/presentation/top_level_screens/shop/widgets/dialogs/common/editable_quantity_widget.dart';
+import 'package:toplife/core/common_widgets/button/editable_quantity_widget.dart';
 
 class EditableQuantityDescriptorRow extends StatelessWidget {
   final String descriptor;

@@ -1,11 +1,12 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_siblings_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 
 class GetSiblingInLawsThroughDeductionUsecase {
   final GetSiblingsThroughDeductionUsecase _getSiblingsThroughDeductionUsecase;
@@ -20,7 +21,7 @@ class GetSiblingInLawsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
-    required bool onlyLivingPeople,
+    required VitalStatus includeOnly,
   }) async {
     //Sibling in laws are spouse of person's siblings AND siblings of person's spouse
     List<PersonPlatonicRelationshipTypePair> siblingInLaws = [];
@@ -60,7 +61,7 @@ class GetSiblingInLawsThroughDeductionUsecase {
       final List<PersonPlatonicRelationshipTypePair> spouseSiblings =
           await _getSiblingsThroughDeductionUsecase.execute(
         personID: spouseID,
-        onlyLivingPeople: false,
+        includeOnly: VitalStatus.livingAndDead,
       );
 
       //add all as sibling in law
@@ -77,7 +78,7 @@ class GetSiblingInLawsThroughDeductionUsecase {
     final List<PersonPlatonicRelationshipTypePair> personsSiblings =
         await _getSiblingsThroughDeductionUsecase.execute(
       personID: personID,
-      onlyLivingPeople: false,
+      includeOnly: VitalStatus.livingAndDead,
     );
 
     //for each sibling
@@ -120,8 +121,21 @@ class GetSiblingInLawsThroughDeductionUsecase {
     }
 
     //return based on request
-    return (onlyLivingPeople)
-        ? siblingInLaws.where((pair) => pair.person.dead == false).toList()
-        : siblingInLaws;
+    //return based on request
+    switch (includeOnly) {
+      // return all
+      case VitalStatus.livingAndDead:
+        return siblingInLaws;
+
+      // return only living
+      case VitalStatus.living:
+        return siblingInLaws
+            .where((pair) => pair.person.dead == false)
+            .toList();
+
+      // return only dead
+      case VitalStatus.dead:
+        return siblingInLaws.where((pair) => pair.person.dead == true).toList();
+    }
   }
 }

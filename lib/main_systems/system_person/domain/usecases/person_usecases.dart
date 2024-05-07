@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/age/age_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/dialog_handler/dialog_handler_provider.dart';
+import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/job/job_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/journal/journal_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
@@ -221,23 +222,20 @@ class PersonUsecases {
   EatUsecase get eatUsecase => EatUsecase(
         _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         updateHungerStatsUsecase,
-        _ref.read(journalUsecasesProvider),
-        _ref.read(dialogHandlerProvider),
         _ref.read(shopAndStorageUsecasesProvider),
       );
 
   QuickEatUsecase get quickEatUsecase => QuickEatUsecase(
+        _ref.read(gameUsecasesProvider).actionRunner,
         _ref.read(personRepositoriesProvider).statsRepositoryImpl,
         eatUsecase,
-        _ref.read(dialogHandlerProvider),
         _ref.read(shopAndStorageUsecasesProvider),
       );
 
   SleepUsecase get sleepUsecase => SleepUsecase(
+        _ref.read(gameUsecasesProvider).actionRunner,
         updateEnergyStatsUsecase,
         _ref.read(personRepositoriesProvider).statsRepositoryImpl,
-        _ref.read(journalUsecasesProvider),
-        _ref.read(dialogHandlerProvider),
       );
 
   MakeNonPlayerHungryUsecase get makeNonPlayerHungryUsecase =>

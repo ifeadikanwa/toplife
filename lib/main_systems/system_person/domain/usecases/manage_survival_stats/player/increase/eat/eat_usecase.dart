@@ -2,7 +2,9 @@ import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
+import 'package:toplife/game_manager/action_runner/info_models/action_result.dart';
+import 'package:toplife/game_manager/action_runner/info_models/report.dart';
+import 'package:toplife/game_manager/domain/model/info_models/person_game_pair.dart';
 import 'package:toplife/main_systems/system_person/constants/text/eat_result_dialog_texts.dart';
 import 'package:toplife/core/utils/stats/stats_item_builder.dart';
 import 'package:toplife/main_systems/system_person/domain/repository/stats_repository.dart';
@@ -14,27 +16,24 @@ import 'package:toplife/main_systems/system_shop_and_storage/util/get_servings_l
 class EatUsecase {
   final StatsRepository _statsRepository;
   final UpdateHungerStatsUsecase _updateHungerStatsUsecase;
-  final JournalUsecases _journalUsecases;
-  final DialogHandler _dialogHandler;
   final ShopAndStorageUsecases _shopAndStorageUsecases;
 
   const EatUsecase(
     this._statsRepository,
     this._updateHungerStatsUsecase,
-    this._journalUsecases,
-    this._dialogHandler,
     this._shopAndStorageUsecases,
   );
 
-  Future<void> execute({
-    required int mainPersonID,
-    required int gameID,
-    required int currentDay,
-    required int activityDurationInMinutes,
+  Future<ActionResult> execute({
+    required PersonGamePair currentPlayerAndGame,
+    required DialogHandler dialogHandler,
     required List<FridgeFoodServingPair> fridgeFoodServingPairs,
   }) async {
-    //if the fridge food list is empty, do nothing
+    //
+    final Person currentPlayer = currentPlayerAndGame.person;
+    final Game currentGame = currentPlayerAndGame.game;
 
+    //if the fridge food list is not empty
     if (fridgeFoodServingPairs.isNotEmpty) {
       //take food out of the fridge
       for (var fridgeFoodServingPair in fridgeFoodServingPairs) {
@@ -73,7 +72,7 @@ class EatUsecase {
 
         //if food is expired prepare to add spoiled to sentence
         final String spoiledOrNotText =
-            (currentFridgeFood.expiryDay < currentDay)
+            (currentFridgeFood.expiryDay < currentGame.currentDay)
                 ? "${EatResultDialogTexts.spoiled} "
                 : "";
 
@@ -86,36 +85,40 @@ class EatUsecase {
 
       //update hunger
       await _updateHungerStatsUsecase.execute(
-        mainPersonID: mainPersonID,
+        mainPersonID: currentPlayer.id,
         change: nutrition,
         override: false,
       );
 
-      //log in journal
-      await _journalUsecases.addToJournalUsecase.execute(
-        gameID: gameID,
-        day: currentDay,
-        mainPlayerID: mainPersonID,
-        entry: firstPersonResultStringBuffer.toString(),
-      );
-
       //get updated hunger value
-      final Stats? updatedStats = await _statsRepository.getStats(mainPersonID);
+      final Stats? updatedStats =
+          await _statsRepository.getStats(currentPlayer.id);
       final int newHunger = (updatedStats != null) ? updatedStats.hunger : 0;
 
-      //return result dialog
-      return _dialogHandler.showResultWithStatsDialog(
-        title: EatResultDialogTexts.eatenTitle,
-        result: SentenceUtil.convertFromFirstPersonToSecondPerson(
-          firstPersonSentence: firstPersonResultStringBuffer.toString(),
-        ),
-        statsList: [
-          StatsItemBuilder.defaultStat(
-            statsName: TextConstants.hunger,
-            statsLevel: newHunger,
+      //prep result dialog
+      final Report resultReport = Report(
+        dialog: dialogHandler.showResultWithStatsDialog(
+          title: EatResultDialogTexts.eatenTitle,
+          result: SentenceUtil.convertFromFirstPersonToSecondPerson(
+            firstPersonSentence: firstPersonResultStringBuffer.toString(),
           ),
-        ],
+          statsList: [
+            StatsItemBuilder.defaultStat(
+              statsName: TextConstants.hunger,
+              statsLevel: newHunger,
+            ),
+          ],
+        ),
+      );
+
+      //return success action result
+      return ActionResult.successWithReportJournalEntryButNoDuration(
+        report: resultReport,
+        journalEntry: firstPersonResultStringBuffer.toString(),
       );
     }
+
+    //if there is no fridge food, return failed action result
+    return ActionResult.failedWithNoReportOrJournalEntry();
   }
 }

@@ -1,8 +1,9 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandniblings_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 
 class GetGreatGrandNiblingsThroughDeductionUsecase {
   final GetChildrenThroughDeductionUsecase _getChildrenThroughDeductionUsecase;
@@ -16,7 +17,7 @@ class GetGreatGrandNiblingsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
-    required bool onlyLivingPeople,
+    required VitalStatus includeOnly,
   }) async {
     //GreatGrandNiblings are the children of a person's greatGrand niblings
     final List<PersonPlatonicRelationshipTypePair> greatGrandNiblings = [];
@@ -40,7 +41,7 @@ class GetGreatGrandNiblingsThroughDeductionUsecase {
     final List<PersonPlatonicRelationshipTypePair> allGrandNiblings =
         await _getGrandNiblingsThroughDeductionUsecase.execute(
       personID: personID,
-      onlyLivingPeople: false,
+      includeOnly: VitalStatus.livingAndDead,
     );
 
     //get children of each grand nibling
@@ -49,7 +50,7 @@ class GetGreatGrandNiblingsThroughDeductionUsecase {
       final List<PersonPlatonicRelationshipTypePair> grandNiblingsChildren =
           await _getChildrenThroughDeductionUsecase.execute(
         personID: grandNibling.person.id,
-        onlyLivingPeople: false,
+        includeOnly: VitalStatus.livingAndDead,
       );
 
       //add each child to greatGrandNiblings
@@ -84,8 +85,22 @@ class GetGreatGrandNiblingsThroughDeductionUsecase {
     }
 
     //return based on request
-    return (onlyLivingPeople)
-        ? greatGrandNiblings.where((pair) => pair.person.dead == false).toList()
-        : greatGrandNiblings;
+    switch (includeOnly) {
+      // return all
+      case VitalStatus.livingAndDead:
+        return greatGrandNiblings;
+
+      // return only living
+      case VitalStatus.living:
+        return greatGrandNiblings
+            .where((pair) => pair.person.dead == false)
+            .toList();
+
+      // return only dead
+      case VitalStatus.dead:
+        return greatGrandNiblings
+            .where((pair) => pair.person.dead == true)
+            .toList();
+    }
   }
 }

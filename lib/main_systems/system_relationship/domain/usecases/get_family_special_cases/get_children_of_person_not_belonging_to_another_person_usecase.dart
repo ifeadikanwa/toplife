@@ -1,4 +1,5 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/parent_child_link_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart';
@@ -27,7 +28,7 @@ class GetChildrenOfPersonNotBelongingToAnotherPersonUsecase {
     final List<Person> allChildrenOfBelongingParent =
         (await _getChildrenThroughDeductionUsecase.execute(
       personID: belongingToParentID,
-      onlyLivingPeople: false,
+      includeOnly: VitalStatus.livingAndDead,
     ))
             .map((e) => e.person)
             .toList();

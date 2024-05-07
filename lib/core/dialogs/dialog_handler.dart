@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/choice_dialog_widget.dart';
-import 'package:toplife/core/dialogs/custom_dialogs/event/attend_event_dialog/dialog/attend_event_dialog_widget.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/event/death_event_dialogs/family_planned_funeral/family_planned_funeral_dialog_widget.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/event/death_event_dialogs/player_planned_funeral/player_planned_funeral_dialog_widget.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/relationship/send_food_dialog/send_food_dialog_widget.dart';
@@ -13,11 +12,10 @@ import 'package:toplife/core/dialogs/custom_dialogs/shop/break_old_rent_lease_di
 import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 import 'package:toplife/core/dialogs/show_dialog/show_persistent_dialog.dart';
 import 'package:toplife/core/utils/stats/stats_item.dart';
-import 'package:toplife/main_systems/system_event/domain/model/info_models/attend_event_detail.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/constants/torment_option.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/fridge_food_pair.dart';
 
@@ -85,40 +83,10 @@ class DialogHandler {
     }
   }
 
-  Future<AttendEventDetail?> showAttendEventDialog({
-    required Event event,
-    required int mainPlayerID,
-    required Person eventMainPerson,
-    required String eventTitle,
-    required String secondPersonEventDescription,
-    required String relationshipLabel,
-    required bool isParty,
-  }) async {
-    final BuildContext? context = _currentContext;
-
-    if (context != null) {
-      return showDismissableDialog<AttendEventDetail>(
-        context: context,
-        child: AttendEventDialogWidget(
-          eventTitle: eventTitle,
-          event: event,
-          mainPlayerID: mainPlayerID,
-          eventMainPerson: eventMainPerson,
-          secondPersonEventDescription: secondPersonEventDescription,
-          relationshipLabel: relationshipLabel,
-          isParty: isParty,
-        ),
-      );
-    }
-
-    return null;
-  }
-
   Future<bool?> showFamilyPlannedFuneralDialog({
     required String eventDescription,
     required String funeralArrangementsDescription,
-    required int playerContribution,
-    required String playerCurrency,
+    required String formattedAdjustedPlayerContribution,
   }) async {
     final BuildContext? context = _currentContext;
 
@@ -128,8 +96,8 @@ class DialogHandler {
         child: FamilyPlannedFuneralDialogWidget(
           eventDescription: eventDescription,
           funeralArrangementsDescription: funeralArrangementsDescription,
-          playerContribution: playerContribution,
-          playerCurrency: playerCurrency,
+          formattedAdjustedPlayerContribution:
+              formattedAdjustedPlayerContribution,
         ),
       );
     }

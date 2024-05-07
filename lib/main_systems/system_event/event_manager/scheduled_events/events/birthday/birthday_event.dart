@@ -1,75 +1,107 @@
+import 'package:toplife/core/dialogs/dialog_handler.dart';
+import 'package:toplife/game_manager/action_runner/action_runner.dart';
+import 'package:toplife/game_manager/action_runner/info_models/action_detail.dart';
+import 'package:toplife/game_manager/action_runner/info_models/action_duration.dart';
+import 'package:toplife/game_manager/action_runner/info_models/action_result.dart';
+import 'package:toplife/game_manager/action_runner/info_models/game_action.dart';
+import 'package:toplife/game_manager/domain/model/info_models/person_game_pair.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/domain/repository/event_repository.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/npc_birthday.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/player_birthday.dart';
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
 
 class BirthdayEvent {
-  final RelationshipUsecases _relationshipUsecases;
   final PersonUsecases _personUsecases;
   final AgeUsecases _ageUsecases;
-  final JournalUsecases _journalUsecases;
   final EventSchedulers _eventScheduler;
   final EventRepository _eventRepository;
+  final ActionRunner _actionRunner;
+  final PlayerBirthday _playerBirthday;
+  final NpcBirthday _npcBirthday;
 
   const BirthdayEvent(
-    this._relationshipUsecases,
     this._personUsecases,
     this._ageUsecases,
-    this._journalUsecases,
     this._eventScheduler,
     this._eventRepository,
+    this._actionRunner,
+    this._playerBirthday,
+    this._npcBirthday,
   );
+
+  Future<void> perform({required Event event}) async {
+    //event main person
+    final Person? eventMainPerson =
+        await _personUsecases.getPersonUsecase.execute(
+      personID: event.mainPersonId,
+    );
+
+    if (eventMainPerson != null) {
+      //Action detail
+      final ActionDetail actionDetail = ActionDetail(
+        actionDuration: ActionDuration.none(),
+        gameAction: ExecutiveAction(
+          action: (currentGameAndPlayer, dialogHandler) => _execute(
+            event: event,
+            eventMainPerson: eventMainPerson,
+            currentPlayerAndGame: currentGameAndPlayer,
+            dialogHandler: dialogHandler,
+          ),
+        ),
+      );
+
+      return _actionRunner.performNoTravelAction(
+        actionDetail: actionDetail,
+      );
+    }
+  }
 
   //the birthday event is NOT a journal only event
   //because It runs age up actions and that could potentially trigger dialogs
   //It is meant to notify the player about peoples birthdays including theirs
-  Future<void> execute(
-    int mainPlayerID,
-    Event event,
-  ) async {
-    //get the birthday person
-    final Person? birthdayPerson = await _personUsecases.getPersonUsecase
-        .execute(personID: event.mainPersonId);
+  Future<ActionResult> _execute({
+    required Event event,
+    required Person eventMainPerson,
+    required PersonGamePair currentPlayerAndGame,
+    required DialogHandler dialogHandler,
+  }) async {
+    final Person currentPlayer = currentPlayerAndGame.person;
 
-    if (birthdayPerson != null) {
-      //get journal entry
-      String journalEntry =
-          await getJournalEntry(mainPlayerID, birthdayPerson, event);
+    //get journal entry
+    final String journalEntry = await getJournalEntry(
+      currentPlayer.id,
+      eventMainPerson,
+      event,
+    );
 
-      //add to journal
-      await _journalUsecases.addToJournalUsecase.execute(
-        gameID: event.gameId,
-        day: event.eventDay,
-        mainPlayerID: mainPlayerID,
-        entry: journalEntry,
-      );
+    //schedule next birthday
+    await _eventScheduler.scheduleNextBirthday.execute(
+      gameID: event.gameId,
+      mainPersonID: event.mainPersonId,
+      dayOfBirth: eventMainPerson.dayOfBirth,
+      currentDay: event.eventDay,
+    );
 
-      //schedule next birthday
-      await _eventScheduler.scheduleNextBirthday.execute(
-        gameID: event.gameId,
-        mainPersonID: event.mainPersonId,
-        dayOfBirth: birthdayPerson.dayOfBirth,
-        currentDay: event.eventDay,
-      );
+    //run the age up actions
+    await _ageUsecases.ageUpCharacterActionsUsecase.execute(
+      characterID: event.mainPersonId,
+      currentPlayerID: currentPlayer.id,
+      currentDay: event.eventDay,
+    );
 
-      //mark event as performed
-      await _eventRepository.updateEvent(
-        event.copyWith(performed: true),
-      );
+    //mark event as performed
+    await _eventRepository.updateEvent(
+      event.copyWith(performed: true),
+    );
 
-      //run the age up actions
-      await _ageUsecases.ageUpCharacterActionsUsecase.execute(
-        characterID: event.mainPersonId,
-        currentPlayerID: mainPlayerID,
-        currentDay: event.eventDay,
-      );
-    }
+    //return success result
+    return ActionResult.successWithJournalEntryButNoReportOrDuration(
+      journalEntry: journalEntry,
+    );
   }
 
   Future<String> getJournalEntry(
@@ -85,17 +117,15 @@ class BirthdayEvent {
 
     //if it is player
     if (event.mainPersonId == mainPlayerID) {
-      return await PlayerBirthday(
-        _relationshipUsecases,
-        _personUsecases,
-      ).run(event, birthdayPerson, age);
+      return _playerBirthday.run(
+        event,
+        birthdayPerson,
+        age,
+      );
     }
     //else it's an npc
     else {
-      return await NpcBirthday(
-        _relationshipUsecases,
-        _eventScheduler,
-      ).run(
+      return _npcBirthday.run(
         mainPlayerID,
         event,
         birthdayPerson,

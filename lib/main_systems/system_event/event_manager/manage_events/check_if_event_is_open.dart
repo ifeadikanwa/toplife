@@ -11,6 +11,7 @@ class CheckIfEventIsOpen {
   }) {
     //check if the player can start making the journey to attend the event.
     //this way we always account for the players actual travel time, even when it changes
+    //attendance allowance is the max minutes before the event starts that the player can arrive at the event
     return currentTime >=
         (startTime - travelTime - EventManager.eventAttendanceAllowanceTime);
   }

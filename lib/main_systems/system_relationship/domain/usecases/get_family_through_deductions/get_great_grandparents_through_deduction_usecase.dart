@@ -1,8 +1,9 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_grandparents_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parents_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 
 class GetGreatGrandParentsThroughDeductionUsecase {
   final GetParentsThroughDeductionUsecase _getParentsThroughDeductionUsecase;
@@ -16,7 +17,7 @@ class GetGreatGrandParentsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
-    required bool onlyLivingPeople,
+    required VitalStatus includeOnly,
   }) async {
     //greatGrandParents are the parents of a person's grandparents
     final List<PersonPlatonicRelationshipTypePair> greatGrandParents = [];
@@ -40,7 +41,7 @@ class GetGreatGrandParentsThroughDeductionUsecase {
     final List<PersonPlatonicRelationshipTypePair> allPersonsGrandParents =
         await _getGrandParentsThroughDeductionUsecase.execute(
       personID: personID,
-      onlyLivingPeople: false,
+      includeOnly: VitalStatus.livingAndDead,
     );
 
     //get parents of each person's grandparent
@@ -50,7 +51,7 @@ class GetGreatGrandParentsThroughDeductionUsecase {
           parentsOfPersonsGrandParent =
           await _getParentsThroughDeductionUsecase.execute(
         personID: personsGrandParent.person.id,
-        onlyLivingPeople: false,
+        includeOnly: VitalStatus.livingAndDead,
       );
 
       //add each to greatGrandParents
@@ -84,9 +85,23 @@ class GetGreatGrandParentsThroughDeductionUsecase {
       }
     }
 
-   //return based on request
-    return (onlyLivingPeople)
-        ? greatGrandParents.where((pair) => pair.person.dead == false).toList()
-        : greatGrandParents;
+    //return based on request
+    switch (includeOnly) {
+      // return all
+      case VitalStatus.livingAndDead:
+        return greatGrandParents;
+
+      // return only living
+      case VitalStatus.living:
+        return greatGrandParents
+            .where((pair) => pair.person.dead == false)
+            .toList();
+
+      // return only dead
+      case VitalStatus.dead:
+        return greatGrandParents
+            .where((pair) => pair.person.dead == true)
+            .toList();
+    }
   }
 }

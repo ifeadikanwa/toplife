@@ -10,7 +10,7 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/text_constants.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/interactions/constants/torment_option.dart';
 
 class TormentDialogWidget extends ConsumerWidget {

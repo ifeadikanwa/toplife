@@ -1,76 +1,86 @@
 import 'dart:math';
 
 import 'package:toplife/core/dialogs/dialog_handler.dart';
+import 'package:toplife/core/utils/money/get_currency_and_money_string.dart';
 import 'package:toplife/core/utils/numbers/get_random_int_in_positive_range.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/core/utils/chance.dart';
+import 'package:toplife/game_manager/action_runner/info_models/action_result.dart';
+import 'package:toplife/game_manager/action_runner/info_models/report.dart';
+import 'package:toplife/main_systems/system_age/life_stage.dart';
+import 'package:toplife/main_systems/system_age/usecases/age_usecases.dart';
 import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_descriptions.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_location/countries/country.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
-import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
-import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/relationship_usecases.dart';
-import 'package:toplife/main_systems/system_relationship/util/check/check_if_platonic_relationship_type_contains.dart';
 import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_string.dart.dart';
 
 class FamilyPlannedFuneral {
   final PersonUsecases _personUsecases;
   final RelationshipUsecases _relationshipUsecases;
   final EventSchedulers _eventScheduler;
-  final JournalUsecases _journalUsecases;
-  final DialogHandler _dialogHandler;
+  final AgeUsecases _ageUsecases;
 
   const FamilyPlannedFuneral(
     this._personUsecases,
     this._relationshipUsecases,
     this._eventScheduler,
-    this._journalUsecases,
-    this._dialogHandler,
+    this._ageUsecases,
   );
 
-  Future<void> run({
+  Future<ActionResult> run({
     required int mainPlayerID,
     required Event deathEvent,
     required String firstPersonEventDescription,
     required Person deadPerson,
     required Country playerCountry,
+    required DialogHandler dialogHandler,
   }) async {
     final bool isBurial = Chance.getTrueOrFalse();
 
     final FuneralType chosenFuneralType =
         isBurial ? FuneralType.Burial : FuneralType.Cremation;
 
-    //btw 20 - 70
-    final int percentageOfCost = getRandomIntInPositiveRange(min: 20, max: 70);
+    //btw 20% - 70%
+    //random number / 100
+    final int percentageOfCost =
+        (getRandomIntInPositiveRange(min: 20, max: 70) / 100).ceil();
 
-    final int contribution = getCountryEconomyAdjustedPrice(
+    //adjust to dead person's economy (not the player's)
+    final int adjustedContribution = getCountryEconomyAdjustedPrice(
           country: deadPerson.currentCountry,
           basePrice: (chosenFuneralType == FuneralType.Burial)
               ? FuneralType.Burial.basePrice
               : FuneralType.Cremation.basePrice,
         ) *
-        (percentageOfCost / 100).ceil();
+        percentageOfCost;
+
+    //get formatted money string
+    final String formattedContributionString = getCurrencyAndMoneyString(
+      country: playerCountry.name,
+      amount: adjustedContribution,
+      adjustToEconomy: false,
+    );
 
     final String firstPersonFuneralArrangementsDescription =
         "The family decided to hold a ${chosenFuneralType.name.toLowerCase()} funeral, because ${DeathDescriptions.getRandomFuneralArrangementReason(deadPerson.gender)}.";
 
     //collect player input
     final bool? playerWillContribute =
-        await _dialogHandler.showFamilyPlannedFuneralDialog(
+        await dialogHandler.showFamilyPlannedFuneralDialog(
       eventDescription: SentenceUtil.convertFromFirstPersonToSecondPerson(
         firstPersonSentence: firstPersonEventDescription,
       ),
       funeralArrangementsDescription: firstPersonFuneralArrangementsDescription,
-      playerContribution: contribution,
-      playerCurrency: playerCountry.currency,
+      formattedAdjustedPlayerContribution: formattedContributionString,
     );
 
     if (playerWillContribute != null) {
@@ -90,7 +100,7 @@ class FamilyPlannedFuneral {
       );
 
       //run the corresponding function
-      (playerWillContribute)
+      return (playerWillContribute)
           ? await agreeToContributeToFuneral(
               mainPlayerID: mainPlayerID,
               deathEvent: deathEvent,
@@ -99,9 +109,10 @@ class FamilyPlannedFuneral {
                   firstPersonFuneralArrangementsDescription,
               firstPersonResultDesc: firstPersonResultDesc,
               deadPerson: deadPerson,
-              playerCountry: playerCountry,
-              contribution: contribution,
+              contribution: adjustedContribution,
+              formattedContributionString: formattedContributionString,
               chosenFuneralType: chosenFuneralType,
+              dialogHandler: dialogHandler,
             )
           : await refuseToContributeToFuneral(
               mainPlayerID: mainPlayerID,
@@ -111,23 +122,28 @@ class FamilyPlannedFuneral {
                   firstPersonFuneralArrangementsDescription,
               firstPersonResultDesc: firstPersonResultDesc,
               deadPerson: deadPerson,
-              playerCountry: playerCountry,
-              contribution: contribution,
+              contribution: adjustedContribution,
+              formattedContributionString: formattedContributionString,
               chosenFuneralType: chosenFuneralType,
+              dialogHandler: dialogHandler,
             );
     }
+
+    //if player did not choose an input
+    return ActionResult.failedWithNoReportOrJournalEntry();
   }
 
-  Future<void> agreeToContributeToFuneral({
+  Future<ActionResult> agreeToContributeToFuneral({
     required int mainPlayerID,
     required Event deathEvent,
     required String firstPersonEventDescription,
     required String firstPersonFuneralArrangementsDescription,
     required String firstPersonResultDesc,
     required Person deadPerson,
-    required Country playerCountry,
     required int contribution,
+    required String formattedContributionString,
     required FuneralType chosenFuneralType,
+    required DialogHandler dialogHandler,
   }) async {
     //check if they can afford it
     //if they can, in result dialog:
@@ -148,49 +164,51 @@ class FamilyPlannedFuneral {
 
     if (playerCanAffordToContribute) {
       resultActionDesc = "Your contribution has been recieved.";
-      journalActionDesc =
-          "I contributed ${playerCountry.currency}$contribution.";
+      journalActionDesc = "I contributed $formattedContributionString.";
       comment = DeathDescriptions.getRandomContributionPositiveComment(
         deadPerson.gender,
       );
     } else {
       resultActionDesc = "You do not have enough funds.";
       journalActionDesc =
-          "I wanted to contribute ${playerCountry.currency}$contribution but I didn't have enough money.";
+          "I wanted to contribute $formattedContributionString but I didn't have enough money.";
       comment = DeathDescriptions.getRandomContributionNoFundsComment(
         deadPerson.gender,
       );
     }
 
-    //Log info in journal
-    await _journalUsecases.addToJournalUsecase.execute(
-      gameID: deathEvent.gameId,
-      day: deathEvent.eventDay,
-      mainPlayerID: mainPlayerID,
-      entry:
-          "$firstPersonEventDescription $firstPersonFuneralArrangementsDescription $journalActionDesc $firstPersonResultDesc",
-    );
+    //set journal entry
+    final String journalEntry =
+        "$firstPersonEventDescription $firstPersonFuneralArrangementsDescription $journalActionDesc $firstPersonResultDesc";
 
-    //show dialog
-    final String result =
+    //set result report
+    final String resultDesc =
         "$resultActionDesc\n$comment.\n${SentenceUtil.convertFromFirstPersonToSecondPerson(firstPersonSentence: firstPersonResultDesc)}";
 
-    return _dialogHandler.showResultDialog(
-      title: DeathEvent.resultTitle,
-      result: result,
+    final Report resultReport = Report(
+      dialog: dialogHandler.showResultDialog(
+        title: DeathEvent.resultTitle,
+        result: resultDesc,
+      ),
+    );
+
+    return ActionResult.successWithReportJournalEntryButNoDuration(
+      report: resultReport,
+      journalEntry: journalEntry,
     );
   }
 
-  Future<void> refuseToContributeToFuneral({
+  Future<ActionResult> refuseToContributeToFuneral({
     required int mainPlayerID,
     required Event deathEvent,
     required String firstPersonEventDescription,
     required String firstPersonFuneralArrangementsDescription,
     required String firstPersonResultDesc,
     required Person deadPerson,
-    required Country playerCountry,
     required int contribution,
+    required String formattedContributionString,
     required FuneralType chosenFuneralType,
+    required DialogHandler dialogHandler,
   }) async {
     //get siblings:
     //reduce relationship with all of them
@@ -201,145 +219,146 @@ class FamilyPlannedFuneral {
     late final String resultComment;
 
     //get comment from siblings
-    final List<Relationship> playerSiblingsRelationships =
+    final List<PersonRelationshipPair> playerSiblingsRelationshipPairs =
         await _relationshipUsecases.getAllSiblingsUsecase.execute(
       personID: mainPlayerID,
+      includeOnly: VitalStatus.living,
     );
 
-    if (playerSiblingsRelationships.isNotEmpty) {
-      //reduce relationship with siblings
-      for (var siblingRelationship in playerSiblingsRelationships) {
+    if (playerSiblingsRelationshipPairs.isNotEmpty) {
+      //reduce relationship with all siblings
+      for (var siblingRelationshipPair in playerSiblingsRelationshipPairs) {
+        final int negativeRelationshipChange = -(getRandomIntInPositiveRange(
+          min: 20,
+          max: 40,
+        ));
         await _relationshipUsecases.updateRelationshipLevelUsecase.execute(
-          firstPersonID: siblingRelationship.firstPersonId,
-          secondPersonID: siblingRelationship.secondPersonId,
-          change: -(getRandomIntInPositiveRange(
-            min: 20,
-            max: 40,
-          )),
+          firstPersonID: siblingRelationshipPair.relationship.firstPersonId,
+          secondPersonID: siblingRelationshipPair.relationship.secondPersonId,
+          change: negativeRelationshipChange,
         );
       }
 
-      final Relationship chosenSiblingRelationship =
-          playerSiblingsRelationships[Random().nextInt(
-        playerSiblingsRelationships.length,
+      //choose a random sibling
+      final PersonRelationshipPair chosenSiblingRelationshipPair =
+          playerSiblingsRelationshipPairs[Random().nextInt(
+        playerSiblingsRelationshipPairs.length,
       )];
 
-      final int chosenSiblingID = getUnkownIdFromPersonIdPair(
-        personIdPair: PersonIdPair(
-          firstId: chosenSiblingRelationship.firstPersonId,
-          secondId: chosenSiblingRelationship.secondPersonId,
-        ),
-        knownId: mainPlayerID,
+      final Relationship chosenSiblingRelationship =
+          chosenSiblingRelationshipPair.relationship;
+
+      final Person siblingPerson = chosenSiblingRelationshipPair.person;
+
+      //get the specific relationship label
+      final String siblingRelationshipLabel =
+          getPlatonicAndRomanticRelationshipLabelFromString(
+        genderString: siblingPerson.gender,
+        platonicRelationshipTypeString:
+            chosenSiblingRelationship.platonicRelationshipType,
+        romanticRelationshipTypeString:
+            chosenSiblingRelationship.romanticRelationshipType,
+        previousFamilialRelationshipString:
+            chosenSiblingRelationship.previousFamilialRelationship,
+        isCoParent: chosenSiblingRelationship.isCoParent,
+        activeRomance: chosenSiblingRelationship.activeRomance,
       );
 
-      final Person? siblingPerson =
-          await _personUsecases.getPersonUsecase.execute(
-        personID: chosenSiblingID,
-      );
-
-      if (siblingPerson != null) {
-        final String siblingRelationshipLabel =
-            getPlatonicAndRomanticRelationshipLabelFromString(
-          genderString: siblingPerson.gender,
-          platonicRelationshipTypeString:
-              chosenSiblingRelationship.platonicRelationshipType,
-          romanticRelationshipTypeString:
-              chosenSiblingRelationship.romanticRelationshipType,
-          previousFamilialRelationshipString:
-              chosenSiblingRelationship.previousFamilialRelationship,
-          isCoParent: chosenSiblingRelationship.isCoParent,
-          activeRomance: chosenSiblingRelationship.activeRomance,
-        );
-
-        resultComment =
-            "Your $siblingRelationshipLabel, ${getFullNameString(firstName: siblingPerson.firstName, lastName: siblingPerson.lastName)} ${DeathDescriptions.getRandomContributionNegativeComment()}";
-      }
+      resultComment =
+          "Your $siblingRelationshipLabel, ${getFullNameString(firstName: siblingPerson.firstName, lastName: siblingPerson.lastName)} ${DeathDescriptions.getRandomContributionNegativeComment()}";
     }
-    //get comment from a pibling
+
+    //get comment from a relative
     else {
-      final List<Relationship> allRelatives =
+      //get all relatives
+      final List<PersonRelationshipPair> allRelatives =
           await _relationshipUsecases.getAllRelativesUsecase.execute(
         personID: mainPlayerID,
+        includeOnly: VitalStatus.living,
       );
 
-      final List<Relationship> piblings = allRelatives
+      //filter for relatives that are at least teens
+      final List<PersonRelationshipPair> ageAppropriateRelatives = allRelatives
           .where(
-            (element) => checkIfPlatonicRelationshipTypeStringContains(
-              element.platonicRelationshipType,
-              PlatonicRelationshipType.pibling,
+            (relativePair) =>
+                _ageUsecases.checkIfPersonIsAtLeastThisAgeUsecase.execute(
+              currentDay: deathEvent.eventDay,
+              dayOfBirth: relativePair.person.dayOfBirth,
+              age: LifeStage.teen,
             ),
           )
           .toList();
 
-      if (piblings.isNotEmpty) {
-        final Relationship chosenPiblingRelationship =
-            piblings[Random().nextInt(
-          piblings.length,
+      if (ageAppropriateRelatives.isNotEmpty) {
+        //choose a random relative
+        final PersonRelationshipPair chosenRelativeRelationshipPair =
+            ageAppropriateRelatives[Random().nextInt(
+          ageAppropriateRelatives.length,
         )];
 
+        final Person chosenRelativePerson =
+            chosenRelativeRelationshipPair.person;
+
+        final Relationship chosenRelativeRelationship =
+            chosenRelativeRelationshipPair.relationship;
+
         //reduce relationship
+        final int negativeRelationshipChange = -(getRandomIntInPositiveRange(
+          min: 20,
+          max: 40,
+        ));
+
         await _relationshipUsecases.updateRelationshipLevelUsecase.execute(
-          firstPersonID: chosenPiblingRelationship.firstPersonId,
-          secondPersonID: chosenPiblingRelationship.secondPersonId,
-          change: -(getRandomIntInPositiveRange(
-            min: 20,
-            max: 40,
-          )),
-        );
-        //get pibling person
-        final int chosenPiblingID = getUnkownIdFromPersonIdPair(
-          personIdPair: PersonIdPair(
-            firstId: chosenPiblingRelationship.firstPersonId,
-            secondId: chosenPiblingRelationship.secondPersonId,
-          ),
-          knownId: mainPlayerID,
+          firstPersonID: chosenRelativeRelationship.firstPersonId,
+          secondPersonID: chosenRelativeRelationship.secondPersonId,
+          change: negativeRelationshipChange,
         );
 
-        final Person? piblingPerson =
-            await _personUsecases.getPersonUsecase.execute(
-          personID: chosenPiblingID,
+        //get specific relationship label
+        final String relativeRelationshipLabel =
+            getPlatonicAndRomanticRelationshipLabelFromString(
+          genderString: chosenRelativePerson.gender,
+          platonicRelationshipTypeString:
+              chosenRelativeRelationship.platonicRelationshipType,
+          romanticRelationshipTypeString:
+              chosenRelativeRelationship.romanticRelationshipType,
+          previousFamilialRelationshipString:
+              chosenRelativeRelationship.previousFamilialRelationship,
+          isCoParent: chosenRelativeRelationship.isCoParent,
+          activeRomance: chosenRelativeRelationship.activeRomance,
         );
+        resultComment =
+            "Your $relativeRelationshipLabel, ${getFullNameString(firstName: chosenRelativePerson.firstName, lastName: chosenRelativePerson.lastName)} ${DeathDescriptions.getRandomContributionNegativeComment()}";
+      }
 
-        if (piblingPerson != null) {
-          final String piblingRelationshipLabel =
-              getPlatonicAndRomanticRelationshipLabelFromString(
-            genderString: piblingPerson.gender,
-            platonicRelationshipTypeString:
-                chosenPiblingRelationship.platonicRelationshipType,
-            romanticRelationshipTypeString:
-                chosenPiblingRelationship.romanticRelationshipType,
-            previousFamilialRelationshipString:
-                chosenPiblingRelationship.previousFamilialRelationship,
-            isCoParent: chosenPiblingRelationship.isCoParent,
-            activeRomance: chosenPiblingRelationship.activeRomance,
-          );
-          resultComment =
-              "Your $piblingRelationshipLabel, ${getFullNameString(firstName: piblingPerson.firstName, lastName: piblingPerson.lastName)} ${DeathDescriptions.getRandomContributionNegativeComment()}";
-        } else {
-          resultComment = "";
-        }
+      //no age appropriate relative
+      else {
+        resultComment = "";
       }
     }
 
-    //Log info in journal
+    //set journal entry
     const journalActionDesc = "I refused to contribute.";
-    await _journalUsecases.addToJournalUsecase.execute(
-      gameID: deathEvent.gameId,
-      day: deathEvent.eventDay,
-      mainPlayerID: mainPlayerID,
-      entry:
-          "$firstPersonEventDescription $firstPersonFuneralArrangementsDescription $journalActionDesc $firstPersonResultDesc",
-    );
 
-    //show dialog
-    final String result =
+    final String journalEntry =
+        "$firstPersonEventDescription $firstPersonFuneralArrangementsDescription $journalActionDesc $firstPersonResultDesc";
+
+    //set result report
+    final String resultDesc =
         "$resultComment.\n${SentenceUtil.convertFromFirstPersonToSecondPerson(
       firstPersonSentence: firstPersonResultDesc,
     )}";
 
-    return _dialogHandler.showResultDialog(
-      title: DeathEvent.resultTitle,
-      result: result,
+    final Report resultReport = Report(
+      dialog: dialogHandler.showResultDialog(
+        title: DeathEvent.resultTitle,
+        result: resultDesc,
+      ),
+    );
+
+    return ActionResult.successWithReportJournalEntryButNoDuration(
+      report: resultReport,
+      journalEntry: journalEntry,
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:toplife/core/utils/chance.dart';
 import 'package:toplife/core/utils/numbers/get_random_int_in_positive_range.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/funeral_descriptions.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/party_event_descriptions.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attendable_events/util/funeral_descriptions.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attendable_events/util/party_event_descriptions.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';

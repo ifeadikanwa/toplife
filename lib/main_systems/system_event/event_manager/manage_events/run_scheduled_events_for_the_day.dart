@@ -46,25 +46,26 @@ class RunScheduledEventsForTheDay {
 
     //run them all
     for (var event in journalOnlyEvents) {
-      await _runEvent.execute(
-        mainPlayerID: playerID,
+      await _runEvent.executeNonAttendable(
         event: event.copyWith(eventDay: dayToLogEventTo),
       );
     }
 
     //get all the untimed events
-    //we want to catch any strays, events that aren't journal only but also have not time set at all
+    //we want to catch any strays,
+    //events that aren't journal only AND
+    // have no time set at all OR have only end time set
+    //
     final List<Event> untimedEvents = unperformedEventsForTheDay
         .where((event) =>
             !(journalOnlyEvents.contains(event)) &&
-            event.startTime == null &&
-            event.endTime == null)
+            ((event.startTime == null && event.endTime == null) ||
+                (event.startTime == null && event.endTime != null)))
         .toList();
 
     //run them all
     for (var event in untimedEvents) {
-      await _runEvent.execute(
-        mainPlayerID: playerID,
+      await _runEvent.executeNonAttendable(
         event: event.copyWith(eventDay: dayToLogEventTo),
       );
     }
@@ -80,8 +81,7 @@ class RunScheduledEventsForTheDay {
 
     //run them all
     for (var event in startTimedEvents) {
-      await _runEvent.execute(
-        mainPlayerID: playerID,
+      await _runEvent.executeNonAttendable(
         event: event.copyWith(eventDay: dayToLogEventTo),
       );
     }

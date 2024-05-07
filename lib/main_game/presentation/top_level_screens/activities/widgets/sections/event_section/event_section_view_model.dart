@@ -3,7 +3,7 @@ import 'package:toplife/core/common_states/dependencies/event/event_dependencies
 import 'package:toplife/core/common_states/dependencies/transportation/transportation_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/event/current_attendable_events_for_today_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
-import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_item.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart';
@@ -17,8 +17,14 @@ part 'event_section_view_model.g.dart';
 Future<List<EventItem>> eventSectionViewModel(
   EventSectionViewModelRef ref,
 ) async {
-  //get recent
-  final Game? currentGame = await ref.watch(currentGameProvider.future);
+  //get
+  final int? currentGameTimeInMinutes = await ref.watch(
+    currentGameProvider.selectAsync((data) => data?.currentTimeInMinutes),
+  );
+
+  final int? currentPlayerId = await ref.watch(
+    currentPlayerProvider.selectAsync((data) => data?.id),
+  );
 
   final List<EventPersonPair> attendableEventsForToday =
       await ref.watch(currentAttendableEventsForTodayProvider.future);
@@ -28,22 +34,8 @@ Future<List<EventItem>> eventSectionViewModel(
 
   final EventManager eventManager = ref.watch(eventManagerProvider);
 
-  //await game
-  //if game = null
-  //set data to empty list
-  //else
-  //create an empty eventItem list
-  //await the list of attendable events
-  //for each
-  //await the travel time
-  //create an event item obj
-  //add the object to the list
-
-  //if the current game and current player is valid, get all the information the ui needs
-
-  final int? currentPlayerId = currentGame?.currentPlayerID;
-
-  if (currentGame != null && currentPlayerId != null) {
+  //if we have a valid player id and game time
+  if (currentGameTimeInMinutes != null && currentPlayerId != null) {
     List<EventItem> eventItems = [];
 
     for (var attendableEvent in attendableEventsForToday) {
@@ -61,23 +53,29 @@ Future<List<EventItem>> eventSectionViewModel(
           ),
         );
 
+        //check if this event is open
+        final bool eventIsOpen = eventManager.checkIfEventIsOpen.execute(
+          startTime: attendableEvent.event.startTime!,
+          endTime: attendableEvent.event.endTime!,
+          travelTime: travelTime,
+          currentTime: currentGameTimeInMinutes,
+        );
+
+        //check if this event can still be attended
+        final bool eventCanStillBeAttended =
+            eventManager.checkIfEventCanStillBeAttended.execute(
+          startTime: attendableEvent.event.startTime!,
+          endTime: attendableEvent.event.endTime!,
+          travelTime: travelTime,
+          currentTime: currentGameTimeInMinutes,
+        );
+
         //add the event item to list
         eventItems.add(
           EventItem(
             eventPersonPair: attendableEvent,
-            eventIsOpen: eventManager.checkIfEventIsOpen.execute(
-              startTime: attendableEvent.event.startTime!,
-              endTime: attendableEvent.event.endTime!,
-              travelTime: travelTime,
-              currentTime: currentGame.currentTimeInMinutes,
-            ),
-            eventCanStillBeAttended:
-                eventManager.checkIfEventCanStillBeAttended.execute(
-              startTime: attendableEvent.event.startTime!,
-              endTime: attendableEvent.event.endTime!,
-              travelTime: travelTime,
-              currentTime: currentGame.currentTimeInMinutes,
-            ),
+            eventIsOpen: eventIsOpen,
+            eventCanStillBeAttended: eventCanStillBeAttended,
           ),
         );
       }

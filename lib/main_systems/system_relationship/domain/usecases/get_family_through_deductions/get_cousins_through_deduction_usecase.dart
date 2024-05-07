@@ -1,8 +1,9 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_piblings_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 
 class GetCousinsThroughDeductionUsecase {
   final GetChildrenThroughDeductionUsecase _getChildrenThroughDeductionUsecase;
@@ -15,7 +16,7 @@ class GetCousinsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
-    required bool onlyLivingPeople,
+    required VitalStatus includeOnly,
   }) async {
     //Cousins are the children of a person's piblings
     final List<PersonPlatonicRelationshipTypePair> cousins = [];
@@ -39,7 +40,7 @@ class GetCousinsThroughDeductionUsecase {
     final List<PersonPlatonicRelationshipTypePair> allPiblings =
         await _getPiblingsThroughDeductionUsecase.execute(
       personID: personID,
-      onlyLivingPeople: false,
+      includeOnly: VitalStatus.livingAndDead,
     );
 
     //get children of each piblings
@@ -48,7 +49,7 @@ class GetCousinsThroughDeductionUsecase {
       final List<PersonPlatonicRelationshipTypePair> piblingsChildren =
           await _getChildrenThroughDeductionUsecase.execute(
         personID: pibling.person.id,
-        onlyLivingPeople: false,
+        includeOnly: VitalStatus.livingAndDead,
       );
 
       //add each child to cousins
@@ -83,9 +84,18 @@ class GetCousinsThroughDeductionUsecase {
     }
 
     //return based on request
+    switch (includeOnly) {
+      // return all
+      case VitalStatus.livingAndDead:
+        return cousins;
 
-    return (onlyLivingPeople)
-        ? cousins.where((pair) => pair.person.dead == false).toList()
-        : cousins;
+      // return only living
+      case VitalStatus.living:
+        return cousins.where((pair) => pair.person.dead == false).toList();
+
+      // return only dead
+      case VitalStatus.dead:
+        return cousins.where((pair) => pair.person.dead == true).toList();
+    }
   }
 }

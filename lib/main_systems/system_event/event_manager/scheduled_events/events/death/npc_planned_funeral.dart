@@ -1,25 +1,23 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
+import 'package:toplife/game_manager/action_runner/info_models/action_result.dart';
+import 'package:toplife/game_manager/action_runner/info_models/report.dart';
 import 'package:toplife/main_systems/system_event/event_manager/event_scheduler/event_schedulers.dart';
 import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/death/death_event.dart';
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 
 class NpcPlannedFuneral {
   final EventSchedulers _eventScheduler;
-  final JournalUsecases _journalUsecases;
-  final DialogHandler _dialogHandler;
 
   const NpcPlannedFuneral(
     this._eventScheduler,
-    this._journalUsecases,
-    this._dialogHandler,
   );
 
-  Future<void> run({
+  Future<ActionResult> run({
     required int mainPlayerID,
     required Event deathEvent,
     required String firstPersonEventDescription,
+    required DialogHandler dialogHandler,
   }) async {
     final Event scheduledFuneral =
         await _eventScheduler.scheduleFuneral.execute(
@@ -35,24 +33,29 @@ class NpcPlannedFuneral {
       startTime: scheduledFuneral.startTime,
     );
 
-    //log in journal
-    await _journalUsecases.addToJournalUsecase.execute(
-      gameID: deathEvent.gameId,
-      day: deathEvent.eventDay,
-      mainPlayerID: mainPlayerID,
-      entry: "$firstPersonEventDescription $firstPersonFuneralArrangement",
-    );
+    //set journal entry
+    final String journalEntry =
+        "$firstPersonEventDescription $firstPersonFuneralArrangement";
 
-    //show in dialog
-    final String result = "${SentenceUtil.convertFromFirstPersonToSecondPerson(
+    //set report
+    final String resultDesc =
+        "${SentenceUtil.convertFromFirstPersonToSecondPerson(
       firstPersonSentence: firstPersonEventDescription,
     )}\n${SentenceUtil.convertFromFirstPersonToSecondPerson(
       firstPersonSentence: firstPersonFuneralArrangement,
     )}";
 
-    return _dialogHandler.showResultDialog(
-      title: DeathEvent.resultTitle,
-      result: result,
+    final Report resultReport = Report(
+      dialog: dialogHandler.showResultDialog(
+        title: DeathEvent.resultTitle,
+        result: resultDesc,
+      ),
+    );
+
+    //return success result
+    return ActionResult.successWithReportJournalEntryButNoDuration(
+      report: resultReport,
+      journalEntry: journalEntry,
     );
   }
 }

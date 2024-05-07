@@ -63,7 +63,7 @@ extension $SleepActionDialogDataCopyWith on SleepActionDialogData {
 // **************************************************************************
 
 String _$sleepActionDialogViewModelHash() =>
-    r'683a670bf48236ea7c883f275c4e1e55103c8e2e';
+    r'c41862d7d33c18ced0206821f5767efa11fa1d2c';
 
 /// See also [SleepActionDialogViewModel].
 @ProviderFor(SleepActionDialogViewModel)

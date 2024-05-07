@@ -1,5 +1,5 @@
-class AttendEventDialogsTextConstants {
-  static const stayDurationPrompt = "How long do you want to stay?";
+class AttendableEventDialogsTextConstants {
+  static const stayDurationPrompt = "Leave event at?";
   static const partyActivityPrompt = "What do you want to do?";
   static const giftItemPrompt = "Bring a gift:";
   static const moneyGiftPrompt = "Give money:";

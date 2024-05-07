@@ -11,6 +11,7 @@ import 'package:toplife/main_systems/system_relationship/domain/usecases/create/
 import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_familial_relationship_to_player_through_parent_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_relationship_with_family_members_spouse_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/generate/generate_acquaintances_usecase.dart';
+import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_person_relationship_pairs_from_relationships_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_relationship_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_acquaintances_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_groups/get_all_active_partners_usecase.dart';
@@ -94,9 +95,7 @@ class RelationshipUsecases {
         _ref
             .read(relationshipRepositoriesProvider)
             .parentChildLinkRepositoryImpl,
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
         _ref.read(personUsecasesProvider),
       );
 
@@ -107,35 +106,35 @@ class RelationshipUsecases {
       );
 
   GetGrandCousinsThroughDeductionUsecase
-  get getGrandCousinsThroughDeductionUsecase =>
-      GetGrandCousinsThroughDeductionUsecase(
-        getChildrenThroughDeductionUsecase,
-        getCousinsThroughDeductionUsecase,
-      );
+      get getGrandCousinsThroughDeductionUsecase =>
+          GetGrandCousinsThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            getCousinsThroughDeductionUsecase,
+          );
 
   GetGrandChildrenThroughDeductionUsecase
-  get getGrandChildrenThroughDeductionUsecase =>
-      GetGrandChildrenThroughDeductionUsecase(
-          getChildrenThroughDeductionUsecase);
+      get getGrandChildrenThroughDeductionUsecase =>
+          GetGrandChildrenThroughDeductionUsecase(
+              getChildrenThroughDeductionUsecase);
 
   GetGrandParentsThroughDeductionUsecase
-  get getGrandParentsThroughDeductionUsecase =>
-      GetGrandParentsThroughDeductionUsecase(
-          getParentsThroughDeductionUsecase);
+      get getGrandParentsThroughDeductionUsecase =>
+          GetGrandParentsThroughDeductionUsecase(
+              getParentsThroughDeductionUsecase);
 
   GetGreatGrandParentsThroughDeductionUsecase
-  get getGreatGrandParentsThroughDeductionUsecase =>
-      GetGreatGrandParentsThroughDeductionUsecase(
-        getParentsThroughDeductionUsecase,
-        getGrandParentsThroughDeductionUsecase,
-      );
+      get getGreatGrandParentsThroughDeductionUsecase =>
+          GetGreatGrandParentsThroughDeductionUsecase(
+            getParentsThroughDeductionUsecase,
+            getGrandParentsThroughDeductionUsecase,
+          );
 
   GetGreatGrandChildrenThroughDeductionUsecase
-  get getGreatGrandChildrenThroughDeductionUsecase =>
-      GetGreatGrandChildrenThroughDeductionUsecase(
-        getGrandChildrenThroughDeductionUsecase,
-        getChildrenThroughDeductionUsecase,
-      );
+      get getGreatGrandChildrenThroughDeductionUsecase =>
+          GetGreatGrandChildrenThroughDeductionUsecase(
+            getGrandChildrenThroughDeductionUsecase,
+            getChildrenThroughDeductionUsecase,
+          );
 
   GetNiblingsThroughDeductionUsecase get getNiblingsThroughDeductionUsecase =>
       GetNiblingsThroughDeductionUsecase(
@@ -144,20 +143,18 @@ class RelationshipUsecases {
       );
 
   GetGrandNiblingsThroughDeductionUsecase
-  get getGrandNiblingsThroughDeductionUsecase =>
-      GetGrandNiblingsThroughDeductionUsecase(
-        getChildrenThroughDeductionUsecase,
-        getNiblingsThroughDeductionUsecase,
-      );
+      get getGrandNiblingsThroughDeductionUsecase =>
+          GetGrandNiblingsThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            getNiblingsThroughDeductionUsecase,
+          );
 
   GetParentsThroughDeductionUsecase get getParentsThroughDeductionUsecase =>
       GetParentsThroughDeductionUsecase(
         _ref
             .read(relationshipRepositoriesProvider)
             .parentChildLinkRepositoryImpl,
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
         _ref.read(personUsecasesProvider),
       );
 
@@ -172,60 +169,56 @@ class RelationshipUsecases {
         _ref
             .read(relationshipRepositoriesProvider)
             .parentChildLinkRepositoryImpl,
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
         _ref.read(personUsecasesProvider),
       );
 
   GetGreatGrandCousinsThroughDeductionUsecase
-  get getGreatGrandCousinsThroughDeductionUsecase =>
-      GetGreatGrandCousinsThroughDeductionUsecase(
-        getChildrenThroughDeductionUsecase,
-        getGrandCousinsThroughDeductionUsecase,
-      );
+      get getGreatGrandCousinsThroughDeductionUsecase =>
+          GetGreatGrandCousinsThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            getGrandCousinsThroughDeductionUsecase,
+          );
 
   GetGreatGrandNiblingsThroughDeductionUsecase
-  get getGreatGrandNiblingsThroughDeductionUsecase =>
-      GetGreatGrandNiblingsThroughDeductionUsecase(
-        getChildrenThroughDeductionUsecase,
-        getGrandNiblingsThroughDeductionUsecase,
-      );
+      get getGreatGrandNiblingsThroughDeductionUsecase =>
+          GetGreatGrandNiblingsThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            getGrandNiblingsThroughDeductionUsecase,
+          );
 
   GetParentInLawsThroughDeductionUsecase
-  get getParentInLawsThroughDeductionUsecase =>
-      GetParentInLawsThroughDeductionUsecase(
-        getParentsThroughDeductionUsecase,
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-      );
+      get getParentInLawsThroughDeductionUsecase =>
+          GetParentInLawsThroughDeductionUsecase(
+            getParentsThroughDeductionUsecase,
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+          );
 
   GetSiblingInLawsThroughDeductionUsecase
-  get getSiblingInLawsThroughDeductionUsecase =>
-      GetSiblingInLawsThroughDeductionUsecase(
-        getSiblingsThroughDeductionUsecase,
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-        _ref.read(personUsecasesProvider),
-      );
+      get getSiblingInLawsThroughDeductionUsecase =>
+          GetSiblingInLawsThroughDeductionUsecase(
+            getSiblingsThroughDeductionUsecase,
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            _ref.read(personUsecasesProvider),
+          );
 
   GetChildrenInLawThroughDeductionUsecase
-  get getChildrenInLawThroughDeductionUsecase =>
-      GetChildrenInLawThroughDeductionUsecase(
-        getChildrenThroughDeductionUsecase,
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-        _ref.read(personUsecasesProvider),
-      );
+      get getChildrenInLawThroughDeductionUsecase =>
+          GetChildrenInLawThroughDeductionUsecase(
+            getChildrenThroughDeductionUsecase,
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            _ref.read(personUsecasesProvider),
+          );
 
   AddChildToNPCFamilyUsecase get addChildToNPCFamilyUsecase =>
       AddChildToNPCFamilyUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
         _ref.read(personUsecasesProvider),
         createParentChildLinkUsecase,
         processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase,
@@ -233,12 +226,12 @@ class RelationshipUsecases {
       );
 
   CheckIfPersonIsInPlayerFamilyLineageUsecase
-  get checkIfPersonIsInPlayerFamilyLineageUsecase =>
-      CheckIfPersonIsInPlayerFamilyLineageUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .parentChildLinkRepositoryImpl,
-      );
+      get checkIfPersonIsInPlayerFamilyLineageUsecase =>
+          CheckIfPersonIsInPlayerFamilyLineageUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .parentChildLinkRepositoryImpl,
+          );
 
   CreateParentChildLinkUsecase get createParentChildLinkUsecase =>
       CreateParentChildLinkUsecase(
@@ -250,190 +243,166 @@ class RelationshipUsecases {
 
   CreateRelationshipUsecase get createRelationshipUsecase =>
       CreateRelationshipUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
       );
 
-  GetRelationshipUsecase get getRelationshipUsecase =>
-      GetRelationshipUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
+  GetRelationshipUsecase get getRelationshipUsecase => GetRelationshipUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
       );
 
   UpdateRelationshipUsecase get updateRelationshipUsecase =>
       UpdateRelationshipUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
       );
 
   UpdateRelationshipLevelUsecase get updateRelationshipLevelUsecase =>
       UpdateRelationshipLevelUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
       );
 
   ConvertRelationshipToGraveUsecase get convertRelationshipToGraveUsecase =>
       ConvertRelationshipToGraveUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .graveRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        _ref.read(relationshipRepositoriesProvider).graveRepositoryImpl,
       );
 
   FindPersonsFamilialRelationshipToPlayerThroughParentUsecase
-  get findPersonsFamilialRelationshipToPlayerThroughParentUsecase =>
-      FindPersonsFamilialRelationshipToPlayerThroughParentUsecase(
-        getSiblingsThroughDeductionUsecase,
-      );
+      get findPersonsFamilialRelationshipToPlayerThroughParentUsecase =>
+          FindPersonsFamilialRelationshipToPlayerThroughParentUsecase(
+            getSiblingsThroughDeductionUsecase,
+          );
 
   ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase
-  get processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase =>
-      ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase(
-        findPersonsFamilialRelationshipToPlayerThroughParentUsecase,
-        createRelationshipUsecase,
-      );
+      get processRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase =>
+          ProcessRelationshipChangesFromTheAdditionOfPersonsChildToTheGameUsecase(
+            findPersonsFamilialRelationshipToPlayerThroughParentUsecase,
+            createRelationshipUsecase,
+          );
 
   CreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase
-  get createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase =>
-      CreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase(
-        createRelationshipUsecase,
-      );
+      get createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase =>
+          CreateMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase(
+            createRelationshipUsecase,
+          );
 
   CreatePlatonicRelationshipOrGraveUsecase
-  get createPlatonicRelationshipOrGraveUsecase =>
-      CreatePlatonicRelationshipOrGraveUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-        createRelationshipUsecase,
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .graveRepositoryImpl,
-      );
+      get createPlatonicRelationshipOrGraveUsecase =>
+          CreatePlatonicRelationshipOrGraveUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            createRelationshipUsecase,
+            _ref.read(relationshipRepositoriesProvider).graveRepositoryImpl,
+          );
 
   FindPersonsRelationshipWithFamilyMembersSpouseUsecase
-  get findPersonsRelationshipWithFamilyMembersSpouseUsecase =>
-      FindPersonsRelationshipWithFamilyMembersSpouseUsecase();
+      get findPersonsRelationshipWithFamilyMembersSpouseUsecase =>
+          FindPersonsRelationshipWithFamilyMembersSpouseUsecase();
+
+  GetPersonRelationshipPairsFromRelationshipsUsecase
+      get getPersonRelationshipPairsFromRelationshipsUsecase =>
+          GetPersonRelationshipPairsFromRelationshipsUsecase(
+            _ref.read(personUsecasesProvider),
+          );
 
   GetAllAcquaintancesUsecase get getAllAcquaintancesUsecase =>
-      GetAllAcquaintancesUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      GetAllAcquaintancesUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
   GetAllActivePartnersUsecase get getAllActivePartnersUsecase =>
-      GetAllActivePartnersUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      GetAllActivePartnersUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
-  GetAllChildrenUsecase get getAllChildrenUsecase =>
-      GetAllChildrenUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  GetAllChildrenUsecase get getAllChildrenUsecase => GetAllChildrenUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
-  GetAllExesUsecase get getAllExesUsecase =>
-      GetAllExesUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  GetAllExesUsecase get getAllExesUsecase => GetAllExesUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
-  GetAllFriendsUsecase get getAllFriendsUsecase =>
-      GetAllFriendsUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  GetAllFriendsUsecase get getAllFriendsUsecase => GetAllFriendsUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
-  GetAllInLawsUsecase get getAllInLawsUsecase =>
-      GetAllInLawsUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  GetAllInLawsUsecase get getAllInLawsUsecase => GetAllInLawsUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
-  GetAllParentsUsecase get getAllParentsUsecase =>
-      GetAllParentsUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  GetAllParentsUsecase get getAllParentsUsecase => GetAllParentsUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
-  GetAllPartnersUsecase get getAllPartnersUsecase =>
-      GetAllPartnersUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  GetAllPartnersUsecase get getAllPartnersUsecase => GetAllPartnersUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
   GetAllPastFamilyUsecase get getAllPastFamilyUsecase =>
-      GetAllPastFamilyUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      GetAllPastFamilyUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
   GetAllRelationshipsInvolvingUsecase get getAllRelationshipsInvolvingUsecase =>
-      GetAllRelationshipsInvolvingUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      GetAllRelationshipsInvolvingUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
-  GetAllRelativesUsecase get getAllRelativesUsecase =>
-      GetAllRelativesUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  GetAllRelativesUsecase get getAllRelativesUsecase => GetAllRelativesUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
-  GetAllSiblingsUsecase get getAllSiblingsUsecase =>
-      GetAllSiblingsUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  GetAllSiblingsUsecase get getAllSiblingsUsecase => GetAllSiblingsUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
   GetAllStepChildrenUsecase get getAllStepChildrenUsecase =>
-      GetAllStepChildrenUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      GetAllStepChildrenUsecase(
+        _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl,
+        getPersonRelationshipPairsFromRelationshipsUsecase,
+      );
 
   GetMarriagePartnerRelationshipUsecase
-  get getMarriagePartnerRelationshipUsecase =>
-      GetMarriagePartnerRelationshipUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      get getMarriagePartnerRelationshipUsecase =>
+          GetMarriagePartnerRelationshipUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
   WatchRelationshipUsecase get watchRelationshipUsecase =>
       WatchRelationshipUsecase(_ref
           .read(relationshipRepositoriesProvider)
           .relationshipRepositoryImpl);
 
-  WatchAllGravesUsecase get watchAllGravesUsecase =>
-      WatchAllGravesUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .graveRepositoryImpl);
+  WatchAllGravesUsecase get watchAllGravesUsecase => WatchAllGravesUsecase(
+      _ref.read(relationshipRepositoriesProvider).graveRepositoryImpl);
 
   WatchChildrensTabRelationshipsUsecase
-  get watchChildrensTabRelationshipsUsecase =>
-      WatchChildrensTabRelationshipsUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
-
-  WatchAllExesUsecase get watchAllExesUsecase =>
-      WatchAllExesUsecase(
-          _ref
+      get watchChildrensTabRelationshipsUsecase =>
+          WatchChildrensTabRelationshipsUsecase(_ref
               .read(relationshipRepositoriesProvider)
               .relationshipRepositoryImpl);
 
-  WatchAllFriendsUsecase get watchAllFriendsUsecase =>
-      WatchAllFriendsUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  WatchAllExesUsecase get watchAllExesUsecase => WatchAllExesUsecase(
+      _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl);
 
-  WatchAllInLawsUsecase get watchAllInLawsUsecase =>
-      WatchAllInLawsUsecase(
-          _ref
-              .read(relationshipRepositoriesProvider)
-              .relationshipRepositoryImpl);
+  WatchAllFriendsUsecase get watchAllFriendsUsecase => WatchAllFriendsUsecase(
+      _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl);
+
+  WatchAllInLawsUsecase get watchAllInLawsUsecase => WatchAllInLawsUsecase(
+      _ref.read(relationshipRepositoriesProvider).relationshipRepositoryImpl);
 
   WatchParentsTabRelationshipsUsecase get watchParentsTabRelationshipsUsecase =>
       WatchParentsTabRelationshipsUsecase(_ref
@@ -441,10 +410,10 @@ class RelationshipUsecases {
           .relationshipRepositoryImpl);
 
   WatchPartnersTabRelationshipsUsecase
-  get watchPartnersTabRelationshipsUsecase =>
-      WatchPartnersTabRelationshipsUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      get watchPartnersTabRelationshipsUsecase =>
+          WatchPartnersTabRelationshipsUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
   WatchAllPastFamilyUsecase get watchAllPastFamilyUsecase =>
       WatchAllPastFamilyUsecase(_ref
@@ -452,206 +421,206 @@ class RelationshipUsecases {
           .relationshipRepositoryImpl);
 
   WatchAllRelationshipsInvolvingUsecase
-  get watchAllRelationshipsInvolvingUsecase =>
-      WatchAllRelationshipsInvolvingUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      get watchAllRelationshipsInvolvingUsecase =>
+          WatchAllRelationshipsInvolvingUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
   WatchRelativesTabRelationshipsUsecase
-  get watchRelativesTabRelationshipsUsecase =>
-      WatchRelativesTabRelationshipsUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      get watchRelativesTabRelationshipsUsecase =>
+          WatchRelativesTabRelationshipsUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
   WatchSiblingsTabRelationshipsUsecase
-  get watchSiblingsTabRelationshipsUsecase =>
-      WatchSiblingsTabRelationshipsUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      get watchSiblingsTabRelationshipsUsecase =>
+          WatchSiblingsTabRelationshipsUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
   WatchMarriagePartnerRelationshipUsecase
-  get watchMarriagePartnerRelationshipUsecase =>
-      WatchMarriagePartnerRelationshipUsecase(_ref
-          .read(relationshipRepositoriesProvider)
-          .relationshipRepositoryImpl);
+      get watchMarriagePartnerRelationshipUsecase =>
+          WatchMarriagePartnerRelationshipUsecase(_ref
+              .read(relationshipRepositoriesProvider)
+              .relationshipRepositoryImpl);
 
   GetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase
-  get getAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase =>
-      GetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase(
-        getChildrenOfPersonNotBelongingToAnotherPersonUsecase,
-        getAllStepFamilyFromDifferentGenerationsUsecase,
-      );
+      get getAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase =>
+          GetAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase(
+            getChildrenOfPersonNotBelongingToAnotherPersonUsecase,
+            getAllStepFamilyFromDifferentGenerationsUsecase,
+          );
 
   GetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase
-  get getAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase =>
-      GetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase(
-          getParentsThroughDeductionUsecase);
+      get getAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase =>
+          GetAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase(
+              getParentsThroughDeductionUsecase);
 
   GetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase
-  get getAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase =>
-      GetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase(
-        getSiblingsThroughDeductionUsecase,
-        getChildrenThroughDeductionUsecase,
-        getAllStepFamilyFromDifferentGenerationsUsecase,
-      );
+      get getAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase =>
+          GetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase(
+            getSiblingsThroughDeductionUsecase,
+            getChildrenThroughDeductionUsecase,
+            getAllStepFamilyFromDifferentGenerationsUsecase,
+          );
 
   GetAllStepFamilyFromDifferentGenerationsUsecase
-  get getAllStepFamilyFromDifferentGenerationsUsecase =>
-      GetAllStepFamilyFromDifferentGenerationsUsecase(
-        findPersonsFamilialRelationshipToPlayerThroughParentUsecase,
-        getChildrenOfPersonNotBelongingToAnotherPersonUsecase,
-      );
+      get getAllStepFamilyFromDifferentGenerationsUsecase =>
+          GetAllStepFamilyFromDifferentGenerationsUsecase(
+            findPersonsFamilialRelationshipToPlayerThroughParentUsecase,
+            getChildrenOfPersonNotBelongingToAnotherPersonUsecase,
+          );
 
   GetChildrenOfPersonNotBelongingToAnotherPersonUsecase
-  get getChildrenOfPersonNotBelongingToAnotherPersonUsecase =>
-      GetChildrenOfPersonNotBelongingToAnotherPersonUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .parentChildLinkRepositoryImpl,
-        _ref.read(personUsecasesProvider),
-        getChildrenThroughDeductionUsecase,
-      );
+      get getChildrenOfPersonNotBelongingToAnotherPersonUsecase =>
+          GetChildrenOfPersonNotBelongingToAnotherPersonUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .parentChildLinkRepositoryImpl,
+            _ref.read(personUsecasesProvider),
+            getChildrenThroughDeductionUsecase,
+          );
 
   GetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase
-  get getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase =>
-      GetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-        _ref.read(personUsecasesProvider),
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .parentChildLinkRepositoryImpl,
-        findPersonsRelationshipWithFamilyMembersSpouseUsecase,
-        getAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase,
-        getAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase,
-        getAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase,
-      );
+      get getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase =>
+          GetPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            _ref.read(personUsecasesProvider),
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .parentChildLinkRepositoryImpl,
+            findPersonsRelationshipWithFamilyMembersSpouseUsecase,
+            getAllParentAdditionsToTheFamilyFromFamilyMembersSpouseUsecase,
+            getAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase,
+            getAllChildrenAdditionsToTheFamilyFromFamilyMembersSpouseUsecase,
+          );
 
   GetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase
-  get getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase =>
-      GetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase(
-        getParentsThroughDeductionUsecase,
-        getSiblingsThroughDeductionUsecase,
-        getChildrenOfPersonNotBelongingToAnotherPersonUsecase,
-      );
+      get getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase =>
+          GetPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase(
+            getParentsThroughDeductionUsecase,
+            getSiblingsThroughDeductionUsecase,
+            getChildrenOfPersonNotBelongingToAnotherPersonUsecase,
+          );
 
   ProcessRelationshipChangesFromNpcDivorceUsecase
-  get processRelationshipChangesFromNpcDivorceUsecase =>
-      ProcessRelationshipChangesFromNpcDivorceUsecase(
-        convertTemporaryFamilialRelationshipToPastFamilyUsecase,
-        getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase,
-        _ref.read(journalUsecasesProvider),
-      );
+      get processRelationshipChangesFromNpcDivorceUsecase =>
+          ProcessRelationshipChangesFromNpcDivorceUsecase(
+            convertTemporaryFamilialRelationshipToPastFamilyUsecase,
+            getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase,
+            _ref.read(journalUsecasesProvider),
+          );
 
   ProcessRelationshipChangesFromNpcMarriageUsecase
-  get processRelationshipChangesFromNpcMarriageUsecase =>
-      ProcessRelationshipChangesFromNpcMarriageUsecase(
-        createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase,
-        getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase,
-        _ref.read(journalUsecasesProvider),
-      );
+      get processRelationshipChangesFromNpcMarriageUsecase =>
+          ProcessRelationshipChangesFromNpcMarriageUsecase(
+            createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase,
+            getPlayersLivingExtendedStepFamilyAndInLawsFromUnionBetweenTwoNpcsUsecase,
+            _ref.read(journalUsecasesProvider),
+          );
 
   ProcessRelationshipChangesFromPlayerDivorceUsecase
-  get processRelationshipChangesFromPlayerDivorceUsecase =>
-      ProcessRelationshipChangesFromPlayerDivorceUsecase(
-        getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase,
-        convertTemporaryFamilialRelationshipToPastFamilyUsecase,
-        _ref.read(journalUsecasesProvider),
-      );
+      get processRelationshipChangesFromPlayerDivorceUsecase =>
+          ProcessRelationshipChangesFromPlayerDivorceUsecase(
+            getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase,
+            convertTemporaryFamilialRelationshipToPastFamilyUsecase,
+            _ref.read(journalUsecasesProvider),
+          );
 
   ProcessRelationshipChangesFromPlayerMarriageUsecase
-  get processRelationshipChangesFromPlayerMarriageUsecase =>
-      ProcessRelationshipChangesFromPlayerMarriageUsecase(
-        _ref.read(journalUsecasesProvider),
-        getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase,
-        createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase,
-      );
+      get processRelationshipChangesFromPlayerMarriageUsecase =>
+          ProcessRelationshipChangesFromPlayerMarriageUsecase(
+            _ref.read(journalUsecasesProvider),
+            getPlayersLivingStepFamilyAndInlawsUsingTheirSpouseUsecase,
+            createMultipleRelationshipsFromPersonPlatonicRelationshipTypePairUsecase,
+          );
 
   ConvertTemporaryFamilialRelationshipToPastFamilyUsecase
-  get convertTemporaryFamilialRelationshipToPastFamilyUsecase =>
-      ConvertTemporaryFamilialRelationshipToPastFamilyUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-      );
+      get convertTemporaryFamilialRelationshipToPastFamilyUsecase =>
+          ConvertTemporaryFamilialRelationshipToPastFamilyUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+          );
 
   SetupNewGenerationPlayerRelationshipsUsecase
-  get setupNewGenerationPlayerRelationshipsUsecase =>
-      SetupNewGenerationPlayerRelationshipsUsecase(
-        createPlatonicRelationshipOrGraveUsecase,
-        getParentsThroughDeductionUsecase,
-        getSiblingsThroughDeductionUsecase,
-        getChildrenThroughDeductionUsecase,
-        getGrandChildrenThroughDeductionUsecase,
-        getGreatGrandChildrenThroughDeductionUsecase,
-        getGrandParentsThroughDeductionUsecase,
-        getGreatGrandParentsThroughDeductionUsecase,
-        getPiblingsThroughDeductionUsecase,
-        getCousinsThroughDeductionUsecase,
-        getGrandCousinsThroughDeductionUsecase,
-        getGreatGrandCousinsThroughDeductionUsecase,
-        getNiblingsThroughDeductionUsecase,
-        getGrandNiblingsThroughDeductionUsecase,
-        getGreatGrandNiblingsThroughDeductionUsecase,
-        getParentInLawsThroughDeductionUsecase,
-        getChildrenInLawThroughDeductionUsecase,
-        getSiblingInLawsThroughDeductionUsecase,
-      );
+      get setupNewGenerationPlayerRelationshipsUsecase =>
+          SetupNewGenerationPlayerRelationshipsUsecase(
+            createPlatonicRelationshipOrGraveUsecase,
+            getParentsThroughDeductionUsecase,
+            getSiblingsThroughDeductionUsecase,
+            getChildrenThroughDeductionUsecase,
+            getGrandChildrenThroughDeductionUsecase,
+            getGreatGrandChildrenThroughDeductionUsecase,
+            getGrandParentsThroughDeductionUsecase,
+            getGreatGrandParentsThroughDeductionUsecase,
+            getPiblingsThroughDeductionUsecase,
+            getCousinsThroughDeductionUsecase,
+            getGrandCousinsThroughDeductionUsecase,
+            getGreatGrandCousinsThroughDeductionUsecase,
+            getNiblingsThroughDeductionUsecase,
+            getGrandNiblingsThroughDeductionUsecase,
+            getGreatGrandNiblingsThroughDeductionUsecase,
+            getParentInLawsThroughDeductionUsecase,
+            getChildrenInLawThroughDeductionUsecase,
+            getSiblingInLawsThroughDeductionUsecase,
+          );
 
   RearrangeChildrensTabRelationshipsUsecase
-  get rearrangeChildrensTabRelationshipsUsecase =>
-      RearrangeChildrensTabRelationshipsUsecase();
+      get rearrangeChildrensTabRelationshipsUsecase =>
+          RearrangeChildrensTabRelationshipsUsecase();
 
   RearrangeInLawsTabRelationshipsUsecase
-  get rearrangeInLawsTabRelationshipsUsecase =>
-      RearrangeInLawsTabRelationshipsUsecase();
+      get rearrangeInLawsTabRelationshipsUsecase =>
+          RearrangeInLawsTabRelationshipsUsecase();
 
   RearrangeParentsTabRelationshipsUsecase
-  get rearrangeParentsTabRelationshipsUsecase =>
-      RearrangeParentsTabRelationshipsUsecase();
+      get rearrangeParentsTabRelationshipsUsecase =>
+          RearrangeParentsTabRelationshipsUsecase();
 
   RearrangePartnersTabRelationshipsUsecase
-  get rearrangePartnersTabRelationshipsUsecase =>
-      RearrangePartnersTabRelationshipsUsecase();
+      get rearrangePartnersTabRelationshipsUsecase =>
+          RearrangePartnersTabRelationshipsUsecase();
 
   RearrangeRelativesTabRelationshipsUsecase
-  get rearrangeRelativesTabRelationshipsUsecase =>
-      RearrangeRelativesTabRelationshipsUsecase();
+      get rearrangeRelativesTabRelationshipsUsecase =>
+          RearrangeRelativesTabRelationshipsUsecase();
 
   RearrangeSiblingsTabRelationshipsUsecase
-  get rearrangeSiblingsTabRelationshipsUsecase =>
-      RearrangeSiblingsTabRelationshipsUsecase();
+      get rearrangeSiblingsTabRelationshipsUsecase =>
+          RearrangeSiblingsTabRelationshipsUsecase();
 
   GetTotalRomanticRelationshipDuration
-  get getTotalRomanticRelationshipDuration =>
-      const GetTotalRomanticRelationshipDuration();
+      get getTotalRomanticRelationshipDuration =>
+          const GetTotalRomanticRelationshipDuration();
 
   EndRomanticRelationshipAndReturnUpdatedObjectUsecase
-  get endRomanticRelationshipAndReturnUpdatedObjectUsecase =>
-      EndRomanticRelationshipAndReturnUpdatedObjectUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-      );
+      get endRomanticRelationshipAndReturnUpdatedObjectUsecase =>
+          EndRomanticRelationshipAndReturnUpdatedObjectUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+          );
 
   StartRomanticRelationshipAndReturnUpdatedObjectUsecase
-  get startRomanticRelationshipAndReturnUpdatedObjectUsecase =>
-      StartRomanticRelationshipAndReturnUpdatedObjectUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-        createRelationshipUsecase,
-      );
+      get startRomanticRelationshipAndReturnUpdatedObjectUsecase =>
+          StartRomanticRelationshipAndReturnUpdatedObjectUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            createRelationshipUsecase,
+          );
 
   EndAllActiveRomanticRelationshipsUsecase
-  get endAllActiveRomanticRelationshipsUsecase =>
-      EndAllActiveRomanticRelationshipsUsecase(
-        _ref
-            .read(relationshipRepositoriesProvider)
-            .relationshipRepositoryImpl,
-        endRomanticRelationshipAndReturnUpdatedObjectUsecase,
-      );
+      get endAllActiveRomanticRelationshipsUsecase =>
+          EndAllActiveRomanticRelationshipsUsecase(
+            _ref
+                .read(relationshipRepositoriesProvider)
+                .relationshipRepositoryImpl,
+            endRomanticRelationshipAndReturnUpdatedObjectUsecase,
+          );
 
   GenerateAcquaintancesUsecase get generateAcquaintancesUsecase =>
       GenerateAcquaintancesUsecase(

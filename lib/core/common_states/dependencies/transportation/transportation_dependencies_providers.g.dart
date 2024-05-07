@@ -7,7 +7,7 @@ part of 'transportation_dependencies_providers.dart';
 // **************************************************************************
 
 String _$transportationUsecasesHash() =>
-    r'2ed7dd4baf77112b2be1a41b3a2faa0dc7090b80';
+    r'd4a309ed1c565722600004f7a52469c24722e4d2';
 
 /// See also [transportationUsecases].
 @ProviderFor(transportationUsecases)

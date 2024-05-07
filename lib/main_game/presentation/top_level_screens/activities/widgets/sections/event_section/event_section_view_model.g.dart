@@ -7,7 +7,7 @@ part of 'event_section_view_model.dart';
 // **************************************************************************
 
 String _$eventSectionViewModelHash() =>
-    r'd30075023dea448927c5bff0d2ea58c6571934c4';
+    r'7967320b5e768f4e89eac2cd020f7ec74e43d740';
 
 /// See also [eventSectionViewModel].
 @ProviderFor(eventSectionViewModel)

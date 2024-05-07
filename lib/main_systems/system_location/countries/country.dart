@@ -5,7 +5,7 @@ import 'package:toplife/main_systems/system_person/constants/piercing/piercing_b
 import 'package:toplife/main_systems/system_school/constants/precollege_naming_suffix.dart';
 import 'package:toplife/main_systems/system_school/constants/precollege_study_hour_requirement.dart';
 
-abstract class Country {
+abstract interface class Country {
   String get name;
 
   List<String> get states;

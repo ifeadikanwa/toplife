@@ -1,7 +1,5 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/core/dialogs/dialog_handler.dart';
 import 'package:toplife/game_manager/domain/usecases/game_usecases.dart';
-import 'package:toplife/main_systems/system_journal/domain/usecases/journal_usecases.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_and_storage_usecases.dart';
@@ -32,9 +30,7 @@ class LandTravelUsecase {
   final CheckAndHandleLandTravelAccidentsUsecase
       _checkAndHandleLandTravelAccidentsUsecase;
   final GetDrivingModeUsecase _getDrivingModeUsecase;
-  final JournalUsecases _journalUsecases;
   final GameUsecases _gameUsecases;
-  final DialogHandler _dialogHandler;
 
   const LandTravelUsecase(
     this._personUsecases,
@@ -46,9 +42,7 @@ class LandTravelUsecase {
     this._getCarFuelConsumptionUsecase,
     this._checkAndHandleLandTravelAccidentsUsecase,
     this._getDrivingModeUsecase,
-    this._journalUsecases,
     this._gameUsecases,
-    this._dialogHandler,
   );
 
   //travels based on transportation and settlement
@@ -83,9 +77,10 @@ class LandTravelUsecase {
           DefaultRoadTravelTime.notPossibleTimeInMinutes) {
         //Failed travel: different countries
         travelResponse = const TravelResponse(
-          isSuccesful: false,
+          isSuccessful: false,
           problem: TravelProblemTexts.differentCountries,
           arrivalStatus: ArrivalStatus.none,
+          arrivalTimeInMinutes: 0,
         );
       }
 
@@ -143,37 +138,13 @@ class LandTravelUsecase {
       }
     }
 
-    // Get the travel resposnse from the public or private transport and
-    // -log in journal if failed -show result dialog if failed -then finally return to caller
-
     //if travel response has not been set at this point (=null), set it to a failed response
     travelResponse ??= const TravelResponse(
-      isSuccesful: false,
+      isSuccessful: false,
       problem: TravelProblemTexts.unknownReason,
       arrivalStatus: ArrivalStatus.none,
+      arrivalTimeInMinutes: 0,
     );
-
-    //if we have a failed travel respose
-    if ((!travelResponse.isSuccesful) && currentGame != null) {
-      //log in journal
-      //check if we have a valid player id first
-      final int? currentPlayerId = currentGame.currentPlayerID;
-      if (currentPlayerId != null) {
-        await _journalUsecases.addToJournalUsecase.execute(
-          gameID: currentGame.id,
-          day: currentGame.currentDay,
-          mainPlayerID: currentPlayerId,
-          entry:
-              "${TravelProblemTexts.iTriedToTravelByRoadBut}${travelResponse.problem.firstPersonSentence}",
-        );
-      }
-
-      //send result dialog
-      await _dialogHandler.showResultDialog(
-        title: TravelProblemTexts.title,
-        result: travelResponse.problem.secondPersonSentence,
-      );
-    }
 
     //return the travel response
     return travelResponse;
@@ -213,9 +184,10 @@ class LandTravelUsecase {
       //if there is an accident, dont travel
       if (accidentOccurred) {
         return const TravelResponse(
-          isSuccesful: false,
+          isSuccessful: false,
           problem: TravelProblemTexts.accident,
           arrivalStatus: ArrivalStatus.none,
+          arrivalTimeInMinutes: 0,
         );
       }
       //if there is no accident, travel
@@ -229,9 +201,10 @@ class LandTravelUsecase {
       }
     } else {
       return TravelResponse(
-        isSuccesful: false,
+        isSuccessful: false,
         problem: TravelProblemTexts.cantPayTransportFare(transportMode),
         arrivalStatus: ArrivalStatus.none,
+        arrivalTimeInMinutes: 0,
       );
     }
   }
@@ -265,9 +238,10 @@ class LandTravelUsecase {
     //car is dead
     if (!carIsNotDead) {
       return const TravelResponse(
-        isSuccesful: false,
+        isSuccessful: false,
         problem: TravelProblemTexts.deadCar,
         arrivalStatus: ArrivalStatus.none,
+        arrivalTimeInMinutes: 0,
       );
     }
 
@@ -278,9 +252,10 @@ class LandTravelUsecase {
 
     if (carHasProblems) {
       return const TravelResponse(
-        isSuccesful: false,
+        isSuccessful: false,
         problem: TravelProblemTexts.carProblem,
         arrivalStatus: ArrivalStatus.none,
+        arrivalTimeInMinutes: 0,
       );
     }
 
@@ -292,9 +267,10 @@ class LandTravelUsecase {
     );
     if (currentTransportation.fuelTank < fuelConsumption) {
       return const TravelResponse(
-        isSuccesful: false,
+        isSuccessful: false,
         problem: TravelProblemTexts.noFuel,
         arrivalStatus: ArrivalStatus.none,
+        arrivalTimeInMinutes: 0,
       );
     }
 
@@ -315,9 +291,10 @@ class LandTravelUsecase {
     //if there is an accident, dont travel
     if (accidentOccurred) {
       return const TravelResponse(
-        isSuccesful: false,
+        isSuccessful: false,
         problem: TravelProblemTexts.accident,
         arrivalStatus: ArrivalStatus.none,
+        arrivalTimeInMinutes: 0,
       );
     }
     //if there is no accident, drive car then travel
@@ -382,16 +359,18 @@ class LandTravelUsecase {
         ? travelTime
         : (travelTime * 2) + extraTimeAfterTravelArrival;
 
-    await _gameUsecases.moveTimeForwardUsecase.execute(
-      gameID: currentGame.id,
+    //create pending time update (it will be processed in action runner)
+    await _gameUsecases.createOrUpdatePendingTimeUpdateUsecase.execute(
+      gameId: currentGame.id,
       timeInMinutes: fullTravelTime,
     );
 
     //return travel response
     return TravelResponse(
-      isSuccesful: true,
+      isSuccessful: true,
       problem: TravelProblemTexts.noProblem,
       arrivalStatus: arrivalStatus,
+      arrivalTimeInMinutes: arrivalTimeInMinutes,
     );
   }
 }

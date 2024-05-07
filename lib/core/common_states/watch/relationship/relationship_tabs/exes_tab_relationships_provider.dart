@@ -6,7 +6,7 @@ import 'package:toplife/core/common_states/watch/player_and_game/current_player_
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/sectioned_list/sectioned_list.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
 import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 
 part 'exes_tab_relationships_provider.g.dart';
@@ -46,9 +46,12 @@ Stream<NoSection<PersonRelationshipPair>> exesTabRelationships(
         //watch the ex
 
         final personStream =
-            ref.watch(personUsecasesProvider).watchPersonUsecase.execute(
-                  personID: exID,
-                );
+        ref
+            .watch(personUsecasesProvider)
+            .watchPersonUsecase
+            .execute(
+          personID: exID,
+        );
 
         //I do this instead of creating a separate stream provider because there was some disposal issues when I tried that
         await for (var person in personStream) {

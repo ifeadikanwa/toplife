@@ -1,5 +1,6 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_special_cases/get_all_step_family_from_different_generations_usecase.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart';
@@ -37,7 +38,7 @@ class GetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase
       final List<Person> allSiblings =
           (await _getSiblingsThroughDeductionUsecase.execute(
         personID: spouseID,
-        onlyLivingPeople: false,
+        includeOnly: VitalStatus.livingAndDead,
       ))
               .map((e) => e.person)
               .toList();
@@ -46,7 +47,7 @@ class GetAllSiblingAdditionsAlongWithTheirChildrenFromFamilyMembersSpouseUsecase
       final List<Person> allPlayerChildren =
           (await _getChildrenThroughDeductionUsecase.execute(
         personID: playerPersonID,
-        onlyLivingPeople: false,
+        includeOnly: VitalStatus.livingAndDead,
       ))
               .map((e) => e.person)
               .toList();

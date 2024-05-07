@@ -4,7 +4,7 @@ import 'package:toplife/core/dialogs/dialog_handler.dart';
 
 part 'dialog_handler_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 DialogHandler dialogHandler(DialogHandlerRef ref) {
   return DialogHandler(navigatorKey: ref.watch(navigatorKeyProvider));
 }

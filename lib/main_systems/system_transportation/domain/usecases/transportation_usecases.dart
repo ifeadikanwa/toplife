@@ -59,9 +59,7 @@ class TransportationUsecases {
         getCarFuelConsumptionUsecase,
         checkAndHandleLandTravelAccidentsUsecase,
         getDrivingModeUsecase,
-        _ref.read(journalUsecasesProvider),
         _ref.read(gameUsecasesProvider),
-        _ref.read(dialogHandlerProvider),
       );
 
   GetCarFuelConsumptionUsecase get getCarFuelConsumptionUsecase =>

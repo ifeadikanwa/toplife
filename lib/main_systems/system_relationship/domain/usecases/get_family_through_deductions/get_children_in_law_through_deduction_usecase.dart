@@ -1,11 +1,12 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/repository/relationship_repository.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_children_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 
 class GetChildrenInLawThroughDeductionUsecase {
   final GetChildrenThroughDeductionUsecase _getChildrenThroughDeductionUsecase;
@@ -20,7 +21,7 @@ class GetChildrenInLawThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
-    required bool onlyLivingPeople,
+    required VitalStatus includeOnly,
   }) async {
     //Children in laws are spouses of person's children
     List<PersonPlatonicRelationshipTypePair> childrenInLaw = [];
@@ -29,9 +30,7 @@ class GetChildrenInLawThroughDeductionUsecase {
     //including dead children
     final List<PersonPlatonicRelationshipTypePair> personsChildren =
         await _getChildrenThroughDeductionUsecase.execute(
-      personID: personID,
-      onlyLivingPeople: false,
-    );
+            personID: personID, includeOnly: VitalStatus.livingAndDead);
 
     //for each child, get their spouse
     for (var child in personsChildren) {
@@ -75,8 +74,20 @@ class GetChildrenInLawThroughDeductionUsecase {
     }
 
     //return based on request
-    return (onlyLivingPeople)
-        ? childrenInLaw.where((pair) => pair.person.dead == false).toList()
-        : childrenInLaw;
+    switch (includeOnly) {
+      // return all
+      case VitalStatus.livingAndDead:
+        return childrenInLaw;
+
+      // return only living
+      case VitalStatus.living:
+        return childrenInLaw
+            .where((pair) => pair.person.dead == false)
+            .toList();
+
+      // return only dead
+      case VitalStatus.dead:
+        return childrenInLaw.where((pair) => pair.person.dead == true).toList();
+    }
   }
 }

@@ -1,4 +1,4 @@
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_relationship/util/label/get_name_and_platonic_relationship_label.dart';
 
 String getListOfNamesAndPlatonicRelationshipLabels(

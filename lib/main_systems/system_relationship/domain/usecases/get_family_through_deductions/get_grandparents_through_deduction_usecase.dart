@@ -1,7 +1,8 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
 import 'package:toplife/main_systems/system_relationship/domain/usecases/get_family_through_deductions/get_parents_through_deduction_usecase.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 
 class GetGrandParentsThroughDeductionUsecase {
   final GetParentsThroughDeductionUsecase _getParentsThroughDeductionUsecase;
@@ -12,7 +13,7 @@ class GetGrandParentsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
-    required bool onlyLivingPeople,
+    required VitalStatus includeOnly,
   }) async {
     //GrandParents are the parents of a person's parents
     final List<PersonPlatonicRelationshipTypePair> grandParents = [];
@@ -36,7 +37,7 @@ class GetGrandParentsThroughDeductionUsecase {
     final List<PersonPlatonicRelationshipTypePair> allPersonsParents =
         await _getParentsThroughDeductionUsecase.execute(
       personID: personID,
-      onlyLivingPeople: false,
+      includeOnly: VitalStatus.livingAndDead,
     );
 
     //get parents of each person's parent
@@ -45,7 +46,7 @@ class GetGrandParentsThroughDeductionUsecase {
       final List<PersonPlatonicRelationshipTypePair> parentsOfPersonsParent =
           await _getParentsThroughDeductionUsecase.execute(
         personID: personsParent.person.id,
-        onlyLivingPeople: false,
+        includeOnly: VitalStatus.livingAndDead,
       );
 
       //add each to grandParents
@@ -80,8 +81,18 @@ class GetGrandParentsThroughDeductionUsecase {
     }
 
     //return based on request
-    return (onlyLivingPeople)
-        ? grandParents.where((pair) => pair.person.dead == false).toList()
-        : grandParents;
+    switch (includeOnly) {
+      // return all
+      case VitalStatus.livingAndDead:
+        return grandParents;
+
+      // return only living
+      case VitalStatus.living:
+        return grandParents.where((pair) => pair.person.dead == false).toList();
+
+      // return only dead
+      case VitalStatus.dead:
+        return grandParents.where((pair) => pair.person.dead == true).toList();
+    }
   }
 }

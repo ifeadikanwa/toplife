@@ -1,6 +1,7 @@
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
+import 'package:toplife/main_systems/system_person/constants/vital_status.dart';
 import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
 import 'package:toplife/main_systems/system_person/domain/usecases/person_usecases.dart';
 import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
@@ -20,7 +21,7 @@ class GetSiblingsThroughDeductionUsecase {
 
   Future<List<PersonPlatonicRelationshipTypePair>> execute({
     required int personID,
-    required bool onlyLivingPeople,
+    required VitalStatus includeOnly,
   }) async {
     final List<PersonPlatonicRelationshipTypePair> siblings = [];
 
@@ -287,7 +288,7 @@ class GetSiblingsThroughDeductionUsecase {
               secondId: spouseRelationship.secondPersonId,
             ),
             knownId: parentLink.parentId,
-          );  
+          );
 
           //if the spouse is not a parent(birth/adoptive)
           if (allPersonsParentLinks.every(
@@ -312,8 +313,18 @@ class GetSiblingsThroughDeductionUsecase {
     }
 
     //return based on request
-    return (onlyLivingPeople)
-        ? siblings.where((pair) => pair.person.dead == false).toList()
-        : siblings;
+    switch (includeOnly) {
+      // return all
+      case VitalStatus.livingAndDead:
+        return siblings;
+
+      // return only living
+      case VitalStatus.living:
+        return siblings.where((pair) => pair.person.dead == false).toList();
+
+      // return only dead
+      case VitalStatus.dead:
+        return siblings.where((pair) => pair.person.dead == true).toList();
+    }
   }
 }

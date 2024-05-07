@@ -25,13 +25,7 @@ class EventSection extends ConsumerWidget {
                 ]
               : [
                   ...eventItems.map(
-                    (eventItem) => EventListItem(
-                      eventMainPerson: eventItem.eventPersonPair.person,
-                      event: eventItem.eventPersonPair.event,
-                      eventIsOpen: eventItem.eventIsOpen,
-                      eventCanStillBeAttended:
-                          eventItem.eventCanStillBeAttended,
-                    ),
+                    (eventItem) => EventListItem(eventItem: eventItem),
                   ),
                 ],
         );

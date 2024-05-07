@@ -1,75 +1,62 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
-import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/game_manager/domain/usecases/get_last_played_active_game_usecase.dart';
-import 'package:toplife/main_systems/system_event/event_manager/event_manager.dart';
+import 'package:toplife/main_systems/system_event/domain/model/info_models/event_item.dart';
+import 'package:toplife/main_systems/system_event/util/get_attendable_event_location.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_time.dart';
 import 'package:toplife/main_systems/system_event/util/get_attendable_event_title.dart';
 
-//provider
-final eventListItemViewModelProvider = Provider.autoDispose((ref) {
-  //create viewmodel instance
-  final eventListItemViewModel = EventListItemViewModel(
-    ref.watch(gameUsecasesProvider).getLastPlayedActiveGameUsecase,
-    ref.watch(eventManagerProvider),
-  );
+part 'event_list_item_view_model.g.dart';
 
-  //return instance
-  return eventListItemViewModel;
-});
+@CopyWith()
+class EventListItemViewModelData extends Equatable {
+  final String eventTitle;
+  final String eventLocation;
+  final String eventTime;
+  final bool listItemIsDisabled;
+  final bool attendButtonIsEnabled;
 
-//view model
-class EventListItemViewModel {
-  final GetLastPlayedActiveGameUsecase _getLastPlayedActiveGameUsecase;
-  final EventManager _eventManager;
+  const EventListItemViewModelData({
+    required this.eventTitle,
+    required this.eventLocation,
+    required this.eventTime,
+    required this.listItemIsDisabled,
+    required this.attendButtonIsEnabled,
+  });
 
-  const EventListItemViewModel(
-    this._getLastPlayedActiveGameUsecase,
-    this._eventManager,
-  );
+  @override
+  List<Object?> get props => [
+        eventTitle,
+        eventLocation,
+        eventTime,
+        listItemIsDisabled,
+        attendButtonIsEnabled,
+      ];
+}
 
-  void attendEvent(
-    Event event,
-  ) async {
-    final Game? currentGame = await _getLastPlayedActiveGameUsecase.execute();
+@riverpod
+class EventListItemViewModel extends _$EventListItemViewModel {
+  @override
+  Future<EventListItemViewModelData> build({
+    required EventItem eventItem,
+  }) async {
+    final Person eventMainPerson = eventItem.eventPersonPair.person;
+    final Event event = eventItem.eventPersonPair.event;
 
-    if (currentGame != null) {
-      //if we have a valid current player
-      final int? currentPlayerId = currentGame.currentPlayerID;
-
-      if (currentPlayerId != null) {
-        _eventManager.runEvent.execute(
-          mainPlayerID: currentPlayerId,
-          event: event,
-        );
-      }
-    }
-  }
-
-  String getEventTitle({
-    required Person eventMainPerson,
-    required Event event,
-  }) =>
-      getAttendableEventTitle(
+    return EventListItemViewModelData(
+      eventTitle: getAttendableEventTitle(
         eventMainPerson: eventMainPerson,
         event: event,
-      );
-
-  String getEventTime({
-    required Event event,
-  }) =>
-      getAttendableEventTime(event: event);
-
-  String getEventLocation({
-    required Person eventMainPerson,
-  }) {
-    return "Location: ${eventMainPerson.currentState}, ${eventMainPerson.currentCountry}";
+      ),
+      eventLocation: getAttendableEventLocation(
+        state: eventMainPerson.currentState,
+        country: eventMainPerson.currentCountry,
+      ),
+      eventTime: getAttendableEventTime(event: event),
+      listItemIsDisabled: !(eventItem.eventCanStillBeAttended),
+      attendButtonIsEnabled:
+          (eventItem.eventIsOpen && eventItem.eventCanStillBeAttended),
+    );
   }
-
-  bool checkIfEventButtonIsUnavailable({
-    required bool eventIsOpen,
-    required bool eventCanStillBeAttended,
-  }) =>
-      (!eventIsOpen || !eventCanStillBeAttended);
 }

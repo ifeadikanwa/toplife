@@ -3,10 +3,12 @@ import 'package:toplife/core/utils/words/sentence_util.dart';
 import 'package:toplife/main_systems/system_age/age.dart';
 import 'package:toplife/main_systems/system_event/constants/event_type.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/event_text.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/funeral_descriptions.dart';
+import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attendable_events/util/funeral_descriptions.dart';
 import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
 
 class GetAttendableEventText {
+  GetAttendableEventText();
+
   static EventText execute({
     required EventType eventType,
     required Person eventMainPerson,

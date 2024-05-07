@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/wrapped.dart';
-import 'package:toplife/main_systems/system_event/constants/event_stay_duration.dart';
 import 'package:toplife/main_systems/system_event/constants/party_event_activity.dart';
 import 'package:toplife/main_systems/system_event/domain/model/info_models/attend_event_detail.dart';
 import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/storeroom_item_pair.dart';
@@ -14,7 +13,7 @@ void main() {
         const originalDetail = AttendEventDetail(
           moneyGift: 5.4,
           itemGift: null,
-          partyStayDuration: EventStayDuration.thirtyMinutes,
+          exitTimeInMinutes: 309,
           partyEventActivity: PartyEventActivity.danceDanceDance,
           attendWithPartner: true,
         );
@@ -36,7 +35,7 @@ void main() {
               countsLeft: 4,
             ),
           ),
-          partyStayDuration: EventStayDuration.tillTheEnd,
+          exitTimeInMinutes: 309,
           partyEventActivity: PartyEventActivity.eatAndLeave,
           attendWithPartner: true,
         );
@@ -45,7 +44,7 @@ void main() {
           originalDetail.copyWith(
             moneyGift: finalDetail.moneyGift,
             itemGift: Wrapped.value(finalDetail.itemGift),
-            partyStayDuration: finalDetail.partyStayDuration,
+            exitTimeInMinutes: finalDetail.exitTimeInMinutes,
             partyEventActivity: finalDetail.partyEventActivity,
           ),
           finalDetail,
@@ -73,7 +72,7 @@ void main() {
               countsLeft: 4,
             ),
           ),
-          partyStayDuration: EventStayDuration.thirtyMinutes,
+          exitTimeInMinutes: 456,
           partyEventActivity: PartyEventActivity.danceDanceDance,
           attendWithPartner: true,
         );
@@ -81,7 +80,7 @@ void main() {
         const finalDetail = AttendEventDetail(
           moneyGift: 5.4,
           itemGift: null,
-          partyStayDuration: EventStayDuration.oneHour,
+          exitTimeInMinutes: 222,
           partyEventActivity: PartyEventActivity.socialize,
           attendWithPartner: false,
         );
@@ -90,7 +89,7 @@ void main() {
           originalDetail.copyWith(
             moneyGift: finalDetail.moneyGift,
             itemGift: Wrapped.value(finalDetail.itemGift),
-            partyStayDuration: finalDetail.partyStayDuration,
+            exitTimeInMinutes: finalDetail.exitTimeInMinutes,
             partyEventActivity: finalDetail.partyEventActivity,
             attendWithPartner: finalDetail.attendWithPartner,
           ),
@@ -119,7 +118,7 @@ void main() {
               countsLeft: 4,
             ),
           ),
-          partyStayDuration: EventStayDuration.thirtyMinutes,
+          exitTimeInMinutes: 678,
           partyEventActivity: PartyEventActivity.standInCorner,
           attendWithPartner: true,
         );
@@ -141,7 +140,7 @@ void main() {
               countsLeft: 4,
             ),
           ),
-          partyStayDuration: EventStayDuration.thirtyMinutes,
+          exitTimeInMinutes: 678,
           partyEventActivity: PartyEventActivity.danceDanceDance,
           attendWithPartner: true,
         );
@@ -161,7 +160,7 @@ void main() {
         const originalDetail = AttendEventDetail(
           moneyGift: 5.4,
           itemGift: null,
-          partyStayDuration: EventStayDuration.thirtyMinutes,
+          exitTimeInMinutes: 234,
           partyEventActivity: PartyEventActivity.danceDanceDance,
           attendWithPartner: true,
         );
@@ -169,7 +168,7 @@ void main() {
         const finalDetail = AttendEventDetail(
           moneyGift: 19.7,
           itemGift: null,
-          partyStayDuration: EventStayDuration.thirtyMinutes,
+          exitTimeInMinutes: 234,
           partyEventActivity: PartyEventActivity.danceDanceDance,
           attendWithPartner: true,
         );
