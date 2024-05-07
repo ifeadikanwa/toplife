@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_age/age_constants.dart';
-import 'package:toplife/main_systems/system_age/life_stage.dart';
-import 'package:toplife/main_systems/system_age/usecases/check_if_person_is_at_least_this_age_usecase.dart';
-import 'package:toplife/main_systems/system_age/usecases/get_persons_days_lived_usecase.dart';
+import 'package:toplife/game_systems/main_systems/system_age/age_constants.dart';
+import 'package:toplife/game_systems/main_systems/system_age/life_stage.dart';
+import 'package:toplife/game_systems/main_systems/system_age/usecases/check_if_person_is_at_least_this_age_usecase.dart';
+import 'package:toplife/game_systems/main_systems/system_age/usecases/get_persons_days_lived_usecase.dart';
 
 void main() {
   group("CheckIfPersonIsAtLeastThisAgeUsecase: ", () {

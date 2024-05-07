@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/game_manager/action_runner/utils/get_list_of_low_stats.dart';
-import 'package:toplife/main_systems/system_person/constants/person_stats.dart';
+import 'package:toplife/game_systems/game_manager/action_runner/utils/get_list_of_low_stats.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/person_stats.dart';
 
 void main() {
   group("getListOfLowStats: ", () {

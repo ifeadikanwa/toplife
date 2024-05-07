@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/relationship/relationship_dependencies_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_db_formatted_platonic_relationship_type_string.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/romantic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/util/get_db_formatted_platonic_relationship_type_string.dart';
 
 class RelationshipTestUtil {
   final WidgetRef ref;

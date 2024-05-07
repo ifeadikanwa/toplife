@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:toplife/core/utils/words/pronouns.dart';
-import 'package:toplife/main_systems/system_journal/constants/journal_characters.dart';
+import 'package:toplife/game_systems/main_systems/system_journal/constants/journal_characters.dart';
 
 class SentenceUtil {
   static const vowels = [

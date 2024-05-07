@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_relationship_with_family_members_spouse_usecase.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/usecases/find_relationship/find_persons_relationship_with_family_members_spouse_usecase.dart';
 
 void main() {
   group('Find persons relationship with family members spouse usecase:', () {

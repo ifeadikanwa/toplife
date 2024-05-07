@@ -12,10 +12,10 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.d
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/utils/date_and_time/get_clock_time.dart';
 import 'package:toplife/core/utils/words/sentence_util.dart';
-import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
-import 'package:toplife/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/get_in_x_days_string.dart';
-import 'package:toplife/main_systems/system_location/countries/country.dart';
+import 'package:toplife/game_systems/main_systems/system_event/constants/funeral_type.dart';
+import 'package:toplife/game_systems/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
+import 'package:toplife/game_systems/main_systems/system_event/event_manager/scheduled_events/util/get_in_x_days_string.dart';
+import 'package:toplife/game_systems/main_systems/system_location/countries/country.dart';
 
 class PlayerPlannedFuneralDialogWidget extends ConsumerWidget {
   final String firstPersonEventDescription;

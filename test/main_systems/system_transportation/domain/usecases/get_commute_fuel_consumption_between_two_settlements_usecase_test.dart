@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_transportation/constants/default_road_commute_fuel_consumption.dart';
-import 'package:toplife/main_systems/system_transportation/domain/usecases/get_commute_fuel_consumption_between_two_settlements_usecase.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/settlement.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/constants/default_road_commute_fuel_consumption.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/domain/usecases/get_commute_fuel_consumption_between_two_settlements_usecase.dart';
 
 void main() {
   group('Get commute fuel consumption between two settlements usecase:', () {

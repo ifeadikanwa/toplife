@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_job/util/get_full_job_title.dart';
+import 'package:toplife/game_systems/main_systems/system_job/util/get_full_job_title.dart';
 
 void main() {
   late Job job;

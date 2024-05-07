@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
-import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/util/label/get_list_of_names_and_platonic_relationship_labels.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/model/info_models/person_platonic_relationship_type_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/util/label/get_list_of_names_and_platonic_relationship_labels.dart';
 
 void main() {
   group('Get list of names and platonic relationship labels:', () {

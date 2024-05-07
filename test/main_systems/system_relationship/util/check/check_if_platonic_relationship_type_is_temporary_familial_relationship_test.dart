@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/util/check/check_if_platonic_relationship_type_is_temporary_familial_relationship.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/util/check/check_if_platonic_relationship_type_is_temporary_familial_relationship.dart';
 
 void main() {
   group(

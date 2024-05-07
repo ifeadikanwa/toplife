@@ -1,13 +1,13 @@
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/constants/relationship_category.dart';
-import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/relationship_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_db_formatted_platonic_relationship_type_string.dart';
+import 'package:toplife/game_systems/game_manager/data/dao/game_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/person_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/relationship_category.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/romantic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/data/dao/relationship_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/util/get_db_formatted_platonic_relationship_type_string.dart';
 
 import '../../../_reusable_test_objects/reusable_test_objects.dart';
 

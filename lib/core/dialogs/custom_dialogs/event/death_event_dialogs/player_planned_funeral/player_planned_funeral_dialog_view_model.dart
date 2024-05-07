@@ -2,8 +2,8 @@ import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:equatable/equatable.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/common_states/get/player_and_game/formatted_money_provider.dart';
-import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
-import 'package:toplife/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
+import 'package:toplife/game_systems/main_systems/system_event/constants/funeral_type.dart';
+import 'package:toplife/game_systems/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
 
 part 'player_planned_funeral_dialog_view_model.g.dart';
 

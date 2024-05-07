@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/util/gender_equivalent/get_romantic_relationship_type_gender_equivalent.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/gender.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/romantic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/util/gender_equivalent/get_romantic_relationship_type_gender_equivalent.dart';
 
 void main() {
   group('get romantic relationship type gender equivalent:', () {

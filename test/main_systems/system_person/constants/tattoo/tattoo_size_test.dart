@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
-import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_constants.dart';
-import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_size.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/tattoo/tattoo_constants.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/tattoo/tattoo_size.dart';
 
 void main() {
   group("Tattoo size:", () {

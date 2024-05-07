@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_school/constants/college_status.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/college_status.dart';
 
 void main() {
   group('College Status', () {

@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
-import 'package:toplife/main_systems/system_event/util/get_attendable_event_time.dart';
+import 'package:toplife/game_systems/main_systems/system_event/util/get_attendable_event_time.dart';
 
 void main() {
   group("getAttendableEventTime: ", () {

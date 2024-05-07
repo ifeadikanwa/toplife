@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
-import 'package:toplife/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/info_models/person_id_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_person/util/get_unknown_id_from_person_id_pair.dart';
 
 void main() {
   group("Get the unknown id from person id pair:", () {

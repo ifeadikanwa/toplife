@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_event/constants/funeral_type.dart';
+import 'package:toplife/game_systems/main_systems/system_event/constants/funeral_type.dart';
 
 void main() {
   group("Funeral type:", () {

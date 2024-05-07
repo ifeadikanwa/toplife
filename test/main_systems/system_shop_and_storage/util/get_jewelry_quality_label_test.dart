@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/jewelry_quality.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/util/get_jewelry_quality_label.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/jewelry_quality.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/util/get_jewelry_quality_label.dart';
 
 void main() {
   group("Get jewelry quality label: ", () {

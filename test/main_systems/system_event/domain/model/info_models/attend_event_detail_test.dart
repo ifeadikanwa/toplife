@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/wrapped.dart';
-import 'package:toplife/main_systems/system_event/constants/party_event_activity.dart';
-import 'package:toplife/main_systems/system_event/domain/model/info_models/attend_event_detail.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/storeroom_item_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_event/constants/party_event_activity.dart';
+import 'package:toplife/game_systems/main_systems/system_event/domain/model/info_models/attend_event_detail.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/info_models/storeroom_item_pair.dart';
 
 void main() {
   group("Attend Event Detail:", () {

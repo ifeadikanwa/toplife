@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_school/constants/school_type.dart';
-import 'package:toplife/main_systems/system_school/util/get_school_type_enum_from_string.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/school_type.dart';
+import 'package:toplife/game_systems/main_systems/system_school/util/get_school_type_enum_from_string.dart';
 
 void main() {
   group("getSchoolTypeEnumFromString: ", () {

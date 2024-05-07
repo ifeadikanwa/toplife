@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/utils/words/comment_checker.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/birthday/birthday_comments.dart';
+import 'package:toplife/game_systems/main_systems/system_event/event_manager/scheduled_events/events/birthday/birthday_comments.dart';
 
 void main() {
   group("Birthday comments:", () {

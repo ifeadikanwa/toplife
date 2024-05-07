@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_event/constants/party_event_activity.dart';
+import 'package:toplife/game_systems/main_systems/system_event/constants/party_event_activity.dart';
 
 void main() {
   group("Party event activity:", () {

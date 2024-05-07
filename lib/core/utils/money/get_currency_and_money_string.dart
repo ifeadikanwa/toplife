@@ -1,6 +1,6 @@
 import 'package:toplife/core/utils/money/format_money_to_string.dart';
 import 'package:toplife/core/utils/money/get_currency_label_from_country_string.dart';
-import 'package:toplife/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
+import 'package:toplife/game_systems/main_systems/system_location/util/get_country_economy_adjusted_price.dart';
 
 String getCurrencyAndMoneyString({
   required String country,

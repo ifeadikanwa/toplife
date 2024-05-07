@@ -7,7 +7,7 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/usecases/shop_result_constants/shop_result_constants.dart';
 
 class BreakOldRentLeaseWidget extends ConsumerWidget {
   final House house;

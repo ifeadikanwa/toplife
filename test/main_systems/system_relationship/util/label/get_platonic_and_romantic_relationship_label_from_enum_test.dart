@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/constants/romantic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_enum.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/gender.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/romantic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/util/label/get_platonic_and_romantic_relationship_label_from_enum.dart';
 
 void main() {
   group('get platonic and romantic relationship label:', () {

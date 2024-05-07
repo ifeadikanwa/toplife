@@ -16,9 +16,6 @@ class AppRouter extends $AppRouter {
           initial: true,
         ),
 
-        //* Game Manager
-        AutoRoute(page: GameManagerRoute.page),
-
         //* Main Game
         AutoRoute(
           page: MainGameRoute.page,

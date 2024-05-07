@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_job/constants/full_time_job_info.dart';
+import 'package:toplife/game_systems/main_systems/system_job/constants/full_time_job_info.dart';
 
 void main() {
   group("FullTimeJobInfo:", () {

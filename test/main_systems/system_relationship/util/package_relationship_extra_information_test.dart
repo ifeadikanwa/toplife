@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/words/string_pair.dart';
-import 'package:toplife/main_systems/system_relationship/util/package_relationship_extra_information.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/util/package_relationship_extra_information.dart';
 
 void main() {
   group('Package relationship extra information:', () {

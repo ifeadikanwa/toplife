@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_age/life_stage.dart';
+import 'package:toplife/game_systems/main_systems/system_age/life_stage.dart';
 
 class PersonTestUtil {
   final WidgetRef ref;

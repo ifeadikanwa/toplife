@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_location/countries/north_america/canada.dart';
-import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_body_location.dart';
-import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_quality.dart';
-import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_shop.dart';
-import 'package:toplife/main_systems/system_person/constants/tattoo/tattoo_size.dart';
-import 'package:toplife/main_systems/system_person/util/tattoo_utils/tattoo_utils.dart';
+import 'package:toplife/game_systems/main_systems/system_location/countries/north_america/canada.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/tattoo/tattoo_body_location.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/tattoo/tattoo_quality.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/tattoo/tattoo_shop.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/tattoo/tattoo_size.dart';
+import 'package:toplife/game_systems/main_systems/system_person/util/tattoo_utils/tattoo_utils.dart';
 
 void main() {
   group("Tattoo Utils:", () {

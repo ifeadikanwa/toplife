@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_age/life_stage.dart';
-import 'package:toplife/main_systems/system_location/countries/north_america/canada.dart';
-import 'package:toplife/main_systems/system_person/constants/appearance/female_hairstyle.dart';
-import 'package:toplife/main_systems/system_person/constants/appearance/hair_color.dart';
-import 'package:toplife/main_systems/system_person/constants/appearance/height_constants.dart';
-import 'package:toplife/main_systems/system_person/constants/appearance/male_hairstyle.dart';
-import 'package:toplife/main_systems/system_person/constants/appearance/skin_color.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_person/util/appearance_utils.dart';
+import 'package:toplife/game_systems/main_systems/system_age/life_stage.dart';
+import 'package:toplife/game_systems/main_systems/system_location/countries/north_america/canada.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/appearance/female_hairstyle.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/appearance/hair_color.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/appearance/height_constants.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/appearance/male_hairstyle.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/appearance/skin_color.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/gender.dart';
+import 'package:toplife/game_systems/main_systems/system_person/util/appearance_utils.dart';
 
 void main() {
   group("Appearance Utils:", () {

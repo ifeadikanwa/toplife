@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/date_and_time/duration_time_in_minutes.dart';
-import 'package:toplife/main_systems/system_person/constants/stats_constants.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/stats_constants.dart';
 
 void main() {
   group("Stats constants:", () {

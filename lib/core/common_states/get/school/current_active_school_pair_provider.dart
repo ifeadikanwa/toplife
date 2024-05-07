@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:toplife/main_systems/system_school/domain/model/info_models/school_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_school/domain/model/info_models/school_pair.dart';
 
 part 'current_active_school_pair_provider.g.dart';
 

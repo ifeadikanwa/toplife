@@ -3,7 +3,7 @@ import 'package:toplife/core/common_states/dependencies/game/game_dependencies_p
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.dart';
+import 'package:toplife/game_systems/game_manager/domain/model/info_models/player_bar_info.dart';
 
 part 'current_player_bar_info_provider.g.dart';
 

@@ -12,12 +12,12 @@ import 'package:toplife/core/dialogs/custom_dialogs/shop/break_old_rent_lease_di
 import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
 import 'package:toplife/core/dialogs/show_dialog/show_persistent_dialog.dart';
 import 'package:toplife/core/utils/stats/stats_item.dart';
-import 'package:toplife/main_systems/system_event/domain/model/info_models/event_choice.dart';
-import 'package:toplife/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
-import 'package:toplife/main_systems/system_location/countries/country.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/domain/interactions/constants/torment_option.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/info_models/fridge_food_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_event/domain/model/info_models/event_choice.dart';
+import 'package:toplife/game_systems/main_systems/system_event/domain/model/info_models/funeral_event_detail.dart';
+import 'package:toplife/game_systems/main_systems/system_location/countries/country.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/interactions/constants/torment_option.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/info_models/fridge_food_pair.dart';
 
 class DialogHandler {
   final GlobalKey<NavigatorState> navigatorKey;

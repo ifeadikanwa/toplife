@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.dart';
+import 'package:toplife/game_systems/game_manager/domain/model/info_models/player_bar_info.dart';
 
 void main() {
   group("Player bar info:", () {

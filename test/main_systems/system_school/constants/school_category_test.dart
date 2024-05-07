@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_school/constants/school_category.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/school_category.dart';
 
 void main() {
   group("School Category:", () {

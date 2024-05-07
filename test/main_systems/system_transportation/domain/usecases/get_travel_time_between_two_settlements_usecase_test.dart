@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_transportation/constants/default_road_travel_time.dart';
-import 'package:toplife/main_systems/system_transportation/domain/usecases/get_travel_time_between_two_settlements_usecase.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/settlement.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/constants/default_road_travel_time.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/domain/usecases/get_travel_time_between_two_settlements_usecase.dart';
 
 void main() {
  group('Get travel time between two settlements usecase:', () {
