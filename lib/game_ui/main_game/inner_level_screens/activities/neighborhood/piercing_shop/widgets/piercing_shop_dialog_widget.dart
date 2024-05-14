@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/dialog_label_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/game_ui/main_game/inner_level_screens/activities/neighborhood/piercing_shop/constants/piercing_shop_text_constants.dart';
@@ -67,7 +68,7 @@ class PiercingShopDialogWidget extends ConsumerWidget {
 
                   //
                   //
-                  const DialogDropdownLabelText(
+                  const DialogLabelText(
                     text: PiercingShopTextConstants.choosPiercingLocation,
                   ),
                   //
@@ -100,7 +101,7 @@ class PiercingShopDialogWidget extends ConsumerWidget {
                       ),
                       //
                       //button
-                      ElevatedButton(
+                      DefaultElevatedButton(
                         onPressed: () async {
                           AutoRouter.of(context).popForced();
 
@@ -109,7 +110,7 @@ class PiercingShopDialogWidget extends ConsumerWidget {
                                   .notifier)
                               .getPiercing();
                         },
-                        child: const Text(TextConstants.getUppercase),
+                        text: TextConstants.get,
                       ),
                     ],
                   )

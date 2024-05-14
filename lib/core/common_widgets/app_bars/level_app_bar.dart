@@ -57,7 +57,9 @@ class LevelAppBar extends StatelessWidget {
                     child: Text(
                       title.prepareTextToEllipsize().toUpperCase(),
                       overflow: TextOverflow.ellipsis,
-                      style: appBarTextStyle,
+                      style: appBarTextStyle.copyWith(
+                        color: appTheme.colorScheme.tertiary,
+                      ),
                     ),
                   ),
                 ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toplife/config/theme/colors.dart';
 
 class ThemeUtils {
-  static const appFont = 'Ubuntu';
+  static const appFont = 'ChakraPetch';
 
   //
   static InputDecorationTheme getInputDecorationTheme({

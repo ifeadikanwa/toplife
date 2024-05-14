@@ -32,7 +32,7 @@ class SingleStatsWidget extends StatelessWidget {
               minHeight: smallMinHeight,
               progressValue: statsItem.statsLevel,
               progressStatsRange: statsItem.statsRange,
-              positveIsAlwaysGreen: statsItem.positiveIsAlwaysGreen,
+              positiveIsAlwaysGreen: statsItem.positiveIsAlwaysGreen,
               showProgressValue: showProgressValue,
             ),
           ),

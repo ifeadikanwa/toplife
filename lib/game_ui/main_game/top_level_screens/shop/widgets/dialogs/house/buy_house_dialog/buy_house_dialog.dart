@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
@@ -132,17 +133,17 @@ class BuyHouseDialog extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () {
             AutoRouter.of(context).popForced();
             ref.read(viewModelProvider.notifier).purchaseHouse(house);
           },
-          child: const Text(ShopDialogConstants.payFullAmount),
+          text: ShopDialogConstants.payFullAmount,
         ),
         const AddVerticalSpace(
           height: DialogConstants.verticalChoiceButtonSpacing,
         ),
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () {
             AutoRouter.of(context).popForced();
             //
@@ -151,7 +152,7 @@ class BuyHouseDialog extends ConsumerWidget {
               child: MortgageLoanDialog(house: house),
             );
           },
-          child: const Text(ShopDialogConstants.applyForMortgageLoan),
+          text: ShopDialogConstants.applyForMortgageLoan,
         ),
       ],
     );

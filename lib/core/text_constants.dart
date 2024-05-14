@@ -21,7 +21,7 @@ class TextConstants {
   static const close = "Close";
   static const cost = "Cost";
   static const duration = "Duration";
-  static const getUppercase = "GET";
+  static const get = "Get";
   static const formerly = "Formerly";
   static const and = "And";
   static const alongWith = "Along with";

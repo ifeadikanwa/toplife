@@ -2,8 +2,6 @@ import 'package:toplife/config/theme/colors.dart';
 import 'package:toplife/config/theme/theme_utils.dart';
 
 class AppTheme {
-  static const appFont = 'Ubuntu';
-
   //LIGHT THEMES
 
   //?
@@ -63,7 +61,7 @@ class AppTheme {
     primaryColor: offWhite,
     secondaryColor: lightPastelOrange,
     tertiaryColor: matteOrange,
-    cardBackgroundColor: lightPastelOrange,
+    cardBackgroundColor: offWhite,
   );
 
   //approved
@@ -71,7 +69,7 @@ class AppTheme {
     primaryColor: offWhite,
     secondaryColor: pastelAqua,
     tertiaryColor: deepSkyBlue,
-    cardBackgroundColor: pastelAqua,
+    cardBackgroundColor: offWhite,
   );
 
   //

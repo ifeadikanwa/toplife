@@ -67,12 +67,13 @@ class GetLandTravelTimeUsecase {
 
       //different state travel
       else if (travellerStateString != travelDetail.destinationStateString) {
+        //we just need to inflate the numbers
         //default travel time is:
-        //time it takes to go from Travellers Settlement -> CITY + time it takes to get from Travellers Settlement -> Destination Settlement
-        final int travellerSettlementToCity =
+        //time it takes to go (WITHIN Travellers Settlement) + time it takes to get from (Travellers Settlement -> Destination Settlement)
+        final int withinTravellerSettlement =
             _getTravelTimeBetweenTwoSettlementsUsecase.execute(
           startingSettlement: travellerSettlementEnum,
-          destinationSettlement: Settlement.City,
+          destinationSettlement: travellerSettlementEnum,
         );
 
         final int travellerSettlementToDestinationSettlement =
@@ -81,7 +82,7 @@ class GetLandTravelTimeUsecase {
           destinationSettlement: destinationSettlementEnum,
         );
 
-        defaultTravelTime = travellerSettlementToCity +
+        defaultTravelTime = withinTravellerSettlement +
             travellerSettlementToDestinationSettlement;
       }
 

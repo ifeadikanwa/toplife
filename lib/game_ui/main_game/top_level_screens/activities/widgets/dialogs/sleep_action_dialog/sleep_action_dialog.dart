@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/dialog_label_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/utils/date_and_time/convert_minutes_to_truncated_hours.dart';
 import 'package:toplife/core/utils/date_and_time/time.dart';
@@ -31,12 +32,12 @@ class SleepActionDialog extends ConsumerWidget {
         const AddVerticalSpace(
           height: DialogConstants.verticalTextTextSpacing,
         ),
-        const DialogDropdownLabelText(text: ActivitiesDialogText.hoursPrompt),
+        const DialogLabelText(text: ActivitiesDialogText.hoursPrompt),
         hourDurationDropdown(
           sleepActionDialogData.hours,
           ref,
         ),
-        const DialogDropdownLabelText(text: ActivitiesDialogText.minutesPrompt),
+        const DialogLabelText(text: ActivitiesDialogText.minutesPrompt),
         minutesDurationDropdown(
           sleepActionDialogData.minutes,
           ref,
@@ -44,12 +45,12 @@ class SleepActionDialog extends ConsumerWidget {
         const AddVerticalSpace(
           height: DialogConstants.verticalDescriptionButtonSpacing,
         ),
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () async {
             AutoRouter.of(context).popForced();
             await ref.read(sleepActionDialogViewModelProvider.notifier).sleep();
           },
-          child: const Text(ActivitiesDialogText.sleep),
+          text: ActivitiesDialogText.sleep,
         ),
       ],
     );

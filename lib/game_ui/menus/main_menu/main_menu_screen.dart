@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/config/routing/app_router.gr.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_content.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/game_ui/menus/main_menu/main_menu_screen_view_model.dart';
 import 'package:toplife/testing_utility/game_test_util.dart';
 
@@ -24,27 +25,27 @@ class MainMenuScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: (lastPlayedGame == null)
                   ? [
-                      ElevatedButton(
+                      DefaultElevatedButton(
                         onPressed: () {
                           GameTestUtil(ref: ref).createGameAndPlayer();
                           AutoRouter.of(context).push(const MainGameRoute());
                         },
-                        child: const Text("Create New Game"),
+                        text: "Create New Game",
                       ),
                     ]
                   : [
-                      ElevatedButton(
+                      DefaultElevatedButton(
                         onPressed: () {
                           AutoRouter.of(context).push(const MainGameRoute());
                         },
-                        child: const Text("Load Last Game"),
+                        text: "Load Last Game",
                       ),
-                      ElevatedButton(
+                      DefaultElevatedButton(
                         onPressed: () {
                           GameTestUtil(ref: ref).createGameAndPlayer();
                           AutoRouter.of(context).push(const MainGameRoute());
                         },
-                        child: const Text("Create New Game"),
+                        text: "Create New Game",
                       ),
                     ],
             ),

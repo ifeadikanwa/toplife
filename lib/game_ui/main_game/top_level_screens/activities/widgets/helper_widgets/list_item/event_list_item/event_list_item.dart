@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_outlined_button.dart';
 import 'package:toplife/core/common_widgets/list_templates/case/general_list_item_case.dart';
 import 'package:toplife/core/common_widgets/list_templates/helper_widgets/action_text.dart';
 import 'package:toplife/core/dialogs/show_dialog/show_dismissable_dialog.dart';
@@ -42,7 +43,8 @@ class EventListItem extends ConsumerWidget {
                   disabled: eventListItemViewModelData.listItemIsDisabled,
                 ),
               ),
-              OutlinedButton(
+              DefaultOutlinedButton(
+                keepOriginalLetterCase: true,
                 onPressed: eventListItemViewModelData.attendButtonIsEnabled
                     ? () => showDismissableDialog(
                           context: context,
@@ -51,7 +53,7 @@ class EventListItem extends ConsumerWidget {
                           ),
                         )
                     : null, //disable button
-                child: const Text(TextConstants.attend),
+                text: TextConstants.attend,
               ),
             ],
           ),

@@ -1,13 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/relationship/torment_dialog/torment_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/dialog_label_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/game_systems/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
@@ -39,7 +40,7 @@ class TormentDialogWidget extends ConsumerWidget {
         text: tormentDialogData.title,
       ),
       children: [
-        DialogDropdownLabelText(
+        DialogLabelText(
           text: tormentDialogData.prompt,
         ),
         tormentOptionsDropdown(
@@ -48,15 +49,13 @@ class TormentDialogWidget extends ConsumerWidget {
           viewModelProvider,
         ),
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () async {
             AutoRouter.of(context).popForced<TormentOption>(
               tormentDialogData.chosenTormentOption,
             );
           },
-          child: Text(
-            TextConstants.doString.toUpperCase(),
-          ),
+          text: TextConstants.doString,
         ),
       ],
     );

@@ -1,13 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/button/editable_quantity_widget.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/dialog_label_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_slider.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/text_constants.dart';
@@ -76,7 +77,7 @@ class AttendableEventDialogWidget extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const DialogDropdownLabelText(
+                        const DialogLabelText(
                             text: AttendableEventDialogsTextConstants
                                 .stayDurationPrompt),
                         eventLeaveTimeCounter(
@@ -101,7 +102,7 @@ class AttendableEventDialogWidget extends ConsumerWidget {
                         : const SizedBox(),
 
                     //attend with
-                    const DialogDropdownLabelText(
+                    const DialogLabelText(
                         text: AttendableEventDialogsTextConstants.attendPrompt),
                     attendWithDropdown(
                       ref,
@@ -117,8 +118,8 @@ class AttendableEventDialogWidget extends ConsumerWidget {
                     ),
 
                     //buttons
-                    ElevatedButton(
-                      child: const Text(TextConstants.attend),
+                    DefaultElevatedButton(
+                      text: TextConstants.attend,
                       onPressed: () {
                         AutoRouter.of(context).popForced();
                         //ATTEND EVENT
@@ -142,7 +143,7 @@ class AttendableEventDialogWidget extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         //activity
-        const DialogDropdownLabelText(
+        const DialogLabelText(
           text: AttendableEventDialogsTextConstants.partyActivityPrompt,
         ),
         partyActivityDropdown(
@@ -153,7 +154,7 @@ class AttendableEventDialogWidget extends ConsumerWidget {
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
 
         //gift
-        const DialogDropdownLabelText(
+        const DialogLabelText(
             text: AttendableEventDialogsTextConstants.giftItemPrompt),
         bringGiftDropDown(
           ref,
@@ -164,7 +165,7 @@ class AttendableEventDialogWidget extends ConsumerWidget {
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
 
         //money gift
-        DialogDropdownLabelText(
+        DialogLabelText(
             text:
                 "${AttendableEventDialogsTextConstants.moneyGiftPrompt} ${attendableEventDialogData.formattedMoneyGift}"),
         moneyGiftSlider(

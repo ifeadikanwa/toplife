@@ -154,6 +154,18 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   fonts:
+    - family: ThickPixel
+      fonts:
+        - asset: assets/fonts/Pixels/pixel-thick-intv.ttf
+
+    - family: ThinPixel
+      fonts:
+        - asset: assets/fonts/Pixels/pixel-caps-thin-caleco.ttf
+    #        - asset: assets/fonts/Pixels/pixel-caps-thin-condensed-caps.ttf
+
+
+
+
     - family: Ubuntu
       fonts:
         - asset: assets/fonts/Ubuntu/Ubuntu-Regular.ttf
@@ -172,6 +184,32 @@ flutter:
         - asset: assets/fonts/Ubuntu/Ubuntu-Medium.ttf
           weight: 500
         - asset: assets/fonts/Ubuntu/Ubuntu-MediumItalic.ttf
+          weight: 500
+          style: italic
+
+    - family: ChakraPetch
+      fonts:
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Regular.ttf
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Italic.ttf
+          style: italic
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Light.ttf
+          weight: 300
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-MediumItalic.ttf
           weight: 500
           style: italic
 

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 //App
@@ -6,6 +5,7 @@ const appSidePadding = 16.0;
 const widgetVerticalSpacing = 8.0;
 const bottomNavBarHeight = 50.0;
 const horizontalWidgetSpacing = 10.0;
+const whiteColorOpacityAdjustment = 0.6;
 
 //Card
 const cardPadding = 8.0;
@@ -60,7 +60,7 @@ const boldTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 const statsTextStyle = TextStyle(
-  fontSize: 12,
+  fontSize: 11,
 );
 const relationshipLabelTextStyle = TextStyle(
   fontSize: 11,

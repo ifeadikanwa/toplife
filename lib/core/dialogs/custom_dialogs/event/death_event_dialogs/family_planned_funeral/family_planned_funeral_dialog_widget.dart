@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/event/death_event_dialogs/death_event_dialogs_text_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
@@ -45,22 +46,22 @@ class FamilyPlannedFuneralDialogWidget extends StatelessWidget {
         const AddVerticalSpace(
           height: DialogConstants.verticalDescriptionButtonSpacing,
         ),
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () {
             //return true to the caller
             AutoRouter.of(context).popForced(true);
           },
-          child: const Text(DeathEventDialogsTextConstants.payContribution),
+          text: DeathEventDialogsTextConstants.payContribution,
         ),
         const AddVerticalSpace(
           height: DialogConstants.verticalChoiceButtonSpacing,
         ),
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () {
             //return false to the caller
             AutoRouter.of(context).popForced(false);
           },
-          child: const Text(DeathEventDialogsTextConstants.refuseToContribute),
+          text: DeathEventDialogsTextConstants.refuseToContribute,
         ),
       ],
     );

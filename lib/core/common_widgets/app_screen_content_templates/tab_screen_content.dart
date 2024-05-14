@@ -30,6 +30,7 @@ class TabScreenContent extends StatelessWidget {
             controller: tabController,
             tabs: tabs,
             tabAlignment: TabAlignment.start,
+            dividerColor: Colors.transparent,
           ),
         ),
         body: ScreenContent(content: child),

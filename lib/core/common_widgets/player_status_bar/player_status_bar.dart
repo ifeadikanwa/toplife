@@ -72,7 +72,7 @@ class PlayerStatusBar extends StatelessWidget {
           "$currency$bankBalance",
           style: TextStyle(
             color: (appTheme.brightness == Brightness.light)
-                ? Colors.white
+                ? appTheme.colorScheme.tertiary
                 : Colors.green,
           ),
         ),

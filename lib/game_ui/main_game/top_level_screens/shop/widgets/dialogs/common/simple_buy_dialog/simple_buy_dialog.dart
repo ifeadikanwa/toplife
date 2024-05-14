@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/divider/list_divider.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
@@ -60,12 +61,12 @@ class SimpleBuyDialog extends ConsumerWidget {
         TotalPriceRow(basePrice: quantity * basePrice),
         const AddVerticalSpace(
             height: ShopDialogConstants.sectionVerticalSpacing),
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () {
             AutoRouter.of(context).popForced();
             onCheckout(quantity);
           },
-          child: const Text(ShopDialogConstants.checkout),
+          text: ShopDialogConstants.checkout,
         ),
       ],
     );

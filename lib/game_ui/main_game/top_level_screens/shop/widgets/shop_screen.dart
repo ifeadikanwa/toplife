@@ -6,6 +6,7 @@ import 'package:toplife/core/common_states/dependencies/data_source_dependencies
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_widgets/app_screen_content_templates/scrollable_screen_content.dart';
 import 'package:toplife/core/common_widgets/app_screens/top_level_screen.dart';
+import 'package:toplife/core/common_widgets/button/default_outlined_button.dart';
 import 'package:toplife/core/common_widgets/spaces/add_horizontal_space.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/widget_constants.dart';
@@ -106,7 +107,7 @@ class ShopScreen extends ConsumerWidget {
             //test
             const AddVerticalSpace(height: 4.0),
 
-            OutlinedButton(
+            DefaultOutlinedButton(
               onPressed: () async {
                 final Person? person = await ref
                     .watch(personUsecasesProvider)
@@ -127,20 +128,20 @@ class ShopScreen extends ConsumerWidget {
                   );
                 }
               },
-              child: const Text("Dialog"),
+              text: "Dialog",
             ),
 
             const AddVerticalSpace(height: 4.0),
 
-            OutlinedButton(
+            DefaultOutlinedButton(
               onPressed: () async {
                 await GameTestUtil(ref: ref).createGameAndPlayer();
               },
-              child: const Text("Create New Game"),
+              text: "Create New Game",
             ),
 
             const AddVerticalSpace(height: 4.0),
-            OutlinedButton(
+            DefaultOutlinedButton(
               onPressed: () async {
                 // ref.read(gameManagerViewModel.notifier).createGame(Person(
                 //       firstName: "Denver",
@@ -697,7 +698,7 @@ class ShopScreen extends ConsumerWidget {
                     .generateStatsUsecase
                     .execute(personID: 1));
               },
-              child: const Text("Run"),
+              text: "Run",
             ),
           ],
         ),

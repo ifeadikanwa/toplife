@@ -28,9 +28,11 @@ class DialogContainer extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(DialogConstants.borderRadius),
       ),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: DialogConstants.horizontalContentPadding,
-        vertical: DialogConstants.verticalContentPadding,
+      contentPadding: const EdgeInsets.fromLTRB(
+        DialogConstants.horizontalContentPadding,
+        (DialogConstants.verticalContentPadding / 2),
+        DialogConstants.horizontalContentPadding,
+        DialogConstants.verticalContentPadding,
       ),
       title: title,
       children: [

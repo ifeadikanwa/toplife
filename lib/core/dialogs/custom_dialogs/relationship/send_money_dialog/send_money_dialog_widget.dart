@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/common_widgets/text/money_text_field.dart';
 import 'package:toplife/core/dialogs/custom_dialogs/relationship/send_money_dialog/send_money_dialog_view_model.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/dialog_label_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/money/convert_money_string_to_int.dart';
@@ -52,14 +53,14 @@ class SendMoneyDialogWidgetState extends ConsumerState<SendMoneyDialogWidget> {
         text: sendMoneyDialogData.title,
       ),
       children: [
-        DialogDropdownLabelText(text: sendMoneyDialogData.prompt),
+        DialogLabelText(text: sendMoneyDialogData.prompt),
         //
         MoneyTextField(
           textEditingController: textEditingController,
         ),
         //
         const AddVerticalSpace(height: DialogConstants.verticalDropdownSpacing),
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () {
             //remove keyboard/remove focus from text field
             FocusScope.of(context).unfocus();
@@ -68,9 +69,7 @@ class SendMoneyDialogWidgetState extends ConsumerState<SendMoneyDialogWidget> {
             AutoRouter.of(context)
                 .popForced(convertMoneyStringToInt(textEditingController.text));
           },
-          child: Text(
-            TextConstants.send.toUpperCase(),
-          ),
+          text: TextConstants.send,
         ),
       ],
     );

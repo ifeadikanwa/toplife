@@ -20,6 +20,7 @@ class PersonInfoCard extends StatelessWidget {
   final String? currentCountry;
   final List<StatsItem> statsList;
   final bool showInfoButton;
+
   const PersonInfoCard({
     super.key,
     required this.firstName,

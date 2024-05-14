@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_body_text.dart';
@@ -28,24 +29,20 @@ class BreakOldRentLeaseWidget extends ConsumerWidget {
         ),
         const AddVerticalSpace(
             height: DialogConstants.verticalDescriptionButtonSpacing),
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () {
             AutoRouter.of(context).popForced<bool>(true);
           },
-          child: const Text(
-            ShopResultConstants.breakLeaseOption,
-          ),
+          text: ShopResultConstants.breakLeaseOption,
         ),
         const AddVerticalSpace(
           height: DialogConstants.verticalChoiceButtonSpacing,
         ),
-        ElevatedButton(
+        DefaultElevatedButton(
           onPressed: () {
             AutoRouter.of(context).popForced<bool>(false);
           },
-          child: const Text(
-            ShopResultConstants.nevermindOption,
-          ),
+          text: ShopResultConstants.nevermindOption,
         ),
       ],
     );

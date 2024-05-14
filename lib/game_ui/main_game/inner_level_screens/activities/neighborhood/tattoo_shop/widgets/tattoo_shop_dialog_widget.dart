@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:toplife/core/common_widgets/button/default_elevated_button.dart';
 import 'package:toplife/core/common_widgets/spaces/add_vertical_space.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_container.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown.dart';
-import 'package:toplife/core/dialogs/dialog_helpers/dialog_dropdown_label_text.dart';
+import 'package:toplife/core/dialogs/dialog_helpers/dialog_label_text.dart';
 import 'package:toplife/core/dialogs/dialog_helpers/dialog_title_text.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/game_ui/main_game/inner_level_screens/activities/neighborhood/tattoo_shop/constants/tattoo_shop_text_constants.dart';
@@ -64,7 +65,7 @@ class _TattooShopDialogWidgetState
 
             //
             //
-            const DialogDropdownLabelText(
+            const DialogLabelText(
               text: TattooShopTextConstants.chooseTattooShop,
             ),
             DialogDropdown<TattooShop>(
@@ -93,7 +94,7 @@ class _TattooShopDialogWidgetState
 
             //
             //
-            const DialogDropdownLabelText(
+            const DialogLabelText(
               text: TattooShopTextConstants.chooseTattooLocation,
             ),
             DialogDropdown<TattooBodyLocation>(
@@ -123,7 +124,7 @@ class _TattooShopDialogWidgetState
 
             //
             //
-            const DialogDropdownLabelText(
+            const DialogLabelText(
               text: TattooShopTextConstants.chooseTattooSize,
             ),
             DialogDropdown<TattooSize>(
@@ -152,7 +153,7 @@ class _TattooShopDialogWidgetState
 
             //
             //
-            const DialogDropdownLabelText(
+            const DialogLabelText(
               text: TattooShopTextConstants.chooseTattoo,
             ),
             TextField(
@@ -170,18 +171,17 @@ class _TattooShopDialogWidgetState
               height: DialogConstants.verticalDescriptionButtonSpacing,
             ),
             //button
-            ElevatedButton(
-              onPressed: () async {
-                AutoRouter.of(context).popForced();
+            DefaultElevatedButton(
+                onPressed: () async {
+                  AutoRouter.of(context).popForced();
 
-                await ref
-                    .read(tattooShopDialogWidgetViewModelProvider.notifier)
-                    .getTattoo(
-                      tattooDescription: textEditingController.text,
-                    );
-              },
-              child: const Text(TextConstants.getUppercase),
-            ),
+                  await ref
+                      .read(tattooShopDialogWidgetViewModelProvider.notifier)
+                      .getTattoo(
+                        tattooDescription: textEditingController.text,
+                      );
+                },
+                text: TextConstants.get),
           ],
         );
       },
