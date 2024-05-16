@@ -52,7 +52,7 @@ class ThemeUtils {
       primaryColor: Colors.white,
       scaffoldBackgroundColor: primaryColor,
       scrollbarTheme: ScrollbarThemeData(
-        thumbColor: MaterialStatePropertyAll(tertiaryColor),
+        thumbColor: WidgetStatePropertyAll(tertiaryColor),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -102,7 +102,7 @@ class ThemeUtils {
       primaryColor: Colors.black,
       scaffoldBackgroundColor: darkThemeBlack,
       scrollbarTheme: const ScrollbarThemeData(
-        thumbColor: MaterialStatePropertyAll(Colors.white),
+        thumbColor: WidgetStatePropertyAll(Colors.white),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

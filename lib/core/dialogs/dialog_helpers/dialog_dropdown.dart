@@ -30,9 +30,9 @@ class DialogDropdown<T> extends StatelessWidget {
       dropdownStyleData: DropdownStyleData(
         maxHeight: DialogConstants.dropdownMenuMaxHeight,
         scrollbarTheme: ScrollbarThemeData(
-          thumbColor: MaterialStatePropertyAll(appTheme.colorScheme.tertiary),
+          thumbColor: WidgetStatePropertyAll(appTheme.colorScheme.tertiary),
           thumbVisibility:
-              const MaterialStatePropertyAll(true), //always show scrollbar
+              const WidgetStatePropertyAll(true), //always show scrollbar
         ),
         decoration: BoxDecoration(
           color: appTheme.cardTheme.color,
