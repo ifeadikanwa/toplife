@@ -9,33 +9,31 @@ void main() {
     );
 
     test(
-      "within village time in minutes is 30",
-      () => expect(DefaultRoadTravelTime.withinVillageTimeInMinutes, 30),
+      "within village time in minutes is 60",
+      () => expect(DefaultRoadTravelTime.withinVillageTimeInMinutes, 60),
     );
 
     test(
-      "within town time in minutes is 60",
-      () => expect(DefaultRoadTravelTime.withinTownTimeInMinutes, 60),
+      "within town time in minutes is 45",
+      () => expect(DefaultRoadTravelTime.withinTownTimeInMinutes, 45),
     );
 
     test(
-      "within city time in minutes is 90",
-      () => expect(DefaultRoadTravelTime.withinCityTimeInMinutes, 90),
+      "within city time in minutes is 30",
+      () => expect(DefaultRoadTravelTime.withinCityTimeInMinutes, 30),
     );
 
     test(
-      "town - city time in minutes is 120",
-      () => expect(DefaultRoadTravelTime.townCityTimeInMinutes, 120),
+      "town - city time in minutes is 60",
+      () => expect(DefaultRoadTravelTime.townCityTimeInMinutes, 60),
     );
 
     test(
-      "town - village time in minutes is 120",
-      () => expect(DefaultRoadTravelTime.townVillageTimeInMinutes, 120),
+      "town - village time in minutes is 60",
+      () => expect(DefaultRoadTravelTime.townVillageTimeInMinutes, 60),
     );
 
-    test(
-      "city - village time in minutes is 180",
-      () => expect(DefaultRoadTravelTime.cityVillageTimeInMinutes, 180),
-    );
+    test("city - village time in minutes is 120",
+        () => expect(DefaultRoadTravelTime.cityVillageTimeInMinutes, 120));
   });
 }

@@ -8,11 +8,14 @@ class CheckIfEventCanStillBeAttended {
     required int travelTime,
     required int currentTime,
   }) {
-    //if the event duration + min attendance time is greater than the travel time
-    //this means that IF after we take out travel time from event duration the time left is at least the min attendance time,
-    // it can still be attended.
+    //if we look at the remaining event duration(taking current time into consideration),
+    // then we take the travel time out of the duration,
+    //if whatever time is left is equal to or greater than the min time the player has to attend the event for
+    // then it can still be attended.
     final int eventDuration = (endTime - currentTime);
-    return (eventDuration + EventManager.eventMinimumAttendanceTime) >
-        travelTime;
+    final int eventDurationAfterTravelling = eventDuration - travelTime;
+
+    return eventDurationAfterTravelling >=
+        EventManager.eventMinimumAttendanceTime;
   }
 }
