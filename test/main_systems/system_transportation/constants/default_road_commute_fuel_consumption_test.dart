@@ -9,18 +9,18 @@ void main() {
     );
 
     test(
-      "within village fuel consumption is 10",
-      () => expect(DefaultRoadCommuteFuelConsumption.withinVillage, 10),
+      "within village fuel consumption is 25",
+      () => expect(DefaultRoadCommuteFuelConsumption.withinVillage, 25),
     );
 
     test(
-      "within town fuel consumption is 15",
-      () => expect(DefaultRoadCommuteFuelConsumption.withinTown, 15),
+      "within town fuel consumption is 20",
+      () => expect(DefaultRoadCommuteFuelConsumption.withinTown, 20),
     );
 
     test(
-      "within city fuel consumption is 20",
-      () => expect(DefaultRoadCommuteFuelConsumption.withinCity, 20),
+      "within city fuel consumption is 15",
+      () => expect(DefaultRoadCommuteFuelConsumption.withinCity, 15),
     );
 
     test(

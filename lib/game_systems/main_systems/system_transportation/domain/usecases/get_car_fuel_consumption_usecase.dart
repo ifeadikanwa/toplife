@@ -47,7 +47,7 @@ class GetCarFuelConsumptionUsecase {
           getSettlementEnum(travelDetail.destinationSettlementString) ??
               TransportationDefault.destinationSettlement;
 
-      //-Get Default Fuel Consumtion
+      //-Get Default Fuel Consumption
       late final int defaultFuelConsumption;
 
       //different country travel
@@ -60,11 +60,11 @@ class GetCarFuelConsumptionUsecase {
       //different state travel
       else if (travellerStateString != travelDetail.destinationStateString) {
         //default fuel consumption is:
-        //fuel it takes to go from Travellers Settlement -> CITY + fuel it takes to get from Travellers Settlement -> Destination Settlement
+        //fuel it takes to go WITHIN Travellers Settlement + fuel it takes to get from Travellers Settlement -> Destination Settlement
         final int travellerSettlementToCity =
             _getCommuteFuelConsumptionBetweenTwoSettlementsUsecase.execute(
           startingSettlement: travellerSettlementEnum,
-          destinationSettlement: Settlement.City,
+          destinationSettlement: travellerSettlementEnum,
         );
 
         final int travellerSettlementToDestinationSettlement =
@@ -100,7 +100,7 @@ class GetCarFuelConsumptionUsecase {
       return defaultFuelConsumption + randomFluctuator;
     }
 
-    //traveller person is not vaild
+    //traveller person is not valid
     return 0;
   }
 }
