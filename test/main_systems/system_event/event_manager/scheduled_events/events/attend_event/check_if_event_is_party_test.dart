@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_event/constants/event_type.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/events/attend_event/check_if_event_is_party.dart';
+import 'package:toplife/game_systems/main_systems/system_event/constants/event_type.dart';
+import 'package:toplife/game_systems/main_systems/system_event/event_manager/scheduled_events/events/attendable_events/util/check_if_event_is_party.dart';
 
 void main() {
   group('Check if event is party:', () {

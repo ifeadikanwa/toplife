@@ -4,8 +4,8 @@ import 'package:toplife/core/dialogs/dialog_helpers/dialog_constants.dart';
 class DialogBodyText extends StatelessWidget {
   final String text;
   final TextStyle? style;
-  const DialogBodyText({Key? key, required this.text, this.style})
-      : super(key: key);
+
+  const DialogBodyText({super.key, required this.text, this.style});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,6 @@ class DialogBodyText extends StatelessWidget {
       style: style ?? DialogConstants.defaultBodyTextStyle,
       textAlign: TextAlign.center,
       softWrap: true,
-      
     );
   }
 }

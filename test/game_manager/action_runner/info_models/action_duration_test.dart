@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/game_manager/action_runner/info_models/action_duration.dart';
+import 'package:toplife/game_systems/game_manager/action_runner/info_models/action_duration.dart';
 
 void main() {
   group("ActionDuration:", () {

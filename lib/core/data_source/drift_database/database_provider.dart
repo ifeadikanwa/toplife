@@ -7,91 +7,95 @@ import 'package:drift_sqflite/drift_sqflite.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
+
 // ignore: depend_on_referenced_packages
 import 'package:sqlite3/sqlite3.dart';
 import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
-import 'package:toplife/game_manager/data/dao/game_dao_impl.dart';
-import 'package:toplife/game_manager/domain/model/game.dart';
-import 'package:toplife/main_systems/system_event/data/dao/event_dao_impl.dart';
-import 'package:toplife/main_systems/system_job/data/dao/job_dao_impl.dart';
-import 'package:toplife/main_systems/system_job/data/dao/employment_dao_impl.dart';
-import 'package:toplife/main_systems/system_job/data/dao/job_relationship_dao_impl.dart';
-import 'package:toplife/main_systems/system_job/domain/model/employment.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job_relationship.dart';
-import 'package:toplife/main_systems/system_job/domain/model/job.dart';
-import 'package:toplife/main_systems/system_person/data/dao/appearance_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/death_record_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/deplete_stats_flag_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/person_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/personality_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/piercing_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/stance_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/stats_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/data/dao/tattoo_dao_impl.dart';
-import 'package:toplife/main_systems/system_person/domain/model/appearance.dart';
-import 'package:toplife/main_systems/system_person/domain/model/baby_traits.dart';
-import 'package:toplife/main_systems/system_person/domain/model/death_record.dart';
-import 'package:toplife/main_systems/system_person/domain/model/deplete_stats_flag.dart';
-import 'package:toplife/main_systems/system_person/domain/model/person.dart';
-import 'package:toplife/main_systems/system_person/domain/model/personality.dart';
-import 'package:toplife/main_systems/system_person/domain/model/piercing.dart';
-import 'package:toplife/main_systems/system_person/domain/model/stance.dart';
-import 'package:toplife/main_systems/system_person/domain/model/stats.dart';
-import 'package:toplife/main_systems/system_person/domain/model/tattoo.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
-import 'package:toplife/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
+import 'package:toplife/game_systems/game_manager/data/dao/game_dao_impl.dart';
+import 'package:toplife/game_systems/game_manager/data/dao/pending_time_update_dao_impl.dart';
+import 'package:toplife/game_systems/game_manager/domain/model/game.dart';
+import 'package:toplife/game_systems/game_manager/domain/model/pending_time_update.dart';
+import 'package:toplife/game_systems/main_systems/system_event/data/dao/event_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_job/data/dao/job_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_job/data/dao/employment_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_job/data/dao/job_relationship_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_job/domain/model/employment.dart';
+import 'package:toplife/game_systems/main_systems/system_job/domain/model/job_relationship.dart';
+import 'package:toplife/game_systems/main_systems/system_job/domain/model/job.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/appearance_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/death_record_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/deplete_stats_flag_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/person_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/baby_traits_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/personality_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/piercing_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/stance_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/stats_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/data/dao/tattoo_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/appearance.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/baby_traits.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/death_record.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/deplete_stats_flag.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/person.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/personality.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/piercing.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/stance.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/stats.dart';
+import 'package:toplife/game_systems/main_systems/system_person/domain/model/tattoo.dart';
+import 'package:toplife/game_systems/main_systems/system_recurring_bills_and_loans/data/dao/recurring_bill_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_recurring_bills_and_loans/domain/model/recurring_bill.dart';
 
-import 'package:toplife/main_systems/system_relationship/data/dao/grave_dao_impl.dart';
-import 'package:toplife/main_systems/system_relationship/data/dao/parent_child_link_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/data/dao/grave_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/data/dao/parent_child_link_dao_impl.dart';
 
-import 'package:toplife/main_systems/system_relationship/data/dao/relationship_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/data/dao/relationship_dao_impl.dart';
 
-import 'package:toplife/main_systems/system_relationship/domain/model/grave.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/model/grave.dart';
 
-import 'package:toplife/main_systems/system_relationship/domain/model/parent_child_link.dart';
-import 'package:toplife/main_systems/system_relationship/domain/model/relationship.dart';
-import 'package:toplife/main_systems/system_event/domain/model/event.dart';
-import 'package:toplife/main_systems/system_school/data/dao/college_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/dao/degree_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/dao/faculty_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/dao/precollege_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/dao/school_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/dao/school_project_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/data/dao/school_relationship_dao_impl.dart';
-import 'package:toplife/main_systems/system_school/domain/model/college.dart';
-import 'package:toplife/main_systems/system_school/domain/model/degree.dart';
-import 'package:toplife/main_systems/system_school/domain/model/faculty.dart';
-import 'package:toplife/main_systems/system_school/domain/model/precollege.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school_project.dart';
-import 'package:toplife/main_systems/system_school/domain/model/school_relationship.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_problem_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/current_home_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car_problem.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/current_home.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/food_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/fridge_food_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/item_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/jewelry_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/data/dao/house_dao_impl.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/car.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/food.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/fridge_food.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/house.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/item.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
-import 'package:toplife/main_systems/system_journal/domain/model/journal.dart';
-import 'package:toplife/main_systems/system_journal/data/dao/journal_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/model/parent_child_link.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/model/relationship.dart';
+import 'package:toplife/game_systems/main_systems/system_event/domain/model/event.dart';
+import 'package:toplife/game_systems/main_systems/system_school/data/dao/college_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_school/data/dao/degree_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_school/data/dao/faculty_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_school/data/dao/precollege_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_school/data/dao/school_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_school/data/dao/school_project_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_school/data/dao/school_relationship_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_school/domain/model/college.dart';
+import 'package:toplife/game_systems/main_systems/system_school/domain/model/degree.dart';
+import 'package:toplife/game_systems/main_systems/system_school/domain/model/faculty.dart';
+import 'package:toplife/game_systems/main_systems/system_school/domain/model/precollege.dart';
+import 'package:toplife/game_systems/main_systems/system_school/domain/model/school.dart';
+import 'package:toplife/game_systems/main_systems/system_school/domain/model/school_project.dart';
+import 'package:toplife/game_systems/main_systems/system_school/domain/model/school_relationship.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/data/dao/car_problem_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/data/dao/current_home_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/data/dao/storeroom_item_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/car_problem.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/current_home.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/storeroom_item.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/data/dao/car_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/data/dao/food_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/data/dao/fridge_food_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/data/dao/item_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/data/dao/jewelry_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/data/dao/house_dao_impl.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/car.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/food.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/fridge_food.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/house.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/item.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/domain/model/jewelry.dart';
+import 'package:toplife/game_systems/main_systems/system_journal/domain/model/journal.dart';
+import 'package:toplife/game_systems/main_systems/system_journal/data/dao/journal_dao_impl.dart';
 
 part 'database_provider.g.dart';
 
 @DriftDatabase(
   tables: [
     GameTable,
+    PendingTimeUpdateTable,
     PersonTable,
     AppearanceTable,
     StatsTable,
@@ -130,6 +134,7 @@ part 'database_provider.g.dart';
   ],
   daos: [
     GameDaoImpl,
+    PendingTimeUpdateDaoImpl,
     PersonDaoImpl,
     AppearanceDaoImpl,
     StatsDaoImpl,

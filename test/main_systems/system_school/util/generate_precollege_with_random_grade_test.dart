@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 import 'package:toplife/core/utils/stats/stats_range/stats_range.dart';
-import 'package:toplife/main_systems/system_school/constants/school_info.dart';
-import 'package:toplife/main_systems/system_school/constants/school_type.dart';
-import 'package:toplife/main_systems/system_school/util/generate_precollege_with_random_grade.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/school_info.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/school_type.dart';
+import 'package:toplife/game_systems/main_systems/system_school/util/generate_precollege_with_random_grade.dart';
 
 void main() {
   const studentID = 7;

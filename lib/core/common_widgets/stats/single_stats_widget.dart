@@ -9,10 +9,10 @@ class SingleStatsWidget extends StatelessWidget {
   final bool showProgressValue;
 
   const SingleStatsWidget({
-    Key? key,
+    super.key,
     required this.statsItem,
     required this.showProgressValue,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class SingleStatsWidget extends StatelessWidget {
               minHeight: smallMinHeight,
               progressValue: statsItem.statsLevel,
               progressStatsRange: statsItem.statsRange,
-              positveIsAlwaysGreen: statsItem.positiveIsAlwaysGreen,
+              positiveIsAlwaysGreen: statsItem.positiveIsAlwaysGreen,
               showProgressValue: showProgressValue,
             ),
           ),

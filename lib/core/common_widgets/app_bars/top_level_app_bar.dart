@@ -7,11 +7,11 @@ class TopLevelAppBar extends StatelessWidget {
   final List<IconButton>? actions;
 
   const TopLevelAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.leading,
     this.actions,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

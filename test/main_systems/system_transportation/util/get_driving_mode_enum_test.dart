@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_transportation/constants/driving_mode.dart';
-import 'package:toplife/main_systems/system_transportation/util/get_driving_mode_enum.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/constants/driving_mode.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/util/get_driving_mode_enum.dart';
 
 void main() {
   group("getDrivingModeEnum:", () {

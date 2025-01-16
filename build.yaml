@@ -1,0 +1,22 @@
+#this is for making my build runner a lot faster
+#for each package that needs build runner we use a specific file naming format,
+#and then filter for that naming format here
+
+targets:
+  $default:
+    builders:
+      copy_with_extension_gen:
+        generate_for:
+          include:
+            - "**/**_view_model.dart"
+        enabled: true
+        options:
+          copy_with_null: true # default is false
+          skip_fields: true    # default is false
+
+      riverpod_generator:
+        generate_for:
+          include:
+            - "**/**_provider.dart"
+            - "**/**_providers.dart"
+            - "**/**_view_model.dart"

@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_transportation/constants/driving_mode.dart';
-import 'package:toplife/main_systems/system_transportation/constants/transport_mode.dart';
-import 'package:toplife/main_systems/system_transportation/constants/transportation_default.dart';
-import 'package:toplife/main_systems/system_transportation/public_transportation/public_transportation.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/settlement.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/constants/driving_mode.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/constants/transport_mode.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/constants/transportation_default.dart';
+import 'package:toplife/game_systems/main_systems/system_transportation/public_transportation/public_transportation.dart';
 
 void main() {
   group("Transportation default:", () {

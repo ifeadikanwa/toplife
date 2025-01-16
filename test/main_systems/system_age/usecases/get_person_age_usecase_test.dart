@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_age/age.dart';
-import 'package:toplife/main_systems/system_age/life_stage.dart';
-import 'package:toplife/main_systems/system_age/usecases/get_persons_age_usecase.dart';
+import 'package:toplife/game_systems/main_systems/system_age/age.dart';
+import 'package:toplife/game_systems/main_systems/system_age/life_stage.dart';
+import 'package:toplife/game_systems/main_systems/system_age/usecases/get_persons_age_usecase.dart';
 
 void main() {
   const GetPersonsAgeUsecase sut = GetPersonsAgeUsecase();

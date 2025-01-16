@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/util/get_random_sexuality.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/gender.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/sexuality.dart';
+import 'package:toplife/game_systems/main_systems/system_person/util/get_random_sexuality.dart';
 
 void main() {
   test("getRandomSexuality for female gender returns only straight or lesbian",

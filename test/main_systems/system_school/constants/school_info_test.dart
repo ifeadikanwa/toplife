@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/utils/stats/stats_range/stats_range.dart';
-import 'package:toplife/main_systems/system_age/life_stage.dart';
-import 'package:toplife/main_systems/system_school/constants/precollege_naming_suffix.dart';
-import 'package:toplife/main_systems/system_school/constants/school_info.dart';
-import 'package:toplife/main_systems/system_school/constants/school_type.dart';
+import 'package:toplife/game_systems/main_systems/system_age/life_stage.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/precollege_naming_suffix.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/school_info.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/school_type.dart';
 
 void main() {
   group("SchoolInfo:", () {

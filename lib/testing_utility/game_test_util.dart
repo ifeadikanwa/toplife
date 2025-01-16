@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:toplife/core/common_states/dependencies/game/game_dependencies_providers.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_person/constants/emotional_state.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/constants/zodiac_sign.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/emotional_state.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/gender.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/sexuality.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/zodiac_sign.dart';
 
 class GameTestUtil {
   final WidgetRef ref;

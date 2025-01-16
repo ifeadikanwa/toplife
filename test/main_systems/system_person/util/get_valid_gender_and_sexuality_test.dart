@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_person/constants/gender.dart';
-import 'package:toplife/main_systems/system_person/constants/sexuality.dart';
-import 'package:toplife/main_systems/system_person/util/gender_and_sexuality_pair.dart';
-import 'package:toplife/main_systems/system_person/util/get_valid_gender_and_sexuality.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/gender.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/sexuality.dart';
+import 'package:toplife/game_systems/main_systems/system_person/util/gender_and_sexuality_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_person/util/get_valid_gender_and_sexuality.dart';
 
 void main() {
   group("getValidGenderAndSexuality: ", () {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_person/util/personality_utils.dart';
+import 'package:toplife/game_systems/main_systems/system_person/util/personality_utils.dart';
 
 void main() {
   group("Personality Utils:", () {

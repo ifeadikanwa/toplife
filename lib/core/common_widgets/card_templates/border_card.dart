@@ -3,16 +3,28 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class BorderCard extends StatelessWidget {
   final List<Widget> children;
-  const BorderCard({Key? key, required this.children}) : super(key: key);
+  final bool blendBorderWithBackground;
+
+  const BorderCard({
+    super.key,
+    required this.children,
+    this.blendBorderWithBackground = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final Color cardBackgroundColor =
+        appTheme.cardTheme.color ?? appTheme.colorScheme.primary;
 
     return Card(
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: (appTheme.brightness == Brightness.light) ? Colors.black : Colors.white,
+          color: (blendBorderWithBackground)
+              ? cardBackgroundColor
+              : (appTheme.brightness == Brightness.light)
+                  ? Colors.black
+                  : Colors.white,
         ),
         borderRadius: BorderRadius.circular(4.0),
       ),

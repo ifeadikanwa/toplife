@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/building_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/house_design_style.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/house/utils/house_utils.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/building_type.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/house_design_style.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/settlement.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/house/utils/house_utils.dart';
 
 void main() {
   group("House Utils:", () {

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/settlement.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/util/get_settlement_enum.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/settlement.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/util/get_settlement_enum.dart';
 
 void main() {
   group("get settlement util:", () {

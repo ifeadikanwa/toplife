@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/get/get_total_romantic_relationship_duration_usecase.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/usecases/get/get_total_romantic_relationship_duration_usecase.dart';
 
 import '../../../../_reusable_test_objects/reusable_test_objects.dart';
 

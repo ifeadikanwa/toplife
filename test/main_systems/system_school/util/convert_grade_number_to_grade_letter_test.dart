@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_school/constants/grade.dart';
-import 'package:toplife/main_systems/system_school/util/convert_grade_number_to_grade_letter.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/grade.dart';
+import 'package:toplife/game_systems/main_systems/system_school/util/convert_grade_number_to_grade_letter.dart';
 
 void main() {
   group("ConvertGradeNumberToGradeLetter:", () {

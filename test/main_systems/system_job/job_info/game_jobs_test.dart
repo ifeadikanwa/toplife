@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_job/job_info/constants/employment_type.dart';
-import 'package:toplife/main_systems/system_job/job_info/constants/job_type.dart';
-import 'package:toplife/main_systems/system_job/job_info/game_jobs.dart';
-import 'package:toplife/main_systems/system_school/degree_info/degree_discipline.dart';
+import 'package:toplife/game_systems/main_systems/system_job/job_info/constants/employment_type.dart';
+import 'package:toplife/game_systems/main_systems/system_job/job_info/constants/job_type.dart';
+import 'package:toplife/game_systems/main_systems/system_job/job_info/game_jobs.dart';
+import 'package:toplife/game_systems/main_systems/system_school/degree_info/degree_discipline.dart';
 
 void main() {
   group("Game Jobs:", () {

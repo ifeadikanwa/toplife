@@ -1,7 +1,10 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
-final currentActiveSchoolProvider = StreamProvider<School?>((ref) async* {
+part 'current_active_school_provider.g.dart';
+
+@riverpod
+Stream<School?> currentActiveSchool(CurrentActiveSchoolRef ref) async* {
   //only watch for player ID change
   // final int? currentPlayerID =
   //     await ref.watch(currentPlayerProvider.selectAsync(
@@ -21,4 +24,4 @@ final currentActiveSchoolProvider = StreamProvider<School?>((ref) async* {
   // } else {
   yield null;
   // }
-});
+}

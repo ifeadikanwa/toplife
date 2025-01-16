@@ -3,8 +3,7 @@ import 'package:toplife/core/common_widgets/app_screen_content_templates/screen_
 
 class ScrollableScreenContent extends StatelessWidget {
   final Widget content;
-  const ScrollableScreenContent({Key? key, required this.content})
-      : super(key: key);
+  const ScrollableScreenContent({super.key, required this.content});
 
   @override
   Widget build(BuildContext context) {

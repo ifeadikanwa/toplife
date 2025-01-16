@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_person/constants/baby_traits_constants.dart';
+import 'package:toplife/game_systems/main_systems/system_person/constants/baby_traits_constants.dart';
 
 void main() {
   group("Baby traits constants:", () {

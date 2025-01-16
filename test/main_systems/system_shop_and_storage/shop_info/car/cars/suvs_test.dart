@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/car_quality.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/car_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/car/cars/suvs.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/car_quality.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/car_type.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/car/cars/suvs.dart';
 
 void main() {
   group("SUV:", () {

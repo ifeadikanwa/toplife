@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/food_lifespan.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/constants/breast_milk.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/food_lifespan.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/children/constants/breast_milk.dart';
 
 void main() {
   group("BreastMilk:", () {

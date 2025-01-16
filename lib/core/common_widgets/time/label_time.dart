@@ -7,10 +7,10 @@ class LabelTime extends StatelessWidget {
   final int timeInMinutes;
   final bool addPlus;
   const LabelTime({
-    Key? key,
+    super.key,
     required this.timeInMinutes,
     this.addPlus = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

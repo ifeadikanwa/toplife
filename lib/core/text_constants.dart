@@ -21,11 +21,12 @@ class TextConstants {
   static const close = "Close";
   static const cost = "Cost";
   static const duration = "Duration";
-  static const getUppercase = "GET";
+  static const get = "Get";
   static const formerly = "Formerly";
   static const and = "And";
   static const alongWith = "Along with";
   static const ageSemiColonSpace = "Age: ";
+  static const enterAmount = "Enter Amount";
 
   //player
   static const babyMonitor = "Baby Monitor";
@@ -94,6 +95,7 @@ class TextConstants {
   static const noEventDesc = "You have no event invitations";
   static const attendAlone = "Attend alone";
   static const attendWithPartner = "Attend with partner";
+  static const location = "Location";
 
   //shop
   static const shop = "Shop";

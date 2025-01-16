@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_event/constants/event_category.dart';
-import 'package:toplife/main_systems/system_event/constants/event_type.dart';
-import 'package:toplife/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
+import 'package:toplife/game_systems/main_systems/system_event/constants/event_category.dart';
+import 'package:toplife/game_systems/main_systems/system_event/constants/event_type.dart';
+import 'package:toplife/game_systems/main_systems/system_event/event_manager/scheduled_events/util/event_util.dart';
 
 void main() {
   group("Event util:", () {

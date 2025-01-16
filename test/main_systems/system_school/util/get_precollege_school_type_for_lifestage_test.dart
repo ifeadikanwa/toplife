@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_age/life_stage.dart';
-import 'package:toplife/main_systems/system_school/constants/school_type.dart';
-import 'package:toplife/main_systems/system_school/util/get_precollege_school_type_for_lifestage.dart';
+import 'package:toplife/game_systems/main_systems/system_age/life_stage.dart';
+import 'package:toplife/game_systems/main_systems/system_school/constants/school_type.dart';
+import 'package:toplife/game_systems/main_systems/system_school/util/get_precollege_school_type_for_lifestage.dart';
 
 void main() {
   group("getPrecollegeSchoolTypeForLifeStage: ", () {

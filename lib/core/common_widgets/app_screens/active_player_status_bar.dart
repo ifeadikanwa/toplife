@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/core/common_viewmodels/app_screens/active_player_status_bar_view_model.dart';
+import 'package:toplife/core/common_states/get/player_and_game/current_player_bar_info_provider.dart';
 import 'package:toplife/core/common_widgets/player_status_bar/player_status_bar.dart';
-import 'package:toplife/game_manager/domain/model/info_models/player_bar_info.dart';
+import 'package:toplife/game_systems/game_manager/domain/model/info_models/player_bar_info.dart';
 
 class ActivePlayerStatusBar extends ConsumerWidget {
-  const ActivePlayerStatusBar({Key? key}) : super(key: key);
+  const ActivePlayerStatusBar({super.key});
 
   @override
   Widget build(
@@ -15,7 +15,7 @@ class ActivePlayerStatusBar extends ConsumerWidget {
     const avatarImagePath = "assets/images/blank_male_2.png";
     const flagImagePath = "assets/images/us_flag.png";
 
-    final activePlayerStatusBarInfo = ref.watch(activePlayerStatusBarProvider);
+    final activePlayerStatusBarInfo = ref.watch(currentPlayerBarInfoProvider);
 
     return activePlayerStatusBarInfo.when(
       data: (playerBarInfo) => PlayerStatusBar(

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/utils/date_and_time/clock_time_in_minutes.dart';
-import 'package:toplife/main_systems/system_event/event_manager/manage_events/check_if_event_is_open.dart';
+import 'package:toplife/game_systems/main_systems/system_event/event_manager/manage_events/check_if_event_is_open.dart';
 
 void main() {
   group("CheckIfEventIsOpen:", () {

@@ -3,7 +3,7 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 
 class SectionHeader extends StatelessWidget {
   final String sectionTitle;
-  const SectionHeader({Key? key, required this.sectionTitle}) : super(key: key);
+  const SectionHeader({super.key, required this.sectionTitle});
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,14 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/common_states/dependencies/event/event_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_game_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_event/domain/model/info_models/event_person_pair.dart';
 
-final currentAttendableEventsForTodayProvider =
-    StreamProvider<List<EventPersonPair>>((ref) async* {
+part 'current_attendable_events_for_today_provider.g.dart';
+
+@riverpod
+Stream<List<EventPersonPair>> currentAttendableEventsForToday(
+    CurrentAttendableEventsForTodayRef ref) async* {
   //get recent game
   final Game? currentGame = await ref.watch(currentGameProvider.future);
 
@@ -25,4 +28,4 @@ final currentAttendableEventsForTodayProvider =
     yield [];
   }
   return;
-});
+}

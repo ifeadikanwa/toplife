@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/item_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/supplies/supplies.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/item_type.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/supplies/supplies.dart';
 
 void main() {
   group("Supplies:", () {

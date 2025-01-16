@@ -8,10 +8,10 @@ class GeneralListItemCase extends StatelessWidget {
   final bool hasDivider;
 
   const GeneralListItemCase({
-    Key? key,
+    super.key,
     this.hasDivider = true,
     required this.content,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

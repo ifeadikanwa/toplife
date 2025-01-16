@@ -13,14 +13,14 @@ class ActionListItem extends StatelessWidget {
   final void Function() onTap;
 
   const ActionListItem({
-    Key? key,
+    super.key,
     this.icon,
     required this.actionTitle,
     required this.actionDescription,
     this.hasDivider = true,
     this.hasArrow = true,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

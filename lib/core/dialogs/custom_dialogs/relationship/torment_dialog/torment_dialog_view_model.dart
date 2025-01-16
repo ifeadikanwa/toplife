@@ -1,32 +1,53 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
-import 'package:toplife/main_systems/system_relationship/domain/interactions/constants/torment_option.dart';
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:toplife/game_systems/main_systems/system_person/util/get_fullname_string.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/interactions/constants/torment_option.dart';
 
-final tormentDialogViewModelProvider =
-    StateNotifierProvider.autoDispose<TormentDialogViewModel, TormentOption>(
-        (ref) {
-  return TormentDialogViewModel();
-});
+part "torment_dialog_view_model.g.dart";
 
-class TormentDialogViewModel extends StateNotifier<TormentOption> {
-  TormentDialogViewModel() : super(TormentOption.insult);
+@CopyWith()
+class TormentDialogData extends Equatable {
+  final String title;
+  final String prompt;
+  final TormentOption chosenTormentOption;
 
-  String getTitle() {
-    return "Torment";
-  }
+  const TormentDialogData({
+    required this.title,
+    required this.prompt,
+    required this.chosenTormentOption,
+  });
 
-  String getPrompt({
+  @override
+  List<Object?> get props => [
+        title,
+        prompt,
+        chosenTormentOption,
+      ];
+}
+
+@riverpod
+class TormentDialogViewModel extends _$TormentDialogViewModel {
+  @override
+  TormentDialogData build({
     required String relationshipLabel,
-    required String recieverFirstName,
-    required String recieverLastName,
+    required String receiverFirstName,
+    required String receiverLastName,
   }) {
-    return "How do you want to torment your ${relationshipLabel.toLowerCase()}, ${getFullNameString(
-      firstName: recieverFirstName,
-      lastName: recieverLastName,
-    )}?";
+    return TormentDialogData(
+      title: "Torment",
+      prompt:
+          "How do you want to torment your ${relationshipLabel.toLowerCase()}, ${getFullNameString(
+        firstName: receiverFirstName,
+        lastName: receiverLastName,
+      )}?",
+      chosenTormentOption: TormentOption.insult,
+    );
   }
 
   void updateTormentOption(TormentOption tormentOption) {
-    state = tormentOption;
+    state = state.copyWith(
+      chosenTormentOption: tormentOption,
+    );
   }
 }

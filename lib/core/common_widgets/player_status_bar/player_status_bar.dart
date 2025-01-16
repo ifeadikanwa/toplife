@@ -17,7 +17,7 @@ class PlayerStatusBar extends StatelessWidget {
   final String dayOfWeek;
 
   const PlayerStatusBar({
-    Key? key,
+    super.key,
     required this.firstName,
     required this.lastName,
     required this.avatarImagePath,
@@ -27,7 +27,7 @@ class PlayerStatusBar extends StatelessWidget {
     required this.time,
     required this.dayNumber,
     required this.dayOfWeek,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class PlayerStatusBar extends StatelessWidget {
               children: [
                 faceAndFlag(),
                 const AddHorizontalSpace(width: 8.0),
-                Expanded(child: nameAndBankBalance()),
+                Expanded(child: nameAndBankBalance(appTheme)),
               ],
             ),
           ),
@@ -56,7 +56,7 @@ class PlayerStatusBar extends StatelessWidget {
     );
   }
 
-  Widget nameAndBankBalance() {
+  Widget nameAndBankBalance(ThemeData appTheme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -68,7 +68,14 @@ class PlayerStatusBar extends StatelessWidget {
           ),
         ),
         const AddVerticalSpace(height: verticalTextSpacing),
-        Text("$currency$bankBalance"),
+        Text(
+          "$currency$bankBalance",
+          style: TextStyle(
+            color: (appTheme.brightness == Brightness.light)
+                ? appTheme.colorScheme.tertiary
+                : Colors.green,
+          ),
+        ),
       ],
     );
   }

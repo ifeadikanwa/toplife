@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toplife/config/theme/colors.dart';
 
 class ThemeUtils {
-  static const appFont = 'Ubuntu';
+  static const appFont = 'ChakraPetch';
 
   //
   static InputDecorationTheme getInputDecorationTheme({
@@ -51,6 +51,9 @@ class ThemeUtils {
       fontFamily: appFont,
       primaryColor: Colors.white,
       scaffoldBackgroundColor: primaryColor,
+      scrollbarTheme: ScrollbarThemeData(
+        thumbColor: WidgetStatePropertyAll(tertiaryColor),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: tertiaryColor,
@@ -98,6 +101,9 @@ class ThemeUtils {
       fontFamily: appFont,
       primaryColor: Colors.black,
       scaffoldBackgroundColor: darkThemeBlack,
+      scrollbarTheme: const ScrollbarThemeData(
+        thumbColor: WidgetStatePropertyAll(Colors.white),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: tertiaryColor,

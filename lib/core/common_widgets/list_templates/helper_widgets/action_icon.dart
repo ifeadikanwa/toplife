@@ -5,9 +5,9 @@ import 'package:toplife/core/common_widgets/widget_constants.dart';
 class ActionIcon extends StatelessWidget {
   final IconData? icon;
   const ActionIcon({
-    Key? key,
+    super.key,
     this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

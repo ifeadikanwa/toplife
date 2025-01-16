@@ -4,10 +4,10 @@ class FlagWidget extends StatelessWidget {
   final String imagePath;
   final double flagSize;
   const FlagWidget({
-    Key? key,
+    super.key,
     required this.imagePath,
     this.flagSize = 15.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

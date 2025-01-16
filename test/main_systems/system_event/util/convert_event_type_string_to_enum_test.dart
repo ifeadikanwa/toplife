@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_event/constants/event_type.dart';
-import 'package:toplife/main_systems/system_event/util/convert_event_type_string_to_enum.dart';
+import 'package:toplife/game_systems/main_systems/system_event/constants/event_type.dart';
+import 'package:toplife/game_systems/main_systems/system_event/util/convert_event_type_string_to_enum.dart';
 
 void main() {
   group("convertEventTypeStringToEnum:", () {

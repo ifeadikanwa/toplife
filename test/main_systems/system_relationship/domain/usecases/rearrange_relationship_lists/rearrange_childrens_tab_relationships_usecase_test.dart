@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/sectioned_list/section_data.dart';
 import 'package:toplife/core/utils/sectioned_list/sectioned_list.dart';
-import 'package:toplife/main_systems/system_person/domain/model/info_models/person_relationship_pair.dart';
-import 'package:toplife/main_systems/system_relationship/constants/platonic_relationship_type.dart';
-import 'package:toplife/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_childrens_tab_relationships_usecase.dart';
-import 'package:toplife/main_systems/system_relationship/util/get_db_formatted_platonic_relationship_type_string.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/model/info_models/person_relationship_pair.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/constants/platonic_relationship_type.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/usecases/rearrange_relationship_lists/rearrange_childrens_tab_relationships_usecase.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/util/get_db_formatted_platonic_relationship_type_string.dart';
 
 import '../../../../_reusable_test_objects/reusable_test_objects.dart';
 

@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/baby_food.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/baby_items.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/children/cooked_baby_food.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/cooked_meals.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/drinks.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/ingredients.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/ready_meals.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/food/sweets.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/shop.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/children/baby_food.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/children/baby_items.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/children/cooked_baby_food.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/food/cooked_meals.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/food/drinks.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/food/ingredients.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/food/ready_meals.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/food/sweets.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/shop.dart';
 
 void main() {
   group("Shop:", () {

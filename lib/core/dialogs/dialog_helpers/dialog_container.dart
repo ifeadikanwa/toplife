@@ -6,14 +6,14 @@ class DialogContainer extends StatelessWidget {
   final List<Widget>? children;
 
   const DialogContainer({
-    Key? key,
+    super.key,
     this.title,
     this.children,
-  }) : super(key: key);
+  });
 
   //persistent dialogs that want to give the player an option to exit the dialog should just be dismissable dialogs.
   //If we are consistently making required dialogs persistent and optional dialogs dismissable,
-  //then the player will know that is they can't close the dialog by clicing outside the box, then their input is mandatory
+  //then the player will know that is they can't close the dialog by clicking outside the box, then their input is mandatory
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +28,22 @@ class DialogContainer extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(DialogConstants.borderRadius),
       ),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: DialogConstants.horizontalContentPadding,
-        vertical: DialogConstants.verticalContentPadding,
+      contentPadding: const EdgeInsets.fromLTRB(
+        DialogConstants.horizontalContentPadding,
+        (DialogConstants.verticalContentPadding / 2),
+        DialogConstants.horizontalContentPadding,
+        DialogConstants.verticalContentPadding,
       ),
       title: title,
       children: [
-        ...?children,
+        Scrollbar(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [...?children],
+            ),
+          ),
+        ),
       ],
     );
   }

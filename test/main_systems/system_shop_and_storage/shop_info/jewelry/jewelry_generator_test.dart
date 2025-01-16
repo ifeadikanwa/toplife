@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/jewel.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/jewelry_type.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/jewel.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/jewelry_type.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/shop_info/jewelry/jewelry_generator.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/shop_info/jewelry/jewelry_generator.dart';
 
 void main() {
   group("Jewelry generator:", () {

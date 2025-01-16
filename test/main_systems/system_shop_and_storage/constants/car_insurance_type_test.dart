@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/car_insurance_type.dart';
-import 'package:toplife/main_systems/system_shop_and_storage/constants/car_insurance_type_description.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/car_insurance_type.dart';
+import 'package:toplife/game_systems/main_systems/system_shop_and_storage/constants/car_insurance_type_description.dart';
 
 void main() {
   group("Car insurance type:", () {

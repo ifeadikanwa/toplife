@@ -9,11 +9,11 @@ class LevelAppBar extends StatelessWidget {
   final List<IconButton>? actions;
 
   const LevelAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.leading,
     this.actions,
-  }) : super(key: key);
+  });
 
 //icon buttons come with irremovable padding, so we have to account for that when adding our padding
 
@@ -57,7 +57,9 @@ class LevelAppBar extends StatelessWidget {
                     child: Text(
                       title.prepareTextToEllipsize().toUpperCase(),
                       overflow: TextOverflow.ellipsis,
-                      style: appBarTextStyle,
+                      style: appBarTextStyle.copyWith(
+                        color: appTheme.colorScheme.tertiary,
+                      ),
                     ),
                   ),
                 ),

@@ -1,9 +1,12 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:toplife/core/common_states/dependencies/person/person_dependencies_providers.dart';
 import 'package:toplife/core/common_states/watch/player_and_game/current_player_provider.dart';
 import 'package:toplife/core/data_source/drift_database/database_provider.dart';
 
-final currentPlayerStatsProvider = StreamProvider<Stats?>((ref) async* {
+part 'current_player_stats_provider.g.dart';
+
+@riverpod
+Stream<Stats?> currentPlayerStats(CurrentPlayerStatsRef ref) async* {
   //watch for change in player ID only
   final int? currentPlayerID =
       await ref.watch(currentPlayerProvider.selectAsync(
@@ -23,4 +26,4 @@ final currentPlayerStatsProvider = StreamProvider<Stats?>((ref) async* {
   } else {
     yield null;
   }
-});
+}

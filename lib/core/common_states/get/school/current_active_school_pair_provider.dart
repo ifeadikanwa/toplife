@@ -1,10 +1,13 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:toplife/main_systems/system_school/domain/model/info_models/school_pair.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:toplife/game_systems/main_systems/system_school/domain/model/info_models/school_pair.dart';
 
-final currentActiveSchoolPairProvider =
-    FutureProvider<SchoolPair?>((ref) async {
+part 'current_active_school_pair_provider.g.dart';
+
+@riverpod
+Future<SchoolPair?> currentActiveSchoolPair(
+    CurrentActiveSchoolPairRef ref) async {
   // final School? activeSchool =
-      // await ref.watch(currentActiveSchoolProvider.future);
+  // await ref.watch(currentActiveSchoolProvider.future);
 
   return null;
 
@@ -14,4 +17,4 @@ final currentActiveSchoolPairProvider =
   //         .getASchoolPairFromSchoolUsecase
   //         .execute(school: activeSchool)
   //     : null;
-});
+}

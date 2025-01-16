@@ -10,7 +10,7 @@ import 'package:toplife/core/text_constants.dart';
 import 'package:toplife/core/utils/extensions/string_extensions.dart';
 import 'package:toplife/core/utils/stats/stats_item.dart';
 import 'package:toplife/core/utils/words/string_pair.dart';
-import 'package:toplife/main_systems/system_person/util/get_fullname_string.dart';
+import 'package:toplife/game_systems/main_systems/system_person/util/get_fullname_string.dart';
 
 class PersonInfoCard extends StatelessWidget {
   final String firstName;
@@ -20,6 +20,7 @@ class PersonInfoCard extends StatelessWidget {
   final String? currentCountry;
   final List<StatsItem> statsList;
   final bool showInfoButton;
+
   const PersonInfoCard({
     super.key,
     required this.firstName,

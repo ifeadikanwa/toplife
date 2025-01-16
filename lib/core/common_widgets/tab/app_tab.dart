@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppTab extends StatelessWidget {
   final String text;
-  const AppTab({Key? key, required this.text}) : super(key: key);
+  const AppTab({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

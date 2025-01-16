@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:toplife/main_systems/system_relationship/domain/interactions/platonic/chat_interaction/chat_interaction.dart';
+import 'package:toplife/game_systems/main_systems/system_relationship/domain/interactions/platonic/chat_interaction/chat_interaction.dart';
 
 import '../../../../../_mocks/system_mocks.mocks.dart';
 
@@ -10,6 +10,7 @@ void main() {
       chatInteraction = ChatInteraction(
         MockRelationshipUsecases(),
         MockJournalUsecases(),
+        MockDialogHandler(),
       );
     });
     test("title is Chat", () {
