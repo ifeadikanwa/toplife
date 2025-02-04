@@ -80,6 +80,19 @@ dependencies:
 
 
 
+  # works in combination with freezed package to autogenerate to and from Json serialization
+  json_annotation: ^4.4.0
+  freezed_annotation: ^2.0.3
+
+  #riverpod
+  flutter_riverpod: ^2.0.0-dev.8
+  #sqflite
+  sqflite: ^2.0.2+1
+  #create dir paths
+  path: ^1.8.1
+  #generate equal to and hashcode methods for classes
+  equatable: ^2.0.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -110,7 +123,7 @@ dev_dependencies:
 
   #copy with extension
   copy_with_extension_gen: ^5.0.4
-
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
