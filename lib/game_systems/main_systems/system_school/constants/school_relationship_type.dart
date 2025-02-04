@@ -1,0 +1,4 @@
+enum SchoolRelationshipType {
+  classmate,
+  professor,
+}

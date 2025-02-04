@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ^3.2.0
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -32,7 +32,53 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.8
+
+  #riverpod
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  #sqflite
+  sqflite: ^2.3.3
+
+  #create dir paths
+  path: ^1.9.0
+
+  #generate equal to and hashcode methods for classes
+  equatable: ^2.0.5
+
+  #nav bar
+  flutter_snake_navigationbar: ^0.6.1
+
+  #formatting and localization
+  intl: ^0.19.0
+
+  #navigation
+  auto_route: ^8.0.3
+
+  #dropdown
+  dropdown_button2: ^2.3.9
+
+  #drift db
+  drift: ^2.16.0
+  drift_sqflite: ^2.0.1
+  sqlite3_flutter_libs: ^0.5.20
+  path_provider: ^2.1.3
+
+  #currency formatter for textfield
+  currency_text_input_formatter: ^2.2.1
+
+  #mocking
+  mockito: ^5.4.4
+
+  #copy with
+  copy_with_extension: ^5.0.4
+
+  #sqlite
+  sqlite3: ^2.4.2
+
+
+
 
   # works in combination with freezed package to autogenerate to and from Json serialization
   json_annotation: ^4.4.0
@@ -56,14 +102,28 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.2
 
-  # works in combination with freezed package to autogenerate to and from Json serialization
-  build_runner: ^2.0.0
-  json_serializable: ^6.0.0
+  #analyzer
+  analyzer: ^6.4.1
 
-  #generate freezed classes
-  freezed: ^2.0.3+1
+  # build runner
+  build_runner: ^2.4.9
+
+  #riverpod
+  riverpod_generator: ^2.4.0
+  riverpod_lint: ^2.3.10
+  custom_lint: ^0.6.4
+
+  #auto route generator
+  auto_route_generator: ^8.0.0
+
+  #drift
+  drift_dev: ^2.16.0
+
+  #copy with extension
+  copy_with_extension_gen: ^5.0.4
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -80,6 +140,9 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+    - assets/images/houses/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -103,6 +166,98 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  fonts:
+    - family: ThickPixel
+      fonts:
+        - asset: assets/fonts/Pixels/pixel-thick-intv.ttf
+
+    - family: ThinPixel
+      fonts:
+        - asset: assets/fonts/Pixels/pixel-caps-thin-caleco.ttf
+    #        - asset: assets/fonts/Pixels/pixel-caps-thin-condensed-caps.ttf
+
+
+
+
+    - family: Ubuntu
+      fonts:
+        - asset: assets/fonts/Ubuntu/Ubuntu-Regular.ttf
+        - asset: assets/fonts/Ubuntu/Ubuntu-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Ubuntu/Ubuntu-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Ubuntu/Ubuntu-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Ubuntu/Ubuntu-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Ubuntu/Ubuntu-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Ubuntu/Ubuntu-MediumItalic.ttf
+          weight: 500
+          style: italic
+
+    - family: ChakraPetch
+      fonts:
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Regular.ttf
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Italic.ttf
+          style: italic
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Light.ttf
+          weight: 300
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/ChakraPetch/ChakraPetch-MediumItalic.ttf
+          weight: 500
+          style: italic
+
+    - family: Beliber
+      fonts:
+        - asset: assets/fonts/Beliber/BeliberRegular.otf
+        - asset: assets/fonts/Beliber/BeliberRegularItalic.otf
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberMedium.otf
+          weight: 500
+        - asset: assets/fonts/Beliber/BeliberMediumItalic.otf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberSemiBold.otf
+          weight: 600
+        - asset: assets/fonts/Beliber/BeliberSemiBoldItalic.otf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberBold.otf
+          weight: 700
+        - asset: assets/fonts/Beliber/BeliberBoldItalic.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberExtraBold.otf
+          weight: 800
+        - asset: assets/fonts/Beliber/BeliberExtraBoldItalic.otf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Beliber/BeliberBlack.otf
+          weight: 900
+        - asset: assets/fonts/Beliber/BeliberBlackItalic.otf
+          weight: 900
+          style: italic
+
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -1,0 +1,4 @@
+enum JobRelationshipType{
+  supervisor,
+  coworker,
+}

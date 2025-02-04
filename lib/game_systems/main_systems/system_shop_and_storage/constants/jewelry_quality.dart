@@ -1,0 +1,4 @@
+enum JewelryQuality {
+  natural,
+  synthetic
+}
