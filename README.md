@@ -1,8 +1,11 @@
 # TOPLIFE
 
 TopLife is a life simulation game that allows players to take on the role of the main character and immerse themselves in the lives of multiple generations.
+
 It is my large game development passion project and I’m very excited to share every step of progress.
+
 It is still in active development.
+
 
 ## MAJOR FEATURES
 
